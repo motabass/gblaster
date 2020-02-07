@@ -1,0 +1,137 @@
+{
+  "version": 1,
+  "projects": {
+    "hsr": {
+      "projectType": "application",
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "apps/hsr",
+      "sourceRoot": "apps/hsr/src",
+      "prefix": "motabass",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/hsr",
+            "index": "apps/hsr/src/index.html",
+            "main": "apps/hsr/src/main.ts",
+            "polyfills": "apps/hsr/src/polyfills.ts",
+            "tsConfig": "apps/hsr/tsconfig.app.json",
+            "aot": true,
+            "assets": ["apps/hsr/src/favicon.ico", "apps/hsr/src/assets"],
+            "styles": ["apps/hsr/src/styles.scss"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/hsr/src/environments/environment.ts",
+                  "with": "apps/hsr/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "hsr:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "hsr:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "hsr:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/hsr/tsconfig.app.json",
+              "apps/hsr/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!apps/hsr/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/hsr/jest.config.js",
+            "tsConfig": "apps/hsr/tsconfig.spec.json",
+            "setupFile": "apps/hsr/src/test-setup.ts"
+          }
+        }
+      }
+    },
+    "hsr-e2e": {
+      "root": "apps/hsr-e2e",
+      "sourceRoot": "apps/hsr-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/hsr-e2e/cypress.json",
+            "tsConfig": "apps/hsr-e2e/tsconfig.e2e.json",
+            "devServerTarget": "hsr:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "hsr:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": ["apps/hsr-e2e/tsconfig.e2e.json"],
+            "exclude": ["**/node_modules/**", "!apps/hsr-e2e/**"]
+          }
+        }
+      }
+    }
+  },
+  "cli": {
+    "defaultCollection": "@nrwl/angular"
+  },
+  "schematics": {
+    "@nrwl/angular:application": {
+      "unitTestRunner": "jest",
+      "e2eTestRunner": "cypress"
+    },
+    "@nrwl/angular:library": {
+      "unitTestRunner": "jest"
+    }
+  },
+  "defaultProject": "hsr"
+}

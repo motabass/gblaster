@@ -1,0 +1,22 @@
+{
+  "npmScope": "motabass",
+  "implicitDependencies": {
+    "angular.json": "*",
+    "package.json": {
+      "dependencies": "*",
+      "devDependencies": "*"
+    },
+    "tsconfig.json": "*",
+    "tslint.json": "*",
+    "nx.json": "*"
+  },
+  "projects": {
+    "hsr": {
+      "tags": []
+    },
+    "hsr-e2e": {
+      "tags": [],
+      "implicitDependencies": ["hsr"]
+    }
+  }
+}
