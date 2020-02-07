@@ -17,6 +17,9 @@
     "hsr-e2e": {
       "tags": [],
       "implicitDependencies": ["hsr"]
+    },
+    "ui-components-player": {
+      "tags": []
     }
   }
 }

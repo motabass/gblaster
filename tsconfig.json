@@ -15,7 +15,11 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@motabass/ui-components/player": [
+        "libs/ui-components/player/src/index.ts"
+      ]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }
