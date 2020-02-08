@@ -1,8 +1,18 @@
 {
   "recommendations": [
-    "nrwl.angular-console",
     "angular.ng-template",
+    "mikael.angular-beastcode",
+    "infinity1207.angular2-switcher",
+    "steoates.autoimport",
+    "formulahendry.auto-rename-tag",
+    "coenraads.bracket-pair-colorizer",
+    "msjsdiag.debugger-for-chrome",
+    "editorconfig.editorconfig",
+    "glen-84.sass-lint",
+    "miclo.sort-typescript-imports",
     "ms-vscode.vscode-typescript-tslint-plugin",
+    "vscode-icons-team.vscode-icons",
+    "nrwl.angular-console",
     "esbenp.prettier-vscode"
   ]
 }

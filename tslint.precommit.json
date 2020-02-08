@@ -1,0 +1,16 @@
+{
+  "rulesDirectory": [],
+  "extends": ["tslint-etc"],
+  "rules": {
+    "no-unused-declaration": {
+      "options": [
+        {
+          "declarations": false,
+          "ignored": {},
+          "imports": true
+        }
+      ]
+    },
+    "no-inferrable-types": true
+  }
+}

@@ -1,0 +1,41 @@
+
+:host {
+  --panel-width: 40em;
+  --panel-height: 40em;
+
+  position: fixed;
+  opacity: 1;
+  bottom: 50px;
+  transition: 0.4s;
+  background-color: aquamarine;
+  height: 30rem;
+  width: 40rem;
+
+  & .slide-panel-toggle-wrapper {
+    position: absolute;
+    right: -24px;
+    top: 0;
+    bottom: 0;
+    background-color: brown;
+
+    & .slide-panel-toggle {
+      z-index: -1;
+      position: absolute;
+      right: 0;
+      width: 48px;
+      height: 48px;
+      background-color: blueviolet;
+      color: white;
+      border-radius: 50%;
+    }
+  }
+
+
+  &.opened-slide-panel {
+    left: 0;
+  }
+
+  &.closed-slide-panel {
+    transform: translateX(-100%);
+  }
+}

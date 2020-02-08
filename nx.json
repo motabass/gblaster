@@ -20,6 +20,12 @@
     },
     "ui-components-player": {
       "tags": []
+    },
+    "ui-components-visuals": {
+      "tags": []
+    },
+    "ui-components-slide-panel": {
+      "tags": []
     }
   }
 }

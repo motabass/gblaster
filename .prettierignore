@@ -1,4 +1,9 @@
 # Add files here to ignore them from prettier formatting
 
 /dist
+/reports
 /coverage
+/documentation
+
+package.json
+package-lock.json

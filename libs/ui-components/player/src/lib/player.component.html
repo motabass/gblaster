@@ -1,0 +1,48 @@
+<div class="playlist">
+  <mat-action-list dense>
+    <mat-list-item *ngFor="let song of songs; let index = index" class="playlist-entry">
+      <img mat-list-avatar [src]="song.cover_art_url"/>
+      <p matLine>{{ song.name }}</p>
+      <div class="play-button-container">
+        <button mat-icon-button>
+          <mat-icon class="pause">pause</mat-icon>
+          <mat-icon class="play">play_arrow</mat-icon>
+        </button>
+      </div>
+    </mat-list-item>
+  </mat-action-list>
+</div>
+
+<div class="track-slider" fxLayout="row" fxLayoutAlign="start center">
+  <mat-slider style="width: 100%;" max="100" min="0" [value]="position" (change)="setPosition($event)"></mat-slider>
+</div>
+
+<div fxLayout="column" class="player-nav">
+  <button mat-icon-button color="accent" style="color: white;" (click)="previous()">
+    <mat-icon>skip_previous</mat-icon>
+  </button>
+  <button mat-icon-button color="accent" style="color: white;" (click)="next()">
+    <mat-icon>skip_next</mat-icon>
+  </button>
+  <button mat-icon-button color="accent" style="color: white;" (click)="globalStop()">
+    <mat-icon>stop</mat-icon>
+  </button>
+  <button mat-icon-button style="color: white;" (click)="globalPlayPause()">
+    <mat-icon *ngIf="isPlaying">pause</mat-icon>
+    <mat-icon *ngIf="!isPlaying">play_arrow</mat-icon>
+  </button>
+  <button mat-icon-button style="color: white;" (click)="loadFile()">
+    <mat-icon>loop</mat-icon>
+  </button>
+
+  <div fxFlex></div>
+  <button mat-icon-button [color]="shuffle ? 'accent' : 'white'" class="amplitude-shuffle" (click)="toggleShuffle()">
+    <mat-icon>shuffle</mat-icon>
+  </button>
+  <button mat-icon-button [color]="visuals ? 'accent' : 'white'" (click)="toggleVisuals()">
+    <mat-icon>graphic_eq</mat-icon>
+  </button>
+  <div style="font-family: Roboto, 'Helvetica Neue', sans-serif; font-size: small; font-weight: bold; color: white; text-align: center; padding: 12px 2px;">
+    <p class="amplitude-current-time" amplitude-main-current-time="true"></p>
+  </div>
+</div>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ExternalDependencies">
+    <plugin id="AngularJS" />
+    <plugin id="Docker" />
+    <plugin id="Karma" />
+    <plugin id="NodeJS" />
+    <plugin id="com.denis.zaichenko.angular.2.ws.live.templates" />
+    <plugin id="ideanginx9" />
+    <plugin id="intellij.prettierJS" />
+    <plugin id="org.editorconfig.editorconfigjetbrains" />
+    <plugin id="org.jetbrains.plugins.sass" />
+    <plugin id="tslint" />
+  </component>
+</project>

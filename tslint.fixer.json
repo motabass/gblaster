@@ -1,0 +1,7 @@
+{
+  "rulesDirectory": [],
+  "extends": [],
+  "rules": {
+    "no-inferrable-types": true
+  }
+}
