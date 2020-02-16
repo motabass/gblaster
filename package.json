@@ -12,6 +12,7 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "nx workspace-lint && ng lint",
+    "lint:precommit": "tslint --project . --config tslint.precommit.json --fix --force",
     "e2e": "ng e2e",
     "affected:apps": "nx affected:apps",
     "affected:libs": "nx affected:libs",
