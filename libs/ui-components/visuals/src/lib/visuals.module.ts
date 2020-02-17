@@ -1,11 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { VisualsComponent } from './visuals.component';
+import { VisualsDirective } from './visuals.directive';
 
 @NgModule({
   imports: [CommonModule],
-  declarations: [VisualsComponent],
-  exports: [VisualsComponent]
+  declarations: [VisualsDirective],
+  exports: [VisualsDirective]
 })
-export class VisualsModule {
-}
+export class VisualsModule {}

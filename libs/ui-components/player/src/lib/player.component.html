@@ -1,9 +1,9 @@
 <div class="playlist">
   <mat-action-list dense>
     <mat-list-item *ngFor="let song of songs; let index = index" class="playlist-entry">
-      <img mat-list-avatar [src]="song.cover_art_url"/>
+      <img mat-list-avatar [src]="song.cover_art_url" />
       <p matLine>{{ song.name }}</p>
-      <div class="play-button-container">
+      <div>
         <button mat-icon-button>
           <mat-icon class="pause">pause</mat-icon>
           <mat-icon class="play">play_arrow</mat-icon>
@@ -35,6 +35,8 @@
     <mat-icon>loop</mat-icon>
   </button>
 
+  <div fxFlex></div>
+  <canvas mtbVisual style="width: 46px;height: 48px;"></canvas>
   <div fxFlex></div>
   <button mat-icon-button [color]="shuffle ? 'accent' : 'white'" class="amplitude-shuffle" (click)="toggleShuffle()">
     <mat-icon>shuffle</mat-icon>

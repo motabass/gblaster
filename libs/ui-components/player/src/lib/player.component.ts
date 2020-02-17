@@ -60,17 +60,19 @@ export class PlayerComponent implements OnInit, AfterViewInit {
 
   async loadFile() {
     const file = await this.fileLoaderService.openFile();
+
     const metadata: SongMetadata = await this.metadataService.extractMetadata(file);
 
     this.currentSong = {
       sound: this.howlerService.createSound(file, () => {
         console.log('Song geladen: ');
         console.log(this.currentSong);
-        this.visualsService.visualize(this.howlerService.getAnalyserFromHowl(this.currentSong.sound)); // TODO: get audio node directly from current playing in service
+        this.visualsService.analyser = this.howlerService.getAnalyserFromHowl(this.currentSong.sound); // TODO: get audio node directly from current playing
+        // in service
       }),
       name: metadata.title,
       artist: metadata.artist,
-      cover_art_url: this.domSanitizer.bypassSecurityTrustUrl(URL.createObjectURL(metadata.cover)),
+      cover_art_url: metadata.cover ? this.domSanitizer.bypassSecurityTrustUrl(URL.createObjectURL(metadata.cover)) : null,
       type: file.type
     };
 

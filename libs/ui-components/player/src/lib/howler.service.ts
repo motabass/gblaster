@@ -5,6 +5,8 @@ import { Howl, Howler } from 'howler';
   providedIn: 'root'
 })
 export class HowlerService {
+  analyser: AnalyserNode;
+
   constructor() {}
 
   set volume(volume: number) {
@@ -13,6 +15,19 @@ export class HowlerService {
 
   get volume(): number {
     return Howler.volume();
+  }
+
+  initAnalyser() {
+    const analyser = Howler.ctx.createAnalyser();
+
+    analyser.fftSize = 512;
+    analyser.minDecibels = -90;
+    analyser.maxDecibels = 0;
+    analyser.smoothingTimeConstant = 0.8;
+
+    analyser.connect(Howler.ctx.destination);
+
+    this.analyser = analyser;
   }
 
   createSound(file: File, onLoad: () => void): Howl {
@@ -32,18 +47,14 @@ export class HowlerService {
   }
 
   getAnalyserFromHowl(howl: Howl): AnalyserNode {
-    const audio = howl['_sounds'][0]['_node'];
+    if (!this.analyser) {
+      this.initAnalyser();
+    }
+    const audioNode = howl['_sounds'][0]['_node'];
 
-    const analyser = Howler.ctx.createAnalyser();
+    const audioElement = Howler.ctx.createMediaElementSource(audioNode);
+    audioElement.connect(this.analyser);
 
-    analyser.fftSize = 512;
-    analyser.minDecibels = -90;
-    analyser.maxDecibels = 0;
-    analyser.smoothingTimeConstant = 0.8;
-
-    const audioElement = Howler.ctx.createMediaElementSource(audio);
-    audioElement.connect(analyser);
-
-    return analyser;
+    return this.analyser;
   }
 }
