@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { VisualsService } from './visuals.service';
 
 // TODO: make configurable
@@ -8,14 +8,13 @@ import { VisualsService } from './visuals.service';
   selector: 'mtb-visuals',
   templateUrl: './visuals.component.html'
 })
-export class VisualsComponent implements AfterViewInit {
-  @ViewChild('canvas', { static: false })
-  canvas: ElementRef;
+export class VisualsComponent implements OnInit {
+  @ViewChild('canvas', { static: true })
+  canvas: ElementRef<HTMLCanvasElement>;
 
-  constructor(private visualsService: VisualsService) {
-  }
+  constructor(private visualsService: VisualsService) {}
 
-  ngAfterViewInit(): void {
-    this.visualsService.canvas = this.canvas.nativeElement;
+  ngOnInit(): void {
+    this.visualsService.setCanvasContext(this.canvas.nativeElement.getContext('2d'));
   }
 }

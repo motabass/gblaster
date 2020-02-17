@@ -85,7 +85,8 @@
           "options": {
             "jestConfig": "apps/hsr/jest.config.js",
             "tsConfig": "apps/hsr/tsconfig.spec.json",
-            "setupFile": "apps/hsr/src/test-setup.ts"
+            "setupFile": "apps/hsr/src/test-setup.ts",
+            "passWithNoTests": true
           }
         }
       }
@@ -147,7 +148,8 @@
           "options": {
             "jestConfig": "libs/ui-components/player/jest.config.js",
             "tsConfig": "libs/ui-components/player/tsconfig.spec.json",
-            "setupFile": "libs/ui-components/player/src/test-setup.ts"
+            "setupFile": "libs/ui-components/player/src/test-setup.ts",
+            "passWithNoTests": true
           }
         }
       },
@@ -187,7 +189,8 @@
           "options": {
             "jestConfig": "libs/ui-components/visuals/jest.config.js",
             "tsConfig": "libs/ui-components/visuals/tsconfig.spec.json",
-            "setupFile": "libs/ui-components/visuals/src/test-setup.ts"
+            "setupFile": "libs/ui-components/visuals/src/test-setup.ts",
+            "passWithNoTests": true
           }
         }
       },
@@ -227,7 +230,8 @@
           "options": {
             "jestConfig": "libs/ui-components/slide-panel/jest.config.js",
             "tsConfig": "libs/ui-components/slide-panel/tsconfig.spec.json",
-            "setupFile": "libs/ui-components/slide-panel/src/test-setup.ts"
+            "setupFile": "libs/ui-components/slide-panel/src/test-setup.ts",
+            "passWithNoTests": true
           }
         }
       },

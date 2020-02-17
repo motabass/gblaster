@@ -1,42 +1,52 @@
-import { Injectable, NgZone, OnDestroy } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 
 @Injectable({ providedIn: 'root' })
 export class VisualsService implements OnDestroy {
-  private _analyser: AnalyserNode;
+  mainColor = '#000';
+
+  peakColor = '#f00';
+
+  canvasCtx: CanvasRenderingContext2D;
+  analyser: AnalyserNode;
 
   capYPositionArray = []; // store the vertical position of hte caps for the preivous frame
 
-  mainColor = '#000';
-  peakColor = '#f00';
+  animationFrameRef: number;
 
-  zoneRef: number;
+  constructor() {}
 
-  _canvasRef: HTMLCanvasElement;
-
-  constructor(private zone: NgZone) {
+  setCanvasContext(canvasCtx: CanvasRenderingContext2D) {
+    this.canvasCtx = canvasCtx;
   }
 
-  set canvas(canvas: HTMLCanvasElement) {
-    this._canvasRef = canvas;
-
+  setAnalyser(analyser: AnalyserNode) {
+    this.analyser = analyser;
   }
 
-  visualize(analyser: AnalyserNode) {
-    this.zoneRef = this.zone.runOutsideAngular(() => {
-      const bufferLength = analyser.frequencyBinCount;
-      const array = new Uint8Array(bufferLength);
+  visualize(newAnalyser?: AnalyserNode) {
+    if (this.animationFrameRef) {
+      cancelAnimationFrame(this.animationFrameRef);
+    }
+    if (newAnalyser) {
+      this.analyser = newAnalyser;
+    }
+    const canvasCtx = this.canvasCtx;
+    const analyser = this.analyser;
+    const bufferLength = analyser.frequencyBinCount;
+
+    const array = new Uint8Array(bufferLength);
+
+    const cwidth = canvasCtx.canvas.width;
+    const cheight = canvasCtx.canvas.height;
+    const barWidth = (cwidth / bufferLength) * 4;
+    const gap = 1; // gap between meters
+    const capHeight = 2;
+    const capStyle = this.mainColor;
+    const meterNum = bufferLength;
+
+    const draw = () => {
       analyser.getByteFrequencyData(array);
-
-      const canvas = this._canvasRef;
-
-      const cwidth = canvas.width;
-      const cheight = canvas.height;
-      const barWidth = (cwidth / bufferLength) * 4;
-      const gap = 1; // gap between meters
-      const capHeight = 2;
-      const capStyle = this.mainColor;
-      const meterNum = bufferLength;
-      const canvasCtx = canvas.getContext('2d');
+      // console.log(array);
 
       const gradient = canvasCtx.createLinearGradient(0, 0, 0, 500);
       gradient.addColorStop(1, this.mainColor);
@@ -76,11 +86,13 @@ export class VisualsService implements OnDestroy {
         }
         step += Math.round(i / 8);
       }
-      return window.requestAnimationFrame(this.visualize.bind(this));
-    });
+      requestAnimationFrame(draw);
+    };
+
+    draw();
   }
 
   ngOnDestroy() {
-    window.cancelAnimationFrame(this.zoneRef);
+    cancelAnimationFrame(this.animationFrameRef);
   }
 }

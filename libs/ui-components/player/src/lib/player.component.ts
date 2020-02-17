@@ -2,7 +2,7 @@ import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angula
 import { MediaObserver } from '@angular/flex-layout';
 import { MatSliderChange } from '@angular/material/slider';
 import { DomSanitizer } from '@angular/platform-browser';
-import { VisualsService } from '../../../visuals/src/lib/visuals.service';
+import { VisualsService } from '@motabass/ui-components/visuals';
 import { HowlerService } from './howler.service';
 import { MetadataService } from './metadata.service';
 import { NativeFileLoaderService } from './native-file-loader.service';
@@ -48,11 +48,9 @@ export class PlayerComponent implements OnInit, AfterViewInit {
     private metadataService: MetadataService,
     private howlerService: HowlerService,
     private visualsService: VisualsService
-  ) {
-  }
+  ) {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   ngAfterViewInit() {
     // setInterval(() => {
@@ -66,7 +64,9 @@ export class PlayerComponent implements OnInit, AfterViewInit {
 
     this.currentSong = {
       sound: this.howlerService.createSound(file, () => {
-        this.visualsService.visualize(this.howlerService.analyser);
+        console.log('Song geladen: ');
+        console.log(this.currentSong);
+        this.visualsService.visualize(this.howlerService.getAnalyserFromHowl(this.currentSong.sound)); // TODO: get audio node directly from current playing in service
       }),
       name: metadata.title,
       artist: metadata.artist,
@@ -84,6 +84,7 @@ export class PlayerComponent implements OnInit, AfterViewInit {
     if (this.currentSong.sound.playing()) {
       this.currentSong.sound.pause();
     } else {
+      // this.currentSong.sound.load();
       this.currentSong.sound.play();
     }
   }
@@ -95,11 +96,9 @@ export class PlayerComponent implements OnInit, AfterViewInit {
     this.currentSong.sound.stop();
   }
 
-  previous() {
-  }
+  previous() {}
 
-  next() {
-  }
+  next() {}
 
   get isPlaying(): boolean {
     return this.currentSong && this.currentSong.sound.playing();
