@@ -72,7 +72,7 @@ export class PlayerComponent implements OnInit, AfterViewInit {
       }),
       name: metadata.title,
       artist: metadata.artist,
-      cover_art_url: metadata.cover ? this.domSanitizer.bypassSecurityTrustUrl(URL.createObjectURL(metadata.cover)) : null,
+      cover_art_url: metadata.cover ? this.domSanitizer.bypassSecurityTrustUrl(URL.createObjectURL(metadata.cover)) : 'assets/cover-art-placeholder.svg',
       type: file.type
     };
 

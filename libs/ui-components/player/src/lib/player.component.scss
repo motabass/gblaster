@@ -4,7 +4,7 @@
   display: grid;
   grid-template-columns: auto 46px;
   grid-template-rows: auto 64px;
-  grid-template-areas: 'main sidebar' 'footer footer';
+  grid-template-areas: 'main sidebar' 'footer empty';
 }
 
 .playlist {

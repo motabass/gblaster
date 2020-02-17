@@ -1,5 +1,6 @@
 import { Directive, ElementRef, OnDestroy, OnInit } from '@angular/core';
 import { VisualsService } from './visuals.service';
+import validate = WebAssembly.validate;
 
 @Directive({
   selector: '[mtbVisual]'
@@ -41,7 +42,7 @@ export class VisualsDirective implements OnDestroy, OnInit {
 
     const cwidth = canvasCtx.canvas.width;
     const cheight = canvasCtx.canvas.height;
-    const dimmFactor = 32; // gap between meters
+    const dimmFactor = 24; // gap between meters
     const gap = 0; // gap between meters
 
     const barWidth = cwidth / meterNum - gap;
@@ -61,7 +62,11 @@ export class VisualsDirective implements OnDestroy, OnInit {
       canvasCtx.clearRect(0, 0, cwidth, cheight);
       for (let i = 0; i < meterNum; i++) {
         const roundedStep = Math.round(i * step);
-        const value = uint8Array[roundedStep] - dimmFactor;
+        let value = uint8Array[roundedStep] - dimmFactor;
+
+        if (value > cheight) {
+          value = cheight;
+        }
 
         if (this.capYPositionArray.length < Math.round(meterNum)) {
           this.capYPositionArray.push(value);
@@ -90,6 +95,7 @@ export class VisualsDirective implements OnDestroy, OnInit {
           canvasCtx.fillRect((barWidth + gap) * i, cheight - value + capHeight, barWidth, value - capHeight); // the meter
         }
       }
+
       requestAnimationFrame(draw);
     };
 
