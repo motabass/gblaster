@@ -10,7 +10,7 @@
       },
       "root": "apps/hsr",
       "sourceRoot": "apps/hsr/src",
-      "prefix": "motabass",
+      "prefix": "hsr",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
