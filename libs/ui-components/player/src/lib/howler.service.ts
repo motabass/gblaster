@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { VisualsService } from '@motabass/ui-components/visuals';
 import { Howl, Howler } from 'howler';
 
 @Injectable({
@@ -9,7 +8,7 @@ export class HowlerService {
   analyserCtx: AudioContext;
   analyser: AnalyserNode;
 
-  constructor(visualsService: VisualsService) {
+  constructor() {
     this.analyserCtx = new AudioContext();
     const analyser = this.analyserCtx.createAnalyser();
 
@@ -21,7 +20,6 @@ export class HowlerService {
     analyser.connect(this.analyserCtx.destination);
 
     this.analyser = analyser;
-    visualsService.analyser = analyser;
   }
 
   set volume(volume: number) {

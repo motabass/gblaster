@@ -51,6 +51,10 @@ export class PlayerComponent implements OnInit, AfterViewInit {
     // }, 200);
   }
 
+  get analyser(): AnalyserNode {
+    return this.howlerService.getAnalyzer();
+  }
+
   async loadFile() {
     const file = await this.fileLoaderService.openFile();
 

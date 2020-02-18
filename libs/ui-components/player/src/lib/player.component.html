@@ -36,7 +36,7 @@
   </button>
 
   <div fxFlex></div>
-  <canvas mtbVisual style="width: 46px;height: 48px;"></canvas>
+  <canvas [mtbVisual]="analyser" style="width: 46px;height: 48px;"></canvas>
   <div fxFlex></div>
   <button mat-icon-button [color]="shuffle ? 'accent' : 'white'" class="amplitude-shuffle" (click)="toggleShuffle()">
     <mat-icon>shuffle</mat-icon>

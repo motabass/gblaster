@@ -1,32 +1,37 @@
-import { Directive, ElementRef, OnDestroy, OnInit } from '@angular/core';
-import { VisualsService } from './visuals.service';
+import { Directive, ElementRef, Input, OnChanges, OnDestroy } from '@angular/core';
 
 @Directive({
   selector: '[mtbVisual]'
 })
-export class VisualsDirective implements OnDestroy, OnInit {
+export class VisualsDirective implements OnDestroy, OnChanges {
   canvasCtx: CanvasRenderingContext2D;
 
+  @Input('mtbVisual') analyser: AnalyserNode;
+
+  @Input()
   mainColor = '#000';
+
+  @Input()
   peakColor = '#f00';
 
-  capYPositionArray = []; // store the vertical position of hte caps for the preivous frame
+  private capYPositionArray = []; // store the vertical position of hte caps for the preivous frame
 
-  animationFrameRef: number;
+  private animationFrameRef: number;
 
-  constructor(elr: ElementRef<HTMLCanvasElement>, private visualsService: VisualsService) {
+  constructor(elr: ElementRef<HTMLCanvasElement>) {
     this.canvasCtx = elr.nativeElement.getContext('2d');
   }
 
-  ngOnInit() {
-    this.visualsService.analyserSubject.asObservable().subscribe((analyser) => {
-      if (analyser) {
-        this.visualize(analyser);
-      }
-    });
+  ngOnChanges() {
+    if (this.analyser) {
+      this.visualize();
+    } else {
+      cancelAnimationFrame(this.animationFrameRef);
+    }
   }
 
-  visualize(analyser: AnalyserNode) {
+  visualize() {
+    const analyser = this.analyser;
     if (this.animationFrameRef) {
       cancelAnimationFrame(this.animationFrameRef);
     }
@@ -95,7 +100,7 @@ export class VisualsDirective implements OnDestroy, OnInit {
         }
       }
 
-      requestAnimationFrame(draw);
+      this.animationFrameRef = requestAnimationFrame(draw);
     };
 
     draw();
