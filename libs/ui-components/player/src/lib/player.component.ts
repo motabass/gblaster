@@ -2,16 +2,10 @@ import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angula
 import { MediaObserver } from '@angular/flex-layout';
 import { MatSliderChange } from '@angular/material/slider';
 import { DomSanitizer } from '@angular/platform-browser';
-import { VisualsService } from '@motabass/ui-components/visuals';
 import { HowlerService } from './howler.service';
 import { MetadataService } from './metadata.service';
 import { NativeFileLoaderService } from './native-file-loader.service';
 import { Song, SongMetadata } from './player.types';
-
-// TODO: listen to events and show snackbar play, pause, stop
-// TODO: check if works when new file added
-// TODO: volume
-// TODO: https://wicg.github.io/mediasession/ for better sound notification
 
 @Component({
   selector: 'mtb-player',
@@ -46,8 +40,7 @@ export class PlayerComponent implements OnInit, AfterViewInit {
     private domSanitizer: DomSanitizer,
     private fileLoaderService: NativeFileLoaderService,
     private metadataService: MetadataService,
-    private howlerService: HowlerService,
-    private visualsService: VisualsService
+    private howlerService: HowlerService
   ) {}
 
   ngOnInit() {}
@@ -64,12 +57,7 @@ export class PlayerComponent implements OnInit, AfterViewInit {
     const metadata: SongMetadata = await this.metadataService.extractMetadata(file);
 
     this.currentSong = {
-      sound: this.howlerService.createSound(file, () => {
-        console.log('Song geladen: ');
-        console.log(this.currentSong);
-        this.visualsService.analyser = this.howlerService.getAnalyserFromHowl(this.currentSong.sound); // TODO: get audio node directly from current playing
-        // in service
-      }),
+      sound: this.howlerService.createHowlFromFile(file),
       name: metadata.title,
       artist: metadata.artist,
       cover_art_url: metadata.cover ? this.domSanitizer.bypassSecurityTrustUrl(URL.createObjectURL(metadata.cover)) : 'assets/cover-art-placeholder.svg',
@@ -79,15 +67,22 @@ export class PlayerComponent implements OnInit, AfterViewInit {
     this.songs = [this.currentSong];
   }
 
+  playSong(song: Song) {
+    if (!song.sound.playing()) {
+      song.sound.play();
+    } else {
+      song.sound.pause();
+    }
+  }
+
   globalPlayPause() {
     if (!this.currentSong) {
       return;
     }
-    if (this.currentSong.sound.playing()) {
-      this.currentSong.sound.pause();
+    if (!this.howlerService.isPlaying()) {
+      this.howlerService.play();
     } else {
-      // this.currentSong.sound.load();
-      this.currentSong.sound.play();
+      this.howlerService.pause();
     }
   }
 
@@ -95,7 +90,7 @@ export class PlayerComponent implements OnInit, AfterViewInit {
     if (!this.currentSong) {
       return;
     }
-    this.currentSong.sound.stop();
+    this.howlerService.stop();
   }
 
   previous() {}

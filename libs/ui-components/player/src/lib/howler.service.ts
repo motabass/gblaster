@@ -1,13 +1,28 @@
 import { Injectable } from '@angular/core';
+import { VisualsService } from '@motabass/ui-components/visuals';
 import { Howl, Howler } from 'howler';
 
 @Injectable({
   providedIn: 'root'
 })
 export class HowlerService {
+  analyserCtx: AudioContext;
   analyser: AnalyserNode;
 
-  constructor() {}
+  constructor(visualsService: VisualsService) {
+    this.analyserCtx = new AudioContext();
+    const analyser = this.analyserCtx.createAnalyser();
+
+    analyser.fftSize = 512;
+    analyser.minDecibels = -90;
+    analyser.maxDecibels = 0;
+    analyser.smoothingTimeConstant = 0.8;
+
+    analyser.connect(this.analyserCtx.destination);
+
+    this.analyser = analyser;
+    visualsService.analyser = analyser;
+  }
 
   set volume(volume: number) {
     Howler.volume(volume);
@@ -17,44 +32,54 @@ export class HowlerService {
     return Howler.volume();
   }
 
-  initAnalyser() {
-    const analyser = Howler.ctx.createAnalyser();
-
-    analyser.fftSize = 512;
-    analyser.minDecibels = -90;
-    analyser.maxDecibels = 0;
-    analyser.smoothingTimeConstant = 0.8;
-
-    analyser.connect(Howler.ctx.destination);
-
-    this.analyser = analyser;
-  }
-
-  createSound(file: File, onLoad: () => void): Howl {
-    const howl = new Howl({
+  createHowlFromFile(file: File): Howl {
+    return new Howl({
       src: URL.createObjectURL(file),
       format: file.type,
       html5: true,
-      preload: false,
+      preload: true,
       autoplay: false,
       loop: false,
-      onload: onLoad,
+      onload: () => {
+        console.log('Loaded File');
+        this.connectAnalyserToCurrentHowl();
+      },
       onloaderror: (id, err) => {
-        console.log('loaderror:', err);
+        console.log('Load error: ', id, err);
       }
     });
-    return howl;
   }
 
-  getAnalyserFromHowl(howl: Howl): AnalyserNode {
-    if (!this.analyser) {
-      this.initAnalyser();
-    }
-    const audioNode = howl['_sounds'][0]['_node'];
+  connectAnalyserToCurrentHowl() {
+    const audioNode: HTMLAudioElement = Howler['_howls'][0]['_sounds'][0]['_node'];
 
-    const audioElement = Howler.ctx.createMediaElementSource(audioNode);
-    audioElement.connect(this.analyser);
+    try {
+      const audioElement = this.analyserCtx.createMediaElementSource(audioNode);
+      audioElement.connect(this.analyser);
+    } catch (e) {}
+  }
 
+  getAnalyzer(): AnalyserNode {
     return this.analyser;
+  }
+
+  isPlaying(): boolean {
+    return this.currentHowl.playing();
+  }
+
+  get currentHowl(): Howl {
+    return Howler['_howls'][0];
+  }
+
+  play() {
+    this.currentHowl.play();
+  }
+
+  pause() {
+    this.currentHowl.pause();
+  }
+
+  stop() {
+    this.currentHowl.stop();
   }
 }
