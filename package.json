@@ -10,7 +10,9 @@
     "nx": "nx",
     "start": "ng serve",
     "build": "ng build",
+    "build:prod": "ng build --prod",
     "test": "ng test",
+    "deploy": "ng deploy",
     "lint": "nx workspace-lint && ng lint",
     "lint:precommit": "tslint --project . --config tslint.precommit.json --fix --force",
     "e2e": "ng e2e",
@@ -51,6 +53,7 @@
     "@angular/common": "9.0.1",
     "@angular/compiler": "9.0.1",
     "@angular/core": "9.0.1",
+    "@angular/fire": "^5.4.2",
     "@angular/flex-layout": "9.0.0-beta.29",
     "@angular/forms": "9.0.1",
     "@angular/material": "^9.0.0",
@@ -60,13 +63,15 @@
     "@angular/service-worker": "9.0.1",
     "@nrwl/angular": "9.0.1",
     "buffer": "^5.4.3",
+    "jsmediatags": "^3.9.3",
     "core-js": "^3.6.4",
     "date-fns": "^2.9.0",
     "howler": "^2.1.3",
     "music-metadata-browser": "^2.0.3",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",
-    "zone.js": "^0.10.2"
+    "zone.js": "^0.10.2",
+    "firebase": "^7.8.2"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "0.900.2",
@@ -107,6 +112,11 @@
     "tslint-etc": "^1.10.0",
     "tslint-sonarts": "1.9.0",
     "typescript": "~3.7.5",
-    "webpack-bundle-analyzer": "3.6.0"
+    "webpack-bundle-analyzer": "3.6.0",
+    "@angular-devkit/architect": "^0.900.2",
+    "firebase-tools": "^7.13.0",
+    "fuzzy": "^0.1.3",
+    "inquirer": "^6.2.2",
+    "inquirer-autocomplete-prompt": "^1.0.1"
   }
 }

@@ -90,6 +90,10 @@
             "setupFile": "apps/hsr/src/test-setup.ts",
             "passWithNoTests": true
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {}
         }
       }
     },

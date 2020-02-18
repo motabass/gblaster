@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "motabass-4e1ac": {
+      "hosting": {
+        "hsr": [
+          "motabass-4e1ac"
+        ]
+      }
+    }
+  }
+}
