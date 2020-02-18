@@ -1,4 +1,3 @@
-
 :host {
   --panel-width: 40em;
   --panel-height: 40em;
@@ -28,11 +27,6 @@
       color: white;
       border-radius: 50%;
     }
-  }
-
-
-  &.opened-slide-panel {
-    left: 0;
   }
 
   &.closed-slide-panel {

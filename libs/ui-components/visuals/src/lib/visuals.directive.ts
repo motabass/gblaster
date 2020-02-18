@@ -1,6 +1,5 @@
 import { Directive, ElementRef, OnDestroy, OnInit } from '@angular/core';
 import { VisualsService } from './visuals.service';
-import validate = WebAssembly.validate;
 
 @Directive({
   selector: '[mtbVisual]'
