@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { parseBlob } from 'music-metadata-browser';
+import { Reader } from 'jsmediatags';
 import { SongMetadata } from './player.types';
 
 @Injectable({
@@ -9,15 +9,22 @@ export class MetadataService {
   constructor() {}
 
   async extractMetadata(file: File): Promise<SongMetadata> {
-    const metadata = await parseBlob(file);
+    const metadata: any = await new Promise((resolve, reject) => {
+      new Reader(file).setTagsToRead(['title', 'artist', 'picture']).read({
+        onSuccess: resolve,
+        onError: reject
+      });
+    });
+
+    console.log(metadata);
 
     return {
       cover:
-        metadata.common.picture && metadata.common.picture.length
-          ? new Blob([metadata.common.picture[0].data], { type: metadata.common.picture[0].format })
+        metadata.tags.picture && metadata.tags.picture.data
+          ? new Blob([new Uint8Array(metadata.tags.picture.data)], { type: metadata.tags.picture.format })
           : null,
-      artist: metadata.common.artist,
-      title: metadata.common.title
+      artist: metadata.tags.artist,
+      title: metadata.tags.title
     };
   }
 }

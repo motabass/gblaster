@@ -2773,6 +2773,11 @@
     jest-diff "^25.1.0"
     pretty-format "^25.1.0"
 
+"@types/jsmediatags@~3.9.1":
+  version "3.9.1"
+  resolved "https://registry.yarnpkg.com/@types/jsmediatags/-/jsmediatags-3.9.1.tgz#f58c31ff2ec8b3d81bafd0b91615ab728bb6edd7"
+  integrity sha512-BtCtPS+6yhG2bEO3ExjsjEX19KGrfKykTDhHhZgrwBJjC9caGCvabRh3wVXcmlBKFMjHPFYMtinPZ4HPJ7q3og==
+
 "@types/json5@^0.0.29":
   version "0.0.29"
   resolved "https://registry.yarnpkg.com/@types/json5/-/json5-0.0.29.tgz#ee28707ae94e11d2b827bcbe5270bcea7f3e71ee"
@@ -4470,7 +4475,7 @@ buffer@^4.3.0:
     ieee754 "^1.1.4"
     isarray "^1.0.0"
 
-buffer@^5.1.0, buffer@^5.2.1, buffer@^5.4.3:
+buffer@^5.1.0, buffer@^5.2.1:
   version "5.4.3"
   resolved "https://registry.yarnpkg.com/buffer/-/buffer-5.4.3.tgz#3fbc9c69eb713d323e3fc1a895eee0710c072115"
   integrity sha512-zvj65TkFeIt3i6aj5bIvJDzjjQQGs4o/sNoezg1F1kYap9Nu2jcUdpwzRSJTHMMzG0H7bZkn4rNQpImhuxWX2A==

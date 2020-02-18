@@ -5,10 +5,14 @@ import { Howl, Howler } from 'howler';
   providedIn: 'root'
 })
 export class HowlerService {
-  analyserCtx: AudioContext;
-  analyser: AnalyserNode;
+  private analyserCtx: AudioContext;
+  private analyser: AnalyserNode;
 
   constructor() {
+    this.initialzeAnalyserNode();
+  }
+
+  initialzeAnalyserNode() {
     this.analyserCtx = new AudioContext();
     const analyser = this.analyserCtx.createAnalyser();
 
@@ -30,6 +34,28 @@ export class HowlerService {
     return Howler.volume();
   }
 
+  private onLoaded() {
+    console.log('Loaded File');
+    this.connectAnalyserToCurrentHowl();
+  }
+
+  private onLoadError(id: number, err: Error) {
+    console.log('Load error: ', id, err);
+  }
+
+  addFiles(files: File[]) {
+    // this.howl = new Howl({
+    //   src: URL.createObjectURL(file),
+    //   format: file.type,
+    //   html5: true,
+    //   preload: true,
+    //   autoplay: false,
+    //   loop: false,
+    //   onload: this.onLoaded,
+    //   onloaderror: this.onLoadError
+    // })
+  }
+
   createHowlFromFile(file: File): Howl {
     return new Howl({
       src: URL.createObjectURL(file),
@@ -38,23 +64,20 @@ export class HowlerService {
       preload: true,
       autoplay: false,
       loop: false,
-      onload: () => {
-        console.log('Loaded File');
-        this.connectAnalyserToCurrentHowl();
-      },
-      onloaderror: (id, err) => {
-        console.log('Load error: ', id, err);
-      }
+      onload: this.onLoaded.bind(this),
+      onloaderror: this.onLoadError.bind(this)
     });
   }
 
-  connectAnalyserToCurrentHowl() {
+  private connectAnalyserToCurrentHowl() {
     const audioNode: HTMLAudioElement = Howler['_howls'][0]['_sounds'][0]['_node'];
 
     try {
       const audioElement = this.analyserCtx.createMediaElementSource(audioNode);
       audioElement.connect(this.analyser);
-    } catch (e) {}
+    } catch (e) {
+      // console.error(e);
+    }
   }
 
   getAnalyzer(): AnalyserNode {

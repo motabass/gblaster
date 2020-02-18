@@ -21,5 +21,9 @@
       "@motabass/ui-components/slide-panel": ["libs/ui-components/slide-panel/src/index.ts"]
     }
   },
-  "exclude": ["node_modules", "tmp"]
+  "exclude": ["node_modules", "tmp"],
+  "angularCompilerOptions": {
+    "fullTemplateTypeCheck": true,
+    "strictTemplates": false
+  }
 }
