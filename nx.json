@@ -16,7 +16,9 @@
     },
     "hsr-e2e": {
       "tags": [],
-      "implicitDependencies": ["hsr"]
+      "implicitDependencies": [
+        "hsr"
+      ]
     },
     "ui-components-player": {
       "tags": []
@@ -26,6 +28,12 @@
     },
     "ui-components-slide-panel": {
       "tags": []
+    },
+    "ui-components-slide-panel-e2e": {
+      "tags": [],
+      "implicitDependencies": [
+        "ui-components-slide-panel"
+      ]
     }
   }
 }
