@@ -61,6 +61,14 @@ export class VisualsDirective implements OnDestroy, OnInit {
     const capStyle = this.mainColor;
 
     const step = uint8Array.length / meterNum; // sample limited data from the total array
+    const steps: number[] = [];
+    let stepFaktor = 0;
+    for (let m = 0; m < meterNum; m++) {
+      const arrayPos = Math.round(step * m * stepFaktor);
+      stepFaktor += 1 / meterNum;
+      steps.push(arrayPos);
+    }
+
     const draw = () => {
       analyser.getByteFrequencyData(uint8Array);
 
@@ -81,8 +89,7 @@ export class VisualsDirective implements OnDestroy, OnInit {
         gradient.addColorStop(0, this.peakColor);
 
         for (let i = 0; i < meterNum; i++) {
-          const roundedStep = Math.round(i * step);
-          let value = uint8Array[roundedStep] - dimmFactor;
+          let value = uint8Array[steps[i]] - dimmFactor;
 
           if (value > cheight) {
             value = cheight;
