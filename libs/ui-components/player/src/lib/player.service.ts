@@ -107,6 +107,9 @@ export class PlayerService {
   }
 
   next() {
+    if (!this.currentSong) {
+      return;
+    }
     const currPo = this.currentSong.playlistPosition;
     if (currPo < this._songs.length && this.currentSong.howl.playing()) {
       this.playSong(this._songs[currPo]);
@@ -114,6 +117,9 @@ export class PlayerService {
   }
 
   previous() {
+    if (!this.currentSong) {
+      return;
+    }
     const currPo = this.currentSong.playlistPosition;
     if (currPo > 1 && this.currentSong.howl.playing()) {
       this.playSong(this._songs[currPo - 2]);
