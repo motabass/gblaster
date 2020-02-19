@@ -12,7 +12,10 @@ export const open = () => ({
   },
   component: SlidePanelComponent,
   props: {
-    opened: true
+    opened: true,
+    width: '30rem',
+    height: '30rem',
+    bottom: '3rem'
   }
 });
 
@@ -22,6 +25,9 @@ export const closed = () => ({
   },
   component: SlidePanelComponent,
   props: {
-    opened: false
+    opened: false,
+    width: '30rem',
+    height: '30rem',
+    bottom: '3rem'
   }
 });

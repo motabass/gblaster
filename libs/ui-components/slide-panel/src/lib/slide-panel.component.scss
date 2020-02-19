@@ -1,25 +1,43 @@
 :host {
-  position: fixed;
+  --toggle-size: 3rem;
+  --toggle-offset: -1.5rem;
+  position: absolute;
   opacity: 1;
   transition: 0.4s;
-  & .slide-panel-toggle-wrapper {
+  background: whitesmoke;
+
+  .slide-panel-toggle-wrapper {
     position: absolute;
-    right: -24px;
     top: 0;
     bottom: 0;
-    & .slide-panel-toggle {
-      z-index: -1;
-      position: absolute;
-      right: 0;
-      width: 3rem;
-      height: 3rem;
+
+    .slide-panel-toggle {
+      width: var(--toggle-size);
+      height: var(--toggle-size);
       background-color: blueviolet;
       color: white;
       border-radius: 50%;
     }
   }
 
-  &.closed-slide-panel {
-    transform: translateX(-100%);
+  &.left {
+    left: 0;
+    .slide-panel-toggle-wrapper {
+      right: var(--toggle-offset);
+    }
+
+    &.closed-slide-panel {
+      transform: translateX(-100%);
+    }
+  }
+  &.right {
+    right: 0;
+    .slide-panel-toggle-wrapper {
+      left: var(--toggle-offset);
+    }
+
+    &.closed-slide-panel {
+      transform: translateX(100%);
+    }
   }
 }

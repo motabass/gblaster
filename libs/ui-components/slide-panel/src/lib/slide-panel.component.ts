@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostBinding, Input, OnChanges, Renderer2 } from '@angular/core';
+import { Component, HostBinding, Input, OnChanges } from '@angular/core';
 
 @Component({
   selector: 'mtb-slide-panel',
@@ -7,7 +7,7 @@ import { Component, ElementRef, HostBinding, Input, OnChanges, Renderer2 } from 
 })
 export class SlidePanelComponent implements OnChanges {
   @Input()
-  opened = true;
+  openedState = true;
 
   @Input()
   @HostBinding('style.bottom')
@@ -25,27 +25,34 @@ export class SlidePanelComponent implements OnChanges {
   @HostBinding('style.height')
   height = '20rem';
 
-  constructor(private host: ElementRef, private renderer: Renderer2) {}
+  @Input()
+  @HostBinding('class')
+  side: 'left' | 'right' = 'left';
+
+  constructor() {}
+
+  @HostBinding('class.closed-slide-panel') closed;
+  @HostBinding('class.opened-slide-panel') open;
 
   ngOnChanges(): void {
-    if (this.opened === true) {
-      this.renderer.removeClass(this.host.nativeElement, 'closed-slide-panel');
-      this.renderer.addClass(this.host.nativeElement, 'opened-slide-panel');
+    if (this.openedState === true) {
+      this.open = true;
+      this.closed = false;
     } else {
-      this.renderer.removeClass(this.host.nativeElement, 'opened-slide-panel');
-      this.renderer.addClass(this.host.nativeElement, 'closed-slide-panel');
+      this.open = false;
+      this.closed = true;
     }
   }
 
-  open() {
-    this.opened = true;
-    this.renderer.removeClass(this.host.nativeElement, 'closed-slide-panel');
-    this.renderer.addClass(this.host.nativeElement, 'opened-slide-panel');
+  openPanel() {
+    this.openedState = true;
+    this.open = true;
+    this.closed = false;
   }
 
-  close() {
-    this.opened = false;
-    this.renderer.removeClass(this.host.nativeElement, 'opened-slide-panel');
-    this.renderer.addClass(this.host.nativeElement, 'closed-slide-panel');
+  closePanel() {
+    this.openedState = false;
+    this.open = false;
+    this.closed = true;
   }
 }

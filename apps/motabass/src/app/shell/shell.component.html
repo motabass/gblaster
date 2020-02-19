@@ -13,13 +13,13 @@
       <a mat-list-item href="#">Link 2</a>
     </mat-nav-list>
   </mat-sidenav>
-  <mat-sidenav-content>
+  <mat-sidenav-content style="overflow-x: hidden;">
     <mat-toolbar color="primary">
       <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()" *ngIf="isHandset$ | async">
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
       <span>motabass</span>
     </mat-toolbar>
-    <router-outlet></router-outlet>
+    <div style="width: 100%;"><router-outlet></router-outlet></div>
   </mat-sidenav-content>
 </mat-sidenav-container>

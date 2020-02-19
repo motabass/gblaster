@@ -1,10 +1,9 @@
-<ng-content></ng-content>
-
 <div class="slide-panel-toggle-wrapper">
-  <button *ngIf="!opened" class="slide-panel-toggle" mat-icon-button style="color: white;" (click)="open()">
-    <mat-icon style="padding-left: 22px;">keyboard_arrow_right</mat-icon>
+  <button *ngIf="side === 'left'" class="slide-panel-toggle" mat-icon-button style="color: white;" (click)="openedState ? closePanel() : openPanel()">
+    <mat-icon>keyboard_arrow_right</mat-icon>
   </button>
-  <button *ngIf="opened" class="slide-panel-toggle" mat-icon-button style="color: white;" (click)="close()">
-    <mat-icon style="padding-left: 21px;">keyboard_arrow_left</mat-icon>
+  <button *ngIf="side === 'right'" class="slide-panel-toggle" mat-icon-button style="color: white;" (click)="openedState ? closePanel() : openPanel()">
+    <mat-icon>keyboard_arrow_left</mat-icon>
   </button>
 </div>
+<ng-content></ng-content>
