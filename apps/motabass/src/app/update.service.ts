@@ -1,7 +1,7 @@
 import { Injectable, OnDestroy } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { SwUpdate, UpdateAvailableEvent } from '@angular/service-worker';
-import { UpdatePromptDialogComponent } from '@motabass/ui-components/dialogs';
+import { PromptDialogComponent, PromptDialogData } from '@motabass/ui-components/dialogs';
 
 @Injectable({
   providedIn: 'root'
@@ -36,8 +36,19 @@ export class UpdateService implements OnDestroy {
   }
 
   async askUserForUpdate(event: UpdateAvailableEvent): Promise<boolean> {
+    const data: PromptDialogData = {
+      title: 'Update verfügbar!',
+      text: 'Soll das Update durchgeführt werden?',
+      buttonText: 'Update'
+    };
+
+    const config: MatDialogConfig = {
+      data: data,
+      disableClose: true,
+      closeOnNavigation: false
+    };
     const update: boolean = await this.dialog
-      .open(UpdatePromptDialogComponent)
+      .open(PromptDialogComponent, config)
       .afterClosed()
       .toPromise();
 
