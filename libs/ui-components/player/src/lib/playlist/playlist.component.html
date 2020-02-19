@@ -2,7 +2,7 @@
   <img style="width: 100%; height: 100%;filter: opacity(40%) blur(1px)" [src]="currentSong.metadata.coverSafeUrl" alt="Cover" />
 </div>
 <mat-action-list dense style="height: 100%; overflow-y: auto; overflow-x: hidden;">
-  <mat-list-item *ngFor="let song of _songs; let index = index" [ngClass]="{ active: isActive(song) }" (click)="playSong(song)">
+  <mat-list-item *ngFor="let song of _songs; let index = index" [ngClass]="{ active: isActive(song) }" (click)="playSong($event, song)">
     <img *ngIf="!isPlaying(song)" style="border-radius: 3px;" mat-list-avatar [src]="song.metadata.coverSafeUrl" />
     <canvas
       *ngIf="isPlaying(song)"
@@ -16,8 +16,8 @@
     <p matLine>{{ song.metadata.artist }}</p>
 
     <button mat-icon-button>
-      <mat-icon *ngIf="isPlaying(song)" (click)="pauseSong(song)">pause</mat-icon>
-      <mat-icon *ngIf="!isPlaying(song)" (click)="playSong(song)">play_arrow</mat-icon>
+      <mat-icon *ngIf="isPlaying(song)" (click)="pauseSong($event)">pause</mat-icon>
+      <mat-icon *ngIf="!isPlaying(song)" (click)="playSong($event, song)">play_arrow</mat-icon>
     </button>
   </mat-list-item>
 </mat-action-list>

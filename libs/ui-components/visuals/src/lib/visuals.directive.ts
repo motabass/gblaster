@@ -15,7 +15,7 @@ export class VisualsDirective implements OnDestroy, OnInit {
   meterNum = 64;
 
   @Input()
-  dimmFactor = 24;
+  dimmFactor = 26;
 
   @Input()
   mainColor = '#000';
@@ -38,14 +38,14 @@ export class VisualsDirective implements OnDestroy, OnInit {
   visualize() {
     const analyser = this.analyser;
 
-    analyser.fftSize = 512;
+    analyser.fftSize = 2048;
     analyser.minDecibels = -90;
     analyser.maxDecibels = 0;
     analyser.smoothingTimeConstant = 0.8;
 
     const meterNum = this.meterNum;
 
-    const upperCutoff = 86;
+    const upperCutoff = 700;
 
     const canvasCtx = this.canvasCtx;
 
@@ -62,11 +62,16 @@ export class VisualsDirective implements OnDestroy, OnInit {
 
     const step = uint8Array.length / meterNum; // sample limited data from the total array
     const steps: number[] = [];
-    let stepFaktor = 0;
+    const dimValues: number[] = [];
+    let stepCorrection = 0;
+    let dimCorrection = 2.5;
+
     for (let m = 0; m < meterNum; m++) {
-      const arrayPos = Math.round(step * m * stepFaktor);
-      stepFaktor += 1 / meterNum;
+      const arrayPos = Math.round(step * m * stepCorrection);
       steps.push(arrayPos);
+      dimValues.push(dimmFactor * dimCorrection);
+      stepCorrection += 1 / meterNum;
+      dimCorrection -= 1.5 / meterNum;
     }
 
     const draw = () => {
@@ -89,7 +94,7 @@ export class VisualsDirective implements OnDestroy, OnInit {
         gradient.addColorStop(0, this.peakColor);
 
         for (let i = 0; i < meterNum; i++) {
-          let value = uint8Array[steps[i]] - dimmFactor;
+          let value = uint8Array[steps[i]] - dimValues[i];
 
           if (value > cheight) {
             value = cheight;

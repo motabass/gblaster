@@ -33,7 +33,7 @@
   </div>
 </div>
 
-<div class="footer" fxLayout="row" fxLayoutAlign="center center">
+<div class="footer" fxLayout="row" fxLayoutAlign="center center" *ngIf="currentSong">
   <mat-slider
     style="width: 98%;"
     [max]="durationSeconds"

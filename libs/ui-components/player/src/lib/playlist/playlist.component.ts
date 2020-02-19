@@ -39,11 +39,13 @@ export class PlaylistComponent implements OnInit {
     return this.playerService.analyser;
   }
 
-  playSong(song: Song) {
+  playSong(event: Event, song: Song) {
+    event.stopPropagation();
     this.playerService.playSong(song);
   }
 
-  pauseSong(song: Song) {
-    song.howl.pause();
+  pauseSong(event: Event) {
+    event.stopPropagation();
+    this.playerService.playPause();
   }
 }
