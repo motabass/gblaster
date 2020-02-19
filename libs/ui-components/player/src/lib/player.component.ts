@@ -16,22 +16,10 @@ export class PlayerComponent implements OnInit, AfterViewInit {
   visuals = true;
   shuffle = false;
 
-  songs: Song[];
+  songs: Song[] = [];
   position = 0;
 
-  _currentSong: Song;
-
-  set currentSong(song: Song) {
-    if (this._currentSong) {
-      this._currentSong.sound.unload();
-    }
-    this._currentSong = song;
-    this.currentSong.sound.load();
-  }
-
-  get currentSong(): Song {
-    return this._currentSong;
-  }
+  currentSong: Song;
 
   @ViewChild('nativeSeeker') nativeSeeker: ElementRef;
 
@@ -55,54 +43,73 @@ export class PlayerComponent implements OnInit, AfterViewInit {
     return this.howlerService.getAnalyzer();
   }
 
-  async loadFile() {
-    const file = await this.fileLoaderService.openFile();
-
+  private async createSongFromFile(file: File): Promise<Song> {
     const metadata: SongMetadata = await this.metadataService.extractMetadata(file);
 
-    this.currentSong = {
-      sound: this.howlerService.createHowlFromFile(file),
+    return {
+      howl: this.howlerService.createHowlFromFile(file),
       name: metadata.title,
       artist: metadata.artist,
       cover_art_url: metadata.cover ? this.domSanitizer.bypassSecurityTrustUrl(URL.createObjectURL(metadata.cover)) : 'assets/cover-art-placeholder.svg',
       type: file.type
     };
+  }
 
-    this.songs = [this.currentSong];
+  // async loadFile() {
+  //   const file = await this.fileLoaderService.openFile();
+  //   this.currentSong = await this.createSongFromFile(file);
+  //   this.songs = [this.currentSong];
+  // }
+
+  async loadFolder() {
+    const files = await this.fileLoaderService.openFolder();
+    const songs: Song[] = [];
+    for (const file of files) {
+      const song = await this.createSongFromFile(file);
+      songs.push(song);
+    }
+    this.songs = songs;
   }
 
   playSong(song: Song) {
-    if (!song.sound.playing()) {
-      song.sound.play();
-    } else {
-      song.sound.pause();
+    if (this.currentSong && song.howl === this.currentSong.howl) {
+      song.howl.play();
+      return;
     }
+
+    if (this.playing) {
+      this.currentSong.howl.stop();
+    }
+    this.currentSong = song;
+    this.howlerService.playSong(song);
   }
 
-  globalPlayPause() {
+  playPause() {
     if (!this.currentSong) {
       return;
     }
-    if (!this.howlerService.isPlaying()) {
-      this.howlerService.play();
+    if (!this.currentSong.howl.playing()) {
+      this.currentSong.howl.play();
     } else {
-      this.howlerService.pause();
+      this.currentSong.howl.pause();
     }
   }
 
-  globalStop() {
+  stop() {
     if (!this.currentSong) {
       return;
     }
-    this.howlerService.stop();
+    if (this.playing) {
+      this.currentSong.howl.stop();
+    }
   }
 
   previous() {}
 
   next() {}
 
-  get isPlaying(): boolean {
-    return this.currentSong && this.currentSong.sound.playing();
+  get playing(): boolean {
+    return this.currentSong && this.currentSong.howl.playing();
   }
 
   toggleVisuals() {

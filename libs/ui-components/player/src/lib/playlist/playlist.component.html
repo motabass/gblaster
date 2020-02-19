@@ -1,0 +1,16 @@
+<div *ngIf="currentSong && currentSong.cover_art_url" style="position: absolute; top: 0; right: 0; bottom: 0; left: 0;">
+  <img style="width: 100%; height: 100%;filter: opacity(40%)" [src]="currentSong.cover_art_url" alt="Cover" />
+</div>
+<mat-action-list dense>
+  <mat-list-item *ngFor="let song of songs; let index = index">
+    <img *ngIf="!isPlaying(song)" style="border-radius: 4px;" mat-list-avatar [src]="song.cover_art_url" />
+    <canvas *ngIf="isPlaying(song)" style="border-radius: 4px;" mat-list-avatar [mtbVisual]="analyser" [dimmFactor]="12" [meterNum]="18"></canvas>
+    <h3 matLine style="font-size: 1.2em;font-weight: bold;">{{ song.name }}</h3>
+    <p matLine>{{ song.artist }}</p>
+
+    <button mat-icon-button>
+      <mat-icon *ngIf="isPlaying(song)" (click)="pauseSong.emit(song)">pause</mat-icon>
+      <mat-icon *ngIf="!isPlaying(song)" (click)="playSong.emit(song)">play_arrow</mat-icon>
+    </button>
+  </mat-list-item>
+</mat-action-list>

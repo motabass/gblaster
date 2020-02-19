@@ -1,50 +1,45 @@
-<div class="playlist">
-  <mat-action-list dense>
-    <mat-list-item *ngFor="let song of songs; let index = index" class="playlist-entry">
-      <img mat-list-avatar [src]="song.cover_art_url" />
-      <p matLine>{{ song.name }}</p>
-      <div>
-        <button mat-icon-button>
-          <mat-icon class="pause">pause</mat-icon>
-          <mat-icon class="play" (click)="playSong(song)">play_arrow</mat-icon>
-        </button>
-      </div>
-    </mat-list-item>
-  </mat-action-list>
+<mtb-playlist
+  class="main"
+  [songs]="songs"
+  [analyser]="analyser"
+  [currentSong]="currentSong"
+  (playSong)="playSong($event)"
+  (pauseSong)="playPause()"
+></mtb-playlist>
+
+<div class="footer" fxLayout="row" fxLayoutAlign="center center">
+  <mat-slider style="width: 98%;" max="100" min="0" [value]="position" (change)="setPosition($event)"></mat-slider>
 </div>
 
-<div class="track-slider" fxLayout="row" fxLayoutAlign="start center">
-  <mat-slider style="width: 100%;" max="100" min="0" [value]="position" (change)="setPosition($event)"></mat-slider>
-</div>
-
-<div fxLayout="column" class="player-nav">
+<div fxLayout="column" class="sidebar">
   <button mat-icon-button color="accent" style="color: white;" (click)="previous()">
     <mat-icon>skip_previous</mat-icon>
   </button>
   <button mat-icon-button color="accent" style="color: white;" (click)="next()">
     <mat-icon>skip_next</mat-icon>
   </button>
-  <button mat-icon-button color="accent" style="color: white;" (click)="globalStop()">
+  <button mat-icon-button color="accent" style="color: white;" (click)="stop()">
     <mat-icon>stop</mat-icon>
   </button>
-  <button mat-icon-button style="color: white;" (click)="globalPlayPause()">
-    <mat-icon *ngIf="isPlaying">pause</mat-icon>
-    <mat-icon *ngIf="!isPlaying">play_arrow</mat-icon>
+  <button mat-icon-button [color]="playing ? 'accent' : 'white'" (click)="playPause()">
+    <mat-icon *ngIf="playing">pause</mat-icon>
+    <mat-icon *ngIf="!playing">play_arrow</mat-icon>
   </button>
-  <button mat-icon-button style="color: white;" (click)="loadFile()">
+  <!--  <button mat-icon-button style="color: white;" (click)="loadFile()">-->
+  <!--    <mat-icon>loop</mat-icon>-->
+  <!--  </button>-->
+  <button mat-icon-button style="color: white;" (click)="loadFolder()">
     <mat-icon>loop</mat-icon>
   </button>
 
   <div fxFlex></div>
-  <canvas [mtbVisual]="analyser" style="width: 46px;height: 48px;"></canvas>
-  <div fxFlex></div>
-  <button mat-icon-button [color]="shuffle ? 'accent' : 'white'" class="amplitude-shuffle" (click)="toggleShuffle()">
+  <button mat-icon-button [color]="shuffle ? 'accent' : 'white'" (click)="toggleShuffle()">
     <mat-icon>shuffle</mat-icon>
   </button>
   <button mat-icon-button [color]="visuals ? 'accent' : 'white'" (click)="toggleVisuals()">
     <mat-icon>graphic_eq</mat-icon>
   </button>
   <div style="font-family: Roboto, 'Helvetica Neue', sans-serif; font-size: small; font-weight: bold; color: white; text-align: center; padding: 12px 2px;">
-    <p class="amplitude-current-time"></p>
+    <p>00:00</p>
   </div>
 </div>

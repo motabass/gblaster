@@ -7,11 +7,11 @@ import { MatListModule } from '@angular/material/list';
 import { MatSliderModule } from '@angular/material/slider';
 import { VisualsModule } from '@motabass/ui-components/visuals';
 import { PlayerComponent } from './player.component';
+import { PlaylistComponent } from './playlist/playlist.component';
 
 @NgModule({
   imports: [CommonModule, MatIconModule, MatListModule, MatButtonModule, MatSliderModule, FlexLayoutModule, VisualsModule],
-  declarations: [PlayerComponent],
+  declarations: [PlayerComponent, PlaylistComponent],
   exports: [PlayerComponent]
 })
-export class PlayerModule {
-}
+export class PlayerModule {}

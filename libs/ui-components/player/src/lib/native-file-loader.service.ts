@@ -18,11 +18,8 @@ export class NativeFileLoaderService {
     const handle = await window.chooseFileSystemEntries({ type: 'openDirectory' });
     const entries = await handle.getEntries();
     for await (const entry of entries) {
-      const kind = entry.isFile ? 'File' : 'Directory';
-      console.log(kind, entry.name);
-      console.log(entry);
-      if (kind === 'File') {
-        const file = entry.getFile();
+      if (entry.isFile) {
+        const file = await entry.getFile();
         files.push(file);
       }
     }

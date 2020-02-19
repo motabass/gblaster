@@ -1,12 +1,21 @@
-import { Directive, ElementRef, Input, OnChanges, OnDestroy } from '@angular/core';
+import { Directive, ElementRef, Input, OnDestroy, OnInit } from '@angular/core';
 
 @Directive({
   selector: '[mtbVisual]'
 })
-export class VisualsDirective implements OnDestroy, OnChanges {
-  canvasCtx: CanvasRenderingContext2D;
+export class VisualsDirective implements OnDestroy, OnInit {
+  private readonly canvasCtx: CanvasRenderingContext2D;
 
-  @Input('mtbVisual') analyser: AnalyserNode;
+  idle = true;
+
+  @Input('mtbVisual')
+  analyser: AnalyserNode;
+
+  @Input()
+  meterNum = 64;
+
+  @Input()
+  dimmFactor = 24;
 
   @Input()
   mainColor = '#000';
@@ -22,21 +31,19 @@ export class VisualsDirective implements OnDestroy, OnChanges {
     this.canvasCtx = elr.nativeElement.getContext('2d');
   }
 
-  ngOnChanges() {
-    if (this.analyser) {
-      this.visualize();
-    } else {
-      cancelAnimationFrame(this.animationFrameRef);
-    }
+  ngOnInit() {
+    this.visualize();
   }
 
   visualize() {
     const analyser = this.analyser;
-    if (this.animationFrameRef) {
-      cancelAnimationFrame(this.animationFrameRef);
-    }
 
-    const meterNum = 64;
+    analyser.fftSize = 512;
+    analyser.minDecibels = -90;
+    analyser.maxDecibels = 0;
+    analyser.smoothingTimeConstant = 0.8;
+
+    const meterNum = this.meterNum;
 
     const upperCutoff = 86;
 
@@ -46,7 +53,7 @@ export class VisualsDirective implements OnDestroy, OnChanges {
 
     const cwidth = canvasCtx.canvas.width;
     const cheight = canvasCtx.canvas.height;
-    const dimmFactor = 24; // gap between meters
+    const dimmFactor = this.dimmFactor;
     const gap = 0; // gap between meters
 
     const barWidth = cwidth / meterNum - gap;
@@ -58,52 +65,58 @@ export class VisualsDirective implements OnDestroy, OnChanges {
     const draw = () => {
       analyser.getByteFrequencyData(uint8Array);
 
-      const gradient = canvasCtx.createLinearGradient(0, 0, 0, 500);
-      gradient.addColorStop(1, this.mainColor);
-      gradient.addColorStop(0.3, this.mainColor);
-      gradient.addColorStop(0, this.peakColor);
+      if (uint8Array[Math.round(uint8Array.length / 2)]) {
+        this.idle = false;
+        canvasCtx.clearRect(0, 0, cwidth, cheight);
+        const gradient = canvasCtx.createLinearGradient(0, 0, 0, 500);
+        gradient.addColorStop(1, this.mainColor);
+        gradient.addColorStop(0.3, this.mainColor);
+        gradient.addColorStop(0, this.peakColor);
 
-      canvasCtx.clearRect(0, 0, cwidth, cheight);
-      for (let i = 0; i < meterNum; i++) {
-        const roundedStep = Math.round(i * step);
-        let value = uint8Array[roundedStep] - dimmFactor;
+        for (let i = 0; i < meterNum; i++) {
+          const roundedStep = Math.round(i * step);
+          let value = uint8Array[roundedStep] - dimmFactor;
 
-        if (value > cheight) {
-          value = cheight;
-        }
-
-        if (this.capYPositionArray.length < Math.round(meterNum)) {
-          this.capYPositionArray.push(value);
-        }
-        canvasCtx.fillStyle = capStyle;
-        // draw the cap, with transition effect
-        if (value < this.capYPositionArray[i]) {
-          if (i < 6) {
-            canvasCtx.fillRect((barWidth + gap) * i, cheight - --this.capYPositionArray[i] + 60 / (i + 1), barWidth, capHeight);
-          } else {
-            canvasCtx.fillRect((barWidth + gap) * i, cheight - --this.capYPositionArray[i], barWidth, capHeight);
+          if (value > cheight) {
+            value = cheight;
           }
-        } else {
-          if (i < 6) {
-            canvasCtx.fillRect((barWidth + gap) * i, cheight - value + 60 / (i + 1), barWidth, capHeight);
-          } else {
-            canvasCtx.fillRect((barWidth + gap) * i, cheight - value, barWidth, capHeight);
-          }
-          this.capYPositionArray[i] = value;
-        }
-        canvasCtx.fillStyle = gradient; // set the fillStyle to gradient for a better look
 
-        if (i < 6) {
-          canvasCtx.fillRect((barWidth + gap) * i, cheight - value + capHeight + 60 / (i + 1), barWidth, value - capHeight); // the meter
-        } else {
-          canvasCtx.fillRect((barWidth + gap) * i, cheight - value + capHeight, barWidth, value - capHeight); // the meter
+          if (this.capYPositionArray.length < Math.round(meterNum)) {
+            this.capYPositionArray.push(value);
+          }
+          canvasCtx.fillStyle = capStyle;
+          // draw the cap, with transition effect
+          if (value < this.capYPositionArray[i]) {
+            if (i < 6) {
+              canvasCtx.fillRect((barWidth + gap) * i, cheight - --this.capYPositionArray[i] + 60 / (i + 1), barWidth, capHeight);
+            } else {
+              canvasCtx.fillRect((barWidth + gap) * i, cheight - --this.capYPositionArray[i], barWidth, capHeight);
+            }
+          } else {
+            if (i < 6) {
+              canvasCtx.fillRect((barWidth + gap) * i, cheight - value + 60 / (i + 1), barWidth, capHeight);
+            } else {
+              canvasCtx.fillRect((barWidth + gap) * i, cheight - value, barWidth, capHeight);
+            }
+            this.capYPositionArray[i] = value;
+          }
+          canvasCtx.fillStyle = gradient; // set the fillStyle to gradient for a better look
+
+          if (i < 6) {
+            canvasCtx.fillRect((barWidth + gap) * i, cheight - value + capHeight + 60 / (i + 1), barWidth, value - capHeight); // the meter
+          } else {
+            canvasCtx.fillRect((barWidth + gap) * i, cheight - value + capHeight, barWidth, value - capHeight); // the meter
+          }
         }
+      } else if (!this.idle) {
+        canvasCtx.clearRect(0, 0, cwidth, cheight);
+        this.idle = true;
       }
 
-      this.animationFrameRef = requestAnimationFrame(draw);
+      requestAnimationFrame(draw);
     };
 
-    draw();
+    this.animationFrameRef = requestAnimationFrame(draw);
   }
 
   ngOnDestroy() {

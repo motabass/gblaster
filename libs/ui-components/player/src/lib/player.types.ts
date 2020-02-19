@@ -1,8 +1,7 @@
 import { SafeUrl } from '@angular/platform-browser';
-import { Howl } from 'howler';
 
 export interface Song {
-  sound: Howl;
+  howl: Howl;
   name?: string;
   artist?: string;
   album?: string;
@@ -15,4 +14,3 @@ export interface SongMetadata {
   title: string;
   cover?: Blob;
 }
-
