@@ -2,18 +2,13 @@
   height: 100%;
   width: 100%;
   display: grid;
-  grid-template-columns: auto 46px;
-  grid-template-rows: auto 64px;
+  grid-template-columns: auto 2.5rem;
+  grid-template-rows: calc(100% - 3.5rem) 3.5rem;
   grid-template-areas: 'main sidebar' 'footer empty';
 }
 
 .main {
   grid-area: main;
-}
-
-.mat-icon {
-  font-size: 28px;
-  line-height: 32px;
 }
 
 .footer {
@@ -30,42 +25,4 @@
   top: 0;
   bottom: 0;
   width: 46px;
-}
-
-::-webkit-scrollbar-track {
-  background: #ffffff;
-  border: 0 none #ffffff;
-  border-radius: 50px;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #000000;
-  border: 0 none #ffffff;
-  border-radius: 50px;
-}
-
-::-webkit-scrollbar-thumb:active {
-  background: #000000;
-}
-
-.pause {
-  display: none;
-}
-
-.amplitude-playing {
-  color: green;
-  background-color: black;
-  font-weight: bold;
-
-  .play {
-    display: none;
-  }
-
-  .pause {
-    display: inline-block;
-  }
-}
-
-.amplitude-paused .pause {
-  display: none;
 }

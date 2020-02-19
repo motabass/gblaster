@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnChanges, Renderer2 } from '@angular/core';
+import { Component, ElementRef, HostBinding, Input, OnChanges, Renderer2 } from '@angular/core';
 
 @Component({
   selector: 'mtb-slide-panel',
@@ -8,6 +8,14 @@ import { Component, ElementRef, Input, OnChanges, Renderer2 } from '@angular/cor
 export class SlidePanelComponent implements OnChanges {
   @Input()
   opened = true;
+
+  @Input()
+  @HostBinding('style.width')
+  width = '33rem';
+
+  @Input()
+  @HostBinding('style.height')
+  height = '30rem';
 
   constructor(private host: ElementRef, private renderer: Renderer2) {}
 

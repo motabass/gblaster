@@ -11,7 +11,7 @@
   <mat-slider style="width: 98%;" max="100" min="0" [value]="position" (change)="setPosition($event)"></mat-slider>
 </div>
 
-<div fxLayout="column" class="sidebar">
+<div fxLayout="column" fxLayoutAlign="start center" class="sidebar">
   <button mat-icon-button color="accent" style="color: white;" (click)="previous()">
     <mat-icon>skip_previous</mat-icon>
   </button>
@@ -29,15 +29,15 @@
   <!--    <mat-icon>loop</mat-icon>-->
   <!--  </button>-->
   <button mat-icon-button style="color: white;" (click)="loadFolder()">
-    <mat-icon>loop</mat-icon>
+    <mat-icon>folder_open</mat-icon>
   </button>
 
   <div fxFlex></div>
   <button mat-icon-button [color]="shuffle ? 'accent' : 'white'" (click)="toggleShuffle()">
     <mat-icon>shuffle</mat-icon>
   </button>
-  <button mat-icon-button [color]="visuals ? 'accent' : 'white'" (click)="toggleVisuals()">
-    <mat-icon>graphic_eq</mat-icon>
+  <button mat-icon-button [color]="repeat ? 'accent' : 'white'" (click)="toggleRepeat()">
+    <mat-icon>loop</mat-icon>
   </button>
   <div style="font-family: Roboto, 'Helvetica Neue', sans-serif; font-size: small; font-weight: bold; color: white; text-align: center; padding: 12px 2px;">
     <p>00:00</p>

@@ -6,6 +6,8 @@ import { Injectable } from '@angular/core';
 export class NativeFileLoaderService {
   currentFolderFiles: File[] = [];
 
+  currentDirHandle: any;
+
   constructor() {}
 
   async openFile(): Promise<File> {
@@ -15,17 +17,32 @@ export class NativeFileLoaderService {
   }
 
   async openFolder(): Promise<boolean> {
+    const allowedTypes = ['audio/mp3'];
+
     const files: File[] = [];
+
+    const opts = {
+      type: 'openDirectory',
+      accepts: [
+        {
+          description: 'Musikdateien (mp3)',
+          extensions: ['mp3'],
+          mimeTypes: ['audio/mp3']
+        }
+      ]
+    };
 
     try {
       // @ts-ignore
-      const handle = await window.chooseFileSystemEntries({ type: 'openDirectory' });
-      const entries = await handle.getEntries();
+      const handle = await window.chooseFileSystemEntries(opts);
 
-      for await (const entry of entries) {
+      this.currentDirHandle = handle;
+      for await (const entry of handle.getEntries()) {
         if (entry.isFile) {
           const file = await entry.getFile();
-          files.push(file);
+          if (allowedTypes.includes(file.type)) {
+            files.push(file);
+          }
         }
       }
     } catch (e) {

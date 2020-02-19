@@ -7,18 +7,18 @@ import { PromptDialogComponent, PromptDialogData } from '@motabass/ui-components
   providedIn: 'root'
 })
 export class UpdateService implements OnDestroy {
-  constructor(private updates: SwUpdate, private dialog: MatDialog) {
-    if (updates.isEnabled) {
-      updates.available.subscribe((event) => {
+  constructor(private swUpdate: SwUpdate, private dialog: MatDialog) {
+    if (swUpdate.isEnabled) {
+      swUpdate.available.subscribe((event) => {
         console.log('current version is', event.current);
         console.log('available version is', event.available);
         this.askUserForUpdate(event).then((update) => {
           if (update) {
-            updates.activateUpdate().then(() => document.location.reload());
+            swUpdate.activateUpdate().then(() => document.location.reload());
           }
         });
       });
-      updates.activated.subscribe((event) => {
+      swUpdate.activated.subscribe((event) => {
         console.log('old version was', event.previous);
         console.log('new version is', event.current);
       });
@@ -26,8 +26,8 @@ export class UpdateService implements OnDestroy {
   }
 
   init() {
-    if (this.updates.isEnabled) {
-      this.updates.checkForUpdate();
+    if (this.swUpdate.isEnabled) {
+      this.swUpdate.checkForUpdate();
     }
   }
 

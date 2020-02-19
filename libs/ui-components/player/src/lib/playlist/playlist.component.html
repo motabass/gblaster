@@ -1,7 +1,7 @@
 <div *ngIf="currentSong && currentSong.cover_art_url" style="position: absolute; top: 0; right: 0; bottom: 0; left: 0;">
   <img style="width: 100%; height: 100%;filter: opacity(40%) blur(1px)" [src]="currentSong.cover_art_url" alt="Cover" />
 </div>
-<mat-action-list dense>
+<mat-action-list dense style="height: 100%; overflow-y: auto;">
   <mat-list-item *ngFor="let song of songs; let index = index">
     <img *ngIf="!isPlaying(song)" style="border-radius: 3px;" mat-list-avatar [src]="song.cover_art_url" />
     <canvas *ngIf="isPlaying(song)" style="border-radius: 4px;" mat-list-avatar [mtbVisual]="analyser" [dimmFactor]="12" [meterNum]="18"></canvas>

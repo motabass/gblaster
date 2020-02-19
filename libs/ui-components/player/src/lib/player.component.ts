@@ -13,7 +13,7 @@ import { Song, SongMetadata } from './player.types';
   styleUrls: ['./player.component.scss']
 })
 export class PlayerComponent implements OnInit, AfterViewInit {
-  visuals = true;
+  repeat = false;
   shuffle = false;
 
   songs: Song[] = [];
@@ -115,8 +115,8 @@ export class PlayerComponent implements OnInit, AfterViewInit {
     return this.currentSong && this.currentSong.howl.playing();
   }
 
-  toggleVisuals() {
-    this.visuals = !this.visuals;
+  toggleRepeat() {
+    this.repeat = !this.repeat;
   }
 
   toggleShuffle() {
