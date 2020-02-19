@@ -33,7 +33,9 @@
     "update:angular": "ng update @angular/core --allow-dirty",
     "dep-graph": "nx dep-graph",
     "help": "nx help",
-    "postinstall": "ngcc --properties es2015 browser module main --first-only --create-ivy-entry-points"
+    "postinstall": "ngcc --properties es2015 browser module main --first-only --create-ivy-entry-points",
+    "generate:ui-lib": "ng generate @nrwl/angular:library --name=test --style=scss --directory=ui-components --prefix=mtb --publishable --simpleModuleName",
+    "generate:lazy-module-lib": "ng generate @nrwl/angular:library --name=test --style=scss --directory=ui-components --prefix=hsr"
   },
   "husky": {
     "hooks": {

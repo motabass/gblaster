@@ -61,11 +61,18 @@ export class VisualsDirective implements OnDestroy, OnInit {
     const capStyle = this.mainColor;
 
     const step = uint8Array.length / meterNum; // sample limited data from the total array
-
     const draw = () => {
       analyser.getByteFrequencyData(uint8Array);
 
-      if (uint8Array[Math.round(uint8Array.length / 2)]) {
+      let hasData: boolean;
+      for (let i = 0; i < uint8Array.length; i += 10) {
+        if (uint8Array[i]) {
+          hasData = true;
+          break;
+        }
+      }
+
+      if (hasData) {
         this.idle = false;
         canvasCtx.clearRect(0, 0, cwidth, cheight);
         const gradient = canvasCtx.createLinearGradient(0, 0, 0, 500);

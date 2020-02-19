@@ -1,43 +1,36 @@
 {
   "version": 1,
   "projects": {
-    "hsr": {
+    "motabass": {
       "projectType": "application",
       "schematics": {
         "@nrwl/angular:component": {
           "style": "scss"
         }
       },
-      "root": "apps/hsr",
-      "sourceRoot": "apps/hsr/src",
-      "prefix": "hsr",
+      "root": "apps/motabass",
+      "sourceRoot": "apps/motabass/src",
+      "prefix": "mtb",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/apps/hsr",
-            "index": "apps/hsr/src/index.html",
-            "main": "apps/hsr/src/main.ts",
-            "polyfills": "apps/hsr/src/polyfills.ts",
-            "tsConfig": "apps/hsr/tsconfig.app.json",
+            "outputPath": "dist/apps/motabass",
+            "index": "apps/motabass/src/index.html",
+            "main": "apps/motabass/src/main.ts",
+            "polyfills": "apps/motabass/src/polyfills.ts",
+            "tsConfig": "apps/motabass/tsconfig.app.json",
             "aot": true,
-            "assets": [
-              "apps/hsr/src/favicon.ico",
-              "apps/hsr/src/assets",
-              "apps/hsr/src/manifest.webmanifest"
-            ],
-            "styles": [
-              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
-              "apps/hsr/src/styles.scss"
-            ],
+            "assets": ["apps/motabass/src/favicon.ico", "apps/motabass/src/assets", "apps/motabass/src/manifest.webmanifest"],
+            "styles": ["./node_modules/@angular/material/prebuilt-themes/indigo-pink.css", "apps/motabass/src/styles.scss"],
             "scripts": []
           },
           "configurations": {
             "production": {
               "fileReplacements": [
                 {
-                  "replace": "apps/hsr/src/environments/environment.ts",
-                  "with": "apps/hsr/src/environments/environment.prod.ts"
+                  "replace": "apps/motabass/src/environments/environment.ts",
+                  "with": "apps/motabass/src/environments/environment.prod.ts"
                 }
               ],
               "optimization": true,
@@ -61,46 +54,40 @@
                 }
               ],
               "serviceWorker": true,
-              "ngswConfigPath": "apps/hsr/ngsw-config.json"
+              "ngswConfigPath": "apps/motabass/ngsw-config.json"
             }
           }
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "hsr:build"
+            "browserTarget": "motabass:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "hsr:build:production"
+              "browserTarget": "motabass:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "hsr:build"
+            "browserTarget": "motabass:build"
           }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "apps/hsr/tsconfig.app.json",
-              "apps/hsr/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!apps/hsr/**"
-            ]
+            "tsConfig": ["apps/motabass/tsconfig.app.json", "apps/motabass/tsconfig.spec.json"],
+            "exclude": ["**/node_modules/**", "!apps/motabass/**"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "apps/hsr/jest.config.js",
-            "tsConfig": "apps/hsr/tsconfig.spec.json",
-            "setupFile": "apps/hsr/src/test-setup.ts",
+            "jestConfig": "apps/motabass/jest.config.js",
+            "tsConfig": "apps/motabass/tsconfig.spec.json",
+            "setupFile": "apps/motabass/src/test-setup.ts",
             "passWithNoTests": true
           }
         },
@@ -110,35 +97,59 @@
         }
       }
     },
-    "hsr-e2e": {
-      "root": "apps/hsr-e2e",
-      "sourceRoot": "apps/hsr-e2e/src",
+    "motabass-e2e": {
+      "root": "apps/motabass-e2e",
+      "sourceRoot": "apps/motabass-e2e/src",
       "projectType": "application",
       "architect": {
         "e2e": {
           "builder": "@nrwl/cypress:cypress",
           "options": {
-            "cypressConfig": "apps/hsr-e2e/cypress.json",
-            "tsConfig": "apps/hsr-e2e/tsconfig.e2e.json",
-            "devServerTarget": "hsr:serve"
+            "cypressConfig": "apps/motabass-e2e/cypress.json",
+            "tsConfig": "apps/motabass-e2e/tsconfig.e2e.json",
+            "devServerTarget": "motabass:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "hsr:serve:production"
+              "devServerTarget": "motabass:serve:production"
             }
           }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "apps/hsr-e2e/tsconfig.e2e.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!apps/hsr-e2e/**"
-            ]
+            "tsConfig": ["apps/motabass-e2e/tsconfig.e2e.json"],
+            "exclude": ["**/node_modules/**", "!apps/motabass-e2e/**"]
           }
+        }
+      }
+    },
+    "media-library": {
+      "projectType": "library",
+      "root": "libs/media-library",
+      "sourceRoot": "libs/media-library/src",
+      "prefix": "motabass",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": ["libs/media-library/tsconfig.lib.json", "libs/media-library/tsconfig.spec.json"],
+            "exclude": ["**/node_modules/**", "!libs/media-library/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/media-library/jest.config.js",
+            "tsConfig": "libs/media-library/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "libs/media-library/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "styleext": "scss"
         }
       }
     },
@@ -163,14 +174,8 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "libs/ui-components/player/tsconfig.lib.json",
-              "libs/ui-components/player/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/ui-components/player/**"
-            ]
+            "tsConfig": ["libs/ui-components/player/tsconfig.lib.json", "libs/ui-components/player/tsconfig.spec.json"],
+            "exclude": ["**/node_modules/**", "!libs/ui-components/player/**"]
           }
         },
         "test": {
@@ -210,14 +215,8 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "libs/ui-components/visuals/tsconfig.lib.json",
-              "libs/ui-components/visuals/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/ui-components/visuals/**"
-            ]
+            "tsConfig": ["libs/ui-components/visuals/tsconfig.lib.json", "libs/ui-components/visuals/tsconfig.spec.json"],
+            "exclude": ["**/node_modules/**", "!libs/ui-components/visuals/**"]
           }
         },
         "test": {
@@ -257,14 +256,8 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "libs/ui-components/slide-panel/tsconfig.lib.json",
-              "libs/ui-components/slide-panel/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/ui-components/slide-panel/**"
-            ]
+            "tsConfig": ["libs/ui-components/slide-panel/tsconfig.lib.json", "libs/ui-components/slide-panel/tsconfig.spec.json"],
+            "exclude": ["**/node_modules/**", "!libs/ui-components/slide-panel/**"]
           }
         },
         "test": {
@@ -334,14 +327,50 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "apps/ui-components-slide-panel-e2e/tsconfig.e2e.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!apps/ui-components-slide-panel-e2e/**"
-            ]
+            "tsConfig": ["apps/ui-components-slide-panel-e2e/tsconfig.e2e.json"],
+            "exclude": ["**/node_modules/**", "!apps/ui-components-slide-panel-e2e/**"]
           }
+        }
+      }
+    },
+    "ui-components-dialogs": {
+      "projectType": "library",
+      "root": "libs/ui-components/dialogs",
+      "sourceRoot": "libs/ui-components/dialogs/src",
+      "prefix": "mtb",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/angular:package",
+          "options": {
+            "tsConfig": "libs/ui-components/dialogs/tsconfig.lib.json",
+            "project": "libs/ui-components/dialogs/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/ui-components/dialogs/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": ["libs/ui-components/dialogs/tsconfig.lib.json", "libs/ui-components/dialogs/tsconfig.spec.json"],
+            "exclude": ["**/node_modules/**", "!libs/ui-components/dialogs/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/ui-components/dialogs/jest.config.js",
+            "tsConfig": "libs/ui-components/dialogs/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "libs/ui-components/dialogs/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "styleext": "scss"
         }
       }
     }
@@ -352,11 +381,13 @@
   "schematics": {
     "@nrwl/angular:application": {
       "unitTestRunner": "jest",
-      "e2eTestRunner": "cypress"
+      "e2eTestRunner": "cypress",
+      "style": "scss"
     },
     "@nrwl/angular:library": {
-      "unitTestRunner": "jest"
+      "unitTestRunner": "jest",
+      "style": "scss"
     }
   },
-  "defaultProject": "hsr"
+  "defaultProject": "motabass"
 }

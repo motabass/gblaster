@@ -11,14 +11,15 @@
     "nx.json": "*"
   },
   "projects": {
-    "hsr": {
+    "motabass": {
       "tags": []
     },
-    "hsr-e2e": {
+    "motabass-e2e": {
       "tags": [],
-      "implicitDependencies": [
-        "hsr"
-      ]
+      "implicitDependencies": ["motabass"]
+    },
+    "media-library": {
+      "tags": []
     },
     "ui-components-player": {
       "tags": []
@@ -31,9 +32,10 @@
     },
     "ui-components-slide-panel-e2e": {
       "tags": [],
-      "implicitDependencies": [
-        "ui-components-slide-panel"
-      ]
+      "implicitDependencies": ["ui-components-slide-panel"]
+    },
+    "ui-components-dialogs": {
+      "tags": []
     }
   }
 }

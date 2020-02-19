@@ -2,7 +2,7 @@
   "targets": {
     "motabass-4e1ac": {
       "hosting": {
-        "hsr": [
+        "motabass": [
           "motabass-4e1ac"
         ]
       }

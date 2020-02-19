@@ -1,8 +1,8 @@
 {
   "hosting": [
     {
-      "target": "hsr",
-      "public": "dist/apps/hsr",
+      "target": "motabass",
+      "public": "dist/apps/motabass",
       "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
       "rewrites": [
         {
