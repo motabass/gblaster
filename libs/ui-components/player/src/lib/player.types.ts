@@ -2,15 +2,22 @@ import { SafeUrl } from '@angular/platform-browser';
 
 export interface Song {
   howl: Howl;
-  name?: string;
-  artist?: string;
-  album?: string;
+  fileHandle: unknown;
   type?: string;
-  cover_art_url?: SafeUrl | string;
+  metadata: SongMetadata;
+  playlistPosition?: number;
 }
 
 export interface SongMetadata {
   artist: string;
   title: string;
-  cover?: Blob;
+  track?: number;
+  album?: string;
+  year?: number;
+  filename: string;
+  fileSize: number;
+  fileFormat: string;
+  duration?: number;
+  coverUrl?: string;
+  coverSafeUrl?: SafeUrl | string;
 }

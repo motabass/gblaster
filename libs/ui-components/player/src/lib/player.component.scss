@@ -1,9 +1,11 @@
 :host {
+  --sidebar-width: 3rem;
+  --footer-height: 3.5rem;
   height: 100%;
   width: 100%;
   display: grid;
-  grid-template-columns: auto 2.5rem;
-  grid-template-rows: calc(100% - 3.5rem) 3.5rem;
+  grid-template-columns: auto var(--sidebar-width);
+  grid-template-rows: calc(100% - var(--footer-height)) var(--footer-height);
   grid-template-areas: 'main sidebar' 'footer empty';
 }
 
@@ -24,5 +26,5 @@
   right: 0;
   top: 0;
   bottom: 0;
-  width: 46px;
+  width: var(--sidebar-width);
 }

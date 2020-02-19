@@ -1,3 +1,8 @@
 :host {
   position: relative;
 }
+
+.active {
+  border-left: solid 4px black;
+  box-sizing: border-box;
+}

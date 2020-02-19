@@ -10,12 +10,20 @@ export class SlidePanelComponent implements OnChanges {
   opened = true;
 
   @Input()
+  @HostBinding('style.bottom')
+  bottom;
+
+  @Input()
+  @HostBinding('style.top')
+  top;
+
+  @Input()
   @HostBinding('style.width')
-  width = '33rem';
+  width = '20rem';
 
   @Input()
   @HostBinding('style.height')
-  height = '30rem';
+  height = '20rem';
 
   constructor(private host: ElementRef, private renderer: Renderer2) {}
 

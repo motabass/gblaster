@@ -8,10 +8,12 @@ import { MatSliderModule } from '@angular/material/slider';
 import { VisualsModule } from '@motabass/ui-components/visuals';
 import { PlayerComponent } from './player.component';
 import { PlaylistComponent } from './playlist/playlist.component';
+import { TimePipe } from './time.pipe';
+import { MetadataComponent } from './metadata/metadata.component';
 
 @NgModule({
   imports: [CommonModule, MatIconModule, MatListModule, MatButtonModule, MatSliderModule, FlexLayoutModule, VisualsModule],
-  declarations: [PlayerComponent, PlaylistComponent],
-  exports: [PlayerComponent]
+  declarations: [PlayerComponent, PlaylistComponent, TimePipe, MetadataComponent],
+  exports: [PlayerComponent, MetadataComponent]
 })
 export class PlayerModule {}

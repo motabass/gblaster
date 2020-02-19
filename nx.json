@@ -36,6 +36,9 @@
     },
     "ui-components-dialogs": {
       "tags": []
+    },
+    "helpers-time": {
+      "tags": []
     }
   }
 }

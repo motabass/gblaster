@@ -20,7 +20,8 @@
       "@motabass/ui-components/visuals": ["libs/ui-components/visuals/src/index.ts"],
       "@motabass/ui-components/slide-panel": ["libs/ui-components/slide-panel/src/index.ts"],
       "@motabass/ui-components/dialogs": ["libs/ui-components/dialogs/src/index.ts"],
-      "@motabass/media-library": ["libs/media-library/src/index.ts"]
+      "@motabass/media-library": ["libs/media-library/src/index.ts"],
+      "@motabass/helpers/time": ["libs/helpers/time/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"],

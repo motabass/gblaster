@@ -4,22 +4,16 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class NativeFileLoaderService {
-  currentFolderFiles: File[] = [];
+  currentFolderFileHandles: unknown[] = [];
 
-  currentDirHandle: any;
+  currentDirHandle: unknown;
 
   constructor() {}
-
-  async openFile(): Promise<File> {
-    // @ts-ignore
-    const fileHandle = await window.chooseFileSystemEntries();
-    return await fileHandle.getFile();
-  }
 
   async openFolder(): Promise<boolean> {
     const allowedTypes = ['audio/mp3'];
 
-    const files: File[] = [];
+    const fileEntries: unknown[] = [];
 
     const opts = {
       type: 'openDirectory',
@@ -41,7 +35,7 @@ export class NativeFileLoaderService {
         if (entry.isFile) {
           const file = await entry.getFile();
           if (allowedTypes.includes(file.type)) {
-            files.push(file);
+            fileEntries.push(entry);
           }
         }
       }
@@ -50,7 +44,7 @@ export class NativeFileLoaderService {
       return false;
     }
 
-    this.currentFolderFiles = files;
+    this.currentFolderFileHandles = fileEntries;
     return true;
   }
 }

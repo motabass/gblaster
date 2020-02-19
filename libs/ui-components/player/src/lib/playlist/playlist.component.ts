@@ -1,4 +1,5 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { PlayerService } from '../player.service';
 import { Song } from '../player.types';
 
 @Component({
@@ -7,26 +8,42 @@ import { Song } from '../player.types';
   styleUrls: ['./playlist.component.scss']
 })
 export class PlaylistComponent implements OnInit {
-  constructor() {}
+  constructor(private playerService: PlayerService) {}
 
   @Input()
-  analyser: AnalyserNode;
+  set songs(songs: Song[]) {
+    for (const [i, v] of songs.entries()) {
+      v.playlistPosition = i + 1;
+    }
 
-  @Input()
-  currentSong: Song;
+    this._songs = songs;
+  }
 
-  @Input()
-  songs: Song[] = [];
-
-  @Output()
-  playSong: EventEmitter<Song> = new EventEmitter<Song>();
-
-  @Output()
-  pauseSong: EventEmitter<Song> = new EventEmitter<Song>();
+  _songs: Song[] = [];
 
   ngOnInit(): void {}
 
   isPlaying(song: Song): boolean {
     return song.howl.playing();
+  }
+
+  isActive(song: Song) {
+    return this.playerService.currentSong === song;
+  }
+
+  get currentSong(): Song {
+    return this.playerService.currentSong;
+  }
+
+  get analyser(): AnalyserNode {
+    return this.playerService.analyser;
+  }
+
+  playSong(song: Song) {
+    this.playerService.playSong(song);
+  }
+
+  pauseSong(song: Song) {
+    song.howl.pause();
   }
 }

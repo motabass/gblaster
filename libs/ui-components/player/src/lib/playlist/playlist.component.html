@@ -1,9 +1,9 @@
-<div *ngIf="currentSong && currentSong.cover_art_url" style="position: absolute; top: 0; right: 0; bottom: 0; left: 0;">
-  <img style="width: 100%; height: 100%;filter: opacity(40%) blur(1px)" [src]="currentSong.cover_art_url" alt="Cover" />
+<div *ngIf="currentSong && currentSong.metadata.coverSafeUrl" style="position: absolute; top: 0; right: 0; bottom: 0; left: 0;">
+  <img style="width: 100%; height: 100%;filter: opacity(40%) blur(1px)" [src]="currentSong.metadata.coverSafeUrl" alt="Cover" />
 </div>
-<mat-action-list dense style="height: 100%; overflow-y: auto;">
-  <mat-list-item *ngFor="let song of songs; let index = index">
-    <img *ngIf="!isPlaying(song)" style="border-radius: 3px;" mat-list-avatar [src]="song.cover_art_url" />
+<mat-action-list dense style="height: 100%; overflow-y: auto; overflow-x: hidden;">
+  <mat-list-item *ngFor="let song of _songs; let index = index" [ngClass]="{ active: isActive(song) }" (click)="playSong(song)">
+    <img *ngIf="!isPlaying(song)" style="border-radius: 3px;" mat-list-avatar [src]="song.metadata.coverSafeUrl" />
     <canvas
       *ngIf="isPlaying(song)"
       mat-list-avatar
@@ -12,12 +12,12 @@
       [dimmFactor]="12"
       [meterNum]="18"
     ></canvas>
-    <h3 matLine style="font-size: 1.2em;font-weight: bold;">{{ song.name }}</h3>
-    <p matLine>{{ song.artist }}</p>
+    <h3 matLine style="font-size: 1.2em;font-weight: bold;">{{ song.metadata.title }}</h3>
+    <p matLine>{{ song.metadata.artist }}</p>
 
     <button mat-icon-button>
-      <mat-icon *ngIf="isPlaying(song)" (click)="pauseSong.emit(song)">pause</mat-icon>
-      <mat-icon *ngIf="!isPlaying(song)" (click)="playSong.emit(song)">play_arrow</mat-icon>
+      <mat-icon *ngIf="isPlaying(song)" (click)="pauseSong(song)">pause</mat-icon>
+      <mat-icon *ngIf="!isPlaying(song)" (click)="playSong(song)">play_arrow</mat-icon>
     </button>
   </mat-list-item>
 </mat-action-list>

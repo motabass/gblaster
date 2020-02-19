@@ -373,6 +373,29 @@
           "styleext": "scss"
         }
       }
+    },
+    "helpers-time": {
+      "root": "libs/helpers/time",
+      "sourceRoot": "libs/helpers/time/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": ["libs/helpers/time/tsconfig.lib.json", "libs/helpers/time/tsconfig.spec.json"],
+            "exclude": ["**/node_modules/**", "!libs/helpers/time/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/helpers/time/jest.config.js",
+            "tsConfig": "libs/helpers/time/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
+        }
+      }
     }
   },
   "cli": {

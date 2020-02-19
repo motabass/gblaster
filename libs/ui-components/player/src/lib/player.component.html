@@ -1,22 +1,11 @@
-<mtb-playlist
-  class="main"
-  [songs]="songs"
-  [analyser]="analyser"
-  [currentSong]="currentSong"
-  (playSong)="playSong($event)"
-  (pauseSong)="playPause()"
-></mtb-playlist>
-
-<div class="footer" fxLayout="row" fxLayoutAlign="center center">
-  <mat-slider style="width: 98%;" max="100" min="0" [value]="position" (change)="setPosition($event)"></mat-slider>
-</div>
+<mtb-playlist class="main" [songs]="songs"></mtb-playlist>
 
 <div fxLayout="column" fxLayoutAlign="start center" class="sidebar">
-  <button mat-icon-button color="accent" style="color: white;" (click)="previous()">
-    <mat-icon>skip_previous</mat-icon>
-  </button>
   <button mat-icon-button color="accent" style="color: white;" (click)="next()">
     <mat-icon>skip_next</mat-icon>
+  </button>
+  <button mat-icon-button color="accent" style="color: white;" (click)="previous()">
+    <mat-icon>skip_previous</mat-icon>
   </button>
   <button mat-icon-button color="accent" style="color: white;" (click)="stop()">
     <mat-icon>stop</mat-icon>
@@ -39,7 +28,20 @@
   <button mat-icon-button [color]="repeat ? 'accent' : 'white'" (click)="toggleRepeat()">
     <mat-icon>loop</mat-icon>
   </button>
-  <div style="font-family: Roboto, 'Helvetica Neue', sans-serif; font-size: small; font-weight: bold; color: white; text-align: center; padding: 12px 2px;">
-    <p>00:00</p>
+  <div style="font-size: small; color: white; text-align: center; width: 100%; padding: 8px 0;">
+    <p>{{ durationSeconds | time }}</p>
   </div>
+</div>
+
+<div class="footer" fxLayout="row" fxLayoutAlign="center center">
+  <mat-slider
+    style="width: 98%;"
+    [max]="durationSeconds"
+    min="0"
+    tickInterval="60"
+    thumbLabel
+    [displayWith]="formatLabel"
+    [value]="position"
+    (change)="setSeekPosition($event)"
+  ></mat-slider>
 </div>

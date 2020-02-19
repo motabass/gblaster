@@ -1,11 +1,8 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { MediaObserver } from '@angular/flex-layout';
-import { MatSliderChange } from '@angular/material/slider';
-import { DomSanitizer } from '@angular/platform-browser';
-import { HowlerService } from './howler.service';
-import { MetadataService } from './metadata.service';
-import { NativeFileLoaderService } from './native-file-loader.service';
-import { Song, SongMetadata } from './player.types';
+import { formatSecondsAsClock } from '@motabass/helpers/time';
+import { PlayerService } from './player.service';
+import { Song } from './player.types';
 
 @Component({
   selector: 'mtb-player',
@@ -16,103 +13,49 @@ export class PlayerComponent implements OnInit, AfterViewInit {
   repeat = false;
   shuffle = false;
 
-  songs: Song[] = [];
   position = 0;
 
-  currentSong: Song;
-
-  @ViewChild('nativeSeeker') nativeSeeker: ElementRef;
-
-  constructor(
-    public media: MediaObserver,
-    private domSanitizer: DomSanitizer,
-    private fileLoaderService: NativeFileLoaderService,
-    private metadataService: MetadataService,
-    private howlerService: HowlerService
-  ) {}
+  constructor(public media: MediaObserver, private playerService: PlayerService) {}
 
   ngOnInit() {}
 
   ngAfterViewInit() {
-    // setInterval(() => {
-    //   this.position = this.nativeSeeker.nativeElement.value;
-    // }, 200);
+    setInterval(() => {
+      this.position = this.playerService.currentSong ? Math.floor(this.playerService.currentSong.howl.seek() as number) : 0;
+    }, 1000);
   }
 
-  get analyser(): AnalyserNode {
-    return this.howlerService.getAnalyzer();
+  setSeekPosition(event) {
+    const sliderValue = event.value;
+    this.playerService.setSeekPosition(sliderValue);
   }
 
-  private async createSongFromFile(file: File): Promise<Song> {
-    const metadata: SongMetadata = await this.metadataService.extractMetadata(file);
-
-    return {
-      howl: this.howlerService.createHowlFromFile(file),
-      name: metadata.title,
-      artist: metadata.artist,
-      cover_art_url: metadata.cover ? this.domSanitizer.bypassSecurityTrustUrl(URL.createObjectURL(metadata.cover)) : 'assets/cover-art-placeholder.svg',
-      type: file.type
-    };
+  get durationSeconds(): number {
+    return this.playerService.durationSeconds;
   }
 
-  // async loadFile() {
-  //   const file = await this.fileLoaderService.openFile();
-  //   this.currentSong = await this.createSongFromFile(file);
-  //   this.songs = [this.currentSong];
-  // }
-
-  async loadFolder() {
-    const newFolder: boolean = await this.fileLoaderService.openFolder();
-    if (newFolder) {
-      const files = this.fileLoaderService.currentFolderFiles;
-      const songs: Song[] = [];
-      for (const file of files) {
-        const song = await this.createSongFromFile(file);
-        songs.push(song);
-      }
-      this.songs = songs;
-    }
-  }
-
-  playSong(song: Song) {
-    if (this.currentSong && song.howl === this.currentSong.howl) {
-      song.howl.play();
-      return;
-    }
-
-    if (this.playing) {
-      this.currentSong.howl.stop();
-    }
-    this.currentSong = song;
-    this.howlerService.playSong(song);
+  get songs(): Song[] {
+    return this.playerService.songs;
   }
 
   playPause() {
-    if (!this.currentSong) {
-      return;
-    }
-    if (!this.currentSong.howl.playing()) {
-      this.currentSong.howl.play();
-    } else {
-      this.currentSong.howl.pause();
-    }
+    this.playerService.playPause();
   }
 
   stop() {
-    if (!this.currentSong) {
-      return;
-    }
-    if (this.playing) {
-      this.currentSong.howl.stop();
-    }
+    this.playerService.stop();
   }
 
-  previous() {}
+  next() {
+    this.playerService.next();
+  }
 
-  next() {}
+  previous() {
+    this.playerService.previous();
+  }
 
   get playing(): boolean {
-    return this.currentSong && this.currentSong.howl.playing();
+    return this.playerService.playing;
   }
 
   toggleRepeat() {
@@ -123,7 +66,11 @@ export class PlayerComponent implements OnInit, AfterViewInit {
     this.shuffle = !this.shuffle;
   }
 
-  setPosition(event: MatSliderChange) {
-    console.log(event);
+  formatLabel(value: number): string {
+    return formatSecondsAsClock(value, false);
+  }
+
+  loadFolder() {
+    this.playerService.loadFolder();
   }
 }
