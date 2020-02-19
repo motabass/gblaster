@@ -62,13 +62,16 @@ export class PlayerComponent implements OnInit, AfterViewInit {
   // }
 
   async loadFolder() {
-    const files = await this.fileLoaderService.openFolder();
-    const songs: Song[] = [];
-    for (const file of files) {
-      const song = await this.createSongFromFile(file);
-      songs.push(song);
+    const newFolder: boolean = await this.fileLoaderService.openFolder();
+    if (newFolder) {
+      const files = this.fileLoaderService.currentFolderFiles;
+      const songs: Song[] = [];
+      for (const file of files) {
+        const song = await this.createSongFromFile(file);
+        songs.push(song);
+      }
+      this.songs = songs;
     }
-    this.songs = songs;
   }
 
   playSong(song: Song) {

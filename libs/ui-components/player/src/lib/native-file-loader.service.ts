@@ -4,6 +4,8 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class NativeFileLoaderService {
+  currentFolderFiles: File[] = [];
+
   constructor() {}
 
   async openFile(): Promise<File> {
@@ -12,17 +14,26 @@ export class NativeFileLoaderService {
     return await fileHandle.getFile();
   }
 
-  async openFolder(): Promise<File[]> {
+  async openFolder(): Promise<boolean> {
     const files: File[] = [];
-    // @ts-ignore
-    const handle = await window.chooseFileSystemEntries({ type: 'openDirectory' });
-    const entries = await handle.getEntries();
-    for await (const entry of entries) {
-      if (entry.isFile) {
-        const file = await entry.getFile();
-        files.push(file);
+
+    try {
+      // @ts-ignore
+      const handle = await window.chooseFileSystemEntries({ type: 'openDirectory' });
+      const entries = await handle.getEntries();
+
+      for await (const entry of entries) {
+        if (entry.isFile) {
+          const file = await entry.getFile();
+          files.push(file);
+        }
       }
+    } catch (e) {
+      console.log(e.message);
+      return false;
     }
-    return files;
+
+    this.currentFolderFiles = files;
+    return true;
   }
 }
