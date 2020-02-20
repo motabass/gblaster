@@ -1,5 +1,6 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { MediaObserver } from '@angular/flex-layout';
+import { SafeStyle } from '@angular/platform-browser';
 import { formatSecondsAsClock } from '@motabass/helpers/time';
 import { PlayerService } from './player.service';
 import { Song } from './player.types';
@@ -77,5 +78,9 @@ export class PlayerComponent implements OnInit, AfterViewInit {
 
   loadFolder() {
     this.playerService.loadFolder();
+  }
+
+  get coverUrl(): SafeStyle {
+    return this.currentSong.metadata.coverUrl;
   }
 }

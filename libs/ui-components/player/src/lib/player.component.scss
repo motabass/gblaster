@@ -1,12 +1,19 @@
 :host {
   --sidebar-width: 3rem;
   --footer-height: 3.5rem;
-  height: 100%;
-  width: 100%;
+}
+
+.wrapper {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
   display: grid;
   grid-template-columns: auto var(--sidebar-width);
   grid-template-rows: calc(100% - var(--footer-height)) var(--footer-height);
-  grid-template-areas: 'main sidebar' 'footer empty';
+  grid-template-areas: 'main sidebar' 'footer sidebar';
 }
 
 .main {
@@ -15,11 +22,13 @@
 
 .footer {
   grid-area: footer;
+  background-color: rgba(0, 0, 0, 0.3);
 }
 
 .sidebar {
   grid-area: sidebar;
   background-color: black;
+  opacity: 0.8;
   color: white;
   position: absolute;
   right: 0;

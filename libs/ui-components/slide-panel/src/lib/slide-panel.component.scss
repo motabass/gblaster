@@ -1,6 +1,7 @@
 :host {
   --toggle-size: 3rem;
-  --toggle-offset: -1.5rem;
+  --toggle-offset: 1.5rem;
+  --toggle-icon-padding: 20px;
   position: absolute;
   opacity: 1;
   transition: 0.4s;
@@ -23,9 +24,12 @@
   &.left {
     left: 0;
     .slide-panel-toggle-wrapper {
-      right: var(--toggle-offset);
+      clip-path: inset(0 0 0 var(--toggle-offset));
+      right: calc(-1 * var(--toggle-offset));
     }
-
+    .slide-panel-toggle {
+      padding: 0 0 0 var(--toggle-icon-padding);
+    }
     &.closed-slide-panel {
       transform: translateX(-100%);
     }
@@ -33,9 +37,12 @@
   &.right {
     right: 0;
     .slide-panel-toggle-wrapper {
-      left: var(--toggle-offset);
+      clip-path: inset(0 var(--toggle-offset) 0 0);
+      left: calc(-1 * var(--toggle-offset));
     }
-
+    .slide-panel-toggle {
+      padding: 0 var(--toggle-icon-padding) 0 0;
+    }
     &.closed-slide-panel {
       transform: translateX(100%);
     }

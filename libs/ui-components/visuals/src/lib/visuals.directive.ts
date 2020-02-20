@@ -15,6 +15,9 @@ export class VisualsDirective implements OnDestroy, OnInit {
   meterNum = 64;
 
   @Input()
+  capHeight = 2;
+
+  @Input()
   dimmFactor = 26;
 
   @Input()
@@ -41,7 +44,7 @@ export class VisualsDirective implements OnDestroy, OnInit {
     analyser.fftSize = 2048;
     analyser.minDecibels = -90;
     analyser.maxDecibels = 0;
-    analyser.smoothingTimeConstant = 0.8;
+    analyser.smoothingTimeConstant = 0.5;
 
     const meterNum = this.meterNum;
 
@@ -57,7 +60,7 @@ export class VisualsDirective implements OnDestroy, OnInit {
     const gap = 0; // gap between meters
 
     const barWidth = cwidth / meterNum - gap;
-    const capHeight = 2; // cap thickness
+    const capHeight = this.capHeight; // cap thickness
     const capStyle = this.mainColor;
 
     const step = uint8Array.length / meterNum; // sample limited data from the total array

@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 import { PlayerService } from '../player.service';
 import { Song } from '../player.types';
 
@@ -8,7 +9,7 @@ import { Song } from '../player.types';
   styleUrls: ['./playlist.component.scss']
 })
 export class PlaylistComponent implements OnInit {
-  constructor(private playerService: PlayerService) {}
+  constructor(private playerService: PlayerService, private domSanitizer: DomSanitizer) {}
 
   @Input()
   set songs(songs: Song[]) {
