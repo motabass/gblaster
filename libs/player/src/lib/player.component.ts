@@ -24,8 +24,9 @@ export class PlayerComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     setInterval(() => {
-      this.position =
-        this.playerService.currentSong && this.playerService.currentSong.howl.playing() ? Math.floor(this.playerService.currentSong.howl.seek() as number) : 0;
+      if (this.playerService.currentSong && this.playerService.currentSong.howl.playing()) {
+        this.position = Math.floor(this.playerService.currentSong.howl.seek() as number);
+      }
     }, 200);
   }
 

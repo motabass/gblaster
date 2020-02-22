@@ -7,10 +7,9 @@
     [mode]="(isHandset$ | async) ? 'over' : 'side'"
     [opened]="(isHandset$ | async) === false"
   >
-    <mat-toolbar></mat-toolbar>
+    <mat-toolbar>Navigation</mat-toolbar>
     <mat-nav-list>
       <a mat-list-item routerLink="/player">Medienbibliothek</a>
-      <a mat-list-item href="#">Link 2</a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content style="overflow-x: hidden;">

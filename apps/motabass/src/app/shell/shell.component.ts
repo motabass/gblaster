@@ -10,10 +10,12 @@ import { TitleService } from '../title.service';
   styleUrls: ['./shell.component.scss']
 })
 export class ShellComponent {
-  isHandset$: Observable<boolean> = this.breakpointObserver.observe([Breakpoints.XSmall, Breakpoints.Small, Breakpoints.Medium]).pipe(
-    map((result) => result.matches),
-    shareReplay()
-  );
+  isHandset$: Observable<boolean> = this.breakpointObserver
+    .observe([Breakpoints.XSmall, Breakpoints.Small, Breakpoints.Medium, Breakpoints.Large, Breakpoints.XLarge])
+    .pipe(
+      map((result) => result.matches),
+      shareReplay()
+    );
 
   constructor(private breakpointObserver: BreakpointObserver, private titleService: TitleService) {}
 
