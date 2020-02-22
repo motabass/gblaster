@@ -1,5 +1,5 @@
 export function formatSecondsAsClock(value: number, leadingMinuteZero = true): string {
-  if (value) {
+  if (value > 0) {
     const durationSeconds = value;
 
     const minutes = Math.floor(durationSeconds / 60);

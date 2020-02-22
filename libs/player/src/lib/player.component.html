@@ -12,19 +12,22 @@
 </mtb-metadata>
 
 <div fxLayout="row" fxLayoutAlign="start center" class="bar">
-  <button class="no-mobile" mat-icon-button color="accent" style="color: white;" (click)="next()">
-    <mat-icon>skip_next</mat-icon>
-  </button>
-  <button class="no-mobile" mat-icon-button color="accent" style="color: white;" (click)="previous()">
-    <mat-icon>skip_previous</mat-icon>
-  </button>
-  <button mat-icon-button color="accent" style="color: white;" (click)="stop()">
-    <mat-icon>stop</mat-icon>
-  </button>
   <button mat-icon-button [color]="playing ? 'accent' : 'white'" (click)="playPause()">
     <mat-icon *ngIf="playing">pause</mat-icon>
     <mat-icon *ngIf="!playing">play_arrow</mat-icon>
   </button>
+
+  <button mat-icon-button color="accent" style="color: white;" (click)="stop()">
+    <mat-icon>stop</mat-icon>
+  </button>
+
+  <button class="no-mobile" mat-icon-button color="accent" style="color: white;" (click)="previous()">
+    <mat-icon>skip_previous</mat-icon>
+  </button>
+  <button class="no-mobile" mat-icon-button color="accent" style="color: white;" (click)="next()">
+    <mat-icon>skip_next</mat-icon>
+  </button>
+
   <button mat-icon-button style="color: white;" (click)="loadFolder()">
     <mat-icon>folder_open</mat-icon>
   </button>
@@ -34,7 +37,7 @@
     fxFlex
     *ngIf="currentSong"
     [max]="durationSeconds"
-    min="0"
+    min="-1"
     tickInterval="60"
     thumbLabel
     color="accent"
