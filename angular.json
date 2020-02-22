@@ -124,35 +124,6 @@
         }
       }
     },
-    "media-library": {
-      "projectType": "library",
-      "root": "libs/media-library",
-      "sourceRoot": "libs/media-library/src",
-      "prefix": "motabass",
-      "architect": {
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": ["libs/media-library/tsconfig.lib.json", "libs/media-library/tsconfig.spec.json"],
-            "exclude": ["**/node_modules/**", "!libs/media-library/**"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/media-library/jest.config.js",
-            "tsConfig": "libs/media-library/tsconfig.spec.json",
-            "passWithNoTests": true,
-            "setupFile": "libs/media-library/src/test-setup.ts"
-          }
-        }
-      },
-      "schematics": {
-        "@nrwl/angular:component": {
-          "styleext": "scss"
-        }
-      }
-    },
     "ui-components-player": {
       "projectType": "library",
       "root": "libs/ui-components/player",

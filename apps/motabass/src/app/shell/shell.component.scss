@@ -15,3 +15,11 @@
   top: 0;
   z-index: 1;
 }
+
+.router-outlet {
+  width: 100%;
+  height: calc(100% - 64px);
+  @media (max-width: 599px) {
+    height: calc(100% - 56px);
+  }
+}

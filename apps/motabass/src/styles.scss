@@ -58,3 +58,9 @@ body {
 ::-webkit-scrollbar-corner {
   background: transparent;
 }
+
+@media (max-width: 599px) {
+  .no-mobile {
+    display: none !important;
+  }
+}

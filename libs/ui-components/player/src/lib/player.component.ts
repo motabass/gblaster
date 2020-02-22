@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { MediaObserver } from '@angular/flex-layout';
-import { SafeStyle } from '@angular/platform-browser';
 import { formatSecondsAsClock } from '@motabass/helpers/time';
+import { TitleService } from '../../../../../apps/motabass/src/app/title.service';
 import { PlayerService } from './player.service';
 import { Song } from './player.types';
 
@@ -16,9 +16,11 @@ export class PlayerComponent implements OnInit, AfterViewInit {
 
   position = 0;
 
-  constructor(public media: MediaObserver, private playerService: PlayerService) {}
+  constructor(public media: MediaObserver, private playerService: PlayerService, private titleService: TitleService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    setTimeout(() => this.titleService.setTitle('Mediaplayer'));
+  }
 
   ngAfterViewInit() {
     setInterval(() => {
@@ -42,6 +44,10 @@ export class PlayerComponent implements OnInit, AfterViewInit {
 
   get currentSong(): Song {
     return this.playerService.currentSong;
+  }
+
+  get analyser(): AnalyserNode {
+    return this.playerService.analyser;
   }
 
   playPause() {
@@ -78,9 +84,5 @@ export class PlayerComponent implements OnInit, AfterViewInit {
 
   loadFolder() {
     this.playerService.loadFolder();
-  }
-
-  get coverUrl(): SafeStyle {
-    return this.currentSong.metadata.coverUrl;
   }
 }

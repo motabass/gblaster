@@ -5,6 +5,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatSliderModule } from '@angular/material/slider';
+import { RouterModule } from '@angular/router';
 import { VisualsModule } from '@motabass/ui-components/visuals';
 import { PlayerComponent } from './player.component';
 import { PlaylistComponent } from './playlist/playlist.component';
@@ -12,8 +13,16 @@ import { TimePipe } from './time.pipe';
 import { MetadataComponent } from './metadata/metadata.component';
 
 @NgModule({
-  imports: [CommonModule, MatIconModule, MatListModule, MatButtonModule, MatSliderModule, FlexLayoutModule, VisualsModule],
-  declarations: [PlayerComponent, PlaylistComponent, TimePipe, MetadataComponent],
-  exports: [PlayerComponent, MetadataComponent]
+  imports: [
+    CommonModule,
+    RouterModule.forChild([{ path: '', pathMatch: 'full', component: PlayerComponent }]),
+    MatIconModule,
+    MatListModule,
+    MatButtonModule,
+    MatSliderModule,
+    FlexLayoutModule,
+    VisualsModule
+  ],
+  declarations: [PlayerComponent, PlaylistComponent, TimePipe, MetadataComponent]
 })
 export class PlayerModule {}

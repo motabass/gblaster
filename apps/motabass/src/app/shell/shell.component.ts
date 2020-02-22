@@ -2,6 +2,7 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
+import { TitleService } from '../title.service';
 
 @Component({
   selector: 'mtb-shell',
@@ -9,10 +10,14 @@ import { map, shareReplay } from 'rxjs/operators';
   styleUrls: ['./shell.component.scss']
 })
 export class ShellComponent {
-  isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
+  isHandset$: Observable<boolean> = this.breakpointObserver.observe([Breakpoints.XSmall, Breakpoints.Small, Breakpoints.Medium]).pipe(
     map((result) => result.matches),
     shareReplay()
   );
 
-  constructor(private breakpointObserver: BreakpointObserver) {}
+  constructor(private breakpointObserver: BreakpointObserver, private titleService: TitleService) {}
+
+  get title(): Observable<string> {
+    return this.titleService.title;
+  }
 }

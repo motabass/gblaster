@@ -1,61 +1,56 @@
-<div class="wrapper">
-  <mtb-playlist class="main" [songs]="songs"></mtb-playlist>
+<mtb-playlist class="playlist" [songs]="songs"></mtb-playlist>
 
-  <div fxLayout="column" fxLayoutAlign="start center" class="sidebar">
-    <button mat-icon-button color="accent" style="color: white;" (click)="next()">
-      <mat-icon>skip_next</mat-icon>
-    </button>
-    <button mat-icon-button color="accent" style="color: white;" (click)="previous()">
-      <mat-icon>skip_previous</mat-icon>
-    </button>
-    <button mat-icon-button color="accent" style="color: white;" (click)="stop()">
-      <mat-icon>stop</mat-icon>
-    </button>
-    <button mat-icon-button [color]="playing ? 'accent' : 'white'" (click)="playPause()">
-      <mat-icon *ngIf="playing">pause</mat-icon>
-      <mat-icon *ngIf="!playing">play_arrow</mat-icon>
-    </button>
-    <!--  <button mat-icon-button style="color: white;" (click)="loadFile()">-->
-    <!--    <mat-icon>loop</mat-icon>-->
-    <!--  </button>-->
-    <button mat-icon-button style="color: white;" (click)="loadFolder()">
-      <mat-icon>folder_open</mat-icon>
-    </button>
+<mtb-metadata [song]="currentSong" class="main">
+  <canvas
+    [mtbVisual]="analyser"
+    class="vis"
+    style="position: absolute; bottom: 0; width: 100%; height: 12rem;"
+    mainColor="red"
+    peakColor="yellow"
+    meterNum="60"
+  ></canvas>
+</mtb-metadata>
 
-    <div fxFlex></div>
-    <button mat-icon-button [color]="shuffle ? 'accent' : 'white'" (click)="toggleShuffle()">
-      <mat-icon>shuffle</mat-icon>
-    </button>
-    <button mat-icon-button [color]="repeat ? 'accent' : 'white'" (click)="toggleRepeat()">
-      <mat-icon>loop</mat-icon>
-    </button>
-    <div style="font-size: small; color: white; text-align: center; width: 100%; padding: 8px 0;">
-      <p>{{ durationSeconds | time }}</p>
-    </div>
+<div fxLayout="row" fxLayoutAlign="start center" class="bar">
+  <button class="no-mobile" mat-icon-button color="accent" style="color: white;" (click)="next()">
+    <mat-icon>skip_next</mat-icon>
+  </button>
+  <button class="no-mobile" mat-icon-button color="accent" style="color: white;" (click)="previous()">
+    <mat-icon>skip_previous</mat-icon>
+  </button>
+  <button mat-icon-button color="accent" style="color: white;" (click)="stop()">
+    <mat-icon>stop</mat-icon>
+  </button>
+  <button mat-icon-button [color]="playing ? 'accent' : 'white'" (click)="playPause()">
+    <mat-icon *ngIf="playing">pause</mat-icon>
+    <mat-icon *ngIf="!playing">play_arrow</mat-icon>
+  </button>
+  <button mat-icon-button style="color: white;" (click)="loadFolder()">
+    <mat-icon>folder_open</mat-icon>
+  </button>
+  <div fxFlex *ngIf="!currentSong"></div>
+
+  <mat-slider
+    fxFlex
+    *ngIf="currentSong"
+    [max]="durationSeconds"
+    min="0"
+    tickInterval="60"
+    thumbLabel
+    color="accent"
+    [displayWith]="formatLabel"
+    [value]="position"
+    (change)="setSeekPosition($event)"
+  ></mat-slider>
+
+  <div class="no-mobile" style="font-size: small; color: white; padding: 0 12px;">
+    <p>{{ position | time }} / {{ durationSeconds | time }}</p>
   </div>
 
-  <div class="footer" fxLayout="row" fxLayoutAlign="center center" *ngIf="currentSong">
-    <mat-slider
-      style="width: 98%;"
-      [max]="durationSeconds"
-      min="0"
-      tickInterval="60"
-      thumbLabel
-      color="accent"
-      [displayWith]="formatLabel"
-      [value]="position"
-      (change)="setSeekPosition($event)"
-    ></mat-slider>
-  </div>
+  <button mat-icon-button [color]="shuffle ? 'accent' : 'white'" (click)="toggleShuffle()">
+    <mat-icon>shuffle</mat-icon>
+  </button>
+  <button mat-icon-button [color]="repeat ? 'accent' : 'white'" (click)="toggleRepeat()">
+    <mat-icon>loop</mat-icon>
+  </button>
 </div>
-
-<div
-  *ngIf="currentSong && currentSong.metadata.coverSafeUrl"
-  style="position: absolute; top: 0; right: 0; bottom: 0; left: 0; z-index: 0; opacity: 0.5; filter: blur(1px)"
-  [ngStyle]="{
-    'background-image': 'url(' + coverUrl + ')',
-    'background-repeat': 'no-repeat',
-    'background-position': 'center center',
-    'background-size': 'cover'
-  }"
-></div>

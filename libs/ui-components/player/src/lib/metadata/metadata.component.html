@@ -1,3 +1,14 @@
-<div style="height: 100%; overflow: auto;">
+<div style="position: absolute; top: 0; right:0; bottom: 0; left: 0;z-index: 5; overflow-x: auto;">
   <pre><small>{{song?.metadata | json}}</small></pre>
 </div>
+<div
+  *ngIf="song && song.metadata.coverSafeUrl"
+  style="position: absolute; top: 0; right: 0; bottom: 0; left: 0; z-index: -1; opacity: 0.5; filter: blur(1px);"
+  [ngStyle]="{
+    'background-image': 'url(' + coverUrl + ')',
+    'background-repeat': 'no-repeat',
+    'background-position': 'left top',
+    'background-size': 'cover'
+  }"
+></div>
+<ng-content></ng-content>
