@@ -18,7 +18,7 @@
       "tags": [],
       "implicitDependencies": ["motabass"]
     },
-    "ui-components-player": {
+    "player": {
       "tags": []
     },
     "ui-components-visuals": {

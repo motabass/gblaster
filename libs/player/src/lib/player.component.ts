@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { MediaObserver } from '@angular/flex-layout';
 import { formatSecondsAsClock } from '@motabass/helpers/time';
-import { TitleService } from '../../../../../apps/motabass/src/app/title.service';
+import { TitleService } from '../../../../apps/motabass/src/app/title.service';
 import { PlayerService } from './player.service';
 import { Song } from './player.types';
 

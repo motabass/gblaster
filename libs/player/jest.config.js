@@ -1,7 +1,7 @@
 module.exports = {
-  name: 'ui-components-player',
-  preset: '../../../jest.config.js',
-  coverageDirectory: '../../../coverage/libs/ui-components/player',
+  name: 'player',
+  preset: '../../jest.config.js',
+  coverageDirectory: '../../coverage/libs/player',
   snapshotSerializers: [
     'jest-preset-angular/build/AngularNoNgAttributesSnapshotSerializer.js',
     'jest-preset-angular/build/AngularSnapshotSerializer.js',

@@ -22,7 +22,7 @@ import { environment } from '../environments/environment';
     RouterModule.forRoot(
       [
         { path: '', redirectTo: 'blog', pathMatch: 'full' },
-        { path: 'player', loadChildren: () => import('@motabass/ui-components/player').then((m) => m.PlayerModule) },
+        { path: 'player', loadChildren: () => import('@motabass/player').then((m) => m.PlayerModule) },
         { path: '**', redirectTo: '' }
       ],
       { initialNavigation: 'enabled' }
