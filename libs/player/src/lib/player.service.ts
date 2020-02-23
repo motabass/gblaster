@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { HowlerService } from './howler.service';
 import { MetadataService } from './metadata.service';
 import { NativeFileLoaderService } from './native-file-loader.service';
 import { Song, SongMetadata } from './player.types';
@@ -8,6 +7,11 @@ import { Song, SongMetadata } from './player.types';
   providedIn: 'root'
 })
 export class PlayerService {
+  private audioCtx: AudioContext;
+  private gainNode: GainNode;
+  private analyserNode: AnalyserNode;
+  private audioSrcNode: MediaElementAudioSourceNode;
+
   get songs(): Song[] {
     return this._songs;
   }
@@ -15,16 +19,16 @@ export class PlayerService {
   set songs(songs: Song[]) {
     this._songs = songs;
 
-    const firstSong = songs[0];
-
-    this.howlerService.triggerLoad(firstSong);
-    this.currentSong = firstSong;
+    this.currentSong = songs[0];
   }
   private _songs: Song[] = [];
 
   currentSong: Song;
 
-  constructor(private howlerService: HowlerService, private fileLoaderService: NativeFileLoaderService, private metadataService: MetadataService) {
+  audioElement: HTMLAudioElement;
+
+  constructor(private fileLoaderService: NativeFileLoaderService, private metadataService: MetadataService) {
+    this.initialzeAudioNodes();
     if ('mediaSession' in navigator) {
       // @ts-ignore
       navigator.mediaSession.setActionHandler('play', this.playPause.bind(this));
@@ -35,6 +39,29 @@ export class PlayerService {
       // @ts-ignore
       navigator.mediaSession.setActionHandler('previoustrack', this.previous.bind(this));
     }
+  }
+
+  initialzeAudioNodes() {
+    const audio = new Audio();
+    audio.loop = false;
+    audio.autoplay = false;
+    audio.controls = false;
+    audio.preload = 'metadata';
+
+    this.audioCtx = new AudioContext();
+
+    const analyser = this.audioCtx.createAnalyser();
+    const gainNode = this.audioCtx.createGain();
+
+    gainNode.gain.value = 1;
+
+    analyser.connect(gainNode);
+    gainNode.connect(this.audioCtx.destination);
+
+    this.analyserNode = analyser;
+    this.gainNode = gainNode;
+    this.audioElement = audio;
+    this.audioSrcNode = this.audioCtx.createMediaElementSource(this.audioElement);
   }
 
   async loadFolder() {
@@ -53,47 +80,75 @@ export class PlayerService {
   private async createSongFromFileHandle(fileHandle: any): Promise<Song> {
     const file = await fileHandle.getFile();
     const metadata: SongMetadata = await this.metadataService.extractMetadata(file);
-
+    const url = URL.createObjectURL(file);
     return {
-      howl: this.howlerService.createHowlFromFile(file),
+      // howl: this.howlerService.createHowlFromFile(file),
+      url: url,
       fileHandle: fileHandle,
       metadata: metadata
     };
   }
 
+  set volume(value: number) {
+    this.gainNode.gain.value = value;
+  }
+
+  get volume() {
+    return this.gainNode.gain.value;
+  }
+
   get analyser(): AnalyserNode {
-    return this.howlerService.getAnalyzer();
+    return this.analyserNode;
   }
 
   setSeekPosition(sliderValue) {
-    this.currentSong.howl.seek(sliderValue);
+    // this.currentSong.howl.seek(sliderValue);
+    this.audioElement.currentTime = sliderValue;
   }
 
   get durationSeconds(): number {
-    return this.currentSong ? Math.round(this.currentSong.howl.duration()) : 0;
+    // return this.currentSong ? Math.round(this.currentSong.howl.duration()) : 0;
+    return this.currentSong ? Math.round(this.audioElement.duration) : 0;
   }
 
-  playSong(song: Song) {
-    if (this.currentSong && song.howl === this.currentSong.howl) {
-      this.howlerService.playSong(song);
+  get currentTime(): number {
+    if (!this.currentSong) {
+      return 0;
+    }
+    const pos = this.audioElement.currentTime;
+    if (pos !== null && pos !== undefined) {
+      return Math.floor(pos);
+    } else {
+      return 0;
+    }
+  }
+
+  async playSong(song: Song): Promise<void> {
+    if (this.currentSong && song === this.currentSong) {
+      this.playPause();
       return;
     }
 
-    if (this.playing) {
-      this.currentSong.howl.stop();
-    }
+    this.stop();
+
+    this.audioElement.src = song.url;
     this.currentSong = song;
-    this.howlerService.playSong(song);
+
+    this.setBrowserMetadata(song.metadata);
+
+    this.audioSrcNode.connect(this.analyserNode);
+
+    return this.audioElement.play();
   }
 
   playPause() {
     if (!this.currentSong) {
       return;
     }
-    if (!this.currentSong.howl.playing()) {
-      this.howlerService.playSong(this.currentSong);
+    if (this.audioElement.paused) {
+      this.audioElement.play();
     } else {
-      this.currentSong.howl.pause();
+      this.audioElement.pause();
     }
   }
 
@@ -102,7 +157,10 @@ export class PlayerService {
       return;
     }
     if (this.playing) {
-      this.currentSong.howl.stop();
+      this.audioElement.pause();
+      this.audioElement.currentTime = 0;
+    } else {
+      this.audioElement.currentTime = 0;
     }
   }
 
@@ -111,7 +169,7 @@ export class PlayerService {
       return;
     }
     const currPo = this.currentSong.playlistPosition;
-    if (currPo < this._songs.length && this.currentSong.howl.playing()) {
+    if (currPo < this._songs.length && this.playing) {
       this.playSong(this._songs[currPo]);
     }
   }
@@ -121,12 +179,41 @@ export class PlayerService {
       return;
     }
     const currPo = this.currentSong.playlistPosition;
-    if (currPo > 1 && this.currentSong.howl.playing()) {
+    if (currPo > 1 && this.playing) {
       this.playSong(this._songs[currPo - 2]);
     }
   }
 
   get playing(): boolean {
-    return this.currentSong && this.currentSong.howl.playing();
+    return this.currentSong && !this.audioElement.paused;
+  }
+
+  // startPositionReporter(song: Song) {
+  //   if ('mediaSession' in navigator) {
+  //     const positionInterval = setInterval(() => {
+  //       if (song.howl.playing()) {
+  //         // @ts-ignore
+  //         navigator.mediaSession.setPositionState({
+  //           duration: song.howl.duration(),
+  //           playbackRate: 1,
+  //           position: song.howl.seek() as number
+  //         });
+  //       } else {
+  //         window.clearInterval(positionInterval);
+  //       }
+  //     }, 1000);
+  //   }
+  // }
+
+  setBrowserMetadata(metadata: SongMetadata) {
+    if ('mediaSession' in navigator) {
+      // @ts-ignore
+      navigator.mediaSession.metadata = new MediaMetadata({
+        title: metadata.title,
+        artist: metadata.artist,
+        album: metadata.album,
+        artwork: [{ src: metadata.coverUrl, sizes: '512x512' }]
+      });
+    }
   }
 }

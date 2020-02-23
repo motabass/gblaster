@@ -4,6 +4,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
+import { MatMenuModule } from '@angular/material/menu';
 import { MatSliderModule } from '@angular/material/slider';
 import { RouterModule } from '@angular/router';
 import { VisualsModule } from '@motabass/ui-components/visuals';
@@ -21,7 +22,8 @@ import { MetadataComponent } from './metadata/metadata.component';
     MatButtonModule,
     MatSliderModule,
     FlexLayoutModule,
-    VisualsModule
+    VisualsModule,
+    MatMenuModule
   ],
   declarations: [PlayerComponent, PlaylistComponent, TimePipe, MetadataComponent]
 })

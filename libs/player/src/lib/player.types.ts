@@ -1,7 +1,7 @@
 import { SafeUrl } from '@angular/platform-browser';
 
 export interface Song {
-  howl: Howl;
+  url: string;
   fileHandle: unknown;
   type?: string;
   metadata: SongMetadata;

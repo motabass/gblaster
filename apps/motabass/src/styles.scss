@@ -64,3 +64,9 @@ body {
     display: none !important;
   }
 }
+
+// TODO: sollte component style sein
+.volume-menu {
+  min-width: unset !important;
+  background-color: black;
+}

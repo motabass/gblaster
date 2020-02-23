@@ -1,6 +1,6 @@
 <mat-action-list dense style="padding: 0.5rem 0; height: 100%; box-sizing: border-box; overflow-y: auto;">
   <mat-list-item *ngFor="let song of _songs; let index = index" [ngClass]="{ active: isActive(song) }" (click)="playSong($event, song)">
-    <img *ngIf="!isPlaying(song)" style="border-radius: 3px;" mat-list-avatar [src]="song.metadata.coverSafeUrl" />
+    <img *ngIf="!isPlaying(song)" style="border-radius: 3px;" mat-list-avatar [src]="song.metadata.coverSafeUrl" alt="cover art" />
     <canvas
       *ngIf="isPlaying(song)"
       mat-list-avatar
@@ -10,12 +10,11 @@
       [meterNum]="8"
       [capHeight]="0"
     ></canvas>
-    <h3 matLine style="font-size: 1.2em;font-weight: bold;">{{ song.metadata.title }}</h3>
-    <p matLine>{{ song.metadata.artist }}</p>
+    <h3 matLine style="font-size: 0.9rem;font-weight: bold;">{{ song.metadata.title }}</h3>
+    <p matLine style="font-size: 0.8rem;">{{ song.metadata.artist }}</p>
 
     <button mat-icon-button>
-      <mat-icon *ngIf="isPlaying(song)" (click)="pauseSong($event)">pause</mat-icon>
-      <mat-icon *ngIf="!isPlaying(song)" (click)="playSong($event, song)">play_arrow</mat-icon>
+      <mat-icon *ngIf="isPlaying(song)" (click)="playSong($event, song)">play_arrow</mat-icon>
     </button>
   </mat-list-item>
 </mat-action-list>

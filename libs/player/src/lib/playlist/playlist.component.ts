@@ -1,5 +1,4 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
 import { PlayerService } from '../player.service';
 import { Song } from '../player.types';
 
@@ -9,7 +8,7 @@ import { Song } from '../player.types';
   styleUrls: ['./playlist.component.scss']
 })
 export class PlaylistComponent implements OnInit {
-  constructor(private playerService: PlayerService, private domSanitizer: DomSanitizer) {}
+  constructor(private playerService: PlayerService) {}
 
   @Input()
   set songs(songs: Song[]) {
@@ -25,11 +24,11 @@ export class PlaylistComponent implements OnInit {
   ngOnInit(): void {}
 
   isPlaying(song: Song): boolean {
-    return song.howl.playing();
+    return this.isActive(song) && !this.playerService.audioElement.paused;
   }
 
   isActive(song: Song) {
-    return this.playerService.currentSong === song;
+    return this.currentSong === song;
   }
 
   get currentSong(): Song {

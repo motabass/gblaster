@@ -1,4 +1,4 @@
-<mtb-playlist class="playlist" [songs]="songs"></mtb-playlist>
+<mtb-playlist class="playlist mat-elevation-z8" [songs]="songs"></mtb-playlist>
 
 <mtb-metadata [song]="currentSong" class="main">
   <canvas
@@ -50,6 +50,9 @@
     <p>{{ position | time }} / {{ durationSeconds | time }}</p>
   </div>
 
+  <button mat-icon-button color="white" [matMenuTriggerFor]="volumeMenu">
+    <mat-icon [svgIcon]="volumeIcon"></mat-icon>
+  </button>
   <button mat-icon-button [color]="shuffle ? 'accent' : 'white'" (click)="toggleShuffle()">
     <mat-icon>shuffle</mat-icon>
   </button>
@@ -57,3 +60,7 @@
     <mat-icon>loop</mat-icon>
   </button>
 </div>
+
+<mat-menu #volumeMenu="matMenu" yPosition="above" [class]="'volume-menu'">
+  <mat-slider vertical [value]="volume" (input)="onVolumeChange($event)" min="0" max="1" step="0.01"></mat-slider>
+</mat-menu>

@@ -1,7 +1,8 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { MediaObserver } from '@angular/flex-layout';
-import { formatSecondsAsClock } from '@motabass/helpers/time';
-import { TitleService } from '../../../../apps/motabass/src/app/title.service';
+import { MatSliderChange } from '@angular/material/slider';
+import { formatSecondsAsClock } from '@motabass/helpers/time'; // TODO: make helper publishable
+import { TitleService } from '../../../../apps/motabass/src/app/title.service'; // TODO: extract Title Service to lib
 import { PlayerService } from './player.service';
 import { Song } from './player.types';
 
@@ -24,13 +25,8 @@ export class PlayerComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     setInterval(() => {
-      if (this.playerService.currentSong && this.playerService.currentSong.howl.playing()) {
-        const pos = this.playerService.currentSong.howl.seek() as number;
-        if (pos !== null && pos !== undefined) {
-          this.position = Math.floor(pos);
-        }
-      }
-    }, 200);
+      this.position = this.playerService.currentTime;
+    }, 250);
   }
 
   setSeekPosition(event) {
@@ -57,6 +53,18 @@ export class PlayerComponent implements OnInit, AfterViewInit {
     return this.playerService.analyser;
   }
 
+  get volume(): number {
+    return this.playerService.volume;
+  }
+
+  set volume(value: number) {
+    this.playerService.volume = value;
+  }
+
+  onVolumeChange(event: MatSliderChange) {
+    this.volume = event.value;
+  }
+
   playPause() {
     this.playerService.playPause();
   }
@@ -71,6 +79,21 @@ export class PlayerComponent implements OnInit, AfterViewInit {
 
   previous() {
     this.playerService.previous();
+  }
+
+  get volumeIcon(): string {
+    const vol = this.volume;
+    if (vol === 0) {
+      return 'volume-variant-off';
+    }
+    if (vol > 0 && vol < 0.2) {
+      return 'volume-low';
+    }
+    if (vol >= 0.2 && vol < 0.8) {
+      return 'volume-medium';
+    }
+
+    return 'volume-high';
   }
 
   get playing(): boolean {
