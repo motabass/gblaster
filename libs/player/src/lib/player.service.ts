@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { LocalStorageService } from 'ngx-webstorage';
 import { MetadataService } from './metadata.service';
 import { NativeFileLoaderService } from './native-file-loader.service';
 import { Song, SongMetadata } from './player.types';
@@ -25,8 +26,11 @@ export class PlayerService {
 
   audioElement: HTMLAudioElement;
 
-  constructor(private fileLoaderService: NativeFileLoaderService, private metadataService: MetadataService) {
+  constructor(private fileLoaderService: NativeFileLoaderService, private metadataService: MetadataService, private storageService: LocalStorageService) {
     this.initialzeAudioNodes();
+
+    this.gainNode.gain.value = storageService.retrieve('volume');
+
     if ('mediaSession' in navigator) {
       // @ts-ignore
       navigator.mediaSession.setActionHandler('play', this.playPause.bind(this));
@@ -50,8 +54,6 @@ export class PlayerService {
 
     const analyser = this.audioCtx.createAnalyser();
     const gainNode = this.audioCtx.createGain();
-
-    gainNode.gain.value = 0.7;
 
     analyser.connect(gainNode);
     gainNode.connect(this.audioCtx.destination);
@@ -88,6 +90,7 @@ export class PlayerService {
   }
 
   set volume(value: number) {
+    this.storageService.store('volume', value);
     this.gainNode.gain.value = value;
   }
 

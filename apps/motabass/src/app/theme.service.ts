@@ -3,35 +3,28 @@ import { LocalStorage } from 'ngx-webstorage';
 import tinycolor from 'tinycolor2';
 import { Color } from './theme.types';
 
-const DEFAULT_PRIMARY_COLOR = '#eb4818';
-const DEFAULT_ACCENT_COLOR = '#abd222';
-
 @Injectable({
   providedIn: 'root'
 })
 export class ThemeService {
-  @LocalStorage()
+  @LocalStorage('primaryColor', '#eb4818')
   primaryColor;
-  @LocalStorage()
+  @LocalStorage('accentColor', '#abd222')
   accentColor;
 
-  @LocalStorage('darkMode')
+  @LocalStorage('darkMode', false)
   _darkMode;
 
   primaryColorPalette: Color[] = [];
   accentColorPalette: Color[] = [];
 
   initializeTheme() {
-    let autoDarkMode = false;
-
     if (window.matchMedia('prefers-color-scheme: dark').matches) {
-      autoDarkMode = true;
+      this._darkMode = true;
     }
-
-    this._darkMode = this._darkMode || autoDarkMode;
     this.setOverlayClass();
-    this.setPrimaryColor(this.primaryColor || DEFAULT_PRIMARY_COLOR);
-    this.setAccentColor(this.accentColor || DEFAULT_ACCENT_COLOR);
+    this.setPrimaryColor(this.primaryColor);
+    this.setAccentColor(this.accentColor);
   }
 
   get darkMode(): boolean {
