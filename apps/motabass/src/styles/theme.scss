@@ -1,0 +1,93 @@
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@import 'node_modules/@angular/material/theming';
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat-core();
+
+// Palettes
+$dynamic-primary-palette: (
+  50: var(--theme-primary-50),
+  100: var(--theme-primary-100),
+  200: var(--theme-primary-200),
+  300: var(--theme-primary-300),
+  400: var(--theme-primary-400),
+  500: var(--theme-primary-500),
+  600: var(--theme-primary-600),
+  700: var(--theme-primary-700),
+  800: var(--theme-primary-800),
+  900: var(--theme-primary-900),
+  A100: var(--theme-primary-A100),
+  A200: var(--theme-primary-A200),
+  A400: var(--theme-primary-A400),
+  A700: var(--theme-primary-A700),
+  contrast: (
+    50: var(--theme-primary-contrast-50),
+    100: var(--theme-primary-contrast-100),
+    200: var(--theme-primary-contrast-200),
+    300: var(--theme-primary-contrast-300),
+    400: var(--theme-primary-contrast-400),
+    500: var(--theme-primary-contrast-500),
+    600: var(--theme-primary-contrast-600),
+    700: var(--theme-primary-contrast-700),
+    800: var(--theme-primary-contrast-800),
+    900: var(--theme-primary-contrast-900),
+    A100: var(--theme-primary-contrast-A100),
+    A200: var(--theme-primary-contrast-A200),
+    A400: var(--theme-primary-contrast-A400),
+    A700: var(--theme-primary-contrast-A700)
+  )
+);
+
+$dynamic-accent-palette: (
+  50: var(--theme-accent-50),
+  100: var(--theme-accent-100),
+  200: var(--theme-accent-200),
+  300: var(--theme-accent-300),
+  400: var(--theme-accent-400),
+  500: var(--theme-accent-500),
+  600: var(--theme-accent-600),
+  700: var(--theme-accent-700),
+  800: var(--theme-accent-800),
+  900: var(--theme-accent-900),
+  A100: var(--theme-accent-A100),
+  A200: var(--theme-accent-A200),
+  A400: var(--theme-accent-A400),
+  A700: var(--theme-accent-A700),
+  contrast: (
+    50: var(--theme-accent-contrast-50),
+    100: var(--theme-accent-contrast-100),
+    200: var(--theme-accent-contrast-200),
+    300: var(--theme-accent-contrast-300),
+    400: var(--theme-accent-contrast-400),
+    500: var(--theme-accent-contrast-500),
+    600: var(--theme-accent-contrast-600),
+    700: var(--theme-accent-contrast-700),
+    800: var(--theme-accent-contrast-800),
+    900: var(--theme-accent-contrast-900),
+    A100: var(--theme-accent-contrast-A100),
+    A200: var(--theme-accent-contrast-A200),
+    A400: var(--theme-accent-contrast-A400),
+    A700: var(--theme-accent-contrast-A700)
+  )
+);
+
+// Define Themes
+$dynamic-primary: mat-palette($dynamic-primary-palette);
+$dynamic-accent: mat-palette($dynamic-accent-palette);
+$warn: mat-palette($mat-red);
+
+$dynamic-light-theme: mat-light-theme($dynamic-primary, $dynamic-accent, $warn);
+$dynamic-dark-theme: mat-dark-theme($dynamic-primary, $dynamic-accent, $warn);
+// Include all theme styles for the components.
+
+.light-theme {
+  @include angular-material-theme($dynamic-light-theme);
+}
+
+.dark-theme {
+  @include angular-material-theme($dynamic-dark-theme);
+}

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
+import { ThemeService } from './theme.service';
 import { UpdateService } from './update.service';
 
 @Component({
@@ -9,8 +10,10 @@ import { UpdateService } from './update.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  constructor(updateService: UpdateService, iconRegistry: MatIconRegistry, sanitizer: DomSanitizer) {
+  constructor(updateService: UpdateService, iconRegistry: MatIconRegistry, sanitizer: DomSanitizer, themeService: ThemeService) {
     updateService.init();
+
+    themeService.initializeTheme();
 
     iconRegistry.addSvgIcon('volume-high', sanitizer.bypassSecurityTrustResourceUrl('assets/volume-high.svg'));
     iconRegistry.addSvgIcon('volume-medium', sanitizer.bypassSecurityTrustResourceUrl('assets/volume-medium.svg'));

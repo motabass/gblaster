@@ -12397,6 +12397,23 @@ ng-packagr@^9.0.1:
     terser "^4.3.8"
     update-notifier "^4.0.0"
 
+ngx-date-fns@6.0.0:
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/ngx-date-fns/-/ngx-date-fns-6.0.0.tgz#997d0a56b83285adc46c0c9f06b241c5ad2eade1"
+  integrity sha512-mHqE/oiSvkWmjZTQIU67J7rQiRH5Q/ky6nEXkhEEgpJE2s30erer4+IrI1YSuXCtrgDwIc5f7jOWRTe3E8le/w==
+  dependencies:
+    tslib "^1.9.0"
+
+ngx-pipes@2.7.3:
+  version "2.7.3"
+  resolved "https://registry.yarnpkg.com/ngx-pipes/-/ngx-pipes-2.7.3.tgz#b161b1e08263886ad4706a1b34b073ab28aeebf4"
+  integrity sha512-aOjOSxvIhmRjdwjZOy9tGujrz45nKEsJHDBtCjOoLuvmFxOagKXDNFNCpMJEE7wPPj65TuSMQpsOlk1lcr9vQQ==
+
+ngx-webstorage@5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/ngx-webstorage/-/ngx-webstorage-5.0.0.tgz#e27d9673c2452ca000ff509cd5a8397924c5b433"
+  integrity sha512-m96dBjUgLCpaknLRKfsJMEik393xrSX0EwO3paNSkS5d+xj2/cAendE3NwJeKY/W1D9EkKAhCvSUDX9/bAwCUg==
+
 nice-try@^1.0.4:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/nice-try/-/nice-try-1.0.5.tgz#a3378a7696ce7d223e88fc9b764bd7ef1089e366"

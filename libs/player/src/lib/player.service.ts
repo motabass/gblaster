@@ -18,8 +18,6 @@ export class PlayerService {
 
   set songs(songs: Song[]) {
     this._songs = songs;
-
-    this.currentSong = songs[0];
   }
   private _songs: Song[] = [];
 
@@ -53,7 +51,7 @@ export class PlayerService {
     const analyser = this.audioCtx.createAnalyser();
     const gainNode = this.audioCtx.createGain();
 
-    gainNode.gain.value = 1;
+    gainNode.gain.value = 0.7;
 
     analyser.connect(gainNode);
     gainNode.connect(this.audioCtx.destination);
@@ -123,7 +121,7 @@ export class PlayerService {
     }
   }
 
-  async playSong(song: Song): Promise<void> {
+  async playPauseSong(song: Song): Promise<void> {
     if (this.currentSong && song === this.currentSong) {
       this.playPause();
       return;
@@ -170,7 +168,7 @@ export class PlayerService {
     }
     const currPo = this.currentSong.playlistPosition;
     if (currPo < this._songs.length && this.playing) {
-      this.playSong(this._songs[currPo]);
+      this.playPauseSong(this._songs[currPo]);
     }
   }
 
@@ -180,7 +178,7 @@ export class PlayerService {
     }
     const currPo = this.currentSong.playlistPosition;
     if (currPo > 1 && this.playing) {
-      this.playSong(this._songs[currPo - 2]);
+      this.playPauseSong(this._songs[currPo - 2]);
     }
   }
 

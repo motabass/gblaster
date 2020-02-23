@@ -1,8 +1,10 @@
+@import 'apps/motabass/src/styles/variables';
+
 :host {
   position: relative;
 }
 
 .active {
-  border-left: solid 4px black;
+  border-left: solid 4px $accent-color;
   box-sizing: border-box;
 }

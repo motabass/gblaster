@@ -6,6 +6,9 @@ import { TitleService } from '../../../../apps/motabass/src/app/title.service'; 
 import { PlayerService } from './player.service';
 import { Song } from './player.types';
 
+// TODO: playlist handling abdichten
+// TODO: ALLE Setting im local storage
+
 @Component({
   selector: 'mtb-player',
   templateUrl: './player.component.html',
@@ -100,8 +103,15 @@ export class PlayerComponent implements OnInit, AfterViewInit {
     return this.playerService.playing;
   }
 
+  // TODO: move to service
   toggleRepeat() {
-    this.repeat = !this.repeat;
+    if (!this.repeat) {
+      this.playerService.audioElement.loop = true;
+      this.repeat = true;
+    } else {
+      this.playerService.audioElement.loop = false;
+      this.repeat = false;
+    }
   }
 
   toggleShuffle() {

@@ -1,0 +1,18 @@
+<mat-card>
+  <mat-card-title>Farbeinstellungen</mat-card-title>
+  <mat-card-content>
+    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="16px" style="min-height: 48px;">
+      <label>
+        Primärfarbe:
+        <input type="color" (change)="setPrimaryColor($event)" [value]="themeService.primaryColor" />
+      </label>
+      <label>
+        Akzentfarbe:
+        <input type="color" (change)="setAccentColor($event)" [value]="themeService.accentColor" />
+      </label>
+      <mat-checkbox labelPosition="before" [checked]="themeService.darkMode" (change)="changeDarkMode($event)">
+        Dunkles Theme
+      </mat-checkbox>
+    </div>
+  </mat-card-content>
+</mat-card>

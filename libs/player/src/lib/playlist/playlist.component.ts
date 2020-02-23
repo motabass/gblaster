@@ -39,13 +39,8 @@ export class PlaylistComponent implements OnInit {
     return this.playerService.analyser;
   }
 
-  playSong(event: Event, song: Song) {
+  playPauseSong(event: Event, song: Song) {
     event.stopPropagation();
-    this.playerService.playSong(song);
-  }
-
-  pauseSong(event: Event) {
-    event.stopPropagation();
-    this.playerService.playPause();
+    this.playerService.playPauseSong(song);
   }
 }
