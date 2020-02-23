@@ -1,9 +1,8 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { MediaObserver } from '@angular/flex-layout';
 import { MatSliderChange } from '@angular/material/slider';
+import { TitleService } from '@motabass/helper-services/title';
 import { formatSecondsAsClock } from '@motabass/helpers/time';
-import { LocalStorage } from 'ngx-webstorage'; // TODO: make helper publishable
-import { TitleService } from '../../../../apps/motabass/src/app/title.service'; // TODO: extract Title Service to lib
 import { PlayerService } from './player.service';
 import { Song } from './player.types';
 
@@ -13,11 +12,6 @@ import { Song } from './player.types';
   styleUrls: ['./player.component.scss']
 })
 export class PlayerComponent implements OnInit, AfterViewInit {
-  @LocalStorage('repeat', false)
-  repeat;
-  @LocalStorage('shuffle', false)
-  shuffle;
-
   position = 0;
 
   constructor(public media: MediaObserver, private playerService: PlayerService, private titleService: TitleService) {}
@@ -48,12 +42,12 @@ export class PlayerComponent implements OnInit, AfterViewInit {
     return this.playerService.songs;
   }
 
-  get currentSong(): Song {
-    return this.playerService.currentSong;
+  get playingSong(): Song {
+    return this.playerService.playingSong;
   }
 
-  get analyser(): AnalyserNode {
-    return this.playerService.analyser;
+  get selectedSong(): Song {
+    return this.playerService.selectedSong;
   }
 
   get volume(): number {
@@ -103,19 +97,20 @@ export class PlayerComponent implements OnInit, AfterViewInit {
     return this.playerService.playing;
   }
 
-  // TODO: move to service
+  get shuffle(): boolean {
+    return this.playerService.shuffle;
+  }
+
+  get repeat(): boolean {
+    return this.playerService.repeat;
+  }
+
   toggleRepeat() {
-    if (!this.repeat) {
-      this.playerService.audioElement.loop = true;
-      this.repeat = true;
-    } else {
-      this.playerService.audioElement.loop = false;
-      this.repeat = false;
-    }
+    this.playerService.toggleRepeat();
   }
 
   toggleShuffle() {
-    this.shuffle = !this.shuffle;
+    this.playerService.toggleShuffle();
   }
 
   formatLabel(value: number): string {

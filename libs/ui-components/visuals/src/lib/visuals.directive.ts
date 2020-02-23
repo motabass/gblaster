@@ -1,31 +1,36 @@
-import { Directive, ElementRef, Input, OnDestroy, OnInit } from '@angular/core';
+import { Directive, ElementRef, Input, OnChanges, OnDestroy, SimpleChanges } from '@angular/core';
+import { VisualizerMode } from './visuals.types';
 
 @Directive({
   selector: '[mtbVisual]'
 })
-export class VisualsDirective implements OnDestroy, OnInit {
+export class VisualsDirective implements OnDestroy, OnChanges {
   idle = true;
 
   @Input('mtbVisual')
   analyser: AnalyserNode;
 
   @Input()
-  meterNum = 64;
+  mode: VisualizerMode = 'bars';
 
+  @Input()
+  barCount = 64;
   @Input()
   capHeight = 2;
-
-  @Input()
-  dimmFactor = 26;
-
   @Input()
   gap = 0;
-
   @Input()
   mainColor = '#000';
-
   @Input()
   peakColor = '#f00';
+  @Input()
+  fftSize = 2048;
+  @Input()
+  smoothingTimeConstant = 0.5;
+  @Input()
+  minDecibels = -90;
+  @Input()
+  maxDecibels = 0;
 
   canvasCtx: ImageBitmapRenderingContext;
 
@@ -50,52 +55,64 @@ export class VisualsDirective implements OnDestroy, OnInit {
     // this.worker = worker;
   }
 
-  ngOnInit() {
-    this.visualize();
+  ngOnChanges(changes: SimpleChanges) {
+    console.log(changes);
+    this.setAnalyserOptions();
+    this.stopVisualizer();
+    switch (this.mode) {
+      case 'osc':
+        this.visualizeOscilloscope();
+        break;
+      case 'bars':
+        this.visualizeFrequencyBars();
+        break;
+    }
   }
 
-  visualize() {
+  setAnalyserOptions() {
     const analyser = this.analyser;
 
-    analyser.fftSize = 2048;
-    analyser.minDecibels = -90;
-    analyser.maxDecibels = 0;
-    analyser.smoothingTimeConstant = 0.5;
+    analyser.fftSize = this.fftSize;
+    analyser.minDecibels = this.minDecibels;
+    analyser.maxDecibels = this.maxDecibels;
+    analyser.smoothingTimeConstant = this.smoothingTimeConstant;
+  }
 
-    const meterNum = this.meterNum;
-    const dimmFactor = this.dimmFactor;
+  visualizeFrequencyBars() {
+    const analyser = this.analyser;
+
+    const meterNum = this.barCount;
     const gap = this.gap; // gap between meters
     const capHeight = this.capHeight; // cap thickness
     const capStyle = this.mainColor;
 
-    const upperCutoff = 700;
+    const upperCutoff = this.fftSize / 4;
 
     const canvasCtx = this.canvasCtx;
 
-    const analyserData = new Uint8Array(analyser.frequencyBinCount - upperCutoff);
+    const bufferLength = analyser.frequencyBinCount - upperCutoff;
+    const analyserData = new Uint8Array(bufferLength);
 
     const offscreenCanvas = new OffscreenCanvas(canvasCtx.canvas.width, canvasCtx.canvas.height);
     const offscreenCanvasCtx = offscreenCanvas.getContext('2d');
 
-    const cwidth = offscreenCanvas.width;
-    const cheight = offscreenCanvas.height;
-    const barWidth = cwidth / meterNum - gap;
+    const canvasWidth = offscreenCanvas.width;
+    const canvasHeight = offscreenCanvas.height;
+    const barWidth = canvasWidth / meterNum - gap;
 
-    const step = analyserData.length / meterNum; // sample limited data from the total array
+    const step = bufferLength / meterNum; // sample limited data from the total array
     const steps: number[] = [];
-    const dimValues: number[] = [];
     let stepCorrection = 0;
-    let dimCorrection = 2.5;
 
     for (let m = 0; m < meterNum; m++) {
       const arrayPos = Math.round(step * m * stepCorrection);
       steps.push(arrayPos);
-      dimValues.push(dimmFactor * dimCorrection);
       stepCorrection += 1 / meterNum;
-      dimCorrection -= 1.5 / meterNum;
     }
 
     const draw = () => {
+      this.animationFrameRef = requestAnimationFrame(draw);
+
       analyser.getByteFrequencyData(analyserData);
 
       let hasData: boolean;
@@ -108,17 +125,17 @@ export class VisualsDirective implements OnDestroy, OnInit {
 
       if (hasData) {
         this.idle = false;
-        offscreenCanvasCtx.clearRect(0, 0, cwidth, cheight);
+        offscreenCanvasCtx.clearRect(0, 0, canvasWidth, canvasHeight);
         const gradient = offscreenCanvasCtx.createLinearGradient(0, 0, 0, 500);
         gradient.addColorStop(1, this.mainColor);
         gradient.addColorStop(0.3, this.mainColor);
         gradient.addColorStop(0, this.peakColor);
 
         for (let i = 0; i < meterNum; i++) {
-          let value = analyserData[steps[i]] - dimValues[i];
+          let value = analyserData[steps[i]];
 
-          if (value > cheight) {
-            value = cheight;
+          if (value > canvasHeight) {
+            value = canvasHeight;
           }
 
           if (this.capYPositionArray.length < Math.round(meterNum)) {
@@ -128,43 +145,96 @@ export class VisualsDirective implements OnDestroy, OnInit {
           // draw the cap, with transition effect
           if (value < this.capYPositionArray[i]) {
             if (i < 6) {
-              offscreenCanvasCtx.fillRect((barWidth + gap) * i, cheight - --this.capYPositionArray[i] + 60 / (i + 1), barWidth, capHeight);
+              offscreenCanvasCtx.fillRect((barWidth + gap) * i, canvasHeight - --this.capYPositionArray[i] + 60 / (i + 1), barWidth, capHeight);
             } else {
-              offscreenCanvasCtx.fillRect((barWidth + gap) * i, cheight - --this.capYPositionArray[i], barWidth, capHeight);
+              offscreenCanvasCtx.fillRect((barWidth + gap) * i, canvasHeight - --this.capYPositionArray[i], barWidth, capHeight);
             }
           } else {
             if (i < 6) {
-              offscreenCanvasCtx.fillRect((barWidth + gap) * i, cheight - value + 60 / (i + 1), barWidth, capHeight);
+              offscreenCanvasCtx.fillRect((barWidth + gap) * i, canvasHeight - value + 60 / (i + 1), barWidth, capHeight);
             } else {
-              offscreenCanvasCtx.fillRect((barWidth + gap) * i, cheight - value, barWidth, capHeight);
+              offscreenCanvasCtx.fillRect((barWidth + gap) * i, canvasHeight - value, barWidth, capHeight);
             }
             this.capYPositionArray[i] = value;
           }
           offscreenCanvasCtx.fillStyle = gradient; // set the fillStyle to gradient for a better look
 
           if (i < 6) {
-            offscreenCanvasCtx.fillRect((barWidth + gap) * i, cheight - value + capHeight + 60 / (i + 1), barWidth, value - capHeight); // the meter
+            offscreenCanvasCtx.fillRect((barWidth + gap) * i, canvasHeight - value + capHeight + 60 / (i + 1), barWidth, value - capHeight); // the meter
           } else {
-            offscreenCanvasCtx.fillRect((barWidth + gap) * i, cheight - value + capHeight, barWidth, value - capHeight); // the meter
+            offscreenCanvasCtx.fillRect((barWidth + gap) * i, canvasHeight - value + capHeight, barWidth, value - capHeight); // the meter
           }
         }
 
         const bitmap = offscreenCanvas.transferToImageBitmap();
         canvasCtx.transferFromImageBitmap(bitmap);
       } else if (!this.idle) {
-        offscreenCanvasCtx.clearRect(0, 0, cwidth, cheight);
+        offscreenCanvasCtx.clearRect(0, 0, canvasWidth, canvasHeight);
         const bitmap = offscreenCanvas.transferToImageBitmap();
         canvasCtx.transferFromImageBitmap(bitmap);
         this.idle = true;
       }
-
-      this.animationFrameRef = requestAnimationFrame(draw);
     };
 
-    this.animationFrameRef = requestAnimationFrame(draw);
+    draw();
+  }
+
+  visualizeOscilloscope() {
+    const analyser = this.analyser;
+
+    const canvasCtx = this.canvasCtx;
+
+    const bufferLength = analyser.frequencyBinCount;
+    const analyserData = new Uint8Array(bufferLength);
+
+    const offscreenCanvas = new OffscreenCanvas(canvasCtx.canvas.width, canvasCtx.canvas.height);
+    const offscreenCanvasCtx = offscreenCanvas.getContext('2d');
+
+    const canvasWidth = offscreenCanvas.width;
+    const canvasHeight = offscreenCanvas.height;
+
+    offscreenCanvasCtx.clearRect(0, 0, canvasWidth, canvasHeight);
+
+    const draw = () => {
+      this.animationFrameRef = requestAnimationFrame(draw);
+
+      analyser.getByteTimeDomainData(analyserData);
+
+      offscreenCanvasCtx.lineWidth = 2;
+      offscreenCanvasCtx.strokeStyle = this.mainColor;
+      offscreenCanvasCtx.beginPath();
+
+      const sliceWidth = canvasWidth / bufferLength;
+      let x = 0;
+
+      for (let i = 0; i < bufferLength; i++) {
+        const v = analyserData[i] / 128.0;
+        const y = (v * canvasHeight) / 2;
+
+        if (i === 0) {
+          offscreenCanvasCtx.moveTo(x, y);
+        } else {
+          offscreenCanvasCtx.lineTo(x, y);
+        }
+
+        x += sliceWidth;
+      }
+
+      // offscreenCanvasCtx.lineTo(canvasWidth, canvasHeight / 2);
+      offscreenCanvasCtx.stroke();
+
+      const bitmap = offscreenCanvas.transferToImageBitmap();
+      canvasCtx.transferFromImageBitmap(bitmap);
+    };
+
+    draw();
+  }
+
+  stopVisualizer() {
+    cancelAnimationFrame(this.animationFrameRef);
   }
 
   ngOnDestroy() {
-    cancelAnimationFrame(this.animationFrameRef);
+    this.stopVisualizer();
   }
 }

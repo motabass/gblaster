@@ -24,23 +24,31 @@ export class PlaylistComponent implements OnInit {
   ngOnInit(): void {}
 
   isPlaying(song: Song): boolean {
-    return this.isActive(song) && !this.playerService.audioElement.paused;
+    return !this.playerService.audioElement.paused;
   }
 
-  isActive(song: Song) {
+  isSelected(song: Song) {
+    return this.selectedSong === song;
+  }
+
+  isCurrent(song: Song) {
     return this.currentSong === song;
   }
 
   get currentSong(): Song {
-    return this.playerService.currentSong;
+    return this.playerService.playingSong;
   }
 
   get analyser(): AnalyserNode {
     return this.playerService.analyser;
   }
 
+  get selectedSong(): Song {
+    return this.playerService.selectedSong;
+  }
+
   selectSong(song: Song) {
-    this.playerService.currentSong = song;
+    this.playerService.selectedSong = song;
   }
 
   playPauseSong(event: Event, song: Song) {

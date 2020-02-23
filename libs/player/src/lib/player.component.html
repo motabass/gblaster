@@ -1,14 +1,7 @@
 <mtb-playlist class="playlist mat-elevation-z8" [songs]="songs"></mtb-playlist>
 
-<mtb-metadata [song]="currentSong" class="main">
-  <canvas
-    [mtbVisual]="analyser"
-    class="vis"
-    style="position: absolute; bottom: 0; width: 100%; height: 60%;"
-    mainColor="red"
-    peakColor="yellow"
-    meterNum="60"
-  ></canvas>
+<mtb-metadata [song]="selectedSong" class="main">
+  <mtb-visualizer class="visualizer"></mtb-visualizer>
 </mtb-metadata>
 
 <div fxLayout="row" fxLayoutAlign="start center" class="bar">
@@ -31,11 +24,11 @@
   <button mat-icon-button style="color: white;" (click)="loadFolder()">
     <mat-icon>folder_open</mat-icon>
   </button>
-  <div fxFlex *ngIf="!currentSong"></div>
+  <div fxFlex *ngIf="!playingSong"></div>
 
   <mat-slider
     fxFlex
-    *ngIf="currentSong"
+    *ngIf="playingSong"
     [max]="durationSeconds"
     min="-1"
     tickInterval="60"

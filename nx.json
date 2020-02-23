@@ -42,6 +42,9 @@
     },
     "helpers-memoization": {
       "tags": []
+    },
+    "helper-services-title": {
+      "tags": []
     }
   }
 }

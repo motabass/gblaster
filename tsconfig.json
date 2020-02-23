@@ -22,7 +22,8 @@
       "@motabass/ui-components/dialogs": ["libs/ui-components/dialogs/src/index.ts"],
       "@motabass/helpers/time": ["libs/helpers/time/src/index.ts"],
       "@motabass/helpers/unsubscription": ["libs/helpers/unsubscription/src/index.ts"],
-      "@motabass/helpers/memoization": ["libs/helpers/memoization/src/index.ts"]
+      "@motabass/helpers/memoization": ["libs/helpers/memoization/src/index.ts"],
+      "@motabass/helper-services/title": ["libs/helper-services/title/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"],

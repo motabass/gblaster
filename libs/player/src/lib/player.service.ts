@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { LocalStorageService } from 'ngx-webstorage';
+import { LocalStorage, LocalStorageService } from 'ngx-webstorage';
 import { MetadataService } from './metadata.service';
 import { NativeFileLoaderService } from './native-file-loader.service';
 import { Song, SongMetadata } from './player.types';
@@ -21,13 +21,13 @@ export class PlayerService {
     this._songs = songs;
   }
 
-  private _currentSong: Song;
-  get currentSong(): Song {
-    return this._currentSong;
+  private _playingSong: Song;
+  get playingSong(): Song {
+    return this._playingSong;
   }
-  set currentSong(song: Song) {
+  set playingSong(song: Song) {
     this.audioElement.src = song.url;
-    this._currentSong = song;
+    this._playingSong = song;
 
     this.setBrowserMetadata(song.metadata);
 
@@ -35,6 +35,13 @@ export class PlayerService {
   }
 
   audioElement: HTMLAudioElement;
+
+  selectedSong: Song;
+
+  @LocalStorage('repeat', false)
+  repeat;
+  @LocalStorage('shuffle', false)
+  shuffle;
 
   constructor(private fileLoaderService: NativeFileLoaderService, private metadataService: MetadataService, private storageService: LocalStorageService) {
     this.initialzeAudioNodes();
@@ -59,6 +66,13 @@ export class PlayerService {
     audio.autoplay = false;
     audio.controls = false;
     audio.preload = 'metadata';
+    audio.onended = () => {
+      console.log('ended');
+      this.next();
+    };
+    audio.onerror = (e) => {
+      console.error(e);
+    };
 
     this.audioCtx = new AudioContext();
 
@@ -119,11 +133,11 @@ export class PlayerService {
 
   get durationSeconds(): number {
     // return this.currentSong ? Math.round(this.currentSong.howl.duration()) : 0;
-    return this.currentSong ? Math.round(this.audioElement.duration) : 0;
+    return this.playingSong ? Math.round(this.audioElement.duration) : 0;
   }
 
   get currentTime(): number {
-    if (!this.currentSong) {
+    if (!this.playingSong) {
       return 0;
     }
     const pos = this.audioElement.currentTime;
@@ -135,20 +149,20 @@ export class PlayerService {
   }
 
   async playPauseSong(song: Song): Promise<void> {
-    if (this.currentSong && song === this.currentSong) {
+    if (this.playingSong && song === this.playingSong) {
       this.playPause();
       return;
     }
 
     this.stop();
 
-    this.currentSong = song;
+    this.playingSong = song;
 
     return this.audioElement.play();
   }
 
   playPause() {
-    if (!this.currentSong) {
+    if (!this.playingSong) {
       return;
     }
     if (this.audioElement.paused) {
@@ -159,7 +173,7 @@ export class PlayerService {
   }
 
   stop() {
-    if (!this.currentSong) {
+    if (!this.playingSong) {
       return;
     }
     if (this.playing) {
@@ -171,27 +185,41 @@ export class PlayerService {
   }
 
   next() {
-    if (!this.currentSong) {
+    if (!this.playingSong) {
       return;
     }
-    const currPo = this.currentSong.playlistPosition;
-    if (currPo < this._songs.length && this.playing) {
+    const currPo = this.playingSong.playlistPosition;
+    if (currPo < this._songs.length) {
       this.playPauseSong(this._songs[currPo]);
     }
   }
 
   previous() {
-    if (!this.currentSong) {
+    if (!this.playingSong) {
       return;
     }
-    const currPo = this.currentSong.playlistPosition;
+    const currPo = this.playingSong.playlistPosition;
     if (currPo > 1 && this.playing) {
       this.playPauseSong(this._songs[currPo - 2]);
     }
   }
 
   get playing(): boolean {
-    return this.currentSong && !this.audioElement.paused;
+    return this.playingSong && !this.audioElement.paused;
+  }
+
+  toggleRepeat() {
+    if (!this.repeat) {
+      this.audioElement.loop = true;
+      this.repeat = true;
+    } else {
+      this.audioElement.loop = false;
+      this.repeat = false;
+    }
+  }
+
+  toggleShuffle() {
+    this.shuffle = !this.shuffle;
   }
 
   // startPositionReporter(song: Song) {

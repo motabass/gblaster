@@ -1,8 +1,8 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Component } from '@angular/core';
+import { TitleService } from '@motabass/helper-services/title';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
-import { TitleService } from '../title.service';
 
 @Component({
   selector: 'mtb-shell',

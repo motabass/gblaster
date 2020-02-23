@@ -365,6 +365,16 @@
             "tsConfig": "libs/helpers/time/tsconfig.spec.json",
             "passWithNoTests": true
           }
+        },
+        "build": {
+          "builder": "@nrwl/node:package",
+          "options": {
+            "outputPath": "dist/libs/helpers/time",
+            "tsConfig": "libs/helpers/time/tsconfig.lib.json",
+            "packageJson": "libs/helpers/time/package.json",
+            "main": "libs/helpers/time/src/index.ts",
+            "assets": ["libs/helpers/time/*.md"]
+          }
         }
       }
     },
@@ -431,6 +441,35 @@
             "main": "libs/helpers/memoization/src/index.ts",
             "assets": ["libs/helpers/memoization/*.md"]
           }
+        }
+      }
+    },
+    "helper-services-title": {
+      "projectType": "library",
+      "root": "libs/helper-services/title",
+      "sourceRoot": "libs/helper-services/title/src",
+      "prefix": "mtb",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": ["libs/helper-services/title/tsconfig.lib.json", "libs/helper-services/title/tsconfig.spec.json"],
+            "exclude": ["**/node_modules/**", "!libs/helper-services/title/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/helper-services/title/jest.config.js",
+            "tsConfig": "libs/helper-services/title/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "libs/helper-services/title/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "styleext": "scss"
         }
       }
     }

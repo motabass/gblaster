@@ -1,0 +1,35 @@
+<canvas
+  [mtbVisual]="analyser"
+  style="width: 100%; height: 100%;"
+  mainColor="red"
+  peakColor="yellow"
+  [mode]="visualMode"
+  [barCount]="barCount"
+  [smoothingTimeConstant]="smoothing"
+  [minDecibels]="minDb"
+  [maxDecibels]="maxDb"
+  [fftSize]="fftSize"
+  [capHeight]="capHeight"
+  [gap]="gap"
+></canvas>
+<div style="position: absolute; bottom: 1rem; left: 1rem;z-index: 9; display: grid; grid-template-columns: 25% 25% 25% 25%; grid-auto-rows: auto;">
+  Smoothing:
+  <mat-slider min="0" max="1" step="0.01" [value]="smoothing" (input)="setSmoothing($event.value)" thumbLabel></mat-slider>
+  Min DB:
+  <mat-slider min="-90" [max]="maxDb - 1" step="1" [value]="minDb" (input)="setMinDb($event.value)" thumbLabel></mat-slider>
+  Max DB:
+  <mat-slider [min]="minDb + 1" max="200" step="1" [value]="maxDb" (input)="setMaxDb($event.value)" thumbLabel></mat-slider>
+  Bar count:
+  <mat-slider min="1" max="2048" step="1" [value]="barCount" (input)="setBarCount($event.value)" thumbLabel></mat-slider>
+  Cap height:
+  <mat-slider min="0" max="40" step="0.1" [value]="capHeight" (input)="setCapHeight($event.value)" thumbLabel></mat-slider>
+  Gap:
+  <mat-slider min="-1" max="40" step="0.1" [value]="gap" (input)="setGap($event.value)" thumbLabel></mat-slider>
+  FFT size:
+  <mat-select [value]="fftSize" (valueChange)="setFftSize($event)">
+    <mat-option *ngFor="let option of fftOptions" [value]="option">{{ option }}</mat-option>
+  </mat-select>
+</div>
+<button mat-icon-button style="position: absolute; bottom: 1rem; right: 1rem; z-index: 10;" (click)="toggleVisualMode()">
+  <mat-icon>graphic_eq</mat-icon>
+</button>

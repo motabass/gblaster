@@ -26,8 +26,11 @@
   position: relative;
 }
 
-.vis {
-  grid-area: vis;
+.visualizer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 45%;
 }
 
 .bar {
