@@ -13,16 +13,26 @@ export class PlayerService {
   private analyserNode: AnalyserNode;
   private audioSrcNode: MediaElementAudioSourceNode;
 
+  private _songs: Song[] = [];
   get songs(): Song[] {
     return this._songs;
   }
-
   set songs(songs: Song[]) {
     this._songs = songs;
   }
-  private _songs: Song[] = [];
 
-  currentSong: Song;
+  private _currentSong: Song;
+  get currentSong(): Song {
+    return this._currentSong;
+  }
+  set currentSong(song: Song) {
+    this.audioElement.src = song.url;
+    this._currentSong = song;
+
+    this.setBrowserMetadata(song.metadata);
+
+    this.audioSrcNode.connect(this.analyserNode);
+  }
 
   audioElement: HTMLAudioElement;
 
@@ -132,12 +142,7 @@ export class PlayerService {
 
     this.stop();
 
-    this.audioElement.src = song.url;
     this.currentSong = song;
-
-    this.setBrowserMetadata(song.metadata);
-
-    this.audioSrcNode.connect(this.analyserNode);
 
     return this.audioElement.play();
   }

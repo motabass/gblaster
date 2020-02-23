@@ -1,5 +1,10 @@
 <mat-action-list dense style="padding: 0.5rem 0; height: 100%; box-sizing: border-box; overflow-y: auto;">
-  <mat-list-item *ngFor="let song of _songs; let index = index" [ngClass]="{ active: isActive(song) }" (click)="playPauseSong($event, song)">
+  <mat-list-item
+    *ngFor="let song of _songs; let index = index"
+    [ngClass]="{ active: isActive(song) }"
+    (dblclick)="playPauseSong($event, song)"
+    (click)="selectSong(song)"
+  >
     <img *ngIf="!isPlaying(song)" style="border-radius: 3px;" mat-list-avatar [src]="song.metadata.coverSafeUrl" alt="cover art" />
     <canvas
       *ngIf="isPlaying(song)"
