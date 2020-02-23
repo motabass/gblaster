@@ -71,6 +71,9 @@
     "use-lifecycle-interface": true,
     "use-pipe-transform-interface": true,
     "no-commented-code": false,
-    "object-literal-shorthand": false
+    "object-literal-shorthand": false,
+    "cognitive-complexity": {
+      "severity": "warn"
+    }
   }
 }
