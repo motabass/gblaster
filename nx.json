@@ -39,6 +39,9 @@
     },
     "helpers-unsubscription": {
       "tags": []
+    },
+    "helpers-memoization": {
+      "tags": []
     }
   }
 }

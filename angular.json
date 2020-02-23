@@ -400,6 +400,39 @@
           }
         }
       }
+    },
+    "helpers-memoization": {
+      "root": "libs/helpers/memoization",
+      "sourceRoot": "libs/helpers/memoization/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": ["libs/helpers/memoization/tsconfig.lib.json", "libs/helpers/memoization/tsconfig.spec.json"],
+            "exclude": ["**/node_modules/**", "!libs/helpers/memoization/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/helpers/memoization/jest.config.js",
+            "tsConfig": "libs/helpers/memoization/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
+        },
+        "build": {
+          "builder": "@nrwl/node:package",
+          "options": {
+            "outputPath": "dist/libs/helpers/memoization",
+            "tsConfig": "libs/helpers/memoization/tsconfig.lib.json",
+            "packageJson": "libs/helpers/memoization/package.json",
+            "main": "libs/helpers/memoization/src/index.ts",
+            "assets": ["libs/helpers/memoization/*.md"]
+          }
+        }
+      }
     }
   },
   "cli": {
