@@ -367,6 +367,39 @@
           }
         }
       }
+    },
+    "helpers-unsubscription": {
+      "root": "libs/helpers/unsubscription",
+      "sourceRoot": "libs/helpers/unsubscription/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": ["libs/helpers/unsubscription/tsconfig.lib.json", "libs/helpers/unsubscription/tsconfig.spec.json"],
+            "exclude": ["**/node_modules/**", "!libs/helpers/unsubscription/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/helpers/unsubscription/jest.config.js",
+            "tsConfig": "libs/helpers/unsubscription/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
+        },
+        "build": {
+          "builder": "@nrwl/node:package",
+          "options": {
+            "outputPath": "dist/libs/helpers/unsubscription",
+            "tsConfig": "libs/helpers/unsubscription/tsconfig.lib.json",
+            "packageJson": "libs/helpers/unsubscription/package.json",
+            "main": "libs/helpers/unsubscription/src/index.ts",
+            "assets": ["libs/helpers/unsubscription/*.md"]
+          }
+        }
+      }
     }
   },
   "cli": {

@@ -1,15 +1,18 @@
-import { Injectable, OnDestroy } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { SwUpdate, UpdateAvailableEvent } from '@angular/service-worker';
+import { Subscribing } from '@motabass/helpers/unsubscription';
 import { PromptDialogComponent, PromptDialogData } from '@motabass/ui-components/dialogs';
+import { takeUntil } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
-export class UpdateService implements OnDestroy {
+export class UpdateService extends Subscribing {
   constructor(private swUpdate: SwUpdate, private dialog: MatDialog) {
+    super();
     if (swUpdate.isEnabled) {
-      swUpdate.available.subscribe((event) => {
+      swUpdate.available.pipe(takeUntil(this.destroy$)).subscribe((event) => {
         console.log('current version is', event.current);
         console.log('available version is', event.available);
         this.askUserForUpdate(event).then((update) => {
@@ -18,7 +21,7 @@ export class UpdateService implements OnDestroy {
           }
         });
       });
-      swUpdate.activated.subscribe((event) => {
+      swUpdate.activated.pipe(takeUntil(this.destroy$)).subscribe((event) => {
         console.log('old version was', event.previous);
         console.log('new version is', event.current);
       });
@@ -29,10 +32,6 @@ export class UpdateService implements OnDestroy {
     if (this.swUpdate.isEnabled) {
       this.swUpdate.checkForUpdate();
     }
-  }
-
-  ngOnDestroy(): void {
-    // TODO: unsubscribe
   }
 
   async askUserForUpdate(event: UpdateAvailableEvent): Promise<boolean> {
