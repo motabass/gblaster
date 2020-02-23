@@ -9,7 +9,7 @@ body {
   font-family: Roboto, 'Helvetica Neue', sans-serif;
 }
 
-/* Selection */
+// Selection
 ::selection {
   background-color: $accent-color;
   color: black;
@@ -20,6 +20,7 @@ body {
   color: black;
 }
 
+// Scrollbar START
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
@@ -36,39 +37,28 @@ body {
   border-radius: 50px;
 }
 
-::-webkit-scrollbar-thumb:hover {
-}
-
-::-webkit-scrollbar-thumb:active {
-  background: $primary-color;
-}
-
 ::-webkit-scrollbar-track {
   border: 0 none;
   border-radius: 50px;
-}
-
-::-webkit-scrollbar-track:hover {
-  background-color: rgba(0, 0, 0, 0.2);
-}
-
-::-webkit-scrollbar-track:active {
 }
 
 ::-webkit-scrollbar-corner {
   background: transparent;
 }
 
+::-webkit-scrollbar-thumb:active {
+  background: $primary-color;
+}
+
+::-webkit-scrollbar-track:hover {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+// Scrollbar END
+
 @media (max-width: 599px) {
   .no-mobile {
     display: none !important;
   }
-}
-
-// TODO: sollte component style sein
-.volume-menu {
-  min-width: unset !important;
-  background-color: black;
 }
 
 .primary-color {
@@ -77,4 +67,10 @@ body {
 
 .accent-color {
   color: $accent-color;
+}
+
+// TODO: sollte component style sein
+.volume-menu {
+  min-width: unset !important;
+  background-color: black;
 }

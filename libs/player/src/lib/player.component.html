@@ -62,5 +62,5 @@
 </div>
 
 <mat-menu #volumeMenu="matMenu" yPosition="above" [class]="'volume-menu'">
-  <mat-slider vertical [value]="volume" (input)="onVolumeChange($event)" min="0" max="1" step="0.01"></mat-slider>
+  <mat-slider vertical style="height: 12rem;" [value]="volume" (input)="onVolumeChange($event)" min="0" max="1" step="0.01"></mat-slider>
 </mat-menu>

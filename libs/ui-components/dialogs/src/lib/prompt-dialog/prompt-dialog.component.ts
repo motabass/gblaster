@@ -9,8 +9,7 @@ export interface PromptDialogData {
 
 @Component({
   selector: 'mtb-update-prompt-dialog',
-  templateUrl: './prompt-dialog.component.html',
-  styleUrls: ['./prompt-dialog.component.scss']
+  templateUrl: './prompt-dialog.component.html'
 })
 export class PromptDialogComponent implements OnInit {
   constructor(@Inject(MAT_DIALOG_DATA) public data: PromptDialogData, public dialogRef: MatDialogRef<PromptDialogComponent>) {}

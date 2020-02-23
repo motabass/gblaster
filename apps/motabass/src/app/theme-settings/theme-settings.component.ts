@@ -4,8 +4,7 @@ import { ThemeService } from '../theme.service';
 
 @Component({
   selector: 'mtb-theme-settings',
-  templateUrl: './theme-settings.component.html',
-  styleUrls: ['./theme-settings.component.scss']
+  templateUrl: './theme-settings.component.html'
 })
 export class ThemeSettingsComponent {
   constructor(public themeService: ThemeService) {}
