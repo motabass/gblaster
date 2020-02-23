@@ -1,1 +1,6 @@
-{"extends":"../../tslint.json","rules":{}}
+{
+  "extends": "../../tslint.json",
+  "rules": {
+    "no-namespace": false
+  }
+}
