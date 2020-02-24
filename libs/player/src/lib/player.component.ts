@@ -4,6 +4,7 @@ import { MatSliderChange } from '@angular/material/slider';
 import { TitleService } from '@motabass/helper-services/title';
 import { formatSecondsAsClock } from '@motabass/helpers/time';
 import { GamepadService } from './gamepad.service';
+import { GamepadButtons } from './gamepad.types';
 import { PlayerService } from './player.service';
 import { Song } from './player.types';
 
@@ -19,6 +20,9 @@ export class PlayerComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     setTimeout(() => this.titleService.setTitle('Mediaplayer'));
+
+    this.gamepadService.registerAction(GamepadButtons.A_BUTTON, () => this.playPause());
+    this.gamepadService.registerAction(GamepadButtons.B_BUTTON, () => this.stop());
   }
 
   ngAfterViewInit() {
