@@ -1,6 +1,12 @@
 {
   "name": "@motabass/visuals",
-  "version": "1.0.0",
+  "version": "0.4.0",
+  "description": "Angular Directive for displaying simple configurable audio visualization using AnalyserNode",
+  "author": "motabass",
+  "keywords": ["angular", "visualization", "audio-visualization", "web-audio"],
+  "license": "MIT",
+  "repository": "https://github.com/motabass/motabass",
+  "homepage": "https://github.com/motabass/motabass/tree/master/libs/ui-components/visuals",
   "peerDependencies": {
     "@angular/common": "^9.0.2",
     "@angular/core": "^9.0.2",

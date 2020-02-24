@@ -11,6 +11,8 @@
     "start": "ng serve",
     "build": "ng build",
     "build:prod": "ng build --prod",
+    "build:visuals": "ng build ui-components-visuals --prod",
+    "publish:visuals": "npm run build:visuals && cd dist/libs/ui-components/visuals/ && npm publish --access public",
     "test": "ng test",
     "deploy": "ng deploy",
     "lint": "nx workspace-lint && ng lint",

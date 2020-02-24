@@ -1,7 +1,3 @@
-# ui-components-visuals
+# @motabass/visuals
 
-This library was generated with [Nx](https://nx.dev).
-
-## Running unit tests
-
-Run `nx test ui-components-visuals` to execute the unit tests.
+Angular Directive for displaying simple configurable audio visualization using AnalyserNode
