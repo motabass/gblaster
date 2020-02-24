@@ -79,7 +79,8 @@
     "rxjs": "~6.5.4",
     "tinycolor2": "^1.4.1",
     "tslib": "^1.11.0",
-    "zone.js": "^0.10.2"
+    "zone.js": "^0.10.2",
+    "browserfs": "^1.4.3"
   },
   "devDependencies": {
     "@angular-devkit/architect": "^0.900.3",

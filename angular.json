@@ -130,18 +130,6 @@
       "sourceRoot": "libs/player/src",
       "prefix": "mtb",
       "architect": {
-        "build": {
-          "builder": "@nrwl/angular:package",
-          "options": {
-            "tsConfig": "libs/player/tsconfig.lib.json",
-            "project": "libs/player/ng-package.json"
-          },
-          "configurations": {
-            "production": {
-              "tsConfig": "libs/player/tsconfig.lib.prod.json"
-            }
-          }
-        },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
