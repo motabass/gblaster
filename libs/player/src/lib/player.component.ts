@@ -120,7 +120,7 @@ export class PlayerComponent implements OnInit, AfterViewInit {
     return formatSecondsAsClock(value, false);
   }
 
-  loadFolder() {
-    this.playerService.loadFolder();
+  async loadFolder() {
+    return this.playerService.loadFolder();
   }
 }

@@ -28,9 +28,9 @@ export class UpdateService extends Subscribing {
     }
   }
 
-  init() {
+  async init(): Promise<void> {
     if (this.swUpdate.isEnabled) {
-      this.swUpdate.checkForUpdate();
+      return this.swUpdate.checkForUpdate();
     }
   }
 
@@ -46,11 +46,9 @@ export class UpdateService extends Subscribing {
       disableClose: true,
       closeOnNavigation: false
     };
-    const update: boolean = await this.dialog
+    return this.dialog
       .open(PromptDialogComponent, config)
       .afterClosed()
       .toPromise();
-
-    return update;
   }
 }

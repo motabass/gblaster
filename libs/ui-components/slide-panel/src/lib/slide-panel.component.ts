@@ -11,11 +11,11 @@ export class SlidePanelComponent implements OnChanges {
 
   @Input()
   @HostBinding('style.bottom')
-  bottom;
+  bottom?: number;
 
   @Input()
   @HostBinding('style.top')
-  top;
+  top?: number;
 
   @Input()
   @HostBinding('style.width')
@@ -31,11 +31,11 @@ export class SlidePanelComponent implements OnChanges {
 
   constructor() {}
 
-  @HostBinding('class.closed-slide-panel') closed;
-  @HostBinding('class.opened-slide-panel') open;
+  @HostBinding('class.closed-slide-panel') closed = false;
+  @HostBinding('class.opened-slide-panel') open = true;
 
   ngOnChanges(): void {
-    if (this.openedState === true) {
+    if (this.openedState) {
       this.open = true;
       this.closed = false;
     } else {

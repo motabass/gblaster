@@ -10,7 +10,7 @@ import { Song, SongMetadata } from './player.types';
 export class PlayerService {
   private audioCtx: AudioContext;
   private gainNode: GainNode;
-  private analyserNode: AnalyserNode;
+  private readonly analyserNode: AnalyserNode;
   private audioSrcNode: MediaElementAudioSourceNode;
 
   private _songs: Song[] = [];
@@ -158,12 +158,12 @@ export class PlayerService {
     return this.audioElement.play();
   }
 
-  playPause() {
+  async playPause(): Promise<void> {
     if (!this.playingSong) {
       return;
     }
     if (this.audioElement.paused) {
-      this.audioElement.play();
+      return this.audioElement.play();
     } else {
       this.audioElement.pause();
     }
@@ -181,7 +181,7 @@ export class PlayerService {
     }
   }
 
-  next() {
+  async next(): Promise<void> {
     if (!this.playingSong) {
       return;
     }
@@ -191,11 +191,11 @@ export class PlayerService {
     }
 
     if (currPo < this._songs.length) {
-      this.playPauseSong(this._songs[currPo]);
+      return this.playPauseSong(this._songs[currPo]);
     }
   }
 
-  previous() {
+  async previous() {
     if (!this.playingSong) {
       return;
     }
@@ -204,7 +204,7 @@ export class PlayerService {
       return;
     }
     if (currPo > 1 && this.playing) {
-      this.playPauseSong(this._songs[currPo - 2]);
+      return this.playPauseSong(this._songs[currPo - 2]);
     }
   }
 

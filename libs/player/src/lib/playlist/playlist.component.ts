@@ -24,6 +24,9 @@ export class PlaylistComponent implements OnInit {
   ngOnInit(): void {}
 
   isPlaying(song: Song): boolean {
+    if (song !== this.playingSong) {
+      return false;
+    }
     return !this.playerService.audioElement.paused;
   }
 
@@ -51,8 +54,8 @@ export class PlaylistComponent implements OnInit {
     this.playerService.selectedSong = song;
   }
 
-  playPauseSong(event: Event, song: Song) {
+  async playPauseSong(event: Event, song: Song): Promise<void> {
     event.stopPropagation();
-    this.playerService.playPauseSong(song);
+    return this.playerService.playPauseSong(song);
   }
 }
