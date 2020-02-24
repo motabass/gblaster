@@ -26,8 +26,11 @@ export class PlayerComponent implements OnInit, AfterViewInit {
     }, 250);
   }
 
-  setSeekPosition(event) {
+  setSeekPosition(event: MatSliderChange) {
     let sliderValue = event.value;
+    if (!sliderValue) {
+      return;
+    }
     if (sliderValue === -1) {
       sliderValue = 0;
     }
@@ -42,11 +45,11 @@ export class PlayerComponent implements OnInit, AfterViewInit {
     return this.playerService.songs;
   }
 
-  get playingSong(): Song {
+  get playingSong(): Song | undefined {
     return this.playerService.playingSong;
   }
 
-  get selectedSong(): Song {
+  get selectedSong(): Song | undefined {
     return this.playerService.selectedSong;
   }
 
@@ -59,7 +62,7 @@ export class PlayerComponent implements OnInit, AfterViewInit {
   }
 
   onVolumeChange(event: MatSliderChange) {
-    this.volume = event.value;
+    this.volume = event.value ?? 0;
   }
 
   playPause() {

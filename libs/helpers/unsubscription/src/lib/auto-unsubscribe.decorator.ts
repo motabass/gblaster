@@ -1,15 +1,18 @@
-export function AutoUnsubscribe(obs$ = []) {
-  return function(constructor: any) {
-    const orig = constructor.prototype.ngOnDestroy;
+export function AutoUnsubscribe(observables$: any[] = []) {
+  return (constructor: any) => {
+    const originalOnDestroy = constructor.prototype.ngOnDestroy;
     constructor.prototype.ngOnDestroy = function() {
       for (const prop in this) {
-        const property = this[prop];
-        if (typeof property.unsubscribe === 'function' && !obs$.includes(property)) obs$.push(property);
+        if (this.hasOwnProperty(prop)) {
+          const property = this[prop];
+          if (typeof property.unsubscribe === 'function' && !observables$.includes(property)) observables$.push(property);
+        }
       }
-      for (const ob$ of obs$) {
+      for (const ob$ of observables$) {
+        console.log('Auto-Unsubscibing: ', ob$);
         ob$.unsubscribe();
       }
-      orig.apply();
+      originalOnDestroy.apply();
     };
   };
 }

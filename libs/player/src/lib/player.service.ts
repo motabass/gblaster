@@ -21,11 +21,14 @@ export class PlayerService {
     this._songs = songs;
   }
 
-  private _playingSong: Song;
-  get playingSong(): Song {
+  private _playingSong?: Song;
+  get playingSong(): Song | undefined {
     return this._playingSong;
   }
-  set playingSong(song: Song) {
+  set playingSong(song: Song | undefined) {
+    if (!song) {
+      return;
+    }
     this.audioElement.src = song.url;
     this._playingSong = song;
 
@@ -36,31 +39,14 @@ export class PlayerService {
 
   audioElement: HTMLAudioElement;
 
-  selectedSong: Song;
+  selectedSong?: Song;
 
   @LocalStorage('repeat', false)
-  repeat;
+  repeat!: boolean;
   @LocalStorage('shuffle', false)
-  shuffle;
+  shuffle!: boolean;
 
   constructor(private fileLoaderService: NativeFileLoaderService, private metadataService: MetadataService, private storageService: LocalStorageService) {
-    this.initialzeAudioNodes();
-
-    this.gainNode.gain.value = storageService.retrieve('volume');
-
-    if ('mediaSession' in navigator) {
-      // @ts-ignore
-      navigator.mediaSession.setActionHandler('play', this.playPause.bind(this));
-      // @ts-ignore
-      navigator.mediaSession.setActionHandler('pause', this.playPause.bind(this));
-      // @ts-ignore
-      navigator.mediaSession.setActionHandler('nexttrack', this.next.bind(this));
-      // @ts-ignore
-      navigator.mediaSession.setActionHandler('previoustrack', this.previous.bind(this));
-    }
-  }
-
-  initialzeAudioNodes() {
     const audio = new Audio();
     audio.loop = false;
     audio.autoplay = false;
@@ -86,6 +72,19 @@ export class PlayerService {
     this.gainNode = gainNode;
     this.audioElement = audio;
     this.audioSrcNode = this.audioCtx.createMediaElementSource(this.audioElement);
+
+    this.gainNode.gain.value = storageService.retrieve('volume');
+
+    if ('mediaSession' in navigator) {
+      // @ts-ignore
+      navigator.mediaSession.setActionHandler('play', this.playPause.bind(this));
+      // @ts-ignore
+      navigator.mediaSession.setActionHandler('pause', this.playPause.bind(this));
+      // @ts-ignore
+      navigator.mediaSession.setActionHandler('nexttrack', this.next.bind(this));
+      // @ts-ignore
+      navigator.mediaSession.setActionHandler('previoustrack', this.previous.bind(this));
+    }
   }
 
   async loadFolder() {
@@ -106,8 +105,8 @@ export class PlayerService {
     const metadata: SongMetadata = await this.metadataService.extractMetadata(file);
     const url = URL.createObjectURL(file);
     return {
-      // howl: this.howlerService.createHowlFromFile(file),
       url: url,
+      type: file.type,
       fileHandle: fileHandle,
       metadata: metadata
     };
@@ -126,13 +125,11 @@ export class PlayerService {
     return this.analyserNode;
   }
 
-  setSeekPosition(sliderValue) {
-    // this.currentSong.howl.seek(sliderValue);
+  setSeekPosition(sliderValue: number) {
     this.audioElement.currentTime = sliderValue;
   }
 
   get durationSeconds(): number {
-    // return this.currentSong ? Math.round(this.currentSong.howl.duration()) : 0;
     return this.playingSong ? Math.round(this.audioElement.duration) : 0;
   }
 
@@ -189,6 +186,10 @@ export class PlayerService {
       return;
     }
     const currPo = this.playingSong.playlistPosition;
+    if (!currPo) {
+      return;
+    }
+
     if (currPo < this._songs.length) {
       this.playPauseSong(this._songs[currPo]);
     }
@@ -199,13 +200,16 @@ export class PlayerService {
       return;
     }
     const currPo = this.playingSong.playlistPosition;
+    if (!currPo) {
+      return;
+    }
     if (currPo > 1 && this.playing) {
       this.playPauseSong(this._songs[currPo - 2]);
     }
   }
 
   get playing(): boolean {
-    return this.playingSong && !this.audioElement.paused;
+    return !!this.playingSong && !this.audioElement.paused;
   }
 
   toggleRepeat() {

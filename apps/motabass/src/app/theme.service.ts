@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { LocalStorage } from 'ngx-webstorage';
-import tinycolor from 'tinycolor2';
+import tinycolor, { Instance } from 'tinycolor2';
 import { Color } from './theme.types';
 
 @Injectable({
@@ -8,12 +8,12 @@ import { Color } from './theme.types';
 })
 export class ThemeService {
   @LocalStorage('primaryColor', '#eb4818')
-  primaryColor;
+  primaryColor!: string;
   @LocalStorage('accentColor', '#abd222')
-  accentColor;
+  accentColor!: string;
 
   @LocalStorage('darkMode', false)
-  _darkMode;
+  _darkMode!: boolean;
 
   primaryColorPalette: Color[] = [];
   accentColorPalette: Color[] = [];
@@ -127,7 +127,7 @@ export class ThemeService {
     ];
   }
 
-  private getColorObject(value, name): Color {
+  private getColorObject(value: Instance, name: string): Color {
     const color = tinycolor(value);
     const lightnessLimit = this.darkMode ? 150 : 200;
     return {

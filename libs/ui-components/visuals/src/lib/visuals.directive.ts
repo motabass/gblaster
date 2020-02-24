@@ -8,7 +8,7 @@ export class VisualsDirective implements OnDestroy, OnChanges {
   idle = true;
 
   @Input('mtbVisual')
-  analyser: AnalyserNode;
+  analyser?: AnalyserNode;
 
   @Input()
   mode: VisualizerMode = 'bars';
@@ -32,11 +32,11 @@ export class VisualsDirective implements OnDestroy, OnChanges {
   @Input()
   maxDecibels = 0;
 
-  canvasCtx: ImageBitmapRenderingContext;
+  canvasCtx: ImageBitmapRenderingContext | null;
 
-  private capYPositionArray = []; // store the vertical position of hte caps for the preivous frame
+  private capYPositionArray: number[] = []; // store the vertical position of hte caps for the preivous frame
 
-  private animationFrameRef: number;
+  private animationFrameRef?: number;
 
   constructor(elr: ElementRef<HTMLCanvasElement>) {
     const canvas: HTMLCanvasElement = elr.nativeElement;
@@ -71,15 +71,20 @@ export class VisualsDirective implements OnDestroy, OnChanges {
 
   setAnalyserOptions() {
     const analyser = this.analyser;
-
-    analyser.fftSize = this.fftSize;
-    analyser.minDecibels = this.minDecibels;
-    analyser.maxDecibels = this.maxDecibels;
-    analyser.smoothingTimeConstant = this.smoothingTimeConstant;
+    if (analyser) {
+      analyser.fftSize = this.fftSize;
+      analyser.minDecibels = this.minDecibels;
+      analyser.maxDecibels = this.maxDecibels;
+      analyser.smoothingTimeConstant = this.smoothingTimeConstant;
+    }
   }
 
   visualizeFrequencyBars() {
     const analyser = this.analyser;
+
+    if (!analyser) {
+      return;
+    }
 
     const meterNum = this.barCount;
     const gap = this.gap; // gap between meters
@@ -90,11 +95,19 @@ export class VisualsDirective implements OnDestroy, OnChanges {
 
     const canvasCtx = this.canvasCtx;
 
+    if (!canvasCtx) {
+      return;
+    }
+
     const bufferLength = analyser.frequencyBinCount - upperCutoff;
     const analyserData = new Uint8Array(bufferLength);
 
     const offscreenCanvas = new OffscreenCanvas(canvasCtx.canvas.width, canvasCtx.canvas.height);
-    const offscreenCanvasCtx = offscreenCanvas.getContext('2d');
+    const offscreenCanvasCtx: OffscreenCanvasRenderingContext2D | null = offscreenCanvas.getContext('2d');
+
+    if (!offscreenCanvasCtx) {
+      return;
+    }
 
     const canvasWidth = offscreenCanvas.width;
     const canvasHeight = offscreenCanvas.height;
@@ -115,7 +128,7 @@ export class VisualsDirective implements OnDestroy, OnChanges {
 
       analyser.getByteFrequencyData(analyserData);
 
-      let hasData: boolean;
+      let hasData = false;
       for (let i = 0; i < analyserData.length; i += 10) {
         if (analyserData[i]) {
           hasData = true;
@@ -181,14 +194,24 @@ export class VisualsDirective implements OnDestroy, OnChanges {
 
   visualizeOscilloscope() {
     const analyser = this.analyser;
+    if (!analyser) {
+      return;
+    }
 
     const canvasCtx = this.canvasCtx;
+
+    if (!canvasCtx) {
+      return;
+    }
 
     const bufferLength = analyser.frequencyBinCount;
     const analyserData = new Uint8Array(bufferLength);
 
     const offscreenCanvas = new OffscreenCanvas(canvasCtx.canvas.width, canvasCtx.canvas.height);
     const offscreenCanvasCtx = offscreenCanvas.getContext('2d');
+    if (!offscreenCanvasCtx) {
+      return;
+    }
 
     const canvasWidth = offscreenCanvas.width;
     const canvasHeight = offscreenCanvas.height;
@@ -231,7 +254,9 @@ export class VisualsDirective implements OnDestroy, OnChanges {
   }
 
   stopVisualizer() {
-    cancelAnimationFrame(this.animationFrameRef);
+    if (this.animationFrameRef !== undefined) {
+      cancelAnimationFrame(this.animationFrameRef);
+    }
   }
 
   ngOnDestroy() {

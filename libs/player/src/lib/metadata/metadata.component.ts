@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { SafeStyle } from '@angular/platform-browser';
+import { SafeUrl } from '@angular/platform-browser';
 import { Song } from '../player.types';
 
 @Component({
@@ -10,10 +10,12 @@ import { Song } from '../player.types';
 })
 export class MetadataComponent {
   @Input()
-  song: Song;
+  song?: Song;
   constructor() {}
 
-  get coverUrl(): SafeStyle {
-    return this.song.metadata.coverUrl;
+  get coverUrl(): SafeUrl | undefined {
+    if (this.song?.metadata.coverSafeUrl) {
+      return this.song.metadata.coverSafeUrl;
+    }
   }
 }

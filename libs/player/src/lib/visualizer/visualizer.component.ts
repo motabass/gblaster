@@ -28,31 +28,31 @@ export class VisualizerComponent {
     return this.playerService.analyser;
   }
 
-  setSmoothing(value) {
+  setSmoothing(value: number) {
     this.smoothing = value;
   }
 
-  setMinDb(value) {
+  setMinDb(value: number) {
     this.minDb = value;
   }
 
-  setMaxDb(value) {
+  setMaxDb(value: number) {
     this.maxDb = value;
   }
 
-  setBarCount(value) {
+  setBarCount(value: number) {
     this.barCount = value;
   }
 
-  setCapHeight(value) {
+  setCapHeight(value: number) {
     this.capHeight = value;
   }
 
-  setGap(value) {
+  setGap(value: number) {
     this.gap = value;
   }
 
-  setFftSize(value) {
+  setFftSize(value: number | string) {
     this.fftSize = Number(value);
   }
 

@@ -9,12 +9,12 @@ import { ThemeService } from '../theme.service';
 export class ThemeSettingsComponent {
   constructor(public themeService: ThemeService) {}
 
-  setPrimaryColor(event: Event) {
-    this.themeService.setPrimaryColor(event.target['value']);
+  setPrimaryColor(event: any) {
+    this.themeService.setPrimaryColor(event.target?.value);
   }
 
-  setAccentColor(event: Event) {
-    this.themeService.setAccentColor(event.target['value']);
+  setAccentColor(event: any) {
+    this.themeService.setAccentColor(event.target?.value);
   }
 
   changeDarkMode(event: MatCheckboxChange) {

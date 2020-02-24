@@ -32,10 +32,10 @@ export class PlaylistComponent implements OnInit {
   }
 
   isCurrent(song: Song) {
-    return this.currentSong === song;
+    return this.playingSong === song;
   }
 
-  get currentSong(): Song {
+  get playingSong(): Song | undefined {
     return this.playerService.playingSong;
   }
 
@@ -43,7 +43,7 @@ export class PlaylistComponent implements OnInit {
     return this.playerService.analyser;
   }
 
-  get selectedSong(): Song {
+  get selectedSong(): Song | undefined {
     return this.playerService.selectedSong;
   }
 
