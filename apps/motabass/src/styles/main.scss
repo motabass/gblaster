@@ -62,11 +62,18 @@ body {
 }
 
 .primary-color {
-  color: $primary-color;
+  color: $primary-color !important;
+  fill: $primary-color !important;
 }
 
 .accent-color {
-  color: $accent-color;
+  color: $accent-color !important;
+  fill: $accent-color !important;
+}
+
+.white {
+  color: white !important;
+  fill: white !important;
 }
 
 // TODO: sollte component style sein

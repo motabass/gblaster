@@ -28,32 +28,53 @@ export class VisualizerComponent {
     return this.playerService.analyser;
   }
 
-  setSmoothing(value: number) {
+  setSmoothing(value: number | null) {
+    if (!value) {
+      return;
+    }
     this.smoothing = value;
   }
 
-  setMinDb(value: number) {
+  setMinDb(value: number | null) {
+    if (!value) {
+      return;
+    }
     this.minDb = value;
   }
 
-  setMaxDb(value: number) {
+  setMaxDb(value: number | null) {
+    if (!value) {
+      return;
+    }
     this.maxDb = value;
   }
 
-  setBarCount(value: number) {
+  setBarCount(value: number | null) {
+    if (!value) {
+      return;
+    }
     this.barCount = value;
   }
 
-  setCapHeight(value: number) {
+  setCapHeight(value: number | null) {
+    if (!value) {
+      return;
+    }
     this.capHeight = value;
   }
 
-  setGap(value: number) {
+  setGap(value: number | null) {
+    if (!value) {
+      return;
+    }
     this.gap = value;
   }
 
-  setFftSize(value: number | string) {
-    this.fftSize = Number(value);
+  setFftSize(value: number | null) {
+    if (!value) {
+      return;
+    }
+    this.fftSize = value;
   }
 
   get fftOptions(): number[] {
