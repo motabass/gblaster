@@ -44,7 +44,8 @@
     "bundle-analyze:motabass": "webpack-bundle-analyzer dist/apps/motabass/stats-es2015.json --port 8889",
     "compodoc:motabass": "compodoc -p apps/motabass/tsconfig.app.json",
     "compodoc:motabass:serve": "npm run compodoc:motabass -- -s",
-    "destiny:motabass": "destiny apps/motabass/src/app/**/*.*"
+    "destiny:motabass": "destiny apps/motabass/src/app/**/*.*",
+    "destiny:visuals": "destiny libs/ui-components/visuals/src/lib/**/*.*"
   },
   "husky": {
     "hooks": {

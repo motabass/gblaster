@@ -3,6 +3,7 @@ import { MediaObserver } from '@angular/flex-layout';
 import { MatSliderChange } from '@angular/material/slider';
 import { TitleService } from '@motabass/helper-services/title';
 import { formatSecondsAsClock } from '@motabass/helpers/time';
+import { GamepadService } from './gamepad.service';
 import { PlayerService } from './player.service';
 import { Song } from './player.types';
 
@@ -14,7 +15,7 @@ import { Song } from './player.types';
 export class PlayerComponent implements OnInit, AfterViewInit {
   position = 0;
 
-  constructor(public media: MediaObserver, private playerService: PlayerService, private titleService: TitleService) {}
+  constructor(public media: MediaObserver, private playerService: PlayerService, private titleService: TitleService, private gamepadService: GamepadService) {}
 
   ngOnInit() {
     setTimeout(() => this.titleService.setTitle('Mediaplayer'));
