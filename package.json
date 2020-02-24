@@ -43,7 +43,8 @@
     "assets:optimize:svg": "svgo -f apps/motabass/src/assets --disable=removeViewBox",
     "bundle-analyze:motabass": "webpack-bundle-analyzer dist/apps/motabass/stats-es2015.json --port 8889",
     "compodoc:motabass": "compodoc -p apps/motabass/tsconfig.app.json",
-    "compodoc:motabass:serve": "npm run compodoc:motabass -- -s"
+    "compodoc:motabass:serve": "npm run compodoc:motabass -- -s",
+    "destiny:motabass": "destiny apps/motabass/src/app/**/*.*"
   },
   "husky": {
     "hooks": {
@@ -136,6 +137,7 @@
     "tslint-etc": "^1.10.0",
     "tslint-sonarts": "1.9.0",
     "typescript": "~3.7.5",
-    "webpack-bundle-analyzer": "3.6.0"
+    "webpack-bundle-analyzer": "3.6.0",
+    "destiny": "^0.2.1"
   }
 }
