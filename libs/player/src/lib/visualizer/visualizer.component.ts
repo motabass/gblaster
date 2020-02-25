@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { VisualizerMode } from '@motabass/ui-components/visuals';
+import { GamepadService } from '../gamepad.service';
+import { GamepadButtons } from '../gamepad.types';
 import { PlayerService } from '../player.service';
 
 @Component({
@@ -14,11 +16,13 @@ export class VisualizerComponent {
   minDb = -75;
   maxDb = 24;
   barCount = 48;
-  fftSize = 2048;
+  fftSize = 4096;
   capHeight = 2;
   gap = 0;
 
-  constructor(private playerService: PlayerService) {}
+  constructor(private playerService: PlayerService, private gamepadService: GamepadService) {
+    this.gamepadService.registerButtonAction(GamepadButtons.SELECT_BUTTON, () => this.toggleVisualMode());
+  }
 
   toggleVisualMode() {
     this.visualMode === 'bars' ? (this.visualMode = 'osc') : (this.visualMode = 'bars');

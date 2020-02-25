@@ -17,6 +17,8 @@ export class PlaylistComponent implements OnInit {
     }
 
     this._songs = songs;
+    this.selectSong(songs[0]);
+    this.playerService.playingSong = songs[0];
   }
 
   _songs: Song[] = [];
@@ -30,24 +32,20 @@ export class PlaylistComponent implements OnInit {
     return !this.playerService.audioElement.paused;
   }
 
-  isSelected(song: Song) {
-    return this.selectedSong === song;
-  }
-
-  isCurrent(song: Song) {
-    return this.playingSong === song;
-  }
-
   get playingSong(): Song | undefined {
     return this.playerService.playingSong;
   }
 
-  get analyser(): AnalyserNode {
-    return this.playerService.analyser;
+  isPlayingSong(song: Song) {
+    return this.playingSong === song;
   }
 
   get selectedSong(): Song | undefined {
     return this.playerService.selectedSong;
+  }
+
+  isSelected(song: Song) {
+    return this.selectedSong === song;
   }
 
   selectSong(song: Song) {
@@ -57,5 +55,9 @@ export class PlaylistComponent implements OnInit {
   async playPauseSong(event: Event, song: Song): Promise<void> {
     event.stopPropagation();
     return this.playerService.playPauseSong(song);
+  }
+
+  get analyser(): AnalyserNode {
+    return this.playerService.analyser;
   }
 }

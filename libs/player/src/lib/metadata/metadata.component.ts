@@ -14,8 +14,8 @@ export class MetadataComponent {
   constructor() {}
 
   get coverUrl(): SafeUrl | undefined {
-    if (this.song?.metadata.coverSafeUrl) {
-      return this.song.metadata.coverSafeUrl;
+    if (this.song?.metadata.coverUrl) {
+      return this.song.metadata.coverUrl;
     }
   }
 }

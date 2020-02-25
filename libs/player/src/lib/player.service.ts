@@ -113,8 +113,10 @@ export class PlayerService {
   }
 
   set volume(value: number) {
-    this.storageService.store('volume', value);
-    this.gainNode.gain.value = value;
+    if (value >= 0 && value <= 1) {
+      this.storageService.store('volume', value);
+      this.gainNode.gain.value = value;
+    }
   }
 
   get volume() {
@@ -125,8 +127,10 @@ export class PlayerService {
     return this.analyserNode;
   }
 
-  setSeekPosition(sliderValue: number) {
-    this.audioElement.currentTime = sliderValue;
+  setSeekPosition(value: number) {
+    if (value !== null && value !== undefined && value >= 0 && value <= this.durationSeconds) {
+      this.audioElement.currentTime = value;
+    }
   }
 
   get durationSeconds(): number {
@@ -203,8 +207,36 @@ export class PlayerService {
     if (!currPo) {
       return;
     }
-    if (currPo > 1 && this.playing) {
+    if (currPo > 1) {
       return this.playPauseSong(this._songs[currPo - 2]);
+    }
+  }
+
+  selectNext() {
+    if (!this.selectedSong) {
+      return;
+    }
+    const currPo = this.selectedSong.playlistPosition;
+    if (!currPo) {
+      return;
+    }
+
+    if (currPo < this._songs.length) {
+      this.selectedSong = this._songs[currPo];
+    }
+  }
+
+  selectPrevious() {
+    if (!this.selectedSong) {
+      return;
+    }
+    const currPo = this.selectedSong.playlistPosition;
+    if (!currPo) {
+      return;
+    }
+
+    if (currPo > 1) {
+      this.selectedSong = this._songs[currPo - 2];
     }
   }
 

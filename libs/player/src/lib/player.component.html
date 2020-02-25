@@ -36,7 +36,7 @@
     color="accent"
     [displayWith]="formatLabel"
     [value]="position"
-    (change)="setSeekPosition($event)"
+    (change)="onSliderPositionChanged($event)"
   ></mat-slider>
 
   <div class="no-mobile" style="font-size: small; color: white; padding: 0 12px;">

@@ -5,9 +5,9 @@
     (dblclick)="playPauseSong($event, song)"
     (click)="selectSong(song)"
   >
-    <img *ngIf="!isCurrent(song) && song" style="border-radius: 3px;" mat-list-avatar [src]="song.metadata.coverSafeUrl" alt="cover art" />
+    <img *ngIf="!isPlayingSong(song) && song" style="border-radius: 3px;" mat-list-avatar [src]="song.metadata.coverSafeUrl" alt="cover art" />
     <canvas
-      *ngIf="isCurrent(song) && isPlaying(song)"
+      *ngIf="isPlayingSong(song) && isPlaying(song)"
       mat-list-avatar
       style="border-radius: 3px; width: 2rem; height: 2rem; object-fit: fill;"
       [mtbVisual]="analyser"
@@ -18,8 +18,8 @@
     <p matLine style="font-size: 0.8rem;">{{ song.metadata.artist }}</p>
 
     <button mat-icon-button (click)="playPauseSong($event, song)">
-      <mat-icon *ngIf="isCurrent(song) && isPlaying(song)" class="accent-color">pause</mat-icon>
-      <mat-icon *ngIf="isCurrent(song) && !isPlaying(song)" class="accent-color">play_arrow</mat-icon>
+      <mat-icon *ngIf="isPlayingSong(song) && isPlaying(song)" class="accent-color">pause</mat-icon>
+      <mat-icon *ngIf="isPlayingSong(song) && !isPlaying(song)" class="accent-color">play_arrow</mat-icon>
     </button>
   </mat-list-item>
 </mat-action-list>

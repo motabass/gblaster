@@ -2,7 +2,7 @@
   <pre><small>{{song?.metadata | json}}</small></pre>
 </div>
 <div
-  *ngIf="song && song.metadata.coverSafeUrl"
+  *ngIf="song && coverUrl"
   style="position: absolute; top: 0; right: 0; bottom: 0; left: 0; z-index: -1; opacity: 0.5; filter: blur(1px);"
   [ngStyle]="{
     'background-image': 'url(' + coverUrl + ')',

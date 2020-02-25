@@ -4,7 +4,7 @@ import { MatSliderChange } from '@angular/material/slider';
 import { TitleService } from '@motabass/helper-services/title';
 import { formatSecondsAsClock } from '@motabass/helpers/time';
 import { GamepadService } from './gamepad.service';
-import { GamepadButtons } from './gamepad.types';
+import { GamepadAxes, GamepadButtons } from './gamepad.types';
 import { PlayerService } from './player.service';
 import { Song } from './player.types';
 
@@ -21,8 +21,27 @@ export class PlayerComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     setTimeout(() => this.titleService.setTitle('Mediaplayer'));
 
-    this.gamepadService.registerAction(GamepadButtons.A_BUTTON, () => this.playPause());
-    this.gamepadService.registerAction(GamepadButtons.B_BUTTON, () => this.stop());
+    this.gamepadService.registerButtonAction(GamepadButtons.A_BUTTON, () => this.playPause());
+    this.gamepadService.registerButtonAction(GamepadButtons.B_BUTTON, () => this.stop());
+
+    this.gamepadService.registerButtonAction(GamepadButtons.X_BUTTON, () => this.toggleShuffle());
+    this.gamepadService.registerButtonAction(GamepadButtons.Y_BUTTON, () => this.toggleRepeat());
+
+    this.gamepadService.registerButtonAction(GamepadButtons.L2_BUTTON, (value) => this.seekLeft(value), 'turbo');
+    this.gamepadService.registerButtonAction(GamepadButtons.R2_BUTTON, (value) => this.seekRight(value), 'turbo');
+    this.gamepadService.registerAxisAction(GamepadAxes.S1_X, (value) => this.alterSeekPositionByAxis(value), 'turbo', 64);
+
+    this.gamepadService.registerAxisAction(GamepadAxes.S2_Y, (value) => this.alterVolumeByAxis(value), 'hold');
+    this.gamepadService.registerButtonAction(GamepadButtons.S2_BUTTON, () => this.toggleMute());
+
+    this.gamepadService.registerButtonAction(GamepadButtons.DPAD_UP, () => this.playerService.selectPrevious());
+    this.gamepadService.registerButtonAction(GamepadButtons.DPAD_DOWN, () => this.playerService.selectNext());
+    this.gamepadService.registerAxisAction(GamepadAxes.S1_Y, (value) => this.alterSelectionByAxis(value), 'turbo');
+
+    this.gamepadService.registerButtonAction(GamepadButtons.R1_BUTTON, () => this.next(), 'turbo');
+    this.gamepadService.registerButtonAction(GamepadButtons.L1_BUTTON, () => this.previous(), 'turbo');
+
+    this.gamepadService.registerButtonAction(GamepadButtons.START_BUTTON, () => this.loadFolder());
   }
 
   ngAfterViewInit() {
@@ -31,15 +50,29 @@ export class PlayerComponent implements OnInit, AfterViewInit {
     }, 250);
   }
 
-  setSeekPosition(event: MatSliderChange) {
-    let sliderValue = event.value;
-    if (!sliderValue) {
-      return;
+  onSliderPositionChanged(event: MatSliderChange) {
+    const value = event.value;
+    if (value !== null) {
+      this.playerService.setSeekPosition(value);
     }
-    if (sliderValue === -1) {
-      sliderValue = 0;
+  }
+
+  seekLeft(value: number) {
+    this.playerService.setSeekPosition(this.playerService.currentTime - value * 10);
+  }
+
+  seekRight(value: number) {
+    this.playerService.setSeekPosition(this.playerService.currentTime + value * 10);
+  }
+
+  alterSeekPositionByAxis(value: number) {
+    if (value > 0) {
+      this.seekRight(value);
     }
-    this.playerService.setSeekPosition(sliderValue);
+
+    if (value < 0) {
+      this.seekLeft(value * -1);
+    }
   }
 
   get durationSeconds(): number {
@@ -66,8 +99,40 @@ export class PlayerComponent implements OnInit, AfterViewInit {
     this.playerService.volume = value;
   }
 
+  toggleMute() {
+    // TODO: implement
+  }
+
+  increaseVolume(value: number) {
+    this.volume = this.volume + value / 100;
+  }
+
+  decreaseVolume(value: number) {
+    this.volume = this.volume - value / 100;
+  }
+
+  alterVolumeByAxis(value: number) {
+    if (value > 0) {
+      this.decreaseVolume(value);
+    }
+
+    if (value < 0) {
+      this.increaseVolume(value * -1);
+    }
+  }
+
   onVolumeChange(event: MatSliderChange) {
     this.volume = event.value ?? 0;
+  }
+
+  alterSelectionByAxis(value: number) {
+    if (value < 0) {
+      this.playerService.selectPrevious();
+    }
+
+    if (value > 0) {
+      this.playerService.selectNext();
+    }
   }
 
   playPause() {
