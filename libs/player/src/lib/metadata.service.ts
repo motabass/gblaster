@@ -26,8 +26,12 @@ export class MetadataService {
         ? new Blob([new Uint8Array(metadata.tags.picture.data)], { type: metadata.tags.picture.format })
         : null;
 
+    const objectUrl = await URL.createObjectURL(picBlob);
+
+    // TODO: extract background color from cover and center cover
+
     return {
-      coverSafeUrl: picBlob ? this.domSanitizer.bypassSecurityTrustUrl(URL.createObjectURL(picBlob)) : 'assets/cover-art-placeholder.svg',
+      coverSafeUrl: picBlob ? this.domSanitizer.bypassSecurityTrustUrl(objectUrl) : 'assets/cover-art-placeholder.svg',
       coverUrl: picBlob ? URL.createObjectURL(picBlob) : 'assets/cover-art-placeholder.svg',
       artist: metadata.tags.artist,
       title: metadata.tags.title,
