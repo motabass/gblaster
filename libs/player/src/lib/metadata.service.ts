@@ -63,7 +63,7 @@ export class MetadataService {
     }
 
     const data: any = await this.http
-      .get(`http://ws.audioscrobbler.com/2.0/?method=album.getinfo&api_key=${this.LASTFM_API_KEY}&artist=${artist}&album=${albumName}&format=json`)
+      .get(`https://ws.audioscrobbler.com/2.0/?method=album.getinfo&api_key=${this.LASTFM_API_KEY}&artist=${artist}&album=${albumName}&format=json`)
       .toPromise();
     return data?.album?.image[5]['#text'];
   }
