@@ -81,6 +81,7 @@
     "ngx-date-fns": "6.0.0",
     "ngx-pipes": "2.7.3",
     "ngx-webstorage": "5.0.0",
+    "node-vibrant": "^3.1.5",
     "rxjs": "~6.5.4",
     "tinycolor2": "^1.4.1",
     "tslib": "^1.11.0",

@@ -91,12 +91,11 @@ export class PlayerService {
     const newFolder: boolean = await this.fileLoaderService.openFolder();
     if (newFolder) {
       const fileHandles = this.fileLoaderService.currentFolderFileHandles;
-      const songs: Song[] = [];
+      this.songs = [];
       for (const fileHandle of fileHandles) {
         const song = await this.createSongFromFileHandle(fileHandle);
-        songs.push(song);
+        this.songs.push(song);
       }
-      this.songs = songs;
     }
   }
 

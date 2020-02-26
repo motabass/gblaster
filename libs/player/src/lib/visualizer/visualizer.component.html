@@ -19,8 +19,12 @@
       <mat-option *ngFor="let option of fftOptions" [value]="option">{{ option }}</mat-option>
     </mat-select>
   </div>
-  <div>Min DB: <mat-slider min="-90" [max]="maxDb - 1" step="1" [value]="minDb" (input)="setMinDb($event.value)" thumbLabel></mat-slider></div>
-  <div>Max DB: <mat-slider [min]="minDb + 1" max="200" step="1" [value]="maxDb" (input)="setMaxDb($event.value)" thumbLabel></mat-slider></div>
+  <div *ngIf="visualMode === 'bars'">
+    Min DB: <mat-slider min="-90" [max]="maxDb - 1" step="1" [value]="minDb" (input)="setMinDb($event.value)" thumbLabel></mat-slider>
+  </div>
+  <div *ngIf="visualMode === 'bars'">
+    Max DB: <mat-slider [min]="minDb + 1" max="200" step="1" [value]="maxDb" (input)="setMaxDb($event.value)" thumbLabel></mat-slider>
+  </div>
   <div *ngIf="visualMode === 'bars'">
     Smoothing: <mat-slider min="0" max="1" step="0.01" [value]="smoothing" (input)="setSmoothing($event.value)" thumbLabel></mat-slider>
   </div>

@@ -56,7 +56,7 @@ export class VisualsDirective implements OnDestroy, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    console.log(changes);
+    // console.log(changes);
     this.setAnalyserOptions();
     this.stopVisualizer();
     switch (this.mode) {

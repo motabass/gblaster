@@ -18,4 +18,12 @@ export class MetadataComponent {
       return this.song.metadata.coverUrl;
     }
   }
+
+  get backgroundColor(): string {
+    return this.song?.metadata?.coverColors?.Vibrant ? this.song.metadata.coverColors.Vibrant.getHex() : 'rgba(0,0,0,0)';
+  }
+
+  get fontColor(): string | null {
+    return this.song?.metadata?.coverColors?.Vibrant ? this.song.metadata.coverColors.Vibrant.getTitleTextColor() : null;
+  }
 }

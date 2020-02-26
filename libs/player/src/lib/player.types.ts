@@ -1,4 +1,5 @@
 import { SafeUrl } from '@angular/platform-browser';
+import { Palette } from 'node-vibrant/lib/color';
 
 export interface Song {
   url: string;
@@ -11,13 +12,14 @@ export interface Song {
 export interface SongMetadata {
   artist?: string;
   title?: string;
-  track?: number;
+  track?: string;
   album?: string;
-  year?: number;
+  year?: string;
   filename: string;
   fileSize: number;
   fileFormat: string;
   duration?: number;
   coverUrl?: string;
   coverSafeUrl?: SafeUrl;
+  coverColors?: Palette | null;
 }

@@ -1,46 +1,70 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Reader } from 'jsmediatags';
+import { TagType } from 'jsmediatags/types';
+
+import vibrant from 'node-vibrant';
 import { SongMetadata } from './player.types';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MetadataService {
-  constructor(private domSanitizer: DomSanitizer) {}
+  private readonly LASTFM_API_KEY = '3a67934408152a2fc3f7216c022ec1df';
+  private readonly PLACEHOLDER_URL = 'assets/cover-art-placeholder.svg';
+
+  constructor(private domSanitizer: DomSanitizer, private http: HttpClient) {}
 
   async extractMetadata(file: File): Promise<SongMetadata> {
-    const metadata: any = await new Promise((resolve, reject) => {
-      new Reader(file)
-        // .setTagsToRead(['title', 'artist', 'picture'])
-        .read({
+    let metadata: TagType | null = null;
+    try {
+      metadata = await new Promise((resolve, reject) => {
+        new Reader(file).setTagsToRead(['title', 'artist', 'track', 'album', 'year', 'picture']).read({
           onSuccess: resolve,
           onError: reject
         });
-    });
+      });
+    } catch (e) {
+      console.warn(`Tags von "${file.name}" (${file.type}) konnten nicht gelesen werden: `, e.info);
+    }
 
-    // console.log(metadata);
+    // console.log(metadata?.tags);
 
-    const picBlob =
-      metadata.tags.picture && metadata.tags.picture.data
-        ? new Blob([new Uint8Array(metadata.tags.picture.data)], { type: metadata.tags.picture.format })
-        : null;
+    const picBlob = metadata?.tags?.picture?.data ? new Blob([new Uint8Array(metadata.tags.picture.data)], { type: metadata.tags.picture.format }) : null;
 
-    const objectUrl = await URL.createObjectURL(picBlob);
+    let url = '';
+    if (picBlob) {
+      url = await URL.createObjectURL(picBlob);
+    } else if (metadata?.tags?.artist && metadata.tags.album) {
+      url = await this.getCoverArtFromLastFM(metadata.tags.artist, metadata.tags.album);
+    }
 
-    // TODO: extract background color from cover and center cover
+    const palette = url ? await vibrant.from(url).getPalette() : null;
 
     return {
-      coverSafeUrl: picBlob ? this.domSanitizer.bypassSecurityTrustUrl(objectUrl) : 'assets/cover-art-placeholder.svg',
-      coverUrl: picBlob ? URL.createObjectURL(picBlob) : 'assets/cover-art-placeholder.svg',
-      artist: metadata.tags.artist,
-      title: metadata.tags.title,
-      track: metadata.tags.track,
-      album: metadata.tags.album,
-      year: metadata.tags.year,
+      coverSafeUrl: url ? this.domSanitizer.bypassSecurityTrustUrl(url) : this.PLACEHOLDER_URL,
+      coverUrl: url ? url : this.PLACEHOLDER_URL,
+      coverColors: palette ? palette : null,
+      artist: metadata?.tags?.artist,
+      title: metadata?.tags?.title,
+      track: metadata?.tags?.track,
+      album: metadata?.tags?.album,
+      year: metadata?.tags?.year,
       filename: file.name,
       fileSize: file.size,
       fileFormat: file.type
     };
+  }
+
+  async getCoverArtFromLastFM(artist: string, albumName: string): Promise<string> {
+    if (!artist || !albumName) {
+      return this.PLACEHOLDER_URL;
+    }
+
+    const data: any = await this.http
+      .get(`http://ws.audioscrobbler.com/2.0/?method=album.getinfo&api_key=${this.LASTFM_API_KEY}&artist=${artist}&album=${albumName}&format=json`)
+      .toPromise();
+    return data?.album?.image[5]['#text'];
   }
 }
