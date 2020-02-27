@@ -501,6 +501,47 @@
           "styleext": "scss"
         }
       }
+    },
+    "core-update": {
+      "projectType": "library",
+      "root": "libs/core/update",
+      "sourceRoot": "libs/core/update/src",
+      "prefix": "mtb",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/angular:package",
+          "options": {
+            "tsConfig": "libs/core/update/tsconfig.lib.json",
+            "project": "libs/core/update/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/core/update/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": ["libs/core/update/tsconfig.lib.json", "libs/core/update/tsconfig.spec.json"],
+            "exclude": ["**/node_modules/**", "!libs/core/update/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/core/update/jest.config.js",
+            "tsConfig": "libs/core/update/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "libs/core/update/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "styleext": "scss"
+        }
+      }
     }
   },
   "cli": {

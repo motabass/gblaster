@@ -48,6 +48,9 @@
     },
     "core-theme": {
       "tags": []
+    },
+    "core-update": {
+      "tags": []
     }
   }
 }

@@ -13,6 +13,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { ThemeModule } from '@motabass/core/theme';
+import { UpdateModule } from '@motabass/core/update';
 import { DialogsModule } from '@motabass/ui-components/dialogs';
 import { MccColorPickerModule } from 'material-community-components';
 import { NgxWebstorageModule } from 'ngx-webstorage';
@@ -46,6 +47,7 @@ import { ThemeSettingsComponent } from './theme-settings/theme-settings.componen
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     MatCheckboxModule,
     MatCardModule,
+    UpdateModule,
     ThemeModule,
     MccColorPickerModule,
     FlexLayoutModule
