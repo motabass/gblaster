@@ -35,7 +35,7 @@ export class MetadataService {
 
     let url = '';
     if (picBlob) {
-      url = await URL.createObjectURL(picBlob);
+      url = URL.createObjectURL(picBlob);
     } else if (metadata?.tags?.artist && metadata.tags.album) {
       url = await this.getCoverArtFromLastFM(metadata.tags.artist, metadata.tags.album);
     }
