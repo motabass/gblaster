@@ -26,7 +26,8 @@
       "@motabass/helpers/time": ["libs/helpers/time/src/index.ts"],
       "@motabass/helpers/unsubscription": ["libs/helpers/unsubscription/src/index.ts"],
       "@motabass/helpers/memoization": ["libs/helpers/memoization/src/index.ts"],
-      "@motabass/helper-services/title": ["libs/helper-services/title/src/index.ts"]
+      "@motabass/helper-services/title": ["libs/helper-services/title/src/index.ts"],
+      "@motabass/core/theme": ["libs/core/theme/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"],

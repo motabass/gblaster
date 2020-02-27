@@ -22,7 +22,7 @@
             "tsConfig": "apps/motabass/tsconfig.app.json",
             "aot": true,
             "assets": ["apps/motabass/src/favicon.ico", "apps/motabass/src/assets", "apps/motabass/src/manifest.webmanifest"],
-            "styles": ["apps/motabass/src/styles/theme.scss", "apps/motabass/src/styles/main.scss"],
+            "styles": ["libs/core/theme/src/styles/theme.scss", "apps/motabass/src/styles/main.scss"],
             "scripts": []
           },
           "configurations": {
@@ -452,6 +452,47 @@
             "tsConfig": "libs/helper-services/title/tsconfig.spec.json",
             "passWithNoTests": true,
             "setupFile": "libs/helper-services/title/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "styleext": "scss"
+        }
+      }
+    },
+    "core-theme": {
+      "projectType": "library",
+      "root": "libs/core/theme",
+      "sourceRoot": "libs/core/theme/src",
+      "prefix": "mtb",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/angular:package",
+          "options": {
+            "tsConfig": "libs/core/theme/tsconfig.lib.json",
+            "project": "libs/core/theme/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/core/theme/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": ["libs/core/theme/tsconfig.lib.json", "libs/core/theme/tsconfig.spec.json"],
+            "exclude": ["**/node_modules/**", "!libs/core/theme/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/core/theme/jest.config.js",
+            "tsConfig": "libs/core/theme/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "libs/core/theme/src/test-setup.ts"
           }
         }
       },

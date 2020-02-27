@@ -1,18 +1,36 @@
 <mat-card>
-  <mat-card-title>Farbeinstellungen</mat-card-title>
-  <mat-card-content>
-    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="16px" style="min-height: 48px;">
-      <label>
-        Primärfarbe:
-        <input type="color" (change)="setPrimaryColor($event)" [value]="themeService.primaryColor" />
-      </label>
-      <label>
-        Akzentfarbe:
-        <input type="color" (change)="setAccentColor($event)" [value]="themeService.accentColor" />
-      </label>
-      <mat-checkbox labelPosition="before" [checked]="themeService.darkMode" (change)="changeDarkMode($event)">
-        Dunkles Theme
-      </mat-checkbox>
+  <mat-card-title>Theme-Colors</mat-card-title>
+  <mat-card-content fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="16px" style="min-height: 48px;">
+    <div fxLayout="row" fxLayoutAlign="start center">
+      <span>Primary:&nbsp;</span>
+      <mcc-color-picker
+        [overlay]="true"
+        [hideButtons]="true"
+        [hideEmptyUsedColors]="true"
+        [hideTransparentUsedColors]="true"
+        usedColorLabel="Suggestions:"
+        [usedColorStart]="colorSuggestions"
+        (clickOut)="colorPickerClosed($event)"
+        [selectedColor]="themeService.primaryColor"
+        (change)="setPrimaryColor($event)"
+      ></mcc-color-picker>
     </div>
+    <div fxLayout="row" fxLayoutAlign="start center">
+      <span>Accent:&nbsp;</span>
+      <mcc-color-picker
+        [overlay]="true"
+        [hideButtons]="true"
+        [hideEmptyUsedColors]="true"
+        [hideTransparentUsedColors]="true"
+        usedColorLabel="Suggestions:"
+        [usedColorStart]="colorSuggestions"
+        (clickOut)="colorPickerClosed($event)"
+        [selectedColor]="themeService.accentColor"
+        (change)="setAccentColor($event)"
+      ></mcc-color-picker>
+    </div>
+    <mat-checkbox labelPosition="before" [checked]="themeService.darkMode" (change)="changeDarkMode($event)">
+      Dark Mode
+    </mat-checkbox>
   </mat-card-content>
 </mat-card>

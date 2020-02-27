@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
-import { ThemeService } from './theme.service';
+import { ThemeService } from '@motabass/core/theme';
 import { UpdateService } from './update.service';
 
 @Component({

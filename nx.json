@@ -45,6 +45,9 @@
     },
     "helper-services-title": {
       "tags": []
+    },
+    "core-theme": {
+      "tags": []
     }
   }
 }
