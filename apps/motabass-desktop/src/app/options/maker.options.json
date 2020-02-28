@@ -1,11 +1,18 @@
 {
   "$schema": "../../../../../node_modules/nx-electron/src/validation/maker.schema.json",
+  "appId": "at.electron.motabass",
   "productName": "m0taba55",
   "copyright": "MIT",
+  "electronVersion": "8.0.2",
   "npmRebuild": false,
   "win": {
-    "target": "appx",
+    "target": "nsis",
+    "asar": false,
+    "compression": "maximum"
+  },
+  "linux": {
+    "target": ["AppImage", "deb"],
     "asar": true,
-    "compression": "normal"
+    "compression": "maximum"
   }
 }

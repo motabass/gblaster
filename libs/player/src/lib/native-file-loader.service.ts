@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { LocalStorage } from 'ngx-webstorage';
 
 @Injectable({
   providedIn: 'root'
@@ -6,6 +7,7 @@ import { Injectable } from '@angular/core';
 export class NativeFileLoaderService {
   currentFolderFileHandles: unknown[] = [];
 
+  @LocalStorage() // TODO: should work when serializable
   currentDirHandle: unknown;
 
   constructor() {}

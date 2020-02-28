@@ -65,6 +65,10 @@ export default class App {
       width: width,
       height: height,
       backgroundColor: '#000000',
+      titleBarStyle: 'hidden',
+      autoHideMenuBar: true,
+      darkTheme: true,
+      frame: true,
       icon: `file://${__dirname}/../motabass/assets/icons/icon-512x512.png`,
       show: false,
       webPreferences: {
@@ -121,6 +125,8 @@ export default class App {
 
     App.BrowserWindow = browserWindow;
     App.application = app;
+
+    app.allowRendererProcessReuse = true;
 
     App.application.on('window-all-closed', App.onWindowAllClosed); // Quit when all windows are closed.
     App.application.on('ready', App.onReady); // App is ready to load data

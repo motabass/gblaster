@@ -85,6 +85,8 @@
     "firebase": "^7.9.1",
     "jsmediatags": "^3.9.3",
     "material-community-components": "^6.0.0",
+    "mobx": "^5.15.4",
+    "mobx-angular": "^4.1.0",
     "ngx-date-fns": "6.1.0",
     "ngx-pipes": "2.7.3",
     "ngx-webstorage": "5.0.0",
