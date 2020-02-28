@@ -1,12 +1,17 @@
-<div style="padding: 16px;">
-  <mat-slider
-    *ngFor="let band of BANDS"
-    vertical
-    style="height: 6rem;"
-    [value]="bands[band].gain.value"
-    (input)="onEqualizerBandChange($event, band)"
-    min="0"
-    max="1"
-    step="0.01"
-  ></mat-slider>
+<div fxLayout="row" fxLayoutAlign="space-between center" style="width: 100%;">
+  <div *ngFor="let band of BANDS" fxLayout="column" fxLayoutAlign="start center">
+    <mat-slider
+      vertical
+      [displayWith]="displayFunction"
+      style="height: 6rem; padding: 0;"
+      [value]="getBandGain(band)"
+      (input)="onGainChange($event, band)"
+      min="-12"
+      max="12"
+      step="1"
+      thumbLabel
+      tickInterval="6"
+    ></mat-slider>
+    <span style="font-size: smaller; text-align: center; width: 100%;">{{ band | band }}</span>
+  </div>
 </div>

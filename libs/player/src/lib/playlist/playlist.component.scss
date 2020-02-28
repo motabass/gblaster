@@ -9,6 +9,11 @@
   grid-template-areas:
     'pl'
     'eq';
+  @media (max-width: 599px) {
+    grid-template-areas:
+      'eq'
+      'pl';
+  }
 }
 
 .selected {

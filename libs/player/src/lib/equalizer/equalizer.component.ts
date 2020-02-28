@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSliderChange } from '@angular/material/slider';
-import { BANDS, PlayerService } from '../player.service';
+import { BAND_FREQUENIES, PlayerService } from '../player.service';
+import { BandFrequency } from '../player.types';
 
 @Component({
   selector: 'mtb-equalizer',
@@ -12,17 +13,27 @@ export class EqualizerComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  get BANDS(): number[] {
-    return BANDS;
+  get BANDS(): BandFrequency[] {
+    return BAND_FREQUENIES;
   }
 
-  get bands(): { [band: number]: BiquadFilterNode } {
-    return this.playerService.bands;
+  getBandGain(bandFrequency: BandFrequency): number {
+    return this.playerService.getBandGain(bandFrequency);
   }
 
-  onEqualizerBandChange(event: MatSliderChange, band: number) {
+  onGainChange(event: MatSliderChange, bandFrequency: BandFrequency) {
     if (event.value) {
-      this.bands[band].gain.value = event.value * 24 - 12;
+      this.playerService.bands[bandFrequency].gain.value = event.value;
+      this.playerService.setBandGain(bandFrequency, event.value);
+    }
+  }
+
+  displayFunction(value: any) {
+    if (value <= 0) {
+      return value;
+    }
+    if (value > 0) {
+      return '+' + value;
     }
   }
 }

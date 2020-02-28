@@ -16,6 +16,7 @@ import { TimePipe } from './time.pipe';
 import { MetadataComponent } from './metadata/metadata.component';
 import { VisualizerComponent } from './visualizer/visualizer.component';
 import { EqualizerComponent } from './equalizer/equalizer.component';
+import { BandPipe } from './equalizer/band.pipe';
 
 @NgModule({
   imports: [
@@ -31,6 +32,6 @@ import { EqualizerComponent } from './equalizer/equalizer.component';
     MatInputModule,
     MatSelectModule
   ],
-  declarations: [PlayerComponent, PlaylistComponent, TimePipe, MetadataComponent, VisualizerComponent, EqualizerComponent]
+  declarations: [PlayerComponent, PlaylistComponent, TimePipe, MetadataComponent, VisualizerComponent, EqualizerComponent, BandPipe]
 })
 export class PlayerModule {}

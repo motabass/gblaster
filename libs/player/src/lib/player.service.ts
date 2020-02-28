@@ -1,17 +1,19 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { LocalStorage, LocalStorageService } from 'ngx-webstorage';
-import { Band } from './equalizer/equalizer.types';
 import { MetadataService } from './metadata.service';
 import { NativeFileLoaderService } from './native-file-loader.service';
-import { Song, SongMetadata } from './player.types';
+import { BandFrequency, Song, SongMetadata } from './player.types';
 
-export const BANDS: Band[] = [60, 170, 310, 600, 1000, 3000, 6000, 12000, 14000, 16000];
+export const BAND_FREQUENIES: BandFrequency[] = [60, 170, 310, 600, 1000, 3000, 6000, 12000, 14000, 16000];
 
 @Injectable({
   providedIn: 'root'
 })
-export class PlayerService {
+export class PlayerService implements OnInit {
   bands: { [band: number]: BiquadFilterNode } = {};
+
+  @LocalStorage('eqBandGains', { 60: 0, 170: 0, 310: 0, 600: 0, 1000: 0, 3000: 0, 6000: 0, 12000: 0, 14000: 0, 16000: 0 })
+  bandGains!: { [band: number]: number };
 
   private audioCtx: AudioContext;
   private gainNode: GainNode;
@@ -93,24 +95,31 @@ export class PlayerService {
     }
   }
 
+  ngOnInit(): void {
+    BAND_FREQUENIES.forEach((bandFrequency) => {
+      const filter = this.bands[bandFrequency];
+      filter.gain.value = this.bandGains[bandFrequency];
+    });
+  }
+
   initEqualizer() {
     let output: AudioNode = this.analyserNode;
 
-    BANDS.forEach((band, i) => {
+    BAND_FREQUENIES.forEach((bandFrequency, i) => {
       const filter = this.audioCtx.createBiquadFilter();
 
-      this.bands[band] = filter;
+      this.bands[bandFrequency] = filter;
 
       if (i === 0) {
         // The first filter, includes all lower frequencies
         filter.type = 'lowshelf';
-      } else if (i === BANDS.length - 1) {
+      } else if (i === BAND_FREQUENIES.length - 1) {
         // The last filter, includes all higher frequencies
         filter.type = 'highshelf';
       } else {
         filter.type = 'peaking';
       }
-      filter.frequency.value = band;
+      filter.frequency.value = bandFrequency;
       filter.gain.value = 0;
 
       output.connect(filter);
@@ -142,6 +151,18 @@ export class PlayerService {
       fileHandle: fileHandle,
       metadata: metadata
     };
+  }
+
+  getBandGain(bandFrequency: BandFrequency): number {
+    return this.bandGains[bandFrequency];
+  }
+
+  setBandGain(bandFrequency: BandFrequency, gainValue: number) {
+    this.bands[bandFrequency].gain.value = gainValue;
+
+    const bandGains = this.bandGains;
+    bandGains[bandFrequency] = gainValue;
+    this.bandGains = bandGains;
   }
 
   set volume(value: number) {
