@@ -1,1 +1,12 @@
-<p>equalizer works!</p>
+<div style="padding: 16px;">
+  <mat-slider
+    *ngFor="let band of BANDS"
+    vertical
+    style="height: 6rem;"
+    [value]="bands[band].gain.value"
+    (input)="onEqualizerBandChange($event, band)"
+    min="0"
+    max="1"
+    step="0.01"
+  ></mat-slider>
+</div>

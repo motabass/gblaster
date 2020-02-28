@@ -5,13 +5,13 @@ import { MetadataService } from './metadata.service';
 import { NativeFileLoaderService } from './native-file-loader.service';
 import { Song, SongMetadata } from './player.types';
 
+export const BANDS: Band[] = [60, 170, 310, 600, 1000, 3000, 6000, 12000, 14000, 16000];
+
 @Injectable({
   providedIn: 'root'
 })
 export class PlayerService {
-  private BANDS: Band[] = [60, 170, 310, 600, 1000, 3000, 6000, 12000, 14000, 16000];
-
-  private _bands: { [band: number]: BiquadFilterNode } = {};
+  bands: { [band: number]: BiquadFilterNode } = {};
 
   private audioCtx: AudioContext;
   private gainNode: GainNode;
@@ -70,7 +70,6 @@ export class PlayerService {
     const analyser = this.audioCtx.createAnalyser();
     const gainNode = this.audioCtx.createGain();
 
-    analyser.connect(gainNode);
     gainNode.connect(this.audioCtx.destination);
 
     this.analyserNode = analyser;
@@ -95,16 +94,17 @@ export class PlayerService {
   }
 
   initEqualizer() {
-    // TODO: make it work
-    this.BANDS.forEach((band, i) => {
+    let output: AudioNode = this.analyserNode;
+
+    BANDS.forEach((band, i) => {
       const filter = this.audioCtx.createBiquadFilter();
 
-      this._bands[band] = filter;
+      this.bands[band] = filter;
 
       if (i === 0) {
         // The first filter, includes all lower frequencies
         filter.type = 'lowshelf';
-      } else if (i === this.BANDS.length - 1) {
+      } else if (i === BANDS.length - 1) {
         // The last filter, includes all higher frequencies
         filter.type = 'highshelf';
       } else {
@@ -113,9 +113,11 @@ export class PlayerService {
       filter.frequency.value = band;
       filter.gain.value = 0;
 
-      this.audioSrcNode.connect(filter);
-      filter.connect(this.gainNode);
+      output.connect(filter);
+      output = filter;
     });
+
+    output.connect(this.gainNode);
   }
 
   async loadFolder() {

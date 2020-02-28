@@ -1,4 +1,4 @@
-<mat-action-list dense style="padding: 0.5rem 0; height: 100%; box-sizing: border-box; overflow-y: auto;">
+<mat-action-list dense class="pl">
   <mat-list-item
     *ngFor="let song of _songs; let index = index"
     [ngClass]="{ selected: isSelected(song) }"
@@ -23,3 +23,4 @@
     </button>
   </mat-list-item>
 </mat-action-list>
+<ng-content class="eq"></ng-content>
