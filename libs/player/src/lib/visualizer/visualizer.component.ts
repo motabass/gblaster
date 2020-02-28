@@ -1,8 +1,12 @@
 import { Component } from '@angular/core';
-import { VisualizerMode } from '@motabass/ui-components/visuals';
+import { FftSize, VisualizerMode } from '@motabass/ui-components/visuals';
+import { LocalStorage } from 'ngx-webstorage';
 import { GamepadService } from '../gamepad.service';
 import { GamepadButtons } from '../gamepad.types';
 import { PlayerService } from '../player.service';
+
+// TODO: local storage reset
+// TODO: quit app + min + max buttons in electron
 
 @Component({
   selector: 'mtb-visualizer',
@@ -10,15 +14,29 @@ import { PlayerService } from '../player.service';
   styleUrls: ['./visualizer.component.scss']
 })
 export class VisualizerComponent {
-  visualMode: VisualizerMode = 'bars';
+  @LocalStorage('visualMode', 'bars')
+  visualMode!: VisualizerMode;
 
-  smoothing = 0.7;
-  minDb = -75;
-  maxDb = 24;
-  barCount = 48;
-  fftSize = 4096;
-  capHeight = 2;
-  gap = 0;
+  @LocalStorage('smoothing', 0.7)
+  smoothing!: number;
+
+  @LocalStorage('minDb', -75)
+  minDb!: number;
+
+  @LocalStorage('maxDb', 24)
+  maxDb!: number;
+
+  @LocalStorage('barCount', 48)
+  barCount!: number;
+
+  @LocalStorage('fftSize', 4096)
+  fftSize!: FftSize;
+
+  @LocalStorage('capHeight', 2)
+  capHeight!: number;
+
+  @LocalStorage('gap', 0)
+  gap!: number;
 
   constructor(private playerService: PlayerService, private gamepadService: GamepadService) {
     this.gamepadService.registerButtonAction(GamepadButtons.SELECT_BUTTON, () => this.toggleVisualMode());
@@ -74,7 +92,7 @@ export class VisualizerComponent {
     this.gap = value;
   }
 
-  setFftSize(value: number | null) {
+  setFftSize(value: FftSize | null) {
     if (!value) {
       return;
     }

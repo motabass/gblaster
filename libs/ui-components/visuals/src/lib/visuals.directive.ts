@@ -1,5 +1,5 @@
 import { Directive, ElementRef, Input, OnChanges, OnDestroy, SimpleChanges } from '@angular/core';
-import { VisualizerMode } from './visuals.types';
+import { FftSize, VisualizerMode } from './visuals.types';
 
 @Directive({
   selector: '[mtbVisual]'
@@ -24,7 +24,7 @@ export class VisualsDirective implements OnDestroy, OnChanges {
   @Input()
   peakColor = '#f00';
   @Input()
-  fftSize = 2048;
+  fftSize: FftSize = 2048;
   @Input()
   smoothingTimeConstant = 0.5;
   @Input()
