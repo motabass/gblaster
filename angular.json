@@ -61,7 +61,8 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "motabass:build"
+            "browserTarget": "motabass:build",
+            "proxyConfig": "apps/motabass/proxy.conf.json"
           },
           "configurations": {
             "production": {
@@ -540,6 +541,74 @@
       "schematics": {
         "@nrwl/angular:component": {
           "styleext": "scss"
+        }
+      }
+    },
+    "motabass-desktop": {
+      "root": "apps/motabass-desktop",
+      "sourceRoot": "apps/motabass-desktop/src",
+      "projectType": "application",
+      "prefix": "motabass-desktop",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "nx-electron:build",
+          "options": {
+            "outputPath": "dist/apps/motabass-desktop",
+            "main": "apps/motabass-desktop/src/main.ts",
+            "tsConfig": "apps/motabass-desktop/tsconfig.app.json",
+            "assets": ["apps/motabass-desktop/src/assets"]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/motabass-desktop/src/environments/environment.ts",
+                  "with": "apps/motabass-desktop/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "nx-electron:execute",
+          "options": {
+            "buildTarget": "motabass-desktop:build"
+          }
+        },
+        "package": {
+          "builder": "nx-electron:package",
+          "options": {
+            "name": "motabass-desktop",
+            "frontendProject": "motabass",
+            "out": "dist/packages"
+          }
+        },
+        "make": {
+          "builder": "nx-electron:make",
+          "options": {
+            "name": "motabass-desktop",
+            "frontendProject": "motabass",
+            "out": "dist/executables"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": ["apps/motabass-desktop/tsconfig.app.json", "apps/motabass-desktop/tsconfig.spec.json"],
+            "exclude": ["**/node_modules/**", "!apps/motabass-desktop/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/motabass-desktop/jest.config.js",
+            "tsConfig": "apps/motabass-desktop/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
         }
       }
     }

@@ -1,0 +1,9 @@
+{
+  "$schema": "../../../../../node_modules/nx-electron/src/validation/maker.schema.json",
+  "productName": "m0taba55",
+  "copyright": "MIT",
+  "npmRebuild": false,
+  "win": {
+    "target": "appx"
+  }
+}

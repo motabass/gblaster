@@ -1,0 +1,10 @@
+{
+  "$schema": "../../../../../node_modules/nx-electron/src/validation/packager.schema.json",
+  "prune": true,
+  "executableName": "m0taba55",
+  "appCopyright": "MIT",
+  "ignore": ["tools", "libs", "(angular|nx)\\.json", "\\.vscode"],
+  "overwrite": true,
+  "platform": "win32",
+  "ignoreSourceMap": true
+}
