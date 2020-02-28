@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FftSize, VisualizerMode } from '@motabass/ui-components/visuals';
 import { LocalStorage } from 'ngx-webstorage';
 import { GamepadService } from '../gamepad.service';
@@ -13,7 +13,7 @@ import { PlayerService } from '../player.service';
   templateUrl: './visualizer.component.html',
   styleUrls: ['./visualizer.component.scss']
 })
-export class VisualizerComponent {
+export class VisualizerComponent implements OnInit, OnDestroy {
   @LocalStorage('visualMode', 'bars')
   visualMode!: VisualizerMode;
 
@@ -38,7 +38,9 @@ export class VisualizerComponent {
   @LocalStorage('gap', 0)
   gap!: number;
 
-  constructor(private playerService: PlayerService, private gamepadService: GamepadService) {
+  constructor(private playerService: PlayerService, private gamepadService: GamepadService) {}
+
+  ngOnInit(): void {
     this.gamepadService.registerButtonAction(GamepadButtons.SELECT_BUTTON, () => this.toggleVisualMode());
   }
 
@@ -105,5 +107,19 @@ export class VisualizerComponent {
       options.push(i);
     }
     return options;
+  }
+
+  get mainColor(): string {
+    const color = this.playerService.selectedSong?.metadata?.coverColors?.LightMuted?.getHex();
+    return color ? color : 'red';
+  }
+
+  get peakColor(): string {
+    const color = this.playerService.selectedSong?.metadata?.coverColors?.LightVibrant?.getHex();
+    return color ? color : 'yellow';
+  }
+
+  ngOnDestroy(): void {
+    this.gamepadService.deregisterButtonAction(GamepadButtons.SELECT_BUTTON);
   }
 }

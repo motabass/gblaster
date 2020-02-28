@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { PlayerService } from '../player.service';
 import { Song } from '../player.types';
 
@@ -7,9 +7,7 @@ import { Song } from '../player.types';
   templateUrl: './playlist.component.html',
   styleUrls: ['./playlist.component.scss']
 })
-export class PlaylistComponent implements OnInit {
-  constructor(private playerService: PlayerService) {}
-
+export class PlaylistComponent {
   @Input()
   set songs(songs: Song[]) {
     for (const [i, v] of songs.entries()) {
@@ -17,13 +15,13 @@ export class PlaylistComponent implements OnInit {
     }
 
     this._songs = songs;
-    this.selectSong(songs[0]);
-    this.playerService.playingSong = songs[0];
   }
-
   _songs: Song[] = [];
 
-  ngOnInit(): void {}
+  constructor(private playerService: PlayerService) {
+    this.selectSong(this._songs[0]);
+    this.playerService.playingSong = this._songs[0];
+  }
 
   isPlaying(song: Song): boolean {
     if (song !== this.playingSong) {

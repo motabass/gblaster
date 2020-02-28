@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { MediaObserver } from '@angular/flex-layout';
 import { MatSliderChange } from '@angular/material/slider';
 import { TitleService } from '@motabass/helper-services/title';
@@ -13,13 +13,15 @@ import { Song } from './player.types';
   templateUrl: './player.component.html',
   styleUrls: ['./player.component.scss']
 })
-export class PlayerComponent implements OnInit, AfterViewInit {
+export class PlayerComponent implements OnInit, AfterViewInit, OnDestroy {
+  private interval: any;
+
   position = 0;
 
   constructor(public media: MediaObserver, private playerService: PlayerService, private titleService: TitleService, private gamepadService: GamepadService) {}
 
   ngOnInit() {
-    setTimeout(() => this.titleService.setTitle('Mediaplayer'));
+    setTimeout(() => this.titleService.setTitle('Mediaplayer')); // TODO: find better way
 
     this.gamepadService.registerButtonAction(GamepadButtons.A_BUTTON, () => this.playPause());
     this.gamepadService.registerButtonAction(GamepadButtons.B_BUTTON, () => this.stop());
@@ -45,7 +47,7 @@ export class PlayerComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    setInterval(() => {
+    this.interval = setInterval(() => {
       this.position = this.playerService.currentTime;
     }, 250);
   }
@@ -192,5 +194,26 @@ export class PlayerComponent implements OnInit, AfterViewInit {
 
   async loadFolder() {
     return this.playerService.loadFolder();
+  }
+
+  ngOnDestroy(): void {
+    if (this.interval) {
+      clearInterval(this.interval);
+    }
+    this.gamepadService.deregisterButtonAction(GamepadButtons.A_BUTTON);
+    this.gamepadService.deregisterButtonAction(GamepadButtons.B_BUTTON);
+    this.gamepadService.deregisterButtonAction(GamepadButtons.X_BUTTON);
+    this.gamepadService.deregisterButtonAction(GamepadButtons.Y_BUTTON);
+    this.gamepadService.deregisterButtonAction(GamepadButtons.L2_BUTTON);
+    this.gamepadService.deregisterButtonAction(GamepadButtons.R2_BUTTON);
+    this.gamepadService.deregisterButtonAction(GamepadButtons.S2_BUTTON);
+    this.gamepadService.deregisterButtonAction(GamepadButtons.DPAD_UP);
+    this.gamepadService.deregisterButtonAction(GamepadButtons.DPAD_DOWN);
+    this.gamepadService.deregisterButtonAction(GamepadButtons.R1_BUTTON);
+    this.gamepadService.deregisterButtonAction(GamepadButtons.L1_BUTTON);
+    this.gamepadService.deregisterButtonAction(GamepadButtons.START_BUTTON);
+    this.gamepadService.deregisterAxisAction(GamepadAxes.S1_X);
+    this.gamepadService.deregisterAxisAction(GamepadAxes.S2_Y);
+    this.gamepadService.deregisterAxisAction(GamepadAxes.S1_Y);
   }
 }

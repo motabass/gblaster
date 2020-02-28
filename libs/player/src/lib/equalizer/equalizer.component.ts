@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatSliderChange } from '@angular/material/slider';
 import { BAND_FREQUENIES, PlayerService } from '../player.service';
 import { BandFrequency } from '../player.types';
@@ -8,10 +8,8 @@ import { BandFrequency } from '../player.types';
   templateUrl: './equalizer.component.html',
   styleUrls: ['./equalizer.component.scss']
 })
-export class EqualizerComponent implements OnInit {
+export class EqualizerComponent {
   constructor(private playerService: PlayerService) {}
-
-  ngOnInit(): void {}
 
   get BANDS(): BandFrequency[] {
     return BAND_FREQUENIES;
