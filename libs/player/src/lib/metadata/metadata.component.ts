@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { ThemeService } from '@motabass/core/theme';
 import { Song } from '../player.types';
 
 @Component({
@@ -12,7 +11,7 @@ export class MetadataComponent {
   @Input()
   song?: Song;
 
-  constructor(private themeService: ThemeService) {}
+  constructor() {}
 
   get coverUrl(): string | undefined {
     if (this.song?.metadata.coverUrl) {
@@ -22,7 +21,6 @@ export class MetadataComponent {
 
   get backgroundColor(): string {
     const color = this.song?.metadata?.coverColors?.Vibrant ? this.song.metadata.coverColors.Vibrant.getHex() : 'rgba(0,0,0,0)';
-    this.themeService.setPrimaryColor(color);
     return color;
   }
 

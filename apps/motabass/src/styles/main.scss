@@ -32,7 +32,7 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: $primary-color;
+  background: $accent-color;
   border: 0 none #000000;
   border-radius: 50px;
 }
@@ -47,7 +47,7 @@ body {
 }
 
 ::-webkit-scrollbar-thumb:active {
-  background: $primary-color;
+  background: $accent-color;
 }
 
 ::-webkit-scrollbar-track:hover {
@@ -69,5 +69,5 @@ body {
 // TODO: sollte component style sein
 .volume-menu {
   min-width: unset !important;
-  background-color: black;
+  background-color: $accent-color;
 }

@@ -1,4 +1,5 @@
 import { Injectable, OnInit } from '@angular/core';
+import { ThemeService } from '@motabass/core/theme';
 import { LocalStorage, LocalStorageService } from 'ngx-webstorage';
 import { MetadataService } from './metadata.service';
 import { NativeFileLoaderService } from './native-file-loader.service';
@@ -41,6 +42,14 @@ export class PlayerService implements OnInit {
 
     this.setBrowserMetadata(song.metadata);
 
+    const primaryColor = song.metadata.coverColors?.DarkVibrant?.getHex();
+    this.themeService.setPrimaryColor(primaryColor);
+
+    const accentColor = song.metadata.coverColors?.LightVibrant?.getHex();
+    this.themeService.setAccentColor(accentColor);
+
+    // TODO: text color setzen!!!!
+
     this.audioSrcNode.connect(this.analyserNode);
   }
 
@@ -53,7 +62,12 @@ export class PlayerService implements OnInit {
   @LocalStorage('shuffle', false)
   shuffle!: boolean;
 
-  constructor(private fileLoaderService: NativeFileLoaderService, private metadataService: MetadataService, private storageService: LocalStorageService) {
+  constructor(
+    private fileLoaderService: NativeFileLoaderService,
+    private metadataService: MetadataService,
+    private storageService: LocalStorageService,
+    private themeService: ThemeService
+  ) {
     const audio = new Audio();
     audio.loop = false;
     audio.autoplay = false;
