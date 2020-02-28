@@ -7,6 +7,11 @@ import { TagType } from 'jsmediatags/types';
 import vibrant from 'node-vibrant';
 import { SongMetadata } from './player.types';
 
+// https://www.npmjs.com/package/id3-writer
+// https://github.com/Zazama/node-id3
+// https://github.com/borewit/music-metadata
+// more web apis?
+
 @Injectable({
   providedIn: 'root'
 })

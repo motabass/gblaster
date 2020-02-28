@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { LocalStorage, LocalStorageService } from 'ngx-webstorage';
+import { Band } from './equalizer/equalizer.types';
 import { MetadataService } from './metadata.service';
 import { NativeFileLoaderService } from './native-file-loader.service';
 import { Song, SongMetadata } from './player.types';
@@ -8,6 +9,10 @@ import { Song, SongMetadata } from './player.types';
   providedIn: 'root'
 })
 export class PlayerService {
+  private BANDS: Band[] = [60, 170, 310, 600, 1000, 3000, 6000, 12000, 14000, 16000];
+
+  private _bands: { [band: number]: BiquadFilterNode } = {};
+
   private audioCtx: AudioContext;
   private gainNode: GainNode;
   private readonly analyserNode: AnalyserNode;
@@ -73,6 +78,8 @@ export class PlayerService {
     this.audioElement = audio;
     this.audioSrcNode = this.audioCtx.createMediaElementSource(this.audioElement);
 
+    this.initEqualizer();
+
     this.gainNode.gain.value = storageService.retrieve('volume');
 
     if ('mediaSession' in navigator) {
@@ -85,6 +92,30 @@ export class PlayerService {
       // @ts-ignore
       navigator.mediaSession.setActionHandler('previoustrack', this.previous.bind(this));
     }
+  }
+
+  initEqualizer() {
+    // TODO: make it work
+    this.BANDS.forEach((band, i) => {
+      const filter = this.audioCtx.createBiquadFilter();
+
+      this._bands[band] = filter;
+
+      if (i === 0) {
+        // The first filter, includes all lower frequencies
+        filter.type = 'lowshelf';
+      } else if (i === this.BANDS.length - 1) {
+        // The last filter, includes all higher frequencies
+        filter.type = 'highshelf';
+      } else {
+        filter.type = 'peaking';
+      }
+      filter.frequency.value = band;
+      filter.gain.value = 0;
+
+      this.audioSrcNode.connect(filter);
+      filter.connect(this.gainNode);
+    });
   }
 
   async loadFolder() {
