@@ -64,10 +64,13 @@ export default class App {
     App.mainWindow = new BrowserWindow({
       width: width,
       height: height,
+      backgroundColor: '#000000',
+      icon: `file://${__dirname}/../motabass/assets/icons/icon-512x512.png`,
       show: false,
       webPreferences: {
         nodeIntegration: true,
-        backgroundThrottling: false
+        backgroundThrottling: false,
+        enableBlinkFeatures: 'NativeFileSystem'
       }
     });
     App.mainWindow.setMenu(null);
@@ -97,6 +100,8 @@ export default class App {
     // load the index.html of the app.
     if (App.isDevelopmentMode()) {
       App.mainWindow.loadURL(`http://localhost:${rendererAppPort}`);
+      App.mainWindow.maximize();
+      App.mainWindow.webContents.openDevTools();
     } else {
       App.mainWindow.loadURL(
         format({

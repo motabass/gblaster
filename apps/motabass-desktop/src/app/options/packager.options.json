@@ -3,8 +3,20 @@
   "prune": true,
   "executableName": "m0taba55",
   "appCopyright": "MIT",
-  "ignore": ["tools", "libs", "(angular|nx)\\.json", "\\.vscode"],
+  "ignore": [
+    "tools",
+    "libs",
+    "dist/executables",
+    "dist/packages",
+    "dist/cypress",
+    "(angular|nx)\\.json",
+    "\\.vscode",
+    "\\.storybook",
+    "\\.idea",
+    "\\.firebase"
+  ],
   "overwrite": true,
   "platform": "win32",
-  "ignoreSourceMap": true
+  "ignoreSourceMap": true,
+  "asar": true
 }

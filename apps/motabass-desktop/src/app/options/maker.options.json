@@ -4,6 +4,8 @@
   "copyright": "MIT",
   "npmRebuild": false,
   "win": {
-    "target": "appx"
+    "target": "appx",
+    "asar": true,
+    "compression": "normal"
   }
 }

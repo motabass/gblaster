@@ -30,7 +30,7 @@ import { ThemeSettingsComponent } from './theme-settings/theme-settings.componen
     HttpClientModule,
     RouterModule.forRoot(
       [
-        { path: '', redirectTo: 'blog', pathMatch: 'full' },
+        { path: '', redirectTo: 'player', pathMatch: 'full' },
         { path: 'player', loadChildren: () => import('@motabass/player').then((m) => m.PlayerModule) },
         { path: 'settings', component: ThemeSettingsComponent },
         { path: '**', redirectTo: '' }
