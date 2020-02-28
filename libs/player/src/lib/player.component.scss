@@ -1,4 +1,5 @@
 @import 'apps/motabass/src/styles/variables';
+@import '~@angular/material/theming';
 
 :host {
   width: 100%;
@@ -40,6 +41,7 @@
   background-color: $primary-color;
   opacity: 1;
   color: white;
+  @include mat-elevation(4);
 }
 
 ::ng-deep .bar .mat-slider-track-wrapper {
