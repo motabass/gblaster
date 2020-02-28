@@ -2,12 +2,12 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { Song } from '../player.types';
 
 @Component({
-  selector: 'mtb-metadata',
-  templateUrl: './metadata.component.html',
-  styleUrls: ['./metadata.component.scss'],
+  selector: 'mtb-cover-display',
+  templateUrl: './cover-display.component.html',
+  styleUrls: ['./cover-display.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MetadataComponent {
+export class CoverDisplayComponent {
   @Input()
   song?: Song;
 

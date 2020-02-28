@@ -1,12 +1,12 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FftSize, VisualizerMode } from '@motabass/ui-components/visuals';
 import { LocalStorage } from 'ngx-webstorage';
-import { GamepadService } from '../gamepad.service';
-import { GamepadButtons } from '../gamepad.types';
+import { GamepadService } from '@motabass/helper-services/gamepad';
+import { GamepadButtons } from '@motabass/helper-services/gamepad';
 import { PlayerService } from '../player.service';
 
-// TODO: local storage reset
 // TODO: quit app + min + max buttons in electron
+// TODO: loading indicator service
 
 @Component({
   selector: 'mtb-visualizer',

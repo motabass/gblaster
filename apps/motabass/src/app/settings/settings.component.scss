@@ -1,0 +1,25 @@
+:host {
+  padding: 16px;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-gap: 1.5rem;
+  grid-template-columns: auto auto;
+  grid-template-areas: 'theme storage';
+  @media (max-width: 599px) {
+    grid-template-columns: 100%;
+    grid-auto-rows: max-content;
+    grid-template-areas:
+      'theme'
+      'storage';
+  }
+}
+
+.theme {
+  grid-area: theme;
+}
+
+.storage {
+  grid-area: storage;
+}

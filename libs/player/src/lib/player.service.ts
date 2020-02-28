@@ -48,8 +48,6 @@ export class PlayerService implements OnInit {
     const accentColor = song.metadata.coverColors?.LightVibrant?.getHex();
     this.themeService.setAccentColor(accentColor);
 
-    // TODO: text color setzen!!!!
-
     this.audioSrcNode.connect(this.analyserNode);
   }
 

@@ -9,14 +9,15 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSliderModule } from '@angular/material/slider';
 import { RouterModule } from '@angular/router';
+import { GamepadModule } from '@motabass/helper-services/gamepad';
 import { VisualsModule } from '@motabass/ui-components/visuals';
+import { CoverDisplayComponent } from './cover-display/cover-display.component';
+import { BandPipe } from './equalizer/band.pipe';
+import { EqualizerComponent } from './equalizer/equalizer.component';
 import { PlayerComponent } from './player.component';
 import { PlaylistComponent } from './playlist/playlist.component';
 import { TimePipe } from './time.pipe';
-import { MetadataComponent } from './metadata/metadata.component';
 import { VisualizerComponent } from './visualizer/visualizer.component';
-import { EqualizerComponent } from './equalizer/equalizer.component';
-import { BandPipe } from './equalizer/band.pipe';
 
 @NgModule({
   imports: [
@@ -30,8 +31,9 @@ import { BandPipe } from './equalizer/band.pipe';
     VisualsModule,
     MatMenuModule,
     MatInputModule,
-    MatSelectModule
+    MatSelectModule,
+    GamepadModule
   ],
-  declarations: [PlayerComponent, PlaylistComponent, TimePipe, MetadataComponent, VisualizerComponent, EqualizerComponent, BandPipe]
+  declarations: [PlayerComponent, PlaylistComponent, TimePipe, CoverDisplayComponent, VisualizerComponent, EqualizerComponent, BandPipe]
 })
 export class PlayerModule {}

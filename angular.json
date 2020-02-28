@@ -611,6 +611,47 @@
           }
         }
       }
+    },
+    "helper-services-gamepad": {
+      "projectType": "library",
+      "root": "libs/helper-services/gamepad",
+      "sourceRoot": "libs/helper-services/gamepad/src",
+      "prefix": "mtb",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/angular:package",
+          "options": {
+            "tsConfig": "libs/helper-services/gamepad/tsconfig.lib.json",
+            "project": "libs/helper-services/gamepad/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/helper-services/gamepad/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": ["libs/helper-services/gamepad/tsconfig.lib.json", "libs/helper-services/gamepad/tsconfig.spec.json"],
+            "exclude": ["**/node_modules/**", "!libs/helper-services/gamepad/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/helper-services/gamepad/jest.config.js",
+            "tsConfig": "libs/helper-services/gamepad/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "libs/helper-services/gamepad/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "styleext": "scss"
+        }
+      }
     }
   },
   "cli": {

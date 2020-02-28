@@ -1,20 +1,24 @@
 import { BrowserWindow, shell } from 'electron';
-import { rendererAppName, rendererAppPort } from './constants';
+import debug from 'electron-debug';
 import { join } from 'path';
 import { format } from 'url';
+import { rendererAppName, rendererAppPort } from './constants';
+
+debug();
 
 export default class App {
   // Keep a global reference of the window object, if you don't, the window will
   // be closed automatically when the JavaScript object is garbage collected.
-  static mainWindow: Electron.BrowserWindow;
+  static mainWindow: BrowserWindow;
   static application: Electron.App;
   static BrowserWindow: typeof BrowserWindow;
 
   public static isDevelopmentMode() {
-    const isEnvironmentSet: boolean = 'ELECTRON_IS_DEV' in process.env;
-    const getFromEnvironment: boolean = parseInt(process.env.ELECTRON_IS_DEV!, 10) === 1;
-
-    return isEnvironmentSet ? getFromEnvironment : !App.application.isPackaged;
+    if (process.env.ELECTRON_IS_DEV) {
+      return true;
+    } else {
+      return !App.application.isPackaged;
+    }
   }
 
   private static onWindowAllClosed() {
@@ -38,7 +42,7 @@ export default class App {
     }
   }
 
-  private static onReady() {
+  private static onAppReady() {
     // This method will be called when Electron has finished
     // initialization and is ready to create browser windows.
     // Some APIs can only be used after this event occurs.
@@ -46,11 +50,11 @@ export default class App {
     App.loadMainWindow();
   }
 
-  private static onActivate() {
+  private static onAppActivate() {
     // On macOS it's common to re-create a window in the app when the
     // dock icon is clicked and there are no other windows open.
     if (App.mainWindow === null) {
-      App.onReady();
+      App.onAppReady();
     }
   }
 
@@ -104,8 +108,6 @@ export default class App {
     // load the index.html of the app.
     if (App.isDevelopmentMode()) {
       App.mainWindow.loadURL(`http://localhost:${rendererAppPort}`);
-      App.mainWindow.maximize();
-      App.mainWindow.webContents.openDevTools();
     } else {
       App.mainWindow.loadURL(
         format({
@@ -129,7 +131,7 @@ export default class App {
     app.allowRendererProcessReuse = true;
 
     App.application.on('window-all-closed', App.onWindowAllClosed); // Quit when all windows are closed.
-    App.application.on('ready', App.onReady); // App is ready to load data
-    App.application.on('activate', App.onActivate); // App is activated
+    App.application.on('ready', App.onAppReady); // App is ready to load data
+    App.application.on('activate', App.onAppActivate); // App is activated
   }
 }

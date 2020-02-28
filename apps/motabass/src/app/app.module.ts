@@ -19,11 +19,13 @@ import { MccColorPickerModule } from 'material-community-components';
 import { NgxWebstorageModule } from 'ngx-webstorage';
 import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
+import { SettingsComponent } from './settings/settings.component';
+import { ThemeSettingsComponent } from './settings/theme-settings/theme-settings.component';
 import { ShellComponent } from './shell/shell.component';
-import { ThemeSettingsComponent } from './theme-settings/theme-settings.component';
+import { StorageSettingsComponent } from './settings/storage-settings/storage-settings.component';
 
 @NgModule({
-  declarations: [AppComponent, ShellComponent, ThemeSettingsComponent],
+  declarations: [AppComponent, ShellComponent, ThemeSettingsComponent, SettingsComponent, StorageSettingsComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -32,7 +34,7 @@ import { ThemeSettingsComponent } from './theme-settings/theme-settings.componen
       [
         { path: '', redirectTo: 'player', pathMatch: 'full' },
         { path: 'player', loadChildren: () => import('@motabass/player').then((m) => m.PlayerModule) },
-        { path: 'settings', component: ThemeSettingsComponent },
+        { path: 'settings', component: SettingsComponent },
         { path: '**', redirectTo: '' }
       ],
       { initialNavigation: 'enabled' }

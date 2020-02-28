@@ -3,8 +3,8 @@ import { MediaObserver } from '@angular/flex-layout';
 import { MatSliderChange } from '@angular/material/slider';
 import { TitleService } from '@motabass/helper-services/title';
 import { formatSecondsAsClock } from '@motabass/helpers/time';
-import { GamepadService } from './gamepad.service';
-import { GamepadAxes, GamepadButtons } from './gamepad.types';
+import { GamepadService } from '@motabass/helper-services/gamepad';
+import { GamepadAxes, GamepadButtons } from '@motabass/helper-services/gamepad';
 import { PlayerService } from './player.service';
 import { Song } from './player.types';
 

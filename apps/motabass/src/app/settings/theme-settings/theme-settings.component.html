@@ -1,8 +1,8 @@
 <mat-card>
   <mat-card-title>Theme-Colors</mat-card-title>
   <!--   TODO: dynisches theme toggle-->
-  <mat-card-content fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="16px" style="min-height: 48px;">
-    <div fxLayout="row" fxLayoutAlign="start center">
+  <mat-card-content fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="1.5rem" style="min-height: 48px;">
+    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="0.5rem">
       <span>Primary:&nbsp;</span>
       <mcc-color-picker
         [overlay]="true"
@@ -15,8 +15,7 @@
         [selectedColor]="themeService.primaryColor"
         (change)="setPrimaryColor($event)"
       ></mcc-color-picker>
-    </div>
-    <div fxLayout="row" fxLayoutAlign="start center">
+
       <span>Accent:&nbsp;</span>
       <mcc-color-picker
         [overlay]="true"

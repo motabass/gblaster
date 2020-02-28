@@ -2,9 +2,9 @@
   <mtb-equalizer></mtb-equalizer>
 </mtb-playlist>
 
-<mtb-metadata [song]="playingSong" class="main">
+<mtb-cover-display [song]="playingSong" class="main">
   <mtb-visualizer class="visualizer"></mtb-visualizer>
-</mtb-metadata>
+</mtb-cover-display>
 
 <div fxLayout="row" fxLayoutAlign="start center" class="bar">
   <button mat-icon-button [ngClass]="playing ? 'accent-color' : 'white'" (click)="playPause()">
