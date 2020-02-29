@@ -13399,6 +13399,13 @@ ngx-date-fns@6.1.0:
   dependencies:
     tslib "^1.9.0"
 
+ngx-electron@^2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/ngx-electron/-/ngx-electron-2.2.0.tgz#8ab65427476153b499d26f332fa5ca88714d8477"
+  integrity sha512-Yl7Dsnvp97k0XpIuiB54X7Ij2+zU5x0pCAYnN//VZ9tF7c6S3//OZ9dN9Et7p/zIjCV3Hg9vyw68dPJEZGk+LQ==
+  dependencies:
+    tslib "^1.9.0"
+
 ngx-pipes@2.7.3:
   version "2.7.3"
   resolved "https://registry.yarnpkg.com/ngx-pipes/-/ngx-pipes-2.7.3.tgz#b161b1e08263886ad4706a1b34b073ab28aeebf4"

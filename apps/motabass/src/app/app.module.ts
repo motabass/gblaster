@@ -16,6 +16,7 @@ import { ThemeModule } from '@motabass/core/theme';
 import { UpdateModule } from '@motabass/core/update';
 import { DialogsModule } from '@motabass/ui-components/dialogs';
 import { MccColorPickerModule } from 'material-community-components';
+import { NgxElectronModule } from 'ngx-electron';
 import { NgxWebstorageModule } from 'ngx-webstorage';
 import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
@@ -40,6 +41,7 @@ import { StorageSettingsComponent } from './settings/storage-settings/storage-se
       { initialNavigation: 'enabled' }
     ),
     NgxWebstorageModule.forRoot(),
+    NgxElectronModule,
     MatSidenavModule,
     MatToolbarModule,
     MatListModule,
