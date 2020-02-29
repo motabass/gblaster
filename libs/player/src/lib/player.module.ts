@@ -11,10 +11,16 @@ import { MatSliderModule } from '@angular/material/slider';
 import { RouterModule } from '@angular/router';
 import { GamepadModule } from '@motabass/helper-services/gamepad';
 import { VisualsModule } from '@motabass/ui-components/visuals';
+import { ElectronService } from 'ngx-electron';
 import { CoverDisplayComponent } from './cover-display/cover-display.component';
 import { BandPipe } from './equalizer/band.pipe';
 import { EqualizerComponent } from './equalizer/equalizer.component';
+import { ID3TagsService } from './metadata-service/id3-tags.service.abstract';
+import { Id3TagsServiceFactory } from './metadata-service/id3-tags.service.factory';
+import { LastfmMetadataService } from './metadata-service/lastfm-metadata.service';
+import { MetadataService } from './metadata-service/metadata.service';
 import { PlayerComponent } from './player.component';
+import { PlayerService } from './player.service';
 import { PlaylistComponent } from './playlist/playlist.component';
 import { TimePipe } from './time.pipe';
 import { VisualizerComponent } from './visualizer/visualizer.component';
@@ -34,6 +40,16 @@ import { VisualizerComponent } from './visualizer/visualizer.component';
     MatSelectModule,
     GamepadModule
   ],
-  declarations: [PlayerComponent, PlaylistComponent, TimePipe, CoverDisplayComponent, VisualizerComponent, EqualizerComponent, BandPipe]
+  declarations: [PlayerComponent, PlaylistComponent, TimePipe, CoverDisplayComponent, VisualizerComponent, EqualizerComponent, BandPipe],
+  providers: [
+    {
+      provide: ID3TagsService,
+      useFactory: Id3TagsServiceFactory,
+      deps: [ElectronService]
+    },
+    MetadataService,
+    PlayerService,
+    LastfmMetadataService
+  ]
 })
 export class PlayerModule {}

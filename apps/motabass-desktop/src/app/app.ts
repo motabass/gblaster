@@ -1,8 +1,9 @@
-import { BrowserWindow, shell } from 'electron';
+import { BrowserWindow, ipcMain, shell } from 'electron';
 import debug from 'electron-debug';
 import { join } from 'path';
 import { format } from 'url';
 import { rendererAppName, rendererAppPort } from './constants';
+import IpcMainEvent = Electron.IpcMainEvent;
 
 debug();
 
@@ -48,6 +49,7 @@ export default class App {
     // Some APIs can only be used after this event occurs.
     App.initMainWindow();
     App.loadMainWindow();
+    App.startHandlers();
   }
 
   private static onAppActivate() {
@@ -117,6 +119,14 @@ export default class App {
         })
       );
     }
+  }
+
+  private static startHandlers() {
+    ipcMain.on('extractId3Tags', App.extractId3TagHandler);
+  }
+
+  private static extractId3TagHandler(event: IpcMainEvent, arg: ArrayBuffer) {
+    event.sender.send('extractId3Tags', 'Hallo back!');
   }
 
   static main(app: Electron.App, browserWindow: typeof BrowserWindow) {

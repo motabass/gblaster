@@ -20,7 +20,7 @@ export interface SongMetadata {
   fileFormat: string;
   duration?: number;
   coverUrl?: string;
-  coverSafeUrl?: SafeUrl;
+  coverSafeUrl?: SafeUrl; // TODO: create this in components when needed not upfront here
   coverColors?: Palette | null;
 }
 

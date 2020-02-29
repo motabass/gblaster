@@ -1,15 +1,13 @@
 import { Injectable, OnInit } from '@angular/core';
 import { ThemeService } from '@motabass/core/theme';
 import { LocalStorage, LocalStorageService } from 'ngx-webstorage';
-import { MetadataService } from './metadata.service';
+import { MetadataService } from './metadata-service/metadata.service';
 import { NativeFileLoaderService } from './native-file-loader.service';
 import { BandFrequency, Song, SongMetadata } from './player.types';
 
 export const BAND_FREQUENIES: BandFrequency[] = [60, 170, 310, 600, 1000, 3000, 6000, 12000, 14000, 16000];
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class PlayerService implements OnInit {
   bands: { [band: number]: BiquadFilterNode } = {};
 
@@ -155,7 +153,7 @@ export class PlayerService implements OnInit {
 
   private async createSongFromFileHandle(fileHandle: any): Promise<Song> {
     const file = await fileHandle.getFile();
-    const metadata: SongMetadata = await this.metadataService.extractMetadata(file);
+    const metadata: SongMetadata = await this.metadataService.getMetadata(file);
     const url = URL.createObjectURL(file);
     return {
       url: url,

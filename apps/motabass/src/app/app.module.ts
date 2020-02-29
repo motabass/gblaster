@@ -56,7 +56,6 @@ import { StorageSettingsComponent } from './settings/storage-settings/storage-se
     MccColorPickerModule,
     FlexLayoutModule
   ],
-  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
