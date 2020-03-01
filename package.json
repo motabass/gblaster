@@ -163,6 +163,16 @@
     "tslint-etc": "^1.10.0",
     "tslint-sonarts": "1.9.0",
     "typescript": "~3.7.5",
-    "webpack-bundle-analyzer": "3.6.0"
+    "webpack-bundle-analyzer": "3.6.0",
+    "@nstudio/xplat": "8.1.2",
+    "@nstudio/web-angular": "^8.1.2",
+    "@nstudio/angular": "8.1.2",
+    "@nstudio/electron-angular": "8.1.2",
+    "@nrwl/angular": "9.0.4",
+    "@nstudio/electron": "8.1.2"
+  },
+  "xplat": {
+    "prefix": "motabass",
+    "framework": "angular"
   }
 }

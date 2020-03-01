@@ -655,7 +655,7 @@
     }
   },
   "cli": {
-    "defaultCollection": "@nrwl/angular"
+    "defaultCollection": "@nstudio/xplat"
   },
   "schematics": {
     "@nrwl/angular:application": {
