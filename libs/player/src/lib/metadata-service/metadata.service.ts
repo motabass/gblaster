@@ -10,7 +10,7 @@ import { LastfmMetadataService } from './lastfm-metadata.service';
 // https://github.com/borewit/music-metadata
 // more web apis? -> FREEDB; MUSICbRAINZ
 
-@Injectable()
+@Injectable({ providedIn: 'any' })
 export class MetadataService {
   private readonly PLACEHOLDER_URL = 'assets/cover-art-placeholder.svg';
 

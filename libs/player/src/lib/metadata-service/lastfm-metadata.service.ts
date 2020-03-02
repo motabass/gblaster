@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-@Injectable()
+@Injectable({ providedIn: 'any' })
 export class LastfmMetadataService {
   private readonly LASTFM_API_KEY = '3a67934408152a2fc3f7216c022ec1df';
 

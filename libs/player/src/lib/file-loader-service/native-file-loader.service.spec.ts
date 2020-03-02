@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { NativeFileLoaderService } from './native-file-loader.service';
+import { NativeBrowserFileLoaderService } from './native-browser-file-loader.service';
 
 describe('NativeFileLoaderService', () => {
-  let service: NativeFileLoaderService;
+  let service: NativeBrowserFileLoaderService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(NativeFileLoaderService);
+    service = TestBed.inject(NativeBrowserFileLoaderService);
   });
 
   it('should be created', () => {

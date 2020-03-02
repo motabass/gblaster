@@ -3,7 +3,7 @@ import { TagType } from 'jsmediatags/types';
 import { ID3TagsService } from './id3-tags.service.abstract';
 import { Id3Tags } from './id3-tags.types';
 
-@Injectable()
+@Injectable({ providedIn: 'any' })
 export class BrowserId3TagsService extends ID3TagsService {
   constructor() {
     super();

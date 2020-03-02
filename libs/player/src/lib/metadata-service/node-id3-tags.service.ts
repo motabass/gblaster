@@ -3,7 +3,7 @@ import { ElectronService } from 'ngx-electron';
 import { ID3TagsService } from './id3-tags.service.abstract';
 import { Id3Tags } from './id3-tags.types';
 
-@Injectable()
+@Injectable({ providedIn: 'any' })
 export class NodeId3TagsService extends ID3TagsService {
   constructor(private electronService: ElectronService) {
     super();
@@ -17,9 +17,13 @@ export class NodeId3TagsService extends ID3TagsService {
     console.log('Creating array buffer took: ', performance.now() - start);
     this.electronService.ipcRenderer.send('extractId3Tags', buffer);
 
-    this.electronService.ipcRenderer.once('extractId3Tags', (event, data: string) => {
-      console.log('Antwort bekommen: ', data);
-    });
+    // TODO: extract id3tags
+
+    // this.electronService.ipcRenderer.send('extractId3Tags', fileBuffer);
+    //
+    // this.electronService.ipcRenderer.once('extractId3Tags', (event, data: string) => {
+    //   console.log('Antwort bekommen: ', data);
+    // });
     return null;
   }
 }

@@ -652,6 +652,87 @@
           "styleext": "scss"
         }
       }
+    },
+    "electron-colorplayer": {
+      "projectType": "application",
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "apps/motabass",
+      "sourceRoot": "apps/motabass/src",
+      "prefix": "mtb",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/electron-colorplayer",
+            "index": "apps/motabass/src/index.html",
+            "main": "apps/motabass/src/main.ts",
+            "polyfills": "apps/motabass/src/polyfills.ts",
+            "tsConfig": "apps/motabass/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "apps/motabass/src/favicon.ico",
+              "apps/motabass/src/assets",
+              "apps/motabass/src/manifest.webmanifest",
+              {
+                "glob": "**/*",
+                "input": "apps/electron-colorplayer/src/",
+                "ignore": ["**/*.ts"],
+                "output": ""
+              }
+            ],
+            "styles": ["libs/core/theme/src/styles/theme.scss", "apps/motabass/src/styles/main.scss"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/motabass/src/environments/environment.ts",
+                  "with": "apps/motabass/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ],
+              "serviceWorker": true,
+              "ngswConfigPath": "apps/motabass/ngsw-config.json"
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "electron-colorplayer:build",
+            "proxyConfig": "apps/motabass/proxy.conf.json"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "electron-colorplayer:build:production"
+            }
+          }
+        }
+      }
     }
   },
   "cli": {

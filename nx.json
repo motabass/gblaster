@@ -57,6 +57,9 @@
     },
     "helper-services-gamepad": {
       "tags": []
+    },
+    "electron-colorplayer": {
+      "tags": []
     }
   }
 }

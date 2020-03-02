@@ -1,20 +1,20 @@
 import { Injectable } from '@angular/core';
+import { FileLoaderService } from '@motabass/player/src/lib/file-loader-service/file-loader.service.abstract';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'any'
 })
-export class NativeFileLoaderService {
-  currentFolderFileHandles: unknown[] = [];
+export class NativeBrowserFileLoaderService extends FileLoaderService {
+  private currentFolderFileHandles: any[] = [];
 
-  // @LocalStorage() // TODO: should work when serializable
-  currentDirHandle: unknown;
-
-  constructor() {}
+  constructor() {
+    super();
+  }
 
   async openFolder(): Promise<boolean> {
     const allowedTypes = ['audio/mp3'];
 
-    const fileEntries: unknown[] = [];
+    const fileHandles: any[] = [];
 
     const opts = {
       type: 'openDirectory',
@@ -31,12 +31,11 @@ export class NativeFileLoaderService {
       // @ts-ignore
       const handle = await window.chooseFileSystemEntries(opts);
 
-      this.currentDirHandle = handle;
       for await (const entry of handle.getEntries()) {
         if (entry.isFile) {
           const file = await entry.getFile();
           if (allowedTypes.includes(file.type)) {
-            fileEntries.push(entry);
+            fileHandles.push(entry);
           }
         }
       }
@@ -45,7 +44,17 @@ export class NativeFileLoaderService {
       return false;
     }
 
-    this.currentFolderFileHandles = fileEntries;
+    this.currentFolderFileHandles = fileHandles;
     return true;
+  }
+
+  async getFiles(): Promise<File[]> {
+    const files: any[] = [];
+    for (const handle of this.currentFolderFileHandles) {
+      const file = await handle.getFile();
+      files.push(file);
+      console.log(file);
+    }
+    return files;
   }
 }

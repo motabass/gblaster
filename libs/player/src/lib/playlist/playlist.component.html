@@ -14,7 +14,7 @@
       [barCount]="8"
       [capHeight]="0"
     ></canvas>
-    <h3 matLine style="font-size: 0.9rem;font-weight: bold;">{{ song?.metadata?.title || song.metadata.filename }}</h3>
+    <h3 matLine style="font-size: 0.9rem;font-weight: bold;">{{ song?.metadata?.title }}</h3>
     <p matLine style="font-size: 0.8rem;">{{ song?.metadata?.artist }}</p>
 
     <button mat-icon-button (click)="playPauseSong($event, song)">
