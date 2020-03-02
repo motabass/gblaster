@@ -9,12 +9,12 @@ import { ThemeService } from '@motabass/core/theme';
 export class ThemeSettingsComponent {
   constructor(public themeService: ThemeService) {}
 
-  setPrimaryColor(event: any) {
-    this.themeService.setPrimaryColor(event.target?.value);
+  setPrimaryColor(event: string) {
+    this.themeService.setPrimaryColor(event);
   }
 
-  setAccentColor(event: any) {
-    this.themeService.setAccentColor(event.target?.value);
+  setAccentColor(event: string) {
+    this.themeService.setAccentColor(event);
   }
 
   changeDarkMode(event: MatCheckboxChange) {

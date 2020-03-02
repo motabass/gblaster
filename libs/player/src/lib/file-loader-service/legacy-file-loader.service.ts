@@ -18,7 +18,7 @@ export class LegacyFileLoaderService extends FileLoaderService {
   async openFolder(): Promise<boolean> {
     this.fileInput.click();
     const files = await new Promise((resolve) => {
-      this.fileInput.onchange = (event) => resolve(this.fileInput.files); // resolve with script, not event
+      this.fileInput.onchange = () => resolve(this.fileInput.files); // resolve with input, not event
     });
 
     console.log(files);
@@ -30,7 +30,7 @@ export class LegacyFileLoaderService extends FileLoaderService {
     if (this.fileInput.files) {
       for (let i = 0; i < this.fileInput.files.length; i++) {
         const file = this.fileInput.files?.item(i);
-        if (file) {
+        if (file && file.type === 'audio/mp3') {
           files.push(file);
         }
       }
