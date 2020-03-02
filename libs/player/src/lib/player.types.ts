@@ -1,4 +1,3 @@
-import { SafeUrl } from '@angular/platform-browser';
 import { Palette } from 'node-vibrant/lib/color';
 
 export interface Song {
@@ -19,9 +18,8 @@ export interface SongMetadata {
   fileSize: number;
   fileFormat: string;
   duration?: number;
-  coverUrl?: string;
-  coverSafeUrl?: SafeUrl; // TODO: create this in components when needed not upfront here
-  coverColors?: Palette | null;
+  coverUrl: string;
+  coverColors?: Palette;
 }
 
 // EQ

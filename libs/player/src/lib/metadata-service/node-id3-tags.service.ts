@@ -7,23 +7,31 @@ import { Id3Tags } from './id3-tags.types';
 export class NodeId3TagsService extends ID3TagsService {
   constructor(private electronService: ElectronService) {
     super();
-    console.log('Using Node metadata');
+    console.log('Using node metadata service...');
   }
 
   async extractTags(file: File): Promise<Id3Tags | null> {
     const start = performance.now();
-    // @ts-ignore
-    const buffer = await file.arrayBuffer();
-    console.log('Creating array buffer took: ', performance.now() - start);
-    this.electronService.ipcRenderer.send('extractId3Tags', buffer);
 
-    // TODO: extract id3tags
+    const tags = await this.electronService.ipcRenderer.invoke('GET_ID3_TAGS', file.path);
 
-    // this.electronService.ipcRenderer.send('extractId3Tags', fileBuffer);
-    //
-    // this.electronService.ipcRenderer.once('extractId3Tags', (event, data: string) => {
-    //   console.log('Antwort bekommen: ', data);
-    // });
-    return null;
+    if (!tags) {
+      return null;
+    }
+
+    let cover: Uint8Array | undefined;
+
+    if (tags.tags?.picture) {
+      cover = new Uint8Array(tags.tags.picture.data);
+    }
+    console.log('Extracting metadata took: ', performance.now() - start);
+    return {
+      cover: cover,
+      artist: tags?.tags?.artist,
+      title: tags?.tags?.title,
+      track: tags?.tags?.track,
+      album: tags?.tags?.album,
+      year: tags?.tags?.year
+    };
   }
 }

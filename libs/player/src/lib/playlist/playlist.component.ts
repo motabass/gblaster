@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { PlayerService } from '../player.service';
 import { Song } from '../player.types';
 
@@ -18,7 +19,7 @@ export class PlaylistComponent {
   }
   _songs: Song[] = [];
 
-  constructor(private playerService: PlayerService) {
+  constructor(private playerService: PlayerService, private domSanitizer: DomSanitizer) {
     this.selectSong(this._songs[0]);
     this.playerService.playingSong = this._songs[0];
   }
@@ -57,5 +58,9 @@ export class PlaylistComponent {
 
   get analyser(): AnalyserNode {
     return this.playerService.analyser;
+  }
+
+  sanitizeCoverUrl(url: string): SafeUrl {
+    return this.domSanitizer.bypassSecurityTrustUrl(url);
   }
 }

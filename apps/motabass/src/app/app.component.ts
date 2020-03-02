@@ -28,10 +28,6 @@ export class AppComponent {
 
     if (electronService.isElectronApp) {
       console.log('Running in Electron');
-      console.log(electronService.screen?.getPrimaryDisplay().accelerometerSupport);
-      console.log(electronService.screen?.getPrimaryDisplay().bounds);
-      console.log(electronService.screen?.getPrimaryDisplay().scaleFactor);
-      console.log(electronService.ipcRenderer);
     } else {
       console.log('Running in Browser');
     }

@@ -12,12 +12,12 @@ export class BrowserId3TagsService extends ID3TagsService {
   async extractTags(file: File): Promise<Id3Tags | null> {
     const start = performance.now();
 
-    const JsMediaTags = await import('jsmediatags');
+    const jsmediatags = await import('jsmediatags');
 
-    let metadata: TagType | null = null;
+    let tags: TagType | null = null;
     try {
-      metadata = await new Promise((resolve, reject) => {
-        new JsMediaTags.Reader(file).setTagsToRead(['title', 'artist', 'track', 'album', 'year', 'picture']).read({
+      tags = await new Promise((resolve, reject) => {
+        new jsmediatags.Reader(file).setTagsToRead(['title', 'artist', 'track', 'album', 'year', 'picture']).read({
           onSuccess: resolve,
           onError: reject
         });
@@ -28,23 +28,23 @@ export class BrowserId3TagsService extends ID3TagsService {
 
     // console.log(metadata?.tags);
 
-    if (!metadata) {
+    if (!tags) {
       return null;
     }
 
-    let cover: Blob | undefined;
+    let cover: Uint8Array | undefined;
 
-    if (metadata.tags?.picture) {
-      cover = new Blob([new Uint8Array(metadata.tags.picture.data)], { type: metadata.tags.picture.format });
+    if (tags.tags?.picture) {
+      cover = new Uint8Array(tags.tags.picture.data);
     }
     console.log('Extracting metadata took: ', performance.now() - start);
     return {
       cover: cover,
-      artist: metadata?.tags?.artist,
-      title: metadata?.tags?.title,
-      track: metadata?.tags?.track,
-      album: metadata?.tags?.album,
-      year: metadata?.tags?.year
+      artist: tags?.tags?.artist,
+      title: tags?.tags?.title,
+      track: tags?.tags?.track,
+      album: tags?.tags?.album,
+      year: tags?.tags?.year
     };
   }
 }

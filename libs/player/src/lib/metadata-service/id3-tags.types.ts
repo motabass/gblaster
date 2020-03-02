@@ -1,5 +1,5 @@
 export interface Id3Tags {
-  cover?: Blob;
+  cover?: Uint8Array;
   artist?: string;
   title?: string;
   album?: string;

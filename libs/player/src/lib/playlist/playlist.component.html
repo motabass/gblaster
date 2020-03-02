@@ -5,7 +5,7 @@
     (dblclick)="playPauseSong($event, song)"
     (click)="selectSong(song)"
   >
-    <img *ngIf="!isPlayingSong(song) && song" style="border-radius: 3px;" mat-list-avatar [src]="song.metadata.coverSafeUrl" alt="cover art" />
+    <img *ngIf="!isPlayingSong(song) && song" style="border-radius: 3px;" mat-list-avatar [src]="sanitizeCoverUrl(song.metadata.coverUrl)" alt="cover art" />
     <canvas
       *ngIf="isPlayingSong(song) && isPlaying(song)"
       mat-list-avatar

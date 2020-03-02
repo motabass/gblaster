@@ -1,4 +1,5 @@
 import { app, BrowserWindow, ipcMain, screen } from 'electron';
+import { TagType } from 'jsmediatags/types';
 import * as path from 'path';
 import * as url from 'url';
 
@@ -34,11 +35,22 @@ const mainWindowSettings: Electron.BrowserWindowConstructorOptions = {
  * Hooks for electron main process
  */
 function initMainListener() {
-  ipcMain.on('ELECTRON_BRIDGE_HOST', (event, msg) => {
-    console.log('msg received', msg);
-    if (msg === 'ping') {
-      event.sender.send('ELECTRON_BRIDGE_CLIENT', 'pong');
+  ipcMain.handle('GET_ID3_TAGS', async (event, filePath) => {
+    const jsmediatags = require('jsmediatags');
+
+    let tags: TagType | null = null;
+    try {
+      tags = await new Promise((resolve, reject) => {
+        new jsmediatags.Reader(filePath).setTagsToRead(['title', 'artist', 'track', 'album', 'year', 'picture']).read({
+          onSuccess: resolve,
+          onError: reject
+        });
+      });
+    } catch (e) {
+      console.warn(`Tags konnten nicht gelesen werden: `, e.info);
     }
+
+    return tags;
   });
 }
 

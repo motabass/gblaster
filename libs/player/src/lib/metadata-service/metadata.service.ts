@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
 import Vibrant from 'node-vibrant/lib/browser.worker';
 import { SongMetadata } from '../player.types';
 import { ID3TagsService } from './id3-tags.service.abstract';
@@ -14,27 +13,25 @@ import { LastfmMetadataService } from './lastfm-metadata.service';
 export class MetadataService {
   private readonly PLACEHOLDER_URL = 'assets/cover-art-placeholder.svg';
 
-  constructor(private id3TagsService: ID3TagsService, private lastfmMetadataService: LastfmMetadataService, private domSanitizer: DomSanitizer) {}
+  constructor(private id3TagsService: ID3TagsService, private lastfmMetadataService: LastfmMetadataService) {}
 
   async getMetadata(file: File): Promise<SongMetadata> {
     const tags = await this.id3TagsService.extractTags(file);
 
     let url = '';
     if (tags?.cover) {
-      url = URL.createObjectURL(tags.cover);
+      url = URL.createObjectURL(new Blob([tags.cover], { type: file.type }));
     } else if (tags?.artist && tags.album) {
       url = await this.lastfmMetadataService.getCoverArtFromLastFM(tags.artist, tags.album);
     }
 
     // @ts-ignore
     const vibrant: typeof Vibrant = await import('node-vibrant/lib/browser');
-
     const palette = url ? await vibrant.from(url).getPalette() : null;
 
     return {
-      coverSafeUrl: url ? this.domSanitizer.bypassSecurityTrustUrl(url) : this.PLACEHOLDER_URL,
-      coverUrl: url ? url : this.PLACEHOLDER_URL,
-      coverColors: palette ? palette : null,
+      coverUrl: url,
+      coverColors: palette ? palette : undefined,
       artist: tags?.artist,
       title: tags?.title,
       track: tags?.track,

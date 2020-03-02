@@ -1,4 +1,5 @@
 import { LegacyFileLoaderService } from '@motabass/player/src/lib/file-loader-service/legacy-file-loader.service';
+import { NativeBrowserFileLoaderService } from '@motabass/player/src/lib/file-loader-service/native-browser-file-loader.service';
 import { ElectronService } from 'ngx-electron';
 
 export function FileLoaderServiceFactory(electronService: ElectronService) {
@@ -7,7 +8,10 @@ export function FileLoaderServiceFactory(electronService: ElectronService) {
     // return new NativeBrowserFileLoaderService();
     return new LegacyFileLoaderService();
   } else {
-    // return new NativeBrowserFileLoaderService();
-    return new LegacyFileLoaderService();
+    if ('chooseFileSystemEntries' in window) {
+      return new NativeBrowserFileLoaderService();
+    } else {
+      return new LegacyFileLoaderService();
+    }
   }
 }

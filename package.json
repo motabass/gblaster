@@ -64,7 +64,7 @@
     "build.electron.colorplayer.mac": "npm run build.electron.colorplayer && cd dist/apps/electron-colorplayer && npx electron-builder build --mac",
     "prepare.electron.colorplayer": "npm run postinstall.electron && tsc -p apps/electron-colorplayer/tsconfig.json",
     "serve.electron.colorplayer.target": "nx serve electron-colorplayer",
-    "serve.electron.colorplayer": "wait-on http-get://localhost:4200/ && electron apps/electron-colorplayer/src --serve",
+    "serve.electron.colorplayer": "tsc -p apps/electron-colorplayer/tsconfig.json && wait-on http-get://localhost:4200/ && electron apps/electron-colorplayer/src --serve",
     "start.electron.colorplayer": "npm-run-all -p serve.electron.colorplayer.target serve.electron.colorplayer"
   },
   "husky": {
