@@ -30,7 +30,7 @@ export class MetadataService {
     const palette = url ? await vibrant.from(url).getPalette() : null;
 
     return {
-      coverUrl: url,
+      coverUrl: url ? url : this.PLACEHOLDER_URL,
       coverColors: palette ? palette : undefined,
       artist: tags?.artist,
       title: tags?.title,

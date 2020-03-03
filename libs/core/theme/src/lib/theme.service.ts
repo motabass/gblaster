@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Meta } from '@angular/platform-browser';
 import { LocalStorage } from 'ngx-webstorage';
 import tinycolor, { Instance } from 'tinycolor2';
 import { Color } from './theme.types';
@@ -17,6 +18,8 @@ export class ThemeService {
 
   primaryColorPalette: Color[] = [];
   accentColorPalette: Color[] = [];
+
+  constructor(private meta: Meta) {}
 
   initializeTheme() {
     if (window.matchMedia('prefers-color-scheme: dark').matches) {
@@ -39,7 +42,9 @@ export class ThemeService {
   }
 
   setPrimaryColor(color?: string) {
-    if (color) {
+    if (!color) {
+      return;
+    } else {
       this.primaryColor = color;
     }
     this.primaryColorPalette = this.computeColors(this.primaryColor);
@@ -52,6 +57,9 @@ export class ThemeService {
       document.documentElement.style.setProperty(key1, value1);
       document.documentElement.style.setProperty(key2, value2);
     }
+
+    this.meta.addTag({ name: 'theme-color', content: this.primaryColor }, true);
+    this.meta.updateTag({ name: 'theme-color', content: this.primaryColor });
   }
 
   setAccentColor(color?: string) {
