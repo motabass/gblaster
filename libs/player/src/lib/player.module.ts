@@ -8,6 +8,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSliderModule } from '@angular/material/slider';
+import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterModule } from '@angular/router';
 import { GamepadModule } from '@motabass/helper-services/gamepad';
 import { FileLoaderService } from '@motabass/player/src/lib/file-loader-service/file-loader.service.abstract';
@@ -37,7 +38,8 @@ import { VisualizerComponent } from './visualizer/visualizer.component';
     MatMenuModule,
     MatInputModule,
     MatSelectModule,
-    GamepadModule
+    GamepadModule,
+    MatToolbarModule
   ],
   declarations: [PlayerComponent, PlaylistComponent, TimePipe, CoverDisplayComponent, VisualizerComponent, EqualizerComponent, BandPipe],
   providers: [

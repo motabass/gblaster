@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Id3Tags } from '@motabass/player/src/lib/metadata-service/id3-tags.types';
 
 @Injectable({ providedIn: 'any' })
 export class LastfmMetadataService {
@@ -7,10 +8,14 @@ export class LastfmMetadataService {
 
   constructor(private http: HttpClient) {}
 
-  async getCoverArtFromLastFM(artist: string, albumName: string): Promise<string> {
+  async getCoverArtFromLastFM(tags: Id3Tags): Promise<string> {
     const data: any = await this.http
-      .get(`https://ws.audioscrobbler.com/2.0/?method=album.getinfo&api_key=${this.LASTFM_API_KEY}&artist=${artist}&album=${albumName}&format=json`)
+      .get(`https://ws.audioscrobbler.com/2.0/?method=album.getinfo&api_key=${this.LASTFM_API_KEY}&artist=${tags.artist}&album=${tags.album}&format=json`)
       .toPromise();
-    return data?.album?.image[5]['#text'];
+
+    if (!data.error && data.album.image[5]['#text']) {
+      return data.album.image[5]['#text'];
+    }
+    return '';
   }
 }

@@ -31,10 +31,7 @@
 
 .bar {
   grid-area: bar;
-  background-color: $primary-color;
-  opacity: 1;
-  color: white;
-  @include mat-elevation(4);
+  @include mat-elevation(12);
 }
 
 ::ng-deep .bar .mat-slider-track-wrapper {

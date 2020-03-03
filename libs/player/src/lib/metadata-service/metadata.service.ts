@@ -21,8 +21,8 @@ export class MetadataService {
     let url = '';
     if (tags?.cover) {
       url = URL.createObjectURL(new Blob([tags.cover], { type: file.type }));
-    } else if (tags?.artist && tags.album) {
-      url = await this.lastfmMetadataService.getCoverArtFromLastFM(tags.artist, tags.album);
+    } else if (tags?.artist || tags?.album) {
+      url = await this.lastfmMetadataService.getCoverArtFromLastFM(tags);
     }
 
     // @ts-ignore

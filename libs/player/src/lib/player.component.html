@@ -3,27 +3,27 @@
 </mtb-playlist>
 
 <mtb-cover-display [song]="playingSong" class="main">
-  <mtb-visualizer class="visualizer"></mtb-visualizer>
+  <mtb-visualizer *ngIf="playing" class="visualizer"></mtb-visualizer>
 </mtb-cover-display>
 
-<div fxLayout="row" fxLayoutAlign="start center" class="bar">
-  <button mat-icon-button [ngClass]="playing ? 'accent-color' : 'white'" (click)="playPause()">
+<mat-toolbar color="primary" fxLayout="row" fxLayoutAlign="start center" class="bar">
+  <button mat-icon-button [ngClass]="{ 'accent-color': playing }" (click)="playPause()">
     <mat-icon *ngIf="playing">pause</mat-icon>
     <mat-icon *ngIf="!playing">play_arrow</mat-icon>
   </button>
 
-  <button mat-icon-button style="color: white;" (click)="stop()">
+  <button mat-icon-button (click)="stop()">
     <mat-icon>stop</mat-icon>
   </button>
 
-  <button class="no-mobile" mat-icon-button style="color: white;" (click)="previous()">
+  <button class="no-mobile" mat-icon-button (click)="previous()">
     <mat-icon>skip_previous</mat-icon>
   </button>
-  <button class="no-mobile" mat-icon-button style="color: white;" (click)="next()">
+  <button class="no-mobile" mat-icon-button (click)="next()">
     <mat-icon>skip_next</mat-icon>
   </button>
 
-  <button mat-icon-button style="color: white;" (click)="loadFolder()">
+  <button mat-icon-button (click)="loadFolder()">
     <mat-icon>folder_open</mat-icon>
   </button>
   <div fxFlex *ngIf="!playingSong"></div>
@@ -41,20 +41,20 @@
     (change)="onSliderPositionChanged($event)"
   ></mat-slider>
 
-  <div class="no-mobile" style="font-size: small; color: white; padding: 0 12px;">
+  <div class="no-mobile" style="font-size: small; padding: 0 12px;">
     <p>{{ position | time }} / {{ durationSeconds | time }}</p>
   </div>
 
-  <button mat-icon-button style="color: white;" [matMenuTriggerFor]="volumeMenu">
+  <button mat-icon-button [matMenuTriggerFor]="volumeMenu">
     <mat-icon [svgIcon]="volumeIcon"></mat-icon>
   </button>
-  <button mat-icon-button [ngClass]="shuffle ? 'accent-color' : 'white'" (click)="toggleShuffle()">
+  <button mat-icon-button [ngClass]="{ 'accent-color': shuffle }" (click)="toggleShuffle()">
     <mat-icon>shuffle</mat-icon>
   </button>
-  <button mat-icon-button [ngClass]="repeat ? 'accent-color' : 'white'" (click)="toggleRepeat()">
+  <button mat-icon-button [ngClass]="{ 'accent-color': repeat }" (click)="toggleRepeat()">
     <mat-icon>loop</mat-icon>
   </button>
-</div>
+</mat-toolbar>
 
 <mat-menu #volumeMenu="matMenu" yPosition="above" [class]="'volume-menu'">
   <mat-slider vertical style="height: 12rem;" [value]="volume" (input)="onVolumeChange($event)" min="0" max="1" step="0.01"></mat-slider>

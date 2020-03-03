@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, DoCheck, Input } from '@angular/core';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { PlayerService } from '../player.service';
 import { Song } from '../player.types';
@@ -8,20 +8,24 @@ import { Song } from '../player.types';
   templateUrl: './playlist.component.html',
   styleUrls: ['./playlist.component.scss']
 })
-export class PlaylistComponent {
+export class PlaylistComponent implements DoCheck {
   @Input()
   set songs(songs: Song[]) {
-    for (const [i, v] of songs.entries()) {
-      v.playlistPosition = i + 1;
-    }
-
     this._songs = songs;
   }
   _songs: Song[] = [];
 
-  constructor(private playerService: PlayerService, private domSanitizer: DomSanitizer) {
-    this.selectSong(this._songs[0]);
-    this.playerService.playingSong = this._songs[0];
+  constructor(private playerService: PlayerService, private domSanitizer: DomSanitizer) {}
+
+  ngDoCheck(): void {
+    for (const [i, v] of this._songs.entries()) {
+      v.playlistPosition = i + 1;
+    }
+
+    if (!this.selectedSong) {
+      this.selectSong(this._songs[0]);
+      this.playerService.playingSong = this._songs[0];
+    }
   }
 
   isPlaying(song: Song): boolean {
