@@ -11,8 +11,6 @@ export class NodeId3TagsService extends ID3TagsService {
   }
 
   async extractTags(file: File): Promise<Id3Tags | null> {
-    const start = performance.now();
-
     const tags = await this.electronService.ipcRenderer.invoke('GET_ID3_TAGS', file.path);
 
     if (!tags) {
@@ -24,7 +22,6 @@ export class NodeId3TagsService extends ID3TagsService {
     if (tags.tags?.picture) {
       cover = new Uint8Array(tags.tags.picture.data);
     }
-    console.log('Extracting metadata took: ', performance.now() - start);
     return {
       cover: cover,
       artist: tags?.tags?.artist,

@@ -10,8 +10,6 @@ export class BrowserId3TagsService extends ID3TagsService {
   }
 
   async extractTags(file: File): Promise<Id3Tags | null> {
-    const start = performance.now();
-
     const jsmediatags = await import('jsmediatags');
 
     let tags: TagType | null = null;
@@ -26,8 +24,6 @@ export class BrowserId3TagsService extends ID3TagsService {
       console.warn(`Tags von "${file.name}" (${file.type}) konnten nicht gelesen werden: `, e.info);
     }
 
-    // console.log(metadata?.tags);
-
     if (!tags) {
       return null;
     }
@@ -37,7 +33,6 @@ export class BrowserId3TagsService extends ID3TagsService {
     if (tags.tags?.picture) {
       cover = new Uint8Array(tags.tags.picture.data);
     }
-    console.log('Extracting metadata took: ', performance.now() - start);
     return {
       cover: cover,
       artist: tags?.tags?.artist,

@@ -53,7 +53,6 @@ export class NativeBrowserFileLoaderService extends FileLoaderService {
     for (const handle of this.currentFolderFileHandles) {
       const file = await handle.getFile();
       files.push(file);
-      console.log(file);
     }
     return files;
   }

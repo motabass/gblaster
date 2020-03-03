@@ -31,8 +31,9 @@
   <mat-slider
     fxFlex
     *ngIf="playingSong"
+    min="0"
     [max]="durationSeconds"
-    min="-1"
+    step="1"
     tickInterval="60"
     thumbLabel
     color="accent"

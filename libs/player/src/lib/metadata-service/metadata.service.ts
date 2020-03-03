@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import BMF from 'browser-md5-file';
 import Vibrant from 'node-vibrant/lib/browser.worker';
 import { SongMetadata } from '../player.types';
 import { ID3TagsService } from './id3-tags.service.abstract';
@@ -29,6 +30,25 @@ export class MetadataService {
     const vibrant: typeof Vibrant = await import('node-vibrant/lib/browser');
     const palette = url ? await vibrant.from(url).getPalette() : null;
 
+    const bmf = new BMF();
+
+    const md5: string = await new Promise((resolve, reject) => {
+      bmf.md5(
+        file,
+        (err: any, result: string) => {
+          if (err) {
+            console.log('err:', err);
+            reject();
+          }
+          console.log('md5 string:', result);
+          resolve(result);
+        },
+        (progress: number) => {
+          console.log('progress number:', progress);
+        }
+      );
+    });
+
     return {
       coverUrl: url ? url : this.PLACEHOLDER_URL,
       coverColors: palette ? palette : undefined,
@@ -39,7 +59,8 @@ export class MetadataService {
       year: tags?.year,
       filename: file.name,
       fileSize: file.size,
-      fileFormat: file.type
+      fileFormat: file.type,
+      fileHash: md5
     };
   }
 }

@@ -20,6 +20,7 @@ export interface SongMetadata {
   duration?: number;
   coverUrl: string;
   coverColors?: Palette;
+  fileHash: string;
 }
 
 // EQ
