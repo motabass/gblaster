@@ -14,10 +14,10 @@ export class PlayerService implements OnInit {
   @LocalStorage('eqBandGains', { 60: 0, 170: 0, 310: 0, 600: 0, 1000: 0, 3000: 0, 6000: 0, 12000: 0, 14000: 0, 16000: 0 })
   bandGains!: { [band: number]: number };
 
-  private audioCtx: AudioContext;
-  private gainNode: GainNode;
-  private readonly analyserNode: AnalyserNode;
-  private audioSrcNode: MediaElementAudioSourceNode;
+  private audioCtx!: AudioContext;
+  private gainNode!: GainNode;
+  private analyserNode!: AnalyserNode;
+  private audioSrcNode!: MediaElementAudioSourceNode;
 
   private playFinished = true;
 
@@ -51,10 +51,15 @@ export class PlayerService implements OnInit {
       this.themeService.setAccentColor(accentColor);
     }
 
+    if (!this.audioCtx) {
+      this.initAudioContext();
+      this.initEqualizer();
+    }
+
     this.audioSrcNode.connect(this.analyserNode);
   }
 
-  audioElement: HTMLAudioElement;
+  audioElement!: HTMLAudioElement;
 
   selectedSong?: Song;
 
@@ -69,32 +74,11 @@ export class PlayerService implements OnInit {
     private storageService: LocalStorageService,
     private themeService: ThemeService
   ) {
-    const audio = new Audio();
-    audio.loop = false;
-    audio.autoplay = false;
-    audio.controls = false;
-    audio.preload = 'metadata';
-    audio.onended = () => {
-      console.log('ended');
-      this.next();
-    };
-    audio.onerror = (e) => {
-      console.error(e);
-    };
-
-    this.audioCtx = new AudioContext();
-
-    const analyser = this.audioCtx.createAnalyser();
-    const gainNode = this.audioCtx.createGain();
-
-    gainNode.connect(this.audioCtx.destination);
-
-    this.analyserNode = analyser;
-    this.gainNode = gainNode;
-    this.audioElement = audio;
-    this.audioSrcNode = this.audioCtx.createMediaElementSource(this.audioElement);
-
+    this.initAudioElement();
+    this.initAudioContext();
     this.initEqualizer();
+
+    this.audioSrcNode = this.audioCtx.createMediaElementSource(this.audioElement);
 
     this.gainNode.gain.value = storageService.retrieve('volume');
 
@@ -115,6 +99,35 @@ export class PlayerService implements OnInit {
       const filter = this.bands[bandFrequency];
       filter.gain.value = this.bandGains[bandFrequency];
     });
+  }
+
+  initAudioElement() {
+    const audio = new Audio();
+    audio.loop = false;
+    audio.autoplay = false;
+    audio.controls = false;
+    audio.preload = 'metadata';
+    audio.onended = () => {
+      console.log('ended');
+      this.next();
+    };
+    audio.onerror = (e) => {
+      console.error(e);
+    };
+    this.audioElement = audio;
+  }
+
+  initAudioContext() {
+    const audioCtx = new AudioContext();
+
+    const analyser = audioCtx.createAnalyser();
+    const gainNode = audioCtx.createGain();
+
+    gainNode.connect(audioCtx.destination);
+
+    this.audioCtx = audioCtx;
+    this.analyserNode = analyser;
+    this.gainNode = gainNode;
   }
 
   initEqualizer() {
