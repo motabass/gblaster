@@ -1,4 +1,4 @@
-@import 'apps/motabass/src/styles/variables';
+@import 'apps/gblaster/src/styles/variables';
 @import '~@angular/material/theming';
 
 :host {
@@ -6,13 +6,13 @@
   height: 100%;
   display: grid;
   grid-template-columns: minmax(300px, 40%) auto;
-  grid-template-rows: calc(100% - 4rem) 4rem;
+  grid-template-rows: calc(100% - 64px) 64px;
   grid-template-areas:
     'playlist main'
     'bar bar';
   @media (max-width: 599px) {
     grid-template-columns: 100%;
-    grid-template-rows: 50% calc(50% - 4rem) 4rem;
+    grid-template-rows: 45% calc(55% - 56px) 56px;
     grid-template-areas:
       'main'
       'playlist'

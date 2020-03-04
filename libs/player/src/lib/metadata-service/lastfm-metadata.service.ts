@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Id3Tags } from '@motabass/player/src/lib/metadata-service/id3-tags.types';
+import { Id3Tags } from './id3-tags.types';
 
 @Injectable({ providedIn: 'any' })
 export class LastfmMetadataService {

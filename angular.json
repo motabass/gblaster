@@ -1,36 +1,36 @@
 {
   "version": 1,
   "projects": {
-    "motabass": {
+    "gblaster": {
       "projectType": "application",
       "schematics": {
         "@nrwl/angular:component": {
           "style": "scss"
         }
       },
-      "root": "apps/motabass",
-      "sourceRoot": "apps/motabass/src",
+      "root": "apps/gblaster",
+      "sourceRoot": "apps/gblaster/src",
       "prefix": "mtb",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/apps/motabass",
-            "index": "apps/motabass/src/index.html",
-            "main": "apps/motabass/src/main.ts",
-            "polyfills": "apps/motabass/src/polyfills.ts",
-            "tsConfig": "apps/motabass/tsconfig.app.json",
+            "outputPath": "dist/apps/gblaster",
+            "index": "apps/gblaster/src/index.html",
+            "main": "apps/gblaster/src/main.ts",
+            "polyfills": "apps/gblaster/src/polyfills.ts",
+            "tsConfig": "apps/gblaster/tsconfig.app.json",
             "aot": true,
-            "assets": ["apps/motabass/src/favicon.ico", "apps/motabass/src/assets", "apps/motabass/src/manifest.webmanifest"],
-            "styles": ["libs/core/theme/src/styles/theme.scss", "apps/motabass/src/styles/main.scss"],
+            "assets": ["apps/gblaster/src/favicon.ico", "apps/gblaster/src/assets", "apps/gblaster/src/manifest.webmanifest"],
+            "styles": ["libs/core/theme/src/styles/theme.scss", "apps/gblaster/src/styles/main.scss"],
             "scripts": []
           },
           "configurations": {
             "production": {
               "fileReplacements": [
                 {
-                  "replace": "apps/motabass/src/environments/environment.ts",
-                  "with": "apps/motabass/src/environments/environment.prod.ts"
+                  "replace": "apps/gblaster/src/environments/environment.ts",
+                  "with": "apps/gblaster/src/environments/environment.prod.ts"
                 }
               ],
               "optimization": true,
@@ -54,41 +54,41 @@
                 }
               ],
               "serviceWorker": true,
-              "ngswConfigPath": "apps/motabass/ngsw-config.json"
+              "ngswConfigPath": "apps/gblaster/ngsw-config.json"
             }
           }
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "motabass:build",
-            "proxyConfig": "apps/motabass/proxy.conf.json"
+            "browserTarget": "gblaster:build",
+            "proxyConfig": "apps/gblaster/proxy.conf.json"
           },
           "configurations": {
             "production": {
-              "browserTarget": "motabass:build:production"
+              "browserTarget": "gblaster:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "motabass:build"
+            "browserTarget": "gblaster:build"
           }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["apps/motabass/tsconfig.app.json", "apps/motabass/tsconfig.spec.json"],
-            "exclude": ["**/node_modules/**", "!apps/motabass/**"]
+            "tsConfig": ["apps/gblaster/tsconfig.app.json", "apps/gblaster/tsconfig.spec.json"],
+            "exclude": ["**/node_modules/**", "!apps/gblaster/**"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "apps/motabass/jest.config.js",
-            "tsConfig": "apps/motabass/tsconfig.spec.json",
-            "setupFile": "apps/motabass/src/test-setup.ts",
+            "jestConfig": "apps/gblaster/jest.config.js",
+            "tsConfig": "apps/gblaster/tsconfig.spec.json",
+            "setupFile": "apps/gblaster/src/test-setup.ts",
             "passWithNoTests": true
           }
         },
@@ -98,29 +98,29 @@
         }
       }
     },
-    "motabass-e2e": {
-      "root": "apps/motabass-e2e",
-      "sourceRoot": "apps/motabass-e2e/src",
+    "gblaster-e2e": {
+      "root": "apps/gblaster-e2e",
+      "sourceRoot": "apps/gblaster-e2e/src",
       "projectType": "application",
       "architect": {
         "e2e": {
           "builder": "@nrwl/cypress:cypress",
           "options": {
-            "cypressConfig": "apps/motabass-e2e/cypress.json",
-            "tsConfig": "apps/motabass-e2e/tsconfig.e2e.json",
-            "devServerTarget": "motabass:serve"
+            "cypressConfig": "apps/gblaster-e2e/cypress.json",
+            "tsConfig": "apps/gblaster-e2e/tsconfig.e2e.json",
+            "devServerTarget": "gblaster:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "motabass:serve:production"
+              "devServerTarget": "gblaster:serve:production"
             }
           }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["apps/motabass-e2e/tsconfig.e2e.json"],
-            "exclude": ["**/node_modules/**", "!apps/motabass-e2e/**"]
+            "tsConfig": ["apps/gblaster-e2e/tsconfig.e2e.json"],
+            "exclude": ["**/node_modules/**", "!apps/gblaster-e2e/**"]
           }
         }
       }
@@ -544,74 +544,6 @@
         }
       }
     },
-    "motabass-desktop": {
-      "root": "apps/motabass-desktop",
-      "sourceRoot": "apps/motabass-desktop/src",
-      "projectType": "application",
-      "prefix": "motabass-desktop",
-      "schematics": {},
-      "architect": {
-        "build": {
-          "builder": "nx-electron:build",
-          "options": {
-            "outputPath": "dist/apps/motabass-desktop",
-            "main": "apps/motabass-desktop/src/main.ts",
-            "tsConfig": "apps/motabass-desktop/tsconfig.app.json",
-            "assets": ["apps/motabass-desktop/src/assets"]
-          },
-          "configurations": {
-            "production": {
-              "optimization": true,
-              "extractLicenses": true,
-              "inspect": false,
-              "fileReplacements": [
-                {
-                  "replace": "apps/motabass-desktop/src/environments/environment.ts",
-                  "with": "apps/motabass-desktop/src/environments/environment.prod.ts"
-                }
-              ]
-            }
-          }
-        },
-        "serve": {
-          "builder": "nx-electron:execute",
-          "options": {
-            "buildTarget": "motabass-desktop:build"
-          }
-        },
-        "package": {
-          "builder": "nx-electron:package",
-          "options": {
-            "name": "motabass-desktop",
-            "frontendProject": "motabass",
-            "out": "dist/packages"
-          }
-        },
-        "make": {
-          "builder": "nx-electron:make",
-          "options": {
-            "name": "motabass-desktop",
-            "frontendProject": "motabass",
-            "out": "dist/executables"
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": ["apps/motabass-desktop/tsconfig.app.json", "apps/motabass-desktop/tsconfig.spec.json"],
-            "exclude": ["**/node_modules/**", "!apps/motabass-desktop/**"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "apps/motabass-desktop/jest.config.js",
-            "tsConfig": "apps/motabass-desktop/tsconfig.spec.json",
-            "passWithNoTests": true
-          }
-        }
-      }
-    },
     "helper-services-gamepad": {
       "projectType": "library",
       "root": "libs/helper-services/gamepad",
@@ -653,46 +585,46 @@
         }
       }
     },
-    "electron-colorplayer": {
+    "electron-gblaster": {
       "projectType": "application",
       "schematics": {
         "@nrwl/angular:component": {
           "style": "scss"
         }
       },
-      "root": "apps/motabass",
-      "sourceRoot": "apps/motabass/src",
+      "root": "apps/gblaster",
+      "sourceRoot": "apps/gblaster/src",
       "prefix": "mtb",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/apps/electron-colorplayer",
-            "index": "apps/motabass/src/index.html",
-            "main": "apps/motabass/src/main.ts",
-            "polyfills": "apps/motabass/src/polyfills.ts",
-            "tsConfig": "apps/motabass/tsconfig.app.json",
+            "outputPath": "dist/apps/electron-gblaster",
+            "index": "apps/gblaster/src/index.html",
+            "main": "apps/gblaster/src/main.ts",
+            "polyfills": "apps/gblaster/src/polyfills.ts",
+            "tsConfig": "apps/gblaster/tsconfig.app.json",
             "aot": true,
             "assets": [
-              "apps/motabass/src/favicon.ico",
-              "apps/motabass/src/assets",
-              "apps/motabass/src/manifest.webmanifest",
+              "apps/gblaster/src/favicon.ico",
+              "apps/gblaster/src/assets",
+              "apps/gblaster/src/manifest.webmanifest",
               {
                 "glob": "**/*",
-                "input": "apps/electron-colorplayer/src/",
+                "input": "apps/electron-gblaster/src/",
                 "ignore": ["**/*.ts"],
                 "output": ""
               }
             ],
-            "styles": ["libs/core/theme/src/styles/theme.scss", "apps/motabass/src/styles/main.scss"],
+            "styles": ["libs/core/theme/src/styles/theme.scss", "apps/gblaster/src/styles/main.scss"],
             "scripts": []
           },
           "configurations": {
             "production": {
               "fileReplacements": [
                 {
-                  "replace": "apps/motabass/src/environments/environment.ts",
-                  "with": "apps/motabass/src/environments/environment.prod.ts"
+                  "replace": "apps/gblaster/src/environments/environment.ts",
+                  "with": "apps/gblaster/src/environments/environment.prod.ts"
                 }
               ],
               "optimization": true,
@@ -716,21 +648,62 @@
                 }
               ],
               "serviceWorker": true,
-              "ngswConfigPath": "apps/motabass/ngsw-config.json"
+              "ngswConfigPath": "apps/gblaster/ngsw-config.json"
             }
           }
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "electron-colorplayer:build",
-            "proxyConfig": "apps/motabass/proxy.conf.json"
+            "browserTarget": "electron-gblaster:build",
+            "proxyConfig": "apps/gblaster/proxy.conf.json"
           },
           "configurations": {
             "production": {
-              "browserTarget": "electron-colorplayer:build:production"
+              "browserTarget": "electron-gblaster:build:production"
             }
           }
+        }
+      }
+    },
+    "material-helpers-mat-icon-size": {
+      "projectType": "library",
+      "root": "libs/material-helpers/mat-icon-size",
+      "sourceRoot": "libs/material-helpers/mat-icon-size/src",
+      "prefix": "mat",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/angular:package",
+          "options": {
+            "tsConfig": "libs/material-helpers/mat-icon-size/tsconfig.lib.json",
+            "project": "libs/material-helpers/mat-icon-size/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/material-helpers/mat-icon-size/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": ["libs/material-helpers/mat-icon-size/tsconfig.lib.json", "libs/material-helpers/mat-icon-size/tsconfig.spec.json"],
+            "exclude": ["**/node_modules/**", "!libs/material-helpers/mat-icon-size/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/material-helpers/mat-icon-size/jest.config.js",
+            "tsConfig": "libs/material-helpers/mat-icon-size/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "libs/material-helpers/mat-icon-size/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "styleext": "scss"
         }
       }
     }
@@ -749,5 +722,5 @@
       "style": "scss"
     }
   },
-  "defaultProject": "motabass"
+  "defaultProject": "gblaster"
 }

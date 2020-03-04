@@ -1,26 +1,23 @@
-import { Palette } from 'node-vibrant/lib/color';
+import { CoverPicture } from './metadata-service/id3-tags.types';
+import { CoverColorPalette } from './metadata-service/metadata.types';
 
 export interface Song {
-  url: string;
-  fileHandle: unknown;
-  type: string;
-  metadata: SongMetadata;
+  file: File;
+  metadata?: SongMetadata;
   playlistPosition?: number;
 }
 
 export interface SongMetadata {
+  crc: string;
   artist?: string;
   title?: string;
   track?: string;
   album?: string;
   year?: string;
-  filename: string;
-  fileSize: number;
-  fileFormat: string;
   duration?: number;
-  coverUrl: string;
-  coverColors?: Palette;
-  fileHash: string;
+  coverUrl?: string;
+  embeddedPicture?: CoverPicture;
+  coverColors?: CoverColorPalette;
 }
 
 // EQ

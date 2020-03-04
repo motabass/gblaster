@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { TagType } from 'jsmediatags/types';
+import { PictureType, TagType } from 'jsmediatags/types';
 import { ID3TagsService } from './id3-tags.service.abstract';
 import { Id3Tags } from './id3-tags.types';
 
@@ -28,13 +28,13 @@ export class BrowserId3TagsService extends ID3TagsService {
       return null;
     }
 
-    let cover: Uint8Array | undefined;
+    let cover: PictureType | undefined;
 
     if (tags.tags?.picture) {
-      cover = new Uint8Array(tags.tags.picture.data);
+      cover = tags.tags.picture;
     }
     return {
-      cover: cover,
+      picture: cover,
       artist: tags?.tags?.artist,
       title: tags?.tags?.title,
       track: tags?.tags?.track,

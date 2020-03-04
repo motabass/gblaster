@@ -1,7 +1,7 @@
 import { Injectable, OnInit } from '@angular/core';
 import { ThemeService } from '@motabass/core/theme';
-import { FileLoaderService } from '@motabass/player/src/lib/file-loader-service/file-loader.service.abstract';
 import { LocalStorage, LocalStorageService } from 'ngx-webstorage';
+import { FileLoaderService } from './file-loader-service/file-loader.service.abstract';
 import { MetadataService } from './metadata-service/metadata.service';
 import { BandFrequency, Song, SongMetadata } from './player.types';
 
@@ -19,6 +19,8 @@ export class PlayerService implements OnInit {
   private readonly analyserNode: AnalyserNode;
   private audioSrcNode: MediaElementAudioSourceNode;
 
+  private playFinished = true;
+
   private _songs: Song[] = [];
   get songs(): Song[] {
     return this._songs;
@@ -35,16 +37,19 @@ export class PlayerService implements OnInit {
     if (!song) {
       return;
     }
-    this.audioElement.src = song.url;
+
+    this.audioElement.src = URL.createObjectURL(song.file);
     this._playingSong = song;
 
-    this.setBrowserMetadata(song.metadata);
+    if (song.metadata) {
+      this.setBrowserMetadata(song.metadata);
 
-    const primaryColor = song.metadata.coverColors?.DarkVibrant?.getHex();
-    this.themeService.setPrimaryColor(primaryColor);
+      const primaryColor = song.metadata.coverColors?.darkVibrant?.hex;
+      this.themeService.setPrimaryColor(primaryColor);
 
-    const accentColor = song.metadata.coverColors?.LightVibrant?.getHex();
-    this.themeService.setAccentColor(accentColor);
+      const accentColor = song.metadata.coverColors?.lightVibrant?.hex;
+      this.themeService.setAccentColor(accentColor);
+    }
 
     this.audioSrcNode.connect(this.analyserNode);
   }
@@ -152,14 +157,14 @@ export class PlayerService implements OnInit {
   }
 
   private async createSongFromFile(file: File): Promise<Song> {
-    const metadata: SongMetadata = await this.metadataService.getMetadata(file);
-    const url = URL.createObjectURL(file);
-    return {
-      url: url,
-      type: file.type,
-      fileHandle: file,
-      metadata: metadata
+    const song: Song = {
+      file: file
     };
+    this.metadataService.getMetadata(file).then((metadata: SongMetadata) => {
+      song.metadata = metadata;
+    });
+
+    return song;
   }
 
   getBandGain(bandFrequency: BandFrequency): number {
@@ -211,7 +216,11 @@ export class PlayerService implements OnInit {
     }
   }
 
-  async playPauseSong(song: Song): Promise<void> {
+  playPauseSong(song: Song) {
+    if (!this.playFinished) {
+      return;
+    }
+
     if (this.playingSong && song === this.playingSong) {
       this.playPause();
       return;
@@ -221,22 +230,29 @@ export class PlayerService implements OnInit {
 
     this.playingSong = song;
 
-    return this.audioElement.play();
+    this.playFinished = false;
+    this.audioElement.play().then(() => (this.playFinished = true));
   }
 
-  async playPause(): Promise<void> {
-    if (!this.playingSong) {
+  playPause() {
+    if (!this.playingSong || !this.playFinished) {
+      if (this.selectedSong) {
+        this.playingSong = this.selectedSong;
+        this.playFinished = false;
+        this.audioElement.play().then(() => (this.playFinished = true));
+      }
       return;
     }
     if (this.audioElement.paused) {
-      return this.audioElement.play();
+      this.playFinished = false;
+      this.audioElement.play().then(() => (this.playFinished = true));
     } else {
       this.audioElement.pause();
     }
   }
 
   stop() {
-    if (!this.playingSong) {
+    if (!this.playingSong || !this.playFinished) {
       return;
     }
     if (this.playing) {
@@ -248,7 +264,7 @@ export class PlayerService implements OnInit {
   }
 
   async next(): Promise<void> {
-    if (!this.playingSong) {
+    if (!this.playingSong || !this.playFinished) {
       return;
     }
     const currPo = this.playingSong.playlistPosition;
@@ -262,7 +278,7 @@ export class PlayerService implements OnInit {
   }
 
   async previous() {
-    if (!this.playingSong) {
+    if (!this.playingSong || !this.playFinished) {
       return;
     }
     const currPo = this.playingSong.playlistPosition;

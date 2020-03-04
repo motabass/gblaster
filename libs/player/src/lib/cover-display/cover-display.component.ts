@@ -14,17 +14,16 @@ export class CoverDisplayComponent {
   constructor() {}
 
   get coverUrl(): string | undefined {
-    if (this.song?.metadata.coverUrl) {
+    if (this.song?.metadata?.coverUrl) {
       return this.song.metadata.coverUrl;
     }
   }
 
-  get backgroundColor(): string {
-    const color = this.song?.metadata?.coverColors?.Vibrant ? this.song.metadata.coverColors.Vibrant.getHex() : 'rgba(0,0,0,0)';
-    return color;
+  get backgroundColor(): string | undefined {
+    return this.song?.metadata?.coverColors?.vibrant ? this.song.metadata.coverColors.vibrant.hex : 'rgba(0,0,0,0)';
   }
 
-  get fontColor(): string | null {
-    return this.song?.metadata?.coverColors?.Vibrant ? this.song.metadata.coverColors.Vibrant.getTitleTextColor() : null;
+  get fontColor(): string | undefined {
+    return this.song?.metadata?.coverColors?.vibrant ? this.song.metadata.coverColors.vibrant.textHex : undefined;
   }
 }

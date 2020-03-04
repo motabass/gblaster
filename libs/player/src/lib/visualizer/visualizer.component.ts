@@ -110,12 +110,12 @@ export class VisualizerComponent implements OnInit, OnDestroy {
   }
 
   get mainColor(): string {
-    const color = this.playerService.selectedSong?.metadata?.coverColors?.DarkVibrant?.getHex();
+    const color = this.playerService.selectedSong?.metadata?.coverColors?.darkVibrant?.hex;
     return color ? color : 'red';
   }
 
   get peakColor(): string {
-    const color = this.playerService.selectedSong?.metadata?.coverColors?.LightVibrant?.getHex();
+    const color = this.playerService.selectedSong?.metadata?.coverColors?.lightVibrant?.hex;
     return color ? color : 'yellow';
   }
 

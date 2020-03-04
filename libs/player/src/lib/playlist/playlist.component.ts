@@ -24,7 +24,6 @@ export class PlaylistComponent implements DoCheck {
 
     if (!this.selectedSong) {
       this.selectSong(this._songs[0]);
-      this.playerService.playingSong = this._songs[0];
     }
   }
 

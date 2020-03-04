@@ -21,7 +21,7 @@ export class PlayerComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(public media: MediaObserver, private playerService: PlayerService, private titleService: TitleService, private gamepadService: GamepadService) {}
 
   ngOnInit() {
-    setTimeout(() => this.titleService.setTitle('Mediaplayer')); // TODO: find better way
+    setTimeout(() => this.titleService.setTitle('gBlaster')); // TODO: find better way
 
     this.gamepadService.registerButtonAction(GamepadButtons.A_BUTTON, () => this.playPause());
     this.gamepadService.registerButtonAction(GamepadButtons.B_BUTTON, () => this.stop());

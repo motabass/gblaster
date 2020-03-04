@@ -1,9 +1,12 @@
+import { crc32 } from '@allex/crc32';
 import { Injectable } from '@angular/core';
-import BMF from 'browser-md5-file';
+import { NgxIndexedDBService } from 'ngx-indexed-db';
 import Vibrant from 'node-vibrant/lib/browser.worker';
 import { SongMetadata } from '../player.types';
 import { ID3TagsService } from './id3-tags.service.abstract';
+import { CoverPicture } from './id3-tags.types';
 import { LastfmMetadataService } from './lastfm-metadata.service';
+import { CoverColorPalette } from './metadata.types';
 
 // https://www.npmjs.com/package/id3-writer
 // https://github.com/Zazama/node-id3
@@ -12,55 +15,72 @@ import { LastfmMetadataService } from './lastfm-metadata.service';
 
 @Injectable({ providedIn: 'any' })
 export class MetadataService {
-  private readonly PLACEHOLDER_URL = 'assets/cover-art-placeholder.svg';
+  private readonly PLACEHOLDER_URL = 'assets/icons/record.svg';
 
-  constructor(private id3TagsService: ID3TagsService, private lastfmMetadataService: LastfmMetadataService) {}
+  constructor(private id3TagsService: ID3TagsService, private lastfmMetadataService: LastfmMetadataService, private indexedDBService: NgxIndexedDBService) {}
 
   async getMetadata(file: File): Promise<SongMetadata> {
-    const tags = await this.id3TagsService.extractTags(file);
+    const crc = generateFileHash(file);
 
-    let url = '';
-    if (tags?.cover) {
-      url = URL.createObjectURL(new Blob([tags.cover], { type: file.type }));
-    } else if (tags?.artist || tags?.album) {
-      url = await this.lastfmMetadataService.getCoverArtFromLastFM(tags);
+    const metadataCache: SongMetadata = await this.indexedDBService.getByKey('metatags', crc);
+
+    if (metadataCache) {
+      if (metadataCache.coverUrl?.startsWith('blob:') && metadataCache.embeddedPicture) {
+        return {
+          ...metadataCache,
+          coverUrl: URL.createObjectURL(new Blob([metadataCache.embeddedPicture.data], { type: metadataCache.embeddedPicture.format }))
+        };
+      } else {
+        return metadataCache;
+      }
     }
 
-    // @ts-ignore
-    const vibrant: typeof Vibrant = await import('node-vibrant/lib/browser');
-    const palette = url ? await vibrant.from(url).getPalette() : null;
+    const tags = await this.id3TagsService.extractTags(file);
 
-    const bmf = new BMF();
+    let coverUrl = tags ? await this.lastfmMetadataService.getCoverArtFromLastFM(tags) : undefined;
 
-    const md5: string = await new Promise((resolve, reject) => {
-      bmf.md5(
-        file,
-        (err: any, result: string) => {
-          if (err) {
-            console.log('err:', err);
-            reject();
-          }
-          console.log('md5 string:', result);
-          resolve(result);
-        },
-        (progress: number) => {
-          console.log('progress number:', progress);
-        }
-      );
-    });
+    const pic: CoverPicture | undefined = tags?.picture ? { format: tags.picture.format, data: new Uint8Array(tags.picture.data) } : undefined;
 
-    return {
-      coverUrl: url ? url : this.PLACEHOLDER_URL,
-      coverColors: palette ? palette : undefined,
+    if (!coverUrl && pic) {
+      coverUrl = URL.createObjectURL(new Blob([pic.data], { type: pic.format }));
+    }
+
+    const palette: CoverColorPalette | undefined = coverUrl ? await extractColors(coverUrl) : undefined;
+
+    const metadata: SongMetadata = {
+      crc: crc,
+      coverUrl: coverUrl ? coverUrl : this.PLACEHOLDER_URL,
+      embeddedPicture: pic,
+      coverColors: palette,
       artist: tags?.artist,
       title: tags?.title,
       track: tags?.track,
       album: tags?.album,
-      year: tags?.year,
-      filename: file.name,
-      fileSize: file.size,
-      fileFormat: file.type,
-      fileHash: md5
+      year: tags?.year
     };
+
+    this.indexedDBService.add('metatags', metadata);
+
+    return metadata;
   }
+}
+
+function generateFileHash(file: File): string {
+  const hashString: string = file.name + file.type + file.size + file.lastModified;
+  return crc32(hashString, 'hex') as string;
+}
+
+async function extractColors(url: string): Promise<CoverColorPalette> {
+  // @ts-ignore
+  const vibrant: typeof Vibrant = await import('node-vibrant/lib/browser');
+  const palette = await vibrant.from(url).getPalette();
+
+  return {
+    vibrant: { hex: palette.Vibrant?.hex, textHex: palette.Vibrant?.titleTextColor },
+    darkVibrant: { hex: palette.DarkVibrant?.hex, textHex: palette.DarkVibrant?.titleTextColor },
+    lightVibrant: { hex: palette.LightVibrant?.hex, textHex: palette.LightVibrant?.titleTextColor },
+    muted: { hex: palette.Muted?.hex, textHex: palette.Muted?.titleTextColor },
+    darkMuted: { hex: palette.DarkMuted?.hex, textHex: palette.DarkMuted?.titleTextColor },
+    lightMuted: { hex: palette.LightMuted?.hex, textHex: palette.LightMuted?.titleTextColor }
+  };
 }

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { FileLoaderService } from '@motabass/player/src/lib/file-loader-service/file-loader.service.abstract';
+import { FileLoaderService } from './file-loader.service.abstract';
 
 @Injectable({
   providedIn: 'any'

@@ -1,6 +1,6 @@
-import { LegacyFileLoaderService } from '@motabass/player/src/lib/file-loader-service/legacy-file-loader.service';
-import { NativeBrowserFileLoaderService } from '@motabass/player/src/lib/file-loader-service/native-browser-file-loader.service';
 import { ElectronService } from 'ngx-electron';
+import { LegacyFileLoaderService } from './legacy-file-loader.service';
+import { NativeBrowserFileLoaderService } from './native-browser-file-loader.service';
 
 export function FileLoaderServiceFactory(electronService: ElectronService) {
   if (electronService.isElectronApp) {

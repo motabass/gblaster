@@ -45,7 +45,7 @@ export class VisualsDirective implements OnDestroy, OnChanges {
 
     // tODO: try with offscreen canvas in worker (how to get analyserDatat to worker?)
     // const offscreen: OffscreenCanvas = canvas.transferControlToOffscreen();
-    // const worker = new Worker('../../../../../apps/motabass/src/app/visuals-offscreen-canvas.worker', { type: 'module' });
+    // const worker = new Worker('../../../../../apps/gblaster/src/app/visuals-offscreen-canvas.worker', { type: 'module' });
     // worker.onmessage = ({ data }) => {
     //   console.log(`page got message: ${data}`);
     // };

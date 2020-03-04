@@ -11,12 +11,12 @@
     "nx.json": "*"
   },
   "projects": {
-    "motabass": {
+    "gblaster": {
       "tags": []
     },
-    "motabass-e2e": {
+    "gblaster-e2e": {
       "tags": [],
-      "implicitDependencies": ["motabass"]
+      "implicitDependencies": ["gblaster"]
     },
     "player": {
       "tags": []
@@ -52,13 +52,13 @@
     "core-update": {
       "tags": []
     },
-    "motabass-desktop": {
-      "tags": []
-    },
     "helper-services-gamepad": {
       "tags": []
     },
-    "electron-colorplayer": {
+    "electron-gblaster": {
+      "tags": []
+    },
+    "material-helpers-mat-icon-size": {
       "tags": []
     }
   }

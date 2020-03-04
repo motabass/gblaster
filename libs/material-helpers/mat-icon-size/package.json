@@ -1,0 +1,10 @@
+{
+  "name": "@motabass/material-helpers-mat-icon-size",
+  "version": "0.0.1",
+  "peerDependencies": {
+    "@angular/common": "^9.0.3",
+    "@angular/core": "^9.0.3",
+    "@angular/material": "^9.1.0",
+    "tslib": "^1.10.0"
+  }
+}

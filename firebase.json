@@ -1,8 +1,8 @@
 {
   "hosting": [
     {
-      "target": "motabass",
-      "public": "dist/apps/motabass",
+      "target": "gblaster",
+      "public": "dist/apps/gblaster",
       "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
       "rewrites": [
         {

@@ -1,9 +1,9 @@
 {
   "targets": {
-    "motabass-4e1ac": {
+    "gblaster-player": {
       "hosting": {
-        "motabass": [
-          "motabass-4e1ac"
+        "gblaster": [
+          "gblaster-player"
         ]
       }
     }

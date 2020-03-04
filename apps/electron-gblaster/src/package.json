@@ -1,0 +1,53 @@
+{
+  "name": "gblaster",
+  "version": "1.0.0",
+  "description": "Colorful Web Audio Media Library",
+  "main": "index.js",
+  "author": {
+    "name": "motabass",
+    "email": "markus.mohoritsch@gmx.at"
+  },
+  "homepage": "https://github.com/motabass/motabass",
+  "repository": {
+    "url": "https://github.com/motabass/motabass"
+  },
+  "license": "MIT",
+  "build": {
+    "appId": "at.motabass.gblaster",
+    "productName": "gBlaster",
+    "copyright": "Copyleft motabass",
+    "asar": true,
+    "npmRebuild": false,
+    "electronVersion": "8.0.2",
+    "directories": {
+      "buildResources": "icons",
+      "output": "../electroncolorplayer-packages"
+    },
+    "mac": {
+      "category": "public.app-category.developer-tools",
+      "icon": "icon.png"
+    },
+    "win": {
+      "target": [
+        "nsis",
+        "appx"
+      ],
+      "icon": "icon.ico"
+    },
+    "linux": {
+      "icon": "icon.png",
+      "target": [
+        "AppImage",
+        "deb",
+        "tar.gz"
+      ],
+      "synopsis": "Colorplayer",
+      "category": "Audio"
+    },
+    "nsis": {
+      "createDesktopShortcut": "always",
+      "installerIcon": "icon.ico",
+      "artifactName": "Colorplayer-Setup-${version}.${ext}"
+    }
+  }
+}
