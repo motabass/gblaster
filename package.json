@@ -183,6 +183,7 @@
     "tslint-etc": "^1.10.1",
     "tslint-sonarts": "1.9.0",
     "typescript": "~3.7.5",
+    "electron-icon-generator": "^1.0.2",
     "wait-on": "~4.0.1",
     "webpack-bundle-analyzer": "3.6.0"
   },

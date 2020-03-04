@@ -20,12 +20,15 @@ const mainWindowSettings: Electron.BrowserWindowConstructorOptions = {
   frame: true,
   resizable: true,
   focusable: true,
+  darkTheme: true,
+  autoHideMenuBar: true,
   fullscreenable: true,
   kiosk: false,
   // to hide title bar, uncomment:
   titleBarStyle: 'hidden',
   webPreferences: {
     devTools: debugMode,
+    autoplayPolicy: 'no-user-gesture-required',
     nodeIntegration: debugMode,
     enableBlinkFeatures: 'NativeFileSystem'
   }

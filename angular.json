@@ -647,7 +647,7 @@
                   "maximumError": "10kb"
                 }
               ],
-              "serviceWorker": true,
+              "serviceWorker": false,
               "ngswConfigPath": "apps/gblaster/ngsw-config.json"
             }
           }
