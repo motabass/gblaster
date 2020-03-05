@@ -19,7 +19,6 @@ export class PlayerService implements OnInit {
   private gainNode!: GainNode;
   private analyserNode!: AnalyserNode;
   private audioSrcNode!: MediaElementAudioSourceNode;
-  private eqInNode!: BiquadFilterNode;
 
   private playFinished = true;
 
@@ -105,14 +104,10 @@ export class PlayerService implements OnInit {
   }
 
   initEqualizer() {
-    let output: AudioNode;
+    let output: AudioNode = this.analyserNode;
 
     BAND_FREQUENIES.forEach((bandFrequency, i) => {
       const filter = this.audioCtx.createBiquadFilter();
-
-      if (i === 0) {
-        this.eqInNode = filter;
-      }
 
       this.bands[bandFrequency] = filter;
 
@@ -127,16 +122,12 @@ export class PlayerService implements OnInit {
       }
       filter.frequency.value = bandFrequency;
       filter.gain.value = 0;
-      if (i > 0) {
-        output?.connect(filter);
-      }
 
+      output.connect(filter);
       output = filter;
-
-      if (i === BAND_FREQUENIES.length - 1) {
-        output.connect(this.analyserNode);
-      }
     });
+
+    output.connect(this.gainNode);
   }
 
   setPlayingSong(song: Song | undefined) {
@@ -166,7 +157,7 @@ export class PlayerService implements OnInit {
       this.initEqualizer();
     }
 
-    this.audioSrcNode.connect(this.eqInNode);
+    this.audioSrcNode.connect(this.analyserNode);
   }
 
   async loadFolder() {
