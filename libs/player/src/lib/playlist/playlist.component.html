@@ -17,8 +17,7 @@
       mat-list-avatar
       style="border-radius: 3px; width: 2rem; height: 2rem; object-fit: fill;"
       [mtbVisual]="analyser"
-      [barCount]="8"
-      [capHeight]="0"
+      [barsConfig]="{ capHeight: 0, barCount: 8, gap: 0, capFalldown: 0 }"
     ></canvas>
     <h3 matLine style="font-size: 0.9rem;font-weight: bold;">{{ song?.metadata?.title || song.file.name }}</h3>
     <p matLine style="font-size: 0.8rem;">{{ song?.metadata?.artist }}</p>

@@ -77,6 +77,7 @@ export class PlayerService implements OnInit {
     audio.loop = false;
     audio.autoplay = false;
     audio.controls = false;
+    audio.volume = 0.8;
     audio.preload = 'metadata';
     audio.onended = () => {
       console.log('ended');

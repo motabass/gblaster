@@ -1,49 +1,22 @@
 import { Directive, ElementRef, Input, NgZone, OnChanges, OnDestroy, SimpleChanges } from '@angular/core';
 import { scalePow } from 'd3';
-import { FftSize, VisualizerMode } from './visuals.types';
+import { FrequencyBarsConfig, VisualizerMode, VisualsColorConfig } from './visuals.types';
 
 @Directive({
   selector: '[mtbVisual]'
 })
 export class VisualsDirective implements OnDestroy, OnChanges {
-  // @HostBinding('style.display') display = 'none';
-
   @Input('mtbVisual')
   analyser?: AnalyserNode;
-
-  // private _active = false;
-  //
-  // @Input()
-  // set active(active: boolean) {
-  //   this._active = active;
-  //   if (this._active) {
-  //     this.display = 'initial';
-  //   } else {
-  //     this.display = 'none';
-  //   }
-  // }
 
   @Input()
   mode: VisualizerMode = 'bars';
 
   @Input()
-  barCount = 64;
+  barsConfig: FrequencyBarsConfig = { gap: 0, capHeight: 1, barCount: 24, capFalldown: 0.5 };
+
   @Input()
-  capHeight = 2;
-  @Input()
-  gap = 0;
-  @Input()
-  mainColor = '#000';
-  @Input()
-  peakColor = '#f00';
-  @Input()
-  fftSize: FftSize = 2048;
-  @Input()
-  smoothingTimeConstant = 0.5;
-  @Input()
-  minDecibels = -90;
-  @Input()
-  maxDecibels = 0;
+  colorConfig: VisualsColorConfig = { mainColor: 'red', peakColor: 'yellow' };
 
   canvasCtx: CanvasRenderingContext2D | null;
 
@@ -56,13 +29,14 @@ export class VisualsDirective implements OnDestroy, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
+    console.log(changes);
     this.stopVisualizer();
     switch (this.mode) {
-      case 'osc':
-        this.visualizeOscilloscope();
-        break;
       case 'bars':
         this.visualizeFrequencyBars();
+        break;
+      case 'osc':
+        this.visualizeOscilloscope();
         break;
     }
   }
@@ -77,15 +51,10 @@ export class VisualsDirective implements OnDestroy, OnChanges {
         return;
       }
 
-      analyser.fftSize = this.fftSize;
-      analyser.minDecibels = this.minDecibels;
-      analyser.maxDecibels = this.maxDecibels;
-      analyser.smoothingTimeConstant = this.smoothingTimeConstant;
-
-      const meterNum = this.barCount;
-      const gap = this.gap; // gap between meters
-      const capHeight = this.capHeight; // cap thickness
-      const capStyle = this.mainColor;
+      const meterNum = this.barsConfig.barCount;
+      const gap = this.barsConfig.gap; // gap between meters
+      const capHeight = this.barsConfig.capHeight; // cap thickness
+      const capStyle = this.colorConfig.mainColor;
 
       const canvasCtx = this.canvasCtx;
 
@@ -110,9 +79,9 @@ export class VisualsDirective implements OnDestroy, OnChanges {
 
         canvasCtx.clearRect(0, 0, canvasWidth, canvasHeight);
         const gradient = canvasCtx.createLinearGradient(0, 0, 0, 500);
-        gradient.addColorStop(1, this.mainColor);
-        gradient.addColorStop(0.3, this.mainColor);
-        gradient.addColorStop(0, this.peakColor);
+        gradient.addColorStop(1, this.colorConfig.mainColor);
+        gradient.addColorStop(0.3, this.colorConfig.mainColor);
+        gradient.addColorStop(0, this.colorConfig.peakColor);
 
         for (let i = 0; i < meterNum; i++) {
           const position = Math.floor(scale(i));
@@ -129,7 +98,8 @@ export class VisualsDirective implements OnDestroy, OnChanges {
           canvasCtx.fillStyle = capStyle;
           // draw the cap, with transition effect
           if (value < capYPositionArray[i]) {
-            canvasCtx.fillRect((barWidth + gap) * i, canvasHeight - --capYPositionArray[i], barWidth, capHeight);
+            canvasCtx.fillRect((barWidth + gap) * i, canvasHeight - capYPositionArray[i], barWidth, capHeight);
+            capYPositionArray[i] = capYPositionArray[i] - this.barsConfig.capFalldown;
           } else {
             canvasCtx.fillRect((barWidth + gap) * i, canvasHeight - value, barWidth, capHeight);
             capYPositionArray[i] = value;
@@ -153,11 +123,6 @@ export class VisualsDirective implements OnDestroy, OnChanges {
         return;
       }
 
-      analyser.fftSize = this.fftSize;
-      analyser.minDecibels = this.minDecibels;
-      analyser.maxDecibels = this.maxDecibels;
-      analyser.smoothingTimeConstant = this.smoothingTimeConstant;
-
       const canvasCtx = this.canvasCtx;
 
       if (!canvasCtx) {
@@ -177,7 +142,7 @@ export class VisualsDirective implements OnDestroy, OnChanges {
         analyser.getByteTimeDomainData(analyserData);
 
         canvasCtx.lineWidth = 2;
-        canvasCtx.strokeStyle = this.mainColor;
+        canvasCtx.strokeStyle = this.colorConfig.mainColor;
         canvasCtx.beginPath();
 
         const sliceWidth = canvasWidth / bufferLength;
