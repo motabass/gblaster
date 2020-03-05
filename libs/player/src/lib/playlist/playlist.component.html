@@ -1,6 +1,6 @@
-<mat-action-list dense class="pl">
+<mat-action-list dense class="pl" *mobxAutorun>
   <mat-list-item
-    *ngFor="let song of _songs; let index = index"
+    *ngFor="let song of songs; let index = index"
     [ngClass]="{ selected: isSelected(song) }"
     (dblclick)="playPauseSong($event, song)"
     (click)="selectSong(song)"

@@ -1,5 +1,5 @@
 {
-  "rulesDirectory": ["node_modules/@nrwl/workspace/src/tslint", "node_modules/codelyzer", "rxjs-tslint"],
+  "rulesDirectory": ["node_modules/@nrwl/workspace/src/tslint", "node_modules/codelyzer"],
   "extends": ["tslint:recommended", "tslint-sonarts", "tslint-clean-code", "tslint-config-prettier"],
   "rules": {
     "arrow-return-shorthand": true,

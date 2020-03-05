@@ -12,6 +12,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterModule } from '@angular/router';
 import { GamepadModule } from '@motabass/helper-services/gamepad';
 import { VisualsModule } from '@motabass/ui-components/visuals';
+import { MobxAngularModule } from 'mobx-angular';
 import { ElectronService } from 'ngx-electron';
 import { CoverDisplayComponent } from './cover-display/cover-display.component';
 import { BandPipe } from './equalizer/band.pipe';
@@ -39,7 +40,8 @@ import { VisualizerComponent } from './visualizer/visualizer.component';
     MatInputModule,
     MatSelectModule,
     GamepadModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MobxAngularModule
   ],
   declarations: [PlayerComponent, PlaylistComponent, TimePipe, CoverDisplayComponent, VisualizerComponent, EqualizerComponent, BandPipe],
   providers: [

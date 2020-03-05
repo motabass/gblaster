@@ -1,4 +1,4 @@
-import { Component, DoCheck, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { PlayerService } from '../player.service';
 import { Song } from '../player.types';
@@ -6,25 +6,21 @@ import { Song } from '../player.types';
 @Component({
   selector: 'mtb-playlist',
   templateUrl: './playlist.component.html',
-  styleUrls: ['./playlist.component.scss']
+  styleUrls: ['./playlist.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class PlaylistComponent implements DoCheck {
-  @Input()
-  set songs(songs: Song[]) {
-    this._songs = songs;
-  }
-  _songs: Song[] = [];
-
+export class PlaylistComponent {
   constructor(private playerService: PlayerService, private domSanitizer: DomSanitizer) {}
 
-  ngDoCheck(): void {
-    for (const [i, v] of this._songs.entries()) {
+  get songs(): Song[] {
+    for (const [i, v] of this.playerService.songs.entries()) {
       v.playlistPosition = i + 1;
     }
 
-    if (!this.selectedSong) {
-      this.selectSong(this._songs[0]);
+    if (!this.selectedSong && this.playerService.songs.length) {
+      this.selectSong(this.playerService.songs[0]);
     }
+    return this.playerService.songs;
   }
 
   isPlaying(song: Song): boolean {
@@ -51,7 +47,7 @@ export class PlaylistComponent implements DoCheck {
   }
 
   selectSong(song: Song) {
-    this.playerService.selectedSong = song;
+    this.playerService.selectSong(song);
   }
 
   async playPauseSong(event: Event, song: Song): Promise<void> {

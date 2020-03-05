@@ -1,10 +1,8 @@
 import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
-import { MediaObserver } from '@angular/flex-layout';
 import { MatSliderChange } from '@angular/material/slider';
+import { GamepadAxes, GamepadButtons, GamepadService } from '@motabass/helper-services/gamepad';
 import { TitleService } from '@motabass/helper-services/title';
 import { formatSecondsAsClock } from '@motabass/helpers/time';
-import { GamepadService } from '@motabass/helper-services/gamepad';
-import { GamepadAxes, GamepadButtons } from '@motabass/helper-services/gamepad';
 import { PlayerService } from './player.service';
 import { Song } from './player.types';
 
@@ -18,7 +16,7 @@ export class PlayerComponent implements OnInit, AfterViewInit, OnDestroy {
 
   position = 0;
 
-  constructor(public media: MediaObserver, private playerService: PlayerService, private titleService: TitleService, private gamepadService: GamepadService) {}
+  constructor(private playerService: PlayerService, private titleService: TitleService, private gamepadService: GamepadService) {}
 
   ngOnInit() {
     setTimeout(() => this.titleService.setTitle('gBlaster')); // TODO: find better way
@@ -81,16 +79,8 @@ export class PlayerComponent implements OnInit, AfterViewInit, OnDestroy {
     return this.playerService.durationSeconds;
   }
 
-  get songs(): Song[] {
-    return this.playerService.songs;
-  }
-
   get playingSong(): Song | undefined {
     return this.playerService.playingSong;
-  }
-
-  get selectedSong(): Song | undefined {
-    return this.playerService.selectedSong;
   }
 
   get volume(): number {
@@ -98,7 +88,7 @@ export class PlayerComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   set volume(value: number) {
-    this.playerService.volume = value;
+    this.playerService.setVolume(value);
   }
 
   toggleMute() {

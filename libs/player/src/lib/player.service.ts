@@ -1,5 +1,6 @@
 import { Injectable, OnInit } from '@angular/core';
 import { ThemeService } from '@motabass/core/theme';
+import { action, observable } from 'mobx-angular';
 import { LocalStorage, LocalStorageService } from 'ngx-webstorage';
 import { FileLoaderService } from './file-loader-service/file-loader.service.abstract';
 import { MetadataService } from './metadata-service/metadata.service';
@@ -21,46 +22,15 @@ export class PlayerService implements OnInit {
 
   private playFinished = true;
 
-  private _songs: Song[] = [];
-  get songs(): Song[] {
-    return this._songs;
-  }
-  set songs(songs: Song[]) {
-    this._songs = songs;
-  }
+  @observable
+  songs: Song[] = [];
 
-  private _playingSong?: Song;
-  get playingSong(): Song | undefined {
-    return this._playingSong;
-  }
-  set playingSong(song: Song | undefined) {
-    if (!song) {
-      return;
-    }
-
-    this.audioElement.src = URL.createObjectURL(song.file);
-    this._playingSong = song;
-
-    if (song.metadata) {
-      this.setBrowserMetadata(song.metadata);
-
-      const primaryColor = song.metadata.coverColors?.darkVibrant?.hex;
-      this.themeService.setPrimaryColor(primaryColor);
-
-      const accentColor = song.metadata.coverColors?.lightVibrant?.hex;
-      this.themeService.setAccentColor(accentColor);
-    }
-
-    if (!this.audioCtx) {
-      this.initAudioContext();
-      this.initEqualizer();
-    }
-
-    this.audioSrcNode.connect(this.analyserNode);
-  }
+  @observable
+  playingSong?: Song;
 
   audioElement!: HTMLAudioElement;
 
+  @observable
   selectedSong?: Song;
 
   @LocalStorage('repeat', false)
@@ -157,6 +127,36 @@ export class PlayerService implements OnInit {
     output.connect(this.gainNode);
   }
 
+  setPlayingSong(song: Song | undefined) {
+    if (!song) {
+      return;
+    }
+    const oldSrc = this.audioElement.src;
+
+    this.audioElement.src = URL.createObjectURL(song.file);
+
+    URL.revokeObjectURL(oldSrc);
+
+    this.playingSong = song;
+
+    if (song.metadata) {
+      this.setBrowserMetadata(song.metadata);
+
+      const primaryColor = song.metadata.coverColors?.darkVibrant?.hex;
+      this.themeService.setPrimaryColor(primaryColor);
+
+      const accentColor = song.metadata.coverColors?.lightVibrant?.hex;
+      this.themeService.setAccentColor(accentColor);
+    }
+
+    if (!this.audioCtx) {
+      this.initAudioContext();
+      this.initEqualizer();
+    }
+
+    this.audioSrcNode.connect(this.analyserNode);
+  }
+
   async loadFolder() {
     const newFolder: boolean = await this.fileLoaderService.openFolder();
     if (newFolder) {
@@ -173,10 +173,7 @@ export class PlayerService implements OnInit {
     const song: Song = {
       file: file
     };
-    this.metadataService.getMetadata(file).then((metadata: SongMetadata) => {
-      song.metadata = metadata;
-    });
-
+    song.metadata = await this.metadataService.getMetadata(file);
     return song;
   }
 
@@ -192,7 +189,8 @@ export class PlayerService implements OnInit {
     this.bandGains = bandGains;
   }
 
-  set volume(value: number) {
+  @action
+  setVolume(value: number) {
     if (value >= 0 && value <= 1) {
       this.storageService.store('volume', value);
       this.gainNode.gain.value = value;
@@ -207,6 +205,7 @@ export class PlayerService implements OnInit {
     return this.analyserNode;
   }
 
+  @action
   setSeekPosition(value: number) {
     if (value !== null && value !== undefined && value >= 0 && value <= this.durationSeconds) {
       this.audioElement.currentTime = value;
@@ -229,6 +228,12 @@ export class PlayerService implements OnInit {
     }
   }
 
+  @action
+  selectSong(song: Song) {
+    this.selectedSong = song;
+  }
+
+  @action
   playPauseSong(song: Song) {
     if (!this.playFinished) {
       return;
@@ -241,16 +246,17 @@ export class PlayerService implements OnInit {
 
     this.stop();
 
-    this.playingSong = song;
+    this.setPlayingSong(song);
 
     this.playFinished = false;
     this.audioElement.play().then(() => (this.playFinished = true));
   }
 
+  @action
   playPause() {
     if (!this.playingSong || !this.playFinished) {
       if (this.selectedSong) {
-        this.playingSong = this.selectedSong;
+        this.setPlayingSong(this.selectedSong);
         this.playFinished = false;
         this.audioElement.play().then(() => (this.playFinished = true));
       }
@@ -264,6 +270,7 @@ export class PlayerService implements OnInit {
     }
   }
 
+  @action
   stop() {
     if (!this.playingSong || !this.playFinished) {
       return;
@@ -276,6 +283,7 @@ export class PlayerService implements OnInit {
     }
   }
 
+  @action
   async next(): Promise<void> {
     if (!this.playingSong || !this.playFinished) {
       return;
@@ -285,11 +293,12 @@ export class PlayerService implements OnInit {
       return;
     }
 
-    if (currPo < this._songs.length) {
-      return this.playPauseSong(this._songs[currPo]);
+    if (currPo < this.songs.length) {
+      return this.playPauseSong(this.songs[currPo]);
     }
   }
 
+  @action
   async previous() {
     if (!this.playingSong || !this.playFinished) {
       return;
@@ -299,10 +308,11 @@ export class PlayerService implements OnInit {
       return;
     }
     if (currPo > 1) {
-      return this.playPauseSong(this._songs[currPo - 2]);
+      return this.playPauseSong(this.songs[currPo - 2]);
     }
   }
 
+  @action
   selectNext() {
     if (!this.selectedSong) {
       return;
@@ -312,11 +322,12 @@ export class PlayerService implements OnInit {
       return;
     }
 
-    if (currPo < this._songs.length) {
-      this.selectedSong = this._songs[currPo];
+    if (currPo < this.songs.length) {
+      this.selectedSong = this.songs[currPo];
     }
   }
 
+  @action
   selectPrevious() {
     if (!this.selectedSong) {
       return;
@@ -327,7 +338,7 @@ export class PlayerService implements OnInit {
     }
 
     if (currPo > 1) {
-      this.selectedSong = this._songs[currPo - 2];
+      this.selectedSong = this.songs[currPo - 2];
     }
   }
 
@@ -335,6 +346,7 @@ export class PlayerService implements OnInit {
     return !!this.playingSong && !this.audioElement.paused;
   }
 
+  @action
   toggleRepeat() {
     if (!this.repeat) {
       this.audioElement.loop = true;
@@ -345,6 +357,7 @@ export class PlayerService implements OnInit {
     }
   }
 
+  @action
   toggleShuffle() {
     this.shuffle = !this.shuffle;
   }
