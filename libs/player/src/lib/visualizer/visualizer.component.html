@@ -1,4 +1,5 @@
 <canvas
+  *ngIf="playing"
   [mtbVisual]="analyser"
   style="width: 100%; height: 100%;"
   [mainColor]="mainColor"
@@ -20,20 +21,20 @@
     </mat-select>
   </div>
   <div *ngIf="visualMode === 'bars'">
-    Min DB: <mat-slider min="-90" [max]="maxDb - 1" step="1" [value]="minDb" (input)="setMinDb($event.value)" thumbLabel></mat-slider>
+    Min DB: <mat-slider min="-90" [max]="maxDb - 1" step="0.1" [value]="minDb" (input)="setMinDb($event.value)" thumbLabel></mat-slider>
   </div>
   <div *ngIf="visualMode === 'bars'">
-    Max DB: <mat-slider [min]="minDb + 1" max="200" step="1" [value]="maxDb" (input)="setMaxDb($event.value)" thumbLabel></mat-slider>
+    Max DB: <mat-slider [min]="minDb + 1" max="200" step="0.1" [value]="maxDb" (input)="setMaxDb($event.value)" thumbLabel></mat-slider>
   </div>
   <div *ngIf="visualMode === 'bars'">
-    Smoothing: <mat-slider min="0" max="1" step="0.01" [value]="smoothing" (input)="setSmoothing($event.value)" thumbLabel></mat-slider>
+    Smoothing: <mat-slider min="0" max="1" step="0.1" [value]="smoothing" (input)="setSmoothing($event.value)" thumbLabel></mat-slider>
   </div>
   <div *ngIf="visualMode === 'bars'">
-    Bar count: <mat-slider min="1" max="2048" step="1" [value]="barCount" (input)="setBarCount($event.value)" thumbLabel></mat-slider>
+    Bar count: <mat-slider min="8" max="128" step="1" [value]="barCount" (input)="setBarCount($event.value)" thumbLabel></mat-slider>
   </div>
-  <div *ngIf="visualMode === 'bars'">Gap: <mat-slider min="-1" max="40" step="0.1" [value]="gap" (input)="setGap($event.value)" thumbLabel></mat-slider></div>
+  <div *ngIf="visualMode === 'bars'">Gap: <mat-slider min="-1" max="20" step="0.1" [value]="gap" (input)="setGap($event.value)" thumbLabel></mat-slider></div>
   <div *ngIf="visualMode === 'bars'">
-    Cap height: <mat-slider min="0" max="40" step="0.1" [value]="capHeight" (input)="setCapHeight($event.value)" thumbLabel></mat-slider>
+    Cap height: <mat-slider min="0" max="6" step="0.1" [value]="capHeight" (input)="setCapHeight($event.value)" thumbLabel></mat-slider>
   </div>
 </div>
 <button mat-icon-button style="position: absolute; bottom: 0.5rem; right: 0.5rem; z-index: 10;" (click)="toggleVisualMode()">

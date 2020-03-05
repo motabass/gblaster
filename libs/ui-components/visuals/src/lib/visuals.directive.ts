@@ -1,14 +1,27 @@
 import { Directive, ElementRef, Input, NgZone, OnChanges, OnDestroy, SimpleChanges } from '@angular/core';
+import { scalePow } from 'd3';
 import { FftSize, VisualizerMode } from './visuals.types';
 
 @Directive({
   selector: '[mtbVisual]'
 })
 export class VisualsDirective implements OnDestroy, OnChanges {
-  idle = true;
+  // @HostBinding('style.display') display = 'none';
 
   @Input('mtbVisual')
   analyser?: AnalyserNode;
+
+  // private _active = false;
+  //
+  // @Input()
+  // set active(active: boolean) {
+  //   this._active = active;
+  //   if (this._active) {
+  //     this.display = 'initial';
+  //   } else {
+  //     this.display = 'none';
+  //   }
+  // }
 
   @Input()
   mode: VisualizerMode = 'bars';
@@ -32,49 +45,25 @@ export class VisualsDirective implements OnDestroy, OnChanges {
   @Input()
   maxDecibels = 0;
 
-  canvasCtx: ImageBitmapRenderingContext | null;
+  canvasCtx: CanvasRenderingContext2D | null;
 
   private animationFrameRef?: number;
 
   constructor(elr: ElementRef<HTMLCanvasElement>, private zone: NgZone) {
     const canvas: HTMLCanvasElement = elr.nativeElement;
 
-    this.canvasCtx = canvas.getContext('bitmaprenderer');
-
-    // tODO: try with offscreen canvas in worker (how to get analyserDatat to worker?)
-    // const offscreen: OffscreenCanvas = canvas.transferControlToOffscreen();
-    // const worker = new Worker('../../../../../apps/gblaster/src/app/visuals-offscreen-canvas.worker', { type: 'module' });
-    // worker.onmessage = ({ data }) => {
-    //   console.log(`page got message: ${data}`);
-    // };
-    // // @ts-ignore
-    // worker.postMessage({ canvas: offscreen }, [offscreen]);
-    //
-    // this.worker = worker;
+    this.canvasCtx = canvas.getContext('2d');
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    // console.log(changes);
-    this.setAnalyserOptions();
     this.stopVisualizer();
     switch (this.mode) {
       case 'osc':
         this.visualizeOscilloscope();
-
         break;
       case 'bars':
         this.visualizeFrequencyBars();
         break;
-    }
-  }
-
-  setAnalyserOptions() {
-    const analyser = this.analyser;
-    if (analyser) {
-      analyser.fftSize = this.fftSize;
-      analyser.minDecibels = this.minDecibels;
-      analyser.maxDecibels = this.maxDecibels;
-      analyser.smoothingTimeConstant = this.smoothingTimeConstant;
     }
   }
 
@@ -88,12 +77,15 @@ export class VisualsDirective implements OnDestroy, OnChanges {
         return;
       }
 
+      analyser.fftSize = this.fftSize;
+      analyser.minDecibels = this.minDecibels;
+      analyser.maxDecibels = this.maxDecibels;
+      analyser.smoothingTimeConstant = this.smoothingTimeConstant;
+
       const meterNum = this.barCount;
       const gap = this.gap; // gap between meters
       const capHeight = this.capHeight; // cap thickness
       const capStyle = this.mainColor;
-
-      const upperCutoff = this.fftSize / 4;
 
       const canvasCtx = this.canvasCtx;
 
@@ -101,94 +93,53 @@ export class VisualsDirective implements OnDestroy, OnChanges {
         return;
       }
 
-      const bufferLength = analyser.frequencyBinCount - upperCutoff;
+      const bufferLength = analyser.frequencyBinCount;
       const analyserData = new Uint8Array(bufferLength);
 
-      const offscreenCanvas = new OffscreenCanvas(canvasCtx.canvas.width, canvasCtx.canvas.height);
-      const offscreenCanvasCtx: OffscreenCanvasRenderingContext2D | null = offscreenCanvas.getContext('2d');
-
-      if (!offscreenCanvasCtx) {
-        return;
-      }
-
-      const canvasWidth = offscreenCanvas.width;
-      const canvasHeight = offscreenCanvas.height;
+      const canvasWidth = canvasCtx.canvas.width;
+      const canvasHeight = canvasCtx.canvas.height;
       const barWidth = canvasWidth / meterNum - gap;
 
-      const step = bufferLength / meterNum; // sample limited data from the total array
-      const steps: number[] = [];
-      let stepCorrection = 0;
-
-      for (let m = 0; m < meterNum; m++) {
-        const arrayPos = Math.round(step * m * stepCorrection);
-        steps.push(arrayPos);
-        stepCorrection += 1 / meterNum;
-      }
+      const scale = scalePow()
+        .exponent(1.6)
+        .domain([0, meterNum])
+        .range([0, bufferLength - bufferLength / 3]);
 
       const draw = () => {
-        this.animationFrameRef = requestAnimationFrame(draw);
-
         analyser.getByteFrequencyData(analyserData);
 
-        let hasData = false;
-        for (let i = 0; i < analyserData.length; i += 10) {
-          if (analyserData[i]) {
-            hasData = true;
-            break;
-          }
-        }
+        canvasCtx.clearRect(0, 0, canvasWidth, canvasHeight);
+        const gradient = canvasCtx.createLinearGradient(0, 0, 0, 500);
+        gradient.addColorStop(1, this.mainColor);
+        gradient.addColorStop(0.3, this.mainColor);
+        gradient.addColorStop(0, this.peakColor);
 
-        if (hasData) {
-          this.idle = false;
-          offscreenCanvasCtx.clearRect(0, 0, canvasWidth, canvasHeight);
-          const gradient = offscreenCanvasCtx.createLinearGradient(0, 0, 0, 500);
-          gradient.addColorStop(1, this.mainColor);
-          gradient.addColorStop(0.3, this.mainColor);
-          gradient.addColorStop(0, this.peakColor);
+        for (let i = 0; i < meterNum; i++) {
+          const position = Math.floor(scale(i));
+          let value = analyserData[position];
 
-          for (let i = 0; i < meterNum; i++) {
-            let value = analyserData[steps[i]];
-
-            if (value > canvasHeight) {
-              value = canvasHeight;
-            }
-
-            if (capYPositionArray.length < Math.round(meterNum)) {
-              capYPositionArray.push(value);
-            }
-            offscreenCanvasCtx.fillStyle = capStyle;
-            // draw the cap, with transition effect
-            if (value < capYPositionArray[i]) {
-              if (i < 6) {
-                offscreenCanvasCtx.fillRect((barWidth + gap) * i, canvasHeight - --capYPositionArray[i] + 60 / (i + 1), barWidth, capHeight);
-              } else {
-                offscreenCanvasCtx.fillRect((barWidth + gap) * i, canvasHeight - --capYPositionArray[i], barWidth, capHeight);
-              }
-            } else {
-              if (i < 6) {
-                offscreenCanvasCtx.fillRect((barWidth + gap) * i, canvasHeight - value + 60 / (i + 1), barWidth, capHeight);
-              } else {
-                offscreenCanvasCtx.fillRect((barWidth + gap) * i, canvasHeight - value, barWidth, capHeight);
-              }
-              capYPositionArray[i] = value;
-            }
-            offscreenCanvasCtx.fillStyle = gradient; // set the fillStyle to gradient for a better look
-
-            if (i < 6) {
-              offscreenCanvasCtx.fillRect((barWidth + gap) * i, canvasHeight - value + capHeight + 60 / (i + 1), barWidth, value - capHeight); // the meter
-            } else {
-              offscreenCanvasCtx.fillRect((barWidth + gap) * i, canvasHeight - value + capHeight, barWidth, value - capHeight); // the meter
-            }
+          if (value > canvasHeight) {
+            value = canvasHeight;
           }
 
-          const bitmap = offscreenCanvas.transferToImageBitmap();
-          canvasCtx.transferFromImageBitmap(bitmap);
-        } else if (!this.idle) {
-          offscreenCanvasCtx.clearRect(0, 0, canvasWidth, canvasHeight);
-          const bitmap = offscreenCanvas.transferToImageBitmap();
-          canvasCtx.transferFromImageBitmap(bitmap);
-          this.idle = true;
+          if (capYPositionArray.length < Math.round(meterNum)) {
+            capYPositionArray.push(value);
+          }
+
+          canvasCtx.fillStyle = capStyle;
+          // draw the cap, with transition effect
+          if (value < capYPositionArray[i]) {
+            canvasCtx.fillRect((barWidth + gap) * i, canvasHeight - --capYPositionArray[i], barWidth, capHeight);
+          } else {
+            canvasCtx.fillRect((barWidth + gap) * i, canvasHeight - value, barWidth, capHeight);
+            capYPositionArray[i] = value;
+          }
+          canvasCtx.fillStyle = gradient; // set the fillStyle to gradient for a better look
+
+          canvasCtx.fillRect((barWidth + gap) * i, canvasHeight - value + capHeight, barWidth, value - capHeight); // the meter
         }
+
+        this.animationFrameRef = requestAnimationFrame(draw);
       };
 
       this.animationFrameRef = requestAnimationFrame(draw);
@@ -202,6 +153,11 @@ export class VisualsDirective implements OnDestroy, OnChanges {
         return;
       }
 
+      analyser.fftSize = this.fftSize;
+      analyser.minDecibels = this.minDecibels;
+      analyser.maxDecibels = this.maxDecibels;
+      analyser.smoothingTimeConstant = this.smoothingTimeConstant;
+
       const canvasCtx = this.canvasCtx;
 
       if (!canvasCtx) {
@@ -211,25 +167,18 @@ export class VisualsDirective implements OnDestroy, OnChanges {
       const bufferLength = analyser.frequencyBinCount;
       const analyserData = new Uint8Array(bufferLength);
 
-      const offscreenCanvas = new OffscreenCanvas(canvasCtx.canvas.width, canvasCtx.canvas.height);
-      const offscreenCanvasCtx = offscreenCanvas.getContext('2d');
-      if (!offscreenCanvasCtx) {
-        return;
-      }
-
-      const canvasWidth = offscreenCanvas.width;
-      const canvasHeight = offscreenCanvas.height;
-
-      offscreenCanvasCtx.clearRect(0, 0, canvasWidth, canvasHeight);
+      const canvasWidth = canvasCtx.canvas.width;
+      const canvasHeight = canvasCtx.canvas.height;
 
       const draw = () => {
         this.animationFrameRef = requestAnimationFrame(draw);
 
+        canvasCtx.clearRect(0, 0, canvasWidth, canvasHeight);
         analyser.getByteTimeDomainData(analyserData);
 
-        offscreenCanvasCtx.lineWidth = 2;
-        offscreenCanvasCtx.strokeStyle = this.mainColor;
-        offscreenCanvasCtx.beginPath();
+        canvasCtx.lineWidth = 2;
+        canvasCtx.strokeStyle = this.mainColor;
+        canvasCtx.beginPath();
 
         const sliceWidth = canvasWidth / bufferLength;
         let x = 0;
@@ -239,19 +188,15 @@ export class VisualsDirective implements OnDestroy, OnChanges {
           const y = (v * canvasHeight) / 2;
 
           if (i === 0) {
-            offscreenCanvasCtx.moveTo(x, y);
+            canvasCtx.moveTo(x, y);
           } else {
-            offscreenCanvasCtx.lineTo(x, y);
+            canvasCtx.lineTo(x, y);
           }
 
           x += sliceWidth;
         }
 
-        // offscreenCanvasCtx.lineTo(canvasWidth, canvasHeight / 2);
-        offscreenCanvasCtx.stroke();
-
-        const bitmap = offscreenCanvas.transferToImageBitmap();
-        canvasCtx.transferFromImageBitmap(bitmap);
+        canvasCtx.stroke();
       };
 
       this.animationFrameRef = requestAnimationFrame(draw);
@@ -259,6 +204,10 @@ export class VisualsDirective implements OnDestroy, OnChanges {
   }
 
   stopVisualizer() {
+    if (this.canvasCtx) {
+      this.canvasCtx.clearRect(0, 0, this.canvasCtx.canvas.width, this.canvasCtx.canvas.height);
+    }
+
     if (this.animationFrameRef !== undefined) {
       cancelAnimationFrame(this.animationFrameRef);
     }

@@ -1,8 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { GamepadButtons, GamepadService } from '@motabass/helper-services/gamepad';
 import { FftSize, VisualizerMode } from '@motabass/ui-components/visuals';
 import { LocalStorage } from 'ngx-webstorage';
-import { GamepadService } from '@motabass/helper-services/gamepad';
-import { GamepadButtons } from '@motabass/helper-services/gamepad';
 import { PlayerService } from '../player.service';
 
 // TODO: quit app + min + max buttons in electron
@@ -20,10 +19,10 @@ export class VisualizerComponent implements OnInit, OnDestroy {
   @LocalStorage('smoothing', 0.7)
   smoothing!: number;
 
-  @LocalStorage('minDb', -75)
+  @LocalStorage('minDb', -90)
   minDb!: number;
 
-  @LocalStorage('maxDb', 24)
+  @LocalStorage('maxDb', 200)
   maxDb!: number;
 
   @LocalStorage('barCount', 48)
@@ -52,52 +51,47 @@ export class VisualizerComponent implements OnInit, OnDestroy {
     return this.playerService.analyser;
   }
 
+  get playing(): boolean {
+    return this.playerService.playing;
+  }
+
   setSmoothing(value: number | null) {
-    if (!value) {
-      return;
+    if (value !== null) {
+      this.smoothing = value;
     }
-    this.smoothing = value;
   }
 
   setMinDb(value: number | null) {
-    if (!value) {
-      return;
+    if (value !== null) {
+      this.minDb = value;
     }
-    this.minDb = value;
   }
 
   setMaxDb(value: number | null) {
-    if (!value) {
-      return;
+    if (value !== null) {
+      this.maxDb = value;
     }
-    this.maxDb = value;
   }
 
   setBarCount(value: number | null) {
-    if (!value) {
-      return;
+    if (value !== null) {
+      this.barCount = value;
     }
-    this.barCount = value;
   }
 
   setCapHeight(value: number | null) {
-    if (!value) {
-      return;
+    if (value !== null) {
+      this.capHeight = value;
     }
-    this.capHeight = value;
   }
 
   setGap(value: number | null) {
-    if (!value) {
-      return;
+    if (value !== null) {
+      this.gap = value;
     }
-    this.gap = value;
   }
 
-  setFftSize(value: FftSize | null) {
-    if (!value) {
-      return;
-    }
+  setFftSize(value: FftSize) {
     this.fftSize = value;
   }
 
