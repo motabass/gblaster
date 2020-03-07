@@ -34,7 +34,7 @@ export class BrowserId3TagsService extends ID3TagsService {
       cover = tags.tags.picture;
     }
     return {
-      picture: cover,
+      picture: cover?.data && cover.format ? { format: cover.format, data: new Uint8Array(cover.data) } : undefined,
       artist: tags?.tags?.artist,
       title: tags?.tags?.title,
       track: tags?.tags?.track,
@@ -42,4 +42,20 @@ export class BrowserId3TagsService extends ID3TagsService {
       year: tags?.tags?.year
     };
   }
+
+  // async extractTags(file: File): Promise<Id3Tags | null> {
+  //   const musicMetadata = await import('music-metadata-browser');
+  //
+  //   const tags: IAudioMetadata = await musicMetadata.parseBlob(file);
+  //
+  //   console.log(tags);
+  //   return {
+  //     // picture: cover,
+  //     artist: tags?.common.artist,
+  //     title: tags?.common.title,
+  //     track: tags?.common.track?.no.toString(),
+  //     album: tags?.common.album,
+  //     year: tags?.common.year?.toString()
+  //   };
+  // }
 }

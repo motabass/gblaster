@@ -70,8 +70,8 @@ export class VisualsDirective implements OnDestroy, OnChanges {
       const barWidth = canvasWidth / meterNum - gap;
 
       const scale = scalePow()
-        .exponent(1.6)
-        .domain([0, meterNum])
+        .exponent(2.5)
+        .domain([-7, meterNum + 5])
         .range([0, bufferLength - bufferLength / 3]);
 
       const draw = () => {

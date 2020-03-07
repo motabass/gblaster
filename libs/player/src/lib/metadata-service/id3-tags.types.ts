@@ -1,7 +1,5 @@
-import { PictureType } from 'jsmediatags/types';
-
 export interface Id3Tags {
-  picture?: PictureType;
+  picture?: CoverPicture;
   artist?: string;
   title?: string;
   album?: string;
@@ -11,5 +9,5 @@ export interface Id3Tags {
 
 export interface CoverPicture {
   data: Uint8Array;
-  format: string;
+  format?: string;
 }

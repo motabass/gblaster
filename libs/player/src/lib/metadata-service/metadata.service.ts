@@ -7,7 +7,6 @@ import { ID3TagsService } from './id3-tags.service.abstract';
 import { CoverPicture } from './id3-tags.types';
 import { LastfmMetadataService } from './lastfm-metadata.service';
 import { CoverColorPalette } from './metadata.types';
-
 // https://www.npmjs.com/package/id3-writer
 // https://github.com/Zazama/node-id3
 // https://github.com/borewit/music-metadata
@@ -39,7 +38,7 @@ export class MetadataService {
 
     let coverUrl = tags ? await this.lastfmMetadataService.getCoverArtFromLastFM(tags) : undefined;
 
-    const pic: CoverPicture | undefined = tags?.picture ? { format: tags.picture.format, data: new Uint8Array(tags.picture.data) } : undefined;
+    const pic: CoverPicture | undefined = tags?.picture;
 
     if (!coverUrl && pic) {
       coverUrl = URL.createObjectURL(new Blob([pic.data], { type: pic.format }));
