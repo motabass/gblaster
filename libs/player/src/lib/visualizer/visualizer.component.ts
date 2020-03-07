@@ -38,6 +38,9 @@ export class VisualizerComponent implements OnInit, OnDestroy {
   @LocalStorage('gap', 0)
   gap!: number;
 
+  @LocalStorage('capFalldown', 0.5)
+  capFalldown!: number;
+
   constructor(private playerService: PlayerService, private gamepadService: GamepadService) {}
 
   ngOnInit(): void {
@@ -61,7 +64,7 @@ export class VisualizerComponent implements OnInit, OnDestroy {
   }
 
   get barsConfig(): FrequencyBarsConfig {
-    return { barCount: this.barCount, capHeight: this.capHeight, gap: this.gap, capFalldown: 0.5 };
+    return { barCount: this.barCount, capHeight: this.capHeight, gap: this.gap, capFalldown: this.capFalldown };
   }
 
   get playing(): boolean {
@@ -103,6 +106,12 @@ export class VisualizerComponent implements OnInit, OnDestroy {
   setCapHeight(value: number | null) {
     if (value !== null) {
       this.capHeight = value;
+    }
+  }
+
+  setCapFalldown(value: number | null) {
+    if (value !== null) {
+      this.capFalldown = value;
     }
   }
 

@@ -62,6 +62,13 @@ export class VisualsDirective implements OnDestroy, OnChanges {
         return;
       }
 
+      const screenScale = window.devicePixelRatio;
+
+      canvasCtx.canvas.width = canvasCtx.canvas.width * screenScale;
+      canvasCtx.canvas.height = canvasCtx.canvas.height * screenScale;
+
+      canvasCtx.scale(screenScale, screenScale);
+
       const bufferLength = analyser.frequencyBinCount;
       const analyserData = new Uint8Array(bufferLength);
 
@@ -69,22 +76,23 @@ export class VisualsDirective implements OnDestroy, OnChanges {
       const canvasHeight = canvasCtx.canvas.height;
       const barWidth = canvasWidth / meterNum - gap;
 
-      const scale = scalePow()
+      const frequencyCorrectionScale = scalePow()
         .exponent(2.5)
         .domain([-7, meterNum + 5])
         .range([0, bufferLength - bufferLength / 3]);
+
+      const gradient = canvasCtx.createLinearGradient(0, 0, 0, 500);
+      gradient.addColorStop(1, this.colorConfig.mainColor);
+      gradient.addColorStop(0.3, this.colorConfig.mainColor);
+      gradient.addColorStop(0, this.colorConfig.peakColor);
 
       const draw = () => {
         analyser.getByteFrequencyData(analyserData);
 
         canvasCtx.clearRect(0, 0, canvasWidth, canvasHeight);
-        const gradient = canvasCtx.createLinearGradient(0, 0, 0, 500);
-        gradient.addColorStop(1, this.colorConfig.mainColor);
-        gradient.addColorStop(0.3, this.colorConfig.mainColor);
-        gradient.addColorStop(0, this.colorConfig.peakColor);
 
         for (let i = 0; i < meterNum; i++) {
-          const position = Math.floor(scale(i));
+          const position = Math.floor(frequencyCorrectionScale(i));
           let value = analyserData[position];
 
           if (value > canvasHeight) {
@@ -99,7 +107,9 @@ export class VisualsDirective implements OnDestroy, OnChanges {
           // draw the cap, with transition effect
           if (value < capYPositionArray[i]) {
             canvasCtx.fillRect((barWidth + gap) * i, canvasHeight - capYPositionArray[i], barWidth, capHeight);
-            capYPositionArray[i] = capYPositionArray[i] - this.barsConfig.capFalldown;
+            if (capYPositionArray[i] > capHeight) {
+              capYPositionArray[i] = capYPositionArray[i] - this.barsConfig.capFalldown;
+            }
           } else {
             canvasCtx.fillRect((barWidth + gap) * i, canvasHeight - value, barWidth, capHeight);
             capYPositionArray[i] = value;
