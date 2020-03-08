@@ -9,13 +9,15 @@ export class LastfmMetadataService {
   constructor(private http: HttpClient) {}
 
   async getCoverArtFromLastFM(tags: Id3Tags): Promise<string> {
-    const data: any = await this.http
-      .get(`https://ws.audioscrobbler.com/2.0/?method=album.getinfo&api_key=${this.LASTFM_API_KEY}&artist=${tags.artist}&album=${tags.album}&format=json`)
-      .toPromise();
-
-    if (!data.error && data.album.image[5]['#text']) {
-      return data.album.image[5]['#text'];
+    if (tags.artist && tags.album) {
+      const data: any = await this.http
+        .get(`https://ws.audioscrobbler.com/2.0/?method=album.getinfo&api_key=${this.LASTFM_API_KEY}&artist=${tags.artist}&album=${tags.album}&format=json`)
+        .toPromise();
+      if (!data.error && data.album.image[5]['#text']) {
+        return data.album.image[5]['#text'];
+      }
     }
+
     return '';
   }
 }
