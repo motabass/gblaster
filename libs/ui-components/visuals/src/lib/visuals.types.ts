@@ -16,6 +16,10 @@ export interface FrequencyBarsConfig {
   capFalldown: number;
 }
 
+export interface OsciloscopeConfig {
+  thickness: number;
+}
+
 export interface VisualsColorConfig {
   mainColor: string;
   peakColor: string;

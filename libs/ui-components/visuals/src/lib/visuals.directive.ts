@@ -1,6 +1,6 @@
 import { Directive, ElementRef, Input, NgZone, OnChanges, OnDestroy, SimpleChanges } from '@angular/core';
 import { scalePow } from 'd3';
-import { FrequencyBarsConfig, VisualizerMode, VisualsColorConfig } from './visuals.types';
+import { FrequencyBarsConfig, OsciloscopeConfig, VisualizerMode, VisualsColorConfig } from './visuals.types';
 
 @Directive({
   selector: '[mtbVisual]'
@@ -14,6 +14,9 @@ export class VisualsDirective implements OnDestroy, OnChanges {
 
   @Input()
   barsConfig: FrequencyBarsConfig = { gap: 0, capHeight: 1, barCount: 24, capFalldown: 0.5 };
+
+  @Input()
+  oscConfig: OsciloscopeConfig = { thickness: 2 };
 
   @Input()
   colorConfig: VisualsColorConfig = { mainColor: 'red', peakColor: 'yellow' };
@@ -62,12 +65,12 @@ export class VisualsDirective implements OnDestroy, OnChanges {
         return;
       }
 
-      const screenScale = window.devicePixelRatio;
-
-      canvasCtx.canvas.width = canvasCtx.canvas.width * screenScale;
-      canvasCtx.canvas.height = canvasCtx.canvas.height * screenScale;
-
-      canvasCtx.scale(screenScale, screenScale);
+      // DPI fix
+      const dpr = window.devicePixelRatio || 1;
+      const rect = canvasCtx.canvas.getBoundingClientRect();
+      canvasCtx.canvas.width = rect.width * dpr;
+      canvasCtx.canvas.height = rect.height * dpr;
+      canvasCtx.scale(dpr, dpr);
 
       const bufferLength = analyser.frequencyBinCount;
       const analyserData = new Uint8Array(bufferLength);
@@ -81,9 +84,14 @@ export class VisualsDirective implements OnDestroy, OnChanges {
         .domain([-7, meterNum + 5])
         .range([0, bufferLength - bufferLength / 3]);
 
-      const gradient = canvasCtx.createLinearGradient(0, 0, 0, 500);
+      const amplitudeScale = scalePow()
+        .exponent(1.7)
+        .domain([0, 255])
+        .range([0, canvasHeight]);
+
+      const gradient = canvasCtx.createLinearGradient(0, 0, 0, canvasHeight);
       gradient.addColorStop(1, this.colorConfig.mainColor);
-      gradient.addColorStop(0.3, this.colorConfig.mainColor);
+      gradient.addColorStop(0.7, this.colorConfig.peakColor);
       gradient.addColorStop(0, this.colorConfig.peakColor);
 
       const draw = () => {
@@ -92,8 +100,9 @@ export class VisualsDirective implements OnDestroy, OnChanges {
         canvasCtx.clearRect(0, 0, canvasWidth, canvasHeight);
 
         for (let i = 0; i < meterNum; i++) {
-          const position = Math.floor(frequencyCorrectionScale(i));
+          const position = Math.round(frequencyCorrectionScale(i));
           let value = analyserData[position];
+          value = amplitudeScale(value);
 
           if (value > canvasHeight) {
             value = canvasHeight;
@@ -151,7 +160,7 @@ export class VisualsDirective implements OnDestroy, OnChanges {
         canvasCtx.clearRect(0, 0, canvasWidth, canvasHeight);
         analyser.getByteTimeDomainData(analyserData);
 
-        canvasCtx.lineWidth = 2;
+        canvasCtx.lineWidth = this.oscConfig.thickness;
         canvasCtx.strokeStyle = this.colorConfig.mainColor;
         canvasCtx.beginPath();
 

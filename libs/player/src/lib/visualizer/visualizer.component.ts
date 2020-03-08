@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { GamepadButtons, GamepadService } from '@motabass/helper-services/gamepad';
-import { FftSize, FrequencyBarsConfig, VisualizerMode, VisualsColorConfig } from '@motabass/ui-components/visuals';
+import { FftSize, FrequencyBarsConfig, OsciloscopeConfig, VisualizerMode, VisualsColorConfig } from '@motabass/ui-components/visuals';
 import { LocalStorage } from 'ngx-webstorage';
 import { PlayerService } from '../player.service';
 
@@ -41,6 +41,9 @@ export class VisualizerComponent implements OnInit, OnDestroy {
   @LocalStorage('capFalldown', 0.5)
   capFalldown!: number;
 
+  @LocalStorage('lineThickness', 2)
+  lineThickness!: number;
+
   constructor(private playerService: PlayerService, private gamepadService: GamepadService) {}
 
   ngOnInit(): void {
@@ -65,6 +68,10 @@ export class VisualizerComponent implements OnInit, OnDestroy {
 
   get barsConfig(): FrequencyBarsConfig {
     return { barCount: this.barCount, capHeight: this.capHeight, gap: this.gap, capFalldown: this.capFalldown };
+  }
+
+  get oscConfig(): OsciloscopeConfig {
+    return { thickness: this.lineThickness };
   }
 
   get playing(): boolean {
@@ -112,6 +119,12 @@ export class VisualizerComponent implements OnInit, OnDestroy {
   setCapFalldown(value: number | null) {
     if (value !== null) {
       this.capFalldown = value;
+    }
+  }
+
+  setLineThickness(value: number | null) {
+    if (value !== null) {
+      this.lineThickness = value;
     }
   }
 
