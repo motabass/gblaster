@@ -4,7 +4,7 @@ import { action, observable } from 'mobx-angular';
 import { LocalStorage, LocalStorageService } from 'ngx-webstorage';
 import { FileLoaderService } from './file-loader-service/file-loader.service.abstract';
 import { MetadataService } from './metadata-service/metadata.service';
-import { BandFrequency, Song, SongMetadata } from './player.types';
+import { BandFrequency, RepeatMode, Song, SongMetadata } from './player.types';
 
 export const BAND_FREQUENIES: BandFrequency[] = [60, 170, 310, 600, 1000, 3000, 6000, 12000, 14000, 16000];
 
@@ -20,7 +20,7 @@ export class PlayerService implements OnInit {
   private analyserNode!: AnalyserNode;
   private audioSrcNode!: MediaElementAudioSourceNode;
 
-  private playFinished = true;
+  private loadFinished = true;
 
   @observable
   songs: Song[] = [];
@@ -33,8 +33,8 @@ export class PlayerService implements OnInit {
   @observable
   selectedSong?: Song;
 
-  @LocalStorage('repeat', false)
-  repeat!: boolean;
+  @LocalStorage('repeat', 'off')
+  repeat!: RepeatMode;
   @LocalStorage('shuffle', false)
   shuffle!: boolean;
 
@@ -163,6 +163,8 @@ export class PlayerService implements OnInit {
     }
 
     this.audioSrcNode.connect(this.analyserNode);
+
+    this.selectedSong = song;
   }
 
   @action
@@ -245,7 +247,7 @@ export class PlayerService implements OnInit {
 
   @action
   playPauseSong(song: Song) {
-    if (!this.playFinished) {
+    if (!this.loadFinished) {
       return;
     }
 
@@ -258,23 +260,23 @@ export class PlayerService implements OnInit {
 
     this.setPlayingSong(song);
 
-    this.playFinished = false;
-    this.audioElement.play().then(() => (this.playFinished = true));
+    this.loadFinished = false;
+    this.audioElement.play().then(() => (this.loadFinished = true));
   }
 
   @action
   playPause() {
-    if (!this.playingSong || !this.playFinished) {
+    if (!this.playingSong || !this.loadFinished) {
       if (this.selectedSong) {
         this.setPlayingSong(this.selectedSong);
-        this.playFinished = false;
-        this.audioElement.play().then(() => (this.playFinished = true));
+        this.loadFinished = false;
+        this.audioElement.play().then(() => (this.loadFinished = true));
       }
       return;
     }
     if (this.audioElement.paused) {
-      this.playFinished = false;
-      this.audioElement.play().then(() => (this.playFinished = true));
+      this.loadFinished = false;
+      this.audioElement.play().then(() => (this.loadFinished = true));
     } else {
       this.audioElement.pause();
     }
@@ -282,7 +284,7 @@ export class PlayerService implements OnInit {
 
   @action
   stop() {
-    if (!this.playingSong || !this.playFinished) {
+    if (!this.playingSong || !this.loadFinished) {
       return;
     }
     if (this.playing) {
@@ -295,7 +297,7 @@ export class PlayerService implements OnInit {
 
   @action
   async next(): Promise<void> {
-    if (!this.playingSong || !this.playFinished) {
+    if (!this.playingSong || !this.loadFinished) {
       return;
     }
     const currPo = this.playingSong.playlistPosition;
@@ -305,12 +307,14 @@ export class PlayerService implements OnInit {
 
     if (currPo < this.songs.length) {
       return this.playPauseSong(this.songs[currPo]);
+    } else if (this.repeat === 'all') {
+      return this.playPauseSong(this.songs[0]);
     }
   }
 
   @action
   async previous() {
-    if (!this.playingSong || !this.playFinished) {
+    if (!this.playingSong || !this.loadFinished) {
       return;
     }
     const currPo = this.playingSong.playlistPosition;
@@ -356,15 +360,20 @@ export class PlayerService implements OnInit {
     return !!this.playingSong && !this.audioElement.paused;
   }
 
-  // TODO: add list repeat
   @action
   toggleRepeat() {
-    if (!this.repeat) {
-      this.audioElement.loop = true;
-      this.repeat = true;
-    } else {
-      this.audioElement.loop = false;
-      this.repeat = false;
+    switch (this.repeat) {
+      case 'off':
+        this.repeat = 'all';
+        break;
+      case 'all':
+        this.audioElement.loop = true;
+        this.repeat = 'one';
+        break;
+      case 'one':
+        this.audioElement.loop = false;
+        this.repeat = 'off';
+        break;
     }
   }
 

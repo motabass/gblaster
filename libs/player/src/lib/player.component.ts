@@ -5,7 +5,7 @@ import { HotkeysService } from '@motabass/helper-services/hotkeys';
 import { TitleService } from '@motabass/helper-services/title';
 import { formatSecondsAsClock } from '@motabass/helpers/time';
 import { PlayerService } from './player.service';
-import { Song } from './player.types';
+import { RepeatMode, Song } from './player.types';
 
 @Component({
   selector: 'mtb-player',
@@ -177,7 +177,7 @@ export class PlayerComponent implements OnInit, AfterViewInit, OnDestroy {
     return this.playerService.shuffle;
   }
 
-  get repeat(): boolean {
+  get repeat(): RepeatMode {
     return this.playerService.repeat;
   }
 
