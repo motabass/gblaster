@@ -15,6 +15,7 @@
     @include mat-elevation(4);
     background-color: rgba(0, 0, 0, 0.6);
     transition: var(--transition-speed);
+    overflow-y: auto;
   }
 
   &.closed-slide-panel {

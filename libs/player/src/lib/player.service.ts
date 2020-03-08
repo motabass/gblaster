@@ -135,7 +135,7 @@ export class PlayerService implements OnInit {
   }
 
   @action
-  setPlayingSong(song: Song | undefined) {
+  async setPlayingSong(song: Song | undefined) {
     if (!song) {
       return;
     }
@@ -157,9 +157,8 @@ export class PlayerService implements OnInit {
       this.themeService.setAccentColor(accentColor);
     }
 
-    if (!this.audioCtx) {
-      this.initAudioContext();
-      this.initEqualizer();
+    if (this.audioCtx.state === 'suspended') {
+      await this.audioCtx.resume();
     }
 
     this.audioSrcNode.connect(this.analyserNode);
