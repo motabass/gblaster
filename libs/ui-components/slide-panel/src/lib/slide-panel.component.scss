@@ -1,27 +1,50 @@
+@import '~@angular/material/theming';
+
 :host {
+  --transition-speed: 0.6s;
   --toggle-size: 3rem;
   --toggle-offset: 1.5rem;
   --toggle-icon-padding: 20px;
   position: absolute;
-  transition: 0.4s;
-  background-color: rgba(0, 0, 0, 0.3);
+  transition: var(--transition-speed);
+  .panel-content {
+    height: 100%;
+    width: 100%;
+    padding: 1rem 2rem;
+    box-sizing: border-box;
+    @include mat-elevation(4);
+    background-color: rgba(0, 0, 0, 0.6);
+    transition: var(--transition-speed);
+  }
 
+  &.closed-slide-panel {
+    pointer-events: none;
+    .panel-content {
+      pointer-events: none;
+    }
+  }
   .slide-panel-toggle-wrapper {
+    pointer-events: auto;
     position: absolute;
     top: 0;
     bottom: 0;
-
+    height: var(--toggle-size);
+    z-index: 20;
     .slide-panel-toggle {
       width: var(--toggle-size);
       height: var(--toggle-size);
-      background-color: rgba(0, 0, 0, 0.3);
+      background-color: rgba(0, 0, 0, 0.4);
       color: white;
       border-radius: 50%;
+      z-index: 21;
     }
   }
 
   &.left {
     left: 0;
+    .panel-content {
+      clip-path: inset(-5px -5px -5px 0%);
+    }
     .slide-panel-toggle-wrapper {
       clip-path: inset(0 0 0 var(--toggle-offset));
       right: calc(-1 * var(--toggle-offset));
@@ -37,10 +60,16 @@
     }
     &.closed-slide-panel {
       transform: translateX(-100%);
+      .panel-content {
+        clip-path: inset(-5px -5px -5px 100%);
+      }
     }
   }
   &.right {
     right: 0;
+    .panel-content {
+      clip-path: inset(-5px 0% -5px -5px);
+    }
     .slide-panel-toggle-wrapper {
       clip-path: inset(0 var(--toggle-offset) 0 0);
       left: calc(-1 * var(--toggle-offset));
@@ -56,6 +85,9 @@
     }
     &.closed-slide-panel {
       transform: translateX(100%);
+      .panel-content {
+        clip-path: inset(-5px 100% -5px -5px);
+      }
     }
   }
 }

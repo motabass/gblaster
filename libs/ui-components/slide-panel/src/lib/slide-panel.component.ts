@@ -11,11 +11,11 @@ export class SlidePanelComponent implements OnChanges {
 
   @Input()
   @HostBinding('style.bottom')
-  bottom?: number;
+  bottom?: string;
 
   @Input()
   @HostBinding('style.top')
-  top?: number;
+  top?: string;
 
   @Input()
   @HostBinding('style.width')

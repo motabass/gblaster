@@ -8,7 +8,11 @@
     [barsConfig]="barsConfig"
     [oscConfig]="oscConfig"
   ></canvas>
-  <mtb-slide-panel side="right" [bottom]="0" width="100%" height="200px" toggleIcon="tune" [openedState]="false" class="visuals-slide-panel">
+  <mtb-slide-panel side="left" bottom="210px" width="100%" height="260px" toggleIcon="tune-vertical" [openedState]="false" class="visuals-slide-panel">
+    <mtb-equalizer></mtb-equalizer>
+  </mtb-slide-panel>
+
+  <mtb-slide-panel side="right" bottom="0" width="100%" height="200px" toggleIcon="tune" [openedState]="false" class="visuals-slide-panel">
     <div class="visuals-settings">
       <div *ngIf="visualMode !== 'off'">
         FFT size:
