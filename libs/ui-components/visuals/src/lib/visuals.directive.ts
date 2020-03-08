@@ -66,7 +66,8 @@ export class VisualsDirective implements OnDestroy, OnChanges {
       }
 
       // DPI fix
-      const dpr = window.devicePixelRatio || 1;
+      // const dpr = window.devicePixelRatio || 1;
+      const dpr = 1;
       const rect = canvasCtx.canvas.getBoundingClientRect();
       canvasCtx.canvas.width = rect.width * dpr;
       canvasCtx.canvas.height = rect.height * dpr;
