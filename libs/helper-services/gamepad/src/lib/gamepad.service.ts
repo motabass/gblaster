@@ -128,7 +128,7 @@ export class GamepadService implements OnDestroy {
   }
 
   deregisterAxisAction(axisIndex: number) {
-    this.buttonActions[axisIndex] = this.createDefaultAxisAction(axisIndex);
+    this.axesActions[axisIndex] = this.createDefaultAxisAction(axisIndex);
   }
 
   private checkForButtonClicked(gamepad: Gamepad, buttonIndex: number) {

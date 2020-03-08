@@ -3,18 +3,6 @@
 :host {
   width: 100%;
   height: 100%;
-  display: grid;
-  grid-template-columns: 100%;
-  grid-template-rows: auto 10rem;
-  grid-template-areas:
-    'pl'
-    'eq';
-  @media (max-width: 599px) {
-    grid-template-rows: 10rem auto;
-    grid-template-areas:
-      'eq'
-      'pl';
-  }
 }
 
 ::ng-deep .playlist-item {
@@ -27,12 +15,7 @@
   }
 }
 
-.eq {
-  grid-area: eq;
-}
-
 .pl {
-  grid-area: pl;
   padding: 0.5rem 0;
   height: 100%;
   box-sizing: border-box;

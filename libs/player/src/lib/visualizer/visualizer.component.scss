@@ -1,0 +1,15 @@
+.visuals-settings {
+  display: grid;
+  grid-template-columns: 25% 25% 25% 25%;
+  grid-auto-rows: auto;
+  grid-gap: 1em;
+  @media (max-width: 899px) {
+    grid-template-columns: 50% 50%;
+  }
+}
+
+.visuals-slide-panel {
+  z-index: 9;
+  padding: 1rem;
+  box-sizing: border-box;
+}

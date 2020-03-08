@@ -3,9 +3,8 @@
   --toggle-offset: 1.5rem;
   --toggle-icon-padding: 20px;
   position: absolute;
-  opacity: 1;
   transition: 0.4s;
-  background: whitesmoke;
+  background-color: rgba(0, 0, 0, 0.3);
 
   .slide-panel-toggle-wrapper {
     position: absolute;
@@ -15,7 +14,7 @@
     .slide-panel-toggle {
       width: var(--toggle-size);
       height: var(--toggle-size);
-      background-color: blueviolet;
+      background-color: rgba(0, 0, 0, 0.3);
       color: white;
       border-radius: 50%;
     }

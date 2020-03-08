@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { NgxIndexedDBService } from 'ngx-indexed-db';
 import { LocalStorageService } from 'ngx-webstorage';
 
 @Component({
@@ -7,9 +8,13 @@ import { LocalStorageService } from 'ngx-webstorage';
   styleUrls: ['./storage-settings.component.scss']
 })
 export class StorageSettingsComponent {
-  constructor(private localStorage: LocalStorageService) {}
+  constructor(private localStorage: LocalStorageService, private indexedDBService: NgxIndexedDBService) {}
 
   clearSettingsCache() {
     this.localStorage.clear();
+  }
+
+  clearMetadataCache() {
+    this.indexedDBService.clear('metatags');
   }
 }

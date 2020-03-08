@@ -22,6 +22,7 @@ export class AppComponent {
     themeService.initializeTheme();
 
     iconRegistry.addSvgIconSet(sanitizer.bypassSecurityTrustResourceUrl('assets/icon-set.svg'));
+    iconRegistry.addSvgIcon('logo', sanitizer.bypassSecurityTrustResourceUrl('assets/logos/icon.svg'), { viewBox: '0 0 48 48' });
 
     if (electronService.isElectronApp) {
       console.log('Running in Electron');

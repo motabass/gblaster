@@ -29,6 +29,9 @@ export class SlidePanelComponent implements OnChanges {
   @HostBinding('class')
   side: 'left' | 'right' = 'left';
 
+  @Input()
+  toggleIcon?: string;
+
   constructor() {}
 
   @HostBinding('class.closed-slide-panel') closed = false;

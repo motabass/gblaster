@@ -123,6 +123,7 @@ export class PlayerService implements OnInit {
         filter.type = 'highshelf';
       } else {
         filter.type = 'peaking';
+        filter.Q.value = 1;
       }
       filter.frequency.value = bandFrequency;
 

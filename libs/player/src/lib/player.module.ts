@@ -12,6 +12,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterModule } from '@angular/router';
 import { GamepadModule } from '@motabass/helper-services/gamepad';
 import { HotkeysModule } from '@motabass/helper-services/hotkeys';
+import { SlidePanelModule } from '@motabass/ui-components/slide-panel';
 import { VisualsModule } from '@motabass/ui-components/visuals';
 import { MobxAngularModule } from 'mobx-angular';
 import { ElectronService } from 'ngx-electron';
@@ -30,7 +31,10 @@ import { VisualizerComponent } from './visualizer/visualizer.component';
 @NgModule({
   imports: [
     CommonModule,
-    RouterModule.forChild([{ path: '', pathMatch: 'full', component: PlayerComponent }]),
+    RouterModule.forChild([
+      { path: '', pathMatch: 'full', component: PlayerComponent },
+      { path: 'eq', component: EqualizerComponent }
+    ]),
     MatIconModule,
     MatListModule,
     MatButtonModule,
@@ -43,7 +47,8 @@ import { VisualizerComponent } from './visualizer/visualizer.component';
     GamepadModule,
     HotkeysModule,
     MatToolbarModule,
-    MobxAngularModule
+    MobxAngularModule,
+    SlidePanelModule
   ],
   declarations: [PlayerComponent, PlaylistComponent, TimePipe, CoverDisplayComponent, VisualizerComponent, EqualizerComponent, BandPipe],
   providers: [
