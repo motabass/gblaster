@@ -60,6 +60,9 @@
     },
     "material-helpers-mat-icon-size": {
       "tags": []
+    },
+    "helper-services-hotkeys": {
+      "tags": []
     }
   }
 }

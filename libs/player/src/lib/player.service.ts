@@ -89,7 +89,10 @@ export class PlayerService implements OnInit {
   }
 
   initAudioContext() {
-    const audioCtx = new AudioContext();
+    const audioCtx = new AudioContext({
+      latencyHint: 'playback',
+      sampleRate: 48000
+    });
 
     const analyser = audioCtx.createAnalyser();
     const gainNode = audioCtx.createGain();
@@ -121,7 +124,6 @@ export class PlayerService implements OnInit {
         filter.type = 'peaking';
       }
       filter.frequency.value = bandFrequency;
-      filter.gain.value = 0;
 
       output.connect(filter);
       output = filter;

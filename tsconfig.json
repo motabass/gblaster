@@ -30,7 +30,8 @@
       "@motabass/core/theme": ["libs/core/theme/src/index.ts"],
       "@motabass/core/update": ["libs/core/update/src/index.ts"],
       "@motabass/helper-services/gamepad": ["libs/helper-services/gamepad/src/index.ts"],
-      "@motabass/material-helpers/mat-icon-size": ["libs/material-helpers/mat-icon-size/src/index.ts"]
+      "@motabass/material-helpers/mat-icon-size": ["libs/material-helpers/mat-icon-size/src/index.ts"],
+      "@motabass/helper-services/hotkeys": ["libs/helper-services/hotkeys/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"],

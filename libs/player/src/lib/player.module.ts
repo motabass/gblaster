@@ -11,6 +11,7 @@ import { MatSliderModule } from '@angular/material/slider';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterModule } from '@angular/router';
 import { GamepadModule } from '@motabass/helper-services/gamepad';
+import { HotkeysModule } from '@motabass/helper-services/hotkeys';
 import { VisualsModule } from '@motabass/ui-components/visuals';
 import { MobxAngularModule } from 'mobx-angular';
 import { ElectronService } from 'ngx-electron';
@@ -40,6 +41,7 @@ import { VisualizerComponent } from './visualizer/visualizer.component';
     MatInputModule,
     MatSelectModule,
     GamepadModule,
+    HotkeysModule,
     MatToolbarModule,
     MobxAngularModule
   ],

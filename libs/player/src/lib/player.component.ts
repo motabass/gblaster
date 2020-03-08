@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { MatSliderChange } from '@angular/material/slider';
 import { GamepadAxes, GamepadButtons, GamepadService } from '@motabass/helper-services/gamepad';
+import { HotkeysService } from '@motabass/helper-services/hotkeys';
 import { TitleService } from '@motabass/helper-services/title';
 import { formatSecondsAsClock } from '@motabass/helpers/time';
 import { PlayerService } from './player.service';
@@ -16,10 +17,19 @@ export class PlayerComponent implements OnInit, AfterViewInit, OnDestroy {
 
   position = 0;
 
-  constructor(private playerService: PlayerService, private titleService: TitleService, private gamepadService: GamepadService) {}
+  constructor(
+    private playerService: PlayerService,
+    private titleService: TitleService,
+    private gamepadService: GamepadService,
+    private hotkeysService: HotkeysService
+  ) {}
 
   ngOnInit() {
     setTimeout(() => this.titleService.setTitle('gBlaster')); // TODO: find better way
+
+    this.hotkeysService.initialize();
+
+    this.hotkeysService.register({ keys: 'shift+p', description: 'Play/Pause', callback: () => this.playPause() });
 
     this.gamepadService.registerButtonAction(GamepadButtons.A_BUTTON, () => this.playPause());
     this.gamepadService.registerButtonAction(GamepadButtons.B_BUTTON, () => this.stop());
