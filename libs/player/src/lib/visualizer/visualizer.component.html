@@ -8,11 +8,20 @@
     [barsConfig]="barsConfig"
     [oscConfig]="oscConfig"
   ></canvas>
-  <mtb-slide-panel side="left" bottom="0" width="100%" height="250px" toggleIcon="tune-vertical" [openedState]="false" class="visuals-slide-panel">
-    <mtb-equalizer></mtb-equalizer>
-  </mtb-slide-panel>
 
-  <mtb-slide-panel side="right" bottom="0" width="100%" height="200px" toggleIcon="tune" [openedState]="false" class="visuals-slide-panel">
+  <mtb-slide-panel
+    style="max-height: 100%;"
+    side="right"
+    bottom="0"
+    width="100%"
+    height="auto"
+    toggleIcon="tune"
+    [openedState]="false"
+    class="visuals-slide-panel"
+  >
+    <div class="accent-font" style="font-size: 1rem;padding-bottom: 16px">Equalizer</div>
+    <mtb-equalizer style="width: 100%;"></mtb-equalizer>
+    <div class="accent-font" style="padding: 16px 0;font-size: 1rem;">Visualizer</div>
     <div class="visuals-settings">
       <div *ngIf="visualMode !== 'off'">
         FFT size:
@@ -47,7 +56,7 @@
     </div>
   </mtb-slide-panel>
 
-  <button mat-icon-button style="position: absolute; bottom: 0.5rem; right: 0.5rem; z-index: 10;" (click)="toggleVisualMode()">
+  <button mat-icon-button style="position: absolute; top: 0.5rem; right: 0.5rem; z-index: 10;" (click)="toggleVisualMode()">
     <mat-icon *ngIf="visualMode === 'bars'" svgIcon="equalizer"></mat-icon>
     <mat-icon *ngIf="visualMode === 'osc'" svgIcon="current-ac"></mat-icon>
     <mat-icon *ngIf="visualMode === 'off'" svgIcon="eye-off-outline"></mat-icon>

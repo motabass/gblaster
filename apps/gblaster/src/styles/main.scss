@@ -11,6 +11,10 @@ body {
   user-select: none;
 }
 
+.accent-font {
+  font-family: 'Permanent Marker', cursive;
+}
+
 // Selection
 ::selection {
   background-color: $accent-color;

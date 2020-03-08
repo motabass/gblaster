@@ -10,7 +10,7 @@
   .panel-content {
     height: 100%;
     width: 100%;
-    padding: 1rem 2rem;
+    padding: 0.8rem 2rem;
     box-sizing: border-box;
     @include mat-elevation(4);
     background-color: rgba(0, 0, 0, 0.6);
@@ -27,7 +27,6 @@
   .slide-panel-toggle-wrapper {
     pointer-events: auto;
     position: absolute;
-    top: 0;
     bottom: 0;
     height: var(--toggle-size);
     z-index: 20;
@@ -50,10 +49,8 @@
       clip-path: inset(0 0 0 var(--toggle-offset));
       right: calc(-1 * var(--toggle-offset));
       &.slide-panel-toggle-wrapper-opened {
-        clip-path: inset(0 var(--toggle-offset) 0 0);
-        .slide-panel-toggle {
-          padding: 0 var(--toggle-icon-padding) 0 0;
-        }
+        right: unset;
+        left: calc(-1 * var(--toggle-offset));
       }
     }
     .slide-panel-toggle {
@@ -75,10 +72,8 @@
       clip-path: inset(0 var(--toggle-offset) 0 0);
       left: calc(-1 * var(--toggle-offset));
       &.slide-panel-toggle-wrapper-opened {
-        clip-path: inset(0 0 0 var(--toggle-offset));
-        .slide-panel-toggle {
-          padding: 0 0 0 var(--toggle-icon-padding);
-        }
+        left: unset;
+        right: calc(-1 * var(--toggle-offset));
       }
     }
     .slide-panel-toggle {
