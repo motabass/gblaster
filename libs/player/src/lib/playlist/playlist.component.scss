@@ -17,9 +17,14 @@
   }
 }
 
-.selected {
-  border-left: solid 4px $accent-color;
+::ng-deep .playlist-item {
   box-sizing: border-box;
+  &.selected {
+    border-left: solid 4px $accent-color;
+    .mat-list-item-content {
+      padding-left: 12px !important;
+    }
+  }
 }
 
 .eq {
