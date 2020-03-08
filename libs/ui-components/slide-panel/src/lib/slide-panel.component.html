@@ -1,4 +1,4 @@
-<div class="slide-panel-toggle-wrapper">
+<div class="slide-panel-toggle-wrapper" [ngClass]="{ 'slide-panel-toggle-wrapper-opened': openedState }">
   <button *ngIf="side === 'left'" class="slide-panel-toggle" mat-icon-button style="color: white;" (click)="openedState ? closePanel() : openPanel()">
     <mat-icon *ngIf="toggleIcon" [svgIcon]="toggleIcon"></mat-icon>
   </button>

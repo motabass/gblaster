@@ -25,6 +25,12 @@
     .slide-panel-toggle-wrapper {
       clip-path: inset(0 0 0 var(--toggle-offset));
       right: calc(-1 * var(--toggle-offset));
+      &.slide-panel-toggle-wrapper-opened {
+        clip-path: inset(0 var(--toggle-offset) 0 0);
+        .slide-panel-toggle {
+          padding: 0 var(--toggle-icon-padding) 0 0;
+        }
+      }
     }
     .slide-panel-toggle {
       padding: 0 0 0 var(--toggle-icon-padding);
@@ -38,6 +44,12 @@
     .slide-panel-toggle-wrapper {
       clip-path: inset(0 var(--toggle-offset) 0 0);
       left: calc(-1 * var(--toggle-offset));
+      &.slide-panel-toggle-wrapper-opened {
+        clip-path: inset(0 0 0 var(--toggle-offset));
+        .slide-panel-toggle {
+          padding: 0 0 0 var(--toggle-icon-padding);
+        }
+      }
     }
     .slide-panel-toggle {
       padding: 0 var(--toggle-icon-padding) 0 0;
