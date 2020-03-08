@@ -9,7 +9,7 @@
     [oscConfig]="oscConfig"
   ></canvas>
   <div style="position: absolute; bottom: 1rem; left: 1rem;z-index: 9; display: grid; grid-template-columns: 25% 25% 25% 25%; grid-auto-rows: auto;">
-    <div>
+    <div *ngIf="visualMode !== 'off'">
       FFT size:
       <mat-select [value]="fftSize" (valueChange)="setFftSize($event)">
         <mat-option *ngFor="let option of fftOptions" [value]="option">{{ option }}</mat-option>
@@ -39,6 +39,8 @@
     </div>
   </div>
   <button mat-icon-button style="position: absolute; bottom: 0.5rem; right: 0.5rem; z-index: 10;" (click)="toggleVisualMode()">
-    <mat-icon>graphic_eq</mat-icon>
+    <mat-icon *ngIf="visualMode === 'bars'" svgIcon="equalizer"></mat-icon>
+    <mat-icon *ngIf="visualMode === 'osc'" svgIcon="current-ac"></mat-icon>
+    <mat-icon *ngIf="visualMode === 'off'" svgIcon="eye-off-outline"></mat-icon>
   </button>
 </div>

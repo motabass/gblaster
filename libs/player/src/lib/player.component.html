@@ -8,23 +8,23 @@
 
 <mat-toolbar color="primary" fxLayout="row" fxLayoutAlign="start center" class="bar">
   <button mat-icon-button [ngClass]="{ 'accent-color': playing }" (click)="playPause()">
-    <mat-icon *ngIf="playing">pause</mat-icon>
-    <mat-icon *ngIf="!playing">play_arrow</mat-icon>
+    <mat-icon *ngIf="playing" svgIcon="pause"></mat-icon>
+    <mat-icon *ngIf="!playing" svgIcon="play"></mat-icon>
   </button>
 
   <button mat-icon-button (click)="stop()">
-    <mat-icon>stop</mat-icon>
+    <mat-icon svgIcon="stop"></mat-icon>
   </button>
 
   <button class="no-mobile" mat-icon-button (click)="previous()">
-    <mat-icon>skip_previous</mat-icon>
+    <mat-icon svgIcon="skip-previous"></mat-icon>
   </button>
   <button class="no-mobile" mat-icon-button (click)="next()">
-    <mat-icon>skip_next</mat-icon>
+    <mat-icon svgIcon="skip-next"></mat-icon>
   </button>
 
   <button mat-icon-button (click)="loadFolder()">
-    <mat-icon>folder_open</mat-icon>
+    <mat-icon svgIcon="folder-music"></mat-icon>
   </button>
   <div fxFlex *ngIf="!playingSong"></div>
 
@@ -50,10 +50,11 @@
     <mat-icon [svgIcon]="volumeIcon"></mat-icon>
   </button>
   <button mat-icon-button [ngClass]="{ 'accent-color': shuffle }" (click)="toggleShuffle()">
-    <mat-icon>shuffle</mat-icon>
+    <mat-icon svgIcon="shuffle-variant"></mat-icon>
   </button>
   <button mat-icon-button [ngClass]="{ 'accent-color': repeat }" (click)="toggleRepeat()">
-    <mat-icon>loop</mat-icon>
+    <mat-icon *ngIf="repeat" svgIcon="repeat"></mat-icon>
+    <mat-icon *ngIf="!repeat" svgIcon="repeat-off"></mat-icon>
   </button>
 </mat-toolbar>
 

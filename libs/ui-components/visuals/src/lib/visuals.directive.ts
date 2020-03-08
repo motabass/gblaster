@@ -32,7 +32,6 @@ export class VisualsDirective implements OnDestroy, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    console.log(changes);
     this.stopVisualizer();
     switch (this.mode) {
       case 'bars':

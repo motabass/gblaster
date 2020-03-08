@@ -13,7 +13,7 @@ export class ThemeService {
   @LocalStorage('accentColor', '#abd222')
   accentColor!: string;
 
-  @LocalStorage('darkMode', false)
+  @LocalStorage('darkMode', true)
   _darkMode!: boolean;
 
   primaryColorPalette: Color[] = [];

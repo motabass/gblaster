@@ -50,7 +50,8 @@ export class PlayerService implements OnInit {
 
     this.audioSrcNode = this.audioCtx.createMediaElementSource(this.audioElement);
 
-    this.gainNode.gain.value = storageService.retrieve('volume');
+    const storedVolume = storageService.retrieve('volume');
+    this.gainNode.gain.value = storedVolume ?? 0.5;
 
     if ('mediaSession' in navigator) {
       // @ts-ignore
@@ -132,6 +133,7 @@ export class PlayerService implements OnInit {
     output.connect(this.gainNode);
   }
 
+  @action
   setPlayingSong(song: Song | undefined) {
     if (!song) {
       return;
@@ -162,6 +164,7 @@ export class PlayerService implements OnInit {
     this.audioSrcNode.connect(this.analyserNode);
   }
 
+  @action
   async loadFolder() {
     const newFolder: boolean = await this.fileLoaderService.openFolder();
     if (newFolder) {
@@ -186,6 +189,7 @@ export class PlayerService implements OnInit {
     return this.bandGains[bandFrequency];
   }
 
+  @action
   setBandGain(bandFrequency: BandFrequency, gainValue: number) {
     this.bands[bandFrequency].gain.value = gainValue;
 
@@ -351,6 +355,7 @@ export class PlayerService implements OnInit {
     return !!this.playingSong && !this.audioElement.paused;
   }
 
+  // TODO: add list repeat
   @action
   toggleRepeat() {
     if (!this.repeat) {

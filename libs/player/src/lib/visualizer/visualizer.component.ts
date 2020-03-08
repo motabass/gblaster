@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { GamepadButtons, GamepadService } from '@motabass/helper-services/gamepad';
-import { FftSize, FrequencyBarsConfig, OsciloscopeConfig, VisualizerMode, VisualsColorConfig } from '@motabass/ui-components/visuals';
+import { FftSize, FrequencyBarsConfig, OsciloscopeConfig, VisualizerMode, VisualsColorConfig, VisualsService } from '@motabass/ui-components/visuals';
 import { LocalStorage } from 'ngx-webstorage';
 import { PlayerService } from '../player.service';
 
@@ -14,25 +14,22 @@ import { PlayerService } from '../player.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class VisualizerComponent implements OnInit, OnDestroy {
-  @LocalStorage('visualMode', 'bars')
-  visualMode!: VisualizerMode;
-
   @LocalStorage('smoothing', 0.7)
   smoothing!: number;
 
   @LocalStorage('minDb', -75)
   minDb!: number;
 
-  @LocalStorage('maxDb', 40)
+  @LocalStorage('maxDb', -35)
   maxDb!: number;
 
-  @LocalStorage('barCount', 48)
+  @LocalStorage('barCount', 24)
   barCount!: number;
 
   @LocalStorage('fftSize', 4096)
   fftSize!: FftSize;
 
-  @LocalStorage('capHeight', 2)
+  @LocalStorage('capHeight', 4)
   capHeight!: number;
 
   @LocalStorage('gap', 0)
@@ -41,10 +38,10 @@ export class VisualizerComponent implements OnInit, OnDestroy {
   @LocalStorage('capFalldown', 0.5)
   capFalldown!: number;
 
-  @LocalStorage('lineThickness', 2)
+  @LocalStorage('lineThickness', 4)
   lineThickness!: number;
 
-  constructor(private playerService: PlayerService, private gamepadService: GamepadService) {}
+  constructor(private playerService: PlayerService, private gamepadService: GamepadService, private visualsService: VisualsService) {}
 
   ngOnInit(): void {
     this.gamepadService.registerButtonAction(GamepadButtons.SELECT_BUTTON, () => this.toggleVisualMode());
@@ -54,8 +51,12 @@ export class VisualizerComponent implements OnInit, OnDestroy {
     this.analyser.maxDecibels = this.maxDb;
   }
 
+  get visualMode(): VisualizerMode {
+    return this.visualsService.visualMode;
+  }
+
   toggleVisualMode() {
-    this.visualMode === 'bars' ? (this.visualMode = 'osc') : (this.visualMode = 'bars');
+    this.visualsService.toggleVisualMode();
   }
 
   get analyser(): AnalyserNode {

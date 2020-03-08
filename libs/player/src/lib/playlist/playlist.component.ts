@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { VisualizerMode, VisualsService } from '@motabass/ui-components/visuals';
 import { PlayerService } from '../player.service';
 import { Song } from '../player.types';
 
@@ -10,7 +11,11 @@ import { Song } from '../player.types';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PlaylistComponent {
-  constructor(private playerService: PlayerService, private domSanitizer: DomSanitizer) {}
+  constructor(private playerService: PlayerService, private visualsService: VisualsService, private domSanitizer: DomSanitizer) {}
+
+  get visualMode(): VisualizerMode {
+    return this.visualsService.visualMode;
+  }
 
   get songs(): Song[] {
     for (const [i, v] of this.playerService.songs.entries()) {

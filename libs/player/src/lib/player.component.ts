@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { MatSliderChange } from '@angular/material/slider';
 import { GamepadAxes, GamepadButtons, GamepadService } from '@motabass/helper-services/gamepad';
 import { HotkeysService } from '@motabass/helper-services/hotkeys';
@@ -10,7 +10,8 @@ import { Song } from './player.types';
 @Component({
   selector: 'mtb-player',
   templateUrl: './player.component.html',
-  styleUrls: ['./player.component.scss']
+  styleUrls: ['./player.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PlayerComponent implements OnInit, AfterViewInit, OnDestroy {
   private interval: any;

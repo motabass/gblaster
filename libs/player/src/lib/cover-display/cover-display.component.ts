@@ -23,7 +23,7 @@ export class CoverDisplayComponent {
     return this.song?.metadata?.coverColors?.vibrant ? this.song.metadata.coverColors.vibrant.hex : 'rgba(0,0,0,0)';
   }
 
-  get fontColor(): string | undefined {
-    return this.song?.metadata?.coverColors?.vibrant ? this.song.metadata.coverColors.vibrant.textHex : undefined;
-  }
+  // get fontColor(): string | undefined {
+  //   return this.song?.metadata?.coverColors?.vibrant ? this.song.metadata.coverColors.vibrant.textHex : undefined;
+  // }
 }
