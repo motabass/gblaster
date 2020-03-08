@@ -228,7 +228,7 @@ export class PlayerService implements OnInit {
     return this.playingSong ? Math.round(this.audioElement.duration) : 0;
   }
 
-  get currentTime(): number {
+  getCurrentTime(): number {
     if (!this.playingSong) {
       return 0;
     }
@@ -300,6 +300,12 @@ export class PlayerService implements OnInit {
     if (!this.playingSong || !this.loadFinished) {
       return;
     }
+
+    if (this.shuffle) {
+      const randomPosition = getRandomInt(0, this.songs.length - 1);
+      return this.playPauseSong(this.songs[randomPosition]);
+    }
+
     const currPo = this.playingSong.playlistPosition;
     if (!currPo) {
       return;
@@ -410,4 +416,10 @@ export class PlayerService implements OnInit {
       });
     }
   }
+}
+
+function getRandomInt(min: number, max: number) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1)) + min;
 }
