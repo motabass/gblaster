@@ -6,7 +6,8 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root'
 })
 export class TitleService {
-  private dataSource: BehaviorSubject<string> = new BehaviorSubject('m0taba55');
+  defaultTitle = 'gBlaster';
+  private dataSource: BehaviorSubject<string> = new BehaviorSubject(this.defaultTitle);
   title = this.dataSource.asObservable();
 
   constructor(private titleService: Title) {}
