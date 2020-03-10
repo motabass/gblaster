@@ -1,5 +1,5 @@
-import { CoverPicture } from './metadata-service/id3-tags.types';
-import { CoverColorPalette } from './metadata-service/metadata.types';
+import { Id3CoverPicture } from './metadata-service/id3-tags.types';
+import { CoverColorPalette, RemoteCoverPicture } from './metadata-service/metadata.types';
 
 export interface Song {
   file: File;
@@ -15,8 +15,8 @@ export interface SongMetadata {
   album?: string;
   year?: string;
   duration?: number;
-  coverUrl?: string;
-  embeddedPicture?: CoverPicture;
+  coverUrl?: RemoteCoverPicture;
+  embeddedPicture?: Id3CoverPicture;
   coverColors?: CoverColorPalette;
 }
 

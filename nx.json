@@ -63,6 +63,9 @@
     },
     "helper-services-hotkeys": {
       "tags": []
+    },
+    "helper-services-loader": {
+      "tags": []
     }
   }
 }

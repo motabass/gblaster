@@ -11,3 +11,8 @@ export interface CoverColor {
   hex?: string;
   textHex?: string;
 }
+
+export interface RemoteCoverPicture {
+  thumb: string;
+  original: string;
+}

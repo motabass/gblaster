@@ -1,8 +1,9 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Component, ViewChild } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
+import { LoaderService } from '@motabass/helper-services/loader';
 import { TitleService } from '@motabass/helper-services/title';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 
 @Component({
@@ -20,7 +21,9 @@ export class ShellComponent {
 
   @ViewChild('drawer') sidenav?: MatSidenav;
 
-  constructor(private breakpointObserver: BreakpointObserver, private titleService: TitleService) {}
+  isLoading: Subject<boolean> = this.loaderService.isLoading;
+
+  constructor(private breakpointObserver: BreakpointObserver, private titleService: TitleService, private loaderService: LoaderService) {}
 
   get title(): Observable<string> {
     return this.titleService.title;

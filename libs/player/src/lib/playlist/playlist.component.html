@@ -10,7 +10,7 @@
       *ngIf="song && song.metadata && song.metadata.coverUrl && (!isPlayingSong(song) || visualMode === 'off')"
       style="border-radius: 3px;"
       mat-list-avatar
-      [src]="sanitizeCoverUrl(song.metadata.coverUrl)"
+      [src]="sanitizeCoverUrl(song.metadata.coverUrl.thumb)"
       alt="cover art"
     />
     <canvas

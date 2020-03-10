@@ -15,7 +15,7 @@ export class CoverDisplayComponent {
 
   get coverUrl(): string | undefined {
     if (this.song?.metadata?.coverUrl) {
-      return this.song.metadata.coverUrl;
+      return this.song.metadata.coverUrl.original;
     }
   }
 

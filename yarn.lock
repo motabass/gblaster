@@ -13658,6 +13658,11 @@ lru-queue@0.1:
   dependencies:
     es5-ext "~0.10.2"
 
+lucene-escape-query@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/lucene-escape-query/-/lucene-escape-query-1.0.1.tgz#8a523da063e102af98439596bcdfb11b00381754"
+  integrity sha1-ilI9oGPhAq+YQ5WWvN+xGwA4F1Q=
+
 lunr@^2.3.6:
   version "2.3.8"
   resolved "https://registry.yarnpkg.com/lunr/-/lunr-2.3.8.tgz#a8b89c31f30b5a044b97d2d28e2da191b6ba2072"

@@ -1,13 +1,13 @@
 export interface Id3Tags {
-  picture?: CoverPicture;
+  picture?: Id3CoverPicture;
   artist?: string;
   title?: string;
   album?: string;
-  track?: string;
+  track?: { no: number; of: number };
   year?: string;
 }
 
-export interface CoverPicture {
+export interface Id3CoverPicture {
   data: Uint8Array;
   format?: string;
 }

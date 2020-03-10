@@ -1,5 +1,6 @@
 import { Injectable, OnInit } from '@angular/core';
 import { ThemeService } from '@motabass/core/theme';
+import { LoaderService } from '@motabass/helper-services/loader';
 import { action, observable } from 'mobx-angular';
 import { LocalStorage, LocalStorageService } from 'ngx-webstorage';
 import { FileLoaderService } from './file-loader-service/file-loader.service.abstract';
@@ -42,7 +43,8 @@ export class PlayerService implements OnInit {
     private fileLoaderService: FileLoaderService,
     private metadataService: MetadataService,
     private storageService: LocalStorageService,
-    private themeService: ThemeService
+    private themeService: ThemeService,
+    private loaderService: LoaderService
   ) {
     this.initAudioElement();
     this.initAudioContext();
@@ -170,12 +172,14 @@ export class PlayerService implements OnInit {
   async loadFolder() {
     const newFolder: boolean = await this.fileLoaderService.openFolder();
     if (newFolder) {
+      this.loaderService.show();
       const files = await this.fileLoaderService.getFiles();
       this.songs = [];
       for (const file of files) {
         const song = await this.createSongFromFile(file);
         this.songs.push(song);
       }
+      this.loaderService.hide();
     }
   }
 
@@ -411,7 +415,7 @@ export class PlayerService implements OnInit {
         title: metadata.title,
         artist: metadata.artist,
         album: metadata.album,
-        artwork: [{ src: metadata.coverUrl, sizes: '512x512' }]
+        artwork: [{ src: metadata.coverUrl?.original, sizes: '512x512' }]
       });
     }
   }
