@@ -19,7 +19,7 @@
     "copyright": "Copyleft motabass",
     "asar": true,
     "npmRebuild": false,
-    "electronVersion": "8.0.3",
+    "electronVersion": "8.1.1",
     "directories": {
       "buildResources": "icons",
       "output": "../electron-gblaster-packages"
