@@ -11,26 +11,10 @@ export class NodeId3TagsService extends ID3TagsService {
   }
 
   async extractTags(file: File): Promise<Id3Tags | null> {
+    const start = performance.now();
     const tags = await this.electronService.ipcRenderer.invoke('GET_ID3_TAGS', file.path);
-
+    console.log('took: ', performance.now() - start);
     console.log(tags);
-
-    // if (!tags) {
-    //   return null;
-    // }
-    //
-    // let cover: PictureType | undefined;
-    //
-    // if (tags.tags?.picture) {
-    //   cover = tags.tags.picture.data;
-    // }
-    return {
-      // picture: cover,
-      artist: tags?.artist,
-      title: tags?.title,
-      track: tags?.track,
-      album: tags?.album,
-      year: tags?.year
-    };
+    return tags;
   }
 }

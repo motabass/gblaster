@@ -16,7 +16,7 @@ export class BrowserId3TagsService extends ID3TagsService {
 
     const start = performance.now();
     try {
-      tags = await musicMetadata.parseBlob(file);
+      tags = await musicMetadata.parseBlob(file, { duration: false, includeChapters: false, skipPostHeaders: true, skipCovers: true });
     } catch (e) {
       console.warn(`Tags von "${file.name}" (${file.type}) konnten nicht gelesen werden: `, e.info);
       return null;
@@ -27,7 +27,6 @@ export class BrowserId3TagsService extends ID3TagsService {
     if (tags.common.picture) {
       cover = { format: tags.common.picture[0].format, data: tags.common.picture[0].data };
     }
-    console.log(tags);
     return {
       picture: cover,
       artist: tags.common.artist,

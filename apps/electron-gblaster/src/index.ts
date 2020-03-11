@@ -1,7 +1,8 @@
 import { app, BrowserWindow, ipcMain, screen } from 'electron';
-import { TagType } from 'jsmediatags/types';
+import { IAudioMetadata } from 'music-metadata-browser';
 import * as path from 'path';
 import * as url from 'url';
+import { Id3CoverPicture, Id3Tags } from '../../../libs/player/src/lib/metadata-service/id3-tags.types';
 
 let serve;
 const args = process.argv.slice(1);
@@ -38,23 +39,33 @@ const mainWindowSettings: Electron.BrowserWindowConstructorOptions = {
  * Hooks for electron main process
  */
 function initMainListener() {
-  ipcMain.handle('GET_ID3_TAGS', async (event, filePath) => {
-    const jsmediatags = require('jsmediatags');
+  ipcMain.handle(
+    'GET_ID3_TAGS',
+    async (event, filePath): Promise<Id3Tags | undefined> => {
+      const musicMetadata = require('music-metadata');
 
-    let tags: TagType | null = null;
-    try {
-      tags = await new Promise((resolve, reject) => {
-        new jsmediatags.Reader(filePath).setTagsToRead(['title', 'artist', 'track', 'album', 'year', 'picture']).read({
-          onSuccess: resolve,
-          onError: reject
-        });
-      });
-    } catch (e) {
-      console.warn(`Tags konnten nicht gelesen werden: `, e.info);
+      let tags: IAudioMetadata | undefined;
+      try {
+        tags = await musicMetadata.parseFile(filePath);
+      } catch (e) {
+        console.warn(`Tags von "${filePath}) konnten nicht gelesen werden: `, e.info);
+        return null;
+      }
+
+      let cover: Id3CoverPicture | undefined;
+      if (tags.common.picture) {
+        cover = { format: tags.common.picture[0].format, data: tags.common.picture[0].data };
+      }
+      return {
+        picture: cover,
+        artist: tags.common.artist,
+        title: tags.common.title,
+        track: tags.common.track,
+        album: tags.common.album,
+        year: tags.common.year?.toString()
+      };
     }
-
-    return tags;
-  });
+  );
 }
 
 /**
