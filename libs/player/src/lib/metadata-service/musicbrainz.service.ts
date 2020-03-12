@@ -28,10 +28,10 @@ export class MusicbrainzService {
         return;
       }
 
-      const thumbUrl = coverData.images[0].thumbnails.small;
-      const coverUrl = coverData.images[0].image;
+      const thumbUrl: string = coverData.images[0].thumbnails.small;
+      const coverUrl: string = coverData.images[0].image;
 
-      return { thumb: thumbUrl, original: coverUrl };
+      return { thumb: thumbUrl.replace('http://', 'https://'), original: coverUrl.replace('http://', 'https://') };
     }
 
     return;
