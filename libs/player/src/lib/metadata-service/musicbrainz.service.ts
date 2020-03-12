@@ -12,7 +12,7 @@ export class MusicbrainzService {
     if (tags.artist && tags.album) {
       let query = `release:${luceneEscapeQuery.escape(tags.album)} AND artist:${luceneEscapeQuery.escape(tags.artist)}`;
       query += tags.track?.of ? ` AND tracks:${tags.track.of}` : '';
-      const url = `http://musicbrainz.org/ws/2/release/?query=${query}&limit=10&fmt=json`;
+      const url = `https://musicbrainz.org/ws/2/release/?query=${query}&limit=10&fmt=json`;
 
       const data: any = await this.http.get(url).toPromise();
 
@@ -23,7 +23,7 @@ export class MusicbrainzService {
       const id = data.releases[0].id;
       let coverData: any;
       try {
-        coverData = await this.http.get(`http://coverartarchive.org/release/${id}`).toPromise();
+        coverData = await this.http.get(`https://coverartarchive.org/release/${id}`).toPromise();
       } catch (e) {
         return;
       }
