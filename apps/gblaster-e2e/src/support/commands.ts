@@ -1,3 +1,5 @@
+import 'cypress-file-upload';
+
 // ***********************************************
 // This example commands.js shows you how to
 // create various custom commands and overwrite
@@ -10,7 +12,8 @@
 // eslint-disable-next-line @typescript-eslint/no-namespace
 declare namespace Cypress {
   interface Chainable<Subject> {
-    login(email: string, password: string): void;
+    // login(email: string, password: string): void;
+    upload(email: string, password: string): void;
   }
 }
 //

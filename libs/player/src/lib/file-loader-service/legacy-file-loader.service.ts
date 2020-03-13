@@ -11,8 +11,12 @@ export class LegacyFileLoaderService extends FileLoaderService {
     super();
     this.fileInput = document.createElement('input');
     this.fileInput.type = 'file';
+    this.fileInput.id = 'hidden_file_input';
+    this.fileInput.style.display = 'none';
     this.fileInput.accept = 'audio/mp3';
     this.fileInput.multiple = true;
+
+    document.body.appendChild(this.fileInput);
   }
 
   async openFolder(): Promise<boolean> {

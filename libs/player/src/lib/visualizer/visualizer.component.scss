@@ -11,4 +11,6 @@
 .visuals-slide-panel {
   z-index: 9;
   box-sizing: border-box;
+  max-height: 100%;
+  //overflow: auto;
 }

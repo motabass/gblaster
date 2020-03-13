@@ -17,9 +17,17 @@
       <a mat-list-item (click)="closeSidenav()" routerLink="/settings"><mat-icon mat-list-icon svgIcon="cog-outline"></mat-icon>&nbsp;Settings</a>
     </mat-nav-list>
   </mat-sidenav>
-  <mat-sidenav-content style="overflow-x: hidden;">
+  <mat-sidenav-content style="overflow: hidden;">
     <mat-toolbar color="primary" class="mat-elevation-z6">
-      <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()" *ngIf="isHandset$ | async" style="margin-right: 0.5rem;">
+      <button
+        id="sidenav_menu_button"
+        type="button"
+        aria-label="Toggle sidenav"
+        mat-icon-button
+        (click)="drawer.toggle()"
+        *ngIf="isHandset$ | async"
+        style="margin-right: 0.5rem;"
+      >
         <mat-icon aria-label="Side nav toggle icon" matIconSize="2.6rem" svgIcon="logo"></mat-icon>
       </button>
       <span class="title">{{ title | async }}</span>
