@@ -19,6 +19,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "stream": ["node_modules/readable-stream"],
+      "assert": ["node_modules/assert"],
       "@motabass/player": ["libs/player/src/index.ts"],
       "@motabass/ui-components/visuals": ["libs/ui-components/visuals/src/index.ts"],
       "@motabass/ui-components/slide-panel": ["libs/ui-components/slide-panel/src/index.ts"],

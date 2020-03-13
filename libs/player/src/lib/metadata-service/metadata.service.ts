@@ -41,9 +41,9 @@ export class MetadataService {
 
     let coverUrl: RemoteCoverPicture | undefined;
 
-    coverUrl = tags ? await this.musicbrainzService.getCoverPicture(tags) : undefined;
+    coverUrl = tags ? await this.lastfmMetadataService.getCoverPicture(tags) : undefined;
     if (!coverUrl) {
-      coverUrl = tags ? await this.lastfmMetadataService.getCoverPicture(tags) : undefined;
+      coverUrl = tags ? await this.musicbrainzService.getCoverPicture(tags) : undefined;
     }
 
     const pic: Id3CoverPicture | undefined = tags?.picture;
