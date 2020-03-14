@@ -1,4 +1,6 @@
 import 'cypress-file-upload';
+import { getLoadFilesButton } from './player.po';
+import FileData = Cypress.FileData;
 
 // ***********************************************
 // This example commands.js shows you how to
@@ -12,14 +14,41 @@ import 'cypress-file-upload';
 // eslint-disable-next-line @typescript-eslint/no-namespace
 declare namespace Cypress {
   interface Chainable<Subject> {
-    // login(email: string, password: string): void;
-    upload(email: string, password: string): void;
+    loadFiles(): void;
   }
 }
 //
 // -- This is a parent command --
-Cypress.Commands.add('login', (email, password) => {
-  console.log('Custom command example: Login', email, password);
+Cypress.Commands.add('loadFiles', () => {
+  console.log('Loading files...');
+  // load files
+  getLoadFilesButton().click();
+
+  const fixtures: Blob[] = [];
+
+  Cypress.Promise.all([
+    cy
+      .fixture('440Hz-5sec.mp3', 'base64')
+      .then(Cypress.Blob.base64StringToBlob)
+      .then((fx) => {
+        fixtures.push(fx);
+      }),
+    cy
+      .fixture('tek.mp3', 'base64')
+      .then(Cypress.Blob.base64StringToBlob)
+      .then((fx) => {
+        fixtures.push(fx);
+      })
+  ]).then((fx) => {
+    const [first, second] = fixtures;
+
+    const files: FileData[] = [
+      { fileContent: first, fileName: '440Hz-5sec.mp3', mimeType: 'audio/mp3', encoding: 'utf8' },
+      { fileContent: second, fileName: 'tek.mp3', mimeType: 'audio/mp3', encoding: 'utf8' }
+    ];
+
+    return cy.get('#hidden_file_input').upload(files, { subjectType: 'input', force: true });
+  });
 });
 //
 // -- This is a child command --

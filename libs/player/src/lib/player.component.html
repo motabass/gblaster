@@ -21,7 +21,7 @@
     <mat-icon svgIcon="skip-next"></mat-icon>
   </button>
 
-  <button mat-icon-button (click)="loadFolder()">
+  <button mat-icon-button id="load_files" (click)="loadFolder()">
     <mat-icon svgIcon="folder-music-outline"></mat-icon>
   </button>
   <div fxFlex *ngIf="!playingSong"></div>
@@ -44,7 +44,7 @@
     <p>{{ position | time }} / {{ durationSeconds | time }}</p>
   </div>
 
-  <button mat-icon-button [matMenuTriggerFor]="volumeMenu">
+  <button mat-icon-button id="volume_button" [matMenuTriggerFor]="volumeMenu">
     <mat-icon [svgIcon]="volumeIcon"></mat-icon>
   </button>
   <button mat-icon-button [ngClass]="{ 'accent-color': shuffle }" (click)="toggleShuffle()">
@@ -58,5 +58,5 @@
 </mat-toolbar>
 
 <mat-menu #volumeMenu="matMenu" yPosition="above" [class]="'volume-menu'">
-  <mat-slider vertical style="height: 12rem;" [value]="volume" (input)="onVolumeChange($event)" min="0" max="1" step="0.01"></mat-slider>
+  <mat-slider id="volume_slider" vertical style="height: 12rem;" [value]="volume" (input)="onVolumeChange($event)" min="0" max="1" step="0.01"></mat-slider>
 </mat-menu>

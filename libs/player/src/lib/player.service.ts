@@ -77,6 +77,8 @@ export class PlayerService implements OnInit {
   initAudioElement() {
     const audio = new Audio();
     audio.loop = false;
+    audio.id = 'main_audio';
+    audio.style.display = 'none';
     audio.autoplay = false;
     audio.controls = false;
     audio.volume = 0.8;
@@ -89,6 +91,8 @@ export class PlayerService implements OnInit {
       console.error(e);
     };
     this.audioElement = audio;
+
+    document.body.appendChild(audio);
   }
 
   initAudioContext() {
@@ -169,11 +173,10 @@ export class PlayerService implements OnInit {
   }
 
   @action
-  async loadFolder() {
-    const newFolder: boolean = await this.fileLoaderService.openFolder();
-    if (newFolder) {
+  async loadFolder(): Promise<void> {
+    const files: File[] = await this.fileLoaderService.openFolder();
+    if (files?.length) {
       this.loaderService.show();
-      const files = await this.fileLoaderService.getFiles();
       this.songs = [];
       for (const file of files) {
         const song = await this.createSongFromFile(file);

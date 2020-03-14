@@ -11,7 +11,7 @@ export class NativeBrowserFileLoaderService extends FileLoaderService {
     super();
   }
 
-  async openFolder(): Promise<boolean> {
+  async openFolder(): Promise<File[]> {
     const allowedTypes = ['audio/mp3'];
 
     const fileHandles: any[] = [];
@@ -41,11 +41,11 @@ export class NativeBrowserFileLoaderService extends FileLoaderService {
       }
     } catch (e) {
       console.log(e.message);
-      return false;
+      return [];
     }
 
     this.currentFolderFileHandles = fileHandles;
-    return true;
+    return this.getFiles();
   }
 
   async getFiles(): Promise<File[]> {

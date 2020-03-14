@@ -48,6 +48,7 @@
     "bundle-analyze:gblaster": "webpack-bundle-analyzer dist/apps/gblaster/stats.json --port 8889",
     "bundle-analyze:static:gblaster": "webpack-bundle-analyzer dist/apps/gblaster/stats.json --mode static --report docs/analyzer-report.html --no-open",
     "ci:build": "npm run build:prod:gblaster -- --stats-json && npm run bundle-analyze:static:gblaster",
+    "ci:e2e": "npm run e2e -- gblaster-e2e",
     "compodoc:gblaster": "compodoc -p apps/gblaster/tsconfig.app.json",
     "compodoc:gblaster:serve": "npm run compodoc:gblaster -- -s",
     "destiny:gblaster": "destiny apps/gblaster/src/app/**/*.*",

@@ -19,17 +19,15 @@ export class LegacyFileLoaderService extends FileLoaderService {
     document.body.appendChild(this.fileInput);
   }
 
-  async openFolder(): Promise<boolean> {
+  async openFolder(): Promise<File[]> {
     this.fileInput.click();
-    const files = await new Promise((resolve) => {
-      this.fileInput.onchange = () => resolve(this.fileInput.files); // resolve with input, not event
+    const files: File[] = await new Promise((resolve) => {
+      this.fileInput.onchange = () => resolve(this.getFiles()); // resolve with input, not event
     });
-
-    console.log(files);
-    return true;
+    return files;
   }
 
-  async getFiles(): Promise<File[]> {
+  getFiles(): File[] {
     const files: File[] = [];
     if (this.fileInput.files) {
       for (let i = 0; i < this.fileInput.files.length; i++) {
