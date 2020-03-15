@@ -1,0 +1,9 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "outDir": "../../out-tsc/visuals-worker",
+    "lib": ["es2018", "webworker"],
+    "types": []
+  },
+  "include": ["src/**/*.worker.ts", "../../libs/ui-components/visuals/src/lib/visuals.worker.ts"]
+}

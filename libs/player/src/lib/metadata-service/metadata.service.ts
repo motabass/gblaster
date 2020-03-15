@@ -1,7 +1,7 @@
 import { crc32 } from '@allex/crc32';
 import { Injectable } from '@angular/core';
 import { NgxIndexedDBService } from 'ngx-indexed-db';
-import Vibrant from 'node-vibrant/lib/browser.worker';
+import Vibrant from 'node-vibrant/lib/browser';
 import { SongMetadata } from '../player.types';
 import { ID3TagsService } from './id3-tags.service.abstract';
 import { Id3CoverPicture } from './id3-tags.types';

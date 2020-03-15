@@ -24,7 +24,7 @@
             "assets": ["apps/gblaster/src/favicon.ico", "apps/gblaster/src/assets", "apps/gblaster/src/manifest.webmanifest"],
             "styles": ["libs/core/theme/src/styles/theme.scss", "apps/gblaster/src/styles/main.scss"],
             "scripts": [],
-            "webWorkerTsConfig": "libs/ui-components/visuals/tsconfig.worker.json"
+            "webWorkerTsConfig": "apps/gblaster/tsconfig.worker.json"
           },
           "configurations": {
             "production": {

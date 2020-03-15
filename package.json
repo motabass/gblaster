@@ -40,7 +40,7 @@
     "update:angular": "ng update @angular/core --allow-dirty",
     "dep-graph": "nx dep-graph",
     "help": "nx help",
-    "postinstall": "ngcc --properties es2015 browser module main --first-only --create-ivy-entry-points && electron-rebuild install-app-deps",
+    "_postinstall": "ngcc --properties es2015 browser module main --first-only --create-ivy-entry-points && electron-rebuild install-app-deps",
     "generate:ui-lib": "ng generate @nrwl/angular:library --name=test --style=scss --directory=ui-components --prefix=mtb --publishable --simpleModuleName",
     "generate:lazy-module-lib": "ng generate @nrwl/angular:library --name=test --style=scss --directory=ui-components --prefix=hsr",
     "assets:optimize:svg": "svgo -f apps/gblaster/src/assets --disable=removeViewBox",
@@ -193,7 +193,8 @@
     "tslint-sonarts": "1.9.0",
     "typescript": "~3.7.5",
     "wait-on": "~4.0.1",
-    "webpack-bundle-analyzer": "3.6.1"
+    "webpack-bundle-analyzer": "3.6.1",
+    "worker-loader": "^2.0.0"
   },
   "xplat": {
     "prefix": "gblaster",
