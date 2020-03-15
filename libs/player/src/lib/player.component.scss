@@ -5,13 +5,13 @@
   width: 100%;
   height: 100%;
   display: grid;
-  grid-template-columns: minmax(300px, 40%) auto;
+  grid-template-columns: minmax(300px, 3fr) 5fr;
   grid-template-rows: calc(100% - 64px) 64px;
   grid-template-areas:
     'playlist main'
     'bar bar';
   @media (max-width: 599px) {
-    grid-template-columns: 100%;
+    grid-template-columns: 1fr;
     grid-template-rows: 45% calc(55% - 56px) 56px;
     grid-template-areas:
       'main'

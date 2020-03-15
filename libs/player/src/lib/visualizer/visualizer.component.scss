@@ -1,6 +1,6 @@
 .visuals-settings {
   display: grid;
-  grid-template-columns: 33% 33% 33%;
+  grid-template-columns: repeat(3, 1fr);
   grid-auto-rows: auto;
   grid-gap: 1em;
   @media (max-width: 899px) {
@@ -13,4 +13,8 @@
   box-sizing: border-box;
   max-height: 100%;
   //overflow: auto;
+}
+
+.slider-label {
+  margin: 4px 2px;
 }
