@@ -14,8 +14,21 @@
       "installMode": "lazy",
       "updateMode": "prefetch",
       "resources": {
-        "files": ["/assets/**", "/*.(eot|svg|cur|jpg|png|webp|gif|otf|ttf|woff|woff2|ani)"]
+        "files": ["/assets/**", "/*.(eot|svg|cur|jpg|png|webp|gif|otf|ttf|woff|woff2|ani)"],
+        "urls": ["https://fonts.googleapis.com/**"]
       }
+    }
+  ],
+  "dataGroups": [
+    {
+      "name": "metadata",
+      "version": 1,
+      "cacheConfig": {
+        "maxAge": "24h",
+        "maxSize": 1000,
+        "strategy": "performance"
+      },
+      "urls": ["https://ws.audioscrobbler.com/**", "https://musicbrainz.org/**", "https://coverartarchive.org/**"]
     }
   ]
 }
