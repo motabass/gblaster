@@ -29,15 +29,14 @@ export class VisualsDirective implements OnDestroy, OnChanges {
   constructor(elr: ElementRef<HTMLCanvasElement>, private zone: NgZone) {
     this.canvas = elr.nativeElement;
 
-    const offscreenCanvas: any = this.canvas.transferControlToOffscreen();
-
-    // this.canvasCtx = offscreenCanvas.getContext('2d');
+    const offscreenCanvas: OffscreenCanvas = this.canvas.transferControlToOffscreen();
 
     this.worker = new Worker('./visuals.worker', { type: 'module' });
     this.worker.onmessage = ({ data }) => {
       console.log(`page got message: ${data}`);
     };
 
+    // @ts-ignore
     this.worker.postMessage({ canvas: offscreenCanvas }, [offscreenCanvas]);
   }
 
@@ -119,5 +118,6 @@ export class VisualsDirective implements OnDestroy, OnChanges {
 
   ngOnDestroy() {
     this.stopVisualizer();
+    this.worker.terminate();
   }
 }

@@ -49,119 +49,136 @@ addEventListener('message', (event) => {
     canvasCtx.clearRect(0, 0, canvasCtx.canvas.width, canvasCtx.canvas.height);
   }
 
+  // Setup
   if (event.data.start) {
-    if (!canvasCtx) {
-      return;
-    }
-
-    mode = event.data.mode;
-
-    // Setup
-    capYPositionArray = []; // store the vertical position of hte caps for the preivous frame
-
-    meterNum = event.data.barCount;
-    gap = event.data.gap; // gap between meters
-    capHeight = event.data.capHeight; // cap thickness
-    capFalldown = event.data.capFalldown;
-
-    mainColor = event.data.mainColor;
-    peakColor = event.data.peakColor;
-
-    thickness = event.data.thickness;
-
-    canvasWidth = canvasCtx.canvas.width;
-    canvasHeight = canvasCtx.canvas.height;
-    barWidth = canvasWidth / meterNum - gap;
-
-    bufferLength = event.data.bufferLength;
-
-    analyserData = new Uint8Array(bufferLength);
-
-    frequencyCorrectionScale = scalePow()
-      .exponent(2.5)
-      .domain([-7, meterNum + 5])
-      .range([0, bufferLength - bufferLength / 3]);
-
-    amplitudeScale = scalePow()
-      .exponent(1.7)
-      .domain([0, 255])
-      .range([0, canvasHeight]);
-
-    gradient = canvasCtx.createLinearGradient(0, 0, 0, canvasHeight);
-    gradient.addColorStop(1, mainColor);
-    gradient.addColorStop(0.7, peakColor);
-    gradient.addColorStop(0, peakColor);
+    setup(event.data);
   }
 
   // Visualize
   if (event.data.analyserData) {
     analyserData = event.data.analyserData;
 
-    if (!canvasCtx) {
-      return;
-    }
-
     if (mode === 'osc') {
-      canvasCtx.clearRect(0, 0, canvasWidth, canvasHeight);
-
-      canvasCtx.lineWidth = thickness;
-      canvasCtx.strokeStyle = mainColor;
-      canvasCtx.beginPath();
-
-      const sliceWidth = canvasWidth / bufferLength;
-      let x = 0;
-
-      for (let i = 0; i < bufferLength; i++) {
-        const v = analyserData[i] / 128.0;
-        const y = (v * canvasHeight) / 2;
-
-        if (i === 0) {
-          canvasCtx.moveTo(x, y);
-        } else {
-          canvasCtx.lineTo(x, y);
-        }
-
-        x += sliceWidth;
-      }
-
-      canvasCtx.stroke();
+      drawOsc();
     }
 
     if (mode === 'bars') {
-      if (!canvasCtx) {
-        return;
-      }
-
-      canvasCtx.clearRect(0, 0, canvasWidth, canvasHeight);
-
-      for (let i = 0; i < meterNum; i++) {
-        const position = Math.round(frequencyCorrectionScale(i));
-        let value = analyserData[position];
-        value = amplitudeScale(value);
-
-        if (value > canvasHeight) {
-          value = canvasHeight;
-        }
-
-        if (capYPositionArray.length < Math.round(meterNum)) {
-          capYPositionArray.push(value);
-        }
-
-        canvasCtx.fillStyle = mainColor;
-        // draw the cap, with transition effect
-        if (value < capYPositionArray[i]) {
-          canvasCtx.fillRect((barWidth + gap) * i, canvasHeight - capYPositionArray[i], barWidth, capHeight);
-          if (capYPositionArray[i] > capHeight) {
-            capYPositionArray[i] = capYPositionArray[i] - capFalldown;
-          }
-        } else {
-          canvasCtx.fillRect((barWidth + gap) * i, canvasHeight - value, barWidth, capHeight);
-          capYPositionArray[i] = value;
-        }
-        canvasCtx.fillStyle = gradient; // set the fillStyle to gradient for a better look
-
-        canvasCtx.fillRect((barWidth + gap) * i, canvasHeight - value + capHeight, barWidth, value - capHeight); // the meter
-      }
+      drawBars();
     }
   }
 });
+
+function setup(options: any) {
+  if (!canvasCtx) {
+    return;
+  }
+
+  mode = options.mode;
+
+  meterNum = options.barCount;
+  gap = options.gap; // gap between meters
+  capHeight = options.capHeight; // cap thickness
+  capFalldown = options.capFalldown;
+
+  mainColor = options.mainColor;
+  peakColor = options.peakColor;
+
+  thickness = options.thickness;
+
+  canvasWidth = canvasCtx.canvas.width;
+  canvasHeight = canvasCtx.canvas.height;
+  barWidth = canvasWidth / meterNum - gap;
+
+  bufferLength = options.bufferLength;
+
+  analyserData = new Uint8Array(bufferLength);
+
+  frequencyCorrectionScale = scalePow()
+    .exponent(2.5)
+    .domain([-7, meterNum + 5])
+    .range([0, bufferLength - bufferLength / 3]);
+
+  amplitudeScale = scalePow()
+    .exponent(1.7)
+    .domain([0, 255])
+    .range([0, canvasHeight]);
+
+  gradient = canvasCtx.createLinearGradient(0, 0, 0, canvasHeight);
+  gradient.addColorStop(1, mainColor);
+  gradient.addColorStop(0.7, peakColor);
+  gradient.addColorStop(0, peakColor);
+
+  capYPositionArray = []; // store the vertical position of hte caps for the preivous frame
+  for (let i = 0; i < meterNum; i++) {
+    capYPositionArray[i] = capHeight;
+  }
+}
+
+function drawOsc() {
+  if (!canvasCtx) {
+    return;
+  }
+
+  canvasCtx.clearRect(0, 0, canvasWidth, canvasHeight);
+
+  canvasCtx.lineWidth = thickness;
+  canvasCtx.strokeStyle = mainColor;
+  canvasCtx.beginPath();
+
+  const sliceWidth = canvasWidth / bufferLength;
+  let x = 0;
+
+  for (let i = 0; i < bufferLength; i++) {
+    const v = analyserData[i] / 128.0;
+    const y = (v * canvasHeight) / 2;
+
+    if (i === 0) {
+      canvasCtx.moveTo(x, y);
+    } else {
+      canvasCtx.lineTo(x, y);
+    }
+
+    x += sliceWidth;
+  }
+
+  canvasCtx.stroke();
+}
+
+function drawBars() {
+  if (!canvasCtx) {
+    return;
+  }
+
+  canvasCtx.clearRect(0, 0, canvasWidth, canvasHeight);
+
+  for (let i = 0; i < meterNum; i++) {
+    const position = Math.round(frequencyCorrectionScale(i));
+    let value = analyserData[position];
+    value = amplitudeScale(value);
+
+    if (value > canvasHeight) {
+      value = canvasHeight;
+    }
+
+    if (capYPositionArray.length < Math.round(meterNum)) {
+      capYPositionArray.push(value);
+    }
+
+    canvasCtx.fillStyle = mainColor;
+
+    if (value < capYPositionArray[i]) {
+      // draw cap on last position and decrease position
+      canvasCtx.fillRect((barWidth + gap) * i, canvasHeight - capYPositionArray[i], barWidth, capHeight);
+      if (capYPositionArray[i] > capHeight) {
+        capYPositionArray[i] = capYPositionArray[i] - capFalldown;
+      }
+    } else {
+      // draw cap on top of bar and save position
+      canvasCtx.fillRect((barWidth + gap) * i, canvasHeight - value, barWidth, capHeight);
+      capYPositionArray[i] = value;
+    }
+    canvasCtx.fillStyle = gradient; // set the fillStyle to gradient for a better look
+
+    canvasCtx.fillRect((barWidth + gap) * i, canvasHeight - value + capHeight, barWidth, value - capHeight); // the bar
+  }
+}

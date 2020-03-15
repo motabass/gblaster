@@ -193,8 +193,7 @@
     "tslint-sonarts": "1.9.0",
     "typescript": "~3.7.5",
     "wait-on": "~4.0.1",
-    "webpack-bundle-analyzer": "3.6.1",
-    "worker-loader": "^2.0.0"
+    "webpack-bundle-analyzer": "3.6.1"
   },
   "xplat": {
     "prefix": "gblaster",
