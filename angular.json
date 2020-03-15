@@ -23,7 +23,8 @@
             "aot": true,
             "assets": ["apps/gblaster/src/favicon.ico", "apps/gblaster/src/assets", "apps/gblaster/src/manifest.webmanifest"],
             "styles": ["libs/core/theme/src/styles/theme.scss", "apps/gblaster/src/styles/main.scss"],
-            "scripts": []
+            "scripts": [],
+            "webWorkerTsConfig": "libs/ui-components/visuals/tsconfig.worker.json"
           },
           "configurations": {
             "production": {
@@ -79,7 +80,7 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["apps/gblaster/tsconfig.app.json", "apps/gblaster/tsconfig.spec.json"],
+            "tsConfig": ["apps/gblaster/tsconfig.app.json", "apps/gblaster/tsconfig.spec.json", "libs/ui-components/visulas/tsconfig.worker.json"],
             "exclude": ["**/node_modules/**", "!apps/gblaster/**"]
           }
         },

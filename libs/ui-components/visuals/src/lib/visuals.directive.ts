@@ -1,5 +1,4 @@
 import { Directive, ElementRef, Input, NgZone, OnChanges, OnDestroy, SimpleChanges } from '@angular/core';
-import { scalePow } from 'd3';
 import { FrequencyBarsConfig, OsciloscopeConfig, VisualizerMode, VisualsColorConfig } from './visuals.types';
 
 @Directive({
@@ -7,7 +6,7 @@ import { FrequencyBarsConfig, OsciloscopeConfig, VisualizerMode, VisualsColorCon
 })
 export class VisualsDirective implements OnDestroy, OnChanges {
   @Input('mtbVisual')
-  analyser?: AnalyserNode;
+  analyser?: any;
 
   @Input()
   mode: VisualizerMode = 'bars';
@@ -21,18 +20,35 @@ export class VisualsDirective implements OnDestroy, OnChanges {
   @Input()
   colorConfig: VisualsColorConfig = { mainColor: 'red', peakColor: 'yellow' };
 
-  canvasCtx: CanvasRenderingContext2D | null;
+  canvas: HTMLCanvasElement;
 
   private animationFrameRef?: number;
 
-  constructor(elr: ElementRef<HTMLCanvasElement>, private zone: NgZone) {
-    const canvas: HTMLCanvasElement = elr.nativeElement;
+  private worker: Worker;
 
-    this.canvasCtx = canvas.getContext('2d');
+  constructor(elr: ElementRef<HTMLCanvasElement>, private zone: NgZone) {
+    this.canvas = elr.nativeElement;
+
+    const offscreenCanvas: any = this.canvas.transferControlToOffscreen();
+
+    // this.canvasCtx = offscreenCanvas.getContext('2d');
+
+    this.worker = new Worker('./visuals.worker', { type: 'module' });
+    this.worker.onmessage = ({ data }) => {
+      console.log(`page got message: ${data}`);
+    };
+
+    this.worker.postMessage({ canvas: offscreenCanvas }, [offscreenCanvas]);
   }
 
   ngOnChanges(changes: SimpleChanges) {
     this.stopVisualizer();
+
+    // give canvas size for correct dpi
+    const rect = this.canvas.getBoundingClientRect();
+
+    this.worker.postMessage({ newSize: rect });
+
     switch (this.mode) {
       case 'bars':
         this.visualizeFrequencyBars();
@@ -44,90 +60,25 @@ export class VisualsDirective implements OnDestroy, OnChanges {
   }
 
   visualizeFrequencyBars() {
+    this.worker.postMessage({
+      start: true,
+      mode: 'bars',
+      barCount: this.barsConfig.barCount,
+      gap: this.barsConfig.gap,
+      capHeight: this.barsConfig.capHeight,
+      capFalldown: this.barsConfig.capFalldown,
+      mainColor: this.colorConfig.mainColor,
+      peakColor: this.colorConfig.peakColor,
+      bufferLength: this.analyser.frequencyBinCount
+    });
+
     this.zone.runOutsideAngular(() => {
-      const capYPositionArray: number[] = []; // store the vertical position of hte caps for the preivous frame
-
-      const analyser = this.analyser;
-
-      if (!analyser) {
-        return;
-      }
-
-      const meterNum = this.barsConfig.barCount;
-      const gap = this.barsConfig.gap; // gap between meters
-      const capHeight = this.barsConfig.capHeight; // cap thickness
-      const capStyle = this.colorConfig.mainColor;
-
-      const canvasCtx = this.canvasCtx;
-
-      if (!canvasCtx) {
-        return;
-      }
-
-      // DPI fix
-      // const dpr = window.devicePixelRatio || 1;
-      const dpr = 1;
-      const rect = canvasCtx.canvas.getBoundingClientRect();
-      canvasCtx.canvas.width = rect.width * dpr;
-      canvasCtx.canvas.height = rect.height * dpr;
-      canvasCtx.scale(dpr, dpr);
-
-      const bufferLength = analyser.frequencyBinCount;
+      const bufferLength = this.analyser.frequencyBinCount;
       const analyserData = new Uint8Array(bufferLength);
 
-      const canvasWidth = canvasCtx.canvas.width;
-      const canvasHeight = canvasCtx.canvas.height;
-      const barWidth = canvasWidth / meterNum - gap;
-
-      const frequencyCorrectionScale = scalePow()
-        .exponent(2.5)
-        .domain([-7, meterNum + 5])
-        .range([0, bufferLength - bufferLength / 3]);
-
-      const amplitudeScale = scalePow()
-        .exponent(1.7)
-        .domain([0, 255])
-        .range([0, canvasHeight]);
-
-      const gradient = canvasCtx.createLinearGradient(0, 0, 0, canvasHeight);
-      gradient.addColorStop(1, this.colorConfig.mainColor);
-      gradient.addColorStop(0.7, this.colorConfig.peakColor);
-      gradient.addColorStop(0, this.colorConfig.peakColor);
-
       const draw = () => {
-        analyser.getByteFrequencyData(analyserData);
-
-        canvasCtx.clearRect(0, 0, canvasWidth, canvasHeight);
-
-        for (let i = 0; i < meterNum; i++) {
-          const position = Math.round(frequencyCorrectionScale(i));
-          let value = analyserData[position];
-          value = amplitudeScale(value);
-
-          if (value > canvasHeight) {
-            value = canvasHeight;
-          }
-
-          if (capYPositionArray.length < Math.round(meterNum)) {
-            capYPositionArray.push(value);
-          }
-
-          canvasCtx.fillStyle = capStyle;
-          // draw the cap, with transition effect
-          if (value < capYPositionArray[i]) {
-            canvasCtx.fillRect((barWidth + gap) * i, canvasHeight - capYPositionArray[i], barWidth, capHeight);
-            if (capYPositionArray[i] > capHeight) {
-              capYPositionArray[i] = capYPositionArray[i] - this.barsConfig.capFalldown;
-            }
-          } else {
-            canvasCtx.fillRect((barWidth + gap) * i, canvasHeight - value, barWidth, capHeight);
-            capYPositionArray[i] = value;
-          }
-          canvasCtx.fillStyle = gradient; // set the fillStyle to gradient for a better look
-
-          canvasCtx.fillRect((barWidth + gap) * i, canvasHeight - value + capHeight, barWidth, value - capHeight); // the meter
-        }
-
+        this.analyser.getByteFrequencyData(analyserData);
+        this.worker.postMessage({ analyserData: analyserData });
         this.animationFrameRef = requestAnimationFrame(draw);
       };
 
@@ -136,51 +87,23 @@ export class VisualsDirective implements OnDestroy, OnChanges {
   }
 
   visualizeOscilloscope() {
+    this.worker.postMessage({
+      start: true,
+      mode: 'osc',
+      mainColor: this.colorConfig.mainColor,
+      peakColor: this.colorConfig.peakColor,
+      bufferLength: this.analyser.frequencyBinCount,
+      thickness: this.oscConfig.thickness
+    });
+
     this.zone.runOutsideAngular(() => {
-      const analyser = this.analyser;
-      if (!analyser) {
-        return;
-      }
-
-      const canvasCtx = this.canvasCtx;
-
-      if (!canvasCtx) {
-        return;
-      }
-
-      const bufferLength = analyser.frequencyBinCount;
+      const bufferLength = this.analyser.frequencyBinCount;
       const analyserData = new Uint8Array(bufferLength);
 
-      const canvasWidth = canvasCtx.canvas.width;
-      const canvasHeight = canvasCtx.canvas.height;
-
       const draw = () => {
+        this.analyser.getByteTimeDomainData(analyserData);
+        this.worker.postMessage({ analyserData: analyserData });
         this.animationFrameRef = requestAnimationFrame(draw);
-
-        canvasCtx.clearRect(0, 0, canvasWidth, canvasHeight);
-        analyser.getByteTimeDomainData(analyserData);
-
-        canvasCtx.lineWidth = this.oscConfig.thickness;
-        canvasCtx.strokeStyle = this.colorConfig.mainColor;
-        canvasCtx.beginPath();
-
-        const sliceWidth = canvasWidth / bufferLength;
-        let x = 0;
-
-        for (let i = 0; i < bufferLength; i++) {
-          const v = analyserData[i] / 128.0;
-          const y = (v * canvasHeight) / 2;
-
-          if (i === 0) {
-            canvasCtx.moveTo(x, y);
-          } else {
-            canvasCtx.lineTo(x, y);
-          }
-
-          x += sliceWidth;
-        }
-
-        canvasCtx.stroke();
       };
 
       this.animationFrameRef = requestAnimationFrame(draw);
@@ -188,10 +111,7 @@ export class VisualsDirective implements OnDestroy, OnChanges {
   }
 
   stopVisualizer() {
-    if (this.canvasCtx) {
-      this.canvasCtx.clearRect(0, 0, this.canvasCtx.canvas.width, this.canvasCtx.canvas.height);
-    }
-
+    this.worker.postMessage({ stop: true });
     if (this.animationFrameRef !== undefined) {
       cancelAnimationFrame(this.animationFrameRef);
     }
