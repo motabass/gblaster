@@ -27,13 +27,14 @@ import { PlayerComponent } from './player.component';
 import { PlaylistComponent } from './playlist/playlist.component';
 import { TimePipe } from './time.pipe';
 import { VisualizerComponent } from './visualizer/visualizer.component';
+import { EqualizerShellComponent } from './equalizer-shell/equalizer-shell.component';
 
 @NgModule({
   imports: [
     CommonModule,
     RouterModule.forChild([
       { path: '', pathMatch: 'full', component: PlayerComponent },
-      { path: 'eq', component: EqualizerComponent }
+      { path: 'eq', component: EqualizerShellComponent }
     ]),
     MatIconModule,
     MatListModule,
@@ -50,7 +51,16 @@ import { VisualizerComponent } from './visualizer/visualizer.component';
     MobxAngularModule,
     SlidePanelModule
   ],
-  declarations: [PlayerComponent, PlaylistComponent, TimePipe, CoverDisplayComponent, VisualizerComponent, EqualizerComponent, BandPipe],
+  declarations: [
+    PlayerComponent,
+    PlaylistComponent,
+    TimePipe,
+    CoverDisplayComponent,
+    VisualizerComponent,
+    EqualizerComponent,
+    BandPipe,
+    EqualizerShellComponent
+  ],
   providers: [
     {
       provide: ID3TagsService,
