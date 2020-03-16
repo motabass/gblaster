@@ -21,7 +21,7 @@
     <mat-icon svgIcon="skip-next"></mat-icon>
   </button>
 
-  <button mat-icon-button id="load_files" (click)="loadFolder()">
+  <button mat-icon-button id="load_files" (click)="loadFiles()">
     <mat-icon svgIcon="folder-music-outline"></mat-icon>
   </button>
   <div fxFlex *ngIf="!playingSong"></div>
@@ -60,3 +60,5 @@
 <mat-menu #volumeMenu="matMenu" yPosition="above" [class]="'volume-menu'">
   <mat-slider id="volume_slider" vertical style="height: 12rem;" [value]="volume" (input)="onVolumeChange($event)" min="0" max="1" step="0.01"></mat-slider>
 </mat-menu>
+
+<mtb-file-drop-overlay [allowedTypes]="allowedTypes" (filesDroped)="onFilesDropped($event)"></mtb-file-drop-overlay>

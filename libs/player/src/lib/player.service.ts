@@ -173,16 +173,20 @@ export class PlayerService implements OnInit {
   }
 
   @action
-  async loadFolder(): Promise<void> {
-    const files: File[] = await this.fileLoaderService.openFolder();
+  async loadFiles(): Promise<void> {
+    const files: File[] = await this.fileLoaderService.openFiles();
+    return this.addFilesToPlaylist(files);
+  }
+
+  @action
+  async addFilesToPlaylist(files: File[]) {
     if (files?.length) {
-      this.loaderService.show();
-      this.songs = [];
       for (const file of files) {
+        this.loaderService.show();
         const song = await this.createSongFromFile(file);
+        this.loaderService.hide();
         this.songs.push(song);
       }
-      this.loaderService.hide();
     }
   }
 

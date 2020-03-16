@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { ALLOWED_FILETYPES } from './file-loader.helpers';
 import { FileLoaderService } from './file-loader.service.abstract';
 
 @Injectable({
@@ -11,8 +12,8 @@ export class NativeBrowserFileLoaderService extends FileLoaderService {
     super();
   }
 
-  async openFolder(): Promise<File[]> {
-    const allowedTypes = ['audio/mp3'];
+  async openFiles(): Promise<File[]> {
+    const allowedTypes = ALLOWED_FILETYPES;
 
     const fileHandles: any[] = [];
 
@@ -22,7 +23,7 @@ export class NativeBrowserFileLoaderService extends FileLoaderService {
         {
           description: 'Musikdateien (mp3)',
           extensions: ['mp3'],
-          mimeTypes: ['audio/mp3']
+          mimeTypes: ALLOWED_FILETYPES
         }
       ]
     };

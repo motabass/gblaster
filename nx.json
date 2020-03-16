@@ -66,6 +66,9 @@
     },
     "helper-services-loader": {
       "tags": []
+    },
+    "ui-components-file-drop-overlay": {
+      "tags": []
     }
   }
 }

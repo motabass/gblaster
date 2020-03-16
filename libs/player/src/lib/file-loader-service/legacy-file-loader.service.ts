@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { ALLOWED_FILETYPES } from './file-loader.helpers';
 import { FileLoaderService } from './file-loader.service.abstract';
 
 @Injectable({
@@ -13,13 +14,13 @@ export class LegacyFileLoaderService extends FileLoaderService {
     this.fileInput.type = 'file';
     this.fileInput.id = 'hidden_file_input';
     this.fileInput.style.display = 'none';
-    this.fileInput.accept = 'audio/mp3';
+    this.fileInput.accept = ALLOWED_FILETYPES.join('|');
     this.fileInput.multiple = true;
 
     document.body.appendChild(this.fileInput);
   }
 
-  async openFolder(): Promise<File[]> {
+  async openFiles(): Promise<File[]> {
     this.fileInput.click();
     const files: File[] = await new Promise((resolve) => {
       this.fileInput.onchange = () => resolve(this.getFiles()); // resolve with input, not event
@@ -32,7 +33,7 @@ export class LegacyFileLoaderService extends FileLoaderService {
     if (this.fileInput.files) {
       for (let i = 0; i < this.fileInput.files.length; i++) {
         const file = this.fileInput.files?.item(i);
-        if (file && file.type === 'audio/mp3') {
+        if (file && ALLOWED_FILETYPES.includes(file.type)) {
           files.push(file);
         }
       }

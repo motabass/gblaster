@@ -12,6 +12,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterModule } from '@angular/router';
 import { GamepadModule } from '@motabass/helper-services/gamepad';
 import { HotkeysModule } from '@motabass/helper-services/hotkeys';
+import { FileDropOverlayModule } from '@motabass/ui-components/file-drop-overlay';
 import { SlidePanelModule } from '@motabass/ui-components/slide-panel';
 import { VisualsModule } from '@motabass/ui-components/visuals';
 import { MobxAngularModule } from 'mobx-angular';
@@ -49,7 +50,8 @@ import { EqualizerShellComponent } from './equalizer-shell/equalizer-shell.compo
     HotkeysModule,
     MatToolbarModule,
     MobxAngularModule,
-    SlidePanelModule
+    SlidePanelModule,
+    FileDropOverlayModule
   ],
   declarations: [
     PlayerComponent,

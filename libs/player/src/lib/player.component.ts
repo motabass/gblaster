@@ -4,6 +4,7 @@ import { GamepadAxes, GamepadButtons, GamepadService } from '@motabass/helper-se
 import { HotkeysService } from '@motabass/helper-services/hotkeys';
 import { TitleService } from '@motabass/helper-services/title';
 import { formatSecondsAsClock } from '@motabass/helpers/time';
+import { ALLOWED_FILETYPES } from './file-loader-service/file-loader.helpers';
 import { PlayerService } from './player.service';
 import { RepeatMode, Song } from './player.types';
 
@@ -51,7 +52,7 @@ export class PlayerComponent implements OnInit, AfterViewInit, OnDestroy {
     this.gamepadService.registerButtonAction(GamepadButtons.R1_BUTTON, () => this.next(), 'turbo');
     this.gamepadService.registerButtonAction(GamepadButtons.L1_BUTTON, () => this.previous(), 'turbo');
 
-    this.gamepadService.registerButtonAction(GamepadButtons.START_BUTTON, () => this.loadFolder());
+    this.gamepadService.registerButtonAction(GamepadButtons.START_BUTTON, () => this.loadFiles());
   }
 
   ngAfterViewInit() {
@@ -126,6 +127,13 @@ export class PlayerComponent implements OnInit, AfterViewInit, OnDestroy {
   onVolumeChange(event: MatSliderChange) {
     this.volume = event.value ?? 0;
   }
+  onFilesDropped(files: File[]) {
+    this.playerService.addFilesToPlaylist(files);
+  }
+
+  get allowedTypes(): string[] {
+    return ALLOWED_FILETYPES;
+  }
 
   alterSelectionByAxis(value: number) {
     if (value < 0) {
@@ -192,8 +200,8 @@ export class PlayerComponent implements OnInit, AfterViewInit, OnDestroy {
     return formatSecondsAsClock(value, false);
   }
 
-  async loadFolder() {
-    return this.playerService.loadFolder();
+  async loadFiles() {
+    return this.playerService.loadFiles();
   }
 
   ngOnDestroy(): void {

@@ -1,4 +1,4 @@
 export abstract class FileLoaderService {
-  abstract async openFolder(): Promise<File[]>;
+  abstract async openFiles(): Promise<File[]>;
   abstract getFiles(): File[] | Promise<File[]>;
 }

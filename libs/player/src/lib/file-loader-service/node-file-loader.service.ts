@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { FileLoaderService } from '@motabass/player/src/lib/file-loader-service/file-loader.service.abstract';
 import { ElectronService } from 'ngx-electron';
 import * as path from 'path';
+import { FileLoaderService } from './file-loader.service.abstract';
 
 @Injectable({
   providedIn: 'any'
@@ -14,7 +14,7 @@ export class NodeFileLoaderService extends FileLoaderService {
     super();
   }
 
-  async openFolder(): Promise<boolean> {
+  async openFiles(): Promise<boolean> {
     const dialog = this.electronService.remote.dialog;
     const fs = this.electronService.remote.require('fs');
 
