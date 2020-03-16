@@ -4,5 +4,5 @@
 
 # You can see what browsers were selected by your queries by running:
 #   npx browserslist
-
-Chrome >= 61
+last 2 chrome version
+last 2 firefox version
