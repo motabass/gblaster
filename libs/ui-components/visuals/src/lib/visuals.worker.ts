@@ -1,6 +1,6 @@
 /// <reference lib="webworker" />
 
-import { scalePow, ScalePower } from 'd3';
+import { scalePow, ScalePower } from 'd3-scale';
 
 let mode: string;
 
