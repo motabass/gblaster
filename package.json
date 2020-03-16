@@ -47,6 +47,7 @@
     "bundle-analyze:build:gblaster": "npm run build:prod:gblaster -- --stats-json && npm run bundle-analyze:gblaster",
     "bundle-analyze:gblaster": "webpack-bundle-analyzer dist/apps/gblaster/stats.json --port 8889",
     "bundle-analyze:static:gblaster": "webpack-bundle-analyzer dist/apps/gblaster/stats.json --mode static --report docs/analyzer-report.html --no-open",
+    "bundle-analyze:build:static:gblaster": "npm run build:prod:gblaster -- --stats-json && webpack-bundle-analyzer dist/apps/gblaster/stats.json --mode static --report docs/analyzer-report.html --no-open",
     "ci:build": "npm run build:prod:gblaster -- --stats-json && npm run bundle-analyze:static:gblaster",
     "ci:e2e": "nx run gblaster-e2e:e2e --headless",
     "compodoc:gblaster": "compodoc -p apps/gblaster/tsconfig.app.json",
