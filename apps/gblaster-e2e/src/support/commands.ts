@@ -1,6 +1,5 @@
 import 'cypress-file-upload';
 import { getLoadFilesButton } from './player.po';
-import FileData = Cypress.FileData;
 
 // ***********************************************
 // This example commands.js shows you how to
@@ -42,7 +41,7 @@ Cypress.Commands.add('loadFiles', () => {
   ]).then((fx) => {
     const [first, second] = fixtures;
 
-    const files: FileData[] = [
+    const files: any[] = [
       { fileContent: first, fileName: '440Hz-5sec.mp3', mimeType: 'audio/mp3', encoding: 'utf8' },
       { fileContent: second, fileName: 'tek.mp3', mimeType: 'audio/mp3', encoding: 'utf8' }
     ];
