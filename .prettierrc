@@ -1,9 +1,10 @@
 {
   "arrowParens": "always",
   "bracketSpacing": true,
+  "endOfLine": "auto",
+  "trailingComma": "none",
   "htmlWhitespaceSensitivity": "css",
   "insertPragma": false,
-  "jsxBracketSameLine": true,
   "printWidth": 160,
   "proseWrap": "preserve",
   "requirePragma": false,
