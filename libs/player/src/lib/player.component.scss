@@ -11,7 +11,7 @@
     'playlist main'
     'bar bar';
   @media (max-width: 599px) {
-    grid-template-columns: 1fr;
+    grid-template-columns: 100%;
     grid-template-rows: 45% calc(55% - 56px) 56px;
     grid-template-areas:
       'main'

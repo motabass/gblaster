@@ -20,34 +20,10 @@ declare namespace Cypress {
 // -- This is a parent command --
 Cypress.Commands.add('loadFiles', () => {
   console.log('Loading files...');
-  // load files
+  cy.get('#hidden_file_input').attachFile({ filePath: 'tek.mp3', encoding: 'base64' });
   getLoadFilesButton().click();
-
-  const fixtures: Blob[] = [];
-
-  Cypress.Promise.all([
-    cy
-      .fixture('440Hz-5sec.mp3', 'base64')
-      .then(Cypress.Blob.base64StringToBlob)
-      .then((fx) => {
-        fixtures.push(fx);
-      }),
-    cy
-      .fixture('tek.mp3', 'base64')
-      .then(Cypress.Blob.base64StringToBlob)
-      .then((fx) => {
-        fixtures.push(fx);
-      })
-  ]).then((fx) => {
-    const [first, second] = fixtures;
-
-    const files: any[] = [
-      { fileContent: first, fileName: '440Hz-5sec.mp3', mimeType: 'audio/mp3', encoding: 'utf8' },
-      { fileContent: second, fileName: 'tek.mp3', mimeType: 'audio/mp3', encoding: 'utf8' }
-    ];
-
-    return cy.get('#hidden_file_input').upload(files, { subjectType: 'input', force: true });
-  });
+  return cy.get('#hidden_file_input').attachFile({ filePath: '440Hz-5sec.mp3', encoding: 'base64' });
+  // });
 });
 //
 // -- This is a child command --
