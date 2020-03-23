@@ -33,7 +33,7 @@
     "format": "nx format:write",
     "format:write": "nx format:write",
     "format:check": "nx format:check",
-    "prettier": "prettier --config ./.prettierrc --write \"{apps,libs}/**/*.{scss,html,ts,js,json,md,yml,yaml,css}\"",
+    "prettier": "prettier --config ./.prettierrc --write \"{apps,libs,tools,.github}/**/*.{scss,html,ts,js,json,md,yml,yaml,css}\"",
     "update:check": "ng update",
     "update:nx": "ng update @nrwl/workspace --allow-dirty --force",
     "update:cli": "ng update @angular/cli --allow-dirty",
