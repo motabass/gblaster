@@ -9,5 +9,4 @@ import { SlidePanelComponent } from './slide-panel.component';
   declarations: [SlidePanelComponent],
   exports: [SlidePanelComponent]
 })
-export class SlidePanelModule {
-}
+export class SlidePanelModule {}

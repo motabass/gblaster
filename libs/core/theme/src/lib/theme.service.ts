@@ -78,9 +78,7 @@ export class ThemeService {
 
       if (clr.name === '500') {
         const key3 = `--theme-accent-light`;
-        const value3 = tinycolor(clr.hex)
-          .setAlpha(0.54)
-          .toRgbString();
+        const value3 = tinycolor(clr.hex).setAlpha(0.54).toRgbString();
         document.documentElement.style.setProperty(key3, value3);
       }
     }
@@ -108,30 +106,10 @@ export class ThemeService {
       this.getColorObject(tinycolor(hex).darken(12), '700'),
       this.getColorObject(tinycolor(hex).darken(18), '800'),
       this.getColorObject(tinycolor(hex).darken(24), '900'),
-      this.getColorObject(
-        tinycolor(hex)
-          .lighten(50)
-          .saturate(30),
-        'A100'
-      ),
-      this.getColorObject(
-        tinycolor(hex)
-          .lighten(30)
-          .saturate(30),
-        'A200'
-      ),
-      this.getColorObject(
-        tinycolor(hex)
-          .lighten(10)
-          .saturate(15),
-        'A400'
-      ),
-      this.getColorObject(
-        tinycolor(hex)
-          .lighten(5)
-          .saturate(5),
-        'A700'
-      )
+      this.getColorObject(tinycolor(hex).lighten(50).saturate(30), 'A100'),
+      this.getColorObject(tinycolor(hex).lighten(30).saturate(30), 'A200'),
+      this.getColorObject(tinycolor(hex).lighten(10).saturate(15), 'A400'),
+      this.getColorObject(tinycolor(hex).lighten(5).saturate(5), 'A700')
     ];
   }
 

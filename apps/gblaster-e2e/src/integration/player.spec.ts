@@ -22,16 +22,10 @@ describe('gblaster', () => {
       .should('have.css', 'border-left')
       .and('match', /4px solid/);
 
-    getPlaylistItems()
-      .eq(1)
-      .should('be.visible')
-      .should('contain', 'Get U Freak On (_insane_teknology_rmx)')
-      .should('contain', 'Teknambul');
+    getPlaylistItems().eq(1).should('be.visible').should('contain', 'Get U Freak On (_insane_teknology_rmx)').should('contain', 'Teknambul');
 
     // click second item
-    getPlaylistItems()
-      .eq(1)
-      .click();
+    getPlaylistItems().eq(1).click();
     getPlaylistItems()
       .eq(1)
       .should('have.css', 'border-left')
@@ -40,9 +34,7 @@ describe('gblaster', () => {
 
   it('should load a file with legacy file loader', () => {
     // play second song
-    getPlaylistItems()
-      .eq(1)
-      .dblclick();
+    getPlaylistItems().eq(1).dblclick();
 
     getCoverDisplay().should('contain', 'Get U Freak On (_insane_teknology_rmx)');
     getCoverDisplay().should('contain', 'Teknambul');

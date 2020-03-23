@@ -98,10 +98,7 @@ function setup(options: any) {
     .domain([-7, meterNum + 5])
     .range([0, bufferLength - bufferLength / 3]);
 
-  amplitudeScale = scalePow()
-    .exponent(1.7)
-    .domain([0, 255])
-    .range([0, canvasHeight]);
+  amplitudeScale = scalePow().exponent(1.7).domain([0, 255]).range([0, canvasHeight]);
 
   gradient = canvasCtx.createLinearGradient(0, 0, 0, canvasHeight);
   gradient.addColorStop(1, mainColor);

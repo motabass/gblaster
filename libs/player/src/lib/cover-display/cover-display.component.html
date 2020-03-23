@@ -1,12 +1,22 @@
-<div style="position: absolute; top: 0; right:0; bottom: 0; left: 0;z-index: 5; overflow-x: auto; padding: 1rem; user-select: text;" class="mat-typography">
+<div style="position: absolute; top: 0; right: 0; bottom: 0; left: 0; z-index: 5; overflow-x: auto; padding: 1rem; user-select: text;" class="mat-typography">
   <h1 style="font-size: 3rem; font-weight: bold; line-height: 3.3rem;">{{ song?.metadata?.title || song?.file?.name }}</h1>
   <p style="font-size: 1.5rem; margin-bottom: 8px;">{{ song?.metadata?.artist }}</p>
   <span style="font-size: 1rem;">{{ song?.metadata?.album }}</span>
 </div>
 <div
   *ngIf="song && coverUrl"
-  style="position: absolute; top: 0; right: 0; bottom: 0; left: 0; z-index: -1; opacity: 1; background-size: contain;
-  background-position: top center; background-repeat: no-repeat;;"
+  style="
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: -1;
+    opacity: 1;
+    background-size: contain;
+    background-position: top center;
+    background-repeat: no-repeat;
+  "
   [ngStyle]="{
     'background-image': 'url(' + coverUrl + ')',
     'background-color': backgroundColor

@@ -46,9 +46,6 @@ export class UpdateService extends Subscribing {
       disableClose: true,
       closeOnNavigation: false
     };
-    return this.dialog
-      .open(PromptDialogComponent, config)
-      .afterClosed()
-      .toPromise();
+    return this.dialog.open(PromptDialogComponent, config).afterClosed().toPromise();
   }
 }

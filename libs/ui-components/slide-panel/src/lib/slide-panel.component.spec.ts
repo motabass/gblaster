@@ -8,9 +8,8 @@ describe('SlidePanelComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SlidePanelComponent ]
-    })
-    .compileComponents();
+      declarations: [SlidePanelComponent]
+    }).compileComponents();
   }));
 
   beforeEach(() => {

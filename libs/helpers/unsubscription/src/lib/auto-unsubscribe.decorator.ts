@@ -1,7 +1,7 @@
 export function AutoUnsubscribe(observables$: any[] = []) {
   return (constructor: any) => {
     const originalOnDestroy = constructor.prototype.ngOnDestroy;
-    constructor.prototype.ngOnDestroy = function() {
+    constructor.prototype.ngOnDestroy = function () {
       for (const prop in this) {
         if (this.hasOwnProperty(prop)) {
           const property = this[prop];

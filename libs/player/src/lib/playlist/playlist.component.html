@@ -21,7 +21,7 @@
       [mtbVisual]="analyser"
       [barsConfig]="{ capHeight: 0, barCount: 8, gap: 0, capFalldown: 0 }"
     ></canvas>
-    <h3 matLine style="font-size: 0.9rem;font-weight: bold;">{{ song?.metadata?.title || song.file.name }}</h3>
+    <h3 matLine style="font-size: 0.9rem; font-weight: bold;">{{ song?.metadata?.title || song.file.name }}</h3>
     <p matLine style="font-size: 0.8rem;">{{ song?.metadata?.artist }}</p>
 
     <button *ngIf="isPlayingSong(song)" mat-icon-button (click)="playPauseSong($event, song)">
