@@ -15,7 +15,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - name: Build
+      - name: Use Node 13.x
         uses: actions/setup-node@v1
         with:
           node-version: 13.x
