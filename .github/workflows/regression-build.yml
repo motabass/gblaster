@@ -19,7 +19,7 @@ jobs:
         with:
           node-version: 13.x
       - run: npm install
-      - run: npm run ci:build --if-present
+      - run: npm run ci:build
         env:
           CI: true
 
@@ -27,11 +27,11 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     steps:
-      - run: npm run ci:e2e --if-present
+      - run: npm run ci:e2e
 
   deploy:
     runs-on: ubuntu-latest
     needs: test
     if: github.ref == 'refs/heads/release'
     steps:
-      - run: npm run ci:deploy --if-present
+      - run: npm run ci:deploy
