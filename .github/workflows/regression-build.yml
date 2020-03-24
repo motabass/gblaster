@@ -35,7 +35,7 @@ jobs:
       - name: Deploy
         run: |
           sudo npm install -g firebase-tools
-          firebase deploy --token ${{ secrets.FIREBASE_TOKEN }}
+          firebase deploy --token ${{ secrets.FIREBASE_TOKEN }} --project gblaster-player
         env:
           CI: true
         if: github.ref == 'refs/heads/release' && github.event_name == 'push'
