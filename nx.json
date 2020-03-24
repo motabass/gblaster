@@ -12,63 +12,63 @@
   },
   "projects": {
     "gblaster": {
-      "tags": []
+      "tags": ["app"]
     },
     "gblaster-e2e": {
-      "tags": [],
+      "tags": ["e2e"],
       "implicitDependencies": ["gblaster"]
     },
     "player": {
-      "tags": []
+      "tags": ["lazy-module"]
     },
     "ui-components-visuals": {
-      "tags": []
+      "tags": ["lib", "component"]
     },
     "ui-components-slide-panel": {
-      "tags": []
+      "tags": ["lib", "component"]
     },
     "ui-components-slide-panel-e2e": {
-      "tags": [],
+      "tags": ["e2e"],
       "implicitDependencies": ["ui-components-slide-panel"]
     },
     "ui-components-dialogs": {
-      "tags": []
+      "tags": ["lib", "component"]
     },
     "helpers-time": {
-      "tags": []
+      "tags": ["lib", "ts", "helper"]
     },
     "helpers-unsubscription": {
-      "tags": []
+      "tags": ["lib", "angular", "helper"]
     },
     "helpers-memoization": {
-      "tags": []
+      "tags": ["lib", "ts", "helper"]
     },
     "helper-services-title": {
-      "tags": []
+      "tags": ["lib", "angular", "helper"]
     },
     "core-theme": {
-      "tags": []
+      "tags": ["lib", "angular", "core"]
     },
     "core-update": {
-      "tags": []
+      "tags": ["lib", "angular", "core"]
     },
     "helper-services-gamepad": {
-      "tags": []
+      "tags": ["lib", "angular", "helper"]
     },
     "electron-gblaster": {
-      "tags": []
+      "tags": ["electron-app"]
     },
     "material-helpers-mat-icon-size": {
-      "tags": []
+      "tags": ["lib", "angular", "helper"]
     },
     "helper-services-hotkeys": {
-      "tags": []
+      "tags": ["lib", "angular", "helper"]
     },
     "helper-services-loader": {
-      "tags": []
+      "tags": ["lib", "angular", "helper"]
     },
     "ui-components-file-drop-overlay": {
-      "tags": []
+      "tags": ["lib", "component"]
     }
   }
 }
