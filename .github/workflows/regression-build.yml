@@ -17,20 +17,25 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Use Node 13.x
-        uses: actions/setup-node@v1
+      - uses: actions/setup-node@v1
         with:
           node-version: 13.x
-      - run: npm ci
+      - name: Install
+        run: npm ci
         env:
           CI: true
-      - run: npm run ci:build
+      - name: Build
+        run: npm run ci:build
         env:
           CI: true
-      - run: npm run ci:e2e
+      - name: Test
+        run: npm run ci:e2e
         env:
           CI: true
-      - run: firebase deploy --token "${FIREBASE_TOKEN}"
+      - name: Deploy
+        run: |
+          sudo npm install -g firebase-tools
+          firebase deploy --token ${{ secrets.FIREBASE_TOKEN }}
         env:
           CI: true
         if: github.ref == 'refs/heads/release' && github.event_name == 'push'
