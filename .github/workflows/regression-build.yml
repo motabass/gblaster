@@ -19,9 +19,15 @@ jobs:
         with:
           node-version: 13.x
       - run: npm ci
+        env:
+          CI: true
       - run: npm run ci:build
+        env:
+          CI: true
       - run: npm run ci:e2e
-      if: github.ref == 'refs/heads/release'
+        env:
+          CI: true
       - run: npm run ci:deploy
         env:
           CI: true
+        if: github.ref == 'refs/heads/release' && github.event_name == 'push'
