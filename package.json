@@ -1,6 +1,6 @@
 {
   "name": "motabass",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "author": "motabass",
   "description": "nx monorepo for my web stuff",
   "license": "MIT",
@@ -48,7 +48,7 @@
     "bundle-analyze:gblaster": "webpack-bundle-analyzer dist/apps/gblaster/stats.json --port 8889",
     "bundle-analyze:static:gblaster": "webpack-bundle-analyzer dist/apps/gblaster/stats.json --mode static --report docs/analyzer-report.html --no-open",
     "bundle-analyze:build:static:gblaster": "npm run build -- --stats-json && webpack-bundle-analyzer dist/apps/gblaster/stats.json --mode static --report docs/analyzer-report.html --no-open",
-    "release": "bump minor --tag --commit --push --no-verify && git checkout release && git merge master --no-verify && git push --no-verify && git checkout master",
+    "release": "bump minor --tag --commit --push --no-verify -a && git checkout release && git merge master --no-verify && git push --no-verify && git checkout master",
     "ci:build": "npm run build:prod:gblaster -- --stats-json && npm run bundle-analyze:static:gblaster",
     "ci:e2e": "nx run gblaster-e2e:e2e --headless",
     "ci:deploy": "nx deploy gblaster",
