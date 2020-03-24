@@ -30,7 +30,7 @@ jobs:
       - run: npm run ci:e2e
         env:
           CI: true
-      - run: npm run ci:deploy
+      - run: firebase deploy --token "${FIREBASE_TOKEN}"
         env:
           CI: true
         if: github.ref == 'refs/heads/release' && github.event_name == 'push'
