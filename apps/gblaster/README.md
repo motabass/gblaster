@@ -11,7 +11,7 @@ A web audio player PWA using latest Web APIs. ![CI/CD Pipeline](https://github.c
 - ⌨ Keyboard input
 - 🎮 Gamepad input
 - ⏭ Supports browser and OS Media-Controls, and uses Wakelock to prevent Standby
-- 🎚🎚 10 band equalizer
+- 🎚 10 band equalizer
 - 📊 Band-Meter and Oscilloscope Visualization
 - 🔋 Local cache for all metadata in IndexedDB
 - 🧲 Settings persistence in LocalStorage
