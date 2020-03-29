@@ -1,6 +1,7 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Component, ViewChild } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
+import { Router } from '@angular/router';
 import { LoaderService } from '@motabass/helper-services/loader';
 import { TitleService } from '@motabass/helper-services/title';
 import { Observable, Subject } from 'rxjs';
@@ -23,13 +24,19 @@ export class ShellComponent {
 
   isLoading: Subject<boolean> = this.loaderService.isLoading;
 
-  constructor(private breakpointObserver: BreakpointObserver, private titleService: TitleService, private loaderService: LoaderService) {}
+  constructor(
+    private breakpointObserver: BreakpointObserver,
+    private titleService: TitleService,
+    private loaderService: LoaderService,
+    private router: Router
+  ) {}
 
   get title(): Observable<string> {
     return this.titleService.title;
   }
 
-  closeSidenav() {
+  navigateTo(route: string) {
     this.sidenav?.close();
+    this.router.navigate([route], { skipLocationChange: true });
   }
 }
