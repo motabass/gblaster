@@ -830,6 +830,35 @@
           "styleext": "scss"
         }
       }
+    },
+    "helper-services-wakelock": {
+      "projectType": "library",
+      "root": "libs/helper-services/wakelock",
+      "sourceRoot": "libs/helper-services/wakelock/src",
+      "prefix": "mtb",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": ["libs/helper-services/wakelock/tsconfig.lib.json", "libs/helper-services/wakelock/tsconfig.spec.json"],
+            "exclude": ["**/node_modules/**", "!libs/helper-services/wakelock/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/helper-services/wakelock/jest.config.js",
+            "tsConfig": "libs/helper-services/wakelock/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "libs/helper-services/wakelock/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      }
     }
   },
   "cli": {

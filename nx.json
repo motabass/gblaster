@@ -69,6 +69,9 @@
     },
     "ui-components-file-drop-overlay": {
       "tags": ["lib", "component"]
+    },
+    "helper-services-wakelock": {
+      "tags": []
     }
   }
 }

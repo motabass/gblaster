@@ -1,6 +1,7 @@
 import { Injectable, OnInit } from '@angular/core';
 import { ThemeService } from '@motabass/core/theme';
 import { LoaderService } from '@motabass/helper-services/loader';
+import { WakelockService } from '@motabass/helper-services/wakelock';
 import { action, observable } from 'mobx-angular';
 import { LocalStorage, LocalStorageService } from 'ngx-webstorage';
 import { FileLoaderService } from './file-loader-service/file-loader.service.abstract';
@@ -44,7 +45,8 @@ export class PlayerService implements OnInit {
     private metadataService: MetadataService,
     private storageService: LocalStorageService,
     private themeService: ThemeService,
-    private loaderService: LoaderService
+    private loaderService: LoaderService,
+    private wakelockService: WakelockService
   ) {
     this.initAudioElement();
     this.initAudioContext();
@@ -170,6 +172,7 @@ export class PlayerService implements OnInit {
     this.audioSrcNode.connect(this.analyserNode);
 
     this.selectedSong = song;
+    return this.wakelockService.activateWakelock();
   }
 
   @action
@@ -303,6 +306,8 @@ export class PlayerService implements OnInit {
     } else {
       this.audioElement.currentTime = 0;
     }
+
+    this.wakelockService.releaseWakelock();
   }
 
   @action

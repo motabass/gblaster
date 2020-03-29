@@ -35,8 +35,8 @@ export class ShellComponent {
     return this.titleService.title;
   }
 
-  navigateTo(route: string) {
+  navigateTo(route: string, skipLocationChange = false) {
     this.sidenav?.close();
-    this.router.navigate([route], { skipLocationChange: true });
+    this.router.navigate([route], { skipLocationChange: skipLocationChange });
   }
 }
