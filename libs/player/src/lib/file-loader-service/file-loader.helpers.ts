@@ -9,3 +9,5 @@ export const ALLOWED_FILETYPES = [
   'audio/wav',
   'audio/mp4'
 ];
+
+export const ALLOWED_EXTENSIONS = ['mp3', 'flac', 'ogg', 'wav', 'aiff', 'opus', 'mp4'];
