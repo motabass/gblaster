@@ -1,6 +1,6 @@
 <mat-action-list dense class="pl" *mobxAutorun>
   <mat-list-item
-    *ngFor="let song of songs; let index = index"
+    *ngFor="let song of songs; let index = index; trackBy: playlistTrackFunction"
     [ngClass]="{ selected: isSelected(song) }"
     class="playlist-item"
     (dblclick)="playPauseSong($event, song)"

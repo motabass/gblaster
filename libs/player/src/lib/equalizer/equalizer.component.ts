@@ -34,4 +34,8 @@ export class EqualizerComponent {
       return '+' + value;
     }
   }
+
+  bandTrackFunction(index: number): number {
+    return index;
+  }
 }

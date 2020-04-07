@@ -5,20 +5,15 @@ import { FrequencyBarsConfig, OsciloscopeConfig, VisualizerMode, VisualsColorCon
   selector: '[mtbVisual]'
 })
 export class VisualsDirective implements OnDestroy, OnChanges {
-  @Input('mtbVisual')
-  analyser?: any;
+  @Input('mtbVisual') analyser?: any;
 
-  @Input()
-  mode: VisualizerMode = 'bars';
+  @Input() mode: VisualizerMode = 'bars';
 
-  @Input()
-  barsConfig: FrequencyBarsConfig = { gap: 0, capHeight: 1, barCount: 24, capFalldown: 0.5 };
+  @Input() barsConfig: FrequencyBarsConfig = { gap: 0, capHeight: 1, barCount: 24, capFalldown: 0.5 };
 
-  @Input()
-  oscConfig: OsciloscopeConfig = { thickness: 2 };
+  @Input() oscConfig: OsciloscopeConfig = { thickness: 2 };
 
-  @Input()
-  colorConfig: VisualsColorConfig = { mainColor: 'red', peakColor: 'yellow' };
+  @Input() colorConfig: VisualsColorConfig = { mainColor: 'red', peakColor: 'yellow' };
 
   canvas: HTMLCanvasElement;
 

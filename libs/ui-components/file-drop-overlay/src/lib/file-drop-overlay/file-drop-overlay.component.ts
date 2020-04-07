@@ -6,11 +6,9 @@ import { Component, ElementRef, EventEmitter, Input, Output, Renderer2 } from '@
   styleUrls: ['./file-drop-overlay.component.scss']
 })
 export class FileDropOverlayComponent {
-  @Input()
-  allowedTypes: string[] = ['*/*'];
+  @Input() allowedTypes: string[] = ['*/*'];
 
-  @Output()
-  filesDroped: EventEmitter<File[]> = new EventEmitter<File[]>();
+  @Output() readonly filesDroped: EventEmitter<File[]> = new EventEmitter<File[]>();
 
   constructor(private hostElement: ElementRef, private renderer: Renderer2) {
     window.addEventListener('dragenter', this.over.bind(this));

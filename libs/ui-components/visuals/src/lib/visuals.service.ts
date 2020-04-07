@@ -7,16 +7,14 @@ import { VisualizerMode } from './visuals.types';
   providedIn: 'root'
 })
 export class VisualsService {
-  @observable
-  visualMode!: VisualizerMode;
+  @observable visualMode!: VisualizerMode;
 
   constructor(private localStorageService: LocalStorageService) {
     const mode = this.localStorageService.retrieve('visualMode');
     this.visualMode = mode ?? 'bars';
   }
 
-  @action
-  toggleVisualMode() {
+  @action toggleVisualMode() {
     switch (this.visualMode) {
       case 'off':
         this.visualMode = 'bars';

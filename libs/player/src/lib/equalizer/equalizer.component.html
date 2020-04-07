@@ -1,5 +1,5 @@
 <div fxLayout="row" fxLayoutAlign="space-between center" style="width: 100%; height: 100%; box-sizing: border-box; padding-bottom: 1rem;">
-  <div *ngFor="let band of BANDS" fxLayout="column" fxLayoutAlign="start center" style="min-height: 6rem; height: 100%;">
+  <div *ngFor="let band of BANDS; trackBy: bandTrackFunction" fxLayout="column" fxLayoutAlign="start center" style="min-height: 6rem; height: 100%;">
     <mat-slider
       vertical
       [displayWith]="displayFunction"

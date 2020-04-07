@@ -1,4 +1,4 @@
-import { Injectable, OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { ThemeService } from '@motabass/core/theme';
 import { LoaderService } from '@motabass/helper-services/loader';
 import { WakelockService } from '@motabass/helper-services/wakelock';
@@ -11,11 +11,12 @@ import { BandFrequency, RepeatMode, Song, SongMetadata } from './player.types';
 export const BAND_FREQUENIES: BandFrequency[] = [60, 170, 310, 600, 1000, 3000, 6000, 12000, 14000, 16000];
 
 @Injectable({ providedIn: 'any' })
-export class PlayerService implements OnInit {
+export class PlayerService {
   bands: { [band: number]: BiquadFilterNode } = {};
 
-  @LocalStorage('eqBandGains', { 60: 0, 170: 0, 310: 0, 600: 0, 1000: 0, 3000: 0, 6000: 0, 12000: 0, 14000: 0, 16000: 0 })
-  bandGains!: { [band: number]: number };
+  @LocalStorage('eqBandGains', { 60: 0, 170: 0, 310: 0, 600: 0, 1000: 0, 3000: 0, 6000: 0, 12000: 0, 14000: 0, 16000: 0 }) bandGains!: {
+    [band: number]: number;
+  };
 
   private audioCtx!: AudioContext;
   private gainNode!: GainNode;
@@ -24,21 +25,17 @@ export class PlayerService implements OnInit {
 
   private loadFinished = true;
 
-  @observable
-  songs: Song[] = [];
+  @observable songs: Song[] = [];
 
-  @observable
-  playingSong?: Song;
+  @observable playingSong?: Song;
 
   audioElement!: HTMLAudioElement;
 
-  @observable
-  selectedSong?: Song;
+  @observable selectedSong?: Song;
 
-  @LocalStorage('repeat', 'off')
-  repeat!: RepeatMode;
-  @LocalStorage('shuffle', false)
-  shuffle!: boolean;
+  @LocalStorage('repeat', 'off') repeat!: RepeatMode;
+
+  @LocalStorage('shuffle', false) shuffle!: boolean;
 
   constructor(
     private fileLoaderService: FileLoaderService,
@@ -67,9 +64,6 @@ export class PlayerService implements OnInit {
       // @ts-ignore
       navigator.mediaSession.setActionHandler('previoustrack', this.previous.bind(this));
     }
-  }
-
-  ngOnInit(): void {
     BAND_FREQUENIES.forEach((bandFrequency) => {
       const filter = this.bands[bandFrequency];
       filter.gain.value = this.bandGains[bandFrequency];
@@ -142,8 +136,7 @@ export class PlayerService implements OnInit {
     output.connect(this.gainNode);
   }
 
-  @action
-  async setPlayingSong(song: Song | undefined) {
+  @action async setPlayingSong(song: Song | undefined) {
     if (!song) {
       return;
     }
@@ -175,14 +168,12 @@ export class PlayerService implements OnInit {
     return this.wakelockService.activateWakelock();
   }
 
-  @action
-  async loadFiles(): Promise<void> {
+  @action async loadFiles(): Promise<void> {
     const files: File[] = await this.fileLoaderService.openFiles();
     return this.addFilesToPlaylist(files);
   }
 
-  @action
-  async addFilesToPlaylist(files: File[]) {
+  @action async addFilesToPlaylist(files: File[]) {
     if (files?.length) {
       for (const file of files) {
         this.loaderService.show();
@@ -205,8 +196,7 @@ export class PlayerService implements OnInit {
     return this.bandGains[bandFrequency];
   }
 
-  @action
-  setBandGain(bandFrequency: BandFrequency, gainValue: number) {
+  @action setBandGain(bandFrequency: BandFrequency, gainValue: number) {
     this.bands[bandFrequency].gain.value = gainValue;
 
     const bandGains = this.bandGains;
@@ -214,8 +204,7 @@ export class PlayerService implements OnInit {
     this.bandGains = bandGains;
   }
 
-  @action
-  setVolume(value: number) {
+  @action setVolume(value: number) {
     if (value >= 0 && value <= 1) {
       this.storageService.store('volume', value);
       this.gainNode.gain.value = value;
@@ -230,8 +219,7 @@ export class PlayerService implements OnInit {
     return this.analyserNode;
   }
 
-  @action
-  setSeekPosition(value: number) {
+  @action setSeekPosition(value: number) {
     if (value !== null && value !== undefined && value >= 0 && value <= this.durationSeconds) {
       this.audioElement.currentTime = value;
     }
@@ -253,13 +241,11 @@ export class PlayerService implements OnInit {
     }
   }
 
-  @action
-  selectSong(song: Song) {
+  @action selectSong(song: Song) {
     this.selectedSong = song;
   }
 
-  @action
-  playPauseSong(song: Song) {
+  @action playPauseSong(song: Song) {
     if (!this.loadFinished) {
       return;
     }
@@ -277,8 +263,7 @@ export class PlayerService implements OnInit {
     this.audioElement.play().then(() => (this.loadFinished = true));
   }
 
-  @action
-  playPause() {
+  @action playPause() {
     if (!this.playingSong || !this.loadFinished) {
       if (this.selectedSong) {
         this.setPlayingSong(this.selectedSong);
@@ -295,8 +280,7 @@ export class PlayerService implements OnInit {
     }
   }
 
-  @action
-  stop() {
+  @action stop() {
     if (!this.playingSong || !this.loadFinished) {
       return;
     }
@@ -310,8 +294,7 @@ export class PlayerService implements OnInit {
     this.wakelockService.releaseWakelock();
   }
 
-  @action
-  async next(): Promise<void> {
+  @action async next(): Promise<void> {
     if (!this.playingSong || !this.loadFinished) {
       return;
     }
@@ -333,8 +316,7 @@ export class PlayerService implements OnInit {
     }
   }
 
-  @action
-  async previous() {
+  @action async previous() {
     if (!this.playingSong || !this.loadFinished) {
       return;
     }
@@ -347,8 +329,7 @@ export class PlayerService implements OnInit {
     }
   }
 
-  @action
-  selectNext() {
+  @action selectNext() {
     if (!this.selectedSong) {
       return;
     }
@@ -362,8 +343,7 @@ export class PlayerService implements OnInit {
     }
   }
 
-  @action
-  selectPrevious() {
+  @action selectPrevious() {
     if (!this.selectedSong) {
       return;
     }
@@ -381,8 +361,7 @@ export class PlayerService implements OnInit {
     return !!this.playingSong && !this.audioElement.paused;
   }
 
-  @action
-  toggleRepeat() {
+  @action toggleRepeat() {
     switch (this.repeat) {
       case 'off':
         this.repeat = 'all';
@@ -398,8 +377,7 @@ export class PlayerService implements OnInit {
     }
   }
 
-  @action
-  toggleShuffle() {
+  @action toggleShuffle() {
     this.shuffle = !this.shuffle;
   }
 

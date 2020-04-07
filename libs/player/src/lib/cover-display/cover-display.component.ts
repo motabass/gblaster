@@ -8,8 +8,7 @@ import { Song } from '../player.types';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CoverDisplayComponent {
-  @Input()
-  song?: Song;
+  @Input() song?: Song;
 
   constructor() {}
 

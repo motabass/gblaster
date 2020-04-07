@@ -67,4 +67,8 @@ export class PlaylistComponent {
   sanitizeCoverUrl(url: string): SafeUrl {
     return this.domSanitizer.bypassSecurityTrustUrl(url);
   }
+
+  playlistTrackFunction(index: number, song: Song) {
+    return song.metadata?.crc;
+  }
 }

@@ -8,13 +8,11 @@ import { Color } from './theme.types';
   providedIn: 'root'
 })
 export class ThemeService {
-  @LocalStorage('primaryColor', '#eb4818')
-  primaryColor!: string;
-  @LocalStorage('accentColor', '#abd222')
-  accentColor!: string;
+  @LocalStorage('primaryColor', '#eb4818') primaryColor!: string;
 
-  @LocalStorage('darkMode', true)
-  _darkMode!: boolean;
+  @LocalStorage('accentColor', '#abd222') accentColor!: string;
+
+  @LocalStorage('darkMode', true) _darkMode!: boolean;
 
   primaryColorPalette: Color[] = [];
   accentColorPalette: Color[] = [];

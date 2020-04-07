@@ -80,7 +80,7 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["apps/gblaster/tsconfig.app.json", "apps/gblaster/tsconfig.spec.json", "libs/ui-components/visulas/tsconfig.worker.json"],
+            "tsConfig": ["apps/gblaster/tsconfig.app.json", "apps/gblaster/tsconfig.spec.json"],
             "exclude": ["**/node_modules/**", "!apps/gblaster/**"]
           }
         },

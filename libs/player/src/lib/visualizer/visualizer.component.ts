@@ -14,32 +14,23 @@ import { PlayerService } from '../player.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class VisualizerComponent implements OnInit, OnDestroy {
-  @LocalStorage('smoothing', 0.7)
-  smoothing!: number;
+  @LocalStorage('smoothing', 0.7) smoothing!: number;
 
-  @LocalStorage('minDb', -75)
-  minDb!: number;
+  @LocalStorage('minDb', -75) minDb!: number;
 
-  @LocalStorage('maxDb', -35)
-  maxDb!: number;
+  @LocalStorage('maxDb', -35) maxDb!: number;
 
-  @LocalStorage('barCount', 24)
-  barCount!: number;
+  @LocalStorage('barCount', 24) barCount!: number;
 
-  @LocalStorage('fftSize', 4096)
-  fftSize!: FftSize;
+  @LocalStorage('fftSize', 4096) fftSize!: FftSize;
 
-  @LocalStorage('capHeight', 4)
-  capHeight!: number;
+  @LocalStorage('capHeight', 4) capHeight!: number;
 
-  @LocalStorage('gap', 0)
-  gap!: number;
+  @LocalStorage('gap', 0) gap!: number;
 
-  @LocalStorage('capFalldown', 0.5)
-  capFalldown!: number;
+  @LocalStorage('capFalldown', 0.5) capFalldown!: number;
 
-  @LocalStorage('lineThickness', 4)
-  lineThickness!: number;
+  @LocalStorage('lineThickness', 4) lineThickness!: number;
 
   constructor(private playerService: PlayerService, private gamepadService: GamepadService, private visualsService: VisualsService) {}
 

@@ -6,31 +6,19 @@ import { Component, HostBinding, Input, OnChanges } from '@angular/core';
   styleUrls: ['./slide-panel.component.scss']
 })
 export class SlidePanelComponent implements OnChanges {
-  @Input()
-  openedState = true;
+  @Input() openedState = true;
 
-  @Input()
-  @HostBinding('style.bottom')
-  bottom?: string;
+  @Input() @HostBinding('style.bottom') bottom?: string;
 
-  @Input()
-  @HostBinding('style.top')
-  top?: string;
+  @Input() @HostBinding('style.top') top?: string;
 
-  @Input()
-  @HostBinding('style.width')
-  width = '20rem';
+  @Input() @HostBinding('style.width') width = '20rem';
 
-  @Input()
-  @HostBinding('style.height')
-  height = '20rem';
+  @Input() @HostBinding('style.height') height = '20rem';
 
-  @Input()
-  @HostBinding('class')
-  side: 'left' | 'right' = 'left';
+  @Input() @HostBinding('class') side: 'left' | 'right' = 'left';
 
-  @Input()
-  toggleIcon?: string;
+  @Input() toggleIcon?: string;
 
   constructor() {}
 
