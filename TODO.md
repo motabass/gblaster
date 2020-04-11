@@ -5,3 +5,4 @@ TODOs:
 - Visuals via UserMediaInput from mic or system
 - PWA file-associations
 - Writing Meta-Tags
+- Fullscreen Visuals
