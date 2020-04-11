@@ -15,3 +15,7 @@ App-Icon generated with:
 Material Icons:
 
 [https://petershaggynoble.github.io/MDI-Sandbox/](https://petershaggynoble.github.io/MDI-Sandbox/)
+
+Tag Reader:
+
+[Music Metadata Browser](https://github.com/Borewit/music-metadata-browser)
