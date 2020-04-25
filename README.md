@@ -2,7 +2,10 @@ nx monorepo for my web stuff
 
 ## Apps
 
-🔊 **[gBlaster](https://github.com/motabass/motabass/blob/master/apps/gblaster/README.md)** A web audio player PWA using latest Web APIs. ![CI/CD Pipeline](https://github.com/motabass/motabass/workflows/CI/CD%20Pipeline/badge.svg) (Demo: https://gblaster-player.firebaseapp.com)
+🔊 **[gBlaster](https://github.com/motabass/motabass/blob/master/apps/gblaster/README.md)** A web audio player PWA using latest Web APIs. 
+
+![CI/CD Pipeline](https://github.com/motabass/motabass/workflows/CI/CD%20Pipeline/badge.svg) 
+Demo: https://gblaster-player.firebaseapp.com
 
 ## Libs
 
