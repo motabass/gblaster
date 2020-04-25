@@ -4,6 +4,7 @@
 /reports
 /coverage
 /documentation
+/docs
 
 package.json
 package-lock.json

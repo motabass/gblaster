@@ -55,9 +55,6 @@
     "helper-services-gamepad": {
       "tags": ["lib", "angular", "helper"]
     },
-    "electron-gblaster": {
-      "tags": ["electron-app"]
-    },
     "material-helpers-mat-icon-size": {
       "tags": ["lib", "angular", "helper"]
     },
