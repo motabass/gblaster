@@ -55,7 +55,9 @@
     "ci:deploy": "nx deploy gblaster",
     "compodoc": "compodoc -p tsconfig.compodoc.json -d docs/compodoc",
     "compodoc:serve": "npm run compodoc -- -s",
-    "generate:icon-set": "ts-node --project tools/tsconfig.tools.json tools/convertIcons.ts"
+    "generate:icon-set": "ts-node --project tools/tsconfig.tools.json tools/convertIcons.ts",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "husky": {
     "hooks": {
@@ -107,7 +109,8 @@
     "stream": "^0.0.2",
     "tinycolor2": "^1.4.1",
     "tslib": "^1.11.1",
-    "zone.js": "^0.10.3"
+    "zone.js": "^0.10.3",
+    "snyk": "^1.316.2"
   },
   "devDependencies": {
     "@angular-devkit/architect": "^0.901.4",
@@ -176,5 +179,6 @@
   "resolutions": {
     "**/util": "^0.12.0",
     "**/buffer": "^5.5.0"
-  }
+  },
+  "snyk": true
 }
