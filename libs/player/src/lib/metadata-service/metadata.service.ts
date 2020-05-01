@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { NgxIndexedDBService } from 'ngx-indexed-db';
 import Vibrant from 'node-vibrant/lib/browser';
 import { SongMetadata } from '../player.types';
-import { ID3TagsService } from './id3-tags.service.abstract';
+import { ID3TagsService } from './i-d3-tags.service';
 import { Id3CoverPicture } from './id3-tags.types';
 import { LastfmMetadataService } from './lastfm-metadata.service';
 import { CoverColorPalette, RemoteCoverPicture } from './metadata.types';

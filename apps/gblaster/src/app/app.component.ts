@@ -3,7 +3,6 @@ import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ThemeService } from '@motabass/core/theme';
 import { UpdateService } from '@motabass/core/update';
-import { ElectronService } from 'ngx-electron';
 
 @Component({
   selector: 'mtb-root',
@@ -14,8 +13,7 @@ export class AppComponent {
     updateService: UpdateService,
     iconRegistry: MatIconRegistry,
     sanitizer: DomSanitizer,
-    themeService: ThemeService,
-    electronService: ElectronService
+    themeService: ThemeService
   ) {
     updateService.init();
 
@@ -23,11 +21,5 @@ export class AppComponent {
 
     iconRegistry.addSvgIconSet(sanitizer.bypassSecurityTrustResourceUrl('assets/icon-set.svg'));
     iconRegistry.addSvgIcon('logo', sanitizer.bypassSecurityTrustResourceUrl('assets/logos/icon.svg'), { viewBox: '0 0 48 48' });
-
-    if (electronService.isElectronApp) {
-      console.log('Running in Electron');
-    } else {
-      console.log('Running in Browser');
-    }
   }
 }
