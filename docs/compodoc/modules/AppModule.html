@@ -343,7 +343,6 @@ import { LoaderInterceptor } from &#x27;@motabass/helper-services/loader&#x27;;
 import { MatIconSizeModule } from &#x27;@motabass/material-helpers/mat-icon-size&#x27;;
 import { DialogsModule } from &#x27;@motabass/ui-components/dialogs&#x27;;
 import { MccColorPickerModule } from &#x27;material-community-components&#x27;;
-import { NgxElectronModule } from &#x27;ngx-electron&#x27;;
 import { DBConfig, NgxIndexedDBModule } from &#x27;ngx-indexed-db&#x27;;
 import { NgxWebstorageModule } from &#x27;ngx-webstorage&#x27;;
 import { environment } from &#x27;../environments/environment&#x27;;
@@ -387,7 +386,6 @@ const dbConfig: DBConfig &#x3D; {
     ),
     NgxWebstorageModule.forRoot(),
     NgxIndexedDBModule.forRoot(dbConfig),
-    NgxElectronModule,
     MatSidenavModule,
     MatToolbarModule,
     MatListModule,

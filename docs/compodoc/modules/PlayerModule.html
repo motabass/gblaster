@@ -366,14 +366,12 @@ import { FileDropOverlayModule } from &#x27;@motabass/ui-components/file-drop-ov
 import { SlidePanelModule } from &#x27;@motabass/ui-components/slide-panel&#x27;;
 import { VisualsModule } from &#x27;@motabass/ui-components/visuals&#x27;;
 import { MobxAngularModule } from &#x27;mobx-angular&#x27;;
-import { ElectronService } from &#x27;ngx-electron&#x27;;
 import { CoverDisplayComponent } from &#x27;./cover-display/cover-display.component&#x27;;
 import { BandPipe } from &#x27;./equalizer/band.pipe&#x27;;
 import { EqualizerComponent } from &#x27;./equalizer/equalizer.component&#x27;;
 import { FileLoaderService } from &#x27;./file-loader-service/file-loader.service.abstract&#x27;;
 import { FileLoaderServiceFactory } from &#x27;./file-loader-service/file-loader.service.factory&#x27;;
-import { ID3TagsService } from &#x27;./metadata-service/id3-tags.service.abstract&#x27;;
-import { Id3TagsServiceFactory } from &#x27;./metadata-service/id3-tags.service.factory&#x27;;
+
 import { PlayerComponent } from &#x27;./player.component&#x27;;
 import { PlaylistComponent } from &#x27;./playlist/playlist.component&#x27;;
 import { TimePipe } from &#x27;./time.pipe&#x27;;
@@ -416,14 +414,8 @@ import { EqualizerShellComponent } from &#x27;./equalizer-shell/equalizer-shell.
   ],
   providers: [
     {
-      provide: ID3TagsService,
-      useFactory: Id3TagsServiceFactory,
-      deps: [ElectronService]
-    },
-    {
       provide: FileLoaderService,
-      useFactory: FileLoaderServiceFactory,
-      deps: [ElectronService]
+      useFactory: FileLoaderServiceFactory
     }
   ]
 })
