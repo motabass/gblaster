@@ -19,6 +19,7 @@ export class NativeBrowserFileLoaderService extends FileLoaderService {
 
     const opts = {
       type: 'openDirectory',
+      recursive: true,
       accepts: [
         {
           description: 'Musikdateien (mp3)',
