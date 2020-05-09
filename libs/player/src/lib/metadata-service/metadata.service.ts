@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { NgxIndexedDBService } from 'ngx-indexed-db';
 import Vibrant from 'node-vibrant/lib/browser';
 import { SongMetadata } from '../player.types';
-import { ID3TagsService } from './i-d3-tags.service';
+import { Id3TagsService } from './id3-tags.service';
 import { Id3CoverPicture } from './id3-tags.types';
 import { LastfmMetadataService } from './lastfm-metadata.service';
 import { CoverColorPalette, RemoteCoverPicture } from './metadata.types';
@@ -14,7 +14,7 @@ export class MetadataService {
   private readonly PLACEHOLDER_URL = 'assets/icons/record.svg';
 
   constructor(
-    private id3TagsService: ID3TagsService,
+    private id3TagsService: Id3TagsService,
     private lastfmMetadataService: LastfmMetadataService,
     private musicbrainzService: MusicbrainzService,
     private indexedDBService: NgxIndexedDBService

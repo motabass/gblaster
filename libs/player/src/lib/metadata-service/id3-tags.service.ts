@@ -3,21 +3,17 @@ import { IAudioMetadata } from 'music-metadata-browser';
 import { Id3CoverPicture, Id3Tags } from './id3-tags.types';
 
 @Injectable({ providedIn: 'any' })
-export class ID3TagsService {
-
+export class Id3TagsService {
   async extractTags(file: File): Promise<Id3Tags | null> {
     const musicMetadata = await import('music-metadata-browser');
 
     let tags: IAudioMetadata | undefined;
-
-    const start = performance.now();
     try {
       tags = await musicMetadata.parseBlob(file, { duration: false, includeChapters: false, skipPostHeaders: false, skipCovers: false });
     } catch (e) {
-      console.warn(`Tags von "${file.name}" (${file.type}) konnten nicht gelesen werden: `, e.info);
+      console.warn(`Tags von "${file.name}" (${file.type}) konnten nicht gelesen werden: `, e);
       return null;
     }
-    console.log('took: ', performance.now() - start);
     let cover: Id3CoverPicture | undefined;
 
     if (tags.common.picture) {

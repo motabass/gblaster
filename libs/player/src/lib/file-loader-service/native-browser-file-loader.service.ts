@@ -6,19 +6,15 @@ import { FileLoaderService } from './file-loader.service.abstract';
   providedIn: 'any'
 })
 export class NativeBrowserFileLoaderService extends FileLoaderService {
-  private currentFolderFileHandles: any[] = [];
+  private currentFolderHandle: any;
 
   constructor() {
     super();
   }
 
   async openFiles(): Promise<File[]> {
-    const allowedTypes = ALLOWED_FILETYPES;
-
-    const fileHandles: any[] = [];
-
     const opts = {
-      type: 'openDirectory',
+      type: 'open-directory',
       recursive: true,
       accepts: [
         {
@@ -29,33 +25,33 @@ export class NativeBrowserFileLoaderService extends FileLoaderService {
       ]
     };
 
-    try {
-      // @ts-ignore
-      const handle = await window.chooseFileSystemEntries(opts);
+    // @ts-ignore
+    const handle = await window.chooseFileSystemEntries(opts);
+    this.currentFolderHandle = handle;
+    return await getAudioFilesFromDirHandle(handle);
+  }
+}
 
-      for await (const entry of handle.getEntries()) {
-        if (entry.isFile) {
-          const file = await entry.getFile();
-          if (allowedTypes.includes(file.type)) {
-            fileHandles.push(entry);
-          }
-        }
+async function getAudioFilesFromDirHandle(dirHandle: any): Promise<File[]> {
+  const files: File[] = [];
+  for await (const entry of dirHandle.getEntries()) {
+    if (entry.isFile) {
+      const file = await entry.getFile();
+      if (ALLOWED_FILETYPES.includes(file.type)) {
+        // TODO: remove double check when accepts works for directories in API
+        files.push(file);
       }
-    } catch (e) {
-      console.log(e.message);
-      return [];
     }
-
-    this.currentFolderFileHandles = fileHandles;
-    return this.getFiles();
   }
+  return files;
+}
 
-  async getFiles(): Promise<File[]> {
-    const files: any[] = [];
-    for (const handle of this.currentFolderFileHandles) {
-      const file = await handle.getFile();
-      files.push(file);
+async function getSubDirsFromDirHandle(dirHandle: any): Promise<any[]> {
+  const dirs: any[] = [];
+  for await (const entry of dirHandle.getEntries()) {
+    if (entry.isDirectory) {
+      dirs.push(entry);
     }
-    return files;
   }
+  return dirs;
 }
