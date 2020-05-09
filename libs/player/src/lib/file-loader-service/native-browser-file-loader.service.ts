@@ -18,7 +18,7 @@ export class NativeBrowserFileLoaderService extends FileLoaderService {
       recursive: true,
       accepts: [
         {
-          description: 'Musikdateien (mp3)',
+          description: 'Audio-Files',
           extensions: ALLOWED_EXTENSIONS,
           mimeTypes: ALLOWED_FILETYPES
         }
