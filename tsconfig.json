@@ -1,47 +1,113 @@
+/*
+  This is a "Solution Style" tsconfig.json file, and is used by editors and TypeScript’s language server to improve development experience.
+  It is not intended to be used to perform a compilation.
+
+  To learn more about this file see: https://angular.io/config/solution-tsconfig.
+*/
 {
-  "compileOnSave": false,
-  "compilerOptions": {
-    "rootDir": ".",
-    "sourceMap": true,
-    "declaration": false,
-    "moduleResolution": "node",
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "strict": true,
-    "importHelpers": true,
-    "target": "es2016",
-    "module": "esnext",
-    "typeRoots": ["node_modules/@types"],
-    "lib": ["es2020", "dom"],
-    "skipLibCheck": true,
-    "skipDefaultLibCheck": true,
-    "baseUrl": ".",
-    "paths": {
-      "stream": ["node_modules/readable-stream"],
-      "assert": ["node_modules/assert"],
-      "@motabass/player": ["libs/player/src/index.ts"],
-      "@motabass/ui-components/visuals": ["libs/ui-components/visuals/src/index.ts"],
-      "@motabass/ui-components/slide-panel": ["libs/ui-components/slide-panel/src/index.ts"],
-      "@motabass/ui-components/dialogs": ["libs/ui-components/dialogs/src/index.ts"],
-      "@motabass/helpers/time": ["libs/helpers/time/src/index.ts"],
-      "@motabass/helpers/unsubscription": ["libs/helpers/unsubscription/src/index.ts"],
-      "@motabass/helpers/memoization": ["libs/helpers/memoization/src/index.ts"],
-      "@motabass/helper-services/title": ["libs/helper-services/title/src/index.ts"],
-      "@motabass/core/theme": ["libs/core/theme/src/index.ts"],
-      "@motabass/core/update": ["libs/core/update/src/index.ts"],
-      "@motabass/helper-services/gamepad": ["libs/helper-services/gamepad/src/index.ts"],
-      "@motabass/material-helpers/mat-icon-size": ["libs/material-helpers/mat-icon-size/src/index.ts"],
-      "@motabass/helper-services/hotkeys": ["libs/helper-services/hotkeys/src/index.ts"],
-      "@motabass/helper-services/loader": ["libs/helper-services/loader/src/index.ts"],
-      "@motabass/ui-components/file-drop-overlay": ["libs/ui-components/file-drop-overlay/src/index.ts"],
-      "@motabass/helper-services/wakelock": ["libs/helper-services/wakelock/src/index.ts"]
+  "files": [],
+  "references": [
+    {
+      "path": "./apps/gblaster/tsconfig.app.json"
+    },
+    {
+      "path": "./apps/gblaster/tsconfig.worker.json"
+    },
+    {
+      "path": "./apps/gblaster/tsconfig.spec.json"
+    },
+    {
+      "path": "./apps/gblaster-e2e/tsconfig.e2e.json"
+    },
+    {
+      "path": "./libs/player/tsconfig.spec.json"
+    },
+    {
+      "path": "./libs/ui-components/visuals/tsconfig.lib.json"
+    },
+    {
+      "path": "./libs/ui-components/visuals/tsconfig.spec.json"
+    },
+    {
+      "path": "./libs/ui-components/slide-panel/tsconfig.lib.json"
+    },
+    {
+      "path": "./libs/ui-components/slide-panel/tsconfig.spec.json"
+    },
+    {
+      "path": "./apps/ui-components-slide-panel-e2e/tsconfig.e2e.json"
+    },
+    {
+      "path": "./libs/ui-components/dialogs/tsconfig.lib.json"
+    },
+    {
+      "path": "./libs/ui-components/dialogs/tsconfig.spec.json"
+    },
+    {
+      "path": "./libs/helpers/time/tsconfig.spec.json"
+    },
+    {
+      "path": "./libs/helpers/time/tsconfig.lib.json"
+    },
+    {
+      "path": "./libs/helpers/unsubscription/tsconfig.spec.json"
+    },
+    {
+      "path": "./libs/helpers/unsubscription/tsconfig.lib.json"
+    },
+    {
+      "path": "./libs/helpers/memoization/tsconfig.spec.json"
+    },
+    {
+      "path": "./libs/helpers/memoization/tsconfig.lib.json"
+    },
+    {
+      "path": "./libs/helper-services/title/tsconfig.spec.json"
+    },
+    {
+      "path": "./libs/core/theme/tsconfig.lib.json"
+    },
+    {
+      "path": "./libs/core/theme/tsconfig.spec.json"
+    },
+    {
+      "path": "./libs/core/update/tsconfig.lib.json"
+    },
+    {
+      "path": "./libs/core/update/tsconfig.spec.json"
+    },
+    {
+      "path": "./libs/helper-services/gamepad/tsconfig.lib.json"
+    },
+    {
+      "path": "./libs/helper-services/gamepad/tsconfig.spec.json"
+    },
+    {
+      "path": "./libs/material-helpers/mat-icon-size/tsconfig.lib.json"
+    },
+    {
+      "path": "./libs/material-helpers/mat-icon-size/tsconfig.spec.json"
+    },
+    {
+      "path": "./libs/helper-services/hotkeys/tsconfig.lib.json"
+    },
+    {
+      "path": "./libs/helper-services/hotkeys/tsconfig.spec.json"
+    },
+    {
+      "path": "./libs/helper-services/loader/tsconfig.lib.json"
+    },
+    {
+      "path": "./libs/helper-services/loader/tsconfig.spec.json"
+    },
+    {
+      "path": "./libs/ui-components/file-drop-overlay/tsconfig.lib.json"
+    },
+    {
+      "path": "./libs/ui-components/file-drop-overlay/tsconfig.spec.json"
+    },
+    {
+      "path": "./libs/helper-services/wakelock/tsconfig.spec.json"
     }
-  },
-  "exclude": ["node_modules", "tmp"],
-  "angularCompilerOptions": {
-    "fullTemplateTypeCheck": true,
-    "strictTemplates": true
-  }
+  ]
 }
