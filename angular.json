@@ -781,7 +781,8 @@
     }
   },
   "cli": {
-    "defaultCollection": "@nstudio/xplat"
+    "defaultCollection": "@nstudio/xplat",
+    "analytics": "af77e131-c1a7-404f-ae63-d6276bace048"
   },
   "schematics": {
     "@nrwl/angular:application": {

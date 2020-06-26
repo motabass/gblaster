@@ -18,7 +18,7 @@
     "deploy": "ng deploy",
     "lint": "nx workspace-lint & ng lint --fix",
     "lint:styles": "stylelint \"{apps,libs}/**/*.{scss,html,ts}\" --fix",
-    "lint:precommit": "tslint --project . --config tslint.precommit.json --fix --force",
+    "lint:precommit": "tslint --project tsconfig.base.json --config tslint.precommit.json --fix --force",
     "e2e": "nx e2e",
     "e2e:watch": "nx e2e gblaster-e2e --watch",
     "affected:apps": "nx affected:apps",
