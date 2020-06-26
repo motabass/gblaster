@@ -57,7 +57,7 @@
     "compodoc": "compodoc -p tsconfig.compodoc.json -d docs/compodoc",
     "compodoc:serve": "npm run compodoc -- -s",
     "generate:icon-set": "ts-node --project tools/tsconfig.tools.json tools/convertIcons.ts",
-    "postinstall": "node ./decorate-angular-cli.js"
+    "postinstall": "ngcc --properties es2015 browser module main --first-only --create-ivy-entry-points && node ./decorate-angular-cli.js"
   },
   "husky": {
     "hooks": {
