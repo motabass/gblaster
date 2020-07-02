@@ -63,6 +63,12 @@ export class PlayerService {
       navigator.mediaSession.setActionHandler('nexttrack', this.next.bind(this));
       // @ts-ignore
       navigator.mediaSession.setActionHandler('previoustrack', this.previous.bind(this));
+      // @ts-ignore
+      navigator.mediaSession.setActionHandler('stop', this.stop.bind(this));
+      // @ts-ignore
+      navigator.mediaSession.setActionHandler('seekto', (event) => {
+        this.setSeekPosition(event.seekTime);
+      });
     }
     BAND_FREQUENIES.forEach((bandFrequency) => {
       const filter = this.bands[bandFrequency];
@@ -283,6 +289,7 @@ export class PlayerService {
       this.audioElement.play().then(() => this.afterLoaded());
     } else {
       this.audioElement.pause();
+      this.updateBrowserPositionState();
     }
   }
 
@@ -295,6 +302,12 @@ export class PlayerService {
       this.audioElement.currentTime = 0;
     } else {
       this.audioElement.currentTime = 0;
+    }
+
+    // @ts-ignore
+    if ('mediaSession' in navigator && 'setPositionState' in navigator.mediaSession) {
+      // @ts-ignore
+      navigator.mediaSession.setPositionState(null);
     }
 
     this.wakelockService.releaseWakelock();
