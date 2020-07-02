@@ -222,6 +222,7 @@ export class PlayerService {
   @action setSeekPosition(value: number) {
     if (value !== null && value !== undefined && value >= 0 && value <= this.durationSeconds) {
       this.audioElement.currentTime = value;
+      this.updateBrowserPositionState();
     }
   }
 
@@ -260,7 +261,12 @@ export class PlayerService {
     this.setPlayingSong(song);
 
     this.loadFinished = false;
-    this.audioElement.play().then(() => (this.loadFinished = true));
+    this.audioElement.play().then(() => this.afterLoaded());
+  }
+
+  afterLoaded() {
+    this.loadFinished = true;
+    this.updateBrowserPositionState();
   }
 
   @action playPause() {
@@ -268,13 +274,13 @@ export class PlayerService {
       if (this.selectedSong) {
         this.setPlayingSong(this.selectedSong);
         this.loadFinished = false;
-        this.audioElement.play().then(() => (this.loadFinished = true));
+        this.audioElement.play().then(() => this.afterLoaded());
       }
       return;
     }
     if (this.audioElement.paused) {
       this.loadFinished = false;
-      this.audioElement.play().then(() => (this.loadFinished = true));
+      this.audioElement.play().then(() => this.afterLoaded());
     } else {
       this.audioElement.pause();
     }
@@ -381,22 +387,24 @@ export class PlayerService {
     this.shuffle = !this.shuffle;
   }
 
-  // startPositionReporter(song: Song) {
-  //   if ('mediaSession' in navigator) {
-  //     const positionInterval = setInterval(() => {
-  //       if (song.howl.playing()) {
-  //         // @ts-ignore
-  //         navigator.mediaSession.setPositionState({
-  //           duration: song.howl.duration(),
-  //           playbackRate: 1,
-  //           position: song.howl.seek() as number
-  //         });
-  //       } else {
-  //         window.clearInterval(positionInterval);
-  //       }
-  //     }, 1000);
-  //   }
-  // }
+  updateBrowserPositionState() {
+    // @ts-ignore
+    if ('mediaSession' in navigator && 'setPositionState' in navigator.mediaSession) {
+      // @ts-ignore
+      navigator.mediaSession.setPositionState({
+        duration: this.audioElement.duration,
+        playbackRate: this.audioElement.playbackRate,
+        position: this.audioElement.currentTime
+      });
+    }
+    if (this.playing) {
+      // @ts-ignore
+      navigator.mediaSession.playbackState = 'playing';
+    } else {
+      // @ts-ignore
+      navigator.mediaSession.playbackState = 'paused';
+    }
+  }
 
   setBrowserMetadata(metadata: SongMetadata) {
     if ('mediaSession' in navigator) {
