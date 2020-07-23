@@ -6,9 +6,9 @@
       "dependencies": "*",
       "devDependencies": "*"
     },
-    "tsconfig.json": "*",
     "tslint.json": "*",
-    "nx.json": "*"
+    "nx.json": "*",
+    "tsconfig.base.json": "*"
   },
   "projects": {
     "gblaster": {
@@ -78,5 +78,8 @@
         "cacheableOperations": ["build", "lint", "test", "e2e", "build-storybook"]
       }
     }
+  },
+  "affected": {
+    "defaultBase": "master"
   }
 }

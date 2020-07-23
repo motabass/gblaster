@@ -73,7 +73,7 @@ const dbConfig: DBConfig = {
     MatCardModule,
     UpdateModule,
     ThemeModule,
-    MccColorPickerModule,
+    MccColorPickerModule.forRoot({ selected_svg_icon: 'check', disable_selected_icon: false, enable_alpha_selector: true }),
     FlexLayoutModule,
     MatIconSizeModule,
     MatProgressSpinnerModule

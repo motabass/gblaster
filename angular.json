@@ -98,8 +98,6 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "apps/gblaster/jest.config.js",
-            "tsConfig": "apps/gblaster/tsconfig.spec.json",
-            "setupFile": "apps/gblaster/src/test-setup.ts",
             "passWithNoTests": true
           }
         },
@@ -153,8 +151,6 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/player/jest.config.js",
-            "tsConfig": "libs/player/tsconfig.spec.json",
-            "setupFile": "libs/player/src/test-setup.ts",
             "passWithNoTests": true
           }
         }
@@ -194,8 +190,6 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/ui-components/visuals/jest.config.js",
-            "tsConfig": "libs/ui-components/visuals/tsconfig.spec.json",
-            "setupFile": "libs/ui-components/visuals/src/test-setup.ts",
             "passWithNoTests": true
           }
         }
@@ -235,8 +229,6 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/ui-components/slide-panel/jest.config.js",
-            "tsConfig": "libs/ui-components/slide-panel/tsconfig.spec.json",
-            "setupFile": "libs/ui-components/slide-panel/src/test-setup.ts",
             "passWithNoTests": true
           }
         },
@@ -333,9 +325,7 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/ui-components/dialogs/jest.config.js",
-            "tsConfig": "libs/ui-components/dialogs/tsconfig.spec.json",
-            "passWithNoTests": true,
-            "setupFile": "libs/ui-components/dialogs/src/test-setup.ts"
+            "passWithNoTests": true
           }
         }
       },
@@ -362,7 +352,6 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/helpers/time/jest.config.js",
-            "tsConfig": "libs/helpers/time/tsconfig.spec.json",
             "passWithNoTests": true
           }
         },
@@ -395,7 +384,6 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/helpers/unsubscription/jest.config.js",
-            "tsConfig": "libs/helpers/unsubscription/tsconfig.spec.json",
             "passWithNoTests": true
           }
         },
@@ -428,7 +416,6 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/helpers/memoization/jest.config.js",
-            "tsConfig": "libs/helpers/memoization/tsconfig.spec.json",
             "passWithNoTests": true
           }
         },
@@ -461,9 +448,7 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/helper-services/title/jest.config.js",
-            "tsConfig": "libs/helper-services/title/tsconfig.spec.json",
-            "passWithNoTests": true,
-            "setupFile": "libs/helper-services/title/src/test-setup.ts"
+            "passWithNoTests": true
           }
         }
       },
@@ -502,9 +487,7 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/core/theme/jest.config.js",
-            "tsConfig": "libs/core/theme/tsconfig.spec.json",
-            "passWithNoTests": true,
-            "setupFile": "libs/core/theme/src/test-setup.ts"
+            "passWithNoTests": true
           }
         }
       },
@@ -543,9 +526,7 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/core/update/jest.config.js",
-            "tsConfig": "libs/core/update/tsconfig.spec.json",
-            "passWithNoTests": true,
-            "setupFile": "libs/core/update/src/test-setup.ts"
+            "passWithNoTests": true
           }
         }
       },
@@ -584,9 +565,7 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/helper-services/gamepad/jest.config.js",
-            "tsConfig": "libs/helper-services/gamepad/tsconfig.spec.json",
-            "passWithNoTests": true,
-            "setupFile": "libs/helper-services/gamepad/src/test-setup.ts"
+            "passWithNoTests": true
           }
         }
       },
@@ -625,9 +604,7 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/material-helpers/mat-icon-size/jest.config.js",
-            "tsConfig": "libs/material-helpers/mat-icon-size/tsconfig.spec.json",
-            "passWithNoTests": true,
-            "setupFile": "libs/material-helpers/mat-icon-size/src/test-setup.ts"
+            "passWithNoTests": true
           }
         }
       },
@@ -666,9 +643,7 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/helper-services/hotkeys/jest.config.js",
-            "tsConfig": "libs/helper-services/hotkeys/tsconfig.spec.json",
-            "passWithNoTests": true,
-            "setupFile": "libs/helper-services/hotkeys/src/test-setup.ts"
+            "passWithNoTests": true
           }
         }
       },
@@ -707,9 +682,7 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/helper-services/loader/jest.config.js",
-            "tsConfig": "libs/helper-services/loader/tsconfig.spec.json",
-            "passWithNoTests": true,
-            "setupFile": "libs/helper-services/loader/src/test-setup.ts"
+            "passWithNoTests": true
           }
         }
       },
@@ -748,9 +721,7 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/ui-components/file-drop-overlay/jest.config.js",
-            "tsConfig": "libs/ui-components/file-drop-overlay/tsconfig.spec.json",
-            "passWithNoTests": true,
-            "setupFile": "libs/ui-components/file-drop-overlay/src/test-setup.ts"
+            "passWithNoTests": true
           }
         }
       },
@@ -777,9 +748,7 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/helper-services/wakelock/jest.config.js",
-            "tsConfig": "libs/helper-services/wakelock/tsconfig.spec.json",
-            "passWithNoTests": true,
-            "setupFile": "libs/helper-services/wakelock/src/test-setup.ts"
+            "passWithNoTests": true
           }
         }
       },

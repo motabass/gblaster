@@ -26,6 +26,7 @@
         [usedColorStart]="colorSuggestions"
         (clickOut)="colorPickerClosed($event)"
         [selectedColor]="themeService.accentColor"
+        colorPickerSelectorHeight="500"
         (change)="setAccentColor($event)"
       ></mcc-color-picker>
     </div>

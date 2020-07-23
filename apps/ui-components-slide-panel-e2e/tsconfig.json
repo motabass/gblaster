@@ -3,5 +3,11 @@
   "compilerOptions": {
     "types": ["cypress", "node"]
   },
-  "include": ["**/*.ts", "**/*.js"]
+  "include": [],
+  "files": [],
+  "references": [
+    {
+      "path": "./tsconfig.e2e.json"
+    }
+  ]
 }
