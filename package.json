@@ -1,6 +1,6 @@
 {
   "name": "motabass",
-  "version": "1.6.4",
+  "version": "1.7.0",
   "author": "motabass",
   "description": "nx monorepo for my web stuff",
   "license": "MIT",
@@ -94,6 +94,7 @@
     "fast-memoize": "^2.5.2",
     "firebase": "^7.17.0",
     "jsmediatags": "^3.9.3",
+    "material-community-components": "^7.1.0",
     "lucene-escape-query": "^1.0.1",
     "mobx": "^5.15.4",
     "mobx-angular": "^4.1.0",
