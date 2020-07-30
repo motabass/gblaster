@@ -3,12 +3,10 @@
   <component name="ExternalDependencies">
     <plugin id="AngularJS" />
     <plugin id="NodeJS" />
-    <plugin id="in.oneton.contrib.plugin.angular.material" />
     <plugin id="intellij.prettierJS" />
     <plugin id="org.editorconfig.editorconfigjetbrains" />
     <plugin id="org.jetbrains.plugins.github" />
     <plugin id="org.jetbrains.plugins.sass" />
-    <plugin id="patrick.kelleter.angular-cli-quick-switch" />
     <plugin id="tslint" />
   </component>
 </project>
