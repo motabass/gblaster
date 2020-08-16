@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Meta } from '@angular/platform-browser';
 import { LocalStorage } from 'ngx-webstorage';
-import tinycolor, { Instance } from 'tinycolor2';
+import { Instance } from 'tinycolor2';
+// @ts-ignore
+import { TinyColor } from '@thebespokepixel/es-tinycolor';
 import { Color } from './theme.types';
 
 @Injectable({
@@ -76,7 +78,7 @@ export class ThemeService {
 
       if (clr.name === '500') {
         const key3 = `--theme-accent-light`;
-        const value3 = tinycolor(clr.hex).setAlpha(0.54).toRgbString();
+        const value3 = new TinyColor(clr.hex).setAlpha(0.54).toRgbString();
         document.documentElement.style.setProperty(key3, value3);
       }
     }
@@ -94,25 +96,25 @@ export class ThemeService {
 
   private computeColors(hex: string): Color[] {
     return [
-      this.getColorObject(tinycolor(hex).lighten(52), '50'),
-      this.getColorObject(tinycolor(hex).lighten(37), '100'),
-      this.getColorObject(tinycolor(hex).lighten(26), '200'),
-      this.getColorObject(tinycolor(hex).lighten(12), '300'),
-      this.getColorObject(tinycolor(hex).lighten(6), '400'),
-      this.getColorObject(tinycolor(hex), '500'),
-      this.getColorObject(tinycolor(hex).darken(6), '600'),
-      this.getColorObject(tinycolor(hex).darken(12), '700'),
-      this.getColorObject(tinycolor(hex).darken(18), '800'),
-      this.getColorObject(tinycolor(hex).darken(24), '900'),
-      this.getColorObject(tinycolor(hex).lighten(50).saturate(30), 'A100'),
-      this.getColorObject(tinycolor(hex).lighten(30).saturate(30), 'A200'),
-      this.getColorObject(tinycolor(hex).lighten(10).saturate(15), 'A400'),
-      this.getColorObject(tinycolor(hex).lighten(5).saturate(5), 'A700')
+      this.getColorObject(new TinyColor(hex).lighten(52), '50'),
+      this.getColorObject(new TinyColor(hex).lighten(37), '100'),
+      this.getColorObject(new TinyColor(hex).lighten(26), '200'),
+      this.getColorObject(new TinyColor(hex).lighten(12), '300'),
+      this.getColorObject(new TinyColor(hex).lighten(6), '400'),
+      this.getColorObject(new TinyColor(hex), '500'),
+      this.getColorObject(new TinyColor(hex).darken(6), '600'),
+      this.getColorObject(new TinyColor(hex).darken(12), '700'),
+      this.getColorObject(new TinyColor(hex).darken(18), '800'),
+      this.getColorObject(new TinyColor(hex).darken(24), '900'),
+      this.getColorObject(new TinyColor(hex).lighten(50).saturate(30), 'A100'),
+      this.getColorObject(new TinyColor(hex).lighten(30).saturate(30), 'A200'),
+      this.getColorObject(new TinyColor(hex).lighten(10).saturate(15), 'A400'),
+      this.getColorObject(new TinyColor(hex).lighten(5).saturate(5), 'A700')
     ];
   }
 
   private getColorObject(value: Instance, name: string): Color {
-    const color = tinycolor(value);
+    const color = new TinyColor(value);
     const lightnessLimit = this.darkMode ? 150 : 200;
     return {
       name: name,

@@ -1,6 +1,6 @@
 {
   "name": "motabass",
-  "version": "1.8.0",
+  "version": "1.9.0",
   "author": "motabass",
   "description": "nx monorepo for my web stuff",
   "license": "MIT",
@@ -104,7 +104,7 @@
     "node-vibrant": "^3.1.5",
     "process": "^0.11.10",
     "rxjs": "~6.6.2",
-    "tinycolor2": "^1.4.1",
+    "@thebespokepixel/es-tinycolor": "^2.1.1",
     "tslib": "^2.0.1",
     "zone.js": "^0.10.3"
   },
