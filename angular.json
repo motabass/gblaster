@@ -17,13 +17,12 @@
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "allowedCommonJsDependencies": [
-              "tinycolor2",
               "music-metadata-browser",
               "music-metadata/lib/core",
               "debug",
               "readable-web-to-node-stream",
-              "node-vibrant/lib/browser",
-              "typedarray-to-buffer"
+              "typedarray-to-buffer",
+              "node-vibrant/lib/browser"
             ],
             "outputPath": "dist/apps/gblaster",
             "index": "apps/gblaster/src/index.html",
