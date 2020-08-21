@@ -68,7 +68,7 @@ const dbConfig: DBConfig = {
     MatIconModule,
     MatButtonModule,
     DialogsModule,
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production, registrationStrategy: 'registerImmediately' }),
     MatCheckboxModule,
     MatCardModule,
     UpdateModule,
