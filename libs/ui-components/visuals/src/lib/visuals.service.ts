@@ -11,7 +11,7 @@ export class VisualsService {
 
   constructor(private localStorageService: LocalStorageService) {
     const mode = this.localStorageService.retrieve('visualMode');
-    this.visualMode = mode ?? 'bars';
+    this.visualMode = mode ?? 'off';
   }
 
   @action toggleVisualMode() {
