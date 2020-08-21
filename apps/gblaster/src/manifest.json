@@ -13,6 +13,12 @@
       "type": "image/svg+xml"
     },
     {
+      "src": "assets/logos/maskable-icon.svg",
+      "sizes": "72x72 96x96 128x128 256x256 512x512",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
+    },
+    {
       "src": "assets/logos/icon-72x72.png",
       "sizes": "72x72",
       "type": "image/png"
@@ -50,11 +56,10 @@
     {
       "src": "assets/logos/icon-512x512.png",
       "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any"
+      "type": "image/png"
     },
     {
-      "src": "assets/logos/maskable-logo.png",
+      "src": "assets/logos/maskable-icon-512x512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"
