@@ -1,6 +1,6 @@
 {
   "name": "motabass",
-  "version": "1.11.9",
+  "version": "1.11.10",
   "author": "motabass",
   "description": "nx monorepo for my web stuff",
   "license": "MIT",
@@ -86,6 +86,7 @@
     "@angular/router": "10.0.11",
     "@angular/service-worker": "10.0.11",
     "browser-id3-writer": "^4.4.0",
+    "buffer": "^5.6.0",
     "core-js": "^3.6.5",
     "d3": "^5.16.0",
     "date-fns": "^2.15.0",
@@ -102,6 +103,7 @@
     "ngx-pipes": "2.7.5",
     "ngx-webstorage": "6.0.0",
     "node-vibrant": "^3.1.5",
+    "process": "^0.11.10",
     "rxjs": "~6.6.2",
     "@thebespokepixel/es-tinycolor": "^2.1.1",
     "tslib": "^2.0.1",
