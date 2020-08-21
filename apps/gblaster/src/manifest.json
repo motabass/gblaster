@@ -5,15 +5,7 @@
   "background_color": "#383838",
   "display": "standalone",
   "scope": "/",
-  "start_url": "/",
-  "routing": {
-  		"index": "/index.html",
-  		"routes": {
-  			"/": {
-  				"prefix": false
-  			}
-  		}
-  	},
+  "start_url": "/player",
   "icons": [
     {
       "src": "assets/logos/icon-72x72.png",
@@ -53,7 +45,8 @@
     {
       "src": "assets/logos/icon-512x512.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     }
   ]
 }
