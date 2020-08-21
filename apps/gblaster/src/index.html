@@ -11,7 +11,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
     <link rel="icon" type="image/x-icon" href="favicon.ico" />
     <style>
-      body, html {
+      body,
+      html {
         padding: 0;
         margin: 0;
         overflow: hidden;
@@ -28,7 +29,15 @@
         max-height: 70vh;
       }
     </style>
-    <link href="https://fonts.googleapis.com/css?family=Permanent+Marker|Roboto+Condensed:300,400,500&display=swap" rel="stylesheet" />
+    <link
+      rel="preload"
+      href="https://fonts.googleapis.com/css?family=Permanent+Marker|Roboto+Condensed:300,400,500&display=swap"
+      as="style"
+      onload="this.onload=null;this.rel='stylesheet'"
+    />
+    <noscript>
+      <link href="https://fonts.googleapis.com/css?family=Permanent+Marker|Roboto+Condensed:300,400,500&display=swap" rel="stylesheet" type="text/css" />
+    </noscript>
     <link rel="manifest" href="manifest.json" />
     <link rel="apple-touch-icon" href="assets/logos/icon-192x192.png" />
   </head>
