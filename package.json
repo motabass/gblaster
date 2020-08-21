@@ -1,6 +1,6 @@
 {
   "name": "motabass",
-  "version": "1.11.1",
+  "version": "1.11.2",
   "author": "motabass",
   "description": "nx monorepo for my web stuff",
   "license": "MIT",
@@ -133,7 +133,7 @@
     "@types/tinycolor2": "^1.4.2",
     "babel-loader": "8.1.0",
     "codelyzer": "~6.0.0",
-    "cypress": "^5.0.0",
+    "cypress": "^4.12.1",
     "cypress-file-upload": "^4.0.7",
     "colors": "1.4.0",
     "dotenv": "8.2.0",
