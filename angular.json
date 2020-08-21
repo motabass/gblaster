@@ -30,7 +30,7 @@
             "polyfills": "apps/gblaster/src/polyfills.ts",
             "tsConfig": "apps/gblaster/tsconfig.app.json",
             "aot": true,
-            "assets": ["apps/gblaster/src/favicon.ico", "apps/gblaster/src/assets", "apps/gblaster/src/manifest.webmanifest"],
+            "assets": ["apps/gblaster/src/favicon.ico", "apps/gblaster/src/assets", "apps/gblaster/src/manifest.json"],
             "styles": ["libs/core/theme/src/styles/theme.scss", "apps/gblaster/src/styles/main.scss"],
             "scripts": [],
             "webWorkerTsConfig": "apps/gblaster/tsconfig.worker.json"
