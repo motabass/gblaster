@@ -27,6 +27,7 @@ import { SettingsComponent } from './settings/settings.component';
 import { StorageSettingsComponent } from './settings/storage-settings/storage-settings.component';
 import { ThemeSettingsComponent } from './settings/theme-settings/theme-settings.component';
 import { ShellComponent } from './shell/shell.component';
+import { StartComponent } from './start/start.component';
 
 const dbConfig: DBConfig = {
   name: 'metadataCache',
@@ -46,15 +47,16 @@ const dbConfig: DBConfig = {
 };
 
 @NgModule({
-  declarations: [AppComponent, ShellComponent, ThemeSettingsComponent, SettingsComponent, StorageSettingsComponent],
+  declarations: [AppComponent, ShellComponent, ThemeSettingsComponent, SettingsComponent, StorageSettingsComponent, StartComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
     RouterModule.forRoot(
       [
-        { path: '', redirectTo: 'player', pathMatch: 'full' },
+        { path: '', redirectTo: 'start', pathMatch: 'full' },
         { path: 'player', loadChildren: () => import('@motabass/player').then((m) => m.PlayerModule) },
+        { path: 'start', component: StartComponent },
         { path: 'settings', component: SettingsComponent },
         { path: '**', redirectTo: '' }
       ],

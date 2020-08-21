@@ -5,7 +5,7 @@
   "background_color": "#383838",
   "display": "standalone",
   "scope": "/",
-  "start_url": "/player",
+  "start_url": "/start",
   "icons": [
     {
       "src": "assets/logos/icon-72x72.png",
