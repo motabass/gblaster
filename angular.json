@@ -361,7 +361,8 @@
             "tsConfig": "libs/helpers/time/tsconfig.lib.json",
             "packageJson": "libs/helpers/time/package.json",
             "main": "libs/helpers/time/src/index.ts",
-            "assets": ["libs/helpers/time/*.md"]
+            "assets": ["libs/helpers/time/*.md"],
+            "srcRootForCompilationRoot": "libs/helpers/time/src"
           }
         }
       }
@@ -393,7 +394,8 @@
             "tsConfig": "libs/helpers/unsubscription/tsconfig.lib.json",
             "packageJson": "libs/helpers/unsubscription/package.json",
             "main": "libs/helpers/unsubscription/src/index.ts",
-            "assets": ["libs/helpers/unsubscription/*.md"]
+            "assets": ["libs/helpers/unsubscription/*.md"],
+            "srcRootForCompilationRoot": "libs/helpers/unsubscription/src"
           }
         }
       }
@@ -425,7 +427,8 @@
             "tsConfig": "libs/helpers/memoization/tsconfig.lib.json",
             "packageJson": "libs/helpers/memoization/package.json",
             "main": "libs/helpers/memoization/src/index.ts",
-            "assets": ["libs/helpers/memoization/*.md"]
+            "assets": ["libs/helpers/memoization/*.md"],
+            "srcRootForCompilationRoot": "libs/helpers/memoization/src"
           }
         }
       }
