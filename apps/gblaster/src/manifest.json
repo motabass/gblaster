@@ -1,6 +1,8 @@
 {
-  "name": "gBlaster - Web Audio Player",
   "short_name": "gBlaster",
+  "name": "gBlaster - Web Audio Player",
+  "description": "PWA Audio Player for local music files",
+  "lang": "en",
   "theme_color": "#383838",
   "background_color": "#383838",
   "display": "standalone",
