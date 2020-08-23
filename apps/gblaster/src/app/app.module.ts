@@ -14,7 +14,6 @@ import { ThemeModule } from '@motabass/core/theme';
 import { UpdateModule } from '@motabass/core/update';
 import { LoaderInterceptor } from '@motabass/helper-services/loader';
 import { MatIconSizeModule } from '@motabass/material-helpers/mat-icon-size';
-import { MccColorPickerModule } from 'material-community-components';
 import { DBConfig, NgxIndexedDBModule } from 'ngx-indexed-db';
 import { NgxWebstorageModule } from 'ngx-webstorage';
 import { environment } from '../environments/environment';
@@ -56,7 +55,6 @@ const dbConfig: DBConfig = {
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production, registrationStrategy: 'registerImmediately' }),
     NgxWebstorageModule.forRoot(),
     NgxIndexedDBModule.forRoot(dbConfig),
-    MccColorPickerModule.forRoot({ selected_svg_icon: 'check' }),
     MatSidenavModule,
     MatToolbarModule,
     MatListModule,

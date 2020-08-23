@@ -18,7 +18,8 @@ import { ThemeSettingsComponent } from './theme-settings/theme-settings.componen
     MatButtonModule,
     MccColorPickerModule,
     MatCheckboxModule,
-    RouterModule.forChild([{ path: '', pathMatch: 'full', component: SettingsComponent }])
+    RouterModule.forChild([{ path: '', pathMatch: 'full', component: SettingsComponent }]),
+    MccColorPickerModule.forRoot({ selected_svg_icon: 'check' })
   ],
   declarations: [SettingsComponent, StorageSettingsComponent, ThemeSettingsComponent]
 })
