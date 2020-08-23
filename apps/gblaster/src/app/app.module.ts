@@ -1,9 +1,6 @@
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
-import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatButtonModule } from '@angular/material/button';
-import { MatCardModule } from '@angular/material/card';
-import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -17,15 +14,11 @@ import { ThemeModule } from '@motabass/core/theme';
 import { UpdateModule } from '@motabass/core/update';
 import { LoaderInterceptor } from '@motabass/helper-services/loader';
 import { MatIconSizeModule } from '@motabass/material-helpers/mat-icon-size';
-import { DialogsModule } from '@motabass/ui-components/dialogs';
 import { MccColorPickerModule } from 'material-community-components';
 import { DBConfig, NgxIndexedDBModule } from 'ngx-indexed-db';
 import { NgxWebstorageModule } from 'ngx-webstorage';
 import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
-import { SettingsComponent } from './settings/settings.component';
-import { StorageSettingsComponent } from './settings/storage-settings/storage-settings.component';
-import { ThemeSettingsComponent } from './settings/theme-settings/theme-settings.component';
 import { ShellComponent } from './shell/shell.component';
 
 const dbConfig: DBConfig = {
@@ -46,7 +39,7 @@ const dbConfig: DBConfig = {
 };
 
 @NgModule({
-  declarations: [AppComponent, ShellComponent, ThemeSettingsComponent, SettingsComponent, StorageSettingsComponent],
+  declarations: [AppComponent, ShellComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -55,26 +48,22 @@ const dbConfig: DBConfig = {
       [
         { path: '', redirectTo: 'player', pathMatch: 'full' },
         { path: 'player', loadChildren: () => import('@motabass/player').then((m) => m.PlayerModule) },
-        { path: 'settings', component: SettingsComponent },
+        { path: 'settings', loadChildren: () => import('@motabass/settings').then((m) => m.SettingsModule) },
         { path: '**', redirectTo: '' }
       ],
       { initialNavigation: 'enabled' }
     ),
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production, registrationStrategy: 'registerImmediately' }),
     NgxWebstorageModule.forRoot(),
     NgxIndexedDBModule.forRoot(dbConfig),
+    MccColorPickerModule.forRoot({ selected_svg_icon: 'check' }),
     MatSidenavModule,
     MatToolbarModule,
     MatListModule,
     MatIconModule,
     MatButtonModule,
-    DialogsModule,
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production, registrationStrategy: 'registerImmediately' }),
-    MatCheckboxModule,
-    MatCardModule,
     UpdateModule,
     ThemeModule,
-    MccColorPickerModule.forRoot({ selected_svg_icon: 'check'}),
-    FlexLayoutModule,
     MatIconSizeModule,
     MatProgressSpinnerModule
   ],

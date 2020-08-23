@@ -36,7 +36,8 @@
       "@motabass/helper-services/hotkeys": ["libs/helper-services/hotkeys/src/index.ts"],
       "@motabass/helper-services/loader": ["libs/helper-services/loader/src/index.ts"],
       "@motabass/ui-components/file-drop-overlay": ["libs/ui-components/file-drop-overlay/src/index.ts"],
-      "@motabass/helper-services/wakelock": ["libs/helper-services/wakelock/src/index.ts"]
+      "@motabass/helper-services/wakelock": ["libs/helper-services/wakelock/src/index.ts"],
+      "@motabass/settings": ["libs/settings/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"],

@@ -9,17 +9,12 @@ import { UpdateService } from '@motabass/core/update';
   templateUrl: './app.component.html'
 })
 export class AppComponent {
-  constructor(
-    updateService: UpdateService,
-    iconRegistry: MatIconRegistry,
-    sanitizer: DomSanitizer,
-    themeService: ThemeService
-  ) {
+  constructor(updateService: UpdateService, iconRegistry: MatIconRegistry, sanitizer: DomSanitizer, themeService: ThemeService) {
     updateService.init();
 
     themeService.initializeTheme();
 
     iconRegistry.addSvgIconSet(sanitizer.bypassSecurityTrustResourceUrl('assets/icon-set.svg'));
-    iconRegistry.addSvgIcon('logo', sanitizer.bypassSecurityTrustResourceUrl('assets/logos/icon.svg'), { viewBox: '0 0 48 48' });
+    iconRegistry.addSvgIcon('logo', sanitizer.bypassSecurityTrustResourceUrl('assets/icons/logo-monochrome.svg'));
   }
 }

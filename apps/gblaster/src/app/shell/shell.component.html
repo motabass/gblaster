@@ -26,9 +26,9 @@
         mat-icon-button
         (click)="drawer.toggle()"
         *ngIf="isHandset$ | async"
-        style="margin-right: 0.5rem;"
+        style="margin-right: 0.7rem;"
       >
-        <mat-icon aria-label="Side nav toggle icon" matIconSize="2.6rem" svgIcon="logo"></mat-icon>
+        <mat-icon aria-label="Side nav toggle icon" matIconSize="2.7rem" svgIcon="logo"></mat-icon>
       </button>
       <span class="title">{{ title | async }}</span>
       <mat-spinner *ngIf="isLoading | async" style="margin-left: 1rem;" color="accent" diameter="32" strokeWidth="6"></mat-spinner>
