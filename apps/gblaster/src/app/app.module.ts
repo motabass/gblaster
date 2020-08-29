@@ -54,7 +54,7 @@ const dbConfig: DBConfig = {
       ],
       { initialNavigation: 'enabled' }
     ),
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production, registrationStrategy: 'registerImmediately' }),
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production, registrationStrategy: 'registerWhenStable:8000' }),
     NgxWebstorageModule.forRoot(),
     NgxIndexedDBModule.forRoot(dbConfig),
     MatSidenavModule,
