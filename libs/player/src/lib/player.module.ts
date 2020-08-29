@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { FlexLayoutModule } from '@angular/flex-layout';
+import { FlexModule } from '@angular/flex-layout/flex';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
@@ -40,7 +40,7 @@ import { EqualizerShellComponent } from './equalizer-shell/equalizer-shell.compo
     MatListModule,
     MatButtonModule,
     MatSliderModule,
-    FlexLayoutModule,
+    FlexModule,
     VisualsModule,
     MatMenuModule,
     MatInputModule,

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FlexLayoutModule } from '@angular/flex-layout';
+import { FlexModule } from '@angular/flex-layout/flex';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -14,7 +14,7 @@ import { ThemeSettingsComponent } from './theme-settings/theme-settings.componen
   imports: [
     CommonModule,
     MatCardModule,
-    FlexLayoutModule,
+    FlexModule,
     MatButtonModule,
     MccColorPickerModule,
     MatCheckboxModule,
