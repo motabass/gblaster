@@ -1,6 +1,6 @@
 {
   "name": "motabass",
-  "version": "3.5.0",
+  "version": "3.5.1",
   "author": "motabass",
   "description": "nx monorepo for my web stuff",
   "license": "MIT",
@@ -99,7 +99,7 @@
     "mobx-angular": "^4.1.0",
     "music-metadata-browser": "^2.1.2",
     "ngx-date-fns": "6.4.0",
-    "ngx-indexed-db": "^5.0.5",
+    "ngx-indexed-db": "^6.0.1",
     "ngx-pipes": "2.7.5",
     "ngx-webstorage": "6.0.0",
     "node-vibrant": "^3.1.5",
