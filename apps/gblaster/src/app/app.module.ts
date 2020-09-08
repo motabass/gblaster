@@ -46,7 +46,7 @@ const dbConfig: DBConfig = {
     HttpClientModule,
     RouterModule.forRoot(
       [
-        { path: '', redirectTo: 'start', pathMatch: 'full' },
+        { path: '', redirectTo: 'player', pathMatch: 'full' },
         { path: 'start', component: StartComponent },
         { path: 'player', loadChildren: () => import('@motabass/player').then((m) => m.PlayerModule) },
         { path: 'settings', loadChildren: () => import('@motabass/settings').then((m) => m.SettingsModule) },
