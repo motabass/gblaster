@@ -3,7 +3,7 @@ export interface Id3Tags {
   artist?: string;
   title?: string;
   album?: string;
-  track?: { no?: number; of?: number };
+  track?: { no?: number | null; of?: number | null };
   year?: string;
 }
 

@@ -5,7 +5,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { RouterModule } from '@angular/router';
-import { MccColorPickerModule } from 'material-community-components';
+import { MccColorPickerModule } from 'material-community-components/color-picker';
 import { SettingsComponent } from './settings.component';
 import { StorageSettingsComponent } from './storage-settings/storage-settings.component';
 import { ThemeSettingsComponent } from './theme-settings/theme-settings.component';

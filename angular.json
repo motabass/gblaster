@@ -777,9 +777,7 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/settings/jest.config.js",
-            "tsConfig": "libs/settings/tsconfig.spec.json",
-            "passWithNoTests": true,
-            "setupFile": "libs/settings/src/test-setup.ts"
+            "passWithNoTests": true
           }
         }
       },

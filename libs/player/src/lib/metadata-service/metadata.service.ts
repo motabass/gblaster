@@ -23,7 +23,7 @@ export class MetadataService {
   async getMetadata(file: File): Promise<SongMetadata> {
     const crc = generateFileHash(file);
 
-    const metadataCache: SongMetadata = await this.indexedDBService.getByKey('metatags', crc);
+    const metadataCache: SongMetadata = await this.indexedDBService.getByKey('metatags', crc).toPromise();
 
     if (metadataCache) {
       if (metadataCache.coverUrl?.original.startsWith('blob:') && metadataCache.embeddedPicture) {
