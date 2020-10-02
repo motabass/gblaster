@@ -91,7 +91,7 @@
     "d3": "^6.1.1",
     "date-fns": "^2.16.1",
     "fast-memoize": "^2.5.2",
-    "firebase": "^7.21.0",
+    "firebase": "^7.22.0",
     "jsmediatags": "^3.9.3",
     "material-community-components": "^9.0.0",
     "lucene-escape-query": "^1.0.1",
