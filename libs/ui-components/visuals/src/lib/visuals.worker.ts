@@ -149,9 +149,10 @@ function drawBars() {
   canvasCtx.clearRect(0, 0, canvasWidth, canvasHeight);
 
   for (let i = 0; i < meterNum; i++) {
-    const position = Math.round(frequencyCorrectionScale(i));
-    let value = analyserData[position];
-    value = amplitudeScale(value);
+    const freqScaleValue = frequencyCorrectionScale(i);
+    const position = freqScaleValue ? Math.round(freqScaleValue) : 0;
+
+    let value = amplitudeScale(analyserData[position]) || 0;
 
     if (value > canvasHeight) {
       value = canvasHeight;
