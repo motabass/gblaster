@@ -1,6 +1,5 @@
 module.exports = {
-  name: 'core-update',
-  preset: '../../../jest.config.js',
+  preset: '../../../jest.preset.js',
   coverageDirectory: '../../../coverage/libs/core/update',
   snapshotSerializers: [
     'jest-preset-angular/build/AngularNoNgAttributesSnapshotSerializer.js',
@@ -14,5 +13,6 @@ module.exports = {
       stringifyContentPathRegex: '\\.(html|svg)$',
       astTransformers: ['jest-preset-angular/build/InlineFilesTransformer', 'jest-preset-angular/build/StripStylesTransformer']
     }
-  }
+  },
+  displayName: 'core-update'
 };

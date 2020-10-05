@@ -170,7 +170,8 @@
           "builder": "@nrwl/angular:package",
           "options": {
             "tsConfig": "libs/ui-components/visuals/tsconfig.lib.json",
-            "project": "libs/ui-components/visuals/ng-package.json"
+            "project": "libs/ui-components/visuals/ng-package.json",
+            "buildableProjectDepsInPackageJsonType": "dependencies"
           },
           "configurations": {
             "production": {
@@ -209,7 +210,8 @@
           "builder": "@nrwl/angular:package",
           "options": {
             "tsConfig": "libs/ui-components/slide-panel/tsconfig.lib.json",
-            "project": "libs/ui-components/slide-panel/ng-package.json"
+            "project": "libs/ui-components/slide-panel/ng-package.json",
+            "buildableProjectDepsInPackageJsonType": "dependencies"
           },
           "configurations": {
             "production": {
@@ -305,7 +307,8 @@
           "builder": "@nrwl/angular:package",
           "options": {
             "tsConfig": "libs/ui-components/dialogs/tsconfig.lib.json",
-            "project": "libs/ui-components/dialogs/ng-package.json"
+            "project": "libs/ui-components/dialogs/ng-package.json",
+            "buildableProjectDepsInPackageJsonType": "dependencies"
           },
           "configurations": {
             "production": {
@@ -470,7 +473,8 @@
           "builder": "@nrwl/angular:package",
           "options": {
             "tsConfig": "libs/core/theme/tsconfig.lib.json",
-            "project": "libs/core/theme/ng-package.json"
+            "project": "libs/core/theme/ng-package.json",
+            "buildableProjectDepsInPackageJsonType": "dependencies"
           },
           "configurations": {
             "production": {
@@ -509,7 +513,8 @@
           "builder": "@nrwl/angular:package",
           "options": {
             "tsConfig": "libs/core/update/tsconfig.lib.json",
-            "project": "libs/core/update/ng-package.json"
+            "project": "libs/core/update/ng-package.json",
+            "buildableProjectDepsInPackageJsonType": "dependencies"
           },
           "configurations": {
             "production": {
@@ -548,7 +553,8 @@
           "builder": "@nrwl/angular:package",
           "options": {
             "tsConfig": "libs/helper-services/gamepad/tsconfig.lib.json",
-            "project": "libs/helper-services/gamepad/ng-package.json"
+            "project": "libs/helper-services/gamepad/ng-package.json",
+            "buildableProjectDepsInPackageJsonType": "dependencies"
           },
           "configurations": {
             "production": {
@@ -587,7 +593,8 @@
           "builder": "@nrwl/angular:package",
           "options": {
             "tsConfig": "libs/material-helpers/mat-icon-size/tsconfig.lib.json",
-            "project": "libs/material-helpers/mat-icon-size/ng-package.json"
+            "project": "libs/material-helpers/mat-icon-size/ng-package.json",
+            "buildableProjectDepsInPackageJsonType": "dependencies"
           },
           "configurations": {
             "production": {
@@ -626,7 +633,8 @@
           "builder": "@nrwl/angular:package",
           "options": {
             "tsConfig": "libs/helper-services/hotkeys/tsconfig.lib.json",
-            "project": "libs/helper-services/hotkeys/ng-package.json"
+            "project": "libs/helper-services/hotkeys/ng-package.json",
+            "buildableProjectDepsInPackageJsonType": "dependencies"
           },
           "configurations": {
             "production": {
@@ -665,7 +673,8 @@
           "builder": "@nrwl/angular:package",
           "options": {
             "tsConfig": "libs/helper-services/loader/tsconfig.lib.json",
-            "project": "libs/helper-services/loader/ng-package.json"
+            "project": "libs/helper-services/loader/ng-package.json",
+            "buildableProjectDepsInPackageJsonType": "dependencies"
           },
           "configurations": {
             "production": {
@@ -704,7 +713,8 @@
           "builder": "@nrwl/angular:package",
           "options": {
             "tsConfig": "libs/ui-components/file-drop-overlay/tsconfig.lib.json",
-            "project": "libs/ui-components/file-drop-overlay/ng-package.json"
+            "project": "libs/ui-components/file-drop-overlay/ng-package.json",
+            "buildableProjectDepsInPackageJsonType": "dependencies"
           },
           "configurations": {
             "production": {

@@ -1,6 +1,5 @@
 module.exports = {
-  name: 'material-helpers-mat-icon-size',
-  preset: '../../../jest.config.js',
+  preset: '../../../jest.preset.js',
   coverageDirectory: '../../../coverage/libs/material-helpers/mat-icon-size',
   snapshotSerializers: [
     'jest-preset-angular/build/AngularNoNgAttributesSnapshotSerializer.js',
@@ -14,5 +13,6 @@ module.exports = {
       stringifyContentPathRegex: '\\.(html|svg)$',
       astTransformers: ['jest-preset-angular/build/InlineFilesTransformer', 'jest-preset-angular/build/StripStylesTransformer']
     }
-  }
+  },
+  displayName: 'material-helpers-mat-icon-size'
 };
