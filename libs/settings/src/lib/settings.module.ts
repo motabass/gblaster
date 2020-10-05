@@ -4,6 +4,7 @@ import { FlexModule } from '@angular/flex-layout/flex';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { RouterModule } from '@angular/router';
 import { MccColorPickerModule } from 'material-community-components/color-picker';
 import { SettingsComponent } from './settings.component';
@@ -19,7 +20,8 @@ import { ThemeSettingsComponent } from './theme-settings/theme-settings.componen
     MccColorPickerModule,
     MatCheckboxModule,
     RouterModule.forChild([{ path: '', pathMatch: 'full', component: SettingsComponent }]),
-    MccColorPickerModule.forRoot({ selected_svg_icon: 'check' })
+    MccColorPickerModule.forRoot({ selected_svg_icon: 'check' }),
+    MatSlideToggleModule
   ],
   declarations: [SettingsComponent, StorageSettingsComponent, ThemeSettingsComponent]
 })

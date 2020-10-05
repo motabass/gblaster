@@ -16,6 +16,8 @@ export class ThemeService {
 
   @LocalStorage('darkMode', true) _darkMode!: boolean;
 
+  @LocalStorage('coverArtColors', true) coverArtColors!: boolean;
+
   primaryColorPalette: Color[] = [];
   accentColorPalette: Color[] = [];
 
@@ -28,6 +30,10 @@ export class ThemeService {
     this.setOverlayClass();
     this.setPrimaryColor(this.primaryColor);
     this.setAccentColor(this.accentColor);
+  }
+
+  setCoverArtColors(value: boolean) {
+    this.coverArtColors = value;
   }
 
   get darkMode(): boolean {

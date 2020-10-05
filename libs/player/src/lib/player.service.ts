@@ -151,11 +151,13 @@ export class PlayerService {
     if (song.metadata) {
       this.setBrowserMetadata(song.metadata);
 
-      const primaryColor = song.metadata.coverColors?.darkVibrant?.hex;
-      this.themeService.setPrimaryColor(primaryColor);
+      if (this.themeService.coverArtColors) {
+        const primaryColor = song.metadata.coverColors?.darkVibrant?.hex;
+        this.themeService.setPrimaryColor(primaryColor);
 
-      const accentColor = song.metadata.coverColors?.lightVibrant?.hex;
-      this.themeService.setAccentColor(accentColor);
+        const accentColor = song.metadata.coverColors?.lightVibrant?.hex;
+        this.themeService.setAccentColor(accentColor);
+      }
     }
 
     if (this.audioCtx.state === 'suspended') {

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { MatCheckboxChange } from '@angular/material/checkbox';
+import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { ThemeService } from '@motabass/core/theme';
 
 @Component({
@@ -8,6 +9,10 @@ import { ThemeService } from '@motabass/core/theme';
 })
 export class ThemeSettingsComponent {
   constructor(public themeService: ThemeService) {}
+
+  get coverArtColors(): boolean {
+    return this.themeService.coverArtColors;
+  }
 
   setPrimaryColor(event: string) {
     this.themeService.setPrimaryColor(event);
@@ -27,5 +32,9 @@ export class ThemeSettingsComponent {
 
   get colorSuggestions(): string[] {
     return ['#ffffff', '#000000'];
+  }
+
+  onCoverArtColorsChange(event: MatSlideToggleChange) {
+    this.themeService.setCoverArtColors(event.checked);
   }
 }

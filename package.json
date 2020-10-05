@@ -98,7 +98,7 @@
     "jsmediatags": "^3.9.3",
     "lucene-escape-query": "^1.0.1",
     "material-community-components": "^9.0.0",
-    "mobx": "^6.0.1",
+    "mobx": "^5.15.7",
     "mobx-angular": "^4.1.0",
     "music-metadata-browser": "^2.1.4",
     "ngx-date-fns": "6.5.0",
