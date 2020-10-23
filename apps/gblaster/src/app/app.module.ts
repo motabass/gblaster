@@ -23,7 +23,7 @@ import { StartComponent } from './start/start.component';
 
 const dbConfig: DBConfig = {
   name: 'metadataCache',
-  version: 1,
+  version: 2,
   objectStoresMeta: [
     {
       store: 'metatags',
@@ -34,6 +34,11 @@ const dbConfig: DBConfig = {
         { name: 'title', keypath: 'title', options: { unique: false } },
         { name: 'album', keypath: 'album', options: { unique: false } }
       ]
+    },
+    {
+      store: 'dirHandle',
+      storeConfig: { keyPath: 'id', autoIncrement: true },
+      storeSchema: [{ name: 'handle', keypath: 'handle', options: { unique: false } }]
     }
   ]
 };

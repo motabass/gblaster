@@ -17,6 +17,7 @@ import { FileDropOverlayModule } from '@motabass/ui-components/file-drop-overlay
 import { SlidePanelModule } from '@motabass/ui-components/slide-panel';
 import { VisualsModule } from '@motabass/ui-components/visuals';
 import { MobxAngularModule } from 'mobx-angular';
+import { NgxIndexedDBService } from 'ngx-indexed-db';
 import { CoverDisplayComponent } from './cover-display/cover-display.component';
 import { BandPipe } from './equalizer/band.pipe';
 import { EqualizerComponent } from './equalizer/equalizer.component';
@@ -66,7 +67,8 @@ import { EqualizerShellComponent } from './equalizer-shell/equalizer-shell.compo
   providers: [
     {
       provide: FileLoaderService,
-      useFactory: FileLoaderServiceFactory
+      useFactory: FileLoaderServiceFactory,
+      deps: [NgxIndexedDBService]
     }
   ]
 })

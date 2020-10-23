@@ -5,6 +5,7 @@ import { HotkeysService } from '@motabass/helper-services/hotkeys';
 import { TitleService } from '@motabass/helper-services/title';
 import { formatSecondsAsClock } from '@motabass/helpers/time';
 import { ALLOWED_MIMETYPES } from './file-loader-service/file-loader.helpers';
+import { FileLoaderService } from './file-loader-service/file-loader.service.abstract';
 import { PlayerService } from './player.service';
 import { RepeatMode, Song } from './player.types';
 
@@ -22,10 +23,11 @@ export class PlayerComponent implements OnInit, AfterViewInit, OnDestroy {
     private playerService: PlayerService,
     private titleService: TitleService,
     private gamepadService: GamepadService,
-    private hotkeysService: HotkeysService
+    private hotkeysService: HotkeysService,
+    private fileLoaderService: FileLoaderService
   ) {}
 
-  ngOnInit() {
+  async ngOnInit() {
     setTimeout(() => this.titleService.setTitle('gBlaster')); // TODO: find better way
 
     this.hotkeysService.initialize();
@@ -52,7 +54,14 @@ export class PlayerComponent implements OnInit, AfterViewInit, OnDestroy {
     this.gamepadService.registerButtonAction(GamepadButtons.R1_BUTTON, () => this.next(), 'turbo');
     this.gamepadService.registerButtonAction(GamepadButtons.L1_BUTTON, () => this.previous(), 'turbo');
 
-    this.gamepadService.registerButtonAction(GamepadButtons.START_BUTTON, () => this.loadFiles());
+    this.gamepadService.registerButtonAction(GamepadButtons.START_BUTTON, () => this.showPicker());
+    await this.fileLoaderService.init();
+
+    if (this.fileLoaderService.currentFolderHandle) {
+      return this.loadFiles();
+    } else {
+      return this.showPicker();
+    }
   }
 
   ngAfterViewInit() {
@@ -198,6 +207,11 @@ export class PlayerComponent implements OnInit, AfterViewInit, OnDestroy {
 
   formatLabel(value: number): string {
     return formatSecondsAsClock(value, false);
+  }
+
+  async showPicker() {
+    await this.fileLoaderService.showPicker();
+    return this.loadFiles();
   }
 
   async loadFiles() {

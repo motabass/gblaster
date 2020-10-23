@@ -8,6 +8,10 @@ import { FileLoaderService } from './file-loader.service.abstract';
 export class LegacyFileLoaderService extends FileLoaderService {
   private fileInput!: HTMLInputElement;
 
+  currentFolderHandle?: FileSystemDirectoryHandle;
+
+  private files: File[] = [];
+
   constructor() {
     super();
     this.fileInput = document.createElement('input');
@@ -20,15 +24,13 @@ export class LegacyFileLoaderService extends FileLoaderService {
     document.body.appendChild(this.fileInput);
   }
 
+  async init() {}
+
   async openFiles(): Promise<File[]> {
-    this.fileInput.click();
-    const files: File[] = await new Promise((resolve) => {
-      this.fileInput.onchange = () => resolve(this.getFiles()); // resolve with input, not event
-    });
-    return files;
+    return this.files;
   }
 
-  getFiles(): File[] {
+  private getFiles(): File[] {
     const files: File[] = [];
     if (this.fileInput.files) {
       for (let i = 0; i < this.fileInput.files.length; i++) {
@@ -39,5 +41,14 @@ export class LegacyFileLoaderService extends FileLoaderService {
       }
     }
     return files;
+  }
+
+  async showPicker(): Promise<void> {
+    this.fileInput.click();
+    const files: File[] = await new Promise((resolve) => {
+      this.fileInput.onchange = () => resolve(this.getFiles()); // resolve with input, not event
+    });
+
+    this.files = files;
   }
 }

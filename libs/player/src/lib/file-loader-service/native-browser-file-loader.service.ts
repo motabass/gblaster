@@ -1,6 +1,7 @@
 /// <reference types="wicg-file-system-access" />
 
 import { Injectable } from '@angular/core';
+import { NgxIndexedDBService } from 'ngx-indexed-db';
 import { ALLOWED_MIMETYPES } from './file-loader.helpers';
 import { FileLoaderService } from './file-loader.service.abstract';
 
@@ -8,15 +9,38 @@ import { FileLoaderService } from './file-loader.service.abstract';
   providedIn: 'any'
 })
 export class NativeBrowserFileLoaderService extends FileLoaderService {
-  private currentFolderHandle?: FileSystemDirectoryHandle;
+  currentFolderHandle?: FileSystemDirectoryHandle;
 
-  constructor() {
+  constructor(private indexedDbService: NgxIndexedDBService) {
     super();
+    this.init();
+  }
+
+  async init() {
+    const entries = await this.indexedDbService.getAll('dirHandle').toPromise();
+    if (entries.length) {
+      const granted = await verifyPermission(entries[0].handle);
+      if (granted) {
+        this.currentFolderHandle = entries[0].handle;
+      }
+    }
+  }
+
+  async showPicker(): Promise<void> {
+    const handle = await window.showDirectoryPicker();
+    this.currentFolderHandle = handle;
+    this.indexedDbService.clear('dirHandle');
+    this.indexedDbService.add('dirHandle', { handle: handle });
   }
 
   async openFiles(): Promise<File[]> {
-    const handle = await window.showDirectoryPicker();
-    this.currentFolderHandle = handle;
+    if (this.currentFolderHandle) {
+      return this.readHandle(this.currentFolderHandle);
+    }
+    return [];
+  }
+
+  private async readHandle(handle: FileSystemDirectoryHandle): Promise<File[]> {
     return await getAudioFilesFromDirHandle(handle);
   }
 }
@@ -36,4 +60,17 @@ async function getAudioFilesFromDirHandle(dirHandle: FileSystemDirectoryHandle):
     }
   }
   return files;
+}
+
+async function verifyPermission(handle: FileSystemDirectoryHandle) {
+  // Check if permission was already granted. If so, return true.
+  if ((await handle.queryPermission()) === 'granted') {
+    return true;
+  }
+  // Request permission. If the user grants permission, return true.
+  if ((await handle.requestPermission()) === 'granted') {
+    return true;
+  }
+  // The user didn't grant permission, so return false.
+  return false;
 }
