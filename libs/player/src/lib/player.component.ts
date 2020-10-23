@@ -55,11 +55,20 @@ export class PlayerComponent implements OnInit, AfterViewInit, OnDestroy {
     this.gamepadService.registerButtonAction(GamepadButtons.L1_BUTTON, () => this.previous(), 'turbo');
 
     this.gamepadService.registerButtonAction(GamepadButtons.START_BUTTON, () => this.showPicker());
+  }
+
+  async onReload() {
     await this.fileLoaderService.init();
 
     if (this.fileLoaderService.currentFolderHandle) {
       return this.loadFiles();
+    } else {
+      return this.showPicker();
     }
+  }
+
+  get isPlaylistEmpty(): boolean {
+    return this.playerService.songs.length === 0;
   }
 
   ngAfterViewInit() {
