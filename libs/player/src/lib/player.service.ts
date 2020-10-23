@@ -301,6 +301,9 @@ export class PlayerService {
     }
     if (this.playing) {
       this.audioElement.pause();
+      if (navigator.mediaSession) {
+        navigator.mediaSession.playbackState = 'paused';
+      }
       this.audioElement.currentTime = 0;
     } else {
       this.audioElement.currentTime = 0;
