@@ -1,6 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-// @ts-ignore
 import luceneEscapeQuery from 'lucene-escape-query';
 import { Id3Tags } from './id3-tags.types';
 import { RemoteCoverPicture } from './metadata.types';
