@@ -1,10 +1,12 @@
+/// <reference types="dom-screen-wake-lock" />
+
 import { Injectable } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
 })
 export class WakelockService {
-  wakelock: any;
+  wakelock?: WakeLockSentinel;
 
   constructor() {}
 
@@ -16,7 +18,6 @@ export class WakelockService {
 
   private async requestWakeLock() {
     try {
-      // @ts-ignore
       this.wakelock = await navigator.wakeLock.request('screen');
       this.wakelock.addEventListener('release', () => {});
     } catch (err) {

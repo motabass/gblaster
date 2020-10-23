@@ -5,7 +5,7 @@ import { FrequencyBarsConfig, OsciloscopeConfig, VisualizerMode, VisualsColorCon
   selector: '[mtbVisual]'
 })
 export class VisualsDirective implements OnDestroy, OnChanges {
-  @Input('mtbVisual') analyser?: any;
+  @Input('mtbVisual') analyser!: AnalyserNode;
 
   @Input() mode: VisualizerMode = 'bars';
 
@@ -27,11 +27,10 @@ export class VisualsDirective implements OnDestroy, OnChanges {
     const offscreenCanvas: OffscreenCanvas = this.canvas.transferControlToOffscreen();
 
     this.worker = new Worker('./visuals.worker', { type: 'module' });
-    this.worker.onmessage = ({ data }) => {
-      console.log(`page got message: ${data}`);
-    };
+    // this.worker.onmessage = ({ data }) => {
+    //   console.log(`page got message: ${data}`);
+    // };
 
-    // @ts-ignore
     this.worker.postMessage({ canvas: offscreenCanvas }, [offscreenCanvas]);
   }
 
@@ -54,6 +53,7 @@ export class VisualsDirective implements OnDestroy, OnChanges {
   }
 
   visualizeFrequencyBars() {
+    // TODO: messages suaber typisieren
     this.worker.postMessage({
       start: true,
       mode: 'bars',

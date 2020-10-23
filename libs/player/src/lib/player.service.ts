@@ -1,3 +1,5 @@
+/// <reference types="wicg-mediasession" />
+
 import { Injectable } from '@angular/core';
 import { ThemeService } from '@motabass/core/theme';
 import { LoaderService } from '@motabass/helper-services/loader';
@@ -54,20 +56,13 @@ export class PlayerService {
     const storedVolume = storageService.retrieve('volume');
     this.gainNode.gain.value = storedVolume ?? 0.5;
 
-    if ('mediaSession' in navigator) {
-      // @ts-ignore
+    if (navigator.mediaSession) {
       navigator.mediaSession.setActionHandler('play', () => this.playPause());
-      // @ts-ignore
       navigator.mediaSession.setActionHandler('pause', () => this.playPause());
-      // @ts-ignore
       navigator.mediaSession.setActionHandler('stop', () => this.stop());
-      // @ts-ignore
       navigator.mediaSession.setActionHandler('nexttrack', () => this.next());
-      // @ts-ignore
       navigator.mediaSession.setActionHandler('previoustrack', () => this.previous());
-      // @ts-ignore
       navigator.mediaSession.setActionHandler('seekbackward', () => this.seekLeft(10));
-      // @ts-ignore
       navigator.mediaSession.setActionHandler('seekforward', () => this.seekRight(10));
     }
     BAND_FREQUENIES.forEach((bandFrequency) => {
@@ -274,8 +269,7 @@ export class PlayerService {
 
   afterPlayLoaded() {
     this.loadFinished = true;
-    if ('mediaSession' in navigator) {
-      // @ts-ignore
+    if (navigator.mediaSession) {
       navigator.mediaSession.playbackState = 'playing';
     }
     this.updateBrowserPositionState();
@@ -295,8 +289,7 @@ export class PlayerService {
       this.audioElement.play().then(() => this.afterPlayLoaded());
     } else {
       this.audioElement.pause();
-      if ('mediaSession' in navigator) {
-        // @ts-ignore
+      if (navigator.mediaSession) {
         navigator.mediaSession.playbackState = 'paused';
       }
     }
@@ -412,9 +405,7 @@ export class PlayerService {
   }
 
   updateBrowserPositionState() {
-    // @ts-ignore
-    if ('mediaSession' in navigator && 'setPositionState' in navigator.mediaSession) {
-      // @ts-ignore
+    if (navigator.mediaSession && navigator.mediaSession.setPositionState) {
       navigator.mediaSession.setPositionState({
         duration: this.audioElement.duration,
         playbackRate: this.audioElement.playbackRate,
@@ -424,13 +415,12 @@ export class PlayerService {
   }
 
   setBrowserMetadata(metadata: SongMetadata) {
-    if ('mediaSession' in navigator) {
-      // @ts-ignore
+    if (navigator.mediaSession) {
       navigator.mediaSession.metadata = new MediaMetadata({
         title: metadata.title,
         artist: metadata.artist,
         album: metadata.album,
-        artwork: [{ src: metadata.coverUrl?.original, sizes: '512x512' }]
+        artwork: metadata.coverUrl?.original ? [{ src: metadata.coverUrl?.original, sizes: '512x512' }] : undefined
       });
     }
   }

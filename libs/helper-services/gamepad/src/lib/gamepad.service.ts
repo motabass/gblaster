@@ -26,11 +26,13 @@ export class GamepadService implements OnDestroy {
         this.axesActions.push(this.createDefaultAxisAction(Number(axisIndex)));
       }
     }
-    addEventListener('gamepadconnected', (event: any) => this.connectionListener(event));
-    addEventListener('gamepaddisconnected', (event: any) => this.disconnectionListener(event));
+    // @ts-ignore
+    addEventListener('gamepadconnected', (event: GamepadEvent) => this.connectionListener(event));
+    // @ts-ignore
+    addEventListener('gamepaddisconnected', (event: GamepadEvent) => this.disconnectionListener(event));
   }
 
-  private connectionListener(event: any) {
+  private connectionListener(event: GamepadEvent) {
     const gamepads = navigator.getGamepads();
     const gamepad = gamepads[event.gamepad.index];
     console.log(`New gamepad with Number ${event.gamepad.index} connected: `);
@@ -78,7 +80,7 @@ export class GamepadService implements OnDestroy {
     };
   }
 
-  private disconnectionListener(event: any) {
+  private disconnectionListener(event: GamepadEvent) {
     const gamepads = navigator.getGamepads();
     const gamepad = gamepads[event.gamepad.index];
     console.log(`Gamepad ${event.gamepad.index} disconnected!`);

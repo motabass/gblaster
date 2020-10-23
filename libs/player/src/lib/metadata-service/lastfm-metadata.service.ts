@@ -11,6 +11,7 @@ export class LastfmMetadataService {
 
   async getCoverPicture(tags: Id3Tags): Promise<RemoteCoverPicture | undefined> {
     if (tags.artist && tags.album) {
+      // TODO: type response
       const data: any = await this.http
         .get(`https://ws.audioscrobbler.com/2.0/?method=album.getinfo&api_key=${this.LASTFM_API_KEY}&artist=${tags.artist}&album=${tags.album}&format=json`)
         .toPromise();

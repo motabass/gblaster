@@ -1,3 +1,5 @@
+/// <reference types="wicg-file-system-access" />
+
 import { Injectable } from '@angular/core';
 import { ALLOWED_MIMETYPES } from './file-loader.helpers';
 import { FileLoaderService } from './file-loader.service.abstract';
@@ -6,21 +8,20 @@ import { FileLoaderService } from './file-loader.service.abstract';
   providedIn: 'any'
 })
 export class NativeBrowserFileLoaderService extends FileLoaderService {
-  private currentFolderHandle: any;
+  private currentFolderHandle?: FileSystemDirectoryHandle;
 
   constructor() {
     super();
   }
 
   async openFiles(): Promise<File[]> {
-    // @ts-ignore
     const handle = await window.showDirectoryPicker();
     this.currentFolderHandle = handle;
     return await getAudioFilesFromDirHandle(handle);
   }
 }
 
-async function getAudioFilesFromDirHandle(dirHandle: any): Promise<File[]> {
+async function getAudioFilesFromDirHandle(dirHandle: FileSystemDirectoryHandle): Promise<File[]> {
   const files: File[] = [];
   for await (const entry of dirHandle.values()) {
     if (entry.kind === 'file') {

@@ -14,7 +14,7 @@ import { RepeatMode, Song } from './player.types';
   styleUrls: ['./player.component.scss']
 })
 export class PlayerComponent implements OnInit, AfterViewInit, OnDestroy {
-  private interval: any;
+  private interval?: number;
 
   position = 0;
 
@@ -56,7 +56,7 @@ export class PlayerComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit() {
-    this.interval = setInterval(() => {
+    this.interval = window.setInterval(() => {
       this.position = this.playerService.getCurrentTime();
     }, 250);
   }

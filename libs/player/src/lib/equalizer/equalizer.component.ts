@@ -26,11 +26,10 @@ export class EqualizerComponent {
     }
   }
 
-  displayFunction(value: any) {
+  displayFunction(value: number): string | number {
     if (value <= 0) {
       return value;
-    }
-    if (value > 0) {
+    } else {
       return '+' + value;
     }
   }
