@@ -59,8 +59,6 @@ export class PlayerComponent implements OnInit, AfterViewInit, OnDestroy {
 
     if (this.fileLoaderService.currentFolderHandle) {
       return this.loadFiles();
-    } else {
-      return this.showPicker();
     }
   }
 

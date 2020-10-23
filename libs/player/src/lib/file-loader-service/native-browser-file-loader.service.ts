@@ -13,15 +13,14 @@ export class NativeBrowserFileLoaderService extends FileLoaderService {
 
   constructor(private indexedDbService: NgxIndexedDBService) {
     super();
-    this.init();
   }
 
   async init() {
-    const entries = await this.indexedDbService.getAll('dirHandle').toPromise();
-    if (entries.length) {
-      const granted = await verifyPermission(entries[0].handle);
+    const entry = await this.indexedDbService.getByID('dirHandle', 1).toPromise();
+    if (entry) {
+      const granted = await verifyPermission(entry.handle);
       if (granted) {
-        this.currentFolderHandle = entries[0].handle;
+        this.currentFolderHandle = entry.handle;
       }
     }
   }
@@ -29,8 +28,7 @@ export class NativeBrowserFileLoaderService extends FileLoaderService {
   async showPicker(): Promise<void> {
     const handle = await window.showDirectoryPicker();
     this.currentFolderHandle = handle;
-    this.indexedDbService.clear('dirHandle');
-    this.indexedDbService.add('dirHandle', { handle: handle });
+    this.indexedDbService.update('dirHandle', { id: 1, handle: handle });
   }
 
   async openFiles(): Promise<File[]> {
