@@ -11,7 +11,8 @@ export class Id3TagsService {
     try {
       tags = await musicMetadata.parseBlob(file, { duration: false, includeChapters: false, skipPostHeaders: false, skipCovers: false });
     } catch (e) {
-      console.warn(`Tags von "${file.name}" (${file.type}) konnten nicht gelesen werden: `, e);
+      console.warn(`Tags von "${file.name}" (${file.type}) konnten nicht gelesen werden: `);
+      console.error(e);
       return null;
     }
     let cover: Id3CoverPicture | undefined;

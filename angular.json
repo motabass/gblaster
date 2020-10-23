@@ -222,7 +222,11 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["libs/ui-components/slide-panel/tsconfig.lib.json", "libs/ui-components/slide-panel/tsconfig.spec.json"],
+            "tsConfig": [
+              "libs/ui-components/slide-panel/tsconfig.lib.json",
+              "libs/ui-components/slide-panel/tsconfig.spec.json",
+              "libs/ui-components/slide-panel/.storybook/tsconfig.json"
+            ],
             "exclude": ["**/node_modules/**", "!libs/ui-components/slide-panel/**/*"]
           }
         },

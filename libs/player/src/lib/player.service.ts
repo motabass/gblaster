@@ -56,13 +56,19 @@ export class PlayerService {
 
     if ('mediaSession' in navigator) {
       // @ts-ignore
-      navigator.mediaSession.setActionHandler('play', this.playPause.bind(this));
+      navigator.mediaSession.setActionHandler('play', () => this.playPause());
       // @ts-ignore
-      navigator.mediaSession.setActionHandler('pause', this.playPause.bind(this));
+      navigator.mediaSession.setActionHandler('pause', () => this.playPause());
       // @ts-ignore
-      navigator.mediaSession.setActionHandler('nexttrack', this.next.bind(this));
+      navigator.mediaSession.setActionHandler('stop', () => this.stop());
       // @ts-ignore
-      navigator.mediaSession.setActionHandler('previoustrack', this.previous.bind(this));
+      navigator.mediaSession.setActionHandler('nexttrack', () => this.next());
+      // @ts-ignore
+      navigator.mediaSession.setActionHandler('previoustrack', () => this.previous());
+      // @ts-ignore
+      navigator.mediaSession.setActionHandler('seekbackward', () => this.seekLeft(10));
+      // @ts-ignore
+      navigator.mediaSession.setActionHandler('seekforward', () => this.seekRight(10));
     }
     BAND_FREQUENIES.forEach((bandFrequency) => {
       const filter = this.bands[bandFrequency];
@@ -365,6 +371,14 @@ export class PlayerService {
     }
   }
 
+  seekLeft(seconds: number) {
+    this.setSeekPosition(this.getCurrentTime() - seconds);
+  }
+
+  seekRight(seconds: number) {
+    this.setSeekPosition(this.getCurrentTime() + seconds);
+  }
+
   get playing(): boolean {
     return !!this.playingSong && !this.audioElement.paused;
   }
@@ -392,12 +406,14 @@ export class PlayerService {
   updateBrowserPositionState() {
     // @ts-ignore
     if ('mediaSession' in navigator && 'setPositionState' in navigator.mediaSession) {
-      // @ts-ignore
-      navigator.mediaSession.setPositionState({
-        duration: this.audioElement.duration,
-        playbackRate: this.audioElement.playbackRate,
-        position: this.audioElement.currentTime
-      });
+      if (!isNaN(this.audioElement.duration)) {
+        // @ts-ignore
+        navigator.mediaSession.setPositionState({
+          duration: this.audioElement.duration,
+          playbackRate: this.audioElement.playbackRate,
+          position: this.audioElement.currentTime
+        });
+      }
     }
     if (this.playing) {
       // @ts-ignore

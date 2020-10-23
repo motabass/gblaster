@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ALLOWED_EXTENSIONS, ALLOWED_FILETYPES } from './file-loader.helpers';
+import { ALLOWED_MIMETYPES } from './file-loader.helpers';
 import { FileLoaderService } from './file-loader.service.abstract';
 
 @Injectable({
@@ -13,20 +13,8 @@ export class NativeBrowserFileLoaderService extends FileLoaderService {
   }
 
   async openFiles(): Promise<File[]> {
-    const opts = {
-      type: 'open-directory',
-      recursive: true,
-      accepts: [
-        {
-          description: 'Audio-Files',
-          extensions: ALLOWED_EXTENSIONS,
-          mimeTypes: ALLOWED_FILETYPES
-        }
-      ]
-    };
-
     // @ts-ignore
-    const handle = await window.chooseFileSystemEntries(opts);
+    const handle = await window.showDirectoryPicker();
     this.currentFolderHandle = handle;
     return await getAudioFilesFromDirHandle(handle);
   }
@@ -34,24 +22,17 @@ export class NativeBrowserFileLoaderService extends FileLoaderService {
 
 async function getAudioFilesFromDirHandle(dirHandle: any): Promise<File[]> {
   const files: File[] = [];
-  for await (const entry of dirHandle.getEntries()) {
-    if (entry.isFile) {
+  for await (const entry of dirHandle.values()) {
+    if (entry.kind === 'file') {
       const file = await entry.getFile();
-      if (ALLOWED_FILETYPES.includes(file.type)) {
+      if (ALLOWED_MIMETYPES.includes(file.type)) {
         // TODO: remove double check when accepts works for directories in API
         files.push(file);
       }
+    } else {
+      const subFiles = await getAudioFilesFromDirHandle(entry);
+      files.push(...subFiles);
     }
   }
   return files;
-}
-
-async function getSubDirsFromDirHandle(dirHandle: any): Promise<any[]> {
-  const dirs: any[] = [];
-  for await (const entry of dirHandle.getEntries()) {
-    if (entry.isDirectory) {
-      dirs.push(entry);
-    }
-  }
-  return dirs;
 }

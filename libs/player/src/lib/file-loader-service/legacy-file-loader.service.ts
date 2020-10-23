@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ALLOWED_FILETYPES } from './file-loader.helpers';
+import { ALLOWED_MIMETYPES } from './file-loader.helpers';
 import { FileLoaderService } from './file-loader.service.abstract';
 
 @Injectable({
@@ -14,7 +14,7 @@ export class LegacyFileLoaderService extends FileLoaderService {
     this.fileInput.type = 'file';
     this.fileInput.id = 'hidden_file_input';
     this.fileInput.style.display = 'none';
-    this.fileInput.accept = ALLOWED_FILETYPES.join('|');
+    this.fileInput.accept = ALLOWED_MIMETYPES.join('|');
     this.fileInput.multiple = true;
 
     document.body.appendChild(this.fileInput);
@@ -33,7 +33,7 @@ export class LegacyFileLoaderService extends FileLoaderService {
     if (this.fileInput.files) {
       for (let i = 0; i < this.fileInput.files.length; i++) {
         const file = this.fileInput.files?.item(i);
-        if (file && ALLOWED_FILETYPES.includes(file.type)) {
+        if (file && ALLOWED_MIMETYPES.includes(file.type)) {
           files.push(file);
         }
       }

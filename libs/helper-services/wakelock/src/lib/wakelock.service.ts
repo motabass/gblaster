@@ -18,12 +18,9 @@ export class WakelockService {
     try {
       // @ts-ignore
       this.wakelock = await navigator.wakeLock.request('screen');
-      this.wakelock.addEventListener('release', () => {
-        console.log('Wake Lock was released');
-      });
-      console.log('Wake Lock is active');
+      this.wakelock.addEventListener('release', () => {});
     } catch (err) {
-      console.error(`${err.name}, ${err.message}`);
+      console.warn(`${err.name}, ${err.message}`);
     }
   }
 

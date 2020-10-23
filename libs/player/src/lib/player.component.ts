@@ -4,7 +4,7 @@ import { GamepadAxes, GamepadButtons, GamepadService } from '@motabass/helper-se
 import { HotkeysService } from '@motabass/helper-services/hotkeys';
 import { TitleService } from '@motabass/helper-services/title';
 import { formatSecondsAsClock } from '@motabass/helpers/time';
-import { ALLOWED_FILETYPES } from './file-loader-service/file-loader.helpers';
+import { ALLOWED_MIMETYPES } from './file-loader-service/file-loader.helpers';
 import { PlayerService } from './player.service';
 import { RepeatMode, Song } from './player.types';
 
@@ -58,6 +58,7 @@ export class PlayerComponent implements OnInit, AfterViewInit, OnDestroy {
   ngAfterViewInit() {
     this.interval = setInterval(() => {
       this.position = this.playerService.getCurrentTime();
+      this.playerService.updateBrowserPositionState();
     }, 250);
   }
 
@@ -69,11 +70,11 @@ export class PlayerComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   seekLeft(value: number) {
-    this.playerService.setSeekPosition(this.playerService.getCurrentTime() - value * 10);
+    this.playerService.seekLeft(value + 10);
   }
 
   seekRight(value: number) {
-    this.playerService.setSeekPosition(this.playerService.getCurrentTime() + value * 10);
+    this.playerService.seekRight(value * 10);
   }
 
   alterSeekPositionByAxis(value: number) {
@@ -132,7 +133,7 @@ export class PlayerComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   get allowedTypes(): string[] {
-    return ALLOWED_FILETYPES;
+    return ALLOWED_MIMETYPES;
   }
 
   alterSelectionByAxis(value: number) {

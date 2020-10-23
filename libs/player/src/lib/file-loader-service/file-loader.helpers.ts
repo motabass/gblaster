@@ -1,4 +1,4 @@
-export const ALLOWED_FILETYPES = [
+export const ALLOWED_MIMETYPES = [
   'audio/mp3',
   'audio/mpeg',
   'audio/x-aiff',
