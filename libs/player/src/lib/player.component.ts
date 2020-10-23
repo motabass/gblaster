@@ -58,7 +58,6 @@ export class PlayerComponent implements OnInit, AfterViewInit, OnDestroy {
   ngAfterViewInit() {
     this.interval = setInterval(() => {
       this.position = this.playerService.getCurrentTime();
-      this.playerService.updateBrowserPositionState();
     }, 250);
   }
 

@@ -269,11 +269,15 @@ export class PlayerService {
     this.setPlayingSong(song);
 
     this.loadFinished = false;
-    this.audioElement.play().then(() => this.afterLoaded());
+    this.audioElement.play().then(() => this.afterPlayLoaded());
   }
 
-  afterLoaded() {
+  afterPlayLoaded() {
     this.loadFinished = true;
+    if ('mediaSession' in navigator) {
+      // @ts-ignore
+      navigator.mediaSession.playbackState = 'playing';
+    }
     this.updateBrowserPositionState();
   }
 
@@ -282,15 +286,19 @@ export class PlayerService {
       if (this.selectedSong) {
         this.setPlayingSong(this.selectedSong);
         this.loadFinished = false;
-        this.audioElement.play().then(() => this.afterLoaded());
+        this.audioElement.play().then(() => this.afterPlayLoaded());
       }
       return;
     }
     if (this.audioElement.paused) {
       this.loadFinished = false;
-      this.audioElement.play().then(() => this.afterLoaded());
+      this.audioElement.play().then(() => this.afterPlayLoaded());
     } else {
       this.audioElement.pause();
+      if ('mediaSession' in navigator) {
+        // @ts-ignore
+        navigator.mediaSession.playbackState = 'paused';
+      }
     }
   }
 
@@ -406,21 +414,12 @@ export class PlayerService {
   updateBrowserPositionState() {
     // @ts-ignore
     if ('mediaSession' in navigator && 'setPositionState' in navigator.mediaSession) {
-      if (!isNaN(this.audioElement.duration)) {
-        // @ts-ignore
-        navigator.mediaSession.setPositionState({
-          duration: this.audioElement.duration,
-          playbackRate: this.audioElement.playbackRate,
-          position: this.audioElement.currentTime
-        });
-      }
-    }
-    if (this.playing) {
       // @ts-ignore
-      navigator.mediaSession.playbackState = 'playing';
-    } else {
-      // @ts-ignore
-      navigator.mediaSession.playbackState = 'paused';
+      navigator.mediaSession.setPositionState({
+        duration: this.audioElement.duration,
+        playbackRate: this.audioElement.playbackRate,
+        position: this.audioElement.currentTime
+      });
     }
   }
 
