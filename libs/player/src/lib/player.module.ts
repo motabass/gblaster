@@ -13,6 +13,7 @@ import { RouterModule } from '@angular/router';
 import { GamepadModule } from '@motabass/helper-services/gamepad';
 import { HotkeysModule } from '@motabass/helper-services/hotkeys';
 import { WakelockModule } from '@motabass/helper-services/wakelock';
+import { MatIconSizeModule } from '@motabass/material-helpers/mat-icon-size';
 import { FileDropOverlayModule } from '@motabass/ui-components/file-drop-overlay';
 import { SlidePanelModule } from '@motabass/ui-components/slide-panel';
 import { VisualsModule } from '@motabass/ui-components/visuals';
@@ -52,7 +53,8 @@ import { EqualizerShellComponent } from './equalizer-shell/equalizer-shell.compo
     MobxAngularModule,
     SlidePanelModule,
     FileDropOverlayModule,
-    WakelockModule
+    WakelockModule,
+    MatIconSizeModule
   ],
   declarations: [
     PlayerComponent,
