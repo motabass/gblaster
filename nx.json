@@ -72,6 +72,9 @@
     },
     "settings": {
       "tags": []
+    },
+    "helper-services-media-session": {
+      "tags": []
     }
   },
   "tasksRunnerOptions": {

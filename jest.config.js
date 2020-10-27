@@ -17,6 +17,7 @@ module.exports = {
     '<rootDir>/libs/helper-services/loader',
     '<rootDir>/libs/ui-components/file-drop-overlay',
     '<rootDir>/libs/helper-services/wakelock',
-    '<rootDir>/libs/settings'
+    '<rootDir>/libs/settings',
+    '<rootDir>/libs/helper-services/media-session'
   ]
 };

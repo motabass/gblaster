@@ -800,6 +800,33 @@
           "style": "scss"
         }
       }
+    },
+    "helper-services-media-session": {
+      "projectType": "library",
+      "root": "libs/helper-services/media-session",
+      "sourceRoot": "libs/helper-services/media-session/src",
+      "prefix": "mtb",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": ["libs/helper-services/media-session/tsconfig.lib.json", "libs/helper-services/media-session/tsconfig.spec.json"],
+            "exclude": ["**/node_modules/**", "!libs/helper-services/media-session/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/helper-services/media-session/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      }
     }
   },
   "cli": {

@@ -3,12 +3,13 @@
 import { Injectable } from '@angular/core';
 import { ThemeService } from '@motabass/core/theme';
 import { LoaderService } from '@motabass/helper-services/loader';
+import { MediaSessionService } from '@motabass/helper-services/media-session';
 import { WakelockService } from '@motabass/helper-services/wakelock';
 import { action, observable } from 'mobx-angular';
 import { LocalStorage, LocalStorageService } from 'ngx-webstorage';
 import { FileLoaderService } from './file-loader-service/file-loader.service.abstract';
 import { MetadataService } from './metadata-service/metadata.service';
-import { BandFrequency, RepeatMode, Song, SongMetadata } from './player.types';
+import { BandFrequency, RepeatMode, Song } from './player.types';
 
 export const BAND_FREQUENIES: BandFrequency[] = [60, 170, 310, 600, 1000, 3000, 6000, 12000, 14000, 16000];
 
@@ -45,7 +46,8 @@ export class PlayerService {
     private storageService: LocalStorageService,
     private themeService: ThemeService,
     private loaderService: LoaderService,
-    private wakelockService: WakelockService
+    private wakelockService: WakelockService,
+    private mediaSessionService: MediaSessionService
   ) {
     this.initAudioElement();
     this.initAudioContext();
@@ -56,16 +58,14 @@ export class PlayerService {
     const storedVolume = storageService.retrieve('volume');
     this.gainNode.gain.value = storedVolume ?? 0.5;
 
-    if (navigator.mediaSession) {
-      navigator.mediaSession.setActionHandler('play', () => this.playPause());
-      navigator.mediaSession.setActionHandler('pause', () => this.playPause());
-      navigator.mediaSession.setActionHandler('stop', () => this.stop());
-      navigator.mediaSession.setActionHandler('nexttrack', () => this.next());
-      navigator.mediaSession.setActionHandler('previoustrack', () => this.previous());
-      navigator.mediaSession.setActionHandler('seekbackward', () => this.seekLeft(10));
-      navigator.mediaSession.setActionHandler('seekforward', () => this.seekRight(10));
-      navigator.mediaSession.setActionHandler('seekto', (details) => this.setSeekPosition(details.seekTime));
-    }
+    this.mediaSessionService.setActionHandler('play', () => this.playPause());
+    this.mediaSessionService.setActionHandler('pause', () => this.playPause());
+    this.mediaSessionService.setActionHandler('stop', () => this.stop());
+    this.mediaSessionService.setActionHandler('nexttrack', () => this.next());
+    this.mediaSessionService.setActionHandler('previoustrack', () => this.previous());
+    this.mediaSessionService.setActionHandler('seekbackward', () => this.seekLeft(10));
+    this.mediaSessionService.setActionHandler('seekforward', () => this.seekRight(10));
+
     BAND_FREQUENIES.forEach((bandFrequency) => {
       const filter = this.bands[bandFrequency];
       filter.gain.value = this.bandGains[bandFrequency];
@@ -151,7 +151,12 @@ export class PlayerService {
     this.playingSong = song;
 
     if (song.metadata) {
-      this.setBrowserMetadata(song.metadata);
+      this.mediaSessionService.setBrowserMetadata({
+        title: song.metadata.title,
+        artist: song.metadata.artist,
+        album: song.metadata.album,
+        artwork: song.metadata.coverUrl?.original ? [{ src: song.metadata.coverUrl.original, sizes: '512x512' }] : undefined
+      });
 
       if (this.themeService.coverArtColors) {
         const primaryColor = song.metadata.coverColors?.darkVibrant?.hex;
@@ -223,10 +228,10 @@ export class PlayerService {
     return this.analyserNode;
   }
 
-  @action setSeekPosition(value: number) {
+  @action setSeekPosition(value: number | undefined) {
     if (value !== null && value !== undefined && value >= 0 && value <= this.durationSeconds) {
       this.audioElement.currentTime = value;
-      this.updateBrowserPositionState();
+      this.mediaSessionService.updateMediaPositionState(this.audioElement);
     }
   }
 
@@ -270,10 +275,9 @@ export class PlayerService {
 
   afterPlayLoaded() {
     this.loadFinished = true;
-    if (navigator.mediaSession) {
-      navigator.mediaSession.playbackState = 'playing';
-    }
-    this.updateBrowserPositionState();
+    this.mediaSessionService.setSeekMediaElement(this.audioElement);
+    this.mediaSessionService.updateMediaPositionState(this.audioElement);
+    this.mediaSessionService.setPlaying();
   }
 
   @action playPause() {
@@ -290,9 +294,7 @@ export class PlayerService {
       this.audioElement.play().then(() => this.afterPlayLoaded());
     } else {
       this.audioElement.pause();
-      if (navigator.mediaSession) {
-        navigator.mediaSession.playbackState = 'paused';
-      }
+      this.mediaSessionService.setPaused();
     }
   }
 
@@ -302,9 +304,7 @@ export class PlayerService {
     }
     if (this.playing) {
       this.audioElement.pause();
-      if (navigator.mediaSession) {
-        navigator.mediaSession.playbackState = 'paused';
-      }
+      this.mediaSessionService.setPaused();
       this.audioElement.currentTime = 0;
     } else {
       this.audioElement.currentTime = 0;
@@ -406,27 +406,6 @@ export class PlayerService {
 
   @action toggleShuffle() {
     this.shuffle = !this.shuffle;
-  }
-
-  updateBrowserPositionState() {
-    if (navigator.mediaSession && navigator.mediaSession.setPositionState) {
-      navigator.mediaSession.setPositionState({
-        duration: this.audioElement.duration,
-        playbackRate: this.audioElement.playbackRate,
-        position: this.audioElement.currentTime
-      });
-    }
-  }
-
-  setBrowserMetadata(metadata: SongMetadata) {
-    if (navigator.mediaSession) {
-      navigator.mediaSession.metadata = new MediaMetadata({
-        title: metadata.title,
-        artist: metadata.artist,
-        album: metadata.album,
-        artwork: metadata.coverUrl?.original ? [{ src: metadata.coverUrl?.original, sizes: '512x512' }] : undefined
-      });
-    }
   }
 }
 
