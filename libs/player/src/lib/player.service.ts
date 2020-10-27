@@ -64,6 +64,7 @@ export class PlayerService {
       navigator.mediaSession.setActionHandler('previoustrack', () => this.previous());
       navigator.mediaSession.setActionHandler('seekbackward', () => this.seekLeft(10));
       navigator.mediaSession.setActionHandler('seekforward', () => this.seekRight(10));
+      navigator.mediaSession.setActionHandler('seekto', (details) => this.setSeekPosition(details.seekTime));
     }
     BAND_FREQUENIES.forEach((bandFrequency) => {
       const filter = this.bands[bandFrequency];
