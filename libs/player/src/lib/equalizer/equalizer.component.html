@@ -1,9 +1,9 @@
-<div fxLayout="row" fxLayoutAlign="space-between center" style="width: 100%; height: 100%; box-sizing: border-box; padding-bottom: 1rem;">
-  <div *ngFor="let band of BANDS; trackBy: bandTrackFunction" fxLayout="column" fxLayoutAlign="start center" style="min-height: 6rem; height: 100%;">
+<div fxLayout="row" fxLayoutAlign="space-between center" style="width: 100%; height: 100%; box-sizing: border-box; padding-bottom: 1rem">
+  <div *ngFor="let band of BANDS; trackBy: bandTrackFunction" fxLayout="column" fxLayoutAlign="start center" style="min-height: 6rem; height: 100%">
     <mat-slider
       vertical
       [displayWith]="displayFunction"
-      style="height: 100%; padding: 2px;"
+      style="height: 100%; padding: 2px"
       [value]="getBandGain(band)"
       (input)="onGainChange($event, band)"
       min="-12"
@@ -12,6 +12,6 @@
       thumbLabel
       tickInterval="3"
     ></mat-slider>
-    <span style="font-size: smaller; text-align: center; width: 100%;">{{ band | band }}</span>
+    <span style="font-size: smaller; text-align: center; width: 100%">{{ band | band }}</span>
   </div>
 </div>

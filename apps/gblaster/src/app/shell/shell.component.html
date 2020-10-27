@@ -8,7 +8,7 @@
     [opened]="(isHandset$ | async) === false"
   >
     <mat-toolbar>
-      <mat-icon aria-label="Side nav toggle icon" svgIcon="radio" matIconSize="2.6rem" style="margin-right: 0.7rem;"></mat-icon>
+      <mat-icon aria-label="Side nav toggle icon" svgIcon="radio" matIconSize="2.6rem" style="margin-right: 0.7rem"></mat-icon>
       <span class="title">{{ title | async }}</span>
     </mat-toolbar>
     <mat-nav-list>
@@ -17,7 +17,7 @@
       <a mat-list-item (click)="navigateTo('/settings')"><mat-icon mat-list-icon svgIcon="cog-outline"></mat-icon>&nbsp;Settings</a>
     </mat-nav-list>
   </mat-sidenav>
-  <mat-sidenav-content style="overflow: hidden;">
+  <mat-sidenav-content style="overflow: hidden">
     <mat-toolbar color="primary" class="mat-elevation-z6">
       <button
         id="sidenav_menu_button"
@@ -26,12 +26,12 @@
         mat-icon-button
         (click)="drawer.toggle()"
         *ngIf="isHandset$ | async"
-        style="margin-right: 0.7rem;"
+        style="margin-right: 0.7rem"
       >
         <mat-icon aria-label="Side nav toggle icon" matIconSize="2.7rem" svgIcon="logo"></mat-icon>
       </button>
       <span class="title">{{ title | async }}</span>
-      <mat-spinner *ngIf="isLoading | async" style="margin-left: 1rem;" color="accent" diameter="32" strokeWidth="6"></mat-spinner>
+      <mat-spinner *ngIf="isLoading | async" style="margin-left: 1rem" color="accent" diameter="32" strokeWidth="6"></mat-spinner>
     </mat-toolbar>
     <div class="router-outlet"><router-outlet></router-outlet></div>
   </mat-sidenav-content>
