@@ -19,19 +19,19 @@ export class MediaSessionService {
   }
 
   setSeekMediaElement(mediaElement: HTMLMediaElement) {
-    if (navigator.mediaSession) {
-      try {
-        navigator.mediaSession.setActionHandler('seekto', (details) => {
-          if (details.fastSeek && 'fastSeek' in mediaElement) {
-            mediaElement.fastSeek(details.seekTime);
-          } else {
-            mediaElement.currentTime = details.seekTime;
-          }
-        });
-      } catch (error) {
-        console.warn(`The media session action "seekto" is not supported yet.`);
-      }
-    }
+    // if (navigator.mediaSession) {
+    //   try {
+    //     navigator.mediaSession.setActionHandler('seekto', (details) => {
+    //       if (details.fastSeek && 'fastSeek' in mediaElement) {
+    //         mediaElement.fastSeek(details.seekTime);
+    //       } else {
+    //         mediaElement.currentTime = details.seekTime;
+    //       }
+    //     });
+    //   } catch (error) {
+    //     console.warn(`The media session action "seekto" is not supported yet.`);
+    //   }
+    // }
   }
 
   updateMediaPositionState(mediaElement: HTMLMediaElement) {
