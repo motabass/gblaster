@@ -17,17 +17,19 @@ export class WakelockService {
   }
 
   private async requestWakeLock() {
-    try {
-      this.wakelock = await navigator.wakeLock.request('screen');
-      this.wakelock.addEventListener('release', () => {});
-    } catch (err) {
-      console.warn(`${err.name}, ${err.message}`);
+    if (navigator.wakeLock) {
+      try {
+        this.wakelock = await navigator.wakeLock.request('screen');
+        this.wakelock.addEventListener('release', () => {});
+      } catch (err) {
+        console.warn(`${err.name}, ${err.message}`);
+      }
     }
   }
 
-  releaseWakelock() {
+  async releaseWakelock() {
     if (this.wakelock) {
-      this.wakelock.release();
+      return this.wakelock.release();
     }
   }
 }

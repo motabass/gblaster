@@ -68,7 +68,7 @@ export class PlayerComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   get isPlaylistEmpty(): boolean {
-    return this.playerService.songs.length === 0;
+    return this.playerService.currentPlaylist.length === 0;
   }
 
   ngAfterViewInit() {

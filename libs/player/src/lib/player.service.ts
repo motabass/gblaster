@@ -28,7 +28,7 @@ export class PlayerService {
 
   private loadFinished = true;
 
-  @observable songs: Song[] = [];
+  @observable currentPlaylist: Song[] = [];
 
   @observable playingSong?: Song;
 
@@ -138,7 +138,7 @@ export class PlayerService {
     output.connect(this.gainNode);
   }
 
-  @action async setPlayingSong(song: Song | undefined) {
+  private async setPlayingSong(song: Song | undefined) {
     if (!song) {
       return;
     }
@@ -174,7 +174,6 @@ export class PlayerService {
     this.audioSrcNode.connect(this.analyserNode);
 
     this.selectedSong = song;
-    return this.wakelockService.activateWakelock();
   }
 
   @action async loadFiles(): Promise<void> {
@@ -188,7 +187,7 @@ export class PlayerService {
         this.loaderService.show();
         const song = await this.createSongFromFile(file);
         this.loaderService.hide();
-        this.songs.push(song);
+        this.currentPlaylist.push(song);
       }
     }
   }
@@ -265,7 +264,7 @@ export class PlayerService {
       return;
     }
 
-    this.stop();
+    // this.stop();
 
     this.setPlayingSong(song);
 
@@ -275,9 +274,10 @@ export class PlayerService {
 
   afterPlayLoaded() {
     this.loadFinished = true;
-    this.mediaSessionService.setSeekMediaElement(this.audioElement);
-    this.mediaSessionService.updateMediaPositionState(this.audioElement);
     this.mediaSessionService.setPlaying();
+    this.mediaSessionService.updateMediaPositionState(this.audioElement);
+    this.mediaSessionService.setSeekMediaElement(this.audioElement);
+    this.wakelockService.activateWakelock();
   }
 
   @action playPause() {
@@ -295,6 +295,7 @@ export class PlayerService {
     } else {
       this.audioElement.pause();
       this.mediaSessionService.setPaused();
+      this.wakelockService.releaseWakelock();
     }
   }
 
@@ -319,8 +320,8 @@ export class PlayerService {
     }
 
     if (this.shuffle) {
-      const randomPosition = getRandomInt(0, this.songs.length - 1);
-      return this.playPauseSong(this.songs[randomPosition]);
+      const randomPosition = getRandomInt(0, this.currentPlaylist.length - 1);
+      return this.playPauseSong(this.currentPlaylist[randomPosition]);
     }
 
     const currPo = this.playingSong.playlistPosition;
@@ -328,10 +329,10 @@ export class PlayerService {
       return;
     }
 
-    if (currPo < this.songs.length) {
-      return this.playPauseSong(this.songs[currPo]);
+    if (currPo < this.currentPlaylist.length) {
+      return this.playPauseSong(this.currentPlaylist[currPo]);
     } else if (this.repeat === 'all') {
-      return this.playPauseSong(this.songs[0]);
+      return this.playPauseSong(this.currentPlaylist[0]);
     }
   }
 
@@ -344,7 +345,7 @@ export class PlayerService {
       return;
     }
     if (currPo > 1) {
-      return this.playPauseSong(this.songs[currPo - 2]);
+      return this.playPauseSong(this.currentPlaylist[currPo - 2]);
     }
   }
 
@@ -357,8 +358,8 @@ export class PlayerService {
       return;
     }
 
-    if (currPo < this.songs.length) {
-      this.selectedSong = this.songs[currPo];
+    if (currPo < this.currentPlaylist.length) {
+      this.selectedSong = this.currentPlaylist[currPo];
     }
   }
 
@@ -372,7 +373,7 @@ export class PlayerService {
     }
 
     if (currPo > 1) {
-      this.selectedSong = this.songs[currPo - 2];
+      this.selectedSong = this.currentPlaylist[currPo - 2];
     }
   }
 

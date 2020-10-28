@@ -18,14 +18,14 @@ export class PlaylistComponent {
   }
 
   get songs(): Song[] {
-    for (const [i, v] of this.playerService.songs.entries()) {
+    for (const [i, v] of this.playerService.currentPlaylist.entries()) {
       v.playlistPosition = i + 1;
     }
 
-    if (!this.selectedSong && this.playerService.songs.length) {
-      this.selectSong(this.playerService.songs[0]);
+    if (!this.selectedSong && this.playerService.currentPlaylist.length) {
+      this.selectSong(this.playerService.currentPlaylist[0]);
     }
-    return this.playerService.songs;
+    return this.playerService.currentPlaylist;
   }
 
   isPlaying(song: Song): boolean {
