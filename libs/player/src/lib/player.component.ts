@@ -73,8 +73,10 @@ export class PlayerComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngAfterViewInit() {
     this.interval = window.setInterval(() => {
-      this.position = this.playerService.getCurrentTime();
-    }, 250);
+      if (this.playingSong) {
+        this.position = this.playerService.getCurrentTime();
+      }
+    }, 1000);
   }
 
   onSliderPositionChanged(event: MatSliderChange) {
