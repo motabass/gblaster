@@ -79,7 +79,7 @@ export class PlayerComponent implements OnInit, AfterViewInit, OnDestroy {
         this.position = this.playerService.getCurrentTime();
         this.mediaSessionService.updateMediaPositionState(this.playerService.audioElement)
       }
-    }, 1000);
+    }, 100);
   }
 
   onSliderPositionChanged(event: MatSliderChange) {
