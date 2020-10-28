@@ -2,6 +2,7 @@ import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { MatSliderChange } from '@angular/material/slider';
 import { GamepadAxes, GamepadButtons, GamepadService } from '@motabass/helper-services/gamepad';
 import { HotkeysService } from '@motabass/helper-services/hotkeys';
+import { MediaSessionService } from '@motabass/helper-services/media-session';
 import { TitleService } from '@motabass/helper-services/title';
 import { formatSecondsAsClock } from '@motabass/helpers/time';
 import { ALLOWED_MIMETYPES } from './file-loader-service/file-loader.helpers';
@@ -24,7 +25,8 @@ export class PlayerComponent implements OnInit, AfterViewInit, OnDestroy {
     private titleService: TitleService,
     private gamepadService: GamepadService,
     private hotkeysService: HotkeysService,
-    private fileLoaderService: FileLoaderService
+    private fileLoaderService: FileLoaderService,
+    private mediaSessionService: MediaSessionService,
   ) {}
 
   async ngOnInit() {
@@ -75,6 +77,7 @@ export class PlayerComponent implements OnInit, AfterViewInit, OnDestroy {
     this.interval = window.setInterval(() => {
       if (this.playingSong) {
         this.position = this.playerService.getCurrentTime();
+        this.mediaSessionService.updateMediaPositionState(this.playerService.audioElement)
       }
     }, 1000);
   }

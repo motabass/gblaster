@@ -37,9 +37,8 @@ export class MediaSessionService {
   updateMediaPositionState(mediaElement: HTMLMediaElement) {
     if (navigator.mediaSession?.setPositionState) {
       navigator.mediaSession.setPositionState({
-        duration: Math.floor(mediaElement.duration),
-        playbackRate: mediaElement.playbackRate,
-        position: Math.floor(mediaElement.currentTime)
+        duration: mediaElement.duration,
+        position: mediaElement.currentTime
       });
     }
   }
