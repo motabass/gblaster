@@ -35,13 +35,13 @@ export class MediaSessionService {
   }
 
   updateMediaPositionState(mediaElement: HTMLMediaElement) {
-    // if (navigator.mediaSession?.setPositionState) {
-    //   navigator.mediaSession.setPositionState({
-    //     duration: mediaElement.duration,
-    //     playbackRate: mediaElement.playbackRate,
-    //     position: mediaElement.currentTime
-    //   });
-    // }
+    if (navigator.mediaSession?.setPositionState) {
+      navigator.mediaSession.setPositionState({
+        duration: Math.floor(mediaElement.duration),
+        playbackRate: mediaElement.playbackRate,
+        position: Math.floor(mediaElement.currentTime)
+      });
+    }
   }
 
   setBrowserMetadata(metadata: MediaMetadataInit) {
