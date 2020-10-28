@@ -266,9 +266,8 @@ export class PlayerService {
 
     // this.stop();
 
-    this.setPlayingSong(song);
-
     this.loadFinished = false;
+    this.setPlayingSong(song);
     this.audioElement.play().then(() => this.afterPlayLoaded());
   }
 
@@ -283,8 +282,8 @@ export class PlayerService {
   @action playPause() {
     if (!this.playingSong || !this.loadFinished) {
       if (this.selectedSong) {
-        this.setPlayingSong(this.selectedSong);
         this.loadFinished = false;
+        this.setPlayingSong(this.selectedSong);
         this.audioElement.play().then(() => this.afterPlayLoaded());
       }
       return;

@@ -51,11 +51,11 @@ export class MediaSessionService {
   }
 
   setPlaying() {
-    this.setPlaybackState('playing');
+    // this.setPlaybackState('playing');
   }
 
   setPaused() {
-    this.setPlaybackState('paused');
+    // this.setPlaybackState('paused');
   }
 
   private setPlaybackState(state: MediaSessionPlaybackState) {
