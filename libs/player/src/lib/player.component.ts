@@ -26,7 +26,7 @@ export class PlayerComponent implements OnInit, AfterViewInit, OnDestroy {
     private gamepadService: GamepadService,
     private hotkeysService: HotkeysService,
     private fileLoaderService: FileLoaderService,
-    private mediaSessionService: MediaSessionService,
+    private mediaSessionService: MediaSessionService
   ) {}
 
   async ngOnInit() {
@@ -77,7 +77,8 @@ export class PlayerComponent implements OnInit, AfterViewInit, OnDestroy {
     this.interval = window.setInterval(() => {
       if (this.playingSong) {
         this.position = this.playerService.getCurrentTime();
-        this.mediaSessionService.updateMediaPositionState(this.playerService.audioElement)
+        // TODO: fix position reporting
+        // this.mediaSessionService.updateMediaPositionState(this.playerService.audioElement)
       }
     }, 1000);
   }
