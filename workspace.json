@@ -30,15 +30,8 @@
             "polyfills": "apps/gblaster/src/polyfills.ts",
             "tsConfig": "apps/gblaster/tsconfig.app.json",
             "aot": true,
-            "assets": [
-              "apps/gblaster/src/favicon.ico",
-              "apps/gblaster/src/assets",
-              "apps/gblaster/src/manifest.json"
-            ],
-            "styles": [
-              "libs/core/theme/src/styles/theme.scss",
-              "apps/gblaster/src/styles/main.scss"
-            ],
+            "assets": ["apps/gblaster/src/favicon.ico", "apps/gblaster/src/assets", "apps/gblaster/src/manifest.json"],
+            "styles": ["libs/core/theme/src/styles/theme.scss", "apps/gblaster/src/styles/main.scss"],
             "scripts": [],
             "webWorkerTsConfig": "apps/gblaster/tsconfig.worker.json"
           },
@@ -73,9 +66,7 @@
               "ngswConfigPath": "apps/gblaster/ngsw-config.json"
             }
           },
-          "outputs": [
-            "{options.outputPath}"
-          ]
+          "outputs": ["{options.outputPath}"]
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
@@ -98,14 +89,8 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "apps/gblaster/tsconfig.app.json",
-              "apps/gblaster/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!apps/gblaster/**/*"
-            ]
+            "tsConfig": ["apps/gblaster/tsconfig.app.json", "apps/gblaster/tsconfig.spec.json"],
+            "exclude": ["**/node_modules/**", "!apps/gblaster/**/*"]
           }
         },
         "test": {
@@ -114,9 +99,7 @@
             "jestConfig": "apps/gblaster/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": [
-            "coverage/apps/gblaster"
-          ]
+          "outputs": ["coverage/apps/gblaster"]
         },
         "deploy": {
           "builder": "@angular/fire:deploy",
@@ -145,13 +128,8 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "apps/gblaster-e2e/tsconfig.e2e.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!apps/gblaster-e2e/**/*"
-            ]
+            "tsConfig": ["apps/gblaster-e2e/tsconfig.e2e.json"],
+            "exclude": ["**/node_modules/**", "!apps/gblaster-e2e/**/*"]
           }
         }
       }
@@ -165,14 +143,8 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "libs/player/tsconfig.lib.json",
-              "libs/player/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/player/**/*"
-            ]
+            "tsConfig": ["libs/player/tsconfig.lib.json", "libs/player/tsconfig.spec.json"],
+            "exclude": ["**/node_modules/**", "!libs/player/**/*"]
           }
         },
         "test": {
@@ -181,9 +153,7 @@
             "jestConfig": "libs/player/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": [
-            "coverage/libs/player"
-          ]
+          "outputs": ["coverage/libs/player"]
         }
       },
       "schematics": {
@@ -214,14 +184,8 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "libs/ui-components/visuals/tsconfig.lib.json",
-              "libs/ui-components/visuals/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/ui-components/visuals/**/*"
-            ]
+            "tsConfig": ["libs/ui-components/visuals/tsconfig.lib.json", "libs/ui-components/visuals/tsconfig.spec.json"],
+            "exclude": ["**/node_modules/**", "!libs/ui-components/visuals/**/*"]
           }
         },
         "test": {
@@ -230,9 +194,7 @@
             "jestConfig": "libs/ui-components/visuals/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": [
-            "coverage/libs/ui-components/visuals"
-          ]
+          "outputs": ["coverage/libs/ui-components/visuals"]
         }
       },
       "schematics": {
@@ -268,10 +230,7 @@
               "libs/ui-components/slide-panel/tsconfig.spec.json",
               "libs/ui-components/slide-panel/.storybook/tsconfig.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/ui-components/slide-panel/**/*"
-            ]
+            "exclude": ["**/node_modules/**", "!libs/ui-components/slide-panel/**/*"]
           }
         },
         "test": {
@@ -280,9 +239,7 @@
             "jestConfig": "libs/ui-components/slide-panel/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": [
-            "coverage/libs/ui-components/slide-panel"
-          ]
+          "outputs": ["coverage/libs/ui-components/slide-panel"]
         },
         "storybook": {
           "builder": "@nrwl/storybook:storybook",
@@ -313,9 +270,7 @@
               "quiet": true
             }
           },
-          "outputs": [
-            "{options.outputPath}"
-          ]
+          "outputs": ["{options.outputPath}"]
         }
       },
       "schematics": {
@@ -345,13 +300,8 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "apps/ui-components-slide-panel-e2e/tsconfig.e2e.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!apps/ui-components-slide-panel-e2e/**/*"
-            ]
+            "tsConfig": ["apps/ui-components-slide-panel-e2e/tsconfig.e2e.json"],
+            "exclude": ["**/node_modules/**", "!apps/ui-components-slide-panel-e2e/**/*"]
           }
         }
       }
@@ -378,14 +328,8 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "libs/ui-components/dialogs/tsconfig.lib.json",
-              "libs/ui-components/dialogs/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/ui-components/dialogs/**/*"
-            ]
+            "tsConfig": ["libs/ui-components/dialogs/tsconfig.lib.json", "libs/ui-components/dialogs/tsconfig.spec.json"],
+            "exclude": ["**/node_modules/**", "!libs/ui-components/dialogs/**/*"]
           }
         },
         "test": {
@@ -394,9 +338,7 @@
             "jestConfig": "libs/ui-components/dialogs/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": [
-            "coverage/libs/ui-components/dialogs"
-          ]
+          "outputs": ["coverage/libs/ui-components/dialogs"]
         }
       },
       "schematics": {
@@ -414,14 +356,8 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "libs/helpers/time/tsconfig.lib.json",
-              "libs/helpers/time/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/helpers/time/**/*"
-            ]
+            "tsConfig": ["libs/helpers/time/tsconfig.lib.json", "libs/helpers/time/tsconfig.spec.json"],
+            "exclude": ["**/node_modules/**", "!libs/helpers/time/**/*"]
           }
         },
         "test": {
@@ -430,9 +366,7 @@
             "jestConfig": "libs/helpers/time/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": [
-            "coverage/libs/helpers/time"
-          ]
+          "outputs": ["coverage/libs/helpers/time"]
         },
         "build": {
           "builder": "@nrwl/node:package",
@@ -441,14 +375,10 @@
             "tsConfig": "libs/helpers/time/tsconfig.lib.json",
             "packageJson": "libs/helpers/time/package.json",
             "main": "libs/helpers/time/src/index.ts",
-            "assets": [
-              "libs/helpers/time/*.md"
-            ],
+            "assets": ["libs/helpers/time/*.md"],
             "srcRootForCompilationRoot": "libs/helpers/time/src"
           },
-          "outputs": [
-            "{options.outputPath}"
-          ]
+          "outputs": ["{options.outputPath}"]
         }
       }
     },
@@ -461,14 +391,8 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "libs/helpers/unsubscription/tsconfig.lib.json",
-              "libs/helpers/unsubscription/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/helpers/unsubscription/**/*"
-            ]
+            "tsConfig": ["libs/helpers/unsubscription/tsconfig.lib.json", "libs/helpers/unsubscription/tsconfig.spec.json"],
+            "exclude": ["**/node_modules/**", "!libs/helpers/unsubscription/**/*"]
           }
         },
         "test": {
@@ -477,9 +401,7 @@
             "jestConfig": "libs/helpers/unsubscription/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": [
-            "coverage/libs/helpers/unsubscription"
-          ]
+          "outputs": ["coverage/libs/helpers/unsubscription"]
         },
         "build": {
           "builder": "@nrwl/node:package",
@@ -488,14 +410,10 @@
             "tsConfig": "libs/helpers/unsubscription/tsconfig.lib.json",
             "packageJson": "libs/helpers/unsubscription/package.json",
             "main": "libs/helpers/unsubscription/src/index.ts",
-            "assets": [
-              "libs/helpers/unsubscription/*.md"
-            ],
+            "assets": ["libs/helpers/unsubscription/*.md"],
             "srcRootForCompilationRoot": "libs/helpers/unsubscription/src"
           },
-          "outputs": [
-            "{options.outputPath}"
-          ]
+          "outputs": ["{options.outputPath}"]
         }
       }
     },
@@ -508,14 +426,8 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "libs/helpers/memoization/tsconfig.lib.json",
-              "libs/helpers/memoization/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/helpers/memoization/**/*"
-            ]
+            "tsConfig": ["libs/helpers/memoization/tsconfig.lib.json", "libs/helpers/memoization/tsconfig.spec.json"],
+            "exclude": ["**/node_modules/**", "!libs/helpers/memoization/**/*"]
           }
         },
         "test": {
@@ -524,9 +436,7 @@
             "jestConfig": "libs/helpers/memoization/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": [
-            "coverage/libs/helpers/memoization"
-          ]
+          "outputs": ["coverage/libs/helpers/memoization"]
         },
         "build": {
           "builder": "@nrwl/node:package",
@@ -535,14 +445,10 @@
             "tsConfig": "libs/helpers/memoization/tsconfig.lib.json",
             "packageJson": "libs/helpers/memoization/package.json",
             "main": "libs/helpers/memoization/src/index.ts",
-            "assets": [
-              "libs/helpers/memoization/*.md"
-            ],
+            "assets": ["libs/helpers/memoization/*.md"],
             "srcRootForCompilationRoot": "libs/helpers/memoization/src"
           },
-          "outputs": [
-            "{options.outputPath}"
-          ]
+          "outputs": ["{options.outputPath}"]
         }
       }
     },
@@ -555,14 +461,8 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "libs/helper-services/title/tsconfig.lib.json",
-              "libs/helper-services/title/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/helper-services/title/**/*"
-            ]
+            "tsConfig": ["libs/helper-services/title/tsconfig.lib.json", "libs/helper-services/title/tsconfig.spec.json"],
+            "exclude": ["**/node_modules/**", "!libs/helper-services/title/**/*"]
           }
         },
         "test": {
@@ -571,9 +471,7 @@
             "jestConfig": "libs/helper-services/title/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": [
-            "coverage/libs/helper-services/title"
-          ]
+          "outputs": ["coverage/libs/helper-services/title"]
         }
       },
       "schematics": {
@@ -604,14 +502,8 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "libs/core/theme/tsconfig.lib.json",
-              "libs/core/theme/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/core/theme/**/*"
-            ]
+            "tsConfig": ["libs/core/theme/tsconfig.lib.json", "libs/core/theme/tsconfig.spec.json"],
+            "exclude": ["**/node_modules/**", "!libs/core/theme/**/*"]
           }
         },
         "test": {
@@ -620,9 +512,7 @@
             "jestConfig": "libs/core/theme/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": [
-            "coverage/libs/core/theme"
-          ]
+          "outputs": ["coverage/libs/core/theme"]
         }
       },
       "schematics": {
@@ -653,14 +543,8 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "libs/core/update/tsconfig.lib.json",
-              "libs/core/update/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/core/update/**/*"
-            ]
+            "tsConfig": ["libs/core/update/tsconfig.lib.json", "libs/core/update/tsconfig.spec.json"],
+            "exclude": ["**/node_modules/**", "!libs/core/update/**/*"]
           }
         },
         "test": {
@@ -669,9 +553,7 @@
             "jestConfig": "libs/core/update/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": [
-            "coverage/libs/core/update"
-          ]
+          "outputs": ["coverage/libs/core/update"]
         }
       },
       "schematics": {
@@ -702,14 +584,8 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "libs/helper-services/gamepad/tsconfig.lib.json",
-              "libs/helper-services/gamepad/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/helper-services/gamepad/**/*"
-            ]
+            "tsConfig": ["libs/helper-services/gamepad/tsconfig.lib.json", "libs/helper-services/gamepad/tsconfig.spec.json"],
+            "exclude": ["**/node_modules/**", "!libs/helper-services/gamepad/**/*"]
           }
         },
         "test": {
@@ -718,9 +594,7 @@
             "jestConfig": "libs/helper-services/gamepad/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": [
-            "coverage/libs/helper-services/gamepad"
-          ]
+          "outputs": ["coverage/libs/helper-services/gamepad"]
         }
       },
       "schematics": {
@@ -751,14 +625,8 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "libs/material-helpers/mat-icon-size/tsconfig.lib.json",
-              "libs/material-helpers/mat-icon-size/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/material-helpers/mat-icon-size/**/*"
-            ]
+            "tsConfig": ["libs/material-helpers/mat-icon-size/tsconfig.lib.json", "libs/material-helpers/mat-icon-size/tsconfig.spec.json"],
+            "exclude": ["**/node_modules/**", "!libs/material-helpers/mat-icon-size/**/*"]
           }
         },
         "test": {
@@ -767,9 +635,7 @@
             "jestConfig": "libs/material-helpers/mat-icon-size/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": [
-            "coverage/libs/material-helpers/mat-icon-size"
-          ]
+          "outputs": ["coverage/libs/material-helpers/mat-icon-size"]
         }
       },
       "schematics": {
@@ -800,14 +666,8 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "libs/helper-services/hotkeys/tsconfig.lib.json",
-              "libs/helper-services/hotkeys/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/helper-services/hotkeys/**/*"
-            ]
+            "tsConfig": ["libs/helper-services/hotkeys/tsconfig.lib.json", "libs/helper-services/hotkeys/tsconfig.spec.json"],
+            "exclude": ["**/node_modules/**", "!libs/helper-services/hotkeys/**/*"]
           }
         },
         "test": {
@@ -816,9 +676,7 @@
             "jestConfig": "libs/helper-services/hotkeys/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": [
-            "coverage/libs/helper-services/hotkeys"
-          ]
+          "outputs": ["coverage/libs/helper-services/hotkeys"]
         }
       },
       "schematics": {
@@ -849,14 +707,8 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "libs/helper-services/loader/tsconfig.lib.json",
-              "libs/helper-services/loader/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/helper-services/loader/**/*"
-            ]
+            "tsConfig": ["libs/helper-services/loader/tsconfig.lib.json", "libs/helper-services/loader/tsconfig.spec.json"],
+            "exclude": ["**/node_modules/**", "!libs/helper-services/loader/**/*"]
           }
         },
         "test": {
@@ -865,9 +717,7 @@
             "jestConfig": "libs/helper-services/loader/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": [
-            "coverage/libs/helper-services/loader"
-          ]
+          "outputs": ["coverage/libs/helper-services/loader"]
         }
       },
       "schematics": {
@@ -898,14 +748,8 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "libs/ui-components/file-drop-overlay/tsconfig.lib.json",
-              "libs/ui-components/file-drop-overlay/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/ui-components/file-drop-overlay/**/*"
-            ]
+            "tsConfig": ["libs/ui-components/file-drop-overlay/tsconfig.lib.json", "libs/ui-components/file-drop-overlay/tsconfig.spec.json"],
+            "exclude": ["**/node_modules/**", "!libs/ui-components/file-drop-overlay/**/*"]
           }
         },
         "test": {
@@ -914,9 +758,7 @@
             "jestConfig": "libs/ui-components/file-drop-overlay/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": [
-            "coverage/libs/ui-components/file-drop-overlay"
-          ]
+          "outputs": ["coverage/libs/ui-components/file-drop-overlay"]
         }
       },
       "schematics": {
@@ -934,14 +776,8 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "libs/helper-services/wakelock/tsconfig.lib.json",
-              "libs/helper-services/wakelock/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/helper-services/wakelock/**/*"
-            ]
+            "tsConfig": ["libs/helper-services/wakelock/tsconfig.lib.json", "libs/helper-services/wakelock/tsconfig.spec.json"],
+            "exclude": ["**/node_modules/**", "!libs/helper-services/wakelock/**/*"]
           }
         },
         "test": {
@@ -950,9 +786,7 @@
             "jestConfig": "libs/helper-services/wakelock/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": [
-            "coverage/libs/helper-services/wakelock"
-          ]
+          "outputs": ["coverage/libs/helper-services/wakelock"]
         }
       },
       "schematics": {
@@ -970,14 +804,8 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "libs/settings/tsconfig.lib.json",
-              "libs/settings/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/settings/**/*"
-            ]
+            "tsConfig": ["libs/settings/tsconfig.lib.json", "libs/settings/tsconfig.spec.json"],
+            "exclude": ["**/node_modules/**", "!libs/settings/**/*"]
           }
         },
         "test": {
@@ -986,9 +814,7 @@
             "jestConfig": "libs/settings/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": [
-            "coverage/libs/settings"
-          ]
+          "outputs": ["coverage/libs/settings"]
         }
       },
       "schematics": {
@@ -1006,14 +832,8 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "libs/helper-services/media-session/tsconfig.lib.json",
-              "libs/helper-services/media-session/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/helper-services/media-session/**/*"
-            ]
+            "tsConfig": ["libs/helper-services/media-session/tsconfig.lib.json", "libs/helper-services/media-session/tsconfig.spec.json"],
+            "exclude": ["**/node_modules/**", "!libs/helper-services/media-session/**/*"]
           }
         },
         "test": {
@@ -1022,9 +842,7 @@
             "jestConfig": "libs/helper-services/media-session/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": [
-            "coverage/libs/helper-services/media-session"
-          ]
+          "outputs": ["coverage/libs/helper-services/media-session"]
         }
       },
       "schematics": {
