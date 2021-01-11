@@ -24,7 +24,7 @@ export class ThemeService {
   constructor(private meta: Meta) {}
 
   initializeTheme() {
-    if (window.matchMedia('prefers-color-scheme: dark').matches) {
+    if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
       this._darkMode = true;
     }
     this.setOverlayClass();
