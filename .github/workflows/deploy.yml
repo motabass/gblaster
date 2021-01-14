@@ -1,19 +1,14 @@
 # This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
 
-name: CI/CD Pipeline
+name: CD Pipeline
 
 on:
-  push:
-    branches:
-      - master
-      - release
-  pull_request:
-    branches:
-      - master
+  release:
+    types: [created]
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -33,9 +28,8 @@ jobs:
         env:
           CI: true
       - name: Deploy
-        run: |
-          sudo npm install -g firebase-tools
-          firebase deploy --token ${{ secrets.FIREBASE_TOKEN }} --project gblaster-player
+        uses: w9jds/firebase-action@master
+        with:
+          args: deploy --project gblaster-player --only hosting
         env:
-          CI: true
-        if: github.ref == 'refs/heads/release' && github.event_name == 'push'
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN}}
