@@ -1,6 +1,6 @@
 {
   "name": "motabass",
-  "version": "6.3.0",
+  "version": "6.3.1",
   "author": "motabass",
   "repository": "https://github.com/motabass/motabass",
   "description": "nx monorepo for my web stuff",
@@ -53,7 +53,7 @@
     "bundle-analyze:build:static:gblaster": "npm run build:prod -- --stats-json --named-chunks && webpack-bundle-analyzer dist/apps/gblaster/stats.json --mode static --report docs/analyzer-report.html --no-open",
     "version": "bump minor --tag --commit --push --no-verify -a",
     "version:major": "bump major --tag --commit --push --no-verify -a",
-    "release:patch": "release-it minor",
+    "release": "release-it --ci",
     "ci:build": "npm run build:prod:gblaster",
     "ci:e2e": "nx run gblaster-e2e:e2e --headless",
     "ci:deploy": "nx deploy gblaster",
@@ -181,6 +181,16 @@
   "release-it": {
     "github": {
       "release": true
+    },
+    "hooks": {
+      "after:release": "echo Successfully released ${name} v${version} to ${repo.repository}."
+    },
+    "git": {
+      "requireCleanWorkingDir": false,
+      "requireBranch": "master"
+    },
+    "npm": {
+      "publish": false
     }
   }
 }

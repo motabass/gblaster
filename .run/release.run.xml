@@ -1,0 +1,14 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="release" type="js.build_tools.npm" nameIsGenerated="true">
+    <package-json value="$PROJECT_DIR$/package.json" />
+    <command value="run" />
+    <scripts>
+      <script value="release" />
+    </scripts>
+    <node-interpreter value="project" />
+    <envs>
+      <env name="GITHUB_TOKEN" value="f23eff6ee8b29a1d83ae5d967497a22555a5eff6" />
+    </envs>
+    <method v="2" />
+  </configuration>
+</component>
