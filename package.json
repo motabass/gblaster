@@ -126,6 +126,7 @@
     "@nrwl/node": "11.1.2",
     "@nrwl/storybook": "11.1.2",
     "@nrwl/workspace": "11.1.2",
+    "@release-it/keep-a-changelog": "^2.2.2",
     "@storybook/addon-knobs": "^6.1.11",
     "@storybook/angular": "^6.1.11",
     "@storybook/react": "^6.1.11",
@@ -191,6 +192,11 @@
     },
     "npm": {
       "publish": false
+    },
+    "plugins": {
+      "@release-it/keep-a-changelog": {
+        "filename": "CHANGELOG.md"
+      }
     }
   }
 }
