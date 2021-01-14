@@ -1,6 +1,6 @@
 {
   "name": "motabass",
-  "version": "6.4.1",
+  "version": "6.5.0",
   "author": "motabass",
   "repository": "https://github.com/motabass/motabass",
   "description": "nx monorepo for my web stuff",
@@ -54,6 +54,7 @@
     "version": "bump minor --tag --commit --push --no-verify -a",
     "version:major": "bump major --tag --commit --push --no-verify -a",
     "release": "release-it --ci",
+    "release:interactive": "release-it",
     "ci:build": "npm run build:prod:gblaster",
     "ci:e2e": "nx run gblaster-e2e:e2e --headless",
     "ci:deploy": "nx deploy gblaster",
