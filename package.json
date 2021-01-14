@@ -1,6 +1,6 @@
 {
   "name": "motabass",
-  "version": "6.3.1",
+  "version": "6.4.0",
   "author": "motabass",
   "repository": "https://github.com/motabass/motabass",
   "description": "nx monorepo for my web stuff",
@@ -126,7 +126,6 @@
     "@nrwl/node": "11.1.2",
     "@nrwl/storybook": "11.1.2",
     "@nrwl/workspace": "11.1.2",
-    "@release-it/keep-a-changelog": "^2.2.2",
     "@storybook/addon-knobs": "^6.1.11",
     "@storybook/angular": "^6.1.11",
     "@storybook/react": "^6.1.11",
@@ -184,19 +183,16 @@
       "release": true
     },
     "hooks": {
+      "after:bump": "npx auto-changelog -p",
       "after:release": "echo Successfully released ${name} v${version} to ${repo.repository}."
     },
     "git": {
       "requireCleanWorkingDir": false,
-      "requireBranch": "master"
+      "requireBranch": "master",
+      "changelog": "npx auto-changelog --stdout --commit-limit false --unreleased --template https://raw.githubusercontent.com/release-it/release-it/master/templates/changelog-compact.hbs"
     },
     "npm": {
       "publish": false
-    },
-    "plugins": {
-      "@release-it/keep-a-changelog": {
-        "filename": "CHANGELOG.md"
-      }
     }
   }
 }
