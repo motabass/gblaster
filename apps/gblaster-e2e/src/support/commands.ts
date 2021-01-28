@@ -20,9 +20,11 @@ declare namespace Cypress {
 // -- This is a parent command --
 Cypress.Commands.add('loadFiles', () => {
   console.log('Loading files...');
-  cy.get('#hidden_file_input').attachFile({ filePath: 'tek.mp3', encoding: 'base64' });
   getLoadFilesButton().click();
-  return cy.get('#hidden_file_input').attachFile({ filePath: '440Hz-5sec.mp3', encoding: 'base64' });
+  cy.get('#hidden_file_input').attachFile([
+    { filePath: 'tek.mp3', encoding: 'base64' },
+    { filePath: '440Hz-5sec.mp3', encoding: 'base64' }
+  ]);
   // });
 });
 //
