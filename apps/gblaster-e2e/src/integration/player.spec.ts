@@ -1,6 +1,6 @@
 import { getCoverDisplay, getPlaylistItems, getVolumeButton, getVolumeSlider } from '../support/player.po';
 
-describe('gblaster', () => {
+xdescribe('gblaster', () => {
   beforeEach(() => {
     cy.visit('/player');
     // turn down volume
