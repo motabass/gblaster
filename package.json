@@ -1,6 +1,6 @@
 {
   "name": "motabass",
-  "version": "6.6.5",
+  "version": "6.6.6",
   "author": "motabass",
   "repository": "https://github.com/motabass/motabass",
   "description": "nx monorepo for my web stuff",
@@ -114,7 +114,7 @@
     "jsmediatags": "^3.9.7",
     "lucene-escape-query": "^1.0.1",
     "material-community-components": "^10.0.0",
-    "mobx": "^6.3.0",
+    "mobx": "5.15.7",
     "mobx-angular": "^4.3.0",
     "music-metadata-browser": "2.2.6",
     "ngx-date-fns": "8.0.0",
