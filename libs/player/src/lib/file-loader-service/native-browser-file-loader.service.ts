@@ -16,7 +16,7 @@ export class NativeBrowserFileLoaderService extends FileLoaderService {
   }
 
   async init() {
-    const entry = await this.indexedDbService.getByID('dirHandle', 1).toPromise();
+    const entry = await this.indexedDbService.getByID<any>('dirHandle', 1).toPromise();
     if (entry) {
       const granted = await verifyPermission(entry.handle);
       if (granted) {
