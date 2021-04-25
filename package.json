@@ -1,6 +1,6 @@
 {
   "name": "motabass",
-  "version": "6.6.4",
+  "version": "6.6.5",
   "author": "motabass",
   "repository": "https://github.com/motabass/motabass",
   "description": "nx monorepo for my web stuff",
@@ -122,7 +122,6 @@
     "ngx-pipes": "2.7.5",
     "ngx-webstorage": "7.0.1",
     "node-vibrant": "^3.1.6",
-    "npm": "^7.11.1",
     "process": "^0.11.10",
     "rxjs": "~6.6.7",
     "tslib": "^2.2.0",
