@@ -1,8 +1,14 @@
 import { getCoverDisplay, getPlaylistItems, getVolumeButton, getVolumeSlider } from '../support/player.po';
+// @ts-ignore
 
 describe('gblaster', () => {
   beforeEach(() => {
-    cy.visit('/player');
+    cy.visit('/player', {
+      onBeforeLoad(win) {
+        // @ts-ignore
+        delete win.showOpenFilePicker;
+      }
+    });
     // turn down volume
     getVolumeButton().click();
     getVolumeSlider().click('bottom');

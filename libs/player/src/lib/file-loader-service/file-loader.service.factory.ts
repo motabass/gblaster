@@ -4,8 +4,10 @@ import { NativeBrowserFileLoaderService } from './native-browser-file-loader.ser
 
 export function FileLoaderServiceFactory(indexedDbService: NgxIndexedDBService) {
   if ('showOpenFilePicker' in window) {
+    console.log('Using native-file-system-api file-loader');
     return new NativeBrowserFileLoaderService(indexedDbService);
   } else {
+    console.log('Using legacy file-loader');
     return new LegacyFileLoaderService();
   }
 }
