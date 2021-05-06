@@ -8,5 +8,6 @@
   "video": false,
   "videosFolder": "../../dist/cypress/apps/gblaster-e2e/videos",
   "screenshotsFolder": "../../dist/cypress/apps/gblaster-e2e/screenshots",
-  "chromeWebSecurity": true
+  "chromeWebSecurity": true,
+  "experimentalStudio": true
 }
