@@ -1,6 +1,8 @@
 import { crc32 } from '@allex/crc32';
 import { Injectable } from '@angular/core';
+import { ThemeService } from '@motabass/core/theme';
 import { NgxIndexedDBService } from 'ngx-indexed-db';
+import { LocalStorage } from 'ngx-webstorage';
 import Vibrant from 'node-vibrant/lib/browser';
 import { SongMetadata } from '../player.types';
 import { Id3TagsService } from './id3-tags.service';
@@ -13,64 +15,91 @@ import { MusicbrainzService } from './musicbrainz.service';
 export class MetadataService {
   private readonly PLACEHOLDER_URL = 'assets/icons/record.svg';
 
+  @LocalStorage('useFileTags', true) useFileTags!: boolean;
+  @LocalStorage('useWebTags', true) useWebTags!: boolean;
+  @LocalStorage('useTagsCache', true) useTagsCache!: boolean;
+
   constructor(
     private id3TagsService: Id3TagsService,
     private lastfmMetadataService: LastfmMetadataService,
     private musicbrainzService: MusicbrainzService,
-    private indexedDBService: NgxIndexedDBService
+    private indexedDBService: NgxIndexedDBService,
+    private themeService: ThemeService
   ) {}
 
   async getMetadata(file: File): Promise<SongMetadata> {
     const crc = generateFileHash(file);
 
-    const metadataCache: SongMetadata = await this.indexedDBService.getByKey<SongMetadata>('metatags', crc).toPromise();
+    if (this.useTagsCache) {
+      const metadataCache: SongMetadata = await this.indexedDBService.getByKey<SongMetadata>('metatags', crc).toPromise();
 
-    if (metadataCache) {
-      if (metadataCache.coverUrl?.original.startsWith('blob:') && metadataCache.embeddedPicture) {
-        const url = URL.createObjectURL(new Blob([metadataCache.embeddedPicture.data], { type: metadataCache.embeddedPicture.format }));
-        return {
-          ...metadataCache,
-          coverUrl: { thumb: url, original: url }
-        };
-      } else {
-        return metadataCache;
+      if (metadataCache) {
+        if (metadataCache.coverUrl?.original.startsWith('blob:') && metadataCache.embeddedPicture) {
+          const url = URL.createObjectURL(new Blob([metadataCache.embeddedPicture.data], { type: metadataCache.embeddedPicture.format }));
+          return {
+            ...metadataCache,
+            coverUrl: { thumb: url, original: url }
+          };
+        } else {
+          return metadataCache;
+        }
       }
     }
 
-    const tags = await this.id3TagsService.extractTags(file);
+    if (this.useFileTags) {
+      const tags = await this.id3TagsService.extractTags(file);
 
-    let coverUrl: RemoteCoverPicture | undefined;
+      let coverUrl: RemoteCoverPicture | undefined;
 
-    coverUrl = tags ? await this.lastfmMetadataService.getCoverPicture(tags) : undefined;
-    if (!coverUrl) {
-      coverUrl = tags ? await this.musicbrainzService.getCoverPicture(tags) : undefined;
+      if (this.useWebTags) {
+        coverUrl = tags ? await this.lastfmMetadataService.getCoverPicture(tags) : undefined;
+        if (!coverUrl) {
+          coverUrl = tags ? await this.musicbrainzService.getCoverPicture(tags) : undefined;
+        }
+      }
+
+      const pic: Id3CoverPicture | undefined = tags?.picture;
+
+      if (!coverUrl && pic) {
+        const url = URL.createObjectURL(new Blob([pic.data], { type: pic.format }));
+
+        coverUrl = { thumb: url, original: url };
+      }
+
+      let palette: CoverColorPalette | undefined;
+      if (this.themeService.useCoverArtColors) {
+        palette = coverUrl ? await extractColors(coverUrl.original) : undefined;
+      }
+
+      const metadata: SongMetadata = {
+        crc: crc,
+        coverUrl: coverUrl ? coverUrl : { thumb: this.PLACEHOLDER_URL, original: this.PLACEHOLDER_URL },
+        embeddedPicture: pic,
+        coverColors: palette,
+        artist: tags?.artist,
+        title: tags?.title,
+        track: tags?.track?.no?.toString(),
+        album: tags?.album,
+        year: tags?.year
+      };
+
+      if (this.useTagsCache) {
+        this.indexedDBService.add('metatags', metadata);
+      }
+      return metadata;
     }
 
-    const pic: Id3CoverPicture | undefined = tags?.picture;
-
-    if (!coverUrl && pic) {
-      const url = URL.createObjectURL(new Blob([pic.data], { type: pic.format }));
-
-      coverUrl = { thumb: url, original: url };
-    }
-
-    const palette: CoverColorPalette | undefined = coverUrl ? await extractColors(coverUrl.original) : undefined;
-
-    const metadata: SongMetadata = {
+    return {
       crc: crc,
-      coverUrl: coverUrl ? coverUrl : { thumb: this.PLACEHOLDER_URL, original: this.PLACEHOLDER_URL },
-      embeddedPicture: pic,
-      coverColors: palette,
-      artist: tags?.artist,
-      title: tags?.title,
-      track: tags?.track?.no?.toString(),
-      album: tags?.album,
-      year: tags?.year
+      coverUrl: undefined,
+      embeddedPicture: undefined,
+      coverColors: undefined,
+      artist: undefined,
+      title: undefined,
+      track: undefined,
+      album: undefined,
+      year: undefined
     };
-
-    this.indexedDBService.add('metatags', metadata);
-
-    return metadata;
   }
 }
 

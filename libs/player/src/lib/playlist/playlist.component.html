@@ -6,22 +6,26 @@
     (dblclick)="playPauseSong($event, song)"
     (click)="selectSong(song)"
   >
-    <img
-      *ngIf="song && song.metadata && song.metadata.coverUrl && (!isPlayingSong(song) || visualMode === 'off')"
-      style="border-radius: 3px"
-      mat-list-avatar
-      [src]="sanitizeCoverUrl(song.metadata.coverUrl.thumb)"
-      alt="cover art"
-      loading="lazy"
-    />
-    <canvas
-      *ngIf="isPlayingSong(song) && isPlaying(song) && visualMode !== 'off'"
-      [mode]="visualMode"
-      mat-list-avatar
-      style="border-radius: 3px; width: 2rem; height: 2rem; object-fit: fill; box-sizing: border-box"
-      [mtbVisual]="analyser"
-      [barsConfig]="{ capHeight: 0, barCount: 8, gap: 0, capFalldown: 0 }"
-    ></canvas>
+    <div mat-list-avatar style="overflow: hidden; border-radius: 3px; position: relative">
+      <img
+        *ngIf="song && song.metadata && song.metadata.coverUrl"
+        style="position: absolute; top: 0; right: 0; bottom: 0; left: 0; width: 100%; height: 100%"
+        [src]="sanitizeCoverUrl(song.metadata.coverUrl.thumb)"
+        alt="cover art"
+        loading="lazy"
+      />
+      <canvas
+        *ngIf="isPlayingSong(song) && isPlaying(song) && visualMode !== 'off'"
+        [mode]="visualMode"
+        style="position: absolute; right: 0; bottom: 0; left: 0; width: 100%; height: 300%"
+        [style.height.%]="visualMode === 'bars' ? 250 : 100"
+        [colorConfig]="colorConfig"
+        [mtbVisual]="analyser"
+        [oscConfig]="{ thickness: 1 }"
+        [barsConfig]="{ capHeight: 0, barCount: 8, gap: 0, capFalldown: 0 }"
+      ></canvas>
+    </div>
+
     <h3 matLine style="font-size: 0.9rem; font-weight: bold">{{ song?.metadata?.title || song.file.name }}</h3>
     <p matLine style="font-size: 0.8rem">{{ song?.metadata?.artist }}</p>
 
