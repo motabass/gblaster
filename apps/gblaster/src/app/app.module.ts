@@ -19,7 +19,6 @@ import { NgxWebstorageModule } from 'ngx-webstorage';
 import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
 import { ShellComponent } from './shell/shell.component';
-import { StartComponent } from './start/start.component';
 
 const dbConfig: DBConfig = {
   name: 'metadataCache',
@@ -44,7 +43,7 @@ const dbConfig: DBConfig = {
 };
 
 @NgModule({
-  declarations: [AppComponent, ShellComponent, StartComponent],
+  declarations: [AppComponent, ShellComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -52,7 +51,6 @@ const dbConfig: DBConfig = {
     RouterModule.forRoot(
       [
         { path: '', redirectTo: 'player', pathMatch: 'full' },
-        { path: 'start', component: StartComponent },
         { path: 'player', loadChildren: () => import('@motabass/player').then((m) => m.PlayerModule) },
         { path: 'settings', loadChildren: () => import('@motabass/settings').then((m) => m.SettingsModule) },
         { path: '**', redirectTo: '' }
