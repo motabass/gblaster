@@ -158,7 +158,7 @@ export class PlayerService {
         artwork: song.metadata.coverUrl?.original ? [{ src: song.metadata.coverUrl.original, sizes: '512x512' }] : undefined
       });
 
-      if (this.themeService.coverArtColors) {
+      if (this.themeService.useCoverArtColors) {
         const primaryColor = song.metadata.coverColors?.darkVibrant?.hex;
         this.themeService.setPrimaryColor(primaryColor);
 

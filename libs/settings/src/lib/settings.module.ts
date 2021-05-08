@@ -10,6 +10,7 @@ import { MccColorPickerModule } from 'material-community-components/color-picker
 import { SettingsComponent } from './settings.component';
 import { StorageSettingsComponent } from './storage-settings/storage-settings.component';
 import { ThemeSettingsComponent } from './theme-settings/theme-settings.component';
+import { MetadataSettingsComponent } from './metadata-settings/metadata-settings.component';
 
 @NgModule({
   imports: [
@@ -23,6 +24,6 @@ import { ThemeSettingsComponent } from './theme-settings/theme-settings.componen
     MccColorPickerModule.forRoot({ selected_svg_icon: 'check' }),
     MatSlideToggleModule
   ],
-  declarations: [SettingsComponent, StorageSettingsComponent, ThemeSettingsComponent]
+  declarations: [SettingsComponent, StorageSettingsComponent, ThemeSettingsComponent, MetadataSettingsComponent]
 })
 export class SettingsModule {}

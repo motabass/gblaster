@@ -58,6 +58,16 @@ export class VisualizerComponent implements OnInit, OnDestroy {
     return { mainColor: this.mainColor, peakColor: this.peakColor };
   }
 
+  get mainColor(): string {
+    const color = this.playerService.selectedSong?.metadata?.coverColors?.darkVibrant?.hex;
+    return color ? color : 'red';
+  }
+
+  get peakColor(): string {
+    const color = this.playerService.selectedSong?.metadata?.coverColors?.lightVibrant?.hex;
+    return color ? color : 'yellow';
+  }
+
   get barsConfig(): FrequencyBarsConfig {
     return { barCount: this.barCount, capHeight: this.capHeight, gap: this.gap, capFalldown: this.capFalldown };
   }
@@ -134,14 +144,8 @@ export class VisualizerComponent implements OnInit, OnDestroy {
     return options;
   }
 
-  get mainColor(): string {
-    const color = this.playerService.selectedSong?.metadata?.coverColors?.darkVibrant?.hex;
-    return color ? color : 'red';
-  }
-
-  get peakColor(): string {
-    const color = this.playerService.selectedSong?.metadata?.coverColors?.lightVibrant?.hex;
-    return color ? color : 'yellow';
+  get showSlidePanel(): boolean {
+    return this.visualMode !== 'off';
   }
 
   ngOnDestroy(): void {

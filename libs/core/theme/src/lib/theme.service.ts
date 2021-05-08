@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Meta } from '@angular/platform-browser';
-import { LocalStorage } from 'ngx-webstorage';
-import { Instance } from 'tinycolor2';
 // @ts-ignore
 import { TinyColor } from '@thebespokepixel/es-tinycolor';
+import { LocalStorage } from 'ngx-webstorage';
+import { Instance } from 'tinycolor2';
 import { Color } from './theme.types';
 
 @Injectable({
@@ -16,7 +16,7 @@ export class ThemeService {
 
   @LocalStorage('darkMode', true) _darkMode!: boolean;
 
-  @LocalStorage('coverArtColors', true) coverArtColors!: boolean;
+  @LocalStorage('useCoverArtColors', true) useCoverArtColors!: boolean;
 
   primaryColorPalette: Color[] = [];
   accentColorPalette: Color[] = [];
@@ -30,10 +30,6 @@ export class ThemeService {
     this.setOverlayClass();
     this.setPrimaryColor(this.primaryColor);
     this.setAccentColor(this.accentColor);
-  }
-
-  setCoverArtColors(value: boolean) {
-    this.coverArtColors = value;
   }
 
   get darkMode(): boolean {

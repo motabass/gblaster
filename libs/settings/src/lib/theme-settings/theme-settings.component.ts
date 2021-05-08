@@ -11,7 +11,7 @@ export class ThemeSettingsComponent {
   constructor(public themeService: ThemeService) {}
 
   get coverArtColors(): boolean {
-    return this.themeService.coverArtColors;
+    return this.themeService.useCoverArtColors;
   }
 
   setPrimaryColor(event: string) {
@@ -35,6 +35,6 @@ export class ThemeSettingsComponent {
   }
 
   onCoverArtColorsChange(event: MatSlideToggleChange) {
-    this.themeService.setCoverArtColors(event.checked);
+    this.themeService.useCoverArtColors = event.checked;
   }
 }

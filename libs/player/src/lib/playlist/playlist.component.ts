@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
-import { VisualizerMode, VisualsService } from '@motabass/ui-components/visuals';
+import { VisualizerMode, VisualsColorConfig, VisualsService } from '@motabass/ui-components/visuals';
 import { PlayerService } from '../player.service';
 import { Song } from '../player.types';
 
@@ -70,5 +70,19 @@ export class PlaylistComponent {
 
   playlistTrackFunction(index: number, song: Song) {
     return song.metadata?.crc;
+  }
+
+  get colorConfig(): VisualsColorConfig {
+    return { mainColor: this.mainColor, peakColor: this.peakColor };
+  }
+
+  get mainColor(): string {
+    const color = this.playerService.selectedSong?.metadata?.coverColors?.darkVibrant?.hex;
+    return color ? color : 'red';
+  }
+
+  get peakColor(): string {
+    const color = this.playerService.selectedSong?.metadata?.coverColors?.lightVibrant?.hex;
+    return color ? color : 'yellow';
   }
 }

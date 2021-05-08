@@ -6,14 +6,19 @@
   display: grid;
   grid-gap: 1.5rem;
   grid-template-columns: 1fr 1fr;
-  grid-template-areas: 'theme storage';
-  @media (max-width: 599px) {
+  grid-template-areas: 'metadata theme storage';
+  @media (max-width: 1199px) {
     grid-template-columns: 1fr;
     grid-auto-rows: max-content;
     grid-template-areas:
+      'metadata'
       'theme'
       'storage';
   }
+}
+
+.metadata {
+  grid-area: metadata;
 }
 
 .theme {
