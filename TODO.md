@@ -1,12 +1,10 @@
 TODOs:
 
-- id3-cover extract und color extract when playing song or in background
-- Saving File-Handle in indexedDB (Serialization in Chrome 82)
+- color extract when playing song or in background
 - Audio-File-Explorer
 - Playlist management (Sorting, Saving)
 - Visuals via UserMediaInput from mic or system
-- PWA file-associations
+- PWA file-associations nad share target
 - Writing Meta-Tags
-- Fullscreen Visuals
+- Fullscreen Mode
 - Localization
-- BLa
