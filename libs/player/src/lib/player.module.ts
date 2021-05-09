@@ -1,3 +1,4 @@
+import { DragDropModule } from '@angular/cdk/drag-drop';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FlexModule } from '@angular/flex-layout/flex';
@@ -54,7 +55,8 @@ import { EqualizerShellComponent } from './equalizer-shell/equalizer-shell.compo
     SlidePanelModule,
     FileDropOverlayModule,
     WakelockModule,
-    MatIconSizeModule
+    MatIconSizeModule,
+    DragDropModule
   ],
   declarations: [
     PlayerComponent,

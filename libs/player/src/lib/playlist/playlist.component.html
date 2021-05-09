@@ -1,11 +1,13 @@
-<mat-action-list dense class="pl" *mobxAutorun>
+<mat-action-list cdkDropList (cdkDropListDropped)="drop($event)" dense class="pl" *mobxAutorun>
   <mat-list-item
+    cdkDrag
     *ngFor="let song of songs; let index = index; trackBy: playlistTrackFunction"
     [ngClass]="{ selected: isSelected(song) }"
     class="playlist-item"
     (dblclick)="playPauseSong($event, song)"
     (click)="selectSong(song)"
   >
+    <span *cdkDragPreview></span>
     <div mat-list-avatar style="overflow: hidden; border-radius: 3px; position: relative">
       <img
         *ngIf="song && song.metadata && song.metadata.coverUrl"

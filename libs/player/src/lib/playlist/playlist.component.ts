@@ -1,3 +1,4 @@
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { VisualizerMode, VisualsColorConfig, VisualsService } from '@motabass/ui-components/visuals';
@@ -84,5 +85,9 @@ export class PlaylistComponent {
   get peakColor(): string {
     const color = this.playerService.selectedSong?.metadata?.coverColors?.lightVibrant?.hex;
     return color ? color : 'yellow';
+  }
+
+  drop(event: CdkDragDrop<Song>) {
+    moveItemInArray(this.songs, event.previousIndex, event.currentIndex);
   }
 }
