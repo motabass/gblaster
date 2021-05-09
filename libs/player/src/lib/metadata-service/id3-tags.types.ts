@@ -1,3 +1,5 @@
+import { IFormat } from 'music-metadata/lib/type';
+
 export interface Id3Tags {
   picture?: Id3CoverPicture;
   artist?: string;
@@ -5,6 +7,7 @@ export interface Id3Tags {
   album?: string;
   track?: { no?: number | null; of?: number | null };
   year?: string;
+  format?: IFormat;
 }
 
 export interface Id3CoverPicture {

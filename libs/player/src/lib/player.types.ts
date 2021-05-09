@@ -1,3 +1,4 @@
+import { IFormat } from 'music-metadata/lib/type';
 import { Id3CoverPicture } from './metadata-service/id3-tags.types';
 import { CoverColorPalette, RemoteCoverPicture } from './metadata-service/metadata.types';
 
@@ -15,6 +16,7 @@ export interface SongMetadata {
   album?: string;
   year?: string;
   duration?: number;
+  format?: IFormat;
   coverUrl?: RemoteCoverPicture;
   embeddedPicture?: Id3CoverPicture;
   coverColors?: CoverColorPalette;

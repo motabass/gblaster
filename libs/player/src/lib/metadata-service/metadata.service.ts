@@ -80,7 +80,8 @@ export class MetadataService {
         title: tags?.title,
         track: tags?.track?.no?.toString(),
         album: tags?.album,
-        year: tags?.year
+        year: tags?.year,
+        format: tags?.format
       };
 
       if (this.useTagsCache) {
@@ -90,15 +91,7 @@ export class MetadataService {
     }
 
     return {
-      crc: crc,
-      coverUrl: undefined,
-      embeddedPicture: undefined,
-      coverColors: undefined,
-      artist: undefined,
-      title: undefined,
-      track: undefined,
-      album: undefined,
-      year: undefined
+      crc: crc
     };
   }
 }

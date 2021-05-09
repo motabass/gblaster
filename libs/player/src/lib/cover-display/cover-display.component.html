@@ -1,7 +1,43 @@
-<div style="position: absolute; top: 0; right: 0; bottom: 0; left: 0; z-index: 5; overflow-x: auto; padding: 1rem; user-select: text" class="mat-typography">
-  <h1 style="font-size: 3rem; font-weight: bold; line-height: 3.3rem">{{ song?.metadata?.title || song?.file?.name }}</h1>
-  <p style="font-size: 1.5rem; margin-bottom: 8px">{{ song?.metadata?.artist }}</p>
-  <span style="font-size: 1rem">{{ song?.metadata?.album }}</span>
+<div
+  style="
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 5;
+    overflow-x: auto;
+    padding: 1rem;
+    user-select: text;
+    text-shadow: -1px 1px 6px black;
+  "
+  class="mat-typography"
+>
+  <h1 style="font-size: 3rem; font-weight: bold; line-height: 3.3rem; margin-bottom: 4px; opacity: 0.9">
+    {{ song?.metadata?.title || song?.file?.name }}
+  </h1>
+  <p style="font-size: 1.5rem; margin-bottom: 8px; opacity: 0.8">{{ song?.metadata?.artist }}</p>
+  <div fxLayout="column" *ngIf="song && song.metadata" style="margin-top: 16px; opacity: 0.9">
+    <span *ngIf="song && song.metadata && song.metadata.album">
+      Album: <strong>{{ song?.metadata?.album }}</strong>
+    </span>
+    <span *ngIf="song && song.metadata && song.metadata.year">
+      Year: <strong>{{ song?.metadata?.year }}</strong>
+    </span>
+    <span>&nbsp;</span>
+    <span *ngIf="song.metadata.format && song.metadata.format.duration">
+      Duration: <strong>{{ song.metadata.format.duration | time }}</strong>
+    </span>
+    <span *ngIf="song.metadata.format && song.metadata.format.container && song.metadata.format.codec">
+      Format: <strong>{{ song.metadata.format.container }} ({{ song.metadata.format.codec }})</strong>
+    </span>
+    <span *ngIf="song.metadata.format && song.metadata.format.bitrate">
+      Bitrate: <strong>{{ song.metadata.format.bitrate / 1000 }} kb/s</strong>
+    </span>
+    <span *ngIf="song.metadata.format && song.metadata.format.sampleRate">
+      Sample-Rate: <strong>{{ song.metadata.format.sampleRate }}</strong>
+    </span>
+  </div>
 </div>
 <div
   *ngIf="song && coverUrl"

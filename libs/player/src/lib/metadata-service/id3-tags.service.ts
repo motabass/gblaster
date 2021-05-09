@@ -26,7 +26,8 @@ export class Id3TagsService {
       title: tags.common.title,
       track: tags.common.track,
       album: tags.common.album,
-      year: tags.common.year?.toString()
+      year: tags.common.year?.toString(),
+      format: tags.format
     };
   }
 
