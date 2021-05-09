@@ -25,4 +25,8 @@ export class CoverDisplayComponent {
   // get fontColor(): string | undefined {
   //   return this.song?.metadata?.coverColors?.vibrant ? this.song.metadata.coverColors.vibrant.textHex : undefined;
   // }
+
+  getBitrate(bitrate: number): string {
+    return Math.round(bitrate / 1000).toString();
+  }
 }

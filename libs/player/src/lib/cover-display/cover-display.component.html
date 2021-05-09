@@ -32,7 +32,7 @@
       Format: <strong>{{ song.metadata.format.container }} ({{ song.metadata.format.codec }})</strong>
     </span>
     <span *ngIf="song.metadata.format && song.metadata.format.bitrate">
-      Bitrate: <strong>{{ song.metadata.format.bitrate / 1000 }} kb/s</strong>
+      Bitrate: <strong>{{ getBitrate(song.metadata.format.bitrate) }} kb/s</strong>
     </span>
     <span *ngIf="song.metadata.format && song.metadata.format.sampleRate">
       Sample-Rate: <strong>{{ song.metadata.format.sampleRate }}</strong>
