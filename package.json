@@ -1,6 +1,6 @@
 {
   "name": "motabass",
-  "version": "minor",
+  "version": "7.1.1",
   "author": "motabass",
   "repository": "https://github.com/motabass/motabass",
   "description": "nx monorepo for my web stuff",
