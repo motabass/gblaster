@@ -26,7 +26,7 @@ export class VisualsDirective implements OnDestroy, OnChanges {
 
     const offscreenCanvas: OffscreenCanvas = this.canvas.transferControlToOffscreen();
 
-    this.worker = new Worker('./visuals.worker', { type: 'module' });
+    this.worker = new Worker(new URL('./visuals.worker', import.meta.url), { type: 'module' });
     // this.worker.onmessage = ({ data }) => {
     //   console.log(`page got message: ${data}`);
     // };

@@ -104,7 +104,8 @@ function generateFileHash(file: File): string {
 async function extractColors(url: string): Promise<CoverColorPalette> {
   // @ts-ignore
   const vibrant: typeof Vibrant = await import('node-vibrant/lib/browser');
-  const palette = await vibrant.from(url).getPalette();
+  // @ts-ignore
+  const palette = await vibrant.default.from(url).getPalette();
 
   return {
     vibrant: { hex: palette.Vibrant?.hex, textHex: palette.Vibrant?.titleTextColor },
