@@ -11,6 +11,12 @@
     "tsconfig.base.json": "*"
   },
   "projects": {
+    "core-theme": {
+      "tags": ["lib", "angular", "core"]
+    },
+    "core-update": {
+      "tags": ["lib", "angular", "core"]
+    },
     "gblaster": {
       "tags": ["app"]
     },
@@ -18,10 +24,46 @@
       "tags": ["e2e"],
       "implicitDependencies": ["gblaster"]
     },
+    "helper-services-gamepad": {
+      "tags": ["lib", "angular", "helper"]
+    },
+    "helper-services-hotkeys": {
+      "tags": ["lib", "angular", "helper"]
+    },
+    "helper-services-loader": {
+      "tags": ["lib", "angular", "helper"]
+    },
+    "helper-services-media-session": {
+      "tags": []
+    },
+    "helper-services-title": {
+      "tags": ["lib", "angular", "helper"]
+    },
+    "helper-services-wakelock": {
+      "tags": []
+    },
+    "helpers-memoization": {
+      "tags": ["lib", "ts", "helper"]
+    },
+    "helpers-time": {
+      "tags": ["lib", "ts", "helper"]
+    },
+    "helpers-unsubscription": {
+      "tags": ["lib", "angular", "helper"]
+    },
+    "material-helpers-mat-icon-size": {
+      "tags": ["lib", "angular", "helper"]
+    },
     "player": {
       "tags": ["lazy-module"]
     },
-    "ui-components-visuals": {
+    "settings": {
+      "tags": []
+    },
+    "ui-components-dialogs": {
+      "tags": ["lib", "component"]
+    },
+    "ui-components-file-drop-overlay": {
       "tags": ["lib", "component"]
     },
     "ui-components-slide-panel": {
@@ -31,50 +73,8 @@
       "tags": ["e2e"],
       "implicitDependencies": ["ui-components-slide-panel"]
     },
-    "ui-components-dialogs": {
+    "ui-components-visuals": {
       "tags": ["lib", "component"]
-    },
-    "helpers-time": {
-      "tags": ["lib", "ts", "helper"]
-    },
-    "helpers-unsubscription": {
-      "tags": ["lib", "angular", "helper"]
-    },
-    "helpers-memoization": {
-      "tags": ["lib", "ts", "helper"]
-    },
-    "helper-services-title": {
-      "tags": ["lib", "angular", "helper"]
-    },
-    "core-theme": {
-      "tags": ["lib", "angular", "core"]
-    },
-    "core-update": {
-      "tags": ["lib", "angular", "core"]
-    },
-    "helper-services-gamepad": {
-      "tags": ["lib", "angular", "helper"]
-    },
-    "material-helpers-mat-icon-size": {
-      "tags": ["lib", "angular", "helper"]
-    },
-    "helper-services-hotkeys": {
-      "tags": ["lib", "angular", "helper"]
-    },
-    "helper-services-loader": {
-      "tags": ["lib", "angular", "helper"]
-    },
-    "ui-components-file-drop-overlay": {
-      "tags": ["lib", "component"]
-    },
-    "helper-services-wakelock": {
-      "tags": []
-    },
-    "settings": {
-      "tags": []
-    },
-    "helper-services-media-session": {
-      "tags": []
     }
   },
   "tasksRunnerOptions": {

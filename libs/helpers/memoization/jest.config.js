@@ -6,5 +6,6 @@ module.exports = {
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'html'],
   coverageDirectory: '../../../coverage/libs/helpers/memoization',
   globals: { 'ts-jest': { tsconfig: '<rootDir>/tsconfig.spec.json' } },
-  displayName: 'helpers-memoization'
+  displayName: 'helpers-memoization',
+  testEnvironment: 'node'
 };

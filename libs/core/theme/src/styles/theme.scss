@@ -107,7 +107,7 @@ $dynamic-dark-theme: mat.define-dark-theme(
 }
 
 .dark-theme {
-  @include mat.all-component-themes($dynamic-dark-theme);
+  @include mat.all-component-colors($dynamic-dark-theme);
   @include mcc-theme($dynamic-dark-theme);
 }
 

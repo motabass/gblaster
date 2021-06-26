@@ -6,5 +6,6 @@ module.exports = {
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'html'],
   coverageDirectory: '../../../coverage/libs/helpers/unsubscription',
   globals: { 'ts-jest': { tsconfig: '<rootDir>/tsconfig.spec.json' } },
-  displayName: 'helpers-unsubscription'
+  displayName: 'helpers-unsubscription',
+  testEnvironment: 'node'
 };
