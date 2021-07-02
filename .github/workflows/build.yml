@@ -25,7 +25,7 @@ jobs:
           path: ~/.npm
           key: npm-${{ hashFiles('package-lock.json') }}
           restore-keys: npm-
-      - name: Install
+      - name: Install dependencies
         run: npm ci
         env:
           CI: true
@@ -33,7 +33,7 @@ jobs:
         run: npm run ci:build
         env:
           CI: true
-      - name: Test
+      - name: Cypres E2E Test
         run: npm run ci:e2e
         env:
           CI: true

@@ -8,7 +8,7 @@ import { Injectable } from '@angular/core';
 export class MediaSessionService {
   constructor() {}
 
-  setActionHandler(action: MediaSessionAction, handler: (details: MediaSessionActionDetails) => any) {
+  setActionHandler(action: string, handler: (details: MediaSessionActionDetails) => any) {
     if (navigator.mediaSession) {
       try {
         navigator.mediaSession.setActionHandler(action, handler);
@@ -22,10 +22,12 @@ export class MediaSessionService {
     if (navigator.mediaSession) {
       try {
         navigator.mediaSession.setActionHandler('seekto', (details) => {
-          if (details.fastSeek && 'fastSeek' in mediaElement) {
-            mediaElement.fastSeek(details.seekTime);
-          } else {
-            mediaElement.currentTime = details.seekTime;
+          if (details.seekTime) {
+            if (details.fastSeek && 'fastSeek' in mediaElement) {
+              mediaElement.fastSeek(details.seekTime);
+            } else {
+              mediaElement.currentTime = details.seekTime;
+            }
           }
         });
       } catch (error) {
@@ -57,7 +59,7 @@ export class MediaSessionService {
     // this.setPlaybackState('paused');
   }
 
-  private setPlaybackState(state: MediaSessionPlaybackState) {
+  private setPlaybackState(state: string) {
     if (navigator.mediaSession) {
       navigator.mediaSession.playbackState = state;
     }
