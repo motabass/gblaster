@@ -1,7 +1,7 @@
 // Custom Theming for Angular Material
 // For more information: https://material.angular.io/guide/theming
 @use '~@angular/material' as mat;
-@import '~material-community-components/theming';
+@use '~material-community-components/theming' as mcc;
 // Plus imports for other components in your app.
 
 // Include the common styles for Angular Material. We include this here so that you only
@@ -79,7 +79,7 @@ $dynamic-accent-palette: (
 // Define Themes
 $dynamic-primary: mat.define-palette($dynamic-primary-palette);
 $dynamic-accent: mat.define-palette($dynamic-accent-palette);
-$warn: mat.define-palette($mat-red);
+$warn: mat.define-palette(mat.$red-palette);
 
 $dynamic-light-theme: mat.define-light-theme(
   (
@@ -103,12 +103,12 @@ $dynamic-dark-theme: mat.define-dark-theme(
 
 .light-theme {
   @include mat.all-component-themes($dynamic-light-theme);
-  @include mcc-theme($dynamic-light-theme);
+  @include mcc.mcc-theme($dynamic-light-theme);
 }
 
 .dark-theme {
   @include mat.all-component-colors($dynamic-dark-theme);
-  @include mcc-theme($dynamic-dark-theme);
+  @include mcc.mcc-theme($dynamic-dark-theme);
 }
 
 $primary-color: var(--theme-primary-500);

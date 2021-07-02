@@ -4,19 +4,6 @@
   "sourceRoot": "libs/core/theme/src",
   "prefix": "mtb",
   "targets": {
-    "build": {
-      "executor": "@nrwl/angular:package",
-      "options": {
-        "tsConfig": "libs/core/theme/tsconfig.lib.json",
-        "project": "libs/core/theme/ng-package.json",
-        "buildableProjectDepsInPackageJsonType": "dependencies"
-      },
-      "configurations": {
-        "production": {
-          "tsConfig": "libs/core/theme/tsconfig.lib.prod.json"
-        }
-      }
-    },
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "options": {

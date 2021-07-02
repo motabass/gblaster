@@ -4,19 +4,6 @@
   "sourceRoot": "libs/core/update/src",
   "prefix": "mtb",
   "targets": {
-    "build": {
-      "executor": "@nrwl/angular:package",
-      "options": {
-        "tsConfig": "libs/core/update/tsconfig.lib.json",
-        "project": "libs/core/update/ng-package.json",
-        "buildableProjectDepsInPackageJsonType": "dependencies"
-      },
-      "configurations": {
-        "production": {
-          "tsConfig": "libs/core/update/tsconfig.lib.prod.json"
-        }
-      }
-    },
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "options": {

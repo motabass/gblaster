@@ -1,5 +1,4 @@
-@import 'apps/gblaster/src/styles/variables';
-@import '~@angular/material/theming';
+@use '~@angular/material' as mat;
 
 :host {
   width: 100%;
@@ -31,7 +30,7 @@
 
 .bar {
   grid-area: bar;
-  @include mat-elevation(12);
+  @include mat.elevation(12);
 }
 
 ::ng-deep .bar .mat-slider-track-wrapper {

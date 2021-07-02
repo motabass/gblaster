@@ -1,4 +1,4 @@
-@import 'apps/gblaster/src/styles/variables';
+@use 'apps/gblaster/src/styles/variables' as var;
 
 :host {
   width: 100%;
@@ -8,7 +8,7 @@
 ::ng-deep .playlist-item {
   box-sizing: border-box;
   &.selected {
-    border-left: solid 4px $accent-color;
+    border-left: solid 4px var.$accent-color;
     .mat-list-item-content {
       padding-left: 12px !important;
     }

@@ -4,19 +4,6 @@
   "sourceRoot": "libs/ui-components/dialogs/src",
   "prefix": "mtb",
   "targets": {
-    "build": {
-      "executor": "@nrwl/angular:package",
-      "options": {
-        "tsConfig": "libs/ui-components/dialogs/tsconfig.lib.json",
-        "project": "libs/ui-components/dialogs/ng-package.json",
-        "buildableProjectDepsInPackageJsonType": "dependencies"
-      },
-      "configurations": {
-        "production": {
-          "tsConfig": "libs/ui-components/dialogs/tsconfig.lib.prod.json"
-        }
-      }
-    },
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "options": {

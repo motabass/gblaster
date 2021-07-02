@@ -1,4 +1,4 @@
-@import '~@angular/material/theming';
+@use '~@angular/material' as mat;
 
 :host {
   --transition-speed: 0.6s;
@@ -13,7 +13,7 @@
     width: 100%;
     padding: 0.8rem 2rem;
     box-sizing: border-box;
-    @include mat-elevation(4);
+    @include mat.elevation(4);
     background-color: rgba(0, 0, 0, 0.6);
     transition: var(--transition-speed);
   }
