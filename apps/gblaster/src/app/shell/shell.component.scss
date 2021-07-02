@@ -18,7 +18,7 @@
 
 .router-outlet {
   width: 100%;
-  height: calc(100% - 64px);
+  height: calc(100% - 58px);
   @media (max-width: 599px) {
     height: calc(100% - 56px);
   }
