@@ -1,0 +1,72 @@
+{
+  "projectType": "library",
+  "root": "libs/ui-components/slide-panel",
+  "sourceRoot": "libs/ui-components/slide-panel/src",
+  "prefix": "mtb",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/angular:package",
+      "options": {
+        "tsConfig": "libs/ui-components/slide-panel/tsconfig.lib.json",
+        "project": "libs/ui-components/slide-panel/ng-package.json",
+        "buildableProjectDepsInPackageJsonType": "dependencies"
+      },
+      "configurations": {
+        "production": {
+          "tsConfig": "libs/ui-components/slide-panel/tsconfig.lib.prod.json"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["libs/ui-components/slide-panel/src/**/*.ts", "libs/ui-components/slide-panel/src/**/*.html"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "options": {
+        "jestConfig": "libs/ui-components/slide-panel/jest.config.js",
+        "passWithNoTests": true
+      },
+      "outputs": ["coverage/libs/ui-components/slide-panel"]
+    },
+    "storybook": {
+      "executor": "@nrwl/storybook:storybook",
+      "options": {
+        "uiFramework": "@storybook/angular",
+        "port": 4400,
+        "config": {
+          "configFolder": "libs/ui-components/slide-panel/.storybook"
+        }
+      },
+      "configurations": {
+        "ci": {
+          "quiet": true
+        }
+      }
+    },
+    "build-storybook": {
+      "executor": "@nrwl/storybook:build",
+      "options": {
+        "uiFramework": "@storybook/angular",
+        "outputPath": "dist/storybook/ui-components-slide-panel",
+        "config": {
+          "configFolder": "libs/ui-components/slide-panel/.storybook"
+        }
+      },
+      "configurations": {
+        "ci": {
+          "quiet": true
+        }
+      },
+      "outputs": ["{options.outputPath}"]
+    }
+  },
+  "generators": {
+    "@nrwl/angular:component": {
+      "styleext": "scss"
+    }
+  },
+  "tags": ["lib", "component"]
+}

@@ -1,0 +1,119 @@
+{
+  "projectType": "application",
+  "generators": {
+    "@nrwl/angular:component": {
+      "style": "scss"
+    }
+  },
+  "root": "apps/gblaster",
+  "sourceRoot": "apps/gblaster/src",
+  "prefix": "mtb",
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:browser",
+      "options": {
+        "allowedCommonJsDependencies": [
+          "music-metadata-browser",
+          "music-metadata/lib/core",
+          "debug",
+          "readable-web-to-node-stream",
+          "typedarray-to-buffer",
+          "node-vibrant/lib/browser"
+        ],
+        "outputPath": "dist/apps/gblaster",
+        "index": "apps/gblaster/src/index.html",
+        "main": "apps/gblaster/src/main.ts",
+        "polyfills": "apps/gblaster/src/polyfills.ts",
+        "tsConfig": "apps/gblaster/tsconfig.app.json",
+        "assets": ["apps/gblaster/src/favicon.ico", "apps/gblaster/src/assets", "apps/gblaster/src/manifest.json"],
+        "styles": ["libs/core/theme/src/styles/theme.scss", "apps/gblaster/src/styles/main.scss"],
+        "scripts": [],
+        "webWorkerTsConfig": "apps/gblaster/tsconfig.worker.json",
+        "vendorChunk": true,
+        "extractLicenses": false,
+        "buildOptimizer": false,
+        "sourceMap": true,
+        "optimization": false,
+        "namedChunks": true
+      },
+      "configurations": {
+        "production": {
+          "fileReplacements": [
+            {
+              "replace": "apps/gblaster/src/environments/environment.ts",
+              "with": "apps/gblaster/src/environments/environment.prod.ts"
+            }
+          ],
+          "optimization": {
+            "scripts": true,
+            "fonts": {
+              "inline": true
+            },
+            "styles": {
+              "minify": true,
+              "inlineCritical": true
+            }
+          },
+          "outputHashing": "all",
+          "sourceMap": false,
+          "namedChunks": false,
+          "extractLicenses": true,
+          "vendorChunk": false,
+          "buildOptimizer": true,
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "2mb",
+              "maximumError": "5mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "6kb",
+              "maximumError": "10kb"
+            }
+          ],
+          "serviceWorker": true,
+          "ngswConfigPath": "apps/gblaster/ngsw-config.json"
+        }
+      },
+      "outputs": ["{options.outputPath}"]
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "options": {
+        "browserTarget": "gblaster:build",
+        "proxyConfig": "apps/gblaster/proxy.conf.json"
+      },
+      "configurations": {
+        "production": {
+          "browserTarget": "gblaster:build:production"
+        }
+      }
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "browserTarget": "gblaster:build"
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["apps/gblaster/src/**/*.ts", "apps/gblaster/src/**/*.html"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "options": {
+        "jestConfig": "apps/gblaster/jest.config.js",
+        "passWithNoTests": true
+      },
+      "outputs": ["coverage/apps/gblaster"]
+    },
+    "deploy": {
+      "executor": "@angular/fire:deploy",
+      "options": {}
+    }
+  },
+  "tags": ["app"]
+}

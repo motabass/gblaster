@@ -1,0 +1,41 @@
+{
+  "projectType": "library",
+  "root": "libs/core/update",
+  "sourceRoot": "libs/core/update/src",
+  "prefix": "mtb",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/angular:package",
+      "options": {
+        "tsConfig": "libs/core/update/tsconfig.lib.json",
+        "project": "libs/core/update/ng-package.json",
+        "buildableProjectDepsInPackageJsonType": "dependencies"
+      },
+      "configurations": {
+        "production": {
+          "tsConfig": "libs/core/update/tsconfig.lib.prod.json"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["libs/core/update/src/**/*.ts", "libs/core/update/src/**/*.html"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "options": {
+        "jestConfig": "libs/core/update/jest.config.js",
+        "passWithNoTests": true
+      },
+      "outputs": ["coverage/libs/core/update"]
+    }
+  },
+  "generators": {
+    "@nrwl/angular:component": {
+      "styleext": "scss"
+    }
+  },
+  "tags": ["lib", "angular", "core"]
+}

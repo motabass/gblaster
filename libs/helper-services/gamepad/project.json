@@ -1,0 +1,41 @@
+{
+  "projectType": "library",
+  "root": "libs/helper-services/gamepad",
+  "sourceRoot": "libs/helper-services/gamepad/src",
+  "prefix": "mtb",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/angular:package",
+      "options": {
+        "tsConfig": "libs/helper-services/gamepad/tsconfig.lib.json",
+        "project": "libs/helper-services/gamepad/ng-package.json",
+        "buildableProjectDepsInPackageJsonType": "dependencies"
+      },
+      "configurations": {
+        "production": {
+          "tsConfig": "libs/helper-services/gamepad/tsconfig.lib.prod.json"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["libs/helper-services/gamepad/src/**/*.ts", "libs/helper-services/gamepad/src/**/*.html"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "options": {
+        "jestConfig": "libs/helper-services/gamepad/jest.config.js",
+        "passWithNoTests": true
+      },
+      "outputs": ["coverage/libs/helper-services/gamepad"]
+    }
+  },
+  "generators": {
+    "@nrwl/angular:component": {
+      "styleext": "scss"
+    }
+  },
+  "tags": ["lib", "angular", "helper"]
+}

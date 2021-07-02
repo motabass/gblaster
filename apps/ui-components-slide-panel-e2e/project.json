@@ -1,0 +1,28 @@
+{
+  "root": "apps/ui-components-slide-panel-e2e",
+  "sourceRoot": "apps/ui-components-slide-panel-e2e/src",
+  "projectType": "application",
+  "targets": {
+    "e2e": {
+      "executor": "@nrwl/cypress:cypress",
+      "options": {
+        "cypressConfig": "apps/ui-components-slide-panel-e2e/cypress.json",
+        "tsConfig": "apps/ui-components-slide-panel-e2e/tsconfig.e2e.json",
+        "devServerTarget": "ui-components-slide-panel:storybook"
+      },
+      "configurations": {
+        "production": {
+          "devServerTarget": "ui-components-slide-panel:serve:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["apps/ui-components-slide-panel-e2e/src/**/*.ts", "apps/ui-components-slide-panel-e2e/src/**/*.html"]
+      }
+    }
+  },
+  "tags": ["e2e"],
+  "implicitDependencies": ["ui-components-slide-panel"]
+}

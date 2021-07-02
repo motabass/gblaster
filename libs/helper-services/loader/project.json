@@ -1,0 +1,41 @@
+{
+  "projectType": "library",
+  "root": "libs/helper-services/loader",
+  "sourceRoot": "libs/helper-services/loader/src",
+  "prefix": "mtb",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/angular:package",
+      "options": {
+        "tsConfig": "libs/helper-services/loader/tsconfig.lib.json",
+        "project": "libs/helper-services/loader/ng-package.json",
+        "buildableProjectDepsInPackageJsonType": "dependencies"
+      },
+      "configurations": {
+        "production": {
+          "tsConfig": "libs/helper-services/loader/tsconfig.lib.prod.json"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["libs/helper-services/loader/src/**/*.ts", "libs/helper-services/loader/src/**/*.html"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "options": {
+        "jestConfig": "libs/helper-services/loader/jest.config.js",
+        "passWithNoTests": true
+      },
+      "outputs": ["coverage/libs/helper-services/loader"]
+    }
+  },
+  "generators": {
+    "@nrwl/angular:component": {
+      "styleext": "scss"
+    }
+  },
+  "tags": ["lib", "angular", "helper"]
+}

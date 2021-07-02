@@ -10,73 +10,7 @@
     "nx.json": "*",
     "tsconfig.base.json": "*"
   },
-  "projects": {
-    "core-theme": {
-      "tags": ["lib", "angular", "core"]
-    },
-    "core-update": {
-      "tags": ["lib", "angular", "core"]
-    },
-    "gblaster": {
-      "tags": ["app"]
-    },
-    "gblaster-e2e": {
-      "tags": ["e2e"],
-      "implicitDependencies": ["gblaster"]
-    },
-    "helper-services-gamepad": {
-      "tags": ["lib", "angular", "helper"]
-    },
-    "helper-services-hotkeys": {
-      "tags": ["lib", "angular", "helper"]
-    },
-    "helper-services-loader": {
-      "tags": ["lib", "angular", "helper"]
-    },
-    "helper-services-media-session": {
-      "tags": []
-    },
-    "helper-services-title": {
-      "tags": ["lib", "angular", "helper"]
-    },
-    "helper-services-wakelock": {
-      "tags": []
-    },
-    "helpers-memoization": {
-      "tags": ["lib", "ts", "helper"]
-    },
-    "helpers-time": {
-      "tags": ["lib", "ts", "helper"]
-    },
-    "helpers-unsubscription": {
-      "tags": ["lib", "angular", "helper"]
-    },
-    "material-helpers-mat-icon-size": {
-      "tags": ["lib", "angular", "helper"]
-    },
-    "player": {
-      "tags": ["lazy-module"]
-    },
-    "settings": {
-      "tags": []
-    },
-    "ui-components-dialogs": {
-      "tags": ["lib", "component"]
-    },
-    "ui-components-file-drop-overlay": {
-      "tags": ["lib", "component"]
-    },
-    "ui-components-slide-panel": {
-      "tags": ["lib", "component"]
-    },
-    "ui-components-slide-panel-e2e": {
-      "tags": ["e2e"],
-      "implicitDependencies": ["ui-components-slide-panel"]
-    },
-    "ui-components-visuals": {
-      "tags": ["lib", "component"]
-    }
-  },
+  "projects": {},
   "tasksRunnerOptions": {
     "default": {
       "runner": "@nrwl/workspace/tasks-runners/default",
@@ -87,5 +21,14 @@
   },
   "affected": {
     "defaultBase": "master"
+  },
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "targetDependencies": {
+    "build": [
+      {
+        "target": "build",
+        "projects": "dependencies"
+      }
+    ]
   }
 }

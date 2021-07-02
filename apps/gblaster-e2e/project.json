@@ -1,0 +1,28 @@
+{
+  "root": "apps/gblaster-e2e",
+  "sourceRoot": "apps/gblaster-e2e/src",
+  "projectType": "application",
+  "targets": {
+    "e2e": {
+      "executor": "@nrwl/cypress:cypress",
+      "options": {
+        "cypressConfig": "apps/gblaster-e2e/cypress.json",
+        "tsConfig": "apps/gblaster-e2e/tsconfig.e2e.json",
+        "devServerTarget": "gblaster:serve"
+      },
+      "configurations": {
+        "production": {
+          "devServerTarget": "gblaster:serve:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["apps/gblaster-e2e/**/*.{js,ts}"]
+      }
+    }
+  },
+  "tags": ["e2e"],
+  "implicitDependencies": ["gblaster"]
+}
