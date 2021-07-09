@@ -1,5 +1,3 @@
-/// <reference types="wicg-mediasession" />
-
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -8,7 +6,7 @@ import { Injectable } from '@angular/core';
 export class MediaSessionService {
   constructor() {}
 
-  setActionHandler(action: string, handler: (details: MediaSessionActionDetails) => any) {
+  setActionHandler(action: MediaSessionAction, handler: (details: MediaSessionActionDetails) => any) {
     if (navigator.mediaSession) {
       try {
         navigator.mediaSession.setActionHandler(action, handler);
@@ -52,14 +50,14 @@ export class MediaSessionService {
   }
 
   setPlaying() {
-    // this.setPlaybackState('playing');
+    this.setPlaybackState('playing');
   }
 
   setPaused() {
-    // this.setPlaybackState('paused');
+    this.setPlaybackState('paused');
   }
 
-  private setPlaybackState(state: string) {
+  private setPlaybackState(state: MediaSessionPlaybackState) {
     if (navigator.mediaSession) {
       navigator.mediaSession.playbackState = state;
     }
