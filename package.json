@@ -1,6 +1,6 @@
 {
   "name": "motabass",
-  "version": "8.1.7",
+  "version": "minor",
   "author": "motabass",
   "repository": "https://github.com/motabass/motabass",
   "description": "nx monorepo for my web stuff",
@@ -197,6 +197,7 @@
     "stylelint-config-prettier": "^8.0.2",
     "stylelint-config-recommended-scss": "^4.3.0",
     "stylelint-scss": "^3.19.0",
+    "bump": "^0.2.5",
     "svgo": "^2.3.1",
     "ts-jest": "27.0.3",
     "tslint": "^6.1.3",
