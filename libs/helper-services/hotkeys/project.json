@@ -4,19 +4,6 @@
   "sourceRoot": "libs/helper-services/hotkeys/src",
   "prefix": "mtb",
   "targets": {
-    "build": {
-      "executor": "@nrwl/angular:package",
-      "options": {
-        "tsConfig": "libs/helper-services/hotkeys/tsconfig.lib.json",
-        "project": "libs/helper-services/hotkeys/ng-package.json",
-        "buildableProjectDepsInPackageJsonType": "dependencies"
-      },
-      "configurations": {
-        "production": {
-          "tsConfig": "libs/helper-services/hotkeys/tsconfig.lib.prod.json"
-        }
-      }
-    },
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "options": {

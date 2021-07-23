@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { firstValueFrom } from 'rxjs';
 import { Id3Tags } from './id3-tags.types';
 import { RemoteCoverPicture } from './metadata.types';
 
@@ -13,9 +14,11 @@ export class LastfmMetadataService {
     if (tags.artist && tags.album) {
       // TODO: type response
       try {
-        const data: any = await this.http
-          .get(`https://ws.audioscrobbler.com/2.0/?method=album.getinfo&api_key=${this.LASTFM_API_KEY}&artist=${tags.artist}&album=${tags.album}&format=json`)
-          .toPromise();
+        const data: any = firstValueFrom(
+          await this.http.get(
+            `https://ws.audioscrobbler.com/2.0/?method=album.getinfo&api_key=${this.LASTFM_API_KEY}&artist=${tags.artist}&album=${tags.album}&format=json`
+          )
+        );
 
         if (!data.error && data.album.image[5]['#text']) {
           return { thumb: data.album.image[0]['#text'], original: data.album.image[4]['#text'] };

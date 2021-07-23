@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import luceneEscapeQuery from 'lucene-escape-query';
+import { firstValueFrom } from 'rxjs';
 import { Id3Tags } from './id3-tags.types';
 import { RemoteCoverPicture } from './metadata.types';
 
@@ -14,7 +15,7 @@ export class MusicbrainzService {
       query += tags.track?.of ? ` AND tracks:${tags.track.of}` : '';
       const url = `https://musicbrainz.org/ws/2/release/?query=${query}&limit=10&fmt=json`;
       // TODO: type response
-      const data: any = await this.http.get(url).toPromise();
+      const data: any = await firstValueFrom(this.http.get(url));
 
       if (!data.releases.length) {
         return;
@@ -24,7 +25,7 @@ export class MusicbrainzService {
       // TODO: type response
       let coverData: any;
       try {
-        coverData = await this.http.get(`https://coverartarchive.org/release/${id}`).toPromise();
+        coverData = await firstValueFrom(this.http.get(`https://coverartarchive.org/release/${id}`));
       } catch (e) {
         return;
       }

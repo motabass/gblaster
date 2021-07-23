@@ -3,6 +3,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { SwUpdate, UpdateAvailableEvent } from '@angular/service-worker';
 import { Subscribing } from '@motabass/helpers/unsubscription';
 import { PromptDialogComponent, PromptDialogData } from '@motabass/ui-components/dialogs';
+import { firstValueFrom } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 @Injectable({
@@ -46,6 +47,6 @@ export class UpdateService extends Subscribing {
       disableClose: true,
       closeOnNavigation: false
     };
-    return this.dialog.open(PromptDialogComponent, config).afterClosed().toPromise();
+    return firstValueFrom(this.dialog.open(PromptDialogComponent, config).afterClosed());
   }
 }

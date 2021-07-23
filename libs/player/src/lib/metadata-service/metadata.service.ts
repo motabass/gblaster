@@ -4,6 +4,7 @@ import { ThemeService } from '@motabass/core/theme';
 import { NgxIndexedDBService } from 'ngx-indexed-db';
 import { LocalStorage } from 'ngx-webstorage';
 import Vibrant from 'node-vibrant/lib/browser';
+import { firstValueFrom } from 'rxjs';
 import { SongMetadata } from '../player.types';
 import { Id3TagsService } from './id3-tags.service';
 import { Id3CoverPicture } from './id3-tags.types';
@@ -31,7 +32,7 @@ export class MetadataService {
     const crc = generateFileHash(file);
 
     if (this.useTagsCache) {
-      const metadataCache: SongMetadata = await this.indexedDBService.getByKey<SongMetadata>('metatags', crc).toPromise();
+      const metadataCache: SongMetadata = await firstValueFrom(this.indexedDBService.getByKey<SongMetadata>('metatags', crc));
 
       if (metadataCache) {
         if (metadataCache.coverUrl?.original.startsWith('blob:') && metadataCache.embeddedPicture) {

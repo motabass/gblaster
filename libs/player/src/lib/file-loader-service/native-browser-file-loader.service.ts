@@ -2,6 +2,7 @@
 
 import { Injectable } from '@angular/core';
 import { NgxIndexedDBService } from 'ngx-indexed-db';
+import { firstValueFrom } from 'rxjs';
 import { ALLOWED_MIMETYPES } from './file-loader.helpers';
 import { FileLoaderService } from './file-loader.service.abstract';
 
@@ -16,7 +17,7 @@ export class NativeBrowserFileLoaderService extends FileLoaderService {
   }
 
   async init() {
-    const entry = await this.indexedDbService.getByID<any>('dirHandle', 1).toPromise();
+    const entry = await firstValueFrom(this.indexedDbService.getByID<any>('dirHandle', 1));
     if (entry) {
       const granted = await verifyPermission(entry.handle);
       if (granted) {
