@@ -18,28 +18,27 @@ module.exports = (on, config) => {
   // `config` is the resolved Cypress config
 
   // Preprocess Typescript file using Nx helper
-  on('file:preprocessor', preprocessTypescript(config));
 
   on('before:browser:launch', (browser = {}, launchOptions) => {
     // `args` is an array of all the arguments that will
     // be passed to browsers when it launches
-    console.log(launchOptions.args) // print all current args
+    console.log(launchOptions.args); // print all current args
 
     if (browser.family === 'chromium' && browser.name !== 'electron') {
       // auto open devtools
-      launchOptions.args.push('--disable-native-file-system-api')
+      launchOptions.args.push('--disable-native-file-system-api');
 
       // whatever you return here becomes the launchOptions
-      return launchOptions
+      return launchOptions;
     }
 
     if (browser.family === 'firefox') {
       // auto open devtools
       // launchOptions.args.push('-devtools')
 
-      return launchOptions
+      return launchOptions;
     }
-  })
+  });
 };
 
 //--disable-file-system
