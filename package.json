@@ -103,7 +103,7 @@
     "@angular/platform-browser-dynamic": "12.2.4",
     "@angular/router": "12.2.4",
     "@angular/service-worker": "12.2.4",
-    "@nrwl/nx-cloud": "12.3.10",
+    "@nrwl/nx-cloud": "12.3.12",
     "@thebespokepixel/es-tinycolor": "^2.1.1",
     "browser-id3-writer": "^4.4.0",
     "buffer": "^6.0.3",
