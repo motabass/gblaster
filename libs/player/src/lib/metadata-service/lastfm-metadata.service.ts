@@ -20,7 +20,7 @@ export class LastfmMetadataService {
           )
         );
 
-        if (!data.error && data.album.image[5]['#text']) {
+        if (!data.error && data.album?.image[5]['#text']) {
           return { thumb: data.album.image[0]['#text'], original: data.album.image[4]['#text'] };
         }
       } catch (e) {

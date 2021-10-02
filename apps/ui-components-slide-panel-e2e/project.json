@@ -20,7 +20,8 @@
       "executor": "@nrwl/linter:eslint",
       "options": {
         "lintFilePatterns": ["apps/ui-components-slide-panel-e2e/src/**/*.ts", "apps/ui-components-slide-panel-e2e/src/**/*.html"]
-      }
+      },
+      "outputs": ["{options.outputFile}"]
     }
   },
   "tags": ["e2e"],
