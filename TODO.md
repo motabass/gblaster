@@ -4,7 +4,8 @@ TODOs:
 - Audio-File-Explorer
 - Playlist management (Sorting, Saving)
 - Visuals via UserMediaInput from mic or system
-- PWA file-associations nad share target
+- Share target
+- Open in existing Window: (https://web.dev/file-handling/)
 - Writing Meta-Tags
-- Fullscreen Mode
+- Fullscreen/Multiwindow Mode
 - Localization
