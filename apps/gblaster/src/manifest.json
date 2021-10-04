@@ -66,5 +66,29 @@
       "type": "image/png",
       "purpose": "maskable"
     }
+  ],
+  "file_handlers": [
+    {
+      "action": "/player",
+      "accept": {
+        "audio/mp3": ".mp3",
+        "audio/mpeg": ".mp3",
+        "audio/x-aiff": ".aiff",
+        "audio/ogg": ".ogg",
+        "audio/vorbis": ".ogg",
+        "audio/vnd.wav": ".wav",
+        "audio/wav": ".wav",
+        "audio/flac": ".flac",
+        "audio/mp4": ".mp4",
+        "audio/opus": ".opus"
+      },
+      "icons": [
+        {
+          "src": "assets/logos/icon-512x512.png",
+          "sizes": "512x512",
+          "type": "image/png"
+        }
+      ]
+    }
   ]
 }

@@ -7,7 +7,8 @@ export const ALLOWED_MIMETYPES = [
   'audio/vnd.wav',
   'audio/flac',
   'audio/wav',
-  'audio/mp4'
+  'audio/mp4',
+  'audio/opus'
 ];
 
 export const ALLOWED_EXTENSIONS = ['mp3', 'flac', 'ogg', 'wav', 'aiff', 'opus', 'mp4'];

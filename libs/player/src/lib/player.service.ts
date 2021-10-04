@@ -10,6 +10,7 @@ import { LocalStorage, LocalStorageService } from 'ngx-webstorage';
 import { FileLoaderService } from './file-loader-service/file-loader.service.abstract';
 import { MetadataService } from './metadata-service/metadata.service';
 import { BandFrequency, RepeatMode, Song } from './player.types';
+import { ALLOWED_MIMETYPES } from './file-loader-service/file-loader.helpers';
 
 export const BAND_FREQUENIES: BandFrequency[] = [60, 170, 310, 600, 1000, 3000, 6000, 12000, 14000, 16000];
 
@@ -70,6 +71,23 @@ export class PlayerService {
       const filter = this.bands[bandFrequency];
       filter.gain.value = this.bandGains[bandFrequency];
     });
+
+    if ('launchQueue' in window) {
+      // @ts-ignore
+      window.launchQueue.setConsumer(async (launchParams) => {
+        console.log('Handling launch params: ', launchParams);
+        // Nothing to do when the queue is empty.
+        if (!launchParams.files.length) {
+          return;
+        }
+        for (const fileHandle of launchParams.files) {
+          const file = await fileHandle.getFile();
+          if (ALLOWED_MIMETYPES.includes(file.type)) {
+            await this.addFilesToPlaylist([file]);
+          }
+        }
+      });
+    }
   }
 
   initAudioElement() {
