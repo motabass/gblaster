@@ -54,10 +54,10 @@
   <button mat-icon-button [ngClass]="{ 'accent-color': shuffle }" (click)="toggleShuffle()">
     <mat-icon svgIcon="shuffle-variant"></mat-icon>
   </button>
-  <button mat-icon-button [ngClass]="{ 'accent-color': repeat === 'all' || repeat === 'one' }" (click)="toggleRepeat()">
-    <mat-icon *ngIf="repeat === 'off'" svgIcon="repeat-off"></mat-icon>
-    <mat-icon *ngIf="repeat === 'all'" svgIcon="repeat"></mat-icon>
-    <mat-icon *ngIf="repeat === 'one'" svgIcon="repeat-once"></mat-icon>
+  <button mat-icon-button [ngClass]="{ 'accent-color': repeat === 'all' || repeat === 'one' }" (click)="toggleRepeat()" [ngSwitch]="repeat">
+    <mat-icon *ngSwitchCase="'off'" svgIcon="repeat-off"></mat-icon>
+    <mat-icon *ngSwitchCase="'all'" svgIcon="repeat"></mat-icon>
+    <mat-icon *ngSwitchCase="'one'" svgIcon="repeat-once"></mat-icon>
   </button>
 </mat-toolbar>
 

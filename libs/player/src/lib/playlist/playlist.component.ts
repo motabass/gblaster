@@ -4,6 +4,8 @@ import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { VisualizerMode, VisualsColorConfig, VisualsService } from '@motabass/ui-components/visuals';
 import { PlayerService } from '../player.service';
 import { Song } from '../player.types';
+import { LoaderService } from '@motabass/helper-services/loader';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'mtb-playlist',
@@ -12,7 +14,16 @@ import { Song } from '../player.types';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PlaylistComponent {
-  constructor(private playerService: PlayerService, private visualsService: VisualsService, private domSanitizer: DomSanitizer) {}
+  constructor(
+    private playerService: PlayerService,
+    private visualsService: VisualsService,
+    private domSanitizer: DomSanitizer,
+    private loaderService: LoaderService
+  ) {}
+
+  get isLoading(): Observable<boolean> {
+    return this.loaderService.isLoading;
+  }
 
   get visualMode(): VisualizerMode {
     return this.visualsService.visualMode;

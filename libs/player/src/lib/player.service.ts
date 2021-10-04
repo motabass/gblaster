@@ -205,7 +205,10 @@ export class PlayerService {
         this.loaderService.show();
         const song = await this.createSongFromFile(file);
         this.loaderService.hide();
-        this.currentPlaylist.push(song);
+        // avoid duplicate playlist entries
+        if (!this.currentPlaylist.some((playlistSong) => playlistSong.metadata?.crc === song.metadata?.crc)) {
+          this.currentPlaylist.push(song);
+        }
       }
     }
   }
