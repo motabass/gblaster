@@ -22,21 +22,5 @@
     "ui-components-slide-panel": "libs/ui-components/slide-panel",
     "ui-components-slide-panel-e2e": "apps/ui-components-slide-panel-e2e",
     "ui-components-visuals": "libs/ui-components/visuals"
-  },
-  "cli": {
-    "defaultCollection": "@nrwl/angular",
-    "analytics": "af77e131-c1a7-404f-ae63-d6276bace048"
-  },
-  "generators": {
-    "@nrwl/angular:application": {
-      "unitTestRunner": "jest",
-      "e2eTestRunner": "cypress",
-      "style": "scss"
-    },
-    "@nrwl/angular:library": {
-      "unitTestRunner": "jest",
-      "style": "scss"
-    }
-  },
-  "defaultProject": "gblaster"
+  }
 }

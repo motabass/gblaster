@@ -10,7 +10,6 @@
     "nx.json": "*",
     "tsconfig.base.json": "*"
   },
-  "projects": {},
   "tasksRunnerOptions": {
     "default": {
       "runner": "@nrwl/nx-cloud",
@@ -32,5 +31,21 @@
         "projects": "dependencies"
       }
     ]
-  }
+  },
+  "cli": {
+    "defaultCollection": "@nrwl/angular",
+    "analytics": "af77e131-c1a7-404f-ae63-d6276bace048"
+  },
+  "generators": {
+    "@nrwl/angular:application": {
+      "unitTestRunner": "jest",
+      "e2eTestRunner": "cypress",
+      "style": "scss"
+    },
+    "@nrwl/angular:library": {
+      "unitTestRunner": "jest",
+      "style": "scss"
+    }
+  },
+  "defaultProject": "gblaster"
 }
