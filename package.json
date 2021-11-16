@@ -53,7 +53,7 @@
     "release:interactive": "dotenv release-it",
     "release": "dotenv release-it -- --ci",
     "ci:build": "npm run build:prod:gblaster",
-    "ci:e2e": "nx run gblaster-e2e:e2e --headless",
+    "ci:e2e": "nx run gblaster-e2e:e2e",
     "ci:deploy": "nx deploy gblaster",
     "compodoc:serve": "npm run compodoc -- -s",
     "generate:icon-set": "ts-node --project tools/tsconfig.tools.json tools/convertIcons.ts",
