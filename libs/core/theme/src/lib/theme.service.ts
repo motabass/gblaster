@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Meta } from '@angular/platform-browser';
-// @ts-ignore
 import { TinyColor } from '@thebespokepixel/es-tinycolor';
 import { LocalStorage } from 'ngx-webstorage';
-import { Instance } from 'tinycolor2';
 import { Color } from './theme.types';
 
 @Injectable({
@@ -115,12 +113,12 @@ export class ThemeService {
     ];
   }
 
-  private getColorObject(value: Instance, name: string): Color {
+  private getColorObject(value: TinyColor, name: string): Color {
     const color = new TinyColor(value);
     const lightnessLimit = this.darkMode ? 150 : 200;
     return {
       name: name,
-      hex: color.toHexString(),
+      hex: color.toHexString(false),
       darkContrast: color.getBrightness() > lightnessLimit
       // darkContrast: c.isLight()
     };

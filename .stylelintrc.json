@@ -1,0 +1,23 @@
+{
+  "ignoreFiles": ["**/*"],
+  "overrides": [
+    {
+      "files": ["**/*.css"],
+      "extends": ["stylelint-config-standard", "stylelint-config-recommended-scss", "stylelint-config-prettier"],
+      "rules": {}
+    },
+    {
+      "files": ["**/*.scss"],
+      "extends": ["stylelint-config-standard-scss", "stylelint-config-recommended-scss", "stylelint-config-prettier"],
+      "rules": {}
+    }
+  ],
+  "rules": {
+    "selector-pseudo-element-no-unknown": [
+      true,
+      {
+        "ignorePseudoElements": ["ng-deep"]
+      }
+    ]
+  }
+}

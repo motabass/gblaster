@@ -18,6 +18,13 @@
         "passWithNoTests": true
       },
       "outputs": ["coverage/libs/ui-components/dialogs"]
+    },
+    "stylelint": {
+      "executor": "nx-stylelint:lint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/ui-components/dialogs/**/*.css", "libs/ui-components/dialogs/**/*.scss"]
+      }
     }
   },
   "generators": {

@@ -31,6 +31,13 @@
         "passWithNoTests": true
       },
       "outputs": ["coverage/libs/ui-components/visuals"]
+    },
+    "stylelint": {
+      "executor": "nx-stylelint:lint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/ui-components/visuals/**/*.css", "libs/ui-components/visuals/**/*.scss"]
+      }
     }
   },
   "generators": {

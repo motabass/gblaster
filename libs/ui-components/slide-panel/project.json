@@ -62,6 +62,13 @@
         }
       },
       "outputs": ["{options.outputPath}"]
+    },
+    "stylelint": {
+      "executor": "nx-stylelint:lint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/ui-components/slide-panel/**/*.css", "libs/ui-components/slide-panel/**/*.scss"]
+      }
     }
   },
   "generators": {

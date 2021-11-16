@@ -31,6 +31,13 @@
         "passWithNoTests": true
       },
       "outputs": ["coverage/libs/ui-components/file-drop-overlay"]
+    },
+    "stylelint": {
+      "executor": "nx-stylelint:lint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/ui-components/file-drop-overlay/**/*.css", "libs/ui-components/file-drop-overlay/**/*.scss"]
+      }
     }
   },
   "generators": {
