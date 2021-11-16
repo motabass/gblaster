@@ -9,6 +9,8 @@ nx monorepo for my web stuff
 
 Demo: https://gblaster-player.firebaseapp.com
 
+GH-Pages: https://motabass.github.io/gblaster/
+
 ## Libs
 
 ## Dependencies
