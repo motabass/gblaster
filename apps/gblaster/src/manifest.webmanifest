@@ -1,5 +1,6 @@
 {
   "short_name": "gBlaster",
+  "id": "gBlaster",
   "name": "gBlaster - Web Audio Player",
   "description": "PWA Audio Player for local music files",
   "lang": "en",

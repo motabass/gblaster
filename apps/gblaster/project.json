@@ -25,7 +25,7 @@
         "main": "apps/gblaster/src/main.ts",
         "polyfills": "apps/gblaster/src/polyfills.ts",
         "tsConfig": "apps/gblaster/tsconfig.app.json",
-        "assets": ["apps/gblaster/src/favicon.ico", "apps/gblaster/src/assets", "apps/gblaster/src/manifest.json"],
+        "assets": ["apps/gblaster/src/favicon.ico", "apps/gblaster/src/assets", "apps/gblaster/src/manifest.webmanifest"],
         "styles": ["libs/core/theme/src/styles/theme.scss", "apps/gblaster/src/styles/main.scss"],
         "scripts": [],
         "webWorkerTsConfig": "apps/gblaster/tsconfig.worker.json",
