@@ -25,4 +25,4 @@ Material Icons:
 
 Tag Reader:
 
-[Music Metadata Browser](https://github.com/Borewit/music-metadata-browser)
+[music-metadata-browser](https://github.com/Borewit/music-metadata-browser)
