@@ -2,6 +2,6 @@
   "name": "@motabass/helpers-unsubscription",
   "version": "0.0.1",
   "dependencies": {
-    "tslib": "^2.0.0"
+    "tslib": "2.3.1"
   }
 }
