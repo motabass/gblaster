@@ -85,7 +85,7 @@
   "dependencies": {
     "@allex/crc32": "1.0.4",
     "@angular/animations": "12.2.13",
-    "@angular/cdk": "12.2.11",
+    "@angular/cdk": "12.2.13",
     "@angular/common": "12.2.13",
     "@angular/compiler": "12.2.13",
     "@angular/core": "12.2.13",
