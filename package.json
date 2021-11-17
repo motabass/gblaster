@@ -164,7 +164,7 @@
     "babel-loader": "8.2.3",
     "colors": "1.4.0",
     "conventional-changelog-cli": "2.1.1",
-    "copy-webpack-plugin": "9.1.0",
+    "copy-webpack-plugin": "10.0.0",
     "cypress": "9.0.0",
     "cypress-file-upload": "5.0.8",
     "dotenv": "10.0.0",
