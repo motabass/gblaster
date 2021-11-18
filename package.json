@@ -98,7 +98,7 @@
     "@angular/platform-browser-dynamic": "12.2.13",
     "@angular/router": "12.2.13",
     "@angular/service-worker": "12.2.13",
-    "@nrwl/nx-cloud": "12.5.2",
+    "@nrwl/nx-cloud": "12.5.4",
     "@thebespokepixel/es-tinycolor": "3.0.6",
     "browser-id3-writer": "4.4.0",
     "buffer": "6.0.3",
