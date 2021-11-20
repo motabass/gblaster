@@ -1,6 +1,6 @@
 {
   "name": "motabass",
-  "version": "9.2.0",
+  "version": "9.2.1",
   "author": "motabass",
   "repository": "https://github.com/motabass/gblaster",
   "description": "nx monorepo for my web stuff",
@@ -136,6 +136,7 @@
     "@nrwl/cypress": "13.2.1",
     "@nrwl/eslint-plugin-nx": "13.2.1",
     "@nrwl/jest": "13.2.1",
+    "@nrwl/node": "13.2.1",
     "@nrwl/linter": "13.2.1",
     "@nrwl/storybook": "13.2.1",
     "@nrwl/nx-cloud": "12.5.4",
