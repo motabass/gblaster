@@ -18,7 +18,8 @@
         "cacheableOperations": ["build", "lint", "test", "e2e", "build-storybook", "stylelint"],
         "accessToken": "NmE3ZDg0NTEtMTE0Zi00YjRiLTg2OWEtMGIyY2IyMGY2YjQ4fHJlYWQtd3JpdGU=",
         "canTrackAnalytics": false,
-        "showUsageWarnings": true
+        "showUsageWarnings": true,
+        "parallel": 1
       }
     }
   },

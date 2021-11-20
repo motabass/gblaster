@@ -21,7 +21,7 @@ export class WakelockService {
       try {
         this.wakelock = await navigator.wakeLock.request('screen');
         this.wakelock.addEventListener('release', () => {});
-      } catch (err) {
+      } catch (err: any) {
         console.warn(`${err.name}, ${err.message}`);
       }
     }

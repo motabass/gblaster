@@ -30,41 +30,4 @@ export class Id3TagsService {
       format: tags.format
     };
   }
-
-  // async extractTags(file: File): Promise<Id3Tags | null> {
-  //   const jsmediatags = await import('jsmediatags');
-  //
-  //   let tags: TagType | null = null;
-  //
-  //   const start = performance.now();
-  //   try {
-  //     tags = await new Promise((resolve, reject) => {
-  //       new jsmediatags.Reader(file).setTagsToRead(['title', 'artist', 'track', 'album', 'year', 'picture']).read({
-  //         onSuccess: resolve,
-  //         onError: reject
-  //       });
-  //     });
-  //   } catch (e) {
-  //     console.warn(`Tags von "${file.name}" (${file.type}) konnten nicht gelesen werden: `, e.info);
-  //   }
-  //   console.log('took: ', performance.now() - start);
-  //   if (!tags) {
-  //     return null;
-  //   }
-  //
-  //   let cover: Id3CoverPicture | undefined;
-  //
-  //   if (tags.tags?.picture) {
-  //     cover =
-  //       tags.tags?.picture.data && tags.tags?.picture.format ? { format: tags.tags?.picture.format, data: new Uint8Array(tags.tags?.picture.data) } : undefined;
-  //   }
-  //   return {
-  //     picture: cover,
-  //     artist: tags?.tags?.artist,
-  //     title: tags?.tags?.title,
-  //     track: { no: tags?.tags?.track ? parseInt(tags?.tags?.track, 10) : undefined, of: undefined },
-  //     album: tags?.tags?.album,
-  //     year: tags?.tags?.year
-  //   };
-  // }
 }

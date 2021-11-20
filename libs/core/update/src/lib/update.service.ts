@@ -29,7 +29,7 @@ export class UpdateService extends Subscribing {
     }
   }
 
-  async init(): Promise<void> {
+  async init(): Promise<any> {
     if (this.swUpdate.isEnabled) {
       return this.swUpdate.checkForUpdate();
     }
