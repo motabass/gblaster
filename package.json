@@ -108,7 +108,7 @@
     "lucene-escape-query": "^1.0.1",
     "material-community-components": "10.0.0",
     "mobx": "5.15.7",
-    "mobx-angular": "4.2.0",
+    "mobx-angular": "4.4.0",
     "music-metadata-browser": "2.5.0",
     "ngx-date-fns": "8.3.0",
     "ngx-indexed-db": "9.4.1",
