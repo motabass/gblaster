@@ -8,8 +8,8 @@
   "repository": "https://github.com/motabass/gblaster",
   "homepage": "https://github.com/motabass/gblaster/tree/master/libs/ui-components/visuals",
   "peerDependencies": {
-    "@angular/common": "^9.0.2",
-    "@angular/core": "^9.0.2"
+    "@angular/common": "^9.0.2 || ^13.0.0",
+    "@angular/core": "^9.0.2 || ^13.0.0"
 },
   "dependencies": {
     "tslib": "2.3.1"

@@ -2,8 +2,8 @@
   "name": "@motabass/slide-panel",
   "version": "0.0.1",
   "peerDependencies": {
-    "@angular/common": "^9.0.2",
-    "@angular/core": "^9.0.2",
+    "@angular/common": "^9.0.2 || ^13.0.0",
+    "@angular/core": "^9.0.2 || ^13.0.0",
     "@angular/cdk": "^9.0.1",
     "@angular/material": "^9.0.1"
 },
