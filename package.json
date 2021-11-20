@@ -2,7 +2,7 @@
   "name": "motabass",
   "version": "9.1.3",
   "author": "motabass",
-  "repository": "https://github.com/motabass/motabass",
+  "repository": "https://github.com/motabass/gblaster",
   "description": "nx monorepo for my web stuff",
   "license": "MIT",
   "scripts": {
@@ -75,7 +75,7 @@
     },
     "git": {
       "requireCleanWorkingDir": false,
-      "requireBranch": "master",
+      "requireBranch": "main",
       "changelog": "npx auto-changelog --stdout --commit-limit false --unreleased --template https://raw.githubusercontent.com/release-it/release-it/master/templates/changelog-compact.hbs"
     },
     "npm": {
