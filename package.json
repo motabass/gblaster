@@ -104,7 +104,7 @@
     "d3": "^7.2.0",
     "date-fns": "^2.27.0",
     "fast-memoize": "^2.5.2",
-    "firebase": "^9.6.0",
+    "firebase": "9.6.1",
     "lucene-escape-query": "^1.0.1",
     "material-community-components": "10.0.0",
     "mobx": "5.15.7",
