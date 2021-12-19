@@ -1,6 +1,6 @@
 {
   "name": "motabass",
-  "version": "9.2.2",
+  "version": "9.2.3",
   "author": "motabass",
   "repository": "https://github.com/motabass/gblaster",
   "description": "nx monorepo for my web stuff",
@@ -217,4 +217,3 @@
     "webpack-sources": "3.2.2"
   }
 }
-
