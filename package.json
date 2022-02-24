@@ -151,7 +151,7 @@
     "@types/d3": "^7.1.0",
     "@types/dom-screen-wake-lock": "^1.0.0",
     "@types/jest": "27.0.3",
-    "@types/node": "16.11.12",
+    "@types/node": "16.11.26",
     "@types/prettier": "2.4.2",
     "@types/svgo": "2.6.0",
     "@types/wicg-file-system-access": "2020.9.4",
