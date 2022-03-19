@@ -20,7 +20,7 @@
       "outputs": ["coverage/libs/helpers/memoization"]
     },
     "build": {
-      "executor": "@nrwl/node:package",
+      "executor": "@nrwl/js:tsc",
       "options": {
         "outputPath": "dist/libs/helpers/memoization",
         "tsConfig": "libs/helpers/memoization/tsconfig.lib.json",

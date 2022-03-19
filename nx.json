@@ -45,8 +45,7 @@
       "style": "scss"
     },
     "@nrwl/angular:library": {
-      "unitTestRunner": "jest",
-      "style": "scss"
+      "unitTestRunner": "jest"
     }
   },
   "defaultProject": "gblaster"

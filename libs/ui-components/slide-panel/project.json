@@ -39,7 +39,8 @@
         "port": 4400,
         "config": {
           "configFolder": "libs/ui-components/slide-panel/.storybook"
-        }
+        },
+        "projectBuildConfig": "ui-components-slide-panel:build-storybook"
       },
       "configurations": {
         "ci": {
@@ -54,7 +55,8 @@
         "outputPath": "dist/storybook/ui-components-slide-panel",
         "config": {
           "configFolder": "libs/ui-components/slide-panel/.storybook"
-        }
+        },
+        "projectBuildConfig": "ui-components-slide-panel:build-storybook"
       },
       "configurations": {
         "ci": {

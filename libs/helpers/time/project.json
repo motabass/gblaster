@@ -20,7 +20,7 @@
       "outputs": ["coverage/libs/helpers/time"]
     },
     "build": {
-      "executor": "@nrwl/node:package",
+      "executor": "@nrwl/js:tsc",
       "options": {
         "outputPath": "dist/libs/helpers/time",
         "tsConfig": "libs/helpers/time/tsconfig.lib.json",
