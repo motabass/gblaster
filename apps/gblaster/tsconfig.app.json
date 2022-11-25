@@ -1,6 +1,12 @@
 {
   "extends": "./tsconfig.json",
-  "compilerOptions": { "outDir": "../../dist/out-tsc", "module": "esnext", "types": [] },
+  "compilerOptions": {
+    "outDir": "../../dist/out-tsc",
+    "module": "esnext",
+    "types": [],
+    "target": "ES2022",
+    "useDefineForClassFields": false
+  },
   "files": ["src/main.ts", "src/polyfills.ts", "typings.d.ts"],
-  "exclude": ["**/*.spec.ts", "**/*.test.ts"]
+  "exclude": ["**/*.spec.ts", "**/*.test.ts", "jest.config.ts"]
 }

@@ -1,6 +1,7 @@
 {
+  "name": "settings",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
-  "root": "libs/settings",
   "sourceRoot": "libs/settings/src",
   "prefix": "mtb",
   "targets": {
@@ -14,10 +15,10 @@
     "test": {
       "executor": "@nrwl/jest:jest",
       "options": {
-        "jestConfig": "libs/settings/jest.config.js",
+        "jestConfig": "libs/settings/jest.config.ts",
         "passWithNoTests": true
       },
-      "outputs": ["coverage/libs/settings"]
+      "outputs": ["{workspaceRoot}/coverage/libs/settings"]
     }
   },
   "generators": {

@@ -29,7 +29,7 @@ export class NativeBrowserFileLoaderService extends FileLoaderService {
   async showPicker(): Promise<void> {
     const handle = await window.showDirectoryPicker();
     this.currentFolderHandle = handle;
-    this.indexedDbService.update('dirHandle', { id: 1, handle: handle });
+    await this.indexedDbService.update('dirHandle', { id: 1, handle: handle }).toPromise();
   }
 
   async openFiles(): Promise<File[]> {
@@ -46,6 +46,7 @@ export class NativeBrowserFileLoaderService extends FileLoaderService {
 
 async function getAudioFilesFromDirHandle(dirHandle: FileSystemDirectoryHandle): Promise<File[]> {
   const files: File[] = [];
+  // @ts-ignore
   for await (const entry of dirHandle.values()) {
     if (entry.kind === 'file') {
       const file = await entry.getFile();
@@ -63,10 +64,12 @@ async function getAudioFilesFromDirHandle(dirHandle: FileSystemDirectoryHandle):
 
 async function verifyPermission(handle: FileSystemDirectoryHandle) {
   // Check if permission was already granted. If so, return true.
+  // @ts-ignore
   if ((await handle.queryPermission()) === 'granted') {
     return true;
   }
   // Request permission. If the user grants permission, return true.
+  // @ts-ignore
   if ((await handle.requestPermission()) === 'granted') {
     return true;
   }

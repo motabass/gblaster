@@ -1,5 +1,7 @@
-module.exports = {
-  preset: '../../jest.preset.js',
+/* eslint-disable */
+export default {
+  displayName: 'helper-services-media-session',
+  preset: '../../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   globals: {
     'ts-jest': {
@@ -8,9 +10,7 @@ module.exports = {
       tsconfig: '<rootDir>/tsconfig.spec.json'
     }
   },
-  coverageDirectory: '../../coverage/libs/settings',
-
-  displayName: 'settings',
+  coverageDirectory: '../../../coverage/libs/helper-services/media-session',
   snapshotSerializers: [
     'jest-preset-angular/build/serializers/no-ng-attributes',
     'jest-preset-angular/build/serializers/ng-snapshot',

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { MatCheckboxChange } from '@angular/material/checkbox';
-import { MatSlideToggleChange } from '@angular/material/slide-toggle';
+import { MatLegacyCheckboxChange as MatCheckboxChange } from '@angular/material/legacy-checkbox';
+import { MatLegacySlideToggleChange as MatSlideToggleChange } from '@angular/material/legacy-slide-toggle';
 import { ThemeService } from '@motabass/core/theme';
 
 @Component({

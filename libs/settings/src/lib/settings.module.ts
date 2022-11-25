@@ -1,12 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FlexModule } from '@angular/flex-layout/flex';
-import { MatButtonModule } from '@angular/material/button';
-import { MatCardModule } from '@angular/material/card';
-import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatLegacyButtonModule as MatButtonModule } from '@angular/material/legacy-button';
+import { MatLegacyCardModule as MatCardModule } from '@angular/material/legacy-card';
+import { MatLegacyCheckboxModule as MatCheckboxModule } from '@angular/material/legacy-checkbox';
+import { MatLegacySlideToggleModule as MatSlideToggleModule } from '@angular/material/legacy-slide-toggle';
 import { RouterModule } from '@angular/router';
-import { MccColorPickerModule } from 'material-community-components/color-picker';
 import { SettingsComponent } from './settings.component';
 import { StorageSettingsComponent } from './storage-settings/storage-settings.component';
 import { ThemeSettingsComponent } from './theme-settings/theme-settings.component';
@@ -18,10 +17,8 @@ import { MetadataSettingsComponent } from './metadata-settings/metadata-settings
     MatCardModule,
     FlexModule,
     MatButtonModule,
-    MccColorPickerModule,
     MatCheckboxModule,
     RouterModule.forChild([{ path: '', pathMatch: 'full', component: SettingsComponent }]),
-    MccColorPickerModule.forRoot({ selected_svg_icon: 'check' }),
     MatSlideToggleModule
   ],
   declarations: [SettingsComponent, StorageSettingsComponent, ThemeSettingsComponent, MetadataSettingsComponent]

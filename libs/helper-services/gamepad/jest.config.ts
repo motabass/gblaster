@@ -1,6 +1,7 @@
-module.exports = {
+/* eslint-disable */
+export default {
   preset: '../../../jest.preset.js',
-  coverageDirectory: '../../../coverage/libs/helper-services/wakelock',
+  coverageDirectory: '../../../coverage/libs/helper-services/gamepad',
 
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   globals: {
@@ -10,7 +11,7 @@ module.exports = {
       tsconfig: '<rootDir>/tsconfig.spec.json'
     }
   },
-  displayName: 'helper-services-wakelock',
+  displayName: 'helper-services-gamepad',
   snapshotSerializers: [
     'jest-preset-angular/build/serializers/no-ng-attributes',
     'jest-preset-angular/build/serializers/ng-snapshot',

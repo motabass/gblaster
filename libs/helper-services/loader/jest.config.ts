@@ -1,6 +1,7 @@
-module.exports = {
-  preset: '../../jest.preset.js',
-  coverageDirectory: '../../coverage/libs/player',
+/* eslint-disable */
+export default {
+  preset: '../../../jest.preset.js',
+  coverageDirectory: '../../../coverage/libs/helper-services/loader',
 
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   globals: {
@@ -10,7 +11,7 @@ module.exports = {
       tsconfig: '<rootDir>/tsconfig.spec.json'
     }
   },
-  displayName: 'player',
+  displayName: 'helper-services-loader',
   snapshotSerializers: [
     'jest-preset-angular/build/serializers/no-ng-attributes',
     'jest-preset-angular/build/serializers/ng-snapshot',

@@ -1,6 +1,7 @@
-module.exports = {
+/* eslint-disable */
+export default {
   preset: '../../../jest.preset.js',
-  coverageDirectory: '../../../coverage/libs/core/update',
+  coverageDirectory: '../../../coverage/libs/ui-components/file-drop-overlay',
 
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   globals: {
@@ -10,7 +11,7 @@ module.exports = {
       tsconfig: '<rootDir>/tsconfig.spec.json'
     }
   },
-  displayName: 'core-update',
+  displayName: 'ui-components-file-drop-overlay',
   snapshotSerializers: [
     'jest-preset-angular/build/serializers/no-ng-attributes',
     'jest-preset-angular/build/serializers/ng-snapshot',

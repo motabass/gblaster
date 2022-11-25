@@ -86,7 +86,7 @@ export class MetadataService {
       };
 
       if (this.useTagsCache) {
-        this.indexedDBService.add('metatags', metadata);
+        await this.indexedDBService.add('metatags', metadata).toPromise();
       }
       return metadata;
     }

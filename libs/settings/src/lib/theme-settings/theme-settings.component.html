@@ -4,36 +4,6 @@
     <mat-slide-toggle [checked]="coverArtColors" (change)="onCoverArtColorsChange($event)" labelPosition="before"
       >Extract colors from cover art</mat-slide-toggle
     >
-
-    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="0.5rem">
-      <span>Primary:&nbsp;</span>
-      <mcc-color-picker
-        [overlay]="true"
-        [disabled]="coverArtColors"
-        [hideButtons]="true"
-        [hideEmptyUsedColors]="true"
-        [hideTransparentUsedColors]="true"
-        usedColorLabel="Suggestions:"
-        [usedColorStart]="colorSuggestions"
-        (clickOut)="colorPickerClosed($event)"
-        [selectedColor]="themeService.primaryColor"
-        (change)="setPrimaryColor($event)"
-      ></mcc-color-picker>
-
-      <span>Accent:&nbsp;</span>
-      <mcc-color-picker
-        [overlay]="true"
-        [disabled]="coverArtColors"
-        [hideButtons]="true"
-        [hideEmptyUsedColors]="true"
-        [hideTransparentUsedColors]="true"
-        usedColorLabel="Suggestions:"
-        [usedColorStart]="colorSuggestions"
-        (clickOut)="colorPickerClosed($event)"
-        [selectedColor]="themeService.accentColor"
-        (change)="setAccentColor($event)"
-      ></mcc-color-picker>
-    </div>
     <mat-checkbox labelPosition="before" [checked]="themeService.darkMode" (change)="changeDarkMode($event)"> Dark Mode </mat-checkbox>
   </mat-card-content>
 </mat-card>

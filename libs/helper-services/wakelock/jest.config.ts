@@ -1,6 +1,8 @@
-module.exports = {
-  displayName: 'helper-services-media-session',
+/* eslint-disable */
+export default {
   preset: '../../../jest.preset.js',
+  coverageDirectory: '../../../coverage/libs/helper-services/wakelock',
+
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   globals: {
     'ts-jest': {
@@ -9,7 +11,7 @@ module.exports = {
       tsconfig: '<rootDir>/tsconfig.spec.json'
     }
   },
-  coverageDirectory: '../../../coverage/libs/helper-services/media-session',
+  displayName: 'helper-services-wakelock',
   snapshotSerializers: [
     'jest-preset-angular/build/serializers/no-ng-attributes',
     'jest-preset-angular/build/serializers/ng-snapshot',

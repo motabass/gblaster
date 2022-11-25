@@ -1,5 +1,6 @@
 {
-  "root": "apps/gblaster-e2e",
+  "name": "gblaster-e2e",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "apps/gblaster-e2e/src",
   "projectType": "application",
   "targets": {

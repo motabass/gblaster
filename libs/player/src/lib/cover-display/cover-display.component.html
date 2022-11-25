@@ -19,10 +19,10 @@
   <p style="font-size: 1.5rem; margin-bottom: 8px; opacity: 0.8">{{ song?.metadata?.artist }}</p>
   <div fxLayout="column" *ngIf="song && song.metadata" style="margin-top: 16px; opacity: 0.9">
     <span *ngIf="song && song.metadata && song.metadata.album">
-      Album: <strong>{{ song?.metadata?.album }}</strong>
+      Album: <strong>{{ song.metadata.album }}</strong>
     </span>
     <span *ngIf="song && song.metadata && song.metadata.year">
-      Year: <strong>{{ song?.metadata?.year }}</strong>
+      Year: <strong>{{ song.metadata.year }}</strong>
     </span>
     <span>&nbsp;</span>
     <span *ngIf="song.metadata.format && song.metadata.format.duration">

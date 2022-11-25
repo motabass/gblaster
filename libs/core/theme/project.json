@@ -1,6 +1,7 @@
 {
+  "name": "core-theme",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
-  "root": "libs/core/theme",
   "sourceRoot": "libs/core/theme/src",
   "prefix": "mtb",
   "targets": {
@@ -14,10 +15,10 @@
     "test": {
       "executor": "@nrwl/jest:jest",
       "options": {
-        "jestConfig": "libs/core/theme/jest.config.js",
+        "jestConfig": "libs/core/theme/jest.config.ts",
         "passWithNoTests": true
       },
-      "outputs": ["coverage/libs/core/theme"]
+      "outputs": ["{workspaceRoot}/coverage/libs/core/theme"]
     }
   },
   "generators": {

@@ -1,6 +1,7 @@
 {
+  "name": "helper-services-loader",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
-  "root": "libs/helper-services/loader",
   "sourceRoot": "libs/helper-services/loader/src",
   "prefix": "mtb",
   "targets": {
@@ -27,10 +28,10 @@
     "test": {
       "executor": "@nrwl/jest:jest",
       "options": {
-        "jestConfig": "libs/helper-services/loader/jest.config.js",
+        "jestConfig": "libs/helper-services/loader/jest.config.ts",
         "passWithNoTests": true
       },
-      "outputs": ["coverage/libs/helper-services/loader"]
+      "outputs": ["{workspaceRoot}/coverage/libs/helper-services/loader"]
     }
   },
   "generators": {

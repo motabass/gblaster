@@ -1,6 +1,7 @@
-module.exports = {
+/* eslint-disable */
+export default {
   preset: '../../../jest.preset.js',
-  coverageDirectory: '../../../coverage/libs/ui-components/visuals',
+  coverageDirectory: '../../../coverage/libs/core/theme',
 
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   globals: {
@@ -10,7 +11,7 @@ module.exports = {
       tsconfig: '<rootDir>/tsconfig.spec.json'
     }
   },
-  displayName: 'ui-components-visuals',
+  displayName: 'core-theme',
   snapshotSerializers: [
     'jest-preset-angular/build/serializers/no-ng-attributes',
     'jest-preset-angular/build/serializers/ng-snapshot',
