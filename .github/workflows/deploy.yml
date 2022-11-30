@@ -36,8 +36,8 @@ jobs:
         env:
           CI: true
       - name: Deploy
-        uses: w9jds/firebase-action@master
+      - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
-          args: deploy --project gblaster-player --only hosting
-        env:
-          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN}}
+          repoToken: '${{ secrets.GITHUB_TOKEN }}'
+          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_GBLASTER_PLAYER }}'
+          projectId: gblaster-player
