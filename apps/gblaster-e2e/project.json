@@ -7,9 +7,10 @@
     "e2e": {
       "executor": "@nrwl/cypress:cypress",
       "options": {
-        "cypressConfig": "apps/gblaster-e2e/cypress.json",
+        "cypressConfig": "apps/gblaster-e2e/cypress.config.ts",
         "tsConfig": "apps/gblaster-e2e/tsconfig.e2e.json",
-        "devServerTarget": "gblaster:serve"
+        "devServerTarget": "gblaster:serve",
+        "testingType": "e2e"
       },
       "configurations": {
         "production": {

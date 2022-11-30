@@ -7,9 +7,10 @@
     "e2e": {
       "executor": "@nrwl/cypress:cypress",
       "options": {
-        "cypressConfig": "apps/ui-components-slide-panel-e2e/cypress.json",
+        "cypressConfig": "apps/ui-components-slide-panel-e2e/cypress.config.ts",
         "tsConfig": "apps/ui-components-slide-panel-e2e/tsconfig.e2e.json",
-        "devServerTarget": "ui-components-slide-panel:storybook"
+        "devServerTarget": "ui-components-slide-panel:storybook",
+        "testingType": "e2e"
       },
       "configurations": {
         "production": {
