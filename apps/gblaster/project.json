@@ -39,12 +39,6 @@
       },
       "configurations": {
         "production": {
-          "fileReplacements": [
-            {
-              "replace": "apps/gblaster/src/environments/environment.ts",
-              "with": "apps/gblaster/src/environments/environment.prod.ts"
-            }
-          ],
           "optimization": {
             "scripts": true,
             "fonts": {
@@ -82,8 +76,7 @@
     "serve": {
       "executor": "@angular-devkit/build-angular:dev-server",
       "options": {
-        "browserTarget": "gblaster:build",
-        "proxyConfig": "apps/gblaster/proxy.conf.json"
+        "browserTarget": "gblaster:build"
       },
       "configurations": {
         "production": {
