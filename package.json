@@ -107,7 +107,7 @@
     "fast-memoize": "^2.5.2",
     "firebase": "^9.14.0",
     "lucene-escape-query": "^1.0.1",
-    "mobx": "6.3.6",
+    "mobx": "6.7.0",
     "mobx-angular": "4.6.0",
     "music-metadata-browser": "2.5.9",
     "ngx-date-fns": "10.0.1",
