@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
-import { MatLegacySliderChange as MatSliderChange } from '@angular/material/legacy-slider';
+import { MatSliderChange } from '@angular/material/slider';
 import { GamepadAxes, GamepadButtons, GamepadService } from '@motabass/helper-services/gamepad';
 import { HotkeysService } from '@motabass/helper-services/hotkeys';
 import { MediaSessionService } from '@motabass/helper-services/media-session';
