@@ -19,7 +19,8 @@
           "debug",
           "readable-web-to-node-stream",
           "typedarray-to-buffer",
-          "node-vibrant/lib/browser"
+          "node-vibrant/lib/browser",
+          "lucene-escape-query"
         ],
         "outputPath": "dist/apps/gblaster",
         "index": "apps/gblaster/src/index.html",
@@ -39,6 +40,12 @@
       },
       "configurations": {
         "production": {
+          "fileReplacements": [
+            {
+              "replace": "apps/gblaster/src/environments/environment.ts",
+              "with": "apps/gblaster/src/environments/environment.prod.ts"
+            }
+          ],
           "optimization": {
             "scripts": true,
             "fonts": {
