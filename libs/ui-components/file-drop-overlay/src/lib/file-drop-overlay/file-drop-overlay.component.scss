@@ -1,10 +1,8 @@
-@use 'apps/gblaster/src/styles/variables' as var;
-
 :host {
   display: none;
   position: fixed;
   box-sizing: border-box;
-  border: 6px dashed var.$accent-color;
+  border: 6px dashed var(--theme-accent-500);
   top: 0;
   right: 0;
   bottom: 0;
