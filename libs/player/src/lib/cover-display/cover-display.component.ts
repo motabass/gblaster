@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { Song } from '../player.types';
+import { ThemeService } from '@motabass/core/theme';
 
 @Component({
   selector: 'mtb-cover-display',
@@ -10,7 +11,7 @@ import { Song } from '../player.types';
 export class CoverDisplayComponent {
   @Input() song?: Song;
 
-  constructor() {}
+  constructor(private themeService: ThemeService) {}
 
   get coverUrl(): string | undefined {
     if (this.song?.metadata?.coverUrl) {
@@ -19,7 +20,8 @@ export class CoverDisplayComponent {
   }
 
   get backgroundColor(): string | undefined {
-    return this.song?.metadata?.coverColors?.muted ? this.song.metadata.coverColors.muted.hex : 'rgba(0,0,0,0)';
+    const coverBackground = this.themeService.darkMode ? this.song?.metadata?.coverColors?.darkMuted?.hex : this.song?.metadata?.coverColors?.lightMuted?.hex;
+    return coverBackground || 'rgba(0,0,0,0)';
   }
 
   // get fontColor(): string | undefined {
