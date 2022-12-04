@@ -60,7 +60,7 @@ export class MetadataService {
       if (tags.artist && tags.album) {
         coverUrl = await this.lastfmMetadataService.getCoverPicture(tags);
         if (!coverUrl) {
-          coverUrl = await this.musicbrainzService.getCoverPicture(tags, file);
+          coverUrl = await this.musicbrainzService.getCoverPicture(tags);
         }
       } else {
         console.warn('Missing tags for lookup');
