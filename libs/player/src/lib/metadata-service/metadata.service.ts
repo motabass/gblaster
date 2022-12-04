@@ -7,7 +7,6 @@ import type Vibrant from 'node-vibrant/lib/browser';
 import { firstValueFrom } from 'rxjs';
 import { SongMetadata } from '../player.types';
 import { Id3TagsService } from './id3-tags.service';
-import { Id3CoverPicture } from './id3-tags.types';
 import { LastfmMetadataService } from './lastfm-metadata.service';
 import { CoverColorPalette, RemoteCoverPicture } from './metadata.types';
 import { MusicbrainzService } from './musicbrainz.service';
@@ -44,7 +43,7 @@ export class MetadataService {
             coverUrl: { thumb: url, original: url } // overwrite remote url with objectUrl for tag cover art
           };
         } else {
-          return metadataCache;
+          return this.metadataPrepareForUse(metadataCache);
         }
       }
     }
@@ -58,18 +57,14 @@ export class MetadataService {
     let coverUrl: RemoteCoverPicture | undefined;
 
     if (this.useWebMetainfos) {
-      coverUrl = await this.lastfmMetadataService.getCoverPicture(tags);
-      if (!coverUrl) {
-        coverUrl = await this.musicbrainzService.getCoverPicture(tags);
+      if (tags.artist && tags.album) {
+        coverUrl = await this.lastfmMetadataService.getCoverPicture(tags);
+        if (!coverUrl) {
+          coverUrl = await this.musicbrainzService.getCoverPicture(tags, file);
+        }
+      } else {
+        console.warn('Missing tags for lookup');
       }
-    }
-
-    const pic: Id3CoverPicture | undefined = tags.picture;
-
-    if ((!coverUrl || this.preferTagEmbeddedPicture) && pic) {
-      const url = URL.createObjectURL(new Blob([pic.data], { type: pic.format }));
-
-      coverUrl = { thumb: url, original: url };
     }
 
     const palette = coverUrl ? await extractColors(coverUrl.original) : undefined;
@@ -77,7 +72,7 @@ export class MetadataService {
     const metadata: SongMetadata = {
       crc: crc,
       coverUrl: coverUrl ? coverUrl : { thumb: this.PLACEHOLDER_URL, original: this.PLACEHOLDER_URL },
-      embeddedPicture: pic,
+      embeddedPicture: tags.picture,
       coverColors: palette,
       artist: tags?.artist,
       title: tags?.title,
@@ -90,7 +85,20 @@ export class MetadataService {
     if (this.useTagsCache) {
       await this.indexedDBService.add('metatags', metadata).toPromise();
     }
-    return metadata;
+    return this.metadataPrepareForUse(metadata);
+  }
+
+  private metadataPrepareForUse(meta: SongMetadata): SongMetadata {
+    if (meta.embeddedPicture && this.useTagEmbeddedPicture && (!meta.coverUrl || this.preferTagEmbeddedPicture)) {
+      // renew local object urls
+      const url = URL.createObjectURL(new Blob([meta.embeddedPicture.data], { type: meta.embeddedPicture.format }));
+      return {
+        ...meta,
+        coverUrl: { thumb: url, original: url } // overwrite remote url with objectUrl for tag cover art
+      };
+    } else {
+      return meta;
+    }
   }
 }
 

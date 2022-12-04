@@ -11,27 +11,26 @@ export class MusicbrainzService {
 
   async getCoverPicture(tags: Id3Tags): Promise<RemoteCoverPicture | undefined> {
     if (tags.artist && tags.album) {
-      let query = `release:${luceneEscapeQuery.escape(tags.album)} AND artist:${luceneEscapeQuery.escape(tags.artist)}`;
-      query += tags.track?.of ? ` AND tracks:${tags.track.of}` : '';
-      const url = `https://musicbrainz.org/ws/2/release/?query=${query}&limit=10&fmt=json`;
+      const query = `release:${luceneEscapeQuery.escape(tags.album)} AND artist:${luceneEscapeQuery.escape(tags.artist)} AND primarytype:Album`;
+      const url = `https://musicbrainz.org/ws/2/release-group?query=${query}&limit=5&fmt=json`;
       // TODO: type response
       try {
         const data: any = await firstValueFrom(this.http.get(url));
-        if (!data?.releases?.length) {
+        if (!data['release-groups']?.length) {
           return;
         }
 
-        const id = data.releases.find((release: any) => release['release-group']['primary-type'] === 'Album').id;
-        const data2: any = await this.http.get(`https://musicbrainz.org/ws/2/release/${id}?fmt=json&inc=recordings+artists`).toPromise();
-        // TODO: type response
-
-        if (!data2['cover-art-archive']?.front) {
-          console.warn('Kein Cover vorhanden');
-          return;
-        }
+        const id = data['release-groups'][0].id;
+        // const data2: any = await this.http.get(`https://musicbrainz.org/ws/2/release-group/${id}?fmt=json&inc=releases+artists`).toPromise();
+        // // TODO: type response
+        //
+        // if (!data2['cover-art-archive']?.front) {
+        //   console.warn('Kein Cover vorhanden');
+        //   return;
+        // }
         let coverData: any;
         try {
-          coverData = await firstValueFrom(this.http.get(`https://coverartarchive.org/release/${id}`));
+          coverData = await firstValueFrom(this.http.get(`https://coverartarchive.org/release-group/${id}`));
         } catch (e) {
           console.error('Kein Cover mit der ID gefunden');
           return;
@@ -47,7 +46,6 @@ export class MusicbrainzService {
         return;
       }
     }
-    console.warn('Artist or Album missing for lookup');
     return;
   }
 }

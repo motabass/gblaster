@@ -29,7 +29,6 @@ export class LastfmMetadataService {
         console.warn(e);
       }
     }
-    console.warn('Artist or Album missing for lookup');
     return;
   }
 }
