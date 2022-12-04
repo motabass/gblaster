@@ -61,14 +61,14 @@ export class VisualizerComponent implements OnInit, OnDestroy {
     return { mainColor: this.mainColor, peakColor: this.peakColor };
   }
 
-  get mainColor(): string {
+  get mainColor(): string | undefined {
     const color = this.song?.metadata?.coverColors?.darkVibrant?.hex;
-    return color ? color : 'red';
+    return color ? color : undefined;
   }
 
-  get peakColor(): string {
+  get peakColor(): string | undefined {
     const color = this.song?.metadata?.coverColors?.lightVibrant?.hex;
-    return color ? color : 'yellow';
+    return color ? color : undefined;
   }
 
   get barsConfig(): FrequencyBarsConfig {

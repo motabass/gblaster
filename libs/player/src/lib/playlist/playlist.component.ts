@@ -78,14 +78,14 @@ export class PlaylistComponent {
     return { mainColor: this.mainColor, peakColor: this.peakColor };
   }
 
-  get mainColor(): string {
-    const color = this.playerService.selectedSong?.metadata?.coverColors?.darkVibrant?.hex;
-    return color ? color : 'red';
+  get mainColor(): string | undefined {
+    const color = this.playingSong?.metadata?.coverColors?.darkVibrant?.hex;
+    return color ? color : undefined;
   }
 
-  get peakColor(): string {
-    const color = this.playerService.selectedSong?.metadata?.coverColors?.lightVibrant?.hex;
-    return color ? color : 'yellow';
+  get peakColor(): string | undefined {
+    const color = this.playingSong?.metadata?.coverColors?.lightVibrant?.hex;
+    return color ? color : undefined;
   }
 
   drop(event: CdkDragDrop<Song>) {

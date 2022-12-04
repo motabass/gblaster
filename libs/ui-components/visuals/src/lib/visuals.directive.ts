@@ -2,6 +2,7 @@
 
 import { Directive, ElementRef, Input, NgZone, OnChanges, OnDestroy, SimpleChanges } from '@angular/core';
 import { FrequencyBarsConfig, OsciloscopeConfig, VisualizerMode, VisualsColorConfig } from './visuals.types';
+import { FALLBACK_PRIMARY_COLOR, FALLBACK_ACCENT_COLOR } from '@motabass/core/theme';
 
 @Directive({
   selector: '[mtbVisual]'
@@ -15,7 +16,7 @@ export class VisualsDirective implements OnDestroy, OnChanges {
 
   @Input() oscConfig: OsciloscopeConfig = { thickness: 2 };
 
-  @Input() colorConfig: VisualsColorConfig = { mainColor: 'red', peakColor: 'yellow' };
+  @Input() colorConfig: VisualsColorConfig = {};
 
   canvas: HTMLCanvasElement;
 
@@ -63,8 +64,8 @@ export class VisualsDirective implements OnDestroy, OnChanges {
       gap: this.barsConfig.gap,
       capHeight: this.barsConfig.capHeight,
       capFalldown: this.barsConfig.capFalldown,
-      mainColor: this.colorConfig.mainColor,
-      peakColor: this.colorConfig.peakColor,
+      mainColor: this.colorConfig?.mainColor || FALLBACK_PRIMARY_COLOR,
+      peakColor: this.colorConfig?.peakColor || FALLBACK_ACCENT_COLOR,
       bufferLength: this.analyser.frequencyBinCount
     });
 
@@ -90,8 +91,8 @@ export class VisualsDirective implements OnDestroy, OnChanges {
     this.worker.postMessage({
       start: true,
       mode: 'osc',
-      mainColor: this.colorConfig.mainColor,
-      peakColor: this.colorConfig.peakColor,
+      mainColor: this.colorConfig?.mainColor || FALLBACK_PRIMARY_COLOR,
+      peakColor: this.colorConfig?.peakColor || FALLBACK_ACCENT_COLOR,
       bufferLength: this.analyser.frequencyBinCount,
       thickness: this.oscConfig.thickness
     });

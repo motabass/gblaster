@@ -3,14 +3,15 @@ import { Meta } from '@angular/platform-browser';
 import { TinyColor } from '@thebespokepixel/es-tinycolor';
 import { LocalStorage } from 'ngx-webstorage';
 import { Color } from './theme.types';
+import { FALLBACK_ACCENT_COLOR, FALLBACK_PRIMARY_COLOR } from './default-colors';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ThemeService {
-  @LocalStorage('primaryColor', '#eb4818') primaryColor!: string;
+  primaryColor = FALLBACK_PRIMARY_COLOR;
 
-  @LocalStorage('accentColor', '#abd222') accentColor!: string;
+  accentColor = FALLBACK_ACCENT_COLOR;
 
   @LocalStorage('darkMode', true) _darkMode!: boolean;
 
@@ -35,13 +36,13 @@ export class ThemeService {
   set darkMode(darkMode: boolean) {
     this._darkMode = darkMode;
     this.setOverlayClass();
-    this.setPrimaryColor();
-    this.setAccentColor();
+    // this.setPrimaryColor();
+    // this.setAccentColor();
   }
 
   setPrimaryColor(color?: string) {
     if (!color) {
-      return;
+      this.primaryColor = FALLBACK_PRIMARY_COLOR;
     } else {
       this.primaryColor = color;
     }
@@ -61,7 +62,9 @@ export class ThemeService {
   }
 
   setAccentColor(color?: string) {
-    if (color) {
+    if (!color) {
+      this.accentColor = FALLBACK_ACCENT_COLOR;
+    } else {
       this.accentColor = color;
     }
     this.accentColorPalette = this.computeColors(this.accentColor);

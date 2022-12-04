@@ -21,6 +21,6 @@ export interface OsciloscopeConfig {
 }
 
 export interface VisualsColorConfig {
-  mainColor: string;
-  peakColor: string;
+  mainColor?: string;
+  peakColor?: string;
 }
