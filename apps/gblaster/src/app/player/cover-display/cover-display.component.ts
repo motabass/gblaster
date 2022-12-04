@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { Song } from '../player.types';
-import { ThemeService } from '@motabass/core/theme';
+import { ThemeService } from '../../theme/theme.service';
 
 @Component({
   selector: 'mtb-cover-display',

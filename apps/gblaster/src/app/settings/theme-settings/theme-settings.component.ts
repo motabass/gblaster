@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { MatCheckboxChange } from '@angular/material/checkbox';
-import { ThemeService } from '@motabass/core/theme';
+import { ThemeService } from '../../theme/theme.service';
 
 @Component({
   selector: 'mtb-theme-settings',

@@ -1,6 +1,5 @@
 import { crc32 } from '@allex/crc32';
 import { Injectable } from '@angular/core';
-import { ThemeService } from '@motabass/core/theme';
 import { NgxIndexedDBService } from 'ngx-indexed-db';
 import { LocalStorage } from 'ngx-webstorage';
 import type Vibrant from 'node-vibrant/lib/browser';
@@ -10,6 +9,7 @@ import { Id3TagsService } from './id3-tags.service';
 import { LastfmMetadataService } from './lastfm-metadata.service';
 import { CoverColorPalette, RemoteCoverPicture } from './metadata.types';
 import { MusicbrainzService } from './musicbrainz.service';
+import { ThemeService } from '../../theme/theme.service';
 
 @Injectable({ providedIn: 'any' })
 export class MetadataService {

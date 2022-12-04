@@ -10,8 +10,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { ServiceWorkerModule } from '@angular/service-worker';
-import { ThemeModule } from '@motabass/core/theme';
-import { UpdateModule } from '@motabass/core/update';
 import { LoaderInterceptor } from '@motabass/helper-services/loader';
 import { MatIconSizeModule } from '@motabass/material-helpers/mat-icon-size';
 import { DBConfig, NgxIndexedDBModule } from 'ngx-indexed-db';
@@ -19,6 +17,7 @@ import { NgxWebstorageModule } from 'ngx-webstorage';
 import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
 import { ShellComponent } from './shell/shell.component';
+import { DialogsModule } from '@motabass/ui-components/dialogs';
 
 const dbConfig: DBConfig = {
   name: 'metadataCache',
@@ -51,8 +50,8 @@ const dbConfig: DBConfig = {
     RouterModule.forRoot(
       [
         { path: '', redirectTo: 'player', pathMatch: 'full' },
-        { path: 'player', loadChildren: () => import('@motabass/player').then((m) => m.PlayerModule) },
-        { path: 'settings', loadChildren: () => import('@motabass/settings').then((m) => m.SettingsModule) },
+        { path: 'player', loadChildren: () => import('./player/player.module').then((m) => m.PlayerModule) },
+        { path: 'settings', loadChildren: () => import('./settings/settings.module').then((m) => m.SettingsModule) },
         { path: '**', redirectTo: '' }
       ],
       { initialNavigation: 'enabledBlocking' }
@@ -65,10 +64,9 @@ const dbConfig: DBConfig = {
     MatListModule,
     MatIconModule,
     MatButtonModule,
-    UpdateModule,
-    ThemeModule,
     MatIconSizeModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    DialogsModule
   ],
   bootstrap: [AppComponent],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true }]

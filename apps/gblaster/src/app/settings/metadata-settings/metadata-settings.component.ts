@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
-import { MetadataService } from '@motabass/player';
 import { NgxIndexedDBService } from 'ngx-indexed-db';
+import { MetadataService } from '../../player/metadata-service/metadata.service';
 
 @Component({
   selector: 'mtb-metadata-settings',

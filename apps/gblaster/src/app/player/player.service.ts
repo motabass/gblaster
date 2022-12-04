@@ -1,7 +1,6 @@
 /// <reference types="wicg-mediasession" />
 
 import { Injectable } from '@angular/core';
-import { ThemeService } from '@motabass/core/theme';
 import { LoaderService } from '@motabass/helper-services/loader';
 import { MediaSessionService } from '@motabass/helper-services/media-session';
 import { WakelockService } from '@motabass/helper-services/wakelock';
@@ -11,6 +10,7 @@ import { FileLoaderService } from './file-loader-service/file-loader.service.abs
 import { MetadataService } from './metadata-service/metadata.service';
 import { BandFrequency, RepeatMode, Song } from './player.types';
 import { ALLOWED_MIMETYPES } from './file-loader-service/file-loader.helpers';
+import { ThemeService } from '../theme/theme.service';
 
 export const BAND_FREQUENIES: BandFrequency[] = [60, 170, 310, 600, 1000, 3000, 6000, 12000, 14000, 16000];
 

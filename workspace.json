@@ -1,8 +1,6 @@
 {
   "version": 2,
   "projects": {
-    "core-theme": "libs/core/theme",
-    "core-update": "libs/core/update",
     "gblaster": "apps/gblaster",
     "gblaster-e2e": "apps/gblaster-e2e",
     "helper-services-gamepad": "libs/helper-services/gamepad",
@@ -15,8 +13,6 @@
     "helpers-time": "libs/helpers/time",
     "helpers-unsubscription": "libs/helpers/unsubscription",
     "material-helpers-mat-icon-size": "libs/material-helpers/mat-icon-size",
-    "player": "libs/player",
-    "settings": "libs/settings",
     "ui-components-dialogs": "libs/ui-components/dialogs",
     "ui-components-file-drop-overlay": "libs/ui-components/file-drop-overlay",
     "ui-components-slide-panel": "libs/ui-components/slide-panel",
