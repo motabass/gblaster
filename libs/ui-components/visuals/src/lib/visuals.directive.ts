@@ -2,8 +2,9 @@
 
 import { Directive, ElementRef, Input, NgZone, OnChanges, OnDestroy, SimpleChanges } from '@angular/core';
 import { FrequencyBarsConfig, OsciloscopeConfig, VisualizerMode, VisualsColorConfig } from './visuals.types';
-import { FALLBACK_PRIMARY_COLOR, FALLBACK_ACCENT_COLOR } from '@motabass/core/theme';
 
+const FALLBACK_PRIMARY_COLOR = '#424242';
+const FALLBACK_ACCENT_COLOR = '#bcbcbc';
 @Directive({
   selector: '[mtbVisual]'
 })
