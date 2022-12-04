@@ -42,7 +42,7 @@ export class MusicbrainzService {
 
         return { thumb: thumbUrl.replace('http://', 'https://'), original: coverUrl.replace('http://', 'https://') };
       } catch (err) {
-        console.warn('Konnte MusicBrainz nich abfragen', err);
+        console.warn('Konnte MusicBrainz nicht abfragen', err);
         return;
       }
     }

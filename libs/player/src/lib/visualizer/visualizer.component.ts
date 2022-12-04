@@ -1,8 +1,9 @@
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { GamepadButtons, GamepadService } from '@motabass/helper-services/gamepad';
 import { FftSize, FrequencyBarsConfig, OsciloscopeConfig, VisualizerMode, VisualsColorConfig, VisualsService } from '@motabass/ui-components/visuals';
 import { LocalStorage } from 'ngx-webstorage';
 import { PlayerService } from '../player.service';
+import { Song } from '../player.types';
 
 // TODO: quit app + min + max buttons in electron
 // TODO: loading indicator service
@@ -32,6 +33,8 @@ export class VisualizerComponent implements OnInit, OnDestroy {
 
   @LocalStorage('lineThickness', 4) lineThickness!: number;
 
+  @Input() song?: Song;
+
   constructor(private playerService: PlayerService, private gamepadService: GamepadService, private visualsService: VisualsService) {}
 
   ngOnInit(): void {
@@ -59,12 +62,12 @@ export class VisualizerComponent implements OnInit, OnDestroy {
   }
 
   get mainColor(): string {
-    const color = this.playerService.selectedSong?.metadata?.coverColors?.darkVibrant?.hex;
+    const color = this.song?.metadata?.coverColors?.darkVibrant?.hex;
     return color ? color : 'red';
   }
 
   get peakColor(): string {
-    const color = this.playerService.selectedSong?.metadata?.coverColors?.lightVibrant?.hex;
+    const color = this.song?.metadata?.coverColors?.lightVibrant?.hex;
     return color ? color : 'yellow';
   }
 
