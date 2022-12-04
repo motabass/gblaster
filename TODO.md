@@ -9,3 +9,4 @@ TODOs:
 - Writing Meta-Tags
 - Fullscreen/Multiwindow Mode
 - Localization
+- Use chromaprint-wasm for audio file fingerprinting (replace crc?)
