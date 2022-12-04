@@ -19,7 +19,7 @@ export class CoverDisplayComponent {
   }
 
   get backgroundColor(): string | undefined {
-    return this.song?.metadata?.coverColors?.vibrant ? this.song.metadata.coverColors.vibrant.hex : 'rgba(0,0,0,0)';
+    return this.song?.metadata?.coverColors?.muted ? this.song.metadata.coverColors.muted.hex : 'rgba(0,0,0,0)';
   }
 
   // get fontColor(): string | undefined {

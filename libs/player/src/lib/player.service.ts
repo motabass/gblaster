@@ -179,7 +179,7 @@ export class PlayerService {
       const primaryColor = song.metadata.coverColors?.darkVibrant?.hex;
       this.themeService.setPrimaryColor(primaryColor);
 
-      const accentColor = song.metadata.coverColors?.lightVibrant?.hex;
+      const accentColor = song.metadata.coverColors?.vibrant?.hex;
       this.themeService.setAccentColor(accentColor);
     }
 
