@@ -83,7 +83,7 @@ export class PlayerService {
         for (const fileHandle of launchParams.files) {
           const file = await fileHandle.getFile();
           if (ALLOWED_MIMETYPES.includes(file.type)) {
-            await this.addFilesToPlaylist([file]);
+            await this.addToPlaylist(file);
           }
         }
       });
@@ -176,13 +176,11 @@ export class PlayerService {
         artwork: song.metadata.coverUrl?.original ? [{ src: song.metadata.coverUrl.original, sizes: '512x512' }] : undefined
       });
 
-      if (this.themeService.useCoverArtColors) {
-        const primaryColor = song.metadata.coverColors?.darkVibrant?.hex;
-        this.themeService.setPrimaryColor(primaryColor);
+      const primaryColor = song.metadata.coverColors?.darkVibrant?.hex;
+      this.themeService.setPrimaryColor(primaryColor);
 
-        const accentColor = song.metadata.coverColors?.lightVibrant?.hex;
-        this.themeService.setAccentColor(accentColor);
-      }
+      const accentColor = song.metadata.coverColors?.lightVibrant?.hex;
+      this.themeService.setAccentColor(accentColor);
     }
 
     if (this.audioCtx.state === 'suspended') {
@@ -196,10 +194,10 @@ export class PlayerService {
 
   @action async loadFiles(): Promise<void> {
     const files: File[] = await this.fileLoaderService.openFiles();
-    return this.addFilesToPlaylist(files);
+    return this.addToPlaylist(...files);
   }
 
-  @action async addFilesToPlaylist(files: File[]) {
+  @action async addToPlaylist(...files: File[]) {
     if (files?.length) {
       for (const file of files) {
         this.loaderService.show();

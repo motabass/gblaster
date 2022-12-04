@@ -31,6 +31,7 @@ import { PlaylistComponent } from './playlist/playlist.component';
 import { TimePipe } from './time.pipe';
 import { VisualizerComponent } from './visualizer/visualizer.component';
 import { EqualizerShellComponent } from './equalizer-shell/equalizer-shell.component';
+import { SafePipeModule } from 'safe-pipe';
 
 @NgModule({
   imports: [
@@ -56,7 +57,8 @@ import { EqualizerShellComponent } from './equalizer-shell/equalizer-shell.compo
     FileDropOverlayModule,
     WakelockModule,
     MatIconSizeModule,
-    DragDropModule
+    DragDropModule,
+    SafePipeModule
   ],
   declarations: [
     PlayerComponent,

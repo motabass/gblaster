@@ -14,8 +14,6 @@ export class ThemeService {
 
   @LocalStorage('darkMode', true) _darkMode!: boolean;
 
-  @LocalStorage('useCoverArtColors', true) useCoverArtColors!: boolean;
-
   primaryColorPalette: Color[] = [];
   accentColorPalette: Color[] = [];
 

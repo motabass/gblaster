@@ -1,11 +1,18 @@
 <mat-card>
   <mat-card-title>Metadata-Settings</mat-card-title>
   <mat-card-content fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="1.5rem" style="min-height: 48px">
-    <mat-slide-toggle #fileTagsSliderToggle [checked]="useFileTags" (change)="onUseFileTagsChange($event)" labelPosition="before"
-      >Use Tag-Information from file</mat-slide-toggle
-    >
-    <mat-slide-toggle [disabled]="!fileTagsSliderToggle.checked" [checked]="useWebTags" (change)="onUseWebTagsChange($event)" labelPosition="before"
+    <mat-slide-toggle [checked]="useWebTags" (change)="onUseWebTagsChange($event)" labelPosition="before"
       >Use Last.FM and Musicbrainz to get Titles</mat-slide-toggle
+    >
+    <mat-slide-toggle #useTagPicsToggle [checked]="useTagEmbeddedPics" (change)="onUseTagEmbeddedPicsChange($event)" labelPosition="before"
+      >Use Cover-Art from Id3-Tags</mat-slide-toggle
+    >
+    <mat-slide-toggle
+      [disabled]="!useTagPicsToggle.checked"
+      [checked]="preferTagEmbeddedPics"
+      (change)="onPreferTagEmbeddedPicsChange($event)"
+      labelPosition="before"
+      >Prefer Cover-Art from Id3-Tags</mat-slide-toggle
     >
     <div fxLayout="row" fxLayoutGap="12px">
       <mat-slide-toggle [checked]="useTagsCache" (change)="onUseTagsCacheChange($event)" labelPosition="before">Use IndexedDB Cache</mat-slide-toggle>

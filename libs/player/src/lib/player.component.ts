@@ -150,7 +150,7 @@ export class PlayerComponent implements OnInit, AfterViewInit, OnDestroy {
     this.volume = event.value ?? 0;
   }
   async onFilesDropped(files: File[]) {
-    return this.playerService.addFilesToPlaylist(files);
+    return this.playerService.addToPlaylist(...files);
   }
 
   get allowedTypes(): string[] {

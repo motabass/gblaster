@@ -15,27 +15,39 @@ export class MusicbrainzService {
       query += tags.track?.of ? ` AND tracks:${tags.track.of}` : '';
       const url = `https://musicbrainz.org/ws/2/release/?query=${query}&limit=10&fmt=json`;
       // TODO: type response
-      const data: any = await firstValueFrom(this.http.get(url));
-
-      if (!data.releases.length) {
-        return;
-      }
-
-      const id = data.releases[0].id;
-      // TODO: type response
-      let coverData: any;
       try {
-        coverData = await firstValueFrom(this.http.get(`https://coverartarchive.org/release/${id}`));
-      } catch (e) {
+        const data: any = await firstValueFrom(this.http.get(url));
+        if (!data?.releases?.length) {
+          return;
+        }
+
+        const id = data.releases.find((release: any) => release['release-group']['primary-type'] === 'Album').id;
+        const data2: any = await this.http.get(`https://musicbrainz.org/ws/2/release/${id}?fmt=json&inc=recordings+artists`).toPromise();
+        // TODO: type response
+
+        if (!data2['cover-art-archive']?.front) {
+          console.warn('Kein Cover vorhanden');
+          return;
+        }
+        let coverData: any;
+        try {
+          coverData = await firstValueFrom(this.http.get(`https://coverartarchive.org/release/${id}`));
+        } catch (e) {
+          console.error('Kein Cover mit der ID gefunden');
+          return;
+        }
+
+        const coverImage = coverData.images.find((image: any) => image.front === true);
+        const thumbUrl: string = coverImage.thumbnails.small;
+        const coverUrl: string = coverImage.image;
+
+        return { thumb: thumbUrl.replace('http://', 'https://'), original: coverUrl.replace('http://', 'https://') };
+      } catch (err) {
+        console.warn('Konnte MusicBrainz nich abfragen', err);
         return;
       }
-
-      const thumbUrl: string = coverData.images[0].thumbnails.small;
-      const coverUrl: string = coverData.images[0].image;
-
-      return { thumb: thumbUrl.replace('http://', 'https://'), original: coverUrl.replace('http://', 'https://') };
     }
-
+    console.warn('Artist or Album missing for lookup');
     return;
   }
 }

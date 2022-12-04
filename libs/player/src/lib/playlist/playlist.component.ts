@@ -1,6 +1,5 @@
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { VisualizerMode, VisualsColorConfig, VisualsService } from '@motabass/ui-components/visuals';
 import { PlayerService } from '../player.service';
 import { Song } from '../player.types';
@@ -14,12 +13,7 @@ import { Observable } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PlaylistComponent {
-  constructor(
-    private playerService: PlayerService,
-    private visualsService: VisualsService,
-    private domSanitizer: DomSanitizer,
-    private loaderService: LoaderService
-  ) {}
+  constructor(private playerService: PlayerService, private visualsService: VisualsService, private loaderService: LoaderService) {}
 
   get isLoading(): Observable<boolean> {
     return this.loaderService.isLoading;
@@ -74,10 +68,6 @@ export class PlaylistComponent {
 
   get analyser(): AnalyserNode {
     return this.playerService.analyser;
-  }
-
-  sanitizeCoverUrl(url: string): SafeUrl {
-    return this.domSanitizer.bypassSecurityTrustUrl(url);
   }
 
   playlistTrackFunction(index: number, song: Song) {

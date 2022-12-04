@@ -14,20 +14,22 @@ export class LastfmMetadataService {
     if (tags.artist && tags.album) {
       // TODO: type response
       try {
-        const data: any = firstValueFrom(
+        const data: any = await firstValueFrom(
           await this.http.get(
-            `https://ws.audioscrobbler.com/2.0/?method=album.getinfo&api_key=${this.LASTFM_API_KEY}&artist=${tags.artist}&album=${tags.album}&format=json`
+            `https://ws.audioscrobbler.com/2.0/?method=album.getinfo&api_key=${this.LASTFM_API_KEY}&artist=${encodeURIComponent(
+              tags.artist
+            )}&album=${encodeURIComponent(tags.album)}&format=json`
           )
         );
 
         if (!data.error && data.album?.image[5]['#text']) {
-          return { thumb: data.album.image[0]['#text'], original: data.album.image[4]['#text'] };
+          return { thumb: data.album.image[0]['#text'], original: data.album.image[5]['#text'] };
         }
       } catch (e) {
         console.warn(e);
       }
     }
-
+    console.warn('Artist or Album missing for lookup');
     return;
   }
 }

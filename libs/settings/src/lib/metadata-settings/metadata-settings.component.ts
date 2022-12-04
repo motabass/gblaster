@@ -13,34 +13,39 @@ export class MetadataSettingsComponent implements OnInit {
 
   ngOnInit() {}
 
-  get useFileTags() {
-    return this.metadataService.useFileTags;
-  }
-
   get useWebTags() {
-    return this.metadataService.useWebTags;
+    return this.metadataService.useWebMetainfos;
   }
 
   get useTagsCache() {
     return this.metadataService.useTagsCache;
   }
 
-  onUseFileTagsChange(event: MatSlideToggleChange) {
-    this.metadataService.useFileTags = event.checked;
-    if (!event.checked) {
-      this.metadataService.useWebTags = false;
-    }
-  }
-
   onUseWebTagsChange(event: MatSlideToggleChange) {
-    this.metadataService.useWebTags = event.checked;
+    this.metadataService.useWebMetainfos = event.checked;
   }
 
   onUseTagsCacheChange(event: MatSlideToggleChange) {
     this.metadataService.useTagsCache = event.checked;
   }
 
-  clearMetadataCache() {
-    this.indexedDBService.clear('metatags');
+  async clearMetadataCache() {
+    await this.indexedDBService.clear('metatags').toPromise();
+  }
+
+  get useTagEmbeddedPics(): boolean {
+    return this.metadataService.useTagEmbeddedPicture;
+  }
+
+  onUseTagEmbeddedPicsChange(event: MatSlideToggleChange) {
+    this.metadataService.useTagEmbeddedPicture = event.checked;
+  }
+
+  get preferTagEmbeddedPics(): boolean {
+    return this.metadataService.preferTagEmbeddedPicture;
+  }
+
+  onPreferTagEmbeddedPicsChange(event: MatSlideToggleChange) {
+    this.metadataService.preferTagEmbeddedPicture = event.checked;
   }
 }

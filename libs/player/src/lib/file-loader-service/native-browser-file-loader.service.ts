@@ -27,9 +27,13 @@ export class NativeBrowserFileLoaderService extends FileLoaderService {
   }
 
   async showPicker(): Promise<void> {
-    const handle = await window.showDirectoryPicker();
-    this.currentFolderHandle = handle;
-    await this.indexedDbService.update('dirHandle', { id: 1, handle: handle }).toPromise();
+    try {
+      const handle = await window.showDirectoryPicker();
+      this.currentFolderHandle = handle;
+      await this.indexedDbService.update('dirHandle', { id: 1, handle: handle }).toPromise();
+    } catch (err) {
+      console.log('No files: ', err);
+    }
   }
 
   async openFiles(): Promise<File[]> {
