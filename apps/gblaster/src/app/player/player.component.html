@@ -9,24 +9,24 @@
 </mtb-cover-display>
 
 <mat-toolbar color="primary" fxLayout="row" fxLayoutAlign="start center" class="bar">
-  <button mat-icon-button [ngClass]="{ 'accent-color': playing }" (click)="playPause()">
-    <mat-icon *ngIf="playing" svgIcon="pause"></mat-icon>
-    <mat-icon *ngIf="!playing" svgIcon="play"></mat-icon>
+  <button mat-icon-button (click)="playPause()">
+    <mat-icon matTooltip="Pause" *ngIf="playing" svgIcon="pause"></mat-icon>
+    <mat-icon matTooltip="Play" *ngIf="!playing" svgIcon="play"></mat-icon>
   </button>
 
   <button mat-icon-button (click)="stop()">
-    <mat-icon svgIcon="stop"></mat-icon>
+    <mat-icon matTooltip="Stop" svgIcon="stop"></mat-icon>
   </button>
 
   <button class="no-mobile" mat-icon-button (click)="previous()">
-    <mat-icon svgIcon="skip-previous"></mat-icon>
+    <mat-icon matTooltip="Previous" svgIcon="skip-previous"></mat-icon>
   </button>
   <button class="no-mobile" mat-icon-button (click)="next()">
-    <mat-icon svgIcon="skip-next"></mat-icon>
+    <mat-icon matTooltip="Next" svgIcon="skip-next"></mat-icon>
   </button>
 
   <button mat-icon-button id="load_files" (click)="showPicker()">
-    <mat-icon svgIcon="folder-music-outline"></mat-icon>
+    <mat-icon matTooltip="Load folder/files..." svgIcon="folder-music-outline"></mat-icon>
   </button>
   <div fxFlex *ngIf="!playingSong"></div>
 
@@ -49,15 +49,15 @@
   </div>
 
   <button mat-icon-button id="volume_button" [matMenuTriggerFor]="volumeMenu">
-    <mat-icon [svgIcon]="volumeIcon"></mat-icon>
+    <mat-icon [matTooltip]="'Volume: ' + (volume * 100).toFixed(0)" [svgIcon]="volumeIcon"></mat-icon>
   </button>
-  <button mat-icon-button [ngClass]="{ 'accent-color': shuffle }" (click)="toggleShuffle()">
-    <mat-icon svgIcon="shuffle-variant"></mat-icon>
+  <button mat-icon-button [ngClass]="{ 'disabled-color': !shuffle }" (click)="toggleShuffle()">
+    <mat-icon [matTooltip]="shuffle ? 'Shuffle on' : 'Shuffle off'" svgIcon="shuffle-variant"></mat-icon>
   </button>
-  <button mat-icon-button [ngClass]="{ 'accent-color': repeat === 'all' || repeat === 'one' }" (click)="toggleRepeat()" [ngSwitch]="repeat">
-    <mat-icon *ngSwitchCase="'off'" svgIcon="repeat-off"></mat-icon>
-    <mat-icon *ngSwitchCase="'all'" svgIcon="repeat"></mat-icon>
-    <mat-icon *ngSwitchCase="'one'" svgIcon="repeat-once"></mat-icon>
+  <button mat-icon-button [ngClass]="{ 'disabled-color': repeat === 'off' }" (click)="toggleRepeat()" [ngSwitch]="repeat">
+    <mat-icon matTooltip="Repeat off" *ngSwitchCase="'off'" svgIcon="repeat-off"></mat-icon>
+    <mat-icon matTooltip="Repeat all" *ngSwitchCase="'all'" svgIcon="repeat"></mat-icon>
+    <mat-icon matTooltip="Repeat one" *ngSwitchCase="'one'" svgIcon="repeat-once"></mat-icon>
   </button>
 </mat-toolbar>
 

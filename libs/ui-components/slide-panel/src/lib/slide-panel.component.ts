@@ -20,6 +20,8 @@ export class SlidePanelComponent implements OnChanges {
 
   @Input() toggleIcon?: string;
 
+  @Input() buttonTooltip? = '';
+
   constructor() {}
 
   @HostBinding('class.closed-slide-panel') closed = false;

@@ -29,6 +29,7 @@ import { EqualizerShellComponent } from './equalizer-shell/equalizer-shell.compo
 import { SafePipeModule } from 'safe-pipe';
 import { VisualsDirective } from './visualizer/visuals/visuals.directive';
 import { HotkeysModule } from '../services/hotkeys/hotkeys.module';
+import { MAT_TOOLTIP_DEFAULT_OPTIONS, MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
   imports: [
@@ -52,7 +53,8 @@ import { HotkeysModule } from '../services/hotkeys/hotkeys.module';
     FileDropOverlayModule,
     MatIconSizeModule,
     DragDropModule,
-    SafePipeModule
+    SafePipeModule,
+    MatTooltipModule
   ],
   declarations: [
     PlayerComponent,
@@ -70,6 +72,10 @@ import { HotkeysModule } from '../services/hotkeys/hotkeys.module';
       provide: FileLoaderService,
       useFactory: FileLoaderServiceFactory,
       deps: [NgxIndexedDBService]
+    },
+    {
+      provide: MAT_TOOLTIP_DEFAULT_OPTIONS,
+      useValue: { showDelay: 800, position: 'above', disableTooltipInteractivity: true }
     }
   ]
 })

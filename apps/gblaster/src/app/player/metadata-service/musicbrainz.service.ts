@@ -37,7 +37,7 @@ export class MusicbrainzService {
         }
 
         const coverImage = coverData.images.find((image: any) => image.front === true);
-        const thumbUrl: string = coverImage.thumbnails.small;
+        const thumbUrl: string = coverImage.thumbnails['500'];
         const coverUrl: string = coverImage.image;
 
         return { thumb: thumbUrl.replace('http://', 'https://'), original: coverUrl.replace('http://', 'https://') };

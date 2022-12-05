@@ -17,6 +17,7 @@
     height="auto"
     toggleIcon="tune"
     [openedState]="false"
+    buttonTooltip=" visualizer config"
     class="visuals-slide-panel"
   >
     <div class="accent-font" style="padding: 16px 0; font-size: 1rem">Visualizer</div>
@@ -63,8 +64,8 @@
   </mtb-slide-panel>
 
   <button mat-icon-button style="position: absolute; top: 0.5rem; right: 0.5rem; z-index: 10" (click)="toggleVisualMode()">
-    <mat-icon *ngIf="visualMode === 'bars'" svgIcon="equalizer"></mat-icon>
-    <mat-icon *ngIf="visualMode === 'osc'" svgIcon="current-ac"></mat-icon>
-    <mat-icon *ngIf="visualMode === 'off'" svgIcon="eye-off-outline"></mat-icon>
+    <mat-icon matTooltip="Frequency-Bands" *ngIf="visualMode === 'bars'" svgIcon="equalizer"></mat-icon>
+    <mat-icon matTooltip="Oscilloscope" *ngIf="visualMode === 'osc'" svgIcon="current-ac"></mat-icon>
+    <mat-icon matTooltip="Visualizer off" *ngIf="visualMode === 'off'" svgIcon="eye-off-outline"></mat-icon>
   </button>
 </div>

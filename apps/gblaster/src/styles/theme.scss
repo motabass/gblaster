@@ -130,3 +130,9 @@ $accent-color: var(--theme-accent-500);
   color: $accent-color !important;
   fill: $accent-color !important;
 }
+
+// TODO: disabled color
+.disabled-color {
+  color: grey !important;
+  fill: grey !important;
+}
