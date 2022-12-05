@@ -3,17 +3,18 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>motabass documentation</title>
+        <title>motabass</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
-	      <link rel="stylesheet" href="../styles/style.css">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
     </head>
     <body>
 
         <div class="navbar navbar-default navbar-fixed-top visible-xs">
-            <a href="../" class="navbar-brand">motabass documentation</a>
+            <a href="../" class="navbar-brand">motabass</a>
             <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
         </div>
 
@@ -35,7 +36,9 @@
 
 <ol class="breadcrumb">
   <li>Components</li>
-  <li>SettingsComponent</li>
+  <li
+  >
+  SettingsComponent</li>
 </ol>
 
 <ul class="nav nav-tabs" role="tablist">
@@ -66,6 +69,7 @@
 
 
 
+
     <p class="comment">
         <h3>Implements</h3>
     </p>
@@ -76,7 +80,7 @@
 
 <section>
     <h3>Metadata</h3>
-    <table class="table table-sm table-hover">
+    <table class="table table-sm table-hover metadata">
         <tbody>
 
 
@@ -117,33 +121,6 @@
     </table>
 </section>
 
-    <section>
-    <h3 id="index">Index</h3>
-    <table class="table table-sm table-bordered index-table">
-        <tbody>
-
-                <tr>
-                    <td class="col-md-4">
-                        <h6><b>Methods</b></h6>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="col-md-4">
-                        <ul class="index-list">
-                            <li>
-                                <a href="#ngOnInit">ngOnInit</a>
-                            </li>
-                        </ul>
-                    </td>
-                </tr>
-
-
-
-
-
-        </tbody>
-    </table>
-</section>
 
     <section>
     <h3 id="constructor">Constructor</h3>
@@ -168,51 +145,7 @@
 
 
 
-    <section>
-    
-    <h3 id="methods">
-        Methods
-    </h3>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="ngOnInit"></a>
-                    <span class="name">
-                        <b>
-                            ngOnInit
-                        </b>
-                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-<code>ngOnInit()</code>
-                </td>
-            </tr>
 
-
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="11"
-                            class="link-to-prism">apps/gblaster/src/app/settings/settings.component.ts:11</a></div>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-
-                    <div class="io-description">
-                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
-
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-</section>
 
 </div>
 
@@ -234,7 +167,9 @@ export class SettingsComponent implements OnInit {
     </div>
 
     <div class="tab-pane fade " id="c-templateData">
-        <pre class="line-numbers"><code class="language-html">&lt;mtb-theme-settings class&#x3D;&quot;theme&quot;&gt;&lt;/mtb-theme-settings&gt; &lt;mtb-storage-settings class&#x3D;&quot;storage&quot;&gt;&lt;/mtb-storage-settings&gt;
+        <pre class="line-numbers"><code class="language-html">&lt;mtb-metadata-settings class&#x3D;&quot;metadata&quot;&gt;&lt;/mtb-metadata-settings&gt;
+&lt;mtb-theme-settings class&#x3D;&quot;theme&quot;&gt;&lt;/mtb-theme-settings&gt;
+&lt;mtb-storage-settings class&#x3D;&quot;storage&quot;&gt;&lt;/mtb-storage-settings&gt;
 </code></pre>
     </div>
 
@@ -250,14 +185,19 @@ export class SettingsComponent implements OnInit {
   display: grid;
   grid-gap: 1.5rem;
   grid-template-columns: 1fr 1fr;
-  grid-template-areas: &#x27;theme storage&#x27;;
-  @media (max-width: 599px) {
+  grid-template-areas: &#x27;metadata theme storage&#x27;;
+  @media (max-width: 1199px) {
     grid-template-columns: 1fr;
     grid-auto-rows: max-content;
     grid-template-areas:
+      &#x27;metadata&#x27;
       &#x27;theme&#x27;
       &#x27;storage&#x27;;
   }
+}
+
+.metadata {
+  grid-area: metadata;
 }
 
 .theme {
@@ -295,9 +235,9 @@ export class SettingsComponent implements OnInit {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><mtb-theme-settings class="theme"></mtb-theme-settings> <mtb-storage-settings class="storage"></mtb-storage-settings></div>'
-    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'mtb-root'},{'name': 'CoverDisplayComponent', 'selector': 'mtb-cover-display'},{'name': 'EqualizerComponent', 'selector': 'mtb-equalizer'},{'name': 'EqualizerShellComponent', 'selector': 'mtb-equalizer-shell'},{'name': 'FileDropOverlayComponent', 'selector': 'mtb-file-drop-overlay'},{'name': 'HotkeysHelpDialogComponent', 'selector': 'mtb-hotkeys-help-dialog'},{'name': 'PlayerComponent', 'selector': 'mtb-player'},{'name': 'PlaylistComponent', 'selector': 'mtb-playlist'},{'name': 'PromptDialogComponent', 'selector': 'mtb-update-prompt-dialog'},{'name': 'SettingsComponent', 'selector': 'mtb-settings'},{'name': 'ShellComponent', 'selector': 'mtb-shell'},{'name': 'SlidePanelComponent', 'selector': 'mtb-slide-panel'},{'name': 'StorageSettingsComponent', 'selector': 'mtb-storage-settings'},{'name': 'ThemeSettingsComponent', 'selector': 'mtb-theme-settings'},{'name': 'VisualizerComponent', 'selector': 'mtb-visualizer'}];
-    var DIRECTIVES = [{'name': 'IconSizeDirective', 'selector': '[matIconSize]'},{'name': 'VisualsDirective', 'selector': '[mtbVisual]'}];
+        var COMPONENT_TEMPLATE = '<div><mtb-metadata-settings class="metadata"></mtb-metadata-settings><mtb-theme-settings class="theme"></mtb-theme-settings><mtb-storage-settings class="storage"></mtb-storage-settings></div>'
+    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'mtb-root'},{'name': 'CoverDisplayComponent', 'selector': 'mtb-cover-display'},{'name': 'EqualizerComponent', 'selector': 'mtb-equalizer'},{'name': 'EqualizerShellComponent', 'selector': 'mtb-equalizer-shell'},{'name': 'FileDropOverlayComponent', 'selector': 'mtb-file-drop-overlay'},{'name': 'HotkeysHelpDialogComponent', 'selector': 'mtb-hotkeys-help-dialog'},{'name': 'MetadataSettingsComponent', 'selector': 'mtb-metadata-settings'},{'name': 'PlayerComponent', 'selector': 'mtb-player'},{'name': 'PlaylistComponent', 'selector': 'mtb-playlist'},{'name': 'PromptDialogComponent', 'selector': 'mtb-prompt-dialog'},{'name': 'SettingsComponent', 'selector': 'mtb-settings'},{'name': 'ShellComponent', 'selector': 'mtb-shell'},{'name': 'SlidePanelComponent', 'selector': 'mtb-slide-panel'},{'name': 'StorageSettingsComponent', 'selector': 'mtb-storage-settings'},{'name': 'ThemeSettingsComponent', 'selector': 'mtb-theme-settings'},{'name': 'VisualizerComponent', 'selector': 'mtb-visualizer'}];
+    var DIRECTIVES = [{'name': 'IconSizeDirective', 'selector': '[matIconSize]'},{'name': 'Subscribing', 'selector': ''},{'name': 'VisualsDirective', 'selector': '[mtbVisual]'}];
     var ACTUAL_COMPONENT = {'name': 'SettingsComponent'};
 </script>
 <script src="../js/tree.js"></script>
@@ -311,14 +251,16 @@ export class SettingsComponent implements OnInit {
 
 
 
-                   
+
+
+
 
 
 
 
                    </div><div class="search-results">
     <div class="has-results">
-        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
         <ul class="search-results-list"></ul>
     </div>
     <div class="no-results">
@@ -330,6 +272,15 @@ export class SettingsComponent implements OnInit {
            </div>
        </div>
 
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
        <script>
             var COMPODOC_CURRENT_PAGE_DEPTH = 1;
             var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
@@ -339,9 +290,9 @@ export class SettingsComponent implements OnInit {
 
        <script src="../js/libs/custom-elements.min.js"></script>
        <script src="../js/libs/lit-html.js"></script>
-       <!-- Required to polyfill modern browsers as code is ES5 for IE... -->
-       <script src="../js/libs/custom-elements-es5-adapter.js" charset="utf-8" defer></script>
+
        <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
 
        <script src="../js/libs/bootstrap-native.js"></script>
 

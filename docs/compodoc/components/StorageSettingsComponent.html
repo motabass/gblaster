@@ -3,17 +3,18 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>motabass documentation</title>
+        <title>motabass</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
-	      <link rel="stylesheet" href="../styles/style.css">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
     </head>
     <body>
 
         <div class="navbar navbar-default navbar-fixed-top visible-xs">
-            <a href="../" class="navbar-brand">motabass documentation</a>
+            <a href="../" class="navbar-brand">motabass</a>
             <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
         </div>
 
@@ -35,7 +36,9 @@
 
 <ol class="breadcrumb">
   <li>Components</li>
-  <li>StorageSettingsComponent</li>
+  <li
+  >
+  StorageSettingsComponent</li>
 </ol>
 
 <ul class="nav nav-tabs" role="tablist">
@@ -68,9 +71,10 @@
 
 
 
+
 <section>
     <h3>Metadata</h3>
-    <table class="table table-sm table-hover">
+    <table class="table table-sm table-hover metadata">
         <tbody>
 
 
@@ -125,10 +129,7 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
-                                <a href="#clearMetadataCache">clearMetadataCache</a>
-                            </li>
-                            <li>
-                                <a href="#clearSettingsCache">clearSettingsCache</a>
+                                <a href="#clearSettingsCache" >clearSettingsCache</a>
                             </li>
                         </ul>
                     </td>
@@ -148,12 +149,12 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(localStorage: LocalStorageService, indexedDBService: NgxIndexedDBService)</code>
+<code>constructor(localStorage: LocalStorageService)</code>
                     </td>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="10" class="link-to-prism">apps/gblaster/src/app/settings/storage-settings/storage-settings.component.ts:10</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="9" class="link-to-prism">apps/gblaster/src/app/settings/storage-settings/storage-settings.component.ts:9</a></div>
                             </td>
                         </tr>
 
@@ -175,18 +176,6 @@
                                                   
                                                         <td>
                                                                     <code>LocalStorageService</code>
-                                                        </td>
-                                                  
-                                                    <td>
-                                                            No
-                                                    </td>
-                                                    
-                                                </tr>
-                                                <tr>
-                                                        <td>indexedDBService</td>
-                                                  
-                                                        <td>
-                                                                    <code>NgxIndexedDBService</code>
                                                         </td>
                                                   
                                                     <td>
@@ -216,50 +205,9 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="clearMetadataCache"></a>
-                    <span class="name">
-                        <b>
-                            clearMetadataCache
-                        </b>
-                        <a href="#clearMetadataCache"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-<code>clearMetadataCache()</code>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="17"
-                            class="link-to-prism">apps/gblaster/src/app/settings/storage-settings/storage-settings.component.ts:17</a></div>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-
-                    <div class="io-description">
-                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
-
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
                     <a name="clearSettingsCache"></a>
                     <span class="name">
-                        <b>
-                            clearSettingsCache
-                        </b>
+                        <span ><b>clearSettingsCache</b></span>
                         <a href="#clearSettingsCache"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
@@ -273,8 +221,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="13"
-                            class="link-to-prism">apps/gblaster/src/app/settings/storage-settings/storage-settings.component.ts:13</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="12"
+                            class="link-to-prism">apps/gblaster/src/app/settings/storage-settings/storage-settings.component.ts:12</a></div>
                 </td>
             </tr>
 
@@ -297,7 +245,6 @@
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component } from &#x27;@angular/core&#x27;;
-import { NgxIndexedDBService } from &#x27;ngx-indexed-db&#x27;;
 import { LocalStorageService } from &#x27;ngx-webstorage&#x27;;
 
 @Component({
@@ -306,14 +253,10 @@ import { LocalStorageService } from &#x27;ngx-webstorage&#x27;;
   styleUrls: [&#x27;./storage-settings.component.scss&#x27;]
 })
 export class StorageSettingsComponent {
-  constructor(private localStorage: LocalStorageService, private indexedDBService: NgxIndexedDBService) {}
+  constructor(private localStorage: LocalStorageService) {}
 
   clearSettingsCache() {
     this.localStorage.clear();
-  }
-
-  clearMetadataCache() {
-    this.indexedDBService.clear(&#x27;metatags&#x27;);
   }
 }
 </code></pre>
@@ -322,9 +265,8 @@ export class StorageSettingsComponent {
     <div class="tab-pane fade " id="c-templateData">
         <pre class="line-numbers"><code class="language-html">&lt;mat-card&gt;
   &lt;mat-card-title&gt;Local Storage Settings&lt;/mat-card-title&gt;
-  &lt;mat-card-content fxLayout&#x3D;&quot;row&quot; fxLayoutAlign&#x3D;&quot;start center&quot; fxLayoutGap&#x3D;&quot;16px&quot; style&#x3D;&quot;min-height: 48px;&quot;&gt;
+  &lt;mat-card-content fxLayout&#x3D;&quot;row&quot; fxLayoutAlign&#x3D;&quot;start center&quot; fxLayoutGap&#x3D;&quot;16px&quot; style&#x3D;&quot;min-height: 48px&quot;&gt;
     &lt;button mat-flat-button color&#x3D;&quot;accent&quot; (click)&#x3D;&quot;clearSettingsCache()&quot;&gt;Clear Settings Cache&lt;/button&gt;
-    &lt;button mat-flat-button color&#x3D;&quot;accent&quot; (click)&#x3D;&quot;clearMetadataCache()&quot;&gt;Clear Metadata Cache&lt;/button&gt;
   &lt;/mat-card-content&gt;
 &lt;/mat-card&gt;
 </code></pre>
@@ -362,9 +304,9 @@ export class StorageSettingsComponent {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><mat-card>  <mat-card-title>Local Storage Settings</mat-card-title>  <mat-card-content fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="16px" style="min-height: 48px;">    <button mat-flat-button color="accent" (click)="clearSettingsCache()">Clear Settings Cache</button>    <button mat-flat-button color="accent" (click)="clearMetadataCache()">Clear Metadata Cache</button>  </mat-card-content></mat-card></div>'
-    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'mtb-root'},{'name': 'CoverDisplayComponent', 'selector': 'mtb-cover-display'},{'name': 'EqualizerComponent', 'selector': 'mtb-equalizer'},{'name': 'EqualizerShellComponent', 'selector': 'mtb-equalizer-shell'},{'name': 'FileDropOverlayComponent', 'selector': 'mtb-file-drop-overlay'},{'name': 'HotkeysHelpDialogComponent', 'selector': 'mtb-hotkeys-help-dialog'},{'name': 'PlayerComponent', 'selector': 'mtb-player'},{'name': 'PlaylistComponent', 'selector': 'mtb-playlist'},{'name': 'PromptDialogComponent', 'selector': 'mtb-update-prompt-dialog'},{'name': 'SettingsComponent', 'selector': 'mtb-settings'},{'name': 'ShellComponent', 'selector': 'mtb-shell'},{'name': 'SlidePanelComponent', 'selector': 'mtb-slide-panel'},{'name': 'StorageSettingsComponent', 'selector': 'mtb-storage-settings'},{'name': 'ThemeSettingsComponent', 'selector': 'mtb-theme-settings'},{'name': 'VisualizerComponent', 'selector': 'mtb-visualizer'}];
-    var DIRECTIVES = [{'name': 'IconSizeDirective', 'selector': '[matIconSize]'},{'name': 'VisualsDirective', 'selector': '[mtbVisual]'}];
+        var COMPONENT_TEMPLATE = '<div><mat-card>  <mat-card-title>Local Storage Settings</mat-card-title>  <mat-card-content fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="16px" style="min-height: 48px">    <button mat-flat-button color="accent" (click)="clearSettingsCache()">Clear Settings Cache</button>  </mat-card-content></mat-card></div>'
+    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'mtb-root'},{'name': 'CoverDisplayComponent', 'selector': 'mtb-cover-display'},{'name': 'EqualizerComponent', 'selector': 'mtb-equalizer'},{'name': 'EqualizerShellComponent', 'selector': 'mtb-equalizer-shell'},{'name': 'FileDropOverlayComponent', 'selector': 'mtb-file-drop-overlay'},{'name': 'HotkeysHelpDialogComponent', 'selector': 'mtb-hotkeys-help-dialog'},{'name': 'MetadataSettingsComponent', 'selector': 'mtb-metadata-settings'},{'name': 'PlayerComponent', 'selector': 'mtb-player'},{'name': 'PlaylistComponent', 'selector': 'mtb-playlist'},{'name': 'PromptDialogComponent', 'selector': 'mtb-prompt-dialog'},{'name': 'SettingsComponent', 'selector': 'mtb-settings'},{'name': 'ShellComponent', 'selector': 'mtb-shell'},{'name': 'SlidePanelComponent', 'selector': 'mtb-slide-panel'},{'name': 'StorageSettingsComponent', 'selector': 'mtb-storage-settings'},{'name': 'ThemeSettingsComponent', 'selector': 'mtb-theme-settings'},{'name': 'VisualizerComponent', 'selector': 'mtb-visualizer'}];
+    var DIRECTIVES = [{'name': 'IconSizeDirective', 'selector': '[matIconSize]'},{'name': 'Subscribing', 'selector': ''},{'name': 'VisualsDirective', 'selector': '[mtbVisual]'}];
     var ACTUAL_COMPONENT = {'name': 'StorageSettingsComponent'};
 </script>
 <script src="../js/tree.js"></script>
@@ -378,14 +320,16 @@ export class StorageSettingsComponent {
 
 
 
-                   
+
+
+
 
 
 
 
                    </div><div class="search-results">
     <div class="has-results">
-        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
         <ul class="search-results-list"></ul>
     </div>
     <div class="no-results">
@@ -397,6 +341,15 @@ export class StorageSettingsComponent {
            </div>
        </div>
 
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
        <script>
             var COMPODOC_CURRENT_PAGE_DEPTH = 1;
             var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
@@ -406,9 +359,9 @@ export class StorageSettingsComponent {
 
        <script src="../js/libs/custom-elements.min.js"></script>
        <script src="../js/libs/lit-html.js"></script>
-       <!-- Required to polyfill modern browsers as code is ES5 for IE... -->
-       <script src="../js/libs/custom-elements-es5-adapter.js" charset="utf-8" defer></script>
+
        <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
 
        <script src="../js/libs/bootstrap-native.js"></script>
 

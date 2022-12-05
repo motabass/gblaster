@@ -3,17 +3,18 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>motabass documentation</title>
+        <title>motabass</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
-	      <link rel="stylesheet" href="../styles/style.css">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
     </head>
     <body>
 
         <div class="navbar navbar-default navbar-fixed-top visible-xs">
-            <a href="../" class="navbar-brand">motabass documentation</a>
+            <a href="../" class="navbar-brand">motabass</a>
             <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
         </div>
 
@@ -41,9 +42,12 @@
 
 
 
+
 <ol class="breadcrumb">
   <li>Interfaces</li>
-  <li>AnalyserConfig</li>
+  <li
+  >
+  AnalyserConfig</li>
 </ol>
 
 <ul class="nav nav-tabs" role="tablist">
@@ -61,8 +65,9 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>libs/ui-components/visuals/src/lib/visuals.types.ts</code>
+            <code>apps/gblaster/src/app/player/visualizer/visuals/visuals.types.ts</code>
         </p>
+
 
 
 
@@ -79,16 +84,28 @@
                         <td class="col-md-4">
                             <ul class="index-list">
                                 <li>
-                                        <a href="#fftSize">fftSize</a>
+                                        <a href="#fftSize" 
+>
+                                            fftSize
+                                        </a>
                                 </li>
                                 <li>
-                                        <a href="#maxDecibels">maxDecibels</a>
+                                        <a href="#maxDecibels" 
+>
+                                            maxDecibels
+                                        </a>
                                 </li>
                                 <li>
-                                        <a href="#minDecibels">minDecibels</a>
+                                        <a href="#minDecibels" 
+>
+                                            minDecibels
+                                        </a>
                                 </li>
                                 <li>
-                                        <a href="#smoothingTimeConstant">smoothingTimeConstant</a>
+                                        <a href="#smoothingTimeConstant" 
+>
+                                            smoothingTimeConstant
+                                        </a>
                                 </li>
                             </ul>
                         </td>
@@ -106,7 +123,11 @@
                                 <tr>
                                     <td class="col-md-4">
                                         <a name="fftSize"></a>
-                                        <span class="name"><b>fftSize</b><a href="#fftSize"><span class="icon ion-ios-link"></span></a></span>
+                                        <span class="name "><b>fftSize</b>
+                                            <a href="#fftSize">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
                                     </td>
                                 </tr>
                                 <tr>
@@ -135,7 +156,11 @@
                                 <tr>
                                     <td class="col-md-4">
                                         <a name="maxDecibels"></a>
-                                        <span class="name"><b>maxDecibels</b><a href="#maxDecibels"><span class="icon ion-ios-link"></span></a></span>
+                                        <span class="name "><b>maxDecibels</b>
+                                            <a href="#maxDecibels">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
                                     </td>
                                 </tr>
                                 <tr>
@@ -164,7 +189,11 @@
                                 <tr>
                                     <td class="col-md-4">
                                         <a name="minDecibels"></a>
-                                        <span class="name"><b>minDecibels</b><a href="#minDecibels"><span class="icon ion-ios-link"></span></a></span>
+                                        <span class="name "><b>minDecibels</b>
+                                            <a href="#minDecibels">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
                                     </td>
                                 </tr>
                                 <tr>
@@ -193,7 +222,11 @@
                                 <tr>
                                     <td class="col-md-4">
                                         <a name="smoothingTimeConstant"></a>
-                                        <span class="name"><b>smoothingTimeConstant</b><a href="#smoothingTimeConstant"><span class="icon ion-ios-link"></span></a></span>
+                                        <span class="name "><b>smoothingTimeConstant</b>
+                                            <a href="#smoothingTimeConstant">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
                                     </td>
                                 </tr>
                                 <tr>
@@ -222,7 +255,7 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">export type VisualizerMode &#x3D; &#x27;off&#x27; | &#x27;osc&#x27; | &#x27;bars&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">export type VisualizerMode &#x3D; &#x27;osc&#x27; | &#x27;bars&#x27; | &#x27;off&#x27;;
 
 export type FftSize &#x3D; 32 | 64 | 128 | 256 | 512 | 1024 | 2048 | 4096 | 8192 | 16384 | 32768;
 
@@ -245,22 +278,23 @@ export interface OsciloscopeConfig {
 }
 
 export interface VisualsColorConfig {
-  mainColor: string;
-  peakColor: string;
+  mainColor?: string;
+  peakColor?: string;
 }
 </code></pre>
     </div>
 </div>
 
 
-                   
+
+
 
 
 
 
                    </div><div class="search-results">
     <div class="has-results">
-        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
         <ul class="search-results-list"></ul>
     </div>
     <div class="no-results">
@@ -272,6 +306,15 @@ export interface VisualsColorConfig {
            </div>
        </div>
 
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
        <script>
             var COMPODOC_CURRENT_PAGE_DEPTH = 1;
             var COMPODOC_CURRENT_PAGE_CONTEXT = 'interface';
@@ -281,9 +324,9 @@ export interface VisualsColorConfig {
 
        <script src="../js/libs/custom-elements.min.js"></script>
        <script src="../js/libs/lit-html.js"></script>
-       <!-- Required to polyfill modern browsers as code is ES5 for IE... -->
-       <script src="../js/libs/custom-elements-es5-adapter.js" charset="utf-8" defer></script>
+
        <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
 
        <script src="../js/libs/bootstrap-native.js"></script>
 

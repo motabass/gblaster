@@ -3,17 +3,18 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>motabass documentation</title>
+        <title>motabass</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
-	      <link rel="stylesheet" href="../styles/style.css">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
     </head>
     <body>
 
         <div class="navbar navbar-default navbar-fixed-top visible-xs">
-            <a href="../" class="navbar-brand">motabass documentation</a>
+            <a href="../" class="navbar-brand">motabass</a>
             <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
         </div>
 
@@ -35,7 +36,9 @@
 
 <ol class="breadcrumb">
   <li>Components</li>
-  <li>AppComponent</li>
+  <li
+  >
+  AppComponent</li>
 </ol>
 
 <ul class="nav nav-tabs" role="tablist">
@@ -65,9 +68,10 @@
 
 
 
+
 <section>
     <h3>Metadata</h3>
-    <table class="table table-sm table-hover">
+    <table class="table table-sm table-hover metadata">
         <tbody>
 
 
@@ -111,7 +115,7 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(updateService: <a href="../injectables/UpdateService.html">UpdateService</a>, iconRegistry: MatIconRegistry, sanitizer: <a href="https://angular.io/api/platform-browser/DomSanitizer" target="_blank">DomSanitizer</a>, themeService: <a href="../injectables/ThemeService.html">ThemeService</a>)</code>
+<code>constructor(updateService: <a href="../injectables/UpdateService.html" target="_self">UpdateService</a>, iconRegistry: MatIconRegistry, sanitizer: <a href="https://angular.io/api/platform-browser/DomSanitizer" target="_blank">DomSanitizer</a>, themeService: <a href="../injectables/ThemeService.html" target="_self">ThemeService</a>)</code>
                     </td>
                 </tr>
                         <tr>
@@ -203,26 +207,21 @@
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component } from &#x27;@angular/core&#x27;;
 import { MatIconRegistry } from &#x27;@angular/material/icon&#x27;;
 import { DomSanitizer } from &#x27;@angular/platform-browser&#x27;;
-import { ThemeService } from &#x27;@motabass/core/theme&#x27;;
-import { UpdateService } from &#x27;@motabass/core/update&#x27;;
+import { ThemeService } from &#x27;./theme/theme.service&#x27;;
+import { UpdateService } from &#x27;./update.service&#x27;;
 
 @Component({
   selector: &#x27;mtb-root&#x27;,
   templateUrl: &#x27;./app.component.html&#x27;
 })
 export class AppComponent {
-  constructor(
-    updateService: UpdateService,
-    iconRegistry: MatIconRegistry,
-    sanitizer: DomSanitizer,
-    themeService: ThemeService
-  ) {
+  constructor(updateService: UpdateService, iconRegistry: MatIconRegistry, sanitizer: DomSanitizer, themeService: ThemeService) {
     updateService.init();
 
     themeService.initializeTheme();
 
     iconRegistry.addSvgIconSet(sanitizer.bypassSecurityTrustResourceUrl(&#x27;assets/icon-set.svg&#x27;));
-    iconRegistry.addSvgIcon(&#x27;logo&#x27;, sanitizer.bypassSecurityTrustResourceUrl(&#x27;assets/logos/icon.svg&#x27;), { viewBox: &#x27;0 0 48 48&#x27; });
+    iconRegistry.addSvgIcon(&#x27;logo&#x27;, sanitizer.bypassSecurityTrustResourceUrl(&#x27;assets/icons/logo-monochrome.svg&#x27;));
   }
 }
 </code></pre>
@@ -260,8 +259,8 @@ export class AppComponent {
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
         var COMPONENT_TEMPLATE = '<div><mtb-shell></mtb-shell></div>'
-    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'mtb-root'},{'name': 'CoverDisplayComponent', 'selector': 'mtb-cover-display'},{'name': 'EqualizerComponent', 'selector': 'mtb-equalizer'},{'name': 'EqualizerShellComponent', 'selector': 'mtb-equalizer-shell'},{'name': 'FileDropOverlayComponent', 'selector': 'mtb-file-drop-overlay'},{'name': 'HotkeysHelpDialogComponent', 'selector': 'mtb-hotkeys-help-dialog'},{'name': 'PlayerComponent', 'selector': 'mtb-player'},{'name': 'PlaylistComponent', 'selector': 'mtb-playlist'},{'name': 'PromptDialogComponent', 'selector': 'mtb-update-prompt-dialog'},{'name': 'SettingsComponent', 'selector': 'mtb-settings'},{'name': 'ShellComponent', 'selector': 'mtb-shell'},{'name': 'SlidePanelComponent', 'selector': 'mtb-slide-panel'},{'name': 'StorageSettingsComponent', 'selector': 'mtb-storage-settings'},{'name': 'ThemeSettingsComponent', 'selector': 'mtb-theme-settings'},{'name': 'VisualizerComponent', 'selector': 'mtb-visualizer'}];
-    var DIRECTIVES = [{'name': 'IconSizeDirective', 'selector': '[matIconSize]'},{'name': 'VisualsDirective', 'selector': '[mtbVisual]'}];
+    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'mtb-root'},{'name': 'CoverDisplayComponent', 'selector': 'mtb-cover-display'},{'name': 'EqualizerComponent', 'selector': 'mtb-equalizer'},{'name': 'EqualizerShellComponent', 'selector': 'mtb-equalizer-shell'},{'name': 'FileDropOverlayComponent', 'selector': 'mtb-file-drop-overlay'},{'name': 'HotkeysHelpDialogComponent', 'selector': 'mtb-hotkeys-help-dialog'},{'name': 'MetadataSettingsComponent', 'selector': 'mtb-metadata-settings'},{'name': 'PlayerComponent', 'selector': 'mtb-player'},{'name': 'PlaylistComponent', 'selector': 'mtb-playlist'},{'name': 'PromptDialogComponent', 'selector': 'mtb-prompt-dialog'},{'name': 'SettingsComponent', 'selector': 'mtb-settings'},{'name': 'ShellComponent', 'selector': 'mtb-shell'},{'name': 'SlidePanelComponent', 'selector': 'mtb-slide-panel'},{'name': 'StorageSettingsComponent', 'selector': 'mtb-storage-settings'},{'name': 'ThemeSettingsComponent', 'selector': 'mtb-theme-settings'},{'name': 'VisualizerComponent', 'selector': 'mtb-visualizer'}];
+    var DIRECTIVES = [{'name': 'IconSizeDirective', 'selector': '[matIconSize]'},{'name': 'Subscribing', 'selector': ''},{'name': 'VisualsDirective', 'selector': '[mtbVisual]'}];
     var ACTUAL_COMPONENT = {'name': 'AppComponent'};
 </script>
 <script src="../js/tree.js"></script>
@@ -275,14 +274,16 @@ export class AppComponent {
 
 
 
-                   
+
+
+
 
 
 
 
                    </div><div class="search-results">
     <div class="has-results">
-        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
         <ul class="search-results-list"></ul>
     </div>
     <div class="no-results">
@@ -294,6 +295,15 @@ export class AppComponent {
            </div>
        </div>
 
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
        <script>
             var COMPODOC_CURRENT_PAGE_DEPTH = 1;
             var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
@@ -303,9 +313,9 @@ export class AppComponent {
 
        <script src="../js/libs/custom-elements.min.js"></script>
        <script src="../js/libs/lit-html.js"></script>
-       <!-- Required to polyfill modern browsers as code is ES5 for IE... -->
-       <script src="../js/libs/custom-elements-es5-adapter.js" charset="utf-8" defer></script>
+
        <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
 
        <script src="../js/libs/bootstrap-native.js"></script>
 

@@ -3,17 +3,18 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>motabass documentation</title>
+        <title>motabass</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
-	      <link rel="stylesheet" href="../styles/style.css">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
     </head>
     <body>
 
         <div class="navbar navbar-default navbar-fixed-top visible-xs">
-            <a href="../" class="navbar-brand">motabass documentation</a>
+            <a href="../" class="navbar-brand">motabass</a>
             <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
         </div>
 
@@ -36,9 +37,10 @@
 
 
 
+
 <ol class="breadcrumb">
   <li>Injectables</li>
-  <li>GamepadService</li>
+  <li >GamepadService</li>
 </ol>
 
 <ul class="nav nav-tabs" role="tablist">
@@ -56,8 +58,9 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>libs/helper-services/gamepad/src/lib/gamepad.service.ts</code>
+            <code>apps/gblaster/src/app/services/gamepad/gamepad.service.ts</code>
         </p>
+
 
 
 
@@ -75,32 +78,10 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
-                                    <span class="modifier">Private</span>
-                                <a href="#activeAxesCaches">activeAxesCaches</a>
+                                <a href="#axesActions" >axesActions</a>
                             </li>
                             <li>
-                                <a href="#axesActions">axesActions</a>
-                            </li>
-                            <li>
-                                <a href="#buttonActions">buttonActions</a>
-                            </li>
-                            <li>
-                                    <span class="modifier">Private</span>
-                                <a href="#checkIntervals">checkIntervals</a>
-                            </li>
-                            <li>
-                                    <span class="modifier">Private</span>
-                                    <span class="modifier">Readonly</span>
-                                <a href="#DEFAULT_DEADSPACE">DEFAULT_DEADSPACE</a>
-                            </li>
-                            <li>
-                                    <span class="modifier">Private</span>
-                                    <span class="modifier">Readonly</span>
-                                <a href="#DEFAULT_TURBO_TIMEOUT">DEFAULT_TURBO_TIMEOUT</a>
-                            </li>
-                            <li>
-                                    <span class="modifier">Private</span>
-                                <a href="#pressedButtonsCaches">pressedButtonsCaches</a>
+                                <a href="#buttonActions" >buttonActions</a>
                             </li>
                         </ul>
                     </td>
@@ -115,55 +96,19 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
-                                    <span class="modifier">Private</span>
-                                <a href="#checkForAxesInput">checkForAxesInput</a>
+                                <a href="#deregisterAxisAction" >deregisterAxisAction</a>
                             </li>
                             <li>
-                                    <span class="modifier">Private</span>
-                                <a href="#checkForButtonClicked">checkForButtonClicked</a>
+                                <a href="#deregisterButtonAction" >deregisterButtonAction</a>
                             </li>
                             <li>
-                                    <span class="modifier">Private</span>
-                                <a href="#connectionListener">connectionListener</a>
+                                <a href="#ngOnDestroy" >ngOnDestroy</a>
                             </li>
                             <li>
-                                    <span class="modifier">Private</span>
-                                <a href="#createDefaultAxisAction">createDefaultAxisAction</a>
+                                <a href="#registerAxisAction" >registerAxisAction</a>
                             </li>
                             <li>
-                                    <span class="modifier">Private</span>
-                                <a href="#createDefaultButtonAction">createDefaultButtonAction</a>
-                            </li>
-                            <li>
-                                <a href="#deregisterAxisAction">deregisterAxisAction</a>
-                            </li>
-                            <li>
-                                <a href="#deregisterButtonAction">deregisterButtonAction</a>
-                            </li>
-                            <li>
-                                    <span class="modifier">Private</span>
-                                <a href="#disconnectionListener">disconnectionListener</a>
-                            </li>
-                            <li>
-                                    <span class="modifier">Private</span>
-                                <a href="#fireAxisAction">fireAxisAction</a>
-                            </li>
-                            <li>
-                                    <span class="modifier">Private</span>
-                                <a href="#fireButtonAction">fireButtonAction</a>
-                            </li>
-                            <li>
-                                    <span class="modifier">Private</span>
-                                <a href="#isAxisValueInDetectionRange">isAxisValueInDetectionRange</a>
-                            </li>
-                            <li>
-                                <a href="#ngOnDestroy">ngOnDestroy</a>
-                            </li>
-                            <li>
-                                <a href="#registerAxisAction">registerAxisAction</a>
-                            </li>
-                            <li>
-                                <a href="#registerButtonAction">registerButtonAction</a>
+                                <a href="#registerButtonAction" >registerButtonAction</a>
                             </li>
                         </ul>
                     </td>
@@ -188,7 +133,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">libs/helper-services/gamepad/src/lib/gamepad.service.ts:16</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">apps/gblaster/src/app/services/gamepad/gamepad.service.ts:16</a></div>
                             </td>
                         </tr>
 
@@ -205,395 +150,9 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="checkForAxesInput"></a>
-                    <span class="name">
-                        <b>
-                            <span class="modifier">Private</span>
-                            checkForAxesInput
-                        </b>
-                        <a href="#checkForAxesInput"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-                    <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>checkForAxesInput(gamepad: Gamepad, axisIndex: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="175"
-                            class="link-to-prism">libs/helper-services/gamepad/src/lib/gamepad.service.ts:175</a></div>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-
-                    <div class="io-description">
-                        <b>Parameters :</b>
-                        <table class="params">
-                            <thead>
-                                <tr>
-                                    <td>Name</td>
-                                    <td>Type</td>
-                                    <td>Optional</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>gamepad</td>
-                                    <td>
-                                            <code>Gamepad</code>
-                                    </td>
-
-                                    <td>
-                                        No
-                                    </td>
-
-
-                                </tr>
-                                <tr>
-                                    <td>axisIndex</td>
-                                    <td>
-                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
-                                    </td>
-
-                                    <td>
-                                        No
-                                    </td>
-
-
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div>
-                    </div>
-                    <div class="io-description">
-                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
-
-                    </div>
-                    <div class="io-description">
-                        
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="checkForButtonClicked"></a>
-                    <span class="name">
-                        <b>
-                            <span class="modifier">Private</span>
-                            checkForButtonClicked
-                        </b>
-                        <a href="#checkForButtonClicked"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-                    <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>checkForButtonClicked(gamepad: Gamepad, buttonIndex: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="134"
-                            class="link-to-prism">libs/helper-services/gamepad/src/lib/gamepad.service.ts:134</a></div>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-
-                    <div class="io-description">
-                        <b>Parameters :</b>
-                        <table class="params">
-                            <thead>
-                                <tr>
-                                    <td>Name</td>
-                                    <td>Type</td>
-                                    <td>Optional</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>gamepad</td>
-                                    <td>
-                                            <code>Gamepad</code>
-                                    </td>
-
-                                    <td>
-                                        No
-                                    </td>
-
-
-                                </tr>
-                                <tr>
-                                    <td>buttonIndex</td>
-                                    <td>
-                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
-                                    </td>
-
-                                    <td>
-                                        No
-                                    </td>
-
-
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div>
-                    </div>
-                    <div class="io-description">
-                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
-
-                    </div>
-                    <div class="io-description">
-                        
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="connectionListener"></a>
-                    <span class="name">
-                        <b>
-                            <span class="modifier">Private</span>
-                            connectionListener
-                        </b>
-                        <a href="#connectionListener"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-                    <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>connectionListener(event: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="33"
-                            class="link-to-prism">libs/helper-services/gamepad/src/lib/gamepad.service.ts:33</a></div>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-
-                    <div class="io-description">
-                        <b>Parameters :</b>
-                        <table class="params">
-                            <thead>
-                                <tr>
-                                    <td>Name</td>
-                                    <td>Type</td>
-                                    <td>Optional</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>event</td>
-                                    <td>
-                                                <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
-                                    </td>
-
-                                    <td>
-                                        No
-                                    </td>
-
-
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div>
-                    </div>
-                    <div class="io-description">
-                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
-
-                    </div>
-                    <div class="io-description">
-                        
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="createDefaultAxisAction"></a>
-                    <span class="name">
-                        <b>
-                            <span class="modifier">Private</span>
-                            createDefaultAxisAction
-                        </b>
-                        <a href="#createDefaultAxisAction"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-                    <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>createDefaultAxisAction(axisIndex: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="71"
-                            class="link-to-prism">libs/helper-services/gamepad/src/lib/gamepad.service.ts:71</a></div>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-
-                    <div class="io-description">
-                        <b>Parameters :</b>
-                        <table class="params">
-                            <thead>
-                                <tr>
-                                    <td>Name</td>
-                                    <td>Type</td>
-                                    <td>Optional</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>axisIndex</td>
-                                    <td>
-                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
-                                    </td>
-
-                                    <td>
-                                        No
-                                    </td>
-
-
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div>
-                    </div>
-                    <div class="io-description">
-                        <b>Returns : </b>        <code><a href="../interfaces/GamepadAction.html" target="_self" >GamepadAction</a></code>
-
-                    </div>
-                    <div class="io-description">
-                        
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="createDefaultButtonAction"></a>
-                    <span class="name">
-                        <b>
-                            <span class="modifier">Private</span>
-                            createDefaultButtonAction
-                        </b>
-                        <a href="#createDefaultButtonAction"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-                    <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>createDefaultButtonAction(buttonIndex: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="61"
-                            class="link-to-prism">libs/helper-services/gamepad/src/lib/gamepad.service.ts:61</a></div>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-
-                    <div class="io-description">
-                        <b>Parameters :</b>
-                        <table class="params">
-                            <thead>
-                                <tr>
-                                    <td>Name</td>
-                                    <td>Type</td>
-                                    <td>Optional</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>buttonIndex</td>
-                                    <td>
-                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
-                                    </td>
-
-                                    <td>
-                                        No
-                                    </td>
-
-
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div>
-                    </div>
-                    <div class="io-description">
-                        <b>Returns : </b>        <code><a href="../interfaces/GamepadAction.html" target="_self" >GamepadAction</a></code>
-
-                    </div>
-                    <div class="io-description">
-                        
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
                     <a name="deregisterAxisAction"></a>
                     <span class="name">
-                        <b>
-                            deregisterAxisAction
-                        </b>
+                        <span ><b>deregisterAxisAction</b></span>
                         <a href="#deregisterAxisAction"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
@@ -607,8 +166,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="130"
-                            class="link-to-prism">libs/helper-services/gamepad/src/lib/gamepad.service.ts:130</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="132"
+                            class="link-to-prism">apps/gblaster/src/app/services/gamepad/gamepad.service.ts:132</a></div>
                 </td>
             </tr>
 
@@ -618,6 +177,7 @@
 
                     <div class="io-description">
                         <b>Parameters :</b>
+                        
                         <table class="params">
                             <thead>
                                 <tr>
@@ -661,9 +221,7 @@
                 <td class="col-md-4">
                     <a name="deregisterButtonAction"></a>
                     <span class="name">
-                        <b>
-                            deregisterButtonAction
-                        </b>
+                        <span ><b>deregisterButtonAction</b></span>
                         <a href="#deregisterButtonAction"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
@@ -677,8 +235,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="113"
-                            class="link-to-prism">libs/helper-services/gamepad/src/lib/gamepad.service.ts:113</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="115"
+                            class="link-to-prism">apps/gblaster/src/app/services/gamepad/gamepad.service.ts:115</a></div>
                 </td>
             </tr>
 
@@ -688,6 +246,7 @@
 
                     <div class="io-description">
                         <b>Parameters :</b>
+                        
                         <table class="params">
                             <thead>
                                 <tr>
@@ -729,323 +288,9 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="disconnectionListener"></a>
-                    <span class="name">
-                        <b>
-                            <span class="modifier">Private</span>
-                            disconnectionListener
-                        </b>
-                        <a href="#disconnectionListener"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-                    <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>disconnectionListener(event: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="81"
-                            class="link-to-prism">libs/helper-services/gamepad/src/lib/gamepad.service.ts:81</a></div>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-
-                    <div class="io-description">
-                        <b>Parameters :</b>
-                        <table class="params">
-                            <thead>
-                                <tr>
-                                    <td>Name</td>
-                                    <td>Type</td>
-                                    <td>Optional</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>event</td>
-                                    <td>
-                                                <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
-                                    </td>
-
-                                    <td>
-                                        No
-                                    </td>
-
-
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div>
-                    </div>
-                    <div class="io-description">
-                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
-
-                    </div>
-                    <div class="io-description">
-                        
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="fireAxisAction"></a>
-                    <span class="name">
-                        <b>
-                            <span class="modifier">Private</span>
-                            fireAxisAction
-                        </b>
-                        <a href="#fireAxisAction"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-                    <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>fireAxisAction(index: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, value: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="95"
-                            class="link-to-prism">libs/helper-services/gamepad/src/lib/gamepad.service.ts:95</a></div>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-
-                    <div class="io-description">
-                        <b>Parameters :</b>
-                        <table class="params">
-                            <thead>
-                                <tr>
-                                    <td>Name</td>
-                                    <td>Type</td>
-                                    <td>Optional</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>index</td>
-                                    <td>
-                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
-                                    </td>
-
-                                    <td>
-                                        No
-                                    </td>
-
-
-                                </tr>
-                                <tr>
-                                    <td>value</td>
-                                    <td>
-                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
-                                    </td>
-
-                                    <td>
-                                        No
-                                    </td>
-
-
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div>
-                    </div>
-                    <div class="io-description">
-                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
-
-                    </div>
-                    <div class="io-description">
-                        
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="fireButtonAction"></a>
-                    <span class="name">
-                        <b>
-                            <span class="modifier">Private</span>
-                            fireButtonAction
-                        </b>
-                        <a href="#fireButtonAction"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-                    <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>fireButtonAction(index: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, value: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="90"
-                            class="link-to-prism">libs/helper-services/gamepad/src/lib/gamepad.service.ts:90</a></div>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-
-                    <div class="io-description">
-                        <b>Parameters :</b>
-                        <table class="params">
-                            <thead>
-                                <tr>
-                                    <td>Name</td>
-                                    <td>Type</td>
-                                    <td>Optional</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>index</td>
-                                    <td>
-                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
-                                    </td>
-
-                                    <td>
-                                        No
-                                    </td>
-
-
-                                </tr>
-                                <tr>
-                                    <td>value</td>
-                                    <td>
-                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
-                                    </td>
-
-                                    <td>
-                                        No
-                                    </td>
-
-
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div>
-                    </div>
-                    <div class="io-description">
-                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
-
-                    </div>
-                    <div class="io-description">
-                        
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="isAxisValueInDetectionRange"></a>
-                    <span class="name">
-                        <b>
-                            <span class="modifier">Private</span>
-                            isAxisValueInDetectionRange
-                        </b>
-                        <a href="#isAxisValueInDetectionRange"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-                    <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>isAxisValueInDetectionRange(axis: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="171"
-                            class="link-to-prism">libs/helper-services/gamepad/src/lib/gamepad.service.ts:171</a></div>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-
-                    <div class="io-description">
-                        <b>Parameters :</b>
-                        <table class="params">
-                            <thead>
-                                <tr>
-                                    <td>Name</td>
-                                    <td>Type</td>
-                                    <td>Optional</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>axis</td>
-                                    <td>
-                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
-                                    </td>
-
-                                    <td>
-                                        No
-                                    </td>
-
-
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div>
-                    </div>
-                    <div class="io-description">
-                        <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
-
-                    </div>
-                    <div class="io-description">
-                        
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
                     <a name="ngOnDestroy"></a>
                     <span class="name">
-                        <b>
-                            ngOnDestroy
-                        </b>
+                        <span ><b>ngOnDestroy</b></span>
                         <a href="#ngOnDestroy"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
@@ -1059,8 +304,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="215"
-                            class="link-to-prism">libs/helper-services/gamepad/src/lib/gamepad.service.ts:215</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="217"
+                            class="link-to-prism">apps/gblaster/src/app/services/gamepad/gamepad.service.ts:217</a></div>
                 </td>
             </tr>
 
@@ -1082,24 +327,22 @@
                 <td class="col-md-4">
                     <a name="registerAxisAction"></a>
                     <span class="name">
-                        <b>
-                            registerAxisAction
-                        </b>
+                        <span ><b>registerAxisAction</b></span>
                         <a href="#registerAxisAction"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>registerAxisAction(axisIndex: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, actionFunction: <a href="../undefineds/ActionFunction.html">ActionFunction</a>, mode: <a href="../undefineds/InputCheckMode.html">InputCheckMode</a>, turboTimeout)</code>
+<code>registerAxisAction(axisIndex: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, actionFunction: <a href="../undefineds/ActionFunction.html" target="_self">ActionFunction</a>, mode: <a href="../undefineds/InputCheckMode.html" target="_self">InputCheckMode</a>, turboTimeout)</code>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="117"
-                            class="link-to-prism">libs/helper-services/gamepad/src/lib/gamepad.service.ts:117</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="119"
+                            class="link-to-prism">apps/gblaster/src/app/services/gamepad/gamepad.service.ts:119</a></div>
                 </td>
             </tr>
 
@@ -1109,6 +352,7 @@
 
                     <div class="io-description">
                         <b>Parameters :</b>
+                        
                         <table class="params">
                             <thead>
                                 <tr>
@@ -1198,24 +442,22 @@
                 <td class="col-md-4">
                     <a name="registerButtonAction"></a>
                     <span class="name">
-                        <b>
-                            registerButtonAction
-                        </b>
+                        <span ><b>registerButtonAction</b></span>
                         <a href="#registerButtonAction"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>registerButtonAction(buttonIndex: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, actionFunction: <a href="../undefineds/ActionFunction.html">ActionFunction</a>, mode: <a href="../undefineds/InputCheckMode.html">InputCheckMode</a>, timeout)</code>
+<code>registerButtonAction(buttonIndex: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, actionFunction: <a href="../undefineds/ActionFunction.html" target="_self">ActionFunction</a>, mode: <a href="../undefineds/InputCheckMode.html" target="_self">InputCheckMode</a>, timeout)</code>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="100"
-                            class="link-to-prism">libs/helper-services/gamepad/src/lib/gamepad.service.ts:100</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="102"
+                            class="link-to-prism">apps/gblaster/src/app/services/gamepad/gamepad.service.ts:102</a></div>
                 </td>
             </tr>
 
@@ -1225,6 +467,7 @@
 
                     <div class="io-description">
                         <b>Parameters :</b>
+                        
                         <table class="params">
                             <thead>
                                 <tr>
@@ -1311,240 +554,71 @@
 </section>
             <section>
     
-        <h3 id="inputs">
-            Properties
-        </h3>
-        <table class="table table-sm table-bordered">
-            <tbody>
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="axesActions"></a>
+                    <span class="name">
+                        <span ><b>axesActions</b></span>
+                        <a href="#axesActions"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
                 <tr>
                     <td class="col-md-4">
-                        <a name="activeAxesCaches"></a>
-                        <span class="name">
-                            <b>
-                                <span class="modifier">Private</span>
-                            activeAxesCaches</b>
-                            <a href="#activeAxesCaches"><span class="icon ion-ios-link"></span></a>
-                        </span>
+                        <i>Type : </i>        <code><a href="../interfaces/GamepadAction.html" target="_self" >GamepadAction[]</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Type : </i>        <code><a href="../interfaces/ActionCache.html" target="_self" >ActionCache[][]</a></code>
-
+                                <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">apps/gblaster/src/app/services/gamepad/gamepad.service.ts:16</a></div>
                         </td>
                     </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <i>Default value : </i><code>[]</code>
-                        </td>
-                    </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">libs/helper-services/gamepad/src/lib/gamepad.service.ts:13</a></div>
-                            </td>
-                        </tr>
 
 
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="buttonActions"></a>
+                    <span class="name">
+                        <span ><b>buttonActions</b></span>
+                        <a href="#buttonActions"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
                 <tr>
                     <td class="col-md-4">
-                        <a name="axesActions"></a>
-                        <span class="name">
-                            <b>
-                            axesActions</b>
-                            <a href="#axesActions"><span class="icon ion-ios-link"></span></a>
-                        </span>
+                        <i>Type : </i>        <code><a href="../interfaces/GamepadAction.html" target="_self" >GamepadAction[]</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Type : </i>        <code><a href="../interfaces/GamepadAction.html" target="_self" >GamepadAction[]</a></code>
-
+                                <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">apps/gblaster/src/app/services/gamepad/gamepad.service.ts:15</a></div>
                         </td>
                     </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <i>Default value : </i><code>[]</code>
-                        </td>
-                    </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">libs/helper-services/gamepad/src/lib/gamepad.service.ts:16</a></div>
-                            </td>
-                        </tr>
 
 
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
-                <tr>
-                    <td class="col-md-4">
-                        <a name="buttonActions"></a>
-                        <span class="name">
-                            <b>
-                            buttonActions</b>
-                            <a href="#buttonActions"><span class="icon ion-ios-link"></span></a>
-                        </span>
-                    </td>
-                </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <i>Type : </i>        <code><a href="../interfaces/GamepadAction.html" target="_self" >GamepadAction[]</a></code>
-
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <i>Default value : </i><code>[]</code>
-                        </td>
-                    </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">libs/helper-services/gamepad/src/lib/gamepad.service.ts:15</a></div>
-                            </td>
-                        </tr>
-
-
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
-                <tr>
-                    <td class="col-md-4">
-                        <a name="checkIntervals"></a>
-                        <span class="name">
-                            <b>
-                                <span class="modifier">Private</span>
-                            checkIntervals</b>
-                            <a href="#checkIntervals"><span class="icon ion-ios-link"></span></a>
-                        </span>
-                    </td>
-                </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <i>Type : </i>    <code>number[]</code>
-
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <i>Default value : </i><code>[]</code>
-                        </td>
-                    </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="11" class="link-to-prism">libs/helper-services/gamepad/src/lib/gamepad.service.ts:11</a></div>
-                            </td>
-                        </tr>
-
-
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
-                <tr>
-                    <td class="col-md-4">
-                        <a name="DEFAULT_DEADSPACE"></a>
-                        <span class="name">
-                            <b>
-                                <span class="modifier">Private</span>
-                                <span class="modifier">Readonly</span>
-                            DEFAULT_DEADSPACE</b>
-                            <a href="#DEFAULT_DEADSPACE"><span class="icon ion-ios-link"></span></a>
-                        </span>
-                    </td>
-                </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
-
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <i>Default value : </i><code>0.07</code>
-                        </td>
-                    </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="9" class="link-to-prism">libs/helper-services/gamepad/src/lib/gamepad.service.ts:9</a></div>
-                            </td>
-                        </tr>
-
-
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
-                <tr>
-                    <td class="col-md-4">
-                        <a name="DEFAULT_TURBO_TIMEOUT"></a>
-                        <span class="name">
-                            <b>
-                                <span class="modifier">Private</span>
-                                <span class="modifier">Readonly</span>
-                            DEFAULT_TURBO_TIMEOUT</b>
-                            <a href="#DEFAULT_TURBO_TIMEOUT"><span class="icon ion-ios-link"></span></a>
-                        </span>
-                    </td>
-                </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
-
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <i>Default value : </i><code>300</code>
-                        </td>
-                    </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="8" class="link-to-prism">libs/helper-services/gamepad/src/lib/gamepad.service.ts:8</a></div>
-                            </td>
-                        </tr>
-
-
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
-                <tr>
-                    <td class="col-md-4">
-                        <a name="pressedButtonsCaches"></a>
-                        <span class="name">
-                            <b>
-                                <span class="modifier">Private</span>
-                            pressedButtonsCaches</b>
-                            <a href="#pressedButtonsCaches"><span class="icon ion-ios-link"></span></a>
-                        </span>
-                    </td>
-                </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <i>Type : </i>        <code><a href="../interfaces/ActionCache.html" target="_self" >ActionCache[][]</a></code>
-
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <i>Default value : </i><code>[]</code>
-                        </td>
-                    </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">libs/helper-services/gamepad/src/lib/gamepad.service.ts:12</a></div>
-                            </td>
-                        </tr>
-
-
-            </tbody>
-        </table>
+        </tbody>
+    </table>
 </section>
 
     </div>
@@ -1579,11 +653,13 @@ export class GamepadService implements OnDestroy {
         this.axesActions.push(this.createDefaultAxisAction(Number(axisIndex)));
       }
     }
-    addEventListener(&#x27;gamepadconnected&#x27;, (event: any) &#x3D;&gt; this.connectionListener(event));
-    addEventListener(&#x27;gamepaddisconnected&#x27;, (event: any) &#x3D;&gt; this.disconnectionListener(event));
+    // @ts-ignore
+    addEventListener(&#x27;gamepadconnected&#x27;, (event: GamepadEvent) &#x3D;&gt; this.connectionListener(event));
+    // @ts-ignore
+    addEventListener(&#x27;gamepaddisconnected&#x27;, (event: GamepadEvent) &#x3D;&gt; this.disconnectionListener(event));
   }
 
-  private connectionListener(event: any) {
+  private connectionListener(event: GamepadEvent) {
     const gamepads &#x3D; navigator.getGamepads();
     const gamepad &#x3D; gamepads[event.gamepad.index];
     console.log(&#x60;New gamepad with Number ${event.gamepad.index} connected: &#x60;);
@@ -1631,7 +707,7 @@ export class GamepadService implements OnDestroy {
     };
   }
 
-  private disconnectionListener(event: any) {
+  private disconnectionListener(event: GamepadEvent) {
     const gamepads &#x3D; navigator.getGamepads();
     const gamepad &#x3D; gamepads[event.gamepad.index];
     console.log(&#x60;Gamepad ${event.gamepad.index} disconnected!&#x60;);
@@ -1782,14 +858,15 @@ export class GamepadService implements OnDestroy {
 
 
 
-                   
+
+
 
 
 
 
                    </div><div class="search-results">
     <div class="has-results">
-        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
         <ul class="search-results-list"></ul>
     </div>
     <div class="no-results">
@@ -1801,6 +878,15 @@ export class GamepadService implements OnDestroy {
            </div>
        </div>
 
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
        <script>
             var COMPODOC_CURRENT_PAGE_DEPTH = 1;
             var COMPODOC_CURRENT_PAGE_CONTEXT = 'injectable';
@@ -1810,9 +896,9 @@ export class GamepadService implements OnDestroy {
 
        <script src="../js/libs/custom-elements.min.js"></script>
        <script src="../js/libs/lit-html.js"></script>
-       <!-- Required to polyfill modern browsers as code is ES5 for IE... -->
-       <script src="../js/libs/custom-elements-es5-adapter.js" charset="utf-8" defer></script>
+
        <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
 
        <script src="../js/libs/bootstrap-native.js"></script>
 

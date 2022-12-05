@@ -3,17 +3,18 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>motabass documentation</title>
+        <title>motabass</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
-	      <link rel="stylesheet" href="../styles/style.css">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
     </head>
     <body>
 
         <div class="navbar navbar-default navbar-fixed-top visible-xs">
-            <a href="../" class="navbar-brand">motabass documentation</a>
+            <a href="../" class="navbar-brand">motabass</a>
             <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
         </div>
 
@@ -36,9 +37,10 @@
 
 
 
+
 <ol class="breadcrumb">
   <li>Injectables</li>
-  <li>ThemeService</li>
+  <li >ThemeService</li>
 </ol>
 
 <ul class="nav nav-tabs" role="tablist">
@@ -56,8 +58,9 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>libs/core/theme/src/lib/theme.service.ts</code>
+            <code>apps/gblaster/src/app/theme/theme.service.ts</code>
         </p>
+
 
 
 
@@ -75,19 +78,19 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
-                                <a href="#_darkMode">_darkMode</a>
+                                <a href="#_darkMode" >_darkMode</a>
                             </li>
                             <li>
-                                <a href="#accentColor">accentColor</a>
+                                <a href="#accentColor" >accentColor</a>
                             </li>
                             <li>
-                                <a href="#accentColorPalette">accentColorPalette</a>
+                                <a href="#accentColorPalette" >accentColorPalette</a>
                             </li>
                             <li>
-                                <a href="#primaryColor">primaryColor</a>
+                                <a href="#primaryColor" >primaryColor</a>
                             </li>
                             <li>
-                                <a href="#primaryColorPalette">primaryColorPalette</a>
+                                <a href="#primaryColorPalette" >primaryColorPalette</a>
                             </li>
                         </ul>
                     </td>
@@ -102,25 +105,13 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
-                                    <span class="modifier">Private</span>
-                                <a href="#computeColors">computeColors</a>
+                                <a href="#initializeTheme" >initializeTheme</a>
                             </li>
                             <li>
-                                    <span class="modifier">Private</span>
-                                <a href="#getColorObject">getColorObject</a>
+                                <a href="#setAccentColor" >setAccentColor</a>
                             </li>
                             <li>
-                                <a href="#initializeTheme">initializeTheme</a>
-                            </li>
-                            <li>
-                                <a href="#setAccentColor">setAccentColor</a>
-                            </li>
-                            <li>
-                                    <span class="modifier">Private</span>
-                                <a href="#setOverlayClass">setOverlayClass</a>
-                            </li>
-                            <li>
-                                <a href="#setPrimaryColor">setPrimaryColor</a>
+                                <a href="#setPrimaryColor" >setPrimaryColor</a>
                             </li>
                         </ul>
                     </td>
@@ -139,7 +130,7 @@
                         <td class="col-md-4">
                             <ul class="index-list">
                                 <li>
-                                    <a href="#darkMode">darkMode</a>
+                                    <a href="#darkMode" >darkMode</a>
                                 </li>
                             </ul>
                         </td>
@@ -159,7 +150,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">libs/core/theme/src/lib/theme.service.ts:18</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">apps/gblaster/src/app/theme/theme.service.ts:19</a></div>
                             </td>
                         </tr>
 
@@ -206,167 +197,9 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="computeColors"></a>
-                    <span class="name">
-                        <b>
-                            <span class="modifier">Private</span>
-                            computeColors
-                        </b>
-                        <a href="#computeColors"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-                    <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>computeColors(hex: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="95"
-                            class="link-to-prism">libs/core/theme/src/lib/theme.service.ts:95</a></div>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-
-                    <div class="io-description">
-                        <b>Parameters :</b>
-                        <table class="params">
-                            <thead>
-                                <tr>
-                                    <td>Name</td>
-                                    <td>Type</td>
-                                    <td>Optional</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>hex</td>
-                                    <td>
-                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
-                                    </td>
-
-                                    <td>
-                                        No
-                                    </td>
-
-
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div>
-                    </div>
-                    <div class="io-description">
-                        <b>Returns : </b>        <code><a href="../interfaces/Color.html" target="_self" >Color[]</a></code>
-
-                    </div>
-                    <div class="io-description">
-                        
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="getColorObject"></a>
-                    <span class="name">
-                        <b>
-                            <span class="modifier">Private</span>
-                            getColorObject
-                        </b>
-                        <a href="#getColorObject"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-                    <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>getColorObject(value: Instance, name: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="114"
-                            class="link-to-prism">libs/core/theme/src/lib/theme.service.ts:114</a></div>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-
-                    <div class="io-description">
-                        <b>Parameters :</b>
-                        <table class="params">
-                            <thead>
-                                <tr>
-                                    <td>Name</td>
-                                    <td>Type</td>
-                                    <td>Optional</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>value</td>
-                                    <td>
-                                            <code>Instance</code>
-                                    </td>
-
-                                    <td>
-                                        No
-                                    </td>
-
-
-                                </tr>
-                                <tr>
-                                    <td>name</td>
-                                    <td>
-                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
-                                    </td>
-
-                                    <td>
-                                        No
-                                    </td>
-
-
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div>
-                    </div>
-                    <div class="io-description">
-                        <b>Returns : </b>        <code><a href="../interfaces/Color.html" target="_self" >Color</a></code>
-
-                    </div>
-                    <div class="io-description">
-                        
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
                     <a name="initializeTheme"></a>
                     <span class="name">
-                        <b>
-                            initializeTheme
-                        </b>
+                        <span ><b>initializeTheme</b></span>
                         <a href="#initializeTheme"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
@@ -380,8 +213,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="22"
-                            class="link-to-prism">libs/core/theme/src/lib/theme.service.ts:22</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="23"
+                            class="link-to-prism">apps/gblaster/src/app/theme/theme.service.ts:23</a></div>
                 </td>
             </tr>
 
@@ -403,9 +236,7 @@
                 <td class="col-md-4">
                     <a name="setAccentColor"></a>
                     <span class="name">
-                        <b>
-                            setAccentColor
-                        </b>
+                        <span ><b>setAccentColor</b></span>
                         <a href="#setAccentColor"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
@@ -419,8 +250,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="63"
-                            class="link-to-prism">libs/core/theme/src/lib/theme.service.ts:63</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="64"
+                            class="link-to-prism">apps/gblaster/src/app/theme/theme.service.ts:64</a></div>
                 </td>
             </tr>
 
@@ -430,6 +261,7 @@
 
                     <div class="io-description">
                         <b>Parameters :</b>
+                        
                         <table class="params">
                             <thead>
                                 <tr>
@@ -471,52 +303,9 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="setOverlayClass"></a>
-                    <span class="name">
-                        <b>
-                            <span class="modifier">Private</span>
-                            setOverlayClass
-                        </b>
-                        <a href="#setOverlayClass"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-                    <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>setOverlayClass()</code>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="85"
-                            class="link-to-prism">libs/core/theme/src/lib/theme.service.ts:85</a></div>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-
-                    <div class="io-description">
-                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
-
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
                     <a name="setPrimaryColor"></a>
                     <span class="name">
-                        <b>
-                            setPrimaryColor
-                        </b>
+                        <span ><b>setPrimaryColor</b></span>
                         <a href="#setPrimaryColor"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
@@ -530,8 +319,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="42"
-                            class="link-to-prism">libs/core/theme/src/lib/theme.service.ts:42</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="43"
+                            class="link-to-prism">apps/gblaster/src/app/theme/theme.service.ts:43</a></div>
                 </td>
             </tr>
 
@@ -541,6 +330,7 @@
 
                     <div class="io-description">
                         <b>Parameters :</b>
+                        
                         <table class="params">
                             <thead>
                                 <tr>
@@ -581,181 +371,156 @@
 </section>
             <section>
     
-        <h3 id="inputs">
-            Properties
-        </h3>
-        <table class="table table-sm table-bordered">
-            <tbody>
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="_darkMode"></a>
+                    <span class="name">
+                        <span ><b>_darkMode</b></span>
+                        <a href="#_darkMode"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
                 <tr>
                     <td class="col-md-4">
-                        <a name="_darkMode"></a>
-                        <span class="name">
-                            <b>
-                            _darkMode</b>
-                            <a href="#_darkMode"><span class="icon ion-ios-link"></span></a>
-                        </span>
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <b>Decorators : </b>
+                        <br />
+                        <code>
+                            @LocalStorage(&#x27;darkMode&#x27;, undefined)<br />
+                        </code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
-
+                                <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">apps/gblaster/src/app/theme/theme.service.ts:16</a></div>
                         </td>
                     </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <b>Decorators : </b>
-                            <br />
-                            <code>
-                                @LocalStorage(&#x27;darkMode&#x27;, undefined)<br />
-                            </code>
-                        </td>
-                    </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">libs/core/theme/src/lib/theme.service.ts:15</a></div>
-                            </td>
-                        </tr>
 
 
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="accentColor"></a>
+                    <span class="name">
+                        <span ><b>accentColor</b></span>
+                        <a href="#accentColor"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
                 <tr>
                     <td class="col-md-4">
-                        <a name="accentColor"></a>
-                        <span class="name">
-                            <b>
-                            accentColor</b>
-                            <a href="#accentColor"><span class="icon ion-ios-link"></span></a>
-                        </span>
+                        <i>Default value : </i><code>FALLBACK_ACCENT_COLOR</code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
-
+                                <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">apps/gblaster/src/app/theme/theme.service.ts:14</a></div>
                         </td>
                     </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <b>Decorators : </b>
-                            <br />
-                            <code>
-                                @LocalStorage(&#x27;accentColor&#x27;, &#x27;#abd222&#x27;)<br />
-                            </code>
-                        </td>
-                    </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">libs/core/theme/src/lib/theme.service.ts:13</a></div>
-                            </td>
-                        </tr>
 
 
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="accentColorPalette"></a>
+                    <span class="name">
+                        <span ><b>accentColorPalette</b></span>
+                        <a href="#accentColorPalette"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
                 <tr>
                     <td class="col-md-4">
-                        <a name="accentColorPalette"></a>
-                        <span class="name">
-                            <b>
-                            accentColorPalette</b>
-                            <a href="#accentColorPalette"><span class="icon ion-ios-link"></span></a>
-                        </span>
+                        <i>Type : </i>        <code><a href="../interfaces/Color.html" target="_self" >Color[]</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Type : </i>        <code><a href="../interfaces/Color.html" target="_self" >Color[]</a></code>
-
+                                <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">apps/gblaster/src/app/theme/theme.service.ts:19</a></div>
                         </td>
                     </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <i>Default value : </i><code>[]</code>
-                        </td>
-                    </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">libs/core/theme/src/lib/theme.service.ts:18</a></div>
-                            </td>
-                        </tr>
 
 
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="primaryColor"></a>
+                    <span class="name">
+                        <span ><b>primaryColor</b></span>
+                        <a href="#primaryColor"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
                 <tr>
                     <td class="col-md-4">
-                        <a name="primaryColor"></a>
-                        <span class="name">
-                            <b>
-                            primaryColor</b>
-                            <a href="#primaryColor"><span class="icon ion-ios-link"></span></a>
-                        </span>
+                        <i>Default value : </i><code>FALLBACK_PRIMARY_COLOR</code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
-
+                                <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">apps/gblaster/src/app/theme/theme.service.ts:12</a></div>
                         </td>
                     </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <b>Decorators : </b>
-                            <br />
-                            <code>
-                                @LocalStorage(&#x27;primaryColor&#x27;, &#x27;#eb4818&#x27;)<br />
-                            </code>
-                        </td>
-                    </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="11" class="link-to-prism">libs/core/theme/src/lib/theme.service.ts:11</a></div>
-                            </td>
-                        </tr>
 
 
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="primaryColorPalette"></a>
+                    <span class="name">
+                        <span ><b>primaryColorPalette</b></span>
+                        <a href="#primaryColorPalette"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
                 <tr>
                     <td class="col-md-4">
-                        <a name="primaryColorPalette"></a>
-                        <span class="name">
-                            <b>
-                            primaryColorPalette</b>
-                            <a href="#primaryColorPalette"><span class="icon ion-ios-link"></span></a>
-                        </span>
+                        <i>Type : </i>        <code><a href="../interfaces/Color.html" target="_self" >Color[]</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Type : </i>        <code><a href="../interfaces/Color.html" target="_self" >Color[]</a></code>
-
+                                <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">apps/gblaster/src/app/theme/theme.service.ts:18</a></div>
                         </td>
                     </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <i>Default value : </i><code>[]</code>
-                        </td>
-                    </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">libs/core/theme/src/lib/theme.service.ts:17</a></div>
-                            </td>
-                        </tr>
 
 
-            </tbody>
-        </table>
+        </tbody>
+    </table>
 </section>
 
             <section>
@@ -778,7 +543,7 @@
                 </tr>
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">libs/core/theme/src/lib/theme.service.ts:31</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">apps/gblaster/src/app/theme/theme.service.ts:32</a></div>
                                 </td>
                             </tr>
 
@@ -789,7 +554,7 @@
                 </tr>
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="35" class="link-to-prism">libs/core/theme/src/lib/theme.service.ts:35</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="36" class="link-to-prism">apps/gblaster/src/app/theme/theme.service.ts:36</a></div>
                                 </td>
                             </tr>
                     <tr>
@@ -838,17 +603,18 @@
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable } from &#x27;@angular/core&#x27;;
 import { Meta } from &#x27;@angular/platform-browser&#x27;;
+import { TinyColor } from &#x27;@thebespokepixel/es-tinycolor&#x27;;
 import { LocalStorage } from &#x27;ngx-webstorage&#x27;;
-import tinycolor, { Instance } from &#x27;tinycolor2&#x27;;
 import { Color } from &#x27;./theme.types&#x27;;
+import { FALLBACK_ACCENT_COLOR, FALLBACK_PRIMARY_COLOR } from &#x27;./default-colors&#x27;;
 
 @Injectable({
   providedIn: &#x27;root&#x27;
 })
 export class ThemeService {
-  @LocalStorage(&#x27;primaryColor&#x27;, &#x27;#eb4818&#x27;) primaryColor!: string;
+  primaryColor &#x3D; FALLBACK_PRIMARY_COLOR;
 
-  @LocalStorage(&#x27;accentColor&#x27;, &#x27;#abd222&#x27;) accentColor!: string;
+  accentColor &#x3D; FALLBACK_ACCENT_COLOR;
 
   @LocalStorage(&#x27;darkMode&#x27;, true) _darkMode!: boolean;
 
@@ -858,7 +624,7 @@ export class ThemeService {
   constructor(private meta: Meta) {}
 
   initializeTheme() {
-    if (window.matchMedia(&#x27;prefers-color-scheme: dark&#x27;).matches) {
+    if (window.matchMedia(&#x27;(prefers-color-scheme: dark)&#x27;).matches) {
       this._darkMode &#x3D; true;
     }
     this.setOverlayClass();
@@ -873,13 +639,13 @@ export class ThemeService {
   set darkMode(darkMode: boolean) {
     this._darkMode &#x3D; darkMode;
     this.setOverlayClass();
-    this.setPrimaryColor();
-    this.setAccentColor();
+    // this.setPrimaryColor();
+    // this.setAccentColor();
   }
 
   setPrimaryColor(color?: string) {
     if (!color) {
-      return;
+      this.primaryColor &#x3D; FALLBACK_PRIMARY_COLOR;
     } else {
       this.primaryColor &#x3D; color;
     }
@@ -899,7 +665,9 @@ export class ThemeService {
   }
 
   setAccentColor(color?: string) {
-    if (color) {
+    if (!color) {
+      this.accentColor &#x3D; FALLBACK_ACCENT_COLOR;
+    } else {
       this.accentColor &#x3D; color;
     }
     this.accentColorPalette &#x3D; this.computeColors(this.accentColor);
@@ -914,7 +682,7 @@ export class ThemeService {
 
       if (clr.name &#x3D;&#x3D;&#x3D; &#x27;500&#x27;) {
         const key3 &#x3D; &#x60;--theme-accent-light&#x60;;
-        const value3 &#x3D; tinycolor(clr.hex).setAlpha(0.54).toRgbString();
+        const value3 &#x3D; new TinyColor(clr.hex).setAlpha(0.54).toRgbString();
         document.documentElement.style.setProperty(key3, value3);
       }
     }
@@ -932,29 +700,29 @@ export class ThemeService {
 
   private computeColors(hex: string): Color[] {
     return [
-      this.getColorObject(tinycolor(hex).lighten(52), &#x27;50&#x27;),
-      this.getColorObject(tinycolor(hex).lighten(37), &#x27;100&#x27;),
-      this.getColorObject(tinycolor(hex).lighten(26), &#x27;200&#x27;),
-      this.getColorObject(tinycolor(hex).lighten(12), &#x27;300&#x27;),
-      this.getColorObject(tinycolor(hex).lighten(6), &#x27;400&#x27;),
-      this.getColorObject(tinycolor(hex), &#x27;500&#x27;),
-      this.getColorObject(tinycolor(hex).darken(6), &#x27;600&#x27;),
-      this.getColorObject(tinycolor(hex).darken(12), &#x27;700&#x27;),
-      this.getColorObject(tinycolor(hex).darken(18), &#x27;800&#x27;),
-      this.getColorObject(tinycolor(hex).darken(24), &#x27;900&#x27;),
-      this.getColorObject(tinycolor(hex).lighten(50).saturate(30), &#x27;A100&#x27;),
-      this.getColorObject(tinycolor(hex).lighten(30).saturate(30), &#x27;A200&#x27;),
-      this.getColorObject(tinycolor(hex).lighten(10).saturate(15), &#x27;A400&#x27;),
-      this.getColorObject(tinycolor(hex).lighten(5).saturate(5), &#x27;A700&#x27;)
+      this.getColorObject(new TinyColor(hex).lighten(52), &#x27;50&#x27;),
+      this.getColorObject(new TinyColor(hex).lighten(37), &#x27;100&#x27;),
+      this.getColorObject(new TinyColor(hex).lighten(26), &#x27;200&#x27;),
+      this.getColorObject(new TinyColor(hex).lighten(12), &#x27;300&#x27;),
+      this.getColorObject(new TinyColor(hex).lighten(6), &#x27;400&#x27;),
+      this.getColorObject(new TinyColor(hex), &#x27;500&#x27;),
+      this.getColorObject(new TinyColor(hex).darken(6), &#x27;600&#x27;),
+      this.getColorObject(new TinyColor(hex).darken(12), &#x27;700&#x27;),
+      this.getColorObject(new TinyColor(hex).darken(18), &#x27;800&#x27;),
+      this.getColorObject(new TinyColor(hex).darken(24), &#x27;900&#x27;),
+      this.getColorObject(new TinyColor(hex).lighten(50).saturate(30), &#x27;A100&#x27;),
+      this.getColorObject(new TinyColor(hex).lighten(30).saturate(30), &#x27;A200&#x27;),
+      this.getColorObject(new TinyColor(hex).lighten(10).saturate(15), &#x27;A400&#x27;),
+      this.getColorObject(new TinyColor(hex).lighten(5).saturate(5), &#x27;A700&#x27;)
     ];
   }
 
-  private getColorObject(value: Instance, name: string): Color {
-    const color &#x3D; tinycolor(value);
+  private getColorObject(value: TinyColor, name: string): Color {
+    const color &#x3D; new TinyColor(value);
     const lightnessLimit &#x3D; this.darkMode ? 150 : 200;
     return {
       name: name,
-      hex: color.toHexString(),
+      hex: color.toHexString(false),
       darkContrast: color.getBrightness() &gt; lightnessLimit
       // darkContrast: c.isLight()
     };
@@ -971,14 +739,15 @@ export class ThemeService {
 
 
 
-                   
+
+
 
 
 
 
                    </div><div class="search-results">
     <div class="has-results">
-        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
         <ul class="search-results-list"></ul>
     </div>
     <div class="no-results">
@@ -990,6 +759,15 @@ export class ThemeService {
            </div>
        </div>
 
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
        <script>
             var COMPODOC_CURRENT_PAGE_DEPTH = 1;
             var COMPODOC_CURRENT_PAGE_CONTEXT = 'injectable';
@@ -999,9 +777,9 @@ export class ThemeService {
 
        <script src="../js/libs/custom-elements.min.js"></script>
        <script src="../js/libs/lit-html.js"></script>
-       <!-- Required to polyfill modern browsers as code is ES5 for IE... -->
-       <script src="../js/libs/custom-elements-es5-adapter.js" charset="utf-8" defer></script>
+
        <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
 
        <script src="../js/libs/bootstrap-native.js"></script>
 

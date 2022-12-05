@@ -3,17 +3,18 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>motabass documentation</title>
+        <title>motabass</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
-	      <link rel="stylesheet" href="../styles/style.css">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
     </head>
     <body>
 
         <div class="navbar navbar-default navbar-fixed-top visible-xs">
-            <a href="../" class="navbar-brand">motabass documentation</a>
+            <a href="../" class="navbar-brand">motabass</a>
             <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
         </div>
 
@@ -36,9 +37,10 @@
 
 
 
+
 <ol class="breadcrumb">
   <li>Injectables</li>
-  <li>MusicbrainzService</li>
+  <li >MusicbrainzService</li>
 </ol>
 
 <ul class="nav nav-tabs" role="tablist">
@@ -56,8 +58,9 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>libs/player/src/lib/metadata-service/musicbrainz.service.ts</code>
+            <code>apps/gblaster/src/app/player/metadata-service/musicbrainz.service.ts</code>
         </p>
+
 
 
 
@@ -77,7 +80,7 @@
                         <ul class="index-list">
                             <li>
                                     <span class="modifier">Async</span>
-                                <a href="#getCoverPicture">getCoverPicture</a>
+                                <a href="#getCoverPicture" >getCoverPicture</a>
                             </li>
                         </ul>
                     </td>
@@ -102,7 +105,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="8" class="link-to-prism">libs/player/src/lib/metadata-service/musicbrainz.service.ts:8</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="9" class="link-to-prism">apps/gblaster/src/app/player/metadata-service/musicbrainz.service.ts:9</a></div>
                             </td>
                         </tr>
 
@@ -151,10 +154,8 @@
                 <td class="col-md-4">
                     <a name="getCoverPicture"></a>
                     <span class="name">
-                        <b>
-                            <span class="modifier">Async</span>
-                            getCoverPicture
-                        </b>
+                        <span class="modifier">Async</span>
+                        <span ><b>getCoverPicture</b></span>
                         <a href="#getCoverPicture"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
@@ -162,15 +163,15 @@
             <tr>
                 <td class="col-md-4">
                     <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>getCoverPicture(tags: <a href="../interfaces/Id3Tags.html">Id3Tags</a>)</code>
+                    <code>getCoverPicture(tags: <a href="../interfaces/Id3Tags.html" target="_self">Id3Tags</a>)</code>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="11"
-                            class="link-to-prism">libs/player/src/lib/metadata-service/musicbrainz.service.ts:11</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="12"
+                            class="link-to-prism">apps/gblaster/src/app/player/metadata-service/musicbrainz.service.ts:12</a></div>
                 </td>
             </tr>
 
@@ -180,6 +181,7 @@
 
                     <div class="io-description">
                         <b>Parameters :</b>
+                        
                         <table class="params">
                             <thead>
                                 <tr>
@@ -226,6 +228,7 @@
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { HttpClient } from &#x27;@angular/common/http&#x27;;
 import { Injectable } from &#x27;@angular/core&#x27;;
 import luceneEscapeQuery from &#x27;lucene-escape-query&#x27;;
+import { firstValueFrom } from &#x27;rxjs&#x27;;
 import { Id3Tags } from &#x27;./id3-tags.types&#x27;;
 import { RemoteCoverPicture } from &#x27;./metadata.types&#x27;;
 
@@ -235,30 +238,41 @@ export class MusicbrainzService {
 
   async getCoverPicture(tags: Id3Tags): Promise&lt;RemoteCoverPicture | undefined&gt; {
     if (tags.artist &amp;&amp; tags.album) {
-      let query &#x3D; &#x60;release:${luceneEscapeQuery.escape(tags.album)} AND artist:${luceneEscapeQuery.escape(tags.artist)}&#x60;;
-      query +&#x3D; tags.track?.of ? &#x60; AND tracks:${tags.track.of}&#x60; : &#x27;&#x27;;
-      const url &#x3D; &#x60;https://musicbrainz.org/ws/2/release/?query&#x3D;${query}&amp;limit&#x3D;10&amp;fmt&#x3D;json&#x60;;
-
-      const data: any &#x3D; await this.http.get(url).toPromise();
-
-      if (!data.releases.length) {
-        return;
-      }
-
-      const id &#x3D; data.releases[0].id;
-      let coverData: any;
+      const query &#x3D; &#x60;release:${luceneEscapeQuery.escape(tags.album)} AND artist:${luceneEscapeQuery.escape(tags.artist)} AND primarytype:Album&#x60;;
+      const url &#x3D; &#x60;https://musicbrainz.org/ws/2/release-group?query&#x3D;${query}&amp;limit&#x3D;5&amp;fmt&#x3D;json&#x60;;
+      // TODO: type response
       try {
-        coverData &#x3D; await this.http.get(&#x60;https://coverartarchive.org/release/${id}&#x60;).toPromise();
-      } catch (e) {
+        const data: any &#x3D; await firstValueFrom(this.http.get(url));
+        if (!data[&#x27;release-groups&#x27;]?.length) {
+          return;
+        }
+
+        const id &#x3D; data[&#x27;release-groups&#x27;][0].id;
+        // const data2: any &#x3D; await this.http.get(&#x60;https://musicbrainz.org/ws/2/release-group/${id}?fmt&#x3D;json&amp;inc&#x3D;releases+artists&#x60;).toPromise();
+        // // TODO: type response
+        //
+        // if (!data2[&#x27;cover-art-archive&#x27;]?.front) {
+        //   console.warn(&#x27;Kein Cover vorhanden&#x27;);
+        //   return;
+        // }
+        let coverData: any;
+        try {
+          coverData &#x3D; await firstValueFrom(this.http.get(&#x60;https://coverartarchive.org/release-group/${id}&#x60;));
+        } catch (e) {
+          console.error(&#x27;Kein Cover mit der ID gefunden&#x27;);
+          return;
+        }
+
+        const coverImage &#x3D; coverData.images.find((image: any) &#x3D;&gt; image.front &#x3D;&#x3D;&#x3D; true);
+        const thumbUrl: string &#x3D; coverImage.thumbnails[&#x27;500&#x27;];
+        const coverUrl: string &#x3D; coverImage.image;
+
+        return { thumb: thumbUrl.replace(&#x27;http://&#x27;, &#x27;https://&#x27;), original: coverUrl.replace(&#x27;http://&#x27;, &#x27;https://&#x27;) };
+      } catch (err) {
+        console.warn(&#x27;Konnte MusicBrainz nicht abfragen&#x27;, err);
         return;
       }
-
-      const thumbUrl: string &#x3D; coverData.images[0].thumbnails.small;
-      const coverUrl: string &#x3D; coverData.images[0].image;
-
-      return { thumb: thumbUrl.replace(&#x27;http://&#x27;, &#x27;https://&#x27;), original: coverUrl.replace(&#x27;http://&#x27;, &#x27;https://&#x27;) };
     }
-
     return;
   }
 }
@@ -273,14 +287,15 @@ export class MusicbrainzService {
 
 
 
-                   
+
+
 
 
 
 
                    </div><div class="search-results">
     <div class="has-results">
-        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
         <ul class="search-results-list"></ul>
     </div>
     <div class="no-results">
@@ -292,6 +307,15 @@ export class MusicbrainzService {
            </div>
        </div>
 
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
        <script>
             var COMPODOC_CURRENT_PAGE_DEPTH = 1;
             var COMPODOC_CURRENT_PAGE_CONTEXT = 'injectable';
@@ -301,9 +325,9 @@ export class MusicbrainzService {
 
        <script src="../js/libs/custom-elements.min.js"></script>
        <script src="../js/libs/lit-html.js"></script>
-       <!-- Required to polyfill modern browsers as code is ES5 for IE... -->
-       <script src="../js/libs/custom-elements-es5-adapter.js" charset="utf-8" defer></script>
+
        <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
 
        <script src="../js/libs/bootstrap-native.js"></script>
 

@@ -9,7 +9,8 @@
     "material-helpers-mat-icon-size": "libs/material-helpers/mat-icon-size",
     "ui-components-dialogs": "libs/ui-components/dialogs",
     "ui-components-file-drop-overlay": "libs/ui-components/file-drop-overlay",
-    "ui-components-slide-panel": "libs/ui-components/slide-panel"
+    "ui-components-slide-panel": "libs/ui-components/slide-panel",
+    "workspace": "libs/workspace"
   },
   "$schema": "./node_modules/nx/schemas/workspace-schema.json"
 }

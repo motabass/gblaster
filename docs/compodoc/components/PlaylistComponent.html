@@ -3,17 +3,18 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>motabass documentation</title>
+        <title>motabass</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
-	      <link rel="stylesheet" href="../styles/style.css">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
     </head>
     <body>
 
         <div class="navbar navbar-default navbar-fixed-top visible-xs">
-            <a href="../" class="navbar-brand">motabass documentation</a>
+            <a href="../" class="navbar-brand">motabass</a>
             <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
         </div>
 
@@ -35,7 +36,9 @@
 
 <ol class="breadcrumb">
   <li>Components</li>
-  <li>PlaylistComponent</li>
+  <li
+  >
+  PlaylistComponent</li>
 </ol>
 
 <ul class="nav nav-tabs" role="tablist">
@@ -61,8 +64,9 @@
     <h3>File</h3>
 </p>
 <p class="comment">
-    <code>libs/player/src/lib/playlist/playlist.component.ts</code>
+    <code>apps/gblaster/src/app/player/playlist/playlist.component.ts</code>
 </p>
+
 
 
 
@@ -70,7 +74,7 @@
 
 <section>
     <h3>Metadata</h3>
-    <table class="table table-sm table-hover">
+    <table class="table table-sm table-hover metadata">
         <tbody>
 
             <tr>
@@ -129,26 +133,26 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
-                                <a href="#isPlaying">isPlaying</a>
+                                <a href="#drop" >drop</a>
                             </li>
                             <li>
-                                <a href="#isPlayingSong">isPlayingSong</a>
+                                <a href="#isPlaying" >isPlaying</a>
                             </li>
                             <li>
-                                <a href="#isSelected">isSelected</a>
+                                <a href="#isPlayingSong" >isPlayingSong</a>
                             </li>
                             <li>
-                                <a href="#playlistTrackFunction">playlistTrackFunction</a>
+                                <a href="#isSelected" >isSelected</a>
+                            </li>
+                            <li>
+                                <a href="#playlistTrackFunction" >playlistTrackFunction</a>
                             </li>
                             <li>
                                     <span class="modifier">Async</span>
-                                <a href="#playPauseSong">playPauseSong</a>
+                                <a href="#playPauseSong" >playPauseSong</a>
                             </li>
                             <li>
-                                <a href="#sanitizeCoverUrl">sanitizeCoverUrl</a>
-                            </li>
-                            <li>
-                                <a href="#selectSong">selectSong</a>
+                                <a href="#selectSong" >selectSong</a>
                             </li>
                         </ul>
                     </td>
@@ -167,19 +171,31 @@
                         <td class="col-md-4">
                             <ul class="index-list">
                                 <li>
-                                    <a href="#visualMode">visualMode</a>
+                                    <a href="#isLoading" >isLoading</a>
                                 </li>
                                 <li>
-                                    <a href="#songs">songs</a>
+                                    <a href="#visualMode" >visualMode</a>
                                 </li>
                                 <li>
-                                    <a href="#playingSong">playingSong</a>
+                                    <a href="#songs" >songs</a>
                                 </li>
                                 <li>
-                                    <a href="#selectedSong">selectedSong</a>
+                                    <a href="#playingSong" >playingSong</a>
                                 </li>
                                 <li>
-                                    <a href="#analyser">analyser</a>
+                                    <a href="#selectedSong" >selectedSong</a>
+                                </li>
+                                <li>
+                                    <a href="#analyser" >analyser</a>
+                                </li>
+                                <li>
+                                    <a href="#colorConfig" >colorConfig</a>
+                                </li>
+                                <li>
+                                    <a href="#mainColor" >mainColor</a>
+                                </li>
+                                <li>
+                                    <a href="#peakColor" >peakColor</a>
                                 </li>
                             </ul>
                         </td>
@@ -194,12 +210,12 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(playerService: <a href="../injectables/PlayerService.html">PlayerService</a>, visualsService: <a href="../injectables/VisualsService.html">VisualsService</a>, domSanitizer: <a href="https://angular.io/api/platform-browser/DomSanitizer" target="_blank">DomSanitizer</a>)</code>
+<code>constructor(playerService: <a href="../injectables/PlayerService.html" target="_self">PlayerService</a>, visualsService: <a href="../injectables/VisualsService.html" target="_self">VisualsService</a>, loaderService: <a href="../injectables/LoaderService.html" target="_self">LoaderService</a>)</code>
                     </td>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">libs/player/src/lib/playlist/playlist.component.ts:13</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">apps/gblaster/src/app/player/playlist/playlist.component.ts:16</a></div>
                             </td>
                         </tr>
 
@@ -241,10 +257,10 @@
                                                     
                                                 </tr>
                                                 <tr>
-                                                        <td>domSanitizer</td>
+                                                        <td>loaderService</td>
                                                   
                                                         <td>
-                                                                        <code><a href="https://angular.io/api/platform-browser/DomSanitizer" target="_blank" >DomSanitizer</a></code>
+                                                                        <code><a href="../injectables/LoaderService.html" target="_self" >LoaderService</a></code>
                                                         </td>
                                                   
                                                     <td>
@@ -274,26 +290,24 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="isPlaying"></a>
+                    <a name="drop"></a>
                     <span class="name">
-                        <b>
-                            isPlaying
-                        </b>
-                        <a href="#isPlaying"><span class="icon ion-ios-link"></span></a>
+                        <span ><b>drop</b></span>
+                        <a href="#drop"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>isPlaying(song: <a href="../interfaces/Song.html">Song</a>)</code>
+<code>drop(event: <a href="../interfaces/Song.html" target="_self">CdkDragDrop&lt;Song&gt;</a>)</code>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="31"
-                            class="link-to-prism">libs/player/src/lib/playlist/playlist.component.ts:31</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="92"
+                            class="link-to-prism">apps/gblaster/src/app/player/playlist/playlist.component.ts:92</a></div>
                 </td>
             </tr>
 
@@ -303,6 +317,76 @@
 
                     <div class="io-description">
                         <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>event</td>
+                                    <td>
+                                                <code><a href="../interfaces/Song.html" target="_self" >CdkDragDrop&lt;Song&gt;</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isPlaying"></a>
+                    <span class="name">
+                        <span ><b>isPlaying</b></span>
+                        <a href="#isPlaying"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>isPlaying(song: <a href="../interfaces/Song.html" target="_self">Song</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="38"
+                            class="link-to-prism">apps/gblaster/src/app/player/playlist/playlist.component.ts:38</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
                         <table class="params">
                             <thead>
                                 <tr>
@@ -346,24 +430,22 @@
                 <td class="col-md-4">
                     <a name="isPlayingSong"></a>
                     <span class="name">
-                        <b>
-                            isPlayingSong
-                        </b>
+                        <span ><b>isPlayingSong</b></span>
                         <a href="#isPlayingSong"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>isPlayingSong(song: <a href="../interfaces/Song.html">Song</a>)</code>
+<code>isPlayingSong(song: <a href="../interfaces/Song.html" target="_self">Song</a>)</code>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="42"
-                            class="link-to-prism">libs/player/src/lib/playlist/playlist.component.ts:42</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="49"
+                            class="link-to-prism">apps/gblaster/src/app/player/playlist/playlist.component.ts:49</a></div>
                 </td>
             </tr>
 
@@ -373,6 +455,7 @@
 
                     <div class="io-description">
                         <b>Parameters :</b>
+                        
                         <table class="params">
                             <thead>
                                 <tr>
@@ -416,24 +499,22 @@
                 <td class="col-md-4">
                     <a name="isSelected"></a>
                     <span class="name">
-                        <b>
-                            isSelected
-                        </b>
+                        <span ><b>isSelected</b></span>
                         <a href="#isSelected"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>isSelected(song: <a href="../interfaces/Song.html">Song</a>)</code>
+<code>isSelected(song: <a href="../interfaces/Song.html" target="_self">Song</a>)</code>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="50"
-                            class="link-to-prism">libs/player/src/lib/playlist/playlist.component.ts:50</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="57"
+                            class="link-to-prism">apps/gblaster/src/app/player/playlist/playlist.component.ts:57</a></div>
                 </td>
             </tr>
 
@@ -443,6 +524,7 @@
 
                     <div class="io-description">
                         <b>Parameters :</b>
+                        
                         <table class="params">
                             <thead>
                                 <tr>
@@ -486,24 +568,22 @@
                 <td class="col-md-4">
                     <a name="playlistTrackFunction"></a>
                     <span class="name">
-                        <b>
-                            playlistTrackFunction
-                        </b>
+                        <span ><b>playlistTrackFunction</b></span>
                         <a href="#playlistTrackFunction"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>playlistTrackFunction(index: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, song: <a href="../interfaces/Song.html">Song</a>)</code>
+<code>playlistTrackFunction(index: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, song: <a href="../interfaces/Song.html" target="_self">Song</a>)</code>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="71"
-                            class="link-to-prism">libs/player/src/lib/playlist/playlist.component.ts:71</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="74"
+                            class="link-to-prism">apps/gblaster/src/app/player/playlist/playlist.component.ts:74</a></div>
                 </td>
             </tr>
 
@@ -513,6 +593,7 @@
 
                     <div class="io-description">
                         <b>Parameters :</b>
+                        
                         <table class="params">
                             <thead>
                                 <tr>
@@ -568,10 +649,8 @@
                 <td class="col-md-4">
                     <a name="playPauseSong"></a>
                     <span class="name">
-                        <b>
-                            <span class="modifier">Async</span>
-                            playPauseSong
-                        </b>
+                        <span class="modifier">Async</span>
+                        <span ><b>playPauseSong</b></span>
                         <a href="#playPauseSong"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
@@ -579,15 +658,15 @@
             <tr>
                 <td class="col-md-4">
                     <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>playPauseSong(event: <a href="https://angular.io/api/router/Event" target="_blank">Event</a>, song: <a href="../interfaces/Song.html">Song</a>)</code>
+                    <code>playPauseSong(event: <a href="https://angular.io/api/router/Event" target="_blank">Event</a>, song: <a href="../interfaces/Song.html" target="_self">Song</a>)</code>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="58"
-                            class="link-to-prism">libs/player/src/lib/playlist/playlist.component.ts:58</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="65"
+                            class="link-to-prism">apps/gblaster/src/app/player/playlist/playlist.component.ts:65</a></div>
                 </td>
             </tr>
 
@@ -597,6 +676,7 @@
 
                     <div class="io-description">
                         <b>Parameters :</b>
+                        
                         <table class="params">
                             <thead>
                                 <tr>
@@ -650,96 +730,24 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="sanitizeCoverUrl"></a>
-                    <span class="name">
-                        <b>
-                            sanitizeCoverUrl
-                        </b>
-                        <a href="#sanitizeCoverUrl"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-<code>sanitizeCoverUrl(url: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="67"
-                            class="link-to-prism">libs/player/src/lib/playlist/playlist.component.ts:67</a></div>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-
-                    <div class="io-description">
-                        <b>Parameters :</b>
-                        <table class="params">
-                            <thead>
-                                <tr>
-                                    <td>Name</td>
-                                    <td>Type</td>
-                                    <td>Optional</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>url</td>
-                                    <td>
-                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
-                                    </td>
-
-                                    <td>
-                                        No
-                                    </td>
-
-
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div>
-                    </div>
-                    <div class="io-description">
-                        <b>Returns : </b>        <code><a href="https://angular.io/api/platform-browser/SafeUrl" target="_blank" >SafeUrl</a></code>
-
-                    </div>
-                    <div class="io-description">
-                        
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
                     <a name="selectSong"></a>
                     <span class="name">
-                        <b>
-                            selectSong
-                        </b>
+                        <span ><b>selectSong</b></span>
                         <a href="#selectSong"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>selectSong(song: <a href="../interfaces/Song.html">Song</a>)</code>
+<code>selectSong(song: <a href="../interfaces/Song.html" target="_self">Song</a>)</code>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="54"
-                            class="link-to-prism">libs/player/src/lib/playlist/playlist.component.ts:54</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="61"
+                            class="link-to-prism">apps/gblaster/src/app/player/playlist/playlist.component.ts:61</a></div>
                 </td>
             </tr>
 
@@ -749,6 +757,7 @@
 
                     <div class="io-description">
                         <b>Parameters :</b>
+                        
                         <table class="params">
                             <thead>
                                 <tr>
@@ -796,6 +805,28 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
+                        <a name="isLoading"></a>
+                        <span class="name"><b>isLoading</b><a href="#isLoading"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>isLoading()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">apps/gblaster/src/app/player/playlist/playlist.component.ts:19</a></div>
+                                </td>
+                            </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
                         <a name="visualMode"></a>
                         <span class="name"><b>visualMode</b><a href="#visualMode"><span class="icon ion-ios-link"></span></a></span>
                     </td>
@@ -808,7 +839,7 @@
                 </tr>
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">libs/player/src/lib/playlist/playlist.component.ts:16</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="23" class="link-to-prism">apps/gblaster/src/app/player/playlist/playlist.component.ts:23</a></div>
                                 </td>
                             </tr>
 
@@ -830,7 +861,7 @@
                 </tr>
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="20" class="link-to-prism">libs/player/src/lib/playlist/playlist.component.ts:20</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="27" class="link-to-prism">apps/gblaster/src/app/player/playlist/playlist.component.ts:27</a></div>
                                 </td>
                             </tr>
 
@@ -852,7 +883,7 @@
                 </tr>
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="38" class="link-to-prism">libs/player/src/lib/playlist/playlist.component.ts:38</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="45" class="link-to-prism">apps/gblaster/src/app/player/playlist/playlist.component.ts:45</a></div>
                                 </td>
                             </tr>
 
@@ -874,7 +905,7 @@
                 </tr>
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="46" class="link-to-prism">libs/player/src/lib/playlist/playlist.component.ts:46</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="53" class="link-to-prism">apps/gblaster/src/app/player/playlist/playlist.component.ts:53</a></div>
                                 </td>
                             </tr>
 
@@ -896,7 +927,73 @@
                 </tr>
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="63" class="link-to-prism">libs/player/src/lib/playlist/playlist.component.ts:63</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="70" class="link-to-prism">apps/gblaster/src/app/player/playlist/playlist.component.ts:70</a></div>
+                                </td>
+                            </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="colorConfig"></a>
+                        <span class="name"><b>colorConfig</b><a href="#colorConfig"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>colorConfig()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="78" class="link-to-prism">apps/gblaster/src/app/player/playlist/playlist.component.ts:78</a></div>
+                                </td>
+                            </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="mainColor"></a>
+                        <span class="name"><b>mainColor</b><a href="#mainColor"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>mainColor()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="82" class="link-to-prism">apps/gblaster/src/app/player/playlist/playlist.component.ts:82</a></div>
+                                </td>
+                            </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="peakColor"></a>
+                        <span class="name"><b>peakColor</b><a href="#peakColor"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>peakColor()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="87" class="link-to-prism">apps/gblaster/src/app/player/playlist/playlist.component.ts:87</a></div>
                                 </td>
                             </tr>
 
@@ -907,11 +1004,14 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ChangeDetectionStrategy, Component } from &#x27;@angular/core&#x27;;
-import { DomSanitizer, SafeUrl } from &#x27;@angular/platform-browser&#x27;;
-import { VisualizerMode, VisualsService } from &#x27;@motabass/ui-components/visuals&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { CdkDragDrop, moveItemInArray } from &#x27;@angular/cdk/drag-drop&#x27;;
+import { ChangeDetectionStrategy, Component } from &#x27;@angular/core&#x27;;
 import { PlayerService } from &#x27;../player.service&#x27;;
 import { Song } from &#x27;../player.types&#x27;;
+import { Observable } from &#x27;rxjs&#x27;;
+import { VisualsService } from &#x27;../visualizer/visuals/visuals.service&#x27;;
+import { VisualizerMode, VisualsColorConfig } from &#x27;../visualizer/visuals/visuals.types&#x27;;
+import { LoaderService } from &#x27;../../services/loader/loader.service&#x27;;
 
 @Component({
   selector: &#x27;mtb-playlist&#x27;,
@@ -920,21 +1020,25 @@ import { Song } from &#x27;../player.types&#x27;;
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PlaylistComponent {
-  constructor(private playerService: PlayerService, private visualsService: VisualsService, private domSanitizer: DomSanitizer) {}
+  constructor(private playerService: PlayerService, private visualsService: VisualsService, private loaderService: LoaderService) {}
+
+  get isLoading(): Observable&lt;boolean&gt; {
+    return this.loaderService.isLoading;
+  }
 
   get visualMode(): VisualizerMode {
     return this.visualsService.visualMode;
   }
 
   get songs(): Song[] {
-    for (const [i, v] of this.playerService.songs.entries()) {
+    for (const [i, v] of this.playerService.currentPlaylist.entries()) {
       v.playlistPosition &#x3D; i + 1;
     }
 
-    if (!this.selectedSong &amp;&amp; this.playerService.songs.length) {
-      this.selectSong(this.playerService.songs[0]);
+    if (!this.selectedSong &amp;&amp; this.playerService.currentPlaylist.length) {
+      this.selectSong(this.playerService.currentPlaylist[0]);
     }
-    return this.playerService.songs;
+    return this.playerService.currentPlaylist;
   }
 
   isPlaying(song: Song): boolean {
@@ -973,51 +1077,71 @@ export class PlaylistComponent {
     return this.playerService.analyser;
   }
 
-  sanitizeCoverUrl(url: string): SafeUrl {
-    return this.domSanitizer.bypassSecurityTrustUrl(url);
-  }
-
   playlistTrackFunction(index: number, song: Song) {
     return song.metadata?.crc;
+  }
+
+  get colorConfig(): VisualsColorConfig {
+    return { mainColor: this.mainColor, peakColor: this.peakColor };
+  }
+
+  get mainColor(): string | undefined {
+    const color &#x3D; this.playingSong?.metadata?.coverColors?.darkVibrant?.hex;
+    return color ? color : undefined;
+  }
+
+  get peakColor(): string | undefined {
+    const color &#x3D; this.playingSong?.metadata?.coverColors?.lightVibrant?.hex;
+    return color ? color : undefined;
+  }
+
+  drop(event: CdkDragDrop&lt;Song&gt;) {
+    moveItemInArray(this.songs, event.previousIndex, event.currentIndex);
   }
 }
 </code></pre>
     </div>
 
     <div class="tab-pane fade " id="c-templateData">
-        <pre class="line-numbers"><code class="language-html">&lt;mat-action-list dense class&#x3D;&quot;pl&quot; *mobxAutorun&gt;
+        <pre class="line-numbers"><code class="language-html">&lt;mat-action-list cdkDropList [cdkDropListDisabled]&#x3D;&quot;isLoading | async&quot; (cdkDropListDropped)&#x3D;&quot;drop($event)&quot; dense class&#x3D;&quot;pl&quot; *mobxAutorun&gt;
   &lt;mat-list-item
+    cdkDrag
     *ngFor&#x3D;&quot;let song of songs; let index &#x3D; index; trackBy: playlistTrackFunction&quot;
     [ngClass]&#x3D;&quot;{ selected: isSelected(song) }&quot;
     class&#x3D;&quot;playlist-item&quot;
     (dblclick)&#x3D;&quot;playPauseSong($event, song)&quot;
     (click)&#x3D;&quot;selectSong(song)&quot;
   &gt;
-    &lt;img
-      *ngIf&#x3D;&quot;song &amp;&amp; song.metadata &amp;&amp; song.metadata.coverUrl &amp;&amp; (!isPlayingSong(song) || visualMode &#x3D;&#x3D;&#x3D; &#x27;off&#x27;)&quot;
-      style&#x3D;&quot;border-radius: 3px;&quot;
-      mat-list-avatar
-      [src]&#x3D;&quot;sanitizeCoverUrl(song.metadata.coverUrl.thumb)&quot;
-      alt&#x3D;&quot;cover art&quot;
-    /&gt;
-    &lt;canvas
-      *ngIf&#x3D;&quot;isPlayingSong(song) &amp;&amp; isPlaying(song) &amp;&amp; visualMode !&#x3D;&#x3D; &#x27;off&#x27;&quot;
-      [mode]&#x3D;&quot;visualMode&quot;
-      mat-list-avatar
-      style&#x3D;&quot;border-radius: 3px; width: 2rem; height: 2rem; object-fit: fill; box-sizing: border-box;&quot;
-      [mtbVisual]&#x3D;&quot;analyser&quot;
-      [barsConfig]&#x3D;&quot;{ capHeight: 0, barCount: 8, gap: 0, capFalldown: 0 }&quot;
-    &gt;&lt;/canvas&gt;
-    &lt;h3 matLine style&#x3D;&quot;font-size: 0.9rem; font-weight: bold;&quot;&gt;{{ song?.metadata?.title || song.file.name }}&lt;/h3&gt;
-    &lt;p matLine style&#x3D;&quot;font-size: 0.8rem;&quot;&gt;{{ song?.metadata?.artist }}&lt;/p&gt;
+    &lt;span *cdkDragPreview&gt;&lt;/span&gt;
+    &lt;div cdkDragHandle mat-list-avatar style&#x3D;&quot;overflow: hidden; border-radius: 4px; position: relative; width: 50px; height: 50px&quot;&gt;
+      &lt;img
+        *ngIf&#x3D;&quot;song &amp;&amp; song.metadata &amp;&amp; song.metadata.coverUrl&quot;
+        style&#x3D;&quot;position: absolute; top: 0; right: 0; bottom: 0; left: 0; width: 100%; height: 100%&quot;
+        [src]&#x3D;&quot;song.metadata.coverUrl.thumb | safe : &#x27;resourceUrl&#x27;&quot;
+        loading&#x3D;&quot;lazy&quot;
+      /&gt;
+      &lt;canvas
+        *ngIf&#x3D;&quot;isPlayingSong(song) &amp;&amp; isPlaying(song) &amp;&amp; visualMode !&#x3D;&#x3D; &#x27;off&#x27;&quot;
+        [mode]&#x3D;&quot;visualMode&quot;
+        style&#x3D;&quot;position: absolute; right: 0; bottom: 0; left: 0; width: 100%; height: 300%&quot;
+        [style.height.%]&#x3D;&quot;visualMode &#x3D;&#x3D;&#x3D; &#x27;bars&#x27; ? 250 : 100&quot;
+        [colorConfig]&#x3D;&quot;colorConfig&quot;
+        [mtbVisual]&#x3D;&quot;analyser&quot;
+        [oscConfig]&#x3D;&quot;{ thickness: 1 }&quot;
+        [barsConfig]&#x3D;&quot;{ capHeight: 0, barCount: 8, gap: 0, capFalldown: 0 }&quot;
+      &gt;&lt;/canvas&gt;
+    &lt;/div&gt;
+
+    &lt;h3 matLine style&#x3D;&quot;font-size: 0.9rem; font-weight: bold&quot;&gt;{{ song?.metadata?.title || song.file.name }}&lt;/h3&gt;
+    &lt;p matLine style&#x3D;&quot;font-size: 0.8rem&quot;&gt;{{ song?.metadata?.artist }}&lt;/p&gt;
 
     &lt;button *ngIf&#x3D;&quot;isPlayingSong(song)&quot; mat-icon-button (click)&#x3D;&quot;playPauseSong($event, song)&quot;&gt;
       &lt;mat-icon *ngIf&#x3D;&quot;!isPlaying(song)&quot; class&#x3D;&quot;accent-color&quot; svgIcon&#x3D;&quot;play-outline&quot;&gt;&lt;/mat-icon&gt;
       &lt;mat-icon *ngIf&#x3D;&quot;isPlaying(song)&quot; class&#x3D;&quot;accent-color&quot; svgIcon&#x3D;&quot;pause&quot;&gt;&lt;/mat-icon&gt;
     &lt;/button&gt;
   &lt;/mat-list-item&gt;
+  &lt;ng-content&gt;&lt;/ng-content&gt;
 &lt;/mat-action-list&gt;
-&lt;ng-content class&#x3D;&quot;eq&quot;&gt;&lt;/ng-content&gt;
 </code></pre>
     </div>
 
@@ -1025,9 +1149,7 @@ export class PlaylistComponent {
                 <p class="comment">
                     <code>./playlist.component.scss</code>
                 </p>
-                <pre class="line-numbers"><code class="language-scss">@import &#x27;apps/gblaster/src/styles/variables&#x27;;
-
-:host {
+                <pre class="line-numbers"><code class="language-scss">:host {
   width: 100%;
   height: 100%;
 }
@@ -1035,7 +1157,7 @@ export class PlaylistComponent {
 ::ng-deep .playlist-item {
   box-sizing: border-box;
   &amp;.selected {
-    border-left: solid 4px $accent-color;
+    border-left: solid 4px var(--theme-accent-500);
     .mat-list-item-content {
       padding-left: 12px !important;
     }
@@ -1048,6 +1170,16 @@ export class PlaylistComponent {
   box-sizing: border-box;
   overflow-y: auto;
   overflow-x: hidden;
+}
+
+/* Animate items as they&#x27;re being sorted. */
+.cdk-drop-list-dragging .cdk-drag {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+/* Animate an item that has been dropped. */
+.cdk-drag-animating {
+  transition: transform 300ms cubic-bezier(0, 0, 0.2, 1);
 }
 </code></pre>
     </div>
@@ -1077,9 +1209,9 @@ export class PlaylistComponent {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><mat-action-list dense class="pl" *mobxAutorun>  <mat-list-item    *ngFor="let song of songs; let index = index; trackBy: playlistTrackFunction"    [ngClass]="{ selected: isSelected(song) }"    class="playlist-item"    (dblclick)="playPauseSong($event, song)"    (click)="selectSong(song)"  >    <img      *ngIf="song && song.metadata && song.metadata.coverUrl && (!isPlayingSong(song) || visualMode === \'off\')"      style="border-radius: 3px;"      mat-list-avatar      [src]="sanitizeCoverUrl(song.metadata.coverUrl.thumb)"      alt="cover art"    />    <canvas      *ngIf="isPlayingSong(song) && isPlaying(song) && visualMode !== \'off\'"      [mode]="visualMode"      mat-list-avatar      style="border-radius: 3px; width: 2rem; height: 2rem; object-fit: fill; box-sizing: border-box;"      [mtbVisual]="analyser"      [barsConfig]="{ capHeight: 0, barCount: 8, gap: 0, capFalldown: 0 }"    ></canvas>    <h3 matLine style="font-size: 0.9rem; font-weight: bold;">{{ song?.metadata?.title || song.file.name }}</h3>    <p matLine style="font-size: 0.8rem;">{{ song?.metadata?.artist }}</p>    <button *ngIf="isPlayingSong(song)" mat-icon-button (click)="playPauseSong($event, song)">      <mat-icon *ngIf="!isPlaying(song)" class="accent-color" svgIcon="play-outline"></mat-icon>      <mat-icon *ngIf="isPlaying(song)" class="accent-color" svgIcon="pause"></mat-icon>    </button>  </mat-list-item></mat-action-list><ng-content class="eq"></ng-content></div>'
-    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'mtb-root'},{'name': 'CoverDisplayComponent', 'selector': 'mtb-cover-display'},{'name': 'EqualizerComponent', 'selector': 'mtb-equalizer'},{'name': 'EqualizerShellComponent', 'selector': 'mtb-equalizer-shell'},{'name': 'FileDropOverlayComponent', 'selector': 'mtb-file-drop-overlay'},{'name': 'HotkeysHelpDialogComponent', 'selector': 'mtb-hotkeys-help-dialog'},{'name': 'PlayerComponent', 'selector': 'mtb-player'},{'name': 'PlaylistComponent', 'selector': 'mtb-playlist'},{'name': 'PromptDialogComponent', 'selector': 'mtb-update-prompt-dialog'},{'name': 'SettingsComponent', 'selector': 'mtb-settings'},{'name': 'ShellComponent', 'selector': 'mtb-shell'},{'name': 'SlidePanelComponent', 'selector': 'mtb-slide-panel'},{'name': 'StorageSettingsComponent', 'selector': 'mtb-storage-settings'},{'name': 'ThemeSettingsComponent', 'selector': 'mtb-theme-settings'},{'name': 'VisualizerComponent', 'selector': 'mtb-visualizer'}];
-    var DIRECTIVES = [{'name': 'IconSizeDirective', 'selector': '[matIconSize]'},{'name': 'VisualsDirective', 'selector': '[mtbVisual]'}];
+        var COMPONENT_TEMPLATE = '<div><mat-action-list cdkDropList [cdkDropListDisabled]="isLoading | async" (cdkDropListDropped)="drop($event)" dense class="pl" *mobxAutorun>  <mat-list-item    cdkDrag    *ngFor="let song of songs; let index = index; trackBy: playlistTrackFunction"    [ngClass]="{ selected: isSelected(song) }"    class="playlist-item"    (dblclick)="playPauseSong($event, song)"    (click)="selectSong(song)"  >    <span *cdkDragPreview></span>    <div cdkDragHandle mat-list-avatar style="overflow: hidden; border-radius: 4px; position: relative; width: 50px; height: 50px">      <img        *ngIf="song && song.metadata && song.metadata.coverUrl"        style="position: absolute; top: 0; right: 0; bottom: 0; left: 0; width: 100%; height: 100%"        [src]="song.metadata.coverUrl.thumb | safe : \'resourceUrl\'"        loading="lazy"      />      <canvas        *ngIf="isPlayingSong(song) && isPlaying(song) && visualMode !== \'off\'"        [mode]="visualMode"        style="position: absolute; right: 0; bottom: 0; left: 0; width: 100%; height: 300%"        [style.height.%]="visualMode === \'bars\' ? 250 : 100"        [colorConfig]="colorConfig"        [mtbVisual]="analyser"        [oscConfig]="{ thickness: 1 }"        [barsConfig]="{ capHeight: 0, barCount: 8, gap: 0, capFalldown: 0 }"      ></canvas>    </div>    <h3 matLine style="font-size: 0.9rem; font-weight: bold">{{ song?.metadata?.title || song.file.name }}</h3>    <p matLine style="font-size: 0.8rem">{{ song?.metadata?.artist }}</p>    <button *ngIf="isPlayingSong(song)" mat-icon-button (click)="playPauseSong($event, song)">      <mat-icon *ngIf="!isPlaying(song)" class="accent-color" svgIcon="play-outline"></mat-icon>      <mat-icon *ngIf="isPlaying(song)" class="accent-color" svgIcon="pause"></mat-icon>    </button>  </mat-list-item>  <ng-content></ng-content></mat-action-list></div>'
+    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'mtb-root'},{'name': 'CoverDisplayComponent', 'selector': 'mtb-cover-display'},{'name': 'EqualizerComponent', 'selector': 'mtb-equalizer'},{'name': 'EqualizerShellComponent', 'selector': 'mtb-equalizer-shell'},{'name': 'FileDropOverlayComponent', 'selector': 'mtb-file-drop-overlay'},{'name': 'HotkeysHelpDialogComponent', 'selector': 'mtb-hotkeys-help-dialog'},{'name': 'MetadataSettingsComponent', 'selector': 'mtb-metadata-settings'},{'name': 'PlayerComponent', 'selector': 'mtb-player'},{'name': 'PlaylistComponent', 'selector': 'mtb-playlist'},{'name': 'PromptDialogComponent', 'selector': 'mtb-prompt-dialog'},{'name': 'SettingsComponent', 'selector': 'mtb-settings'},{'name': 'ShellComponent', 'selector': 'mtb-shell'},{'name': 'SlidePanelComponent', 'selector': 'mtb-slide-panel'},{'name': 'StorageSettingsComponent', 'selector': 'mtb-storage-settings'},{'name': 'ThemeSettingsComponent', 'selector': 'mtb-theme-settings'},{'name': 'VisualizerComponent', 'selector': 'mtb-visualizer'}];
+    var DIRECTIVES = [{'name': 'IconSizeDirective', 'selector': '[matIconSize]'},{'name': 'Subscribing', 'selector': ''},{'name': 'VisualsDirective', 'selector': '[mtbVisual]'}];
     var ACTUAL_COMPONENT = {'name': 'PlaylistComponent'};
 </script>
 <script src="../js/tree.js"></script>
@@ -1093,14 +1225,16 @@ export class PlaylistComponent {
 
 
 
-                   
+
+
+
 
 
 
 
                    </div><div class="search-results">
     <div class="has-results">
-        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
         <ul class="search-results-list"></ul>
     </div>
     <div class="no-results">
@@ -1112,6 +1246,15 @@ export class PlaylistComponent {
            </div>
        </div>
 
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
        <script>
             var COMPODOC_CURRENT_PAGE_DEPTH = 1;
             var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
@@ -1121,9 +1264,9 @@ export class PlaylistComponent {
 
        <script src="../js/libs/custom-elements.min.js"></script>
        <script src="../js/libs/lit-html.js"></script>
-       <!-- Required to polyfill modern browsers as code is ES5 for IE... -->
-       <script src="../js/libs/custom-elements-es5-adapter.js" charset="utf-8" defer></script>
+
        <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
 
        <script src="../js/libs/bootstrap-native.js"></script>
 

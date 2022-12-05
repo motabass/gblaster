@@ -3,17 +3,18 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>motabass documentation</title>
+        <title>motabass</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <link rel="icon" type="image/x-icon" href="./images/favicon.ico">
-	      <link rel="stylesheet" href="./styles/style.css">
+	   <link rel="stylesheet" href="./styles/style.css">
+        <link rel="stylesheet" href="./styles/dark.css">
     </head>
     <body>
 
         <div class="navbar navbar-default navbar-fixed-top visible-xs">
-            <a href="./" class="navbar-brand">motabass documentation</a>
+            <a href="./" class="navbar-brand">motabass</a>
             <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
         </div>
 
@@ -30,19 +31,19 @@
                <div class="content getting-started">
                    <div class="content-data">
 
-<p>nx monorepo for my web stuff</p>
-<h2 id="apps">Apps</h2>
-<p>🔊 <strong><a href="https://github.com/motabass/motabass/blob/master/apps/gblaster/README.md">gBlaster</a></strong> A web audio player PWA using latest Web APIs. </p>
-<p><img src="https://github.com/motabass/motabass/workflows/CI/CD%20Pipeline/badge.svg" alt="CI/CD Pipeline" class="img-responsive"> 
-Demo: <a href="https://gblaster-player.firebaseapp.com">https://gblaster-player.firebaseapp.com</a></p>
-<h2 id="libs">Libs</h2>
-<h2 id="dependencies">Dependencies</h2>
+<h1 id="🔊-gblaster">🔊 <strong><a href="https://github.com/motabass/gblaster/blob/master/apps/gblaster/README.md">gBlaster</a></strong></h1>
+<p>A web audio player PWA using latest Web APIs.</p>
+<p><img src="https://img.shields.io/github/package-json/v/motabass/gblaster" alt="GitHub package.json version" class="img-responsive">
+<img src="https://img.shields.io/github/checks-status/motabass/gblaster/main" alt="GitHub branch checks state" class="img-responsive"></p>
+<p>Demo: <a href="https://gblaster-player.firebaseapp.com">https://gblaster-player.firebaseapp.com</a></p>
+<p>GH-Pages: <a href="https://motabass.github.io/gblaster/">https://motabass.github.io/gblaster/</a></p>
+<h3 id="dependencies">Dependencies</h3>
 <p>App-Icon generated with:</p>
 <p><a href="https://android-material-icon-generator.bitdroid.de/#section-material-icons">https://android-material-icon-generator.bitdroid.de/#section-material-icons</a></p>
 <p>Material Icons:</p>
 <p><a href="https://petershaggynoble.github.io/MDI-Sandbox/">https://petershaggynoble.github.io/MDI-Sandbox/</a></p>
 <p>Tag Reader:</p>
-<p><a href="https://github.com/Borewit/music-metadata-browser">Music Metadata Browser</a></p>
+<p><a href="https://github.com/Borewit/music-metadata-browser">music-metadata-browser</a></p>
 
 
 
@@ -57,14 +58,16 @@ Demo: <a href="https://gblaster-player.firebaseapp.com">https://gblaster-player.
 
 
 
-                   
+
+
+
 
 
 
 
                    </div><div class="search-results">
     <div class="has-results">
-        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
         <ul class="search-results-list"></ul>
     </div>
     <div class="no-results">
@@ -76,6 +79,15 @@ Demo: <a href="https://gblaster-player.firebaseapp.com">https://gblaster-player.
            </div>
        </div>
 
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
        <script>
             var COMPODOC_CURRENT_PAGE_DEPTH = 0;
             var COMPODOC_CURRENT_PAGE_CONTEXT = 'getting-started';
@@ -85,9 +97,9 @@ Demo: <a href="https://gblaster-player.firebaseapp.com">https://gblaster-player.
 
        <script src="./js/libs/custom-elements.min.js"></script>
        <script src="./js/libs/lit-html.js"></script>
-       <!-- Required to polyfill modern browsers as code is ES5 for IE... -->
-       <script src="./js/libs/custom-elements-es5-adapter.js" charset="utf-8" defer></script>
+
        <script src="./js/menu-wc.js" defer></script>
+       <script nomodule src="./js/menu-wc_es5.js" defer></script>
 
        <script src="./js/libs/bootstrap-native.js"></script>
 

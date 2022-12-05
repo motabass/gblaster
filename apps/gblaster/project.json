@@ -122,18 +122,6 @@
       "options": {
         "lintFilePatterns": ["apps/gblaster/**/*.css", "apps/gblaster/**/*.scss"]
       }
-    },
-    "compodoc": {
-      "executor": "@twittwer/compodoc:compodoc",
-      "options": {
-        "tsConfig": "apps/gblaster/tsconfig.app.json",
-        "outputPath": "dist/compodoc/gblaster"
-      },
-      "configurations": {
-        "json": {
-          "exportFormat": "json"
-        }
-      }
     }
   },
   "tags": ["app"]

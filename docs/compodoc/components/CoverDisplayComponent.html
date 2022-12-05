@@ -3,17 +3,18 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>motabass documentation</title>
+        <title>motabass</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
-	      <link rel="stylesheet" href="../styles/style.css">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
     </head>
     <body>
 
         <div class="navbar navbar-default navbar-fixed-top visible-xs">
-            <a href="../" class="navbar-brand">motabass documentation</a>
+            <a href="../" class="navbar-brand">motabass</a>
             <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
         </div>
 
@@ -35,7 +36,9 @@
 
 <ol class="breadcrumb">
   <li>Components</li>
-  <li>CoverDisplayComponent</li>
+  <li
+  >
+  CoverDisplayComponent</li>
 </ol>
 
 <ul class="nav nav-tabs" role="tablist">
@@ -61,8 +64,9 @@
     <h3>File</h3>
 </p>
 <p class="comment">
-    <code>libs/player/src/lib/cover-display/cover-display.component.ts</code>
+    <code>apps/gblaster/src/app/player/cover-display/cover-display.component.ts</code>
 </p>
+
 
 
 
@@ -70,7 +74,7 @@
 
 <section>
     <h3>Metadata</h3>
-    <table class="table table-sm table-hover">
+    <table class="table table-sm table-hover metadata">
         <tbody>
 
             <tr>
@@ -120,6 +124,20 @@
     <table class="table table-sm table-bordered index-table">
         <tbody>
 
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#getBitrate" >getBitrate</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
 
                 <tr>
                     <td class="col-md-4">
@@ -130,7 +148,7 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
-                                <a href="#song">song</a>
+                                <a href="#song" >song</a>
                             </li>
                         </ul>
                     </td>
@@ -148,10 +166,10 @@
                         <td class="col-md-4">
                             <ul class="index-list">
                                 <li>
-                                    <a href="#coverUrl">coverUrl</a>
+                                    <a href="#coverUrl" >coverUrl</a>
                                 </li>
                                 <li>
-                                    <a href="#backgroundColor">backgroundColor</a>
+                                    <a href="#backgroundColor" >backgroundColor</a>
                                 </li>
                             </ul>
                         </td>
@@ -166,15 +184,45 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor()</code>
+<code>constructor(themeService: <a href="../injectables/ThemeService.html" target="_self">ThemeService</a>)</code>
                     </td>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="11" class="link-to-prism">libs/player/src/lib/cover-display/cover-display.component.ts:11</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">apps/gblaster/src/app/player/cover-display/cover-display.component.ts:12</a></div>
                             </td>
                         </tr>
 
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>themeService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/ThemeService.html" target="_self" >ThemeService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
             </tbody>
         </table>
 </section>
@@ -197,7 +245,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="11" class="link-to-prism">libs/player/src/lib/cover-display/cover-display.component.ts:11</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">apps/gblaster/src/app/player/cover-display/cover-display.component.ts:12</a></div>
                             </td>
                         </tr>
             </tbody>
@@ -206,7 +254,81 @@
 
 
 
+    <section>
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getBitrate"></a>
+                    <span class="name">
+                        <span ><b>getBitrate</b></span>
+                        <a href="#getBitrate"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getBitrate(bitrate: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
 
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="31"
+                            class="link-to-prism">apps/gblaster/src/app/player/cover-display/cover-display.component.ts:31</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>bitrate</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
 
     <section>
     <h3 id="accessors">
@@ -228,7 +350,7 @@
                 </tr>
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">libs/player/src/lib/cover-display/cover-display.component.ts:15</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">apps/gblaster/src/app/player/cover-display/cover-display.component.ts:16</a></div>
                                 </td>
                             </tr>
 
@@ -250,7 +372,7 @@
                 </tr>
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="21" class="link-to-prism">libs/player/src/lib/cover-display/cover-display.component.ts:21</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="22" class="link-to-prism">apps/gblaster/src/app/player/cover-display/cover-display.component.ts:22</a></div>
                                 </td>
                             </tr>
 
@@ -263,6 +385,7 @@
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ChangeDetectionStrategy, Component, Input } from &#x27;@angular/core&#x27;;
 import { Song } from &#x27;../player.types&#x27;;
+import { ThemeService } from &#x27;../../theme/theme.service&#x27;;
 
 @Component({
   selector: &#x27;mtb-cover-display&#x27;,
@@ -273,7 +396,7 @@ import { Song } from &#x27;../player.types&#x27;;
 export class CoverDisplayComponent {
   @Input() song?: Song;
 
-  constructor() {}
+  constructor(private themeService: ThemeService) {}
 
   get coverUrl(): string | undefined {
     if (this.song?.metadata?.coverUrl) {
@@ -282,21 +405,62 @@ export class CoverDisplayComponent {
   }
 
   get backgroundColor(): string | undefined {
-    return this.song?.metadata?.coverColors?.vibrant ? this.song.metadata.coverColors.vibrant.hex : &#x27;rgba(0,0,0,0)&#x27;;
+    const coverBackground &#x3D; this.themeService.darkMode ? this.song?.metadata?.coverColors?.darkMuted?.hex : this.song?.metadata?.coverColors?.lightMuted?.hex;
+    return coverBackground || &#x27;rgba(0,0,0,0)&#x27;;
   }
 
   // get fontColor(): string | undefined {
   //   return this.song?.metadata?.coverColors?.vibrant ? this.song.metadata.coverColors.vibrant.textHex : undefined;
   // }
+
+  getBitrate(bitrate: number): string {
+    return Math.round(bitrate / 1000).toString();
+  }
 }
 </code></pre>
     </div>
 
     <div class="tab-pane fade " id="c-templateData">
-        <pre class="line-numbers"><code class="language-html">&lt;div style&#x3D;&quot;position: absolute; top: 0; right: 0; bottom: 0; left: 0; z-index: 5; overflow-x: auto; padding: 1rem; user-select: text;&quot; class&#x3D;&quot;mat-typography&quot;&gt;
-  &lt;h1 style&#x3D;&quot;font-size: 3rem; font-weight: bold; line-height: 3.3rem;&quot;&gt;{{ song?.metadata?.title || song?.file?.name }}&lt;/h1&gt;
-  &lt;p style&#x3D;&quot;font-size: 1.5rem; margin-bottom: 8px;&quot;&gt;{{ song?.metadata?.artist }}&lt;/p&gt;
-  &lt;span style&#x3D;&quot;font-size: 1rem;&quot;&gt;{{ song?.metadata?.album }}&lt;/span&gt;
+        <pre class="line-numbers"><code class="language-html">&lt;div
+  style&#x3D;&quot;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 5;
+    overflow-x: auto;
+    padding: 1rem;
+    user-select: text;
+    text-shadow: -1px 1px 6px black;
+  &quot;
+  class&#x3D;&quot;mat-typography&quot;
+&gt;
+  &lt;h1 style&#x3D;&quot;font-size: 3rem; font-weight: bold; line-height: 3.3rem; margin-bottom: 4px; opacity: 0.9&quot;&gt;
+    {{ song?.metadata?.title || song?.file?.name }}
+  &lt;/h1&gt;
+  &lt;p style&#x3D;&quot;font-size: 1.5rem; margin-bottom: 8px; opacity: 0.8&quot;&gt;{{ song?.metadata?.artist }}&lt;/p&gt;
+  &lt;div fxLayout&#x3D;&quot;column&quot; *ngIf&#x3D;&quot;song &amp;&amp; song.metadata&quot; style&#x3D;&quot;margin-top: 16px; opacity: 0.9&quot;&gt;
+    &lt;span *ngIf&#x3D;&quot;song &amp;&amp; song.metadata &amp;&amp; song.metadata.album&quot;&gt;
+      Album: &lt;strong&gt;{{ song.metadata.album }}&lt;/strong&gt;
+    &lt;/span&gt;
+    &lt;span *ngIf&#x3D;&quot;song &amp;&amp; song.metadata &amp;&amp; song.metadata.year&quot;&gt;
+      Year: &lt;strong&gt;{{ song.metadata.year }}&lt;/strong&gt;
+    &lt;/span&gt;
+    &lt;span&gt;&amp;nbsp;&lt;/span&gt;
+    &lt;span *ngIf&#x3D;&quot;song.metadata.format &amp;&amp; song.metadata.format.duration&quot;&gt;
+      Duration: &lt;strong&gt;{{ song.metadata.format.duration | time }}&lt;/strong&gt;
+    &lt;/span&gt;
+    &lt;span *ngIf&#x3D;&quot;song.metadata.format &amp;&amp; song.metadata.format.container &amp;&amp; song.metadata.format.codec&quot;&gt;
+      Format: &lt;strong&gt;{{ song.metadata.format.container }} ({{ song.metadata.format.codec }})&lt;/strong&gt;
+    &lt;/span&gt;
+    &lt;span *ngIf&#x3D;&quot;song.metadata.format &amp;&amp; song.metadata.format.bitrate&quot;&gt;
+      Bitrate: &lt;strong&gt;{{ getBitrate(song.metadata.format.bitrate) }} kb/s&lt;/strong&gt;
+    &lt;/span&gt;
+    &lt;span *ngIf&#x3D;&quot;song.metadata.format &amp;&amp; song.metadata.format.sampleRate&quot;&gt;
+      Sample-Rate: &lt;strong&gt;{{ song.metadata.format.sampleRate }}&lt;/strong&gt;
+    &lt;/span&gt;
+  &lt;/div&gt;
 &lt;/div&gt;
 &lt;div
   *ngIf&#x3D;&quot;song &amp;&amp; coverUrl&quot;
@@ -357,9 +521,9 @@ export class CoverDisplayComponent {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><div style="position: absolute; top: 0; right: 0; bottom: 0; left: 0; z-index: 5; overflow-x: auto; padding: 1rem; user-select: text;" class="mat-typography">  <h1 style="font-size: 3rem; font-weight: bold; line-height: 3.3rem;">{{ song?.metadata?.title || song?.file?.name }}</h1>  <p style="font-size: 1.5rem; margin-bottom: 8px;">{{ song?.metadata?.artist }}</p>  <span style="font-size: 1rem;">{{ song?.metadata?.album }}</span></div><div  *ngIf="song && coverUrl"  style="    position: absolute;    top: 0;    right: 0;    bottom: 0;    left: 0;    z-index: -1;    opacity: 1;    background-size: contain;    background-position: top center;    background-repeat: no-repeat;  "  [ngStyle]="{    \'background-image\': \'url(\' + coverUrl + \')\',    \'background-color\': backgroundColor  }"></div><ng-content></ng-content></div>'
-    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'mtb-root'},{'name': 'CoverDisplayComponent', 'selector': 'mtb-cover-display'},{'name': 'EqualizerComponent', 'selector': 'mtb-equalizer'},{'name': 'EqualizerShellComponent', 'selector': 'mtb-equalizer-shell'},{'name': 'FileDropOverlayComponent', 'selector': 'mtb-file-drop-overlay'},{'name': 'HotkeysHelpDialogComponent', 'selector': 'mtb-hotkeys-help-dialog'},{'name': 'PlayerComponent', 'selector': 'mtb-player'},{'name': 'PlaylistComponent', 'selector': 'mtb-playlist'},{'name': 'PromptDialogComponent', 'selector': 'mtb-update-prompt-dialog'},{'name': 'SettingsComponent', 'selector': 'mtb-settings'},{'name': 'ShellComponent', 'selector': 'mtb-shell'},{'name': 'SlidePanelComponent', 'selector': 'mtb-slide-panel'},{'name': 'StorageSettingsComponent', 'selector': 'mtb-storage-settings'},{'name': 'ThemeSettingsComponent', 'selector': 'mtb-theme-settings'},{'name': 'VisualizerComponent', 'selector': 'mtb-visualizer'}];
-    var DIRECTIVES = [{'name': 'IconSizeDirective', 'selector': '[matIconSize]'},{'name': 'VisualsDirective', 'selector': '[mtbVisual]'}];
+        var COMPONENT_TEMPLATE = '<div><div  style="    position: absolute;    top: 0;    right: 0;    bottom: 0;    left: 0;    z-index: 5;    overflow-x: auto;    padding: 1rem;    user-select: text;    text-shadow: -1px 1px 6px black;  "  class="mat-typography">  <h1 style="font-size: 3rem; font-weight: bold; line-height: 3.3rem; margin-bottom: 4px; opacity: 0.9">    {{ song?.metadata?.title || song?.file?.name }}  </h1>  <p style="font-size: 1.5rem; margin-bottom: 8px; opacity: 0.8">{{ song?.metadata?.artist }}</p>  <div fxLayout="column" *ngIf="song && song.metadata" style="margin-top: 16px; opacity: 0.9">    <span *ngIf="song && song.metadata && song.metadata.album">      Album: <strong>{{ song.metadata.album }}</strong>    </span>    <span *ngIf="song && song.metadata && song.metadata.year">      Year: <strong>{{ song.metadata.year }}</strong>    </span>    <span>&nbsp;</span>    <span *ngIf="song.metadata.format && song.metadata.format.duration">      Duration: <strong>{{ song.metadata.format.duration | time }}</strong>    </span>    <span *ngIf="song.metadata.format && song.metadata.format.container && song.metadata.format.codec">      Format: <strong>{{ song.metadata.format.container }} ({{ song.metadata.format.codec }})</strong>    </span>    <span *ngIf="song.metadata.format && song.metadata.format.bitrate">      Bitrate: <strong>{{ getBitrate(song.metadata.format.bitrate) }} kb/s</strong>    </span>    <span *ngIf="song.metadata.format && song.metadata.format.sampleRate">      Sample-Rate: <strong>{{ song.metadata.format.sampleRate }}</strong>    </span>  </div></div><div  *ngIf="song && coverUrl"  style="    position: absolute;    top: 0;    right: 0;    bottom: 0;    left: 0;    z-index: -1;    opacity: 1;    background-size: contain;    background-position: top center;    background-repeat: no-repeat;  "  [ngStyle]="{    \'background-image\': \'url(\' + coverUrl + \')\',    \'background-color\': backgroundColor  }"></div><ng-content></ng-content></div>'
+    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'mtb-root'},{'name': 'CoverDisplayComponent', 'selector': 'mtb-cover-display'},{'name': 'EqualizerComponent', 'selector': 'mtb-equalizer'},{'name': 'EqualizerShellComponent', 'selector': 'mtb-equalizer-shell'},{'name': 'FileDropOverlayComponent', 'selector': 'mtb-file-drop-overlay'},{'name': 'HotkeysHelpDialogComponent', 'selector': 'mtb-hotkeys-help-dialog'},{'name': 'MetadataSettingsComponent', 'selector': 'mtb-metadata-settings'},{'name': 'PlayerComponent', 'selector': 'mtb-player'},{'name': 'PlaylistComponent', 'selector': 'mtb-playlist'},{'name': 'PromptDialogComponent', 'selector': 'mtb-prompt-dialog'},{'name': 'SettingsComponent', 'selector': 'mtb-settings'},{'name': 'ShellComponent', 'selector': 'mtb-shell'},{'name': 'SlidePanelComponent', 'selector': 'mtb-slide-panel'},{'name': 'StorageSettingsComponent', 'selector': 'mtb-storage-settings'},{'name': 'ThemeSettingsComponent', 'selector': 'mtb-theme-settings'},{'name': 'VisualizerComponent', 'selector': 'mtb-visualizer'}];
+    var DIRECTIVES = [{'name': 'IconSizeDirective', 'selector': '[matIconSize]'},{'name': 'Subscribing', 'selector': ''},{'name': 'VisualsDirective', 'selector': '[mtbVisual]'}];
     var ACTUAL_COMPONENT = {'name': 'CoverDisplayComponent'};
 </script>
 <script src="../js/tree.js"></script>
@@ -373,14 +537,16 @@ export class CoverDisplayComponent {
 
 
 
-                   
+
+
+
 
 
 
 
                    </div><div class="search-results">
     <div class="has-results">
-        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
         <ul class="search-results-list"></ul>
     </div>
     <div class="no-results">
@@ -392,6 +558,15 @@ export class CoverDisplayComponent {
            </div>
        </div>
 
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
        <script>
             var COMPODOC_CURRENT_PAGE_DEPTH = 1;
             var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
@@ -401,9 +576,9 @@ export class CoverDisplayComponent {
 
        <script src="../js/libs/custom-elements.min.js"></script>
        <script src="../js/libs/lit-html.js"></script>
-       <!-- Required to polyfill modern browsers as code is ES5 for IE... -->
-       <script src="../js/libs/custom-elements-es5-adapter.js" charset="utf-8" defer></script>
+
        <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
 
        <script src="../js/libs/bootstrap-native.js"></script>
 

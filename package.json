@@ -51,7 +51,7 @@
     "ci:build": "npm run build:prod:gblaster",
     "ci:e2e": "nx run gblaster-e2e:e2e",
     "ci:deploy": "nx deploy gblaster",
-    "compodoc:serve": "npm run compodoc -- -s",
+    "compodoc": "nx run workspace:compodoc",
     "generate:icon-set": "ts-node --project tools/tsconfig.tools.json tools/convertIcons.ts",
     "postinstall": "ngcc --properties es2020 browser module main && node ./decorate-angular-cli.js",
     "prepare": "husky install"

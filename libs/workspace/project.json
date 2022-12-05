@@ -1,0 +1,22 @@
+{
+  "name": "workspace",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/workspace/src",
+  "projectType": "library",
+  "targets": {
+    "compodoc": {
+      "executor": "@twittwer/compodoc:compodoc",
+      "options": {
+        "tsConfig": "libs/workspace/tsconfig.compodoc.json",
+        "outputPath": "docs/compodoc",
+        "workspaceDocs": true
+      },
+      "configurations": {
+        "json": {
+          "exportFormat": "json"
+        }
+      }
+    }
+  },
+  "tags": []
+}

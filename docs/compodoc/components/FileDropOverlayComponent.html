@@ -3,17 +3,18 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>motabass documentation</title>
+        <title>motabass</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
-	      <link rel="stylesheet" href="../styles/style.css">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
     </head>
     <body>
 
         <div class="navbar navbar-default navbar-fixed-top visible-xs">
-            <a href="../" class="navbar-brand">motabass documentation</a>
+            <a href="../" class="navbar-brand">motabass</a>
             <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
         </div>
 
@@ -35,7 +36,9 @@
 
 <ol class="breadcrumb">
   <li>Components</li>
-  <li>FileDropOverlayComponent</li>
+  <li
+  >
+  FileDropOverlayComponent</li>
 </ol>
 
 <ul class="nav nav-tabs" role="tablist">
@@ -68,9 +71,10 @@
 
 
 
+
 <section>
     <h3>Metadata</h3>
-    <table class="table table-sm table-hover">
+    <table class="table table-sm table-hover metadata">
         <tbody>
 
 
@@ -125,13 +129,13 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
-                                <a href="#drop">drop</a>
+                                <a href="#drop" >drop</a>
                             </li>
                             <li>
-                                <a href="#leave">leave</a>
+                                <a href="#leave" >leave</a>
                             </li>
                             <li>
-                                <a href="#over">over</a>
+                                <a href="#over" >over</a>
                             </li>
                         </ul>
                     </td>
@@ -146,7 +150,7 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
-                                <a href="#allowedTypes">allowedTypes</a>
+                                <a href="#allowedTypes" >allowedTypes</a>
                             </li>
                         </ul>
                     </td>
@@ -161,7 +165,7 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
-                                <a href="#filesDroped">filesDroped</a>
+                                <a href="#filesDroped" >filesDroped</a>
                             </li>
                         </ul>
                     </td>
@@ -300,9 +304,7 @@
                 <td class="col-md-4">
                     <a name="drop"></a>
                     <span class="name">
-                        <b>
-                            drop
-                        </b>
+                        <span ><b>drop</b></span>
                         <a href="#drop"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
@@ -327,6 +329,7 @@
 
                     <div class="io-description">
                         <b>Parameters :</b>
+                        
                         <table class="params">
                             <thead>
                                 <tr>
@@ -370,9 +373,7 @@
                 <td class="col-md-4">
                     <a name="leave"></a>
                     <span class="name">
-                        <b>
-                            leave
-                        </b>
+                        <span ><b>leave</b></span>
                         <a href="#leave"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
@@ -397,6 +398,7 @@
 
                     <div class="io-description">
                         <b>Parameters :</b>
+                        
                         <table class="params">
                             <thead>
                                 <tr>
@@ -440,9 +442,7 @@
                 <td class="col-md-4">
                     <a name="over"></a>
                     <span class="name">
-                        <b>
-                            over
-                        </b>
+                        <span ><b>over</b></span>
                         <a href="#over"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
@@ -467,6 +467,7 @@
 
                     <div class="io-description">
                         <b>Parameters :</b>
+                        
                         <table class="params">
                             <thead>
                                 <tr>
@@ -574,7 +575,7 @@ export class FileDropOverlayComponent {
     </div>
 
     <div class="tab-pane fade " id="c-templateData">
-        <pre class="line-numbers"><code class="language-html">&lt;h1 style&#x3D;&quot;font-family: &#x27;Permanent Marker&#x27;, cursive; font-size: 4em;&quot;&gt;Drop Music-Files here...&lt;/h1&gt;
+        <pre class="line-numbers"><code class="language-html">&lt;h1 style&#x3D;&quot;font-family: &#x27;Permanent Marker&#x27;, cursive; font-size: 4em&quot;&gt;Drop Music-Files here...&lt;/h1&gt;
 </code></pre>
     </div>
 
@@ -582,13 +583,11 @@ export class FileDropOverlayComponent {
                 <p class="comment">
                     <code>./file-drop-overlay.component.scss</code>
                 </p>
-                <pre class="line-numbers"><code class="language-scss">@import &#x27;apps/gblaster/src/styles/variables&#x27;;
-
-:host {
+                <pre class="line-numbers"><code class="language-scss">:host {
   display: none;
   position: fixed;
   box-sizing: border-box;
-  border: 6px dashed $accent-color;
+  border: 6px dashed var(--theme-accent-500);
   top: 0;
   right: 0;
   bottom: 0;
@@ -628,9 +627,9 @@ export class FileDropOverlayComponent {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><h1 style="font-family: \'Permanent Marker\', cursive; font-size: 4em;">Drop Music-Files here...</h1></div>'
-    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'mtb-root'},{'name': 'CoverDisplayComponent', 'selector': 'mtb-cover-display'},{'name': 'EqualizerComponent', 'selector': 'mtb-equalizer'},{'name': 'EqualizerShellComponent', 'selector': 'mtb-equalizer-shell'},{'name': 'FileDropOverlayComponent', 'selector': 'mtb-file-drop-overlay'},{'name': 'HotkeysHelpDialogComponent', 'selector': 'mtb-hotkeys-help-dialog'},{'name': 'PlayerComponent', 'selector': 'mtb-player'},{'name': 'PlaylistComponent', 'selector': 'mtb-playlist'},{'name': 'PromptDialogComponent', 'selector': 'mtb-update-prompt-dialog'},{'name': 'SettingsComponent', 'selector': 'mtb-settings'},{'name': 'ShellComponent', 'selector': 'mtb-shell'},{'name': 'SlidePanelComponent', 'selector': 'mtb-slide-panel'},{'name': 'StorageSettingsComponent', 'selector': 'mtb-storage-settings'},{'name': 'ThemeSettingsComponent', 'selector': 'mtb-theme-settings'},{'name': 'VisualizerComponent', 'selector': 'mtb-visualizer'}];
-    var DIRECTIVES = [{'name': 'IconSizeDirective', 'selector': '[matIconSize]'},{'name': 'VisualsDirective', 'selector': '[mtbVisual]'}];
+        var COMPONENT_TEMPLATE = '<div><h1 style="font-family: \'Permanent Marker\', cursive; font-size: 4em">Drop Music-Files here...</h1></div>'
+    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'mtb-root'},{'name': 'CoverDisplayComponent', 'selector': 'mtb-cover-display'},{'name': 'EqualizerComponent', 'selector': 'mtb-equalizer'},{'name': 'EqualizerShellComponent', 'selector': 'mtb-equalizer-shell'},{'name': 'FileDropOverlayComponent', 'selector': 'mtb-file-drop-overlay'},{'name': 'HotkeysHelpDialogComponent', 'selector': 'mtb-hotkeys-help-dialog'},{'name': 'MetadataSettingsComponent', 'selector': 'mtb-metadata-settings'},{'name': 'PlayerComponent', 'selector': 'mtb-player'},{'name': 'PlaylistComponent', 'selector': 'mtb-playlist'},{'name': 'PromptDialogComponent', 'selector': 'mtb-prompt-dialog'},{'name': 'SettingsComponent', 'selector': 'mtb-settings'},{'name': 'ShellComponent', 'selector': 'mtb-shell'},{'name': 'SlidePanelComponent', 'selector': 'mtb-slide-panel'},{'name': 'StorageSettingsComponent', 'selector': 'mtb-storage-settings'},{'name': 'ThemeSettingsComponent', 'selector': 'mtb-theme-settings'},{'name': 'VisualizerComponent', 'selector': 'mtb-visualizer'}];
+    var DIRECTIVES = [{'name': 'IconSizeDirective', 'selector': '[matIconSize]'},{'name': 'Subscribing', 'selector': ''},{'name': 'VisualsDirective', 'selector': '[mtbVisual]'}];
     var ACTUAL_COMPONENT = {'name': 'FileDropOverlayComponent'};
 </script>
 <script src="../js/tree.js"></script>
@@ -644,14 +643,16 @@ export class FileDropOverlayComponent {
 
 
 
-                   
+
+
+
 
 
 
 
                    </div><div class="search-results">
     <div class="has-results">
-        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
         <ul class="search-results-list"></ul>
     </div>
     <div class="no-results">
@@ -663,6 +664,15 @@ export class FileDropOverlayComponent {
            </div>
        </div>
 
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
        <script>
             var COMPODOC_CURRENT_PAGE_DEPTH = 1;
             var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
@@ -672,9 +682,9 @@ export class FileDropOverlayComponent {
 
        <script src="../js/libs/custom-elements.min.js"></script>
        <script src="../js/libs/lit-html.js"></script>
-       <!-- Required to polyfill modern browsers as code is ES5 for IE... -->
-       <script src="../js/libs/custom-elements-es5-adapter.js" charset="utf-8" defer></script>
+
        <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
 
        <script src="../js/libs/bootstrap-native.js"></script>
 
