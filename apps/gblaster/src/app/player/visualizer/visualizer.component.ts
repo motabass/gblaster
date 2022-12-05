@@ -1,9 +1,10 @@
 import { ChangeDetectionStrategy, Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { GamepadButtons, GamepadService } from '@motabass/helper-services/gamepad';
-import { FftSize, FrequencyBarsConfig, OsciloscopeConfig, VisualizerMode, VisualsColorConfig, VisualsService } from '@motabass/ui-components/visuals';
 import { LocalStorage } from 'ngx-webstorage';
 import { PlayerService } from '../player.service';
 import { Song } from '../player.types';
+import { FftSize, FrequencyBarsConfig, OsciloscopeConfig, VisualizerMode, VisualsColorConfig } from './visuals/visuals.types';
+import { VisualsService } from './visuals/visuals.service';
 
 // TODO: quit app + min + max buttons in electron
 // TODO: loading indicator service

@@ -17,7 +17,6 @@ import { WakelockModule } from '@motabass/helper-services/wakelock';
 import { MatIconSizeModule } from '@motabass/material-helpers/mat-icon-size';
 import { FileDropOverlayModule } from '@motabass/ui-components/file-drop-overlay';
 import { SlidePanelModule } from '@motabass/ui-components/slide-panel';
-import { VisualsModule } from '@motabass/ui-components/visuals';
 import { MobxAngularModule } from 'mobx-angular';
 import { NgxIndexedDBService } from 'ngx-indexed-db';
 import { CoverDisplayComponent } from './cover-display/cover-display.component';
@@ -32,6 +31,7 @@ import { TimePipe } from './time.pipe';
 import { VisualizerComponent } from './visualizer/visualizer.component';
 import { EqualizerShellComponent } from './equalizer-shell/equalizer-shell.component';
 import { SafePipeModule } from 'safe-pipe';
+import { VisualsDirective } from './visualizer/visuals/visuals.directive';
 
 @NgModule({
   imports: [
@@ -45,7 +45,6 @@ import { SafePipeModule } from 'safe-pipe';
     MatButtonModule,
     MatSliderModule,
     FlexModule,
-    VisualsModule,
     MatMenuModule,
     MatInputModule,
     MatSelectModule,
@@ -68,7 +67,8 @@ import { SafePipeModule } from 'safe-pipe';
     VisualizerComponent,
     EqualizerComponent,
     BandPipe,
-    EqualizerShellComponent
+    EqualizerShellComponent,
+    VisualsDirective
   ],
   providers: [
     {

@@ -126,7 +126,7 @@
     "compodoc": {
       "executor": "@twittwer/compodoc:compodoc",
       "options": {
-        "tsConfig": "apps/gblaster/tsconfig.editor.json",
+        "tsConfig": "apps/gblaster/tsconfig.app.json",
         "outputPath": "dist/compodoc/gblaster"
       },
       "configurations": {

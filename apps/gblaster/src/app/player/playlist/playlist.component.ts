@@ -1,10 +1,11 @@
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { VisualizerMode, VisualsColorConfig, VisualsService } from '@motabass/ui-components/visuals';
 import { PlayerService } from '../player.service';
 import { Song } from '../player.types';
 import { LoaderService } from '@motabass/helper-services/loader';
 import { Observable } from 'rxjs';
+import { VisualsService } from '../visualizer/visuals/visuals.service';
+import { VisualizerMode, VisualsColorConfig } from '../visualizer/visuals/visuals.types';
 
 @Component({
   selector: 'mtb-playlist',
