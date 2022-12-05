@@ -16,7 +16,6 @@
     "ui-components-dialogs": "libs/ui-components/dialogs",
     "ui-components-file-drop-overlay": "libs/ui-components/file-drop-overlay",
     "ui-components-slide-panel": "libs/ui-components/slide-panel",
-    "ui-components-slide-panel-e2e": "apps/ui-components-slide-panel-e2e",
     "ui-components-visuals": "libs/ui-components/visuals"
   },
   "$schema": "./node_modules/nx/schemas/workspace-schema.json"

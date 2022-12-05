@@ -33,35 +33,6 @@
       },
       "outputs": ["{workspaceRoot}/coverage/libs/ui-components/slide-panel"]
     },
-    "storybook": {
-      "executor": "@storybook/angular:start-storybook",
-      "options": {
-        "port": 4400,
-        "configDir": "libs/ui-components/slide-panel/.storybook",
-        "browserTarget": "ui-components-slide-panel:build-storybook",
-        "compodoc": false
-      },
-      "configurations": {
-        "ci": {
-          "quiet": true
-        }
-      }
-    },
-    "build-storybook": {
-      "executor": "@storybook/angular:build-storybook",
-      "outputs": ["{options.outputPath}"],
-      "options": {
-        "outputDir": "dist/storybook/ui-components-slide-panel",
-        "configDir": "libs/ui-components/slide-panel/.storybook",
-        "browserTarget": "ui-components-slide-panel:build-storybook",
-        "compodoc": false
-      },
-      "configurations": {
-        "ci": {
-          "quiet": true
-        }
-      }
-    },
     "stylelint": {
       "executor": "nx-stylelint:lint",
       "outputs": ["{options.outputFile}"],
