@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
-import { MatSliderChange } from '@angular/material/slider';
+import { MatSliderChange, MatSlider } from '@angular/material/slider';
 import { formatSecondsAsClock } from '@motabass/helpers/time';
 import { ALLOWED_MIMETYPES } from './file-loader-service/file-loader.helpers';
 import { FileLoaderService } from './file-loader-service/file-loader.service.abstract';
