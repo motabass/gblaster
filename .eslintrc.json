@@ -248,9 +248,17 @@
           }
         ],
         "use-isnan": "error",
-        "valid-typeof": "off"
+        "valid-typeof": "off",
+        "unused-imports/no-unused-imports": "error"
       },
-      "plugins": ["eslint-plugin-jsdoc", "eslint-plugin-prefer-arrow", "eslint-plugin-import", "@angular-eslint/eslint-plugin", "@typescript-eslint"]
+      "plugins": [
+        "eslint-plugin-jsdoc",
+        "eslint-plugin-prefer-arrow",
+        "eslint-plugin-import",
+        "@angular-eslint/eslint-plugin",
+        "@typescript-eslint",
+        "unused-imports"
+      ]
     },
     {
       "files": ["*.html"],
