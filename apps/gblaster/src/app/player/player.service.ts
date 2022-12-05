@@ -1,5 +1,3 @@
-/// <reference types="wicg-mediasession" />
-
 import { Injectable } from '@angular/core';
 import { LoaderService } from '@motabass/helper-services/loader';
 import { MediaSessionService } from '@motabass/helper-services/media-session';

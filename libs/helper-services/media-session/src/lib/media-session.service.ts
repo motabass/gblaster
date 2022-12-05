@@ -1,5 +1,3 @@
-/// <reference types="wicg-mediasession" />
-
 import { Injectable } from '@angular/core';
 
 @Injectable({
