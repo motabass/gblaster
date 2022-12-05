@@ -1,6 +1,6 @@
 {
   "name": "motabass",
-  "version": "11.4.0",
+  "version": "11.4.1",
   "author": "motabass",
   "repository": "https://github.com/motabass/gblaster",
   "description": "nx monorepo for my web stuff",
@@ -64,23 +64,6 @@
     "*.ts": [
       "npm run lint:precommit"
     ]
-  },
-  "release-it": {
-    "github": {
-      "release": true
-    },
-    "hooks": {
-      "after:bump": "npx auto-changelog -p",
-      "after:release": "echo Successfully released ${name} v${version} to ${repo.repository}."
-    },
-    "git": {
-      "requireCleanWorkingDir": false,
-      "requireBranch": "main",
-      "changelog": "npx auto-changelog --stdout --commit-limit false --unreleased --template https://raw.githubusercontent.com/release-it/release-it/master/templates/changelog-compact.hbs"
-    },
-    "npm": {
-      "publish": false
-    }
   },
   "dependencies": {
     "@allex/crc32": "^1.0.4",
