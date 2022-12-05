@@ -1,6 +1,6 @@
 {
   "name": "motabass",
-  "version": "11.4.2",
+  "version": "minor",
   "author": "motabass",
   "repository": "https://github.com/motabass/gblaster",
   "description": "nx monorepo for my web stuff",
@@ -114,6 +114,7 @@
     "@angular/cli": "~15.0.2",
     "@angular/compiler-cli": "15.0.2",
     "@angular/language-service": "15.0.2",
+    "bump": "0.2.5",
     "@babel/core": "7.20.5",
     "@compodoc/compodoc": "^1.1.19",
     "@nrwl/angular": "15.2.4",
