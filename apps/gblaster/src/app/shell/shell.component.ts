@@ -2,10 +2,10 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Component, ViewChild } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
 import { Router } from '@angular/router';
-import { LoaderService } from '@motabass/helper-services/loader';
-import { TitleService } from '@motabass/helper-services/title';
 import { Observable, Subject } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
+import { LoaderService } from '../services/loader/loader.service';
+import { TitleService } from '../services/title.service';
 
 @Component({
   selector: 'mtb-shell',

@@ -1,14 +1,15 @@
 import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { MatSliderChange } from '@angular/material/slider';
-import { GamepadAxes, GamepadButtons, GamepadService } from '@motabass/helper-services/gamepad';
-import { HotkeysService } from '@motabass/helper-services/hotkeys';
-import { MediaSessionService } from '@motabass/helper-services/media-session';
-import { TitleService } from '@motabass/helper-services/title';
 import { formatSecondsAsClock } from '@motabass/helpers/time';
 import { ALLOWED_MIMETYPES } from './file-loader-service/file-loader.helpers';
 import { FileLoaderService } from './file-loader-service/file-loader.service.abstract';
 import { PlayerService } from './player.service';
 import { RepeatMode, Song } from './player.types';
+import { HotkeysService } from '../services/hotkeys/hotkeys.service';
+import { GamepadService } from '../services/gamepad/gamepad.service';
+import { GamepadAxes, GamepadButtons } from '../services/gamepad/gamepad.types';
+import { TitleService } from '../services/title.service';
+import { MediaSessionService } from '../services/media-session.service';
 
 @Component({
   selector: 'mtb-player',

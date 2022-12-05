@@ -3,12 +3,6 @@
   "projects": {
     "gblaster": "apps/gblaster",
     "gblaster-e2e": "apps/gblaster-e2e",
-    "helper-services-gamepad": "libs/helper-services/gamepad",
-    "helper-services-hotkeys": "libs/helper-services/hotkeys",
-    "helper-services-loader": "libs/helper-services/loader",
-    "helper-services-media-session": "libs/helper-services/media-session",
-    "helper-services-title": "libs/helper-services/title",
-    "helper-services-wakelock": "libs/helper-services/wakelock",
     "helpers-memoization": "libs/helpers/memoization",
     "helpers-time": "libs/helpers/time",
     "helpers-unsubscription": "libs/helpers/unsubscription",

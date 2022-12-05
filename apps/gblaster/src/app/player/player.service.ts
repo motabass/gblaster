@@ -1,7 +1,4 @@
 import { Injectable } from '@angular/core';
-import { LoaderService } from '@motabass/helper-services/loader';
-import { MediaSessionService } from '@motabass/helper-services/media-session';
-import { WakelockService } from '@motabass/helper-services/wakelock';
 import { action, observable } from 'mobx-angular';
 import { LocalStorage, LocalStorageService } from 'ngx-webstorage';
 import { FileLoaderService } from './file-loader-service/file-loader.service.abstract';
@@ -9,6 +6,9 @@ import { MetadataService } from './metadata-service/metadata.service';
 import { BandFrequency, RepeatMode, Song } from './player.types';
 import { ALLOWED_MIMETYPES } from './file-loader-service/file-loader.helpers';
 import { ThemeService } from '../theme/theme.service';
+import { LoaderService } from '../services/loader/loader.service';
+import { WakelockService } from '../services/wakelock.service';
+import { MediaSessionService } from '../services/media-session.service';
 
 export const BAND_FREQUENIES: BandFrequency[] = [60, 170, 310, 600, 1000, 3000, 6000, 12000, 14000, 16000];
 

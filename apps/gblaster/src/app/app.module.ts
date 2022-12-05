@@ -10,7 +10,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { ServiceWorkerModule } from '@angular/service-worker';
-import { LoaderInterceptor } from '@motabass/helper-services/loader';
 import { MatIconSizeModule } from '@motabass/material-helpers/mat-icon-size';
 import { DBConfig, NgxIndexedDBModule } from 'ngx-indexed-db';
 import { NgxWebstorageModule } from 'ngx-webstorage';
@@ -18,6 +17,7 @@ import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
 import { ShellComponent } from './shell/shell.component';
 import { DialogsModule } from '@motabass/ui-components/dialogs';
+import { LoaderInterceptor } from './services/loader/loader.interceptor';
 
 const dbConfig: DBConfig = {
   name: 'metadataCache',
