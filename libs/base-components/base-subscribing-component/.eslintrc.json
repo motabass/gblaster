@@ -10,7 +10,7 @@
           "error",
           {
             "type": "attribute",
-            "prefix": "app",
+            "prefix": "motabass",
             "style": "camelCase"
           }
         ],
@@ -18,12 +18,11 @@
           "error",
           {
             "type": "element",
-            "prefix": "app",
+            "prefix": "motabass",
             "style": "kebab-case"
           }
         ]
-      },
-      "plugins": ["@typescript-eslint"]
+      }
     },
     {
       "files": ["*.html"],

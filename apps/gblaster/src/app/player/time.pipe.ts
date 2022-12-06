@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { formatSecondsAsClock } from '@motabass/helpers/time';
+import { formatSecondsAsClock } from '@motabass/helpers';
 
 @Pipe({
   name: 'time',

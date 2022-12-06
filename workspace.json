@@ -1,11 +1,10 @@
 {
   "version": 2,
   "projects": {
+    "base-components-base-subscribing-component": "libs/base-components/base-subscribing-component",
     "gblaster": "apps/gblaster",
     "gblaster-e2e": "apps/gblaster-e2e",
-    "helpers-memoization": "libs/helpers/memoization",
-    "helpers-time": "libs/helpers/time",
-    "helpers-unsubscription": "libs/helpers/unsubscription",
+    "helpers": "libs/helpers",
     "material-helpers-mat-icon-size": "libs/material-helpers/mat-icon-size",
     "ui-components-dialogs": "libs/ui-components/dialogs",
     "ui-components-file-drop-overlay": "libs/ui-components/file-drop-overlay",

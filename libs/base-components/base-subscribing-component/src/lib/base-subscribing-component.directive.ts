@@ -2,7 +2,7 @@ import { Directive, OnDestroy } from '@angular/core';
 import { Subject } from 'rxjs';
 
 @Directive()
-export class Subscribing implements OnDestroy {
+export class BaseSubscribingComponent implements OnDestroy {
   destroy$: Subject<void> = new Subject();
 
   ngOnDestroy(): void {

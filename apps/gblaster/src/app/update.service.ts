@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { SwUpdate, UpdateAvailableEvent } from '@angular/service-worker';
-import { Subscribing } from '@motabass/helpers/unsubscription';
 import { PromptDialogComponent, PromptDialogData } from '@motabass/ui-components/dialogs';
 import { firstValueFrom } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { BaseSubscribingComponent } from '@motabass/base-components/base-subscribing-component';
 
 @Injectable({
   providedIn: 'root'
 })
-export class UpdateService extends Subscribing {
+export class UpdateService extends BaseSubscribingComponent {
   constructor(private swUpdate: SwUpdate, private dialog: MatDialog) {
     super();
     if (swUpdate.isEnabled) {
