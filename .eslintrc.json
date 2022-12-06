@@ -15,6 +15,10 @@
               {
                 "sourceTag": "*",
                 "onlyDependOnLibsWithTags": ["*"]
+              },
+              {
+                "sourceTag": "ts",
+                "onlyDependOnLibsWithTags": ["ts"]
               }
             ]
           }

@@ -12,5 +12,5 @@
       }
     }
   },
-  "tags": ["angular", "base"]
+  "tags": ["lib", "base", "angular"]
 }

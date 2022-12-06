@@ -46,5 +46,5 @@
       "styleext": "scss"
     }
   },
-  "tags": ["lib", "component"]
+  "tags": ["lib", "component", "angular"]
 }

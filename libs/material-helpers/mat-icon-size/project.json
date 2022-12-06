@@ -39,5 +39,5 @@
       "styleext": "scss"
     }
   },
-  "tags": ["lib", "angular", "helper"]
+  "tags": ["lib", "helper", "angular"]
 }
