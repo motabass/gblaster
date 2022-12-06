@@ -31,8 +31,12 @@ jobs:
         run: npm run ci:build
         env:
           CI: true
-      - name: Cypress E2E Test
+      - name: Cypress E2E Tests
         run: npm run ci:e2e
+        env:
+          CI: true
+      - name: Jest-Tests
+        run: npm run affected:test:all
         env:
           CI: true
       - name: Deploy
