@@ -1,5 +1,5 @@
 {
-  "verbose": 0,
+  "verbose": 1,
   "git": {
     "requireCleanWorkingDir": false,
     "requireBranch": "main",

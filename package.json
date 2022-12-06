@@ -1,6 +1,6 @@
 {
   "name": "motabass",
-  "version": "11.5.3",
+  "version": "11.5.4",
   "author": "motabass",
   "repository": "https://github.com/motabass/gblaster",
   "description": "nx monorepo for my web stuff",
@@ -39,7 +39,6 @@
     "migrate": "nx migrate --run-migrations=migrations.json",
     "dep-graph": "nx dep-graph",
     "help": "nx help",
-    "assets:optimize:svg": "svgo -f apps/gblaster/src/assets --disable=removeViewBox",
     "generate:lib:ui-component": "ng generate @nrwl/angular:library --name=test --style=scss --directory=ui-components --prefix=mtb --publishable --simpleModuleName",
     "generate:lib:helper-service": "ng generate @nrwl/angular:library --name=media-session --style=scss --directory=helper-services --prefix=mtb --simpleModuleName",
     "generate:lazy-module-lib": "ng generate @nrwl/angular:library --name=test --style=scss --directory=ui-components --prefix=hsr",
