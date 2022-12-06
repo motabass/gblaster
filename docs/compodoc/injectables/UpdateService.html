@@ -67,7 +67,7 @@
                 <h3>Extends</h3>
             </p>
             <p class="comment">
-                        <code><a href="../directives/Subscribing.html" target="_self" >Subscribing</a></code>
+                        <code><a href="../directives/BaseSubscribingComponent.html" target="_self" >BaseSubscribingComponent</a></code>
             </p>
 
 
@@ -289,15 +289,15 @@
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable } from &#x27;@angular/core&#x27;;
 import { MatDialog, MatDialogConfig } from &#x27;@angular/material/dialog&#x27;;
 import { SwUpdate, UpdateAvailableEvent } from &#x27;@angular/service-worker&#x27;;
-import { Subscribing } from &#x27;@motabass/helpers/unsubscription&#x27;;
 import { PromptDialogComponent, PromptDialogData } from &#x27;@motabass/ui-components/dialogs&#x27;;
 import { firstValueFrom } from &#x27;rxjs&#x27;;
 import { takeUntil } from &#x27;rxjs/operators&#x27;;
+import { BaseSubscribingComponent } from &#x27;@motabass/base-components/base-subscribing-component&#x27;;
 
 @Injectable({
   providedIn: &#x27;root&#x27;
 })
-export class UpdateService extends Subscribing {
+export class UpdateService extends BaseSubscribingComponent {
   constructor(private swUpdate: SwUpdate, private dialog: MatDialog) {
     super();
     if (swUpdate.isEnabled) {

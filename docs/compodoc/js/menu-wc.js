@@ -69,6 +69,9 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                         </div>
                         <ul class="links collapse " ${ isNormalMode ? 'id="additional-pages"' : 'id="xs-additional-pages"' }>
                                     <li class="link ">
+                                        <a href="additional-documentation/base-components-base-subscribing-component.html" data-type="entity-link" data-context-id="additional">base-components-base-subscribing-component</a>
+                                    </li>
+                                    <li class="link ">
                                         <a href="additional-documentation/ui-components-file-drop-overlay.html" data-type="entity-link" data-context-id="additional">ui-components-file-drop-overlay</a>
                                     </li>
                                     <li class="link ">
@@ -78,19 +81,13 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                         <a href="additional-documentation/ui-components-slide-panel.html" data-type="entity-link" data-context-id="additional">ui-components-slide-panel</a>
                                     </li>
                                     <li class="link ">
-                                        <a href="additional-documentation/helpers-unsubscription.html" data-type="entity-link" data-context-id="additional">helpers-unsubscription</a>
-                                    </li>
-                                    <li class="link ">
                                         <a href="additional-documentation/ui-components-dialogs.html" data-type="entity-link" data-context-id="additional">ui-components-dialogs</a>
                                     </li>
                                     <li class="link ">
-                                        <a href="additional-documentation/helpers-memoization.html" data-type="entity-link" data-context-id="additional">helpers-memoization</a>
-                                    </li>
-                                    <li class="link ">
-                                        <a href="additional-documentation/helpers-time.html" data-type="entity-link" data-context-id="additional">helpers-time</a>
-                                    </li>
-                                    <li class="link ">
                                         <a href="additional-documentation/gblaster.html" data-type="entity-link" data-context-id="additional">gblaster</a>
+                                    </li>
+                                    <li class="link ">
+                                        <a href="additional-documentation/helpers.html" data-type="entity-link" data-context-id="additional">helpers</a>
                                     </li>
                         </ul>
                     </li>
@@ -309,7 +306,7 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                             </div>
                             <ul class="links collapse " ${ isNormalMode ? 'id="directives-links"' : 'id="xs-directives-links"' }>
                                 <li class="link">
-                                    <a href="directives/Subscribing.html" data-type="entity-link" >Subscribing</a>
+                                    <a href="directives/BaseSubscribingComponent.html" data-type="entity-link" >BaseSubscribingComponent</a>
                                 </li>
                             </ul>
                         </li>
