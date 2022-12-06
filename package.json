@@ -134,7 +134,7 @@
     "eslint-plugin-import": "2.26.0",
     "eslint-plugin-jsdoc": "39.6.4",
     "eslint-plugin-prefer-arrow": "1.2.3",
-    "find-cache-dir": "3.3.2",
+    "find-cache-dir": "4.0.0",
     "firebase-tools": "11.16.1",
     "husky": "8.0.2",
     "jest": "28.1.3",
