@@ -2,8 +2,8 @@
   "name": "@motabass/material-helpers-mat-icon-size",
   "version": "0.0.1",
   "peerDependencies": {
-    "@angular/common": "^9.0.3",
-    "@angular/core": "^9.0.3",
+    "@angular/common": "^9.0.3 || ^15.0.0",
+    "@angular/core": "^9.0.3 || ^15.0.0",
     "@angular/material": "^9.1.0"
 },
   "dependencies": {
