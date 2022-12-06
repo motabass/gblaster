@@ -3,7 +3,7 @@ import * as path from 'path';
 import { optimize, loadConfig } from 'svgo';
 
 const optimizeSvg = async (svg: string): Promise<string> => {
-  const config = await loadConfig('svgo.config.js');
+  const config = await loadConfig('tools/svgo.config.js');
   const optimized = await optimize(svg, config);
   return optimized.data;
 };
@@ -11,6 +11,7 @@ const optimizeSvg = async (svg: string): Promise<string> => {
 const convertSvgFileToSvgIconMapString = async (svgIconFile: string, svgFilesFolder: string): Promise<string> => {
   let fileContent = await fs.promises.readFile(path.join(svgFilesFolder, svgIconFile), 'utf8');
   fileContent = await optimizeSvg(fileContent);
+  console.log(fileContent);
   const fileId = svgIconFile.replace('.svg', '');
   fileContent = fileContent.replace('<svg ', '<svg id="' + fileId + '" ');
   return fileContent;
