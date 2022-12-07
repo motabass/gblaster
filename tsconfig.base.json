@@ -20,34 +20,11 @@
     "baseUrl": ".",
     "paths": {
       "@motabass/base-components/base-subscribing-component": ["libs/base-components/base-subscribing-component/src/index.ts"],
-      "@motabass/base-components/base-subscribing-component/base-components-base-subscribing-component": [
-        "libs/base-components/base-subscribing-component/base-components-base-subscribing-component/src/index.ts"
-      ],
-      "@motabass/base-components/base-subscribing-component/base-subscribing-component": [
-        "libs/base-components/base-subscribing-component/base-subscribing-component/src/index.ts"
-      ],
-      "@motabass/core/theme": ["libs/core/theme/src/index.ts"],
-      "@motabass/core/update": ["libs/core/update/src/index.ts"],
-      "@motabass/helper-services/gamepad": ["libs/helper-services/gamepad/src/index.ts"],
-      "@motabass/helper-services/hotkeys": ["libs/helper-services/hotkeys/src/index.ts"],
-      "@motabass/helper-services/loader": ["libs/helper-services/loader/src/index.ts"],
-      "@motabass/helper-services/media-session": ["libs/helper-services/media-session/src/index.ts"],
-      "@motabass/helper-services/title": ["libs/helper-services/title/src/index.ts"],
-      "@motabass/helper-services/wakelock": ["libs/helper-services/wakelock/src/index.ts"],
-      "@motabass/helpers": ["libs/helpers/src/index.ts"],
-      "@motabass/helpers/memoization": ["libs/helpers/memoization/src/index.ts"],
-      "@motabass/helpers/time": ["libs/helpers/time/src/index.ts"],
-      "@motabass/helpers/unsubscription": ["libs/helpers/unsubscription/src/index.ts"],
-      "@motabass/libs/base-components/base-subscribing-component/base-components-base-subscribing-component": [
-        "libs/libs/base-components/base-subscribing-component/base-components-base-subscribing-component/src/index.ts"
-      ],
       "@motabass/material-helpers/mat-icon-size": ["libs/material-helpers/mat-icon-size/src/index.ts"],
-      "@motabass/player": ["libs/player/src/index.ts"],
-      "@motabass/settings": ["libs/settings/src/index.ts"],
       "@motabass/ui-components/dialogs": ["libs/ui-components/dialogs/src/index.ts"],
       "@motabass/ui-components/file-drop-overlay": ["libs/ui-components/file-drop-overlay/src/index.ts"],
       "@motabass/ui-components/slide-panel": ["libs/ui-components/slide-panel/src/index.ts"],
-      "@motabass/ui-components/visuals": ["libs/ui-components/visuals/src/index.ts"],
+      "@motabass/helpers": ["libs/helpers/src/index.ts"],
       "@motabass/workspace": ["libs/workspace/src/index.ts"]
     }
   },

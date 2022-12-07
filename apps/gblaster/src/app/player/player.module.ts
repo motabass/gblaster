@@ -12,7 +12,6 @@ import { MatSliderModule } from '@angular/material/slider';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterModule } from '@angular/router';
 import { MatIconSizeModule } from '@motabass/material-helpers/mat-icon-size';
-import { FileDropOverlayModule } from '@motabass/ui-components/file-drop-overlay';
 import { SlidePanelModule } from '@motabass/ui-components/slide-panel';
 import { MobxAngularModule } from 'mobx-angular';
 import { NgxIndexedDBService } from 'ngx-indexed-db';
@@ -30,6 +29,7 @@ import { SafePipeModule } from 'safe-pipe';
 import { VisualsDirective } from './visualizer/visuals/visuals.directive';
 import { HotkeysModule } from '../services/hotkeys/hotkeys.module';
 import { MAT_TOOLTIP_DEFAULT_OPTIONS, MatTooltipModule } from '@angular/material/tooltip';
+import { FileDropOverlayComponent } from '@motabass/ui-components/file-drop-overlay';
 
 @NgModule({
   imports: [
@@ -50,11 +50,11 @@ import { MAT_TOOLTIP_DEFAULT_OPTIONS, MatTooltipModule } from '@angular/material
     MatToolbarModule,
     MobxAngularModule,
     SlidePanelModule,
-    FileDropOverlayModule,
     MatIconSizeModule,
     DragDropModule,
     SafePipeModule,
-    MatTooltipModule
+    MatTooltipModule,
+    FileDropOverlayComponent
   ],
   declarations: [
     PlayerComponent,

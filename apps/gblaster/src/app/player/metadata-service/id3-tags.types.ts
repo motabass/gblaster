@@ -1,4 +1,4 @@
-import { IFormat } from 'music-metadata/lib/type';
+import type { IFormat } from 'music-metadata/lib/type';
 
 export interface Id3Tags {
   picture?: Id3CoverPicture;

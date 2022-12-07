@@ -1,4 +1,4 @@
-import { IFormat } from 'music-metadata/lib/type';
+import type { IFormat } from 'music-metadata/lib/type';
 import { Id3CoverPicture } from './metadata-service/id3-tags.types';
 import { CoverColorPalette, RemoteCoverPicture } from './metadata-service/metadata.types';
 

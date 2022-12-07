@@ -20,7 +20,8 @@
           "readable-web-to-node-stream",
           "typedarray-to-buffer",
           "node-vibrant/lib/browser",
-          "lucene-escape-query"
+          "lucene-escape-query",
+          "fast-memoize"
         ],
         "outputPath": "dist/apps/gblaster",
         "index": "apps/gblaster/src/index.html",
@@ -28,7 +29,7 @@
         "polyfills": "apps/gblaster/src/polyfills.ts",
         "tsConfig": "apps/gblaster/tsconfig.app.json",
         "assets": ["apps/gblaster/src/favicon.ico", "apps/gblaster/src/assets", "apps/gblaster/src/manifest.webmanifest"],
-        "styles": ["apps/gblaster/src/styles/theme.scss", "apps/gblaster/src/styles/main.scss"],
+        "styles": ["apps/gblaster/src/styles/theme.scss", "apps/gblaster/src/styles/styles.scss"],
         "scripts": [],
         "webWorkerTsConfig": "apps/gblaster/tsconfig.worker.json",
         "vendorChunk": true,

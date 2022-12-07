@@ -1,9 +1,12 @@
 import { Component, ElementRef, EventEmitter, Input, Output, Renderer2 } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'mtb-file-drop-overlay',
   templateUrl: './file-drop-overlay.component.html',
-  styleUrls: ['./file-drop-overlay.component.scss']
+  styleUrls: ['./file-drop-overlay.component.scss'],
+  standalone: true,
+  imports: [CommonModule]
 })
 export class FileDropOverlayComponent {
   @Input() allowedTypes: string[] = ['*/*'];
