@@ -232,7 +232,7 @@ import { firstValueFrom } from &#x27;rxjs&#x27;;
 import { Id3Tags } from &#x27;./id3-tags.types&#x27;;
 import { RemoteCoverPicture } from &#x27;./metadata.types&#x27;;
 
-@Injectable({ providedIn: &#x27;any&#x27; })
+@Injectable({ providedIn: &#x27;root&#x27; })
 export class MusicbrainzService {
   constructor(private http: HttpClient) {}
 

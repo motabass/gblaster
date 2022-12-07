@@ -188,7 +188,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="11" class="link-to-prism">libs/ui-components/file-drop-overlay/src/lib/file-drop-overlay/file-drop-overlay.component.ts:11</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">libs/ui-components/file-drop-overlay/src/lib/file-drop-overlay/file-drop-overlay.component.ts:14</a></div>
                             </td>
                         </tr>
 
@@ -261,7 +261,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="9" class="link-to-prism">libs/ui-components/file-drop-overlay/src/lib/file-drop-overlay/file-drop-overlay.component.ts:9</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">libs/ui-components/file-drop-overlay/src/lib/file-drop-overlay/file-drop-overlay.component.ts:12</a></div>
                             </td>
                         </tr>
             </tbody>
@@ -285,7 +285,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="11" class="link-to-prism">libs/ui-components/file-drop-overlay/src/lib/file-drop-overlay/file-drop-overlay.component.ts:11</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">libs/ui-components/file-drop-overlay/src/lib/file-drop-overlay/file-drop-overlay.component.ts:14</a></div>
                             </td>
                         </tr>
             </tbody>
@@ -318,8 +318,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="48"
-                            class="link-to-prism">libs/ui-components/file-drop-overlay/src/lib/file-drop-overlay/file-drop-overlay.component.ts:48</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="51"
+                            class="link-to-prism">libs/ui-components/file-drop-overlay/src/lib/file-drop-overlay/file-drop-overlay.component.ts:51</a></div>
                 </td>
             </tr>
 
@@ -387,8 +387,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="41"
-                            class="link-to-prism">libs/ui-components/file-drop-overlay/src/lib/file-drop-overlay/file-drop-overlay.component.ts:41</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="44"
+                            class="link-to-prism">libs/ui-components/file-drop-overlay/src/lib/file-drop-overlay/file-drop-overlay.component.ts:44</a></div>
                 </td>
             </tr>
 
@@ -456,8 +456,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="29"
-                            class="link-to-prism">libs/ui-components/file-drop-overlay/src/lib/file-drop-overlay/file-drop-overlay.component.ts:29</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="32"
+                            class="link-to-prism">libs/ui-components/file-drop-overlay/src/lib/file-drop-overlay/file-drop-overlay.component.ts:32</a></div>
                 </td>
             </tr>
 
@@ -512,11 +512,14 @@
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, ElementRef, EventEmitter, Input, Output, Renderer2 } from &#x27;@angular/core&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
 
 @Component({
   selector: &#x27;mtb-file-drop-overlay&#x27;,
   templateUrl: &#x27;./file-drop-overlay.component.html&#x27;,
-  styleUrls: [&#x27;./file-drop-overlay.component.scss&#x27;]
+  styleUrls: [&#x27;./file-drop-overlay.component.scss&#x27;],
+  standalone: true,
+  imports: [CommonModule]
 })
 export class FileDropOverlayComponent {
   @Input() allowedTypes: string[] &#x3D; [&#x27;*/*&#x27;];

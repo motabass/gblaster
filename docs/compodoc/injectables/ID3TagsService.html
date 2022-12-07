@@ -181,7 +181,7 @@
 import { IAudioMetadata } from &#x27;music-metadata-browser&#x27;;
 import { Id3CoverPicture, Id3Tags } from &#x27;./id3-tags.types&#x27;;
 
-@Injectable({ providedIn: &#x27;any&#x27; })
+@Injectable({ providedIn: &#x27;root&#x27; })
 export class Id3TagsService {
   async extractTags(file: File): Promise&lt;Id3Tags | null&gt; {
     const musicMetadata &#x3D; await import(&#x27;music-metadata-browser&#x27;);
