@@ -3,21 +3,31 @@
   "overrides": [
     {
       "files": ["**/*.css"],
-      "extends": ["stylelint-config-standard", "stylelint-config-recommended-scss", "stylelint-config-prettier"],
+      "extends": ["stylelint-config-standard", "stylelint-config-recommended", "stylelint-config-prettier-scss"],
       "rules": {}
     },
     {
       "files": ["**/*.scss"],
       "extends": ["stylelint-config-standard-scss", "stylelint-config-recommended-scss", "stylelint-config-prettier"],
+      "rules": {
+        "scss/dollar-variable-empty-line-before": "off"
+      }
+    },
+    {
+      "files": ["**/*.html"],
+      "customSyntax": "postcss-html",
+      "extends": ["stylelint-config-standard", "stylelint-config-prettier"],
       "rules": {}
     }
   ],
   "rules": {
+    "value-keyword-case": null,
     "selector-pseudo-element-no-unknown": [
       true,
       {
         "ignorePseudoElements": ["ng-deep"]
       }
     ]
-  }
+  },
+  "defaultSeverity": "warning"
 }

@@ -107,10 +107,10 @@ export class ThemeService {
       this.getColorObject(new TinyColor(hex).darken(12), '700'),
       this.getColorObject(new TinyColor(hex).darken(18), '800'),
       this.getColorObject(new TinyColor(hex).darken(24), '900'),
-      this.getColorObject(new TinyColor(hex).lighten(50).saturate(30), 'A100'),
-      this.getColorObject(new TinyColor(hex).lighten(30).saturate(30), 'A200'),
-      this.getColorObject(new TinyColor(hex).lighten(10).saturate(15), 'A400'),
-      this.getColorObject(new TinyColor(hex).lighten(5).saturate(5), 'A700')
+      this.getColorObject(new TinyColor(hex).lighten(50).saturate(30), 'a100'),
+      this.getColorObject(new TinyColor(hex).lighten(30).saturate(30), 'a200'),
+      this.getColorObject(new TinyColor(hex).lighten(10).saturate(15), 'a400'),
+      this.getColorObject(new TinyColor(hex).lighten(5).saturate(5), 'a700')
     ];
   }
 

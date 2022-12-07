@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { NgxIndexedDBService } from 'ngx-indexed-db';
 import { MetadataService } from '../../player/metadata-service/metadata.service';
@@ -8,10 +8,8 @@ import { MetadataService } from '../../player/metadata-service/metadata.service'
   templateUrl: './metadata-settings.component.html',
   styleUrls: ['./metadata-settings.component.scss']
 })
-export class MetadataSettingsComponent implements OnInit {
+export class MetadataSettingsComponent {
   constructor(private metadataService: MetadataService, private indexedDBService: NgxIndexedDBService) {}
-
-  ngOnInit() {}
 
   get useWebTags() {
     return this.metadataService.useWebMetainfos;

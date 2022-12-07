@@ -1,6 +1,7 @@
 // Custom Theming for Angular Material
 // For more information: https://material.angular.io/guide/theming
 @use '@angular/material' as mat;
+
 // Plus imports for other components in your app.
 
 // Include the common styles for Angular Material. We include this here so that you only
@@ -14,8 +15,8 @@
 //  If you don't need the default component typographies but still want the hierarchy styles,
 //  you can delete this line and instead use:
 //    `@include mat.legacy-typography-hierarchy(mat.define-typography-config());`
-@include mat.all-component-typographies();
-@include mat.core();
+@include mat.all-component-typographies;
+@include mat.core;
 
 // Palettes
 $dynamic-primary-palette: (
@@ -29,10 +30,10 @@ $dynamic-primary-palette: (
   700: var(--theme-primary-700),
   800: var(--theme-primary-800),
   900: var(--theme-primary-900),
-  A100: var(--theme-primary-A100),
-  A200: var(--theme-primary-A200),
-  A400: var(--theme-primary-A400),
-  A700: var(--theme-primary-A700),
+  A100: var(--theme-primary-a100),
+  A200: var(--theme-primary-a200),
+  A400: var(--theme-primary-a400),
+  A700: var(--theme-primary-a700),
   contrast: (
     50: var(--theme-primary-contrast-50),
     100: var(--theme-primary-contrast-100),
@@ -44,10 +45,10 @@ $dynamic-primary-palette: (
     700: var(--theme-primary-contrast-700),
     800: var(--theme-primary-contrast-800),
     900: var(--theme-primary-contrast-900),
-    A100: var(--theme-primary-contrast-A100),
-    A200: var(--theme-primary-contrast-A200),
-    A400: var(--theme-primary-contrast-A400),
-    A700: var(--theme-primary-contrast-A700)
+    A100: var(--theme-primary-contrast-a100),
+    A200: var(--theme-primary-contrast-a200),
+    A400: var(--theme-primary-contrast-a400),
+    A700: var(--theme-primary-contrast-a700)
   )
 );
 
@@ -62,10 +63,10 @@ $dynamic-accent-palette: (
   700: var(--theme-accent-700),
   800: var(--theme-accent-800),
   900: var(--theme-accent-900),
-  A100: var(--theme-accent-A100),
-  A200: var(--theme-accent-A200),
-  A400: var(--theme-accent-A400),
-  A700: var(--theme-accent-A700),
+  A100: var(--theme-accent-a100),
+  A200: var(--theme-accent-a200),
+  A400: var(--theme-accent-a400),
+  A700: var(--theme-accent-a700),
   contrast: (
     50: var(--theme-accent-contrast-50),
     100: var(--theme-accent-contrast-100),
@@ -77,10 +78,10 @@ $dynamic-accent-palette: (
     700: var(--theme-accent-contrast-700),
     800: var(--theme-accent-contrast-800),
     900: var(--theme-accent-contrast-900),
-    A100: var(--theme-accent-contrast-A100),
-    A200: var(--theme-accent-contrast-A200),
-    A400: var(--theme-accent-contrast-A400),
-    A700: var(--theme-accent-contrast-A700)
+    A100: var(--theme-accent-contrast-a100),
+    A200: var(--theme-accent-contrast-a200),
+    A400: var(--theme-accent-contrast-a400),
+    A700: var(--theme-accent-contrast-a700)
   )
 );
 
@@ -107,6 +108,7 @@ $dynamic-dark-theme: mat.define-dark-theme(
     )
   )
 );
+
 // Include all theme styles for the components.
 
 .light-theme {

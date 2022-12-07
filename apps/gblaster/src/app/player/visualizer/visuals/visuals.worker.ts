@@ -1,4 +1,3 @@
-/// <reference lib="webworker" />
 /// <reference types="offscreencanvas" />
 
 import { scalePow, ScalePower } from 'd3-scale';

@@ -2,9 +2,10 @@ html,
 body {
   height: 100%;
 }
+
 body {
   margin: 0;
-  font-family: Roboto Condensed, 'Helvetica Neue', sans-serif;
+  font-family: 'Roboto Condensed', 'Helvetica Neue', sans-serif;
   overscroll-behavior: none;
   user-select: none;
 }
@@ -19,7 +20,7 @@ body {
   color: black;
 }
 
-::-moz-selection {
+::selection {
   background-color: var(--theme-accent-500);
   color: black;
 }
@@ -37,7 +38,7 @@ body {
 
 ::-webkit-scrollbar-thumb {
   background: var(--theme-accent-500);
-  border: 0 none #000000;
+  border: 0 none #000;
   border-radius: 50px;
 }
 
@@ -55,8 +56,9 @@ body {
 }
 
 ::-webkit-scrollbar-track:hover {
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: rgb(0 0 0 / 20%);
 }
+
 // Scrollbar END
 
 @media (max-width: 599px) {

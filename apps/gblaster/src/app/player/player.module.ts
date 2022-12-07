@@ -11,7 +11,6 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterModule } from '@angular/router';
-import { MatIconSizeModule } from '@motabass/material-helpers/mat-icon-size';
 import { SlidePanelModule } from '@motabass/ui-components/slide-panel';
 import { MobxAngularModule } from 'mobx-angular';
 import { NgxIndexedDBService } from 'ngx-indexed-db';
@@ -24,19 +23,19 @@ import { PlayerComponent } from './player.component';
 import { PlaylistComponent } from './playlist/playlist.component';
 import { TimePipe } from './time.pipe';
 import { VisualizerComponent } from './visualizer/visualizer.component';
-import { EqualizerShellComponent } from './equalizer-shell/equalizer-shell.component';
 import { SafePipeModule } from 'safe-pipe';
 import { VisualsDirective } from './visualizer/visuals/visuals.directive';
 import { HotkeysModule } from '../services/hotkeys/hotkeys.module';
 import { MAT_TOOLTIP_DEFAULT_OPTIONS, MatTooltipModule } from '@angular/material/tooltip';
 import { FileDropOverlayComponent } from '@motabass/ui-components/file-drop-overlay';
+import { MatIconSizeModule } from '@motabass/material-helpers/mat-icon-size';
 
 @NgModule({
   imports: [
     CommonModule,
     RouterModule.forChild([
       { path: '', pathMatch: 'full', component: PlayerComponent },
-      { path: 'eq', component: EqualizerShellComponent }
+      { path: 'eq', component: EqualizerComponent }
     ]),
     MatIconModule,
     MatListModule,
@@ -54,19 +53,10 @@ import { FileDropOverlayComponent } from '@motabass/ui-components/file-drop-over
     DragDropModule,
     SafePipeModule,
     MatTooltipModule,
-    FileDropOverlayComponent
+    FileDropOverlayComponent,
+    MatIconSizeModule
   ],
-  declarations: [
-    PlayerComponent,
-    PlaylistComponent,
-    TimePipe,
-    CoverDisplayComponent,
-    VisualizerComponent,
-    EqualizerComponent,
-    BandPipe,
-    EqualizerShellComponent,
-    VisualsDirective
-  ],
+  declarations: [PlayerComponent, PlaylistComponent, TimePipe, CoverDisplayComponent, VisualizerComponent, EqualizerComponent, BandPipe, VisualsDirective],
   providers: [
     {
       provide: FileLoaderService,

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { SwUpdate, UpdateAvailableEvent } from '@angular/service-worker';
+import { SwUpdate } from '@angular/service-worker';
 import { PromptDialogComponent, PromptDialogData } from '@motabass/ui-components/dialogs';
 import { firstValueFrom } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -16,7 +16,7 @@ export class UpdateService extends BaseSubscribingComponent {
       swUpdate.available.pipe(takeUntil(this.destroy$)).subscribe((event) => {
         console.log('current version is', event.current);
         console.log('available version is', event.available);
-        this.askUserForUpdate(event).then((update) => {
+        this.askUserForUpdate().then((update) => {
           if (update) {
             swUpdate.activateUpdate().then(() => document.location.reload());
           }
@@ -35,7 +35,7 @@ export class UpdateService extends BaseSubscribingComponent {
     }
   }
 
-  async askUserForUpdate(event: UpdateAvailableEvent): Promise<boolean> {
+  async askUserForUpdate(): Promise<boolean> {
     const data: PromptDialogData = {
       title: 'Update verfügbar!',
       text: 'Soll das Update durchgeführt werden?',
