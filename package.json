@@ -1,6 +1,6 @@
 {
   "name": "motabass",
-  "version": "11.5.10",
+  "version": "11.5.11",
   "author": "motabass",
   "repository": "https://github.com/motabass/gblaster",
   "description": "nx monorepo for my web stuff",
@@ -137,7 +137,6 @@
     "eslint-plugin-import": "2.26.0",
     "eslint-plugin-jsdoc": "39.6.4",
     "eslint-plugin-prefer-arrow": "1.2.3",
-    "find-cache-dir": "3.3.2",
     "firebase-tools": "11.17.0",
     "husky": "8.0.2",
     "jest": "28.1.3",
