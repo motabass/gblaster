@@ -589,21 +589,23 @@ export class EqualizerComponent {
     </div>
 
     <div class="tab-pane fade " id="c-templateData">
-        <pre class="line-numbers"><code class="language-html">&lt;div fxLayout&#x3D;&quot;row&quot; fxLayoutAlign&#x3D;&quot;space-between center&quot; style&#x3D;&quot;width: 100%; height: 100%; box-sizing: border-box; padding-bottom: 1rem&quot;&gt;
-  &lt;div *ngFor&#x3D;&quot;let band of BANDS; trackBy: bandTrackFunction&quot; fxLayout&#x3D;&quot;column&quot; fxLayoutAlign&#x3D;&quot;start center&quot; style&#x3D;&quot;min-height: 6rem; height: 100%&quot;&gt;
-    &lt;mat-slider
-      vertical
-      [displayWith]&#x3D;&quot;displayFunction&quot;
-      style&#x3D;&quot;height: 100%; padding: 2px&quot;
-      [value]&#x3D;&quot;getBandGain(band)&quot;
-      (input)&#x3D;&quot;onGainChange($event, band)&quot;
-      min&#x3D;&quot;-12&quot;
-      max&#x3D;&quot;12&quot;
-      step&#x3D;&quot;0.1&quot;
-      thumbLabel
-      tickInterval&#x3D;&quot;3&quot;
-    &gt;&lt;/mat-slider&gt;
-    &lt;span style&#x3D;&quot;font-size: smaller; text-align: center; width: 100%&quot;&gt;{{ band | band }}&lt;/span&gt;
+        <pre class="line-numbers"><code class="language-html">&lt;div style&#x3D;&quot;height: 100%; box-sizing: border-box; padding-bottom: 1rem&quot;&gt;
+  &lt;div fxLayout&#x3D;&quot;row&quot; fxLayoutAlign&#x3D;&quot;space-between center&quot; style&#x3D;&quot;height: 100%; overflow-x: auto&quot;&gt;
+    &lt;div *ngFor&#x3D;&quot;let band of BANDS; trackBy: bandTrackFunction&quot; fxLayout&#x3D;&quot;column&quot; fxLayoutAlign&#x3D;&quot;start center&quot; style&#x3D;&quot;min-height: 6rem; height: 100%&quot;&gt;
+      &lt;mat-slider
+        vertical
+        [displayWith]&#x3D;&quot;displayFunction&quot;
+        style&#x3D;&quot;height: 90%; padding: 6px&quot;
+        [value]&#x3D;&quot;getBandGain(band)&quot;
+        (input)&#x3D;&quot;onGainChange($event, band)&quot;
+        min&#x3D;&quot;-12&quot;
+        max&#x3D;&quot;12&quot;
+        step&#x3D;&quot;0.1&quot;
+        thumbLabel
+        tickInterval&#x3D;&quot;3&quot;
+      &gt;&lt;/mat-slider&gt;
+      &lt;span style&#x3D;&quot;font-size: smaller; text-align: center; width: 100%&quot;&gt;{{ band | band }}&lt;/span&gt;
+    &lt;/div&gt;
   &lt;/div&gt;
 &lt;/div&gt;
 </code></pre>
@@ -615,7 +617,8 @@ export class EqualizerComponent {
                 </p>
                 <pre class="line-numbers"><code class="language-scss">:host {
   display: block;
-  padding: 0.2rem 0;
+  padding: 2rem 1rem;
+  height: 100%;
   overflow-x: auto;
 }
 </code></pre>
@@ -646,8 +649,8 @@ export class EqualizerComponent {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><div fxLayout="row" fxLayoutAlign="space-between center" style="width: 100%; height: 100%; box-sizing: border-box; padding-bottom: 1rem">  <div *ngFor="let band of BANDS; trackBy: bandTrackFunction" fxLayout="column" fxLayoutAlign="start center" style="min-height: 6rem; height: 100%">    <mat-slider      vertical      [displayWith]="displayFunction"      style="height: 100%; padding: 2px"      [value]="getBandGain(band)"      (input)="onGainChange($event, band)"      min="-12"      max="12"      step="0.1"      thumbLabel      tickInterval="3"    ></mat-slider>    <span style="font-size: smaller; text-align: center; width: 100%">{{ band | band }}</span>  </div></div></div>'
-    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'mtb-root'},{'name': 'CoverDisplayComponent', 'selector': 'mtb-cover-display'},{'name': 'EqualizerComponent', 'selector': 'mtb-equalizer'},{'name': 'EqualizerShellComponent', 'selector': 'mtb-equalizer-shell'},{'name': 'FileDropOverlayComponent', 'selector': 'mtb-file-drop-overlay'},{'name': 'HotkeysHelpDialogComponent', 'selector': 'mtb-hotkeys-help-dialog'},{'name': 'MetadataSettingsComponent', 'selector': 'mtb-metadata-settings'},{'name': 'PlayerComponent', 'selector': 'mtb-player'},{'name': 'PlaylistComponent', 'selector': 'mtb-playlist'},{'name': 'PromptDialogComponent', 'selector': 'mtb-prompt-dialog'},{'name': 'SettingsComponent', 'selector': 'mtb-settings'},{'name': 'ShellComponent', 'selector': 'mtb-shell'},{'name': 'SlidePanelComponent', 'selector': 'mtb-slide-panel'},{'name': 'StorageSettingsComponent', 'selector': 'mtb-storage-settings'},{'name': 'ThemeSettingsComponent', 'selector': 'mtb-theme-settings'},{'name': 'VisualizerComponent', 'selector': 'mtb-visualizer'}];
+        var COMPONENT_TEMPLATE = '<div><div style="height: 100%; box-sizing: border-box; padding-bottom: 1rem">  <div fxLayout="row" fxLayoutAlign="space-between center" style="height: 100%; overflow-x: auto">    <div *ngFor="let band of BANDS; trackBy: bandTrackFunction" fxLayout="column" fxLayoutAlign="start center" style="min-height: 6rem; height: 100%">      <mat-slider        vertical        [displayWith]="displayFunction"        style="height: 90%; padding: 6px"        [value]="getBandGain(band)"        (input)="onGainChange($event, band)"        min="-12"        max="12"        step="0.1"        thumbLabel        tickInterval="3"      ></mat-slider>      <span style="font-size: smaller; text-align: center; width: 100%">{{ band | band }}</span>    </div>  </div></div></div>'
+    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'mtb-root'},{'name': 'CoverDisplayComponent', 'selector': 'mtb-cover-display'},{'name': 'EqualizerComponent', 'selector': 'mtb-equalizer'},{'name': 'FileDropOverlayComponent', 'selector': 'mtb-file-drop-overlay'},{'name': 'HotkeysHelpDialogComponent', 'selector': 'mtb-hotkeys-help-dialog'},{'name': 'MetadataSettingsComponent', 'selector': 'mtb-metadata-settings'},{'name': 'PlayerComponent', 'selector': 'mtb-player'},{'name': 'PlaylistComponent', 'selector': 'mtb-playlist'},{'name': 'PromptDialogComponent', 'selector': 'mtb-prompt-dialog'},{'name': 'SettingsComponent', 'selector': 'mtb-settings'},{'name': 'ShellComponent', 'selector': 'mtb-shell'},{'name': 'SlidePanelComponent', 'selector': 'mtb-slide-panel'},{'name': 'StorageSettingsComponent', 'selector': 'mtb-storage-settings'},{'name': 'ThemeSettingsComponent', 'selector': 'mtb-theme-settings'},{'name': 'VisualizerComponent', 'selector': 'mtb-visualizer'}];
     var DIRECTIVES = [{'name': 'BaseSubscribingComponent', 'selector': ''},{'name': 'IconSizeDirective', 'selector': '[matIconSize]'},{'name': 'VisualsDirective', 'selector': '[mtbVisual]'}];
     var ACTUAL_COMPONENT = {'name': 'EqualizerComponent'};
 </script>

@@ -2006,7 +2006,7 @@ import { MediaSessionService } from &#x27;../services/media-session.service&#x27
 
 export const BAND_FREQUENIES: BandFrequency[] &#x3D; [60, 170, 310, 600, 1000, 3000, 6000, 12000, 14000, 16000];
 
-@Injectable({ providedIn: &#x27;root&#x27; })
+@Injectable({ providedIn: &#x27;any&#x27; })
 export class PlayerService {
   bands: { [band: number]: BiquadFilterNode } &#x3D; {};
 
