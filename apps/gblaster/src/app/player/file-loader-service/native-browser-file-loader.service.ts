@@ -7,7 +7,7 @@ import { ALLOWED_MIMETYPES } from './file-loader.helpers';
 import { FileLoaderService } from './file-loader.service.abstract';
 
 @Injectable({
-  providedIn: 'any'
+  providedIn: 'root'
 })
 export class NativeBrowserFileLoaderService extends FileLoaderService {
   currentFolderHandle?: FileSystemDirectoryHandle;

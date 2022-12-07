@@ -4,7 +4,7 @@ import { firstValueFrom } from 'rxjs';
 import { Id3Tags } from './id3-tags.types';
 import { RemoteCoverPicture } from './metadata.types';
 
-@Injectable({ providedIn: 'any' })
+@Injectable({ providedIn: 'root' })
 export class LastfmMetadataService {
   private readonly LASTFM_API_KEY = '3a67934408152a2fc3f7216c022ec1df';
 

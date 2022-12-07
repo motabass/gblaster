@@ -11,7 +11,7 @@ import { CoverColorPalette, RemoteCoverPicture } from './metadata.types';
 import { MusicbrainzService } from './musicbrainz.service';
 import { ThemeService } from '../../theme/theme.service';
 
-@Injectable({ providedIn: 'any' })
+@Injectable({ providedIn: 'root' })
 export class MetadataService {
   private readonly PLACEHOLDER_URL = 'assets/icons/record.svg';
 

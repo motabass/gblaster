@@ -5,7 +5,7 @@ import { firstValueFrom } from 'rxjs';
 import { Id3Tags } from './id3-tags.types';
 import { RemoteCoverPicture } from './metadata.types';
 
-@Injectable({ providedIn: 'any' })
+@Injectable({ providedIn: 'root' })
 export class MusicbrainzService {
   constructor(private http: HttpClient) {}
 

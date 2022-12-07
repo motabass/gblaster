@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { IAudioMetadata } from 'music-metadata-browser';
 import { Id3CoverPicture, Id3Tags } from './id3-tags.types';
 
-@Injectable({ providedIn: 'any' })
+@Injectable({ providedIn: 'root' })
 export class Id3TagsService {
   async extractTags(file: File): Promise<Id3Tags | null> {
     const musicMetadata = await import('music-metadata-browser');
