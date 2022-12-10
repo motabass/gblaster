@@ -1,15 +1,9 @@
-import { Injectable } from '@angular/core';
+import { expose } from 'threads/worker';
 import { Id3CoverPicture, Id3Tags } from './id3-tags.types';
-import { IAudioMetadata } from 'music-metadata-browser';
+import type { IAudioMetadata } from 'music-metadata-browser';
 
-@Injectable({ providedIn: 'root' })
-export class Id3TagsService {
+expose({
   async extractTags(file: File): Promise<Id3Tags | null> {
-    // const metadataWorker = await spawn(new Worker('./metadata.worker'));
-    // const tags = await metadataWorker.extractTags(file);
-    // await Thread.terminate(metadataWorker);
-    // return tags;
-
     const musicMetadata = await import('music-metadata-browser');
 
     let tags: IAudioMetadata | undefined;
@@ -35,4 +29,4 @@ export class Id3TagsService {
       format: tags.format
     };
   }
-}
+});

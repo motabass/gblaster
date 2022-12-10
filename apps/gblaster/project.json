@@ -11,8 +11,24 @@
   "prefix": "mtb",
   "targets": {
     "build": {
-      "executor": "@angular-devkit/build-angular:browser",
+      "executor": "@angular-builders/custom-webpack:browser",
       "options": {
+        "customWebpackConfig": {
+          "path": "./extra-webpack.config.js",
+          "replaceDuplicatePlugins": true,
+          "mergeRules": {
+            "plugins": "merge",
+            "module": {
+              "rules": {
+                "test": "match",
+                "use": {
+                  "loader": "match",
+                  "options": "merge"
+                }
+              }
+            }
+          }
+        },
         "allowedCommonJsDependencies": [
           "music-metadata-browser",
           "music-metadata/lib/core",
@@ -82,7 +98,7 @@
       "outputs": ["{options.outputPath}"]
     },
     "serve": {
-      "executor": "@angular-devkit/build-angular:dev-server",
+      "executor": "@angular-builders/custom-webpack:dev-server",
       "options": {
         "browserTarget": "gblaster:build"
       },
