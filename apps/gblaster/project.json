@@ -92,12 +92,6 @@
         }
       }
     },
-    "extract-i18n": {
-      "executor": "@angular-devkit/build-angular:extract-i18n",
-      "options": {
-        "browserTarget": "gblaster:build"
-      }
-    },
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "options": {
