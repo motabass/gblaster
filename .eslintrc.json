@@ -196,9 +196,11 @@
         "no-caller": "error",
         "no-cond-assign": "error",
         "no-console": [
-          "error",
+          "warn",
           {
             "allow": [
+              "time",
+              "timeEnd",
               "log",
               "warn",
               "dir",
