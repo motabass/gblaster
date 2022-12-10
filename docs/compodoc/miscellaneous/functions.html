@@ -67,7 +67,10 @@
                             <a href="#drawOsc" title="apps/gblaster/src/app/player/visualizer/visuals/visuals.worker.ts" ><b>drawOsc</b>&nbsp;&nbsp;&nbsp;(apps/.../visuals.worker.ts)</a>
                         </li>
                         <li>
-                            <a href="#extractColors" title="apps/gblaster/src/app/player/metadata-service/metadata.service.ts" ><b>extractColors</b>&nbsp;&nbsp;&nbsp;(apps/.../metadata.service.ts)</a>
+                            <a href="#extractColorsWithNodeVibrant" title="apps/gblaster/src/app/player/metadata-service/metadata.service.ts" ><b>extractColorsWithNodeVibrant</b>&nbsp;&nbsp;&nbsp;(apps/.../metadata.service.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#extractColorsWithVibrantWasm" title="apps/gblaster/src/app/player/metadata-service/metadata.service.ts" ><b>extractColorsWithVibrantWasm</b>&nbsp;&nbsp;&nbsp;(apps/.../metadata.service.ts)</a>
                         </li>
                         <li>
                             <a href="#FileLoaderServiceFactory" title="apps/gblaster/src/app/player/file-loader-service/file-loader.service.factory.ts" ><b>FileLoaderServiceFactory</b>&nbsp;&nbsp;&nbsp;(apps/.../file-loader.service.factory.ts)</a>
@@ -89,6 +92,9 @@
                         </li>
                         <li>
                             <a href="#setup" title="apps/gblaster/src/app/player/visualizer/visuals/visuals.worker.ts" ><b>setup</b>&nbsp;&nbsp;&nbsp;(apps/.../visuals.worker.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#urlToArrayBuffer" title="apps/gblaster/src/app/player/metadata-service/metadata.service.ts" ><b>urlToArrayBuffer</b>&nbsp;&nbsp;&nbsp;(apps/.../metadata.service.ts)</a>
                         </li>
                         <li>
                             <a href="#verifyPermission" title="apps/gblaster/src/app/player/file-loader-service/native-browser-file-loader.service.ts" ><b>verifyPermission</b>&nbsp;&nbsp;&nbsp;(apps/.../native-browser-file-loader.service.ts)</a>
@@ -208,16 +214,16 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="extractColors"></a>
+                    <a name="extractColorsWithNodeVibrant"></a>
                     <span class="name">
-                        <span ><b>extractColors</b></span>
-                        <a href="#extractColors"><span class="icon ion-ios-link"></span></a>
+                        <span ><b>extractColorsWithNodeVibrant</b></span>
+                        <a href="#extractColorsWithNodeVibrant"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>extractColors(url: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+<code>extractColorsWithNodeVibrant(url: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
                 </td>
             </tr>
 
@@ -258,6 +264,69 @@
                     </div>
                     <div class="io-description">
                         <b>Returns : </b>    <code>Promise&lt;CoverColorPalette&gt;</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="extractColorsWithVibrantWasm"></a>
+                    <span class="name">
+                        <span ><b>extractColorsWithVibrantWasm</b></span>
+                        <a href="#extractColorsWithVibrantWasm"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>extractColorsWithVibrantWasm(url: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>url</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>Promise&lt;CoverColorPalette | undefined&gt;</code>
 
                     </div>
                     <div class="io-description">
@@ -321,6 +390,69 @@
                     </div>
                     <div class="io-description">
                         <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="urlToArrayBuffer"></a>
+                    <span class="name">
+                        <span ><b>urlToArrayBuffer</b></span>
+                        <a href="#urlToArrayBuffer"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>urlToArrayBuffer(url: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>url</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>Promise&lt;ArrayBuffer&gt;</code>
 
                     </div>
                     <div class="io-description">

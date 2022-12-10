@@ -178,12 +178,17 @@
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable } from &#x27;@angular/core&#x27;;
-import { IAudioMetadata } from &#x27;music-metadata-browser&#x27;;
 import { Id3CoverPicture, Id3Tags } from &#x27;./id3-tags.types&#x27;;
+import { IAudioMetadata } from &#x27;music-metadata-browser&#x27;;
 
 @Injectable({ providedIn: &#x27;root&#x27; })
 export class Id3TagsService {
   async extractTags(file: File): Promise&lt;Id3Tags | null&gt; {
+    // const metadataWorker &#x3D; await spawn(new Worker(&#x27;./metadata.worker&#x27;));
+    // const tags &#x3D; await metadataWorker.extractTags(file);
+    // await Thread.terminate(metadataWorker);
+    // return tags;
+
     const musicMetadata &#x3D; await import(&#x27;music-metadata-browser&#x27;);
 
     let tags: IAudioMetadata | undefined;
