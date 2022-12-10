@@ -213,7 +213,9 @@ export class PlayerService {
     const song: Song = {
       file: file
     };
+    console.time('full-metadata');
     song.metadata = await this.metadataService.getMetadata(file);
+    console.timeEnd('full-metadata');
     return song;
   }
 
