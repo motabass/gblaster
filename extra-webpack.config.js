@@ -1,5 +1,5 @@
-const ThreadsPlugin = require('threads-plugin');
+const NodePolyfillPlugin = require('node-polyfill-webpack-plugin');
 
 module.exports = {
-  plugins: [new ThreadsPlugin()]
+  plugins: [new NodePolyfillPlugin()]
 };

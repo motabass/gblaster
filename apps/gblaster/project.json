@@ -14,20 +14,7 @@
       "executor": "@angular-builders/custom-webpack:browser",
       "options": {
         "customWebpackConfig": {
-          "path": "./extra-webpack.config.js",
-          "replaceDuplicatePlugins": true,
-          "mergeRules": {
-            "plugins": "merge",
-            "module": {
-              "rules": {
-                "test": "match",
-                "use": {
-                  "loader": "match",
-                  "options": "merge"
-                }
-              }
-            }
-          }
+          "path": "./extra-webpack.config.js"
         },
         "allowedCommonJsDependencies": [
           "music-metadata-browser",
