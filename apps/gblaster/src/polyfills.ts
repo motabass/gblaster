@@ -1,7 +1,6 @@
 /** *************************************************************************************************
  * Load `$localize` onto the global scope - used if i18n tags appear in Angular templates.
  */
-// import '@angular/localize/init';
 /**
  * This file includes polyfills needed by Angular and is loaded before the app.
  * You can add your own extra polyfills to this file.
@@ -45,29 +44,14 @@
  *  (window as any).__Zone_enable_cross_context_check = true;
  *
  */
-import './zone-flags';
 
 /** *************************************************************************************************
  * Zone JS is required by default for Angular itself.
  */
 import 'zone.js'; // Included with Angular CLI.
+(window as any).__Zone_disable_requestAnimationFrame = true;
+(window as any).__zone_symbol__UNPATCHED_EVENTS = ['mousemove'];
 
 /** *************************************************************************************************
  * APPLICATION IMPORTS
  */
-
-// (window as any).global = window;
-// global.Buffer = global.Buffer || require('buffer').Buffer;
-// (window as any).process = {
-//   version: ''
-// };
-
-// import * as process from 'process';
-//
-// (window as any).process = process;
-//
-// (window as any).global = window;
-//
-// import * as _buffer from 'buffer';
-//
-// (window as any).Buffer = _buffer.Buffer; // note: the trailing slash is important!
