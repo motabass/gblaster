@@ -246,9 +246,13 @@ export class PlayerService {
     return this.analyserNode;
   }
 
-  @action setSeekPosition(value: number | undefined) {
+  @action setSeekPosition(value: number | undefined, fastSeek = false) {
     if (value !== null && value !== undefined && value >= 0 && value <= this.durationSeconds) {
-      this.audioElement.currentTime = value;
+      if ('fastSeek' in this.audioElement) {
+        this.audioElement.fastSeek(value);
+      } else {
+        this.audioElement.currentTime = value;
+      }
       this.mediaSessionService.updateMediaPositionState(this.audioElement);
     }
   }
@@ -294,7 +298,7 @@ export class PlayerService {
     this.loadFinished = true;
     this.mediaSessionService.setPlaying();
     this.mediaSessionService.updateMediaPositionState(this.audioElement);
-    this.mediaSessionService.setSeekMediaElement(this.audioElement);
+    this.mediaSessionService.setSeekToHandler((details) => this.seekTo(details));
     this.wakelockService.activateWakelock();
   }
 
@@ -401,6 +405,16 @@ export class PlayerService {
 
   seekRight(seconds: number) {
     this.setSeekPosition(this.getCurrentTime() + seconds);
+  }
+
+  seekTo(details: MediaSessionActionDetails) {
+    if (details.seekTime) {
+      if (details.fastSeek) {
+        this.setSeekPosition(details.seekTime, true);
+      } else {
+        this.setSeekPosition(details.seekTime);
+      }
+    }
   }
 
   get playing(): boolean {

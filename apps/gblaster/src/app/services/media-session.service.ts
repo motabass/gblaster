@@ -16,20 +16,14 @@ export class MediaSessionService {
     }
   }
 
-  setSeekMediaElement(mediaElement: HTMLMediaElement) {
+  setSeekToHandler(action: (details: MediaSessionActionDetails) => any) {
     if (navigator.mediaSession) {
       try {
         navigator.mediaSession.setActionHandler('seekto', (details) => {
-          if (details.seekTime) {
-            if (details.fastSeek && 'fastSeek' in mediaElement) {
-              mediaElement.fastSeek(details.seekTime);
-            } else {
-              mediaElement.currentTime = details.seekTime;
-            }
-          }
+          action(details);
         });
       } catch (error) {
-        console.warn(`The media session action "seekto" is not supported yet.`);
+        console.warn(`The media session action "seekto" is not supported yet.`, error);
       }
     }
   }
