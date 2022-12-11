@@ -1,7 +1,7 @@
 TODOs:
 
 - color extract when playing song or in background
-- Audio-File-Explorer
+- Audio-File explorer + Suche
 - Playlist management (Sorting, Saving)
 - Visuals via UserMediaInput from mic or system
 - Share target
@@ -9,3 +9,5 @@ TODOs:
 - Writing Meta-Tags
 - Fullscreen/Multiwindow Mode
 - Localization
+- fix eq on mobile
+- fix seeking from notification while playing
