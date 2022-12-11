@@ -1,6 +1,6 @@
 TODOs:
 
-- color extract when playing song or in background
+- use webworker for node-vibrant
 - Audio-File explorer + Suche
 - Playlist management (Sorting, Saving)
 - Visuals via UserMediaInput from mic or system
@@ -10,4 +10,3 @@ TODOs:
 - Fullscreen/Multiwindow Mode
 - Localization
 - fix eq on mobile
-- fix seeking from notification while playing
