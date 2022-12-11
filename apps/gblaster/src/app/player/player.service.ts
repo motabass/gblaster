@@ -48,11 +48,9 @@ export class PlayerService {
     private wakelockService: WakelockService,
     private mediaSessionService: MediaSessionService
   ) {
-    this.initAudioElement();
     this.initAudioContext();
+    this.initAudioElement();
     this.initEqualizer();
-
-    this.audioSrcNode = this.audioCtx.createMediaElementSource(this.audioElement);
 
     const storedVolume = storageService.retrieve('volume');
     this.gainNode.gain.value = storedVolume ?? 0.5;
@@ -89,27 +87,6 @@ export class PlayerService {
     }
   }
 
-  initAudioElement() {
-    const audio = new Audio();
-    audio.loop = false;
-    audio.id = 'main_audio';
-    audio.style.display = 'none';
-    audio.autoplay = false;
-    audio.controls = false;
-    audio.volume = 0.8;
-    audio.preload = 'metadata';
-    audio.onended = () => {
-      console.log('ended');
-      this.next();
-    };
-    audio.onerror = (e) => {
-      console.error(e);
-    };
-    this.audioElement = audio;
-
-    document.body.appendChild(audio);
-  }
-
   initAudioContext() {
     const audioCtx = new AudioContext({
       latencyHint: 'playback'
@@ -125,6 +102,28 @@ export class PlayerService {
     this.audioCtx = audioCtx;
     this.analyserNode = analyser;
     this.gainNode = gainNode;
+  }
+
+  initAudioElement() {
+    const audio = new Audio();
+    audio.loop = false;
+    audio.id = 'main_audio';
+    audio.style.display = 'none';
+    audio.autoplay = false;
+    audio.controls = false;
+    audio.volume = 0.5;
+    audio.preload = 'auto';
+    audio.onended = () => {
+      console.log('ended');
+      this.next();
+    };
+    audio.onerror = (e) => {
+      console.error(e);
+    };
+    this.audioElement = audio;
+
+    this.audioSrcNode = this.audioCtx.createMediaElementSource(this.audioElement);
+    this.audioSrcNode.connect(this.analyserNode);
   }
 
   initEqualizer() {
@@ -184,8 +183,6 @@ export class PlayerService {
     if (this.audioCtx.state === 'suspended') {
       await this.audioCtx.resume();
     }
-
-    this.audioSrcNode.connect(this.analyserNode);
 
     this.selectedSong = song;
   }
