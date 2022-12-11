@@ -91,7 +91,7 @@
     "music-metadata-browser": "2.5.9",
     "ngx-date-fns": "10.0.1",
     "ngx-indexed-db": "11.0.2",
-    "ngx-pipes": "3.1.0",
+    "ngx-pipes": "3.2.0",
     "ngx-webstorage": "11.1.1",
     "node-vibrant": "3.1.6",
     "process": "0.11.10",
