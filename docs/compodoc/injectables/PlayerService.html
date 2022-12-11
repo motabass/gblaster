@@ -2207,9 +2207,9 @@ export class PlayerService {
     const song: Song &#x3D; {
       file: file
     };
-    console.time(&#x27;full-metadata&#x27;);
+    // console.time(&#x27;full-metadata&#x27;);
     song.metadata &#x3D; await this.metadataService.getMetadata(file);
-    console.timeEnd(&#x27;full-metadata&#x27;);
+    // console.timeEnd(&#x27;full-metadata&#x27;);
     return song;
   }
 

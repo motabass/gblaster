@@ -69,6 +69,20 @@
     <h3 id="index">Index</h3>
     <table class="table table-sm table-bordered index-table">
         <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#worker" >worker</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
 
                 <tr>
                     <td class="col-md-4">
@@ -94,6 +108,24 @@
     </table>
 </section>
 
+            <section>
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor()</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="6" class="link-to-prism">apps/gblaster/src/app/player/metadata-service/id3-tags.service.ts:6</a></div>
+                            </td>
+                        </tr>
+
+            </tbody>
+        </table>
+</section>
 
             <section>
     
@@ -122,8 +154,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="7"
-                            class="link-to-prism">apps/gblaster/src/app/player/metadata-service/id3-tags.service.ts:7</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="12"
+                            class="link-to-prism">apps/gblaster/src/app/player/metadata-service/id3-tags.service.ts:12</a></div>
                 </td>
             </tr>
 
@@ -172,47 +204,67 @@
         </tbody>
     </table>
 </section>
+            <section>
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="worker"></a>
+                    <span class="name">
+                        <span ><b>worker</b></span>
+                        <a href="#worker"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Worker</code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="6" class="link-to-prism">apps/gblaster/src/app/player/metadata-service/id3-tags.service.ts:6</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
 
     </div>
 
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable } from &#x27;@angular/core&#x27;;
-import { Id3CoverPicture, Id3Tags } from &#x27;./id3-tags.types&#x27;;
-import { IAudioMetadata } from &#x27;music-metadata-browser&#x27;;
+import { Id3Tags } from &#x27;./id3-tags.types&#x27;;
 
 @Injectable({ providedIn: &#x27;root&#x27; })
 export class Id3TagsService {
+  worker: Worker;
+
+  constructor() {
+    this.worker &#x3D; new Worker(new URL(&#x27;./metadata.worker&#x27;, import.meta.url), { type: &#x27;module&#x27; });
+  }
+
   async extractTags(file: File): Promise&lt;Id3Tags | null&gt; {
-    // const metadataWorker &#x3D; await spawn(new Worker(&#x27;./metadata.worker&#x27;));
-    // const tags &#x3D; await metadataWorker.extractTags(file);
-    // await Thread.terminate(metadataWorker);
-    // return tags;
+    return new Promise((resolve, reject) &#x3D;&gt; {
+      this.worker.onmessage &#x3D; ({ data }) &#x3D;&gt; {
+        // worker.terminate();
+        resolve(data.tags);
+      };
+      this.worker.onerror &#x3D; (err) &#x3D;&gt; {
+        // worker.terminate();
+        reject(err);
+      };
 
-    const musicMetadata &#x3D; await import(&#x27;music-metadata-browser&#x27;);
-
-    let tags: IAudioMetadata | undefined;
-    try {
-      tags &#x3D; await musicMetadata.parseBlob(file, { duration: false, includeChapters: false, skipPostHeaders: false, skipCovers: false });
-    } catch (e) {
-      console.warn(&#x60;Tags von &quot;${file.name}&quot; (${file.type}) konnten nicht gelesen werden: &#x60;);
-      console.error(e);
-      return null;
-    }
-    let cover: Id3CoverPicture | undefined;
-
-    if (tags.common.picture) {
-      cover &#x3D; { format: tags.common.picture[0].format, data: tags.common.picture[0].data };
-    }
-    return {
-      picture: cover,
-      artist: tags.common.artist,
-      title: tags.common.title,
-      track: tags.common.track,
-      album: tags.common.album,
-      year: tags.common.year?.toString(),
-      format: tags.format
-    };
+      this.worker.postMessage({ file: file });
+    });
   }
 }
 </code></pre>

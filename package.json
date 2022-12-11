@@ -1,6 +1,6 @@
 {
   "name": "motabass",
-  "version": "12.0.0",
+  "version": "12.0.1",
   "author": "motabass",
   "repository": "https://github.com/motabass/gblaster",
   "description": "nx monorepo for my web stuff",
@@ -184,6 +184,6 @@
     "webpack-sources": "3.2.3"
   },
   "overrides": {
-      "readable-stream": "$readable-stream"
+    "readable-stream": "$readable-stream"
   }
 }
