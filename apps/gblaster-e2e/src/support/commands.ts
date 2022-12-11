@@ -10,7 +10,7 @@ import { getLoadFilesButton } from './player.po';
 // commands please read more here:
 // https://on.cypress.io/custom-commands
 // ***********************************************
-// eslint-disable-next-line @typescript-eslint/no-namespace
+
 declare namespace Cypress {
   interface Chainable<Subject> {
     loadFiles(): void;

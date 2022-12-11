@@ -32,12 +32,14 @@
     },
     {
       "files": ["*.js", "*.jsx"],
-      "extends": ["plugin:@nrwl/nx/javascript", "plugin:unicorn/recommended"],
+      "extends": ["plugin:@nrwl/nx/javascript"],
       "rules": {}
     },
     {
       "files": ["*.ts"],
+      "extends": ["plugin:unicorn/recommended"],
       "rules": {
+        "unicorn/prevent-abbreviations": "off",
         "@angular-eslint/component-class-suffix": "error",
         "@angular-eslint/component-max-inline-declarations": "error",
         "@angular-eslint/component-selector": [

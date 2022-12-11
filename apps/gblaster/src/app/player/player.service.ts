@@ -74,7 +74,7 @@ export class PlayerService {
     if ('launchQueue' in window) {
       // @ts-ignore
       window.launchQueue.setConsumer(async (launchParams) => {
-        console.log('Handling launch params: ', launchParams);
+        console.log('Handling launch params:', launchParams);
         // Nothing to do when the queue is empty.
         if (!launchParams.files.length) {
           return;
@@ -112,8 +112,7 @@ export class PlayerService {
 
   initAudioContext() {
     const audioCtx = new AudioContext({
-      latencyHint: 'playback',
-      sampleRate: 48000
+      latencyHint: 'playback'
     });
 
     const analyser = audioCtx.createAnalyser();
@@ -131,7 +130,7 @@ export class PlayerService {
   initEqualizer() {
     let output: AudioNode = this.analyserNode;
 
-    BAND_FREQUENIES.forEach((bandFrequency, i) => {
+    for (const [i, bandFrequency] of BAND_FREQUENIES.entries()) {
       const filter = this.audioCtx.createBiquadFilter();
 
       this.bands[bandFrequency] = filter;
@@ -150,7 +149,7 @@ export class PlayerService {
 
       output.connect(filter);
       output = filter;
-    });
+    }
 
     output.connect(this.gainNode);
   }
@@ -249,7 +248,7 @@ export class PlayerService {
 
   @action setSeekPosition(value: number | undefined, fastSeek = false) {
     if (value !== null && value !== undefined && value >= 0 && value <= this.durationSeconds) {
-      if ('fastSeek' in this.audioElement) {
+      if ('fastSeek' in this.audioElement && fastSeek) {
         this.audioElement.fastSeek(value);
       } else {
         this.audioElement.currentTime = value;
@@ -267,11 +266,7 @@ export class PlayerService {
       return 0;
     }
     const pos = this.audioElement.currentTime;
-    if (pos !== null && pos !== undefined) {
-      return Math.floor(pos);
-    } else {
-      return 0;
-    }
+    return pos !== null && pos !== undefined ? Math.floor(pos) : 0;
   }
 
   @action selectSong(song: Song) {
