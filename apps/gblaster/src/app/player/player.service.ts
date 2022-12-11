@@ -298,7 +298,7 @@ export class PlayerService {
     this.loadFinished = true;
     this.mediaSessionService.setPlaying();
     this.mediaSessionService.updateMediaPositionState(this.audioElement);
-    this.mediaSessionService.setSeekToHandler((details) => this.seekTo(details));
+    this.mediaSessionService.setSeekToHandler((details) => this.seekToHandler(details));
     this.wakelockService.activateWakelock();
   }
 
@@ -407,7 +407,7 @@ export class PlayerService {
     this.setSeekPosition(this.getCurrentTime() + seconds);
   }
 
-  seekTo(details: MediaSessionActionDetails) {
+  private seekToHandler(details: MediaSessionActionDetails) {
     if (details.seekTime) {
       if (details.fastSeek) {
         this.setSeekPosition(details.seekTime, true);
