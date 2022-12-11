@@ -64,6 +64,7 @@ export class PlayerService {
     this.mediaSessionService.setActionHandler('previoustrack', () => this.previous());
     this.mediaSessionService.setActionHandler('seekbackward', () => this.seekLeft(10));
     this.mediaSessionService.setActionHandler('seekforward', () => this.seekRight(10));
+    this.mediaSessionService.setSeekToHandler((details) => this.seekToHandler(details));
 
     BAND_FREQUENIES.forEach((bandFrequency) => {
       const filter = this.bands[bandFrequency];
@@ -298,7 +299,6 @@ export class PlayerService {
     this.loadFinished = true;
     this.mediaSessionService.setPlaying();
     this.mediaSessionService.updateMediaPositionState(this.audioElement);
-    this.mediaSessionService.setSeekToHandler((details) => this.seekToHandler(details));
     this.wakelockService.activateWakelock();
   }
 
