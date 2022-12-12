@@ -32,6 +32,9 @@ export class AudioService {
       console.error(error);
     });
 
+    // TODO: only for cypress test!?
+    document.body.appendChild(audioElement);
+
     // initialize audio context
     const audioContext = new AudioContext({
       latencyHint: 'playback'
