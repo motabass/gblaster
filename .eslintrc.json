@@ -40,6 +40,7 @@
       "extends": ["plugin:unicorn/recommended"],
       "rules": {
         "unicorn/prevent-abbreviations": "off",
+        "unicorn/numeric-separators-style": "off",
         "@angular-eslint/component-class-suffix": "error",
         "@angular-eslint/component-max-inline-declarations": "error",
         "@angular-eslint/component-selector": [

@@ -9,7 +9,7 @@ import { HotkeysService } from '../services/hotkeys/hotkeys.service';
 import { GamepadService } from '../services/gamepad/gamepad.service';
 import { GamepadAxes, GamepadButtons } from '../services/gamepad/gamepad.types';
 import { TitleService } from '../services/title.service';
-import { MediaSessionService } from '../services/media-session.service';
+import { AudioService } from './audio.service';
 
 @Component({
   selector: 'mtb-player',
@@ -27,7 +27,7 @@ export class PlayerComponent implements OnInit, AfterViewInit, OnDestroy {
     private gamepadService: GamepadService,
     private hotkeysService: HotkeysService,
     private fileLoaderService: FileLoaderService,
-    private mediaSessionService: MediaSessionService
+    private audioService: AudioService
   ) {}
 
   async ngOnInit() {
@@ -62,12 +62,7 @@ export class PlayerComponent implements OnInit, AfterViewInit, OnDestroy {
 
   async onReload() {
     await this.fileLoaderService.init();
-
-    if (this.fileLoaderService.currentFolderHandle) {
-      return this.loadFiles();
-    } else {
-      return this.showPicker();
-    }
+    return this.fileLoaderService.currentFolderHandle ? this.loadFiles() : this.showPicker();
   }
 
   get isPlaylistEmpty(): boolean {
@@ -118,11 +113,11 @@ export class PlayerComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   get volume(): number {
-    return this.playerService.volume;
+    return this.audioService.volume;
   }
 
   set volume(value: number) {
-    this.playerService.setVolume(value);
+    this.audioService.setVolume(value);
   }
 
   toggleMute() {

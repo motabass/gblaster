@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { VisualsService } from '../visualizer/visuals/visuals.service';
 import { VisualizerMode, VisualsColorConfig } from '../visualizer/visuals/visuals.types';
 import { LoaderService } from '../../services/loader/loader.service';
+import { AudioService } from '../audio.service';
 
 @Component({
   selector: 'mtb-playlist',
@@ -14,7 +15,12 @@ import { LoaderService } from '../../services/loader/loader.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PlaylistComponent {
-  constructor(private playerService: PlayerService, private visualsService: VisualsService, private loaderService: LoaderService) {}
+  constructor(
+    private playerService: PlayerService,
+    private audioService: AudioService,
+    private visualsService: VisualsService,
+    private loaderService: LoaderService
+  ) {}
 
   get isLoading(): Observable<boolean> {
     return this.loaderService.isLoading;
@@ -29,7 +35,7 @@ export class PlaylistComponent {
       v.playlistPosition = i + 1;
     }
 
-    if (!this.selectedSong && this.playerService.currentPlaylist.length) {
+    if (!this.selectedSong && this.playerService.currentPlaylist.length > 0) {
       this.selectSong(this.playerService.currentPlaylist[0]);
     }
     return this.playerService.currentPlaylist;
@@ -68,7 +74,7 @@ export class PlaylistComponent {
   }
 
   get analyser(): AnalyserNode {
-    return this.playerService.analyser;
+    return this.audioService.analyserNode;
   }
 
   playlistTrackFunction(index: number, song: Song) {
@@ -80,13 +86,11 @@ export class PlaylistComponent {
   }
 
   get mainColor(): string | undefined {
-    const color = this.playingSong?.metadata?.coverColors?.darkVibrant?.hex;
-    return color ? color : undefined;
+    return this.playingSong?.metadata?.coverColors?.darkVibrant?.hex;
   }
 
   get peakColor(): string | undefined {
-    const color = this.playingSong?.metadata?.coverColors?.lightVibrant?.hex;
-    return color ? color : undefined;
+    return this.playingSong?.metadata?.coverColors?.lightVibrant?.hex;
   }
 
   drop(event: CdkDragDrop<Song>) {

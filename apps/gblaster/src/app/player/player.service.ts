@@ -1,37 +1,25 @@
 import { Injectable } from '@angular/core';
 import { action, observable } from 'mobx-angular';
-import { LocalStorage, LocalStorageService } from 'ngx-webstorage';
+import { LocalStorage } from 'ngx-webstorage';
 import { FileLoaderService } from './file-loader-service/file-loader.service.abstract';
 import { MetadataService } from './metadata-service/metadata.service';
-import { BandFrequency, RepeatMode, Song } from './player.types';
+import { FrequencyBand, RepeatMode, Song } from './player.types';
 import { ALLOWED_MIMETYPES } from './file-loader-service/file-loader.helpers';
 import { ThemeService } from '../theme/theme.service';
 import { LoaderService } from '../services/loader/loader.service';
 import { WakelockService } from '../services/wakelock.service';
 import { MediaSessionService } from '../services/media-session.service';
+import { AudioService } from './audio.service';
 
-export const BAND_FREQUENIES: BandFrequency[] = [60, 170, 310, 600, 1000, 3000, 6000, 12000, 14000, 16000];
+export const BAND_FREQUENIES: FrequencyBand[] = [60, 170, 310, 600, 1000, 3000, 6000, 12000, 14000, 16000];
 
 @Injectable({ providedIn: 'any' })
 export class PlayerService {
-  bands: { [band: number]: BiquadFilterNode } = {};
-
-  @LocalStorage('eqBandGains', { 60: 0, 170: 0, 310: 0, 600: 0, 1000: 0, 3000: 0, 6000: 0, 12000: 0, 14000: 0, 16000: 0 }) bandGains!: {
-    [band: number]: number;
-  };
-
-  private audioCtx!: AudioContext;
-  private gainNode!: GainNode;
-  private analyserNode!: AnalyserNode;
-  private audioSrcNode!: MediaElementAudioSourceNode;
-
   private loadFinished = true;
 
   @observable currentPlaylist: Song[] = [];
 
   @observable playingSong?: Song;
-
-  audioElement!: HTMLAudioElement;
 
   @observable selectedSong?: Song;
 
@@ -40,21 +28,14 @@ export class PlayerService {
   @LocalStorage('shuffle', false) shuffle!: boolean;
 
   constructor(
+    private audioService: AudioService,
     private fileLoaderService: FileLoaderService,
     private metadataService: MetadataService,
-    private storageService: LocalStorageService,
     private themeService: ThemeService,
     private loaderService: LoaderService,
     private wakelockService: WakelockService,
     private mediaSessionService: MediaSessionService
   ) {
-    this.initAudioContext();
-    this.initAudioElement();
-    this.initEqualizer();
-
-    const storedVolume = storageService.retrieve('volume');
-    this.gainNode.gain.value = storedVolume ?? 0.5;
-
     this.mediaSessionService.setActionHandler('play', () => this.playPause());
     this.mediaSessionService.setActionHandler('pause', () => this.playPause());
     this.mediaSessionService.setActionHandler('stop', () => this.stop());
@@ -64,17 +45,12 @@ export class PlayerService {
     this.mediaSessionService.setActionHandler('seekforward', () => this.seekRight(10));
     this.mediaSessionService.setSeekToHandler((details) => this.seekToHandler(details));
 
-    BAND_FREQUENIES.forEach((bandFrequency) => {
-      const filter = this.bands[bandFrequency];
-      filter.gain.value = this.bandGains[bandFrequency];
-    });
-
     if ('launchQueue' in window) {
       // @ts-ignore
       window.launchQueue.setConsumer(async (launchParams) => {
         console.log('Handling launch params:', launchParams);
         // Nothing to do when the queue is empty.
-        if (!launchParams.files.length) {
+        if (launchParams.files.length === 0) {
           return;
         }
         for (const fileHandle of launchParams.files) {
@@ -85,72 +61,14 @@ export class PlayerService {
         }
       });
     }
-  }
 
-  initAudioContext() {
-    const audioCtx = new AudioContext({
-      latencyHint: 'playback'
-    });
-
-    const analyser = audioCtx.createAnalyser();
-    const gainNode = audioCtx.createGain();
-
-    analyser.connect(gainNode);
-
-    gainNode.connect(audioCtx.destination);
-
-    this.audioCtx = audioCtx;
-    this.analyserNode = analyser;
-    this.gainNode = gainNode;
-  }
-
-  initAudioElement() {
-    const audio = new Audio();
-    audio.loop = false;
-    audio.id = 'main_audio';
-    audio.style.display = 'none';
-    audio.autoplay = false;
-    audio.controls = false;
-    audio.volume = 0.5;
-    audio.preload = 'auto';
-    audio.onended = () => {
-      console.log('ended');
+    this.audioElement.addEventListener('ended', () => {
       this.next();
-    };
-    audio.onerror = (e) => {
-      console.error(e);
-    };
-    this.audioElement = audio;
-
-    this.audioSrcNode = this.audioCtx.createMediaElementSource(this.audioElement);
-    this.audioSrcNode.connect(this.analyserNode);
+    });
   }
 
-  initEqualizer() {
-    let output: AudioNode = this.analyserNode;
-
-    for (const [i, bandFrequency] of BAND_FREQUENIES.entries()) {
-      const filter = this.audioCtx.createBiquadFilter();
-
-      this.bands[bandFrequency] = filter;
-
-      if (i === 0) {
-        // The first filter, includes all lower frequencies
-        filter.type = 'lowshelf';
-      } else if (i === BAND_FREQUENIES.length - 1) {
-        // The last filter, includes all higher frequencies
-        filter.type = 'highshelf';
-      } else {
-        filter.type = 'peaking';
-        filter.Q.value = 1;
-      }
-      filter.frequency.value = bandFrequency;
-
-      output.connect(filter);
-      output = filter;
-    }
-
-    output.connect(this.gainNode);
+  get audioElement(): HTMLAudioElement {
+    return this.audioService.audioElement;
   }
 
   private async setPlayingSong(song: Song | undefined) {
@@ -180,9 +98,10 @@ export class PlayerService {
       this.themeService.setAccentColor(accentColor);
     }
 
-    if (this.audioCtx.state === 'suspended') {
-      await this.audioCtx.resume();
-    }
+    // TODO: ???????????????????
+    // if (this.audioCtx.state === 'suspended') {
+    //   await this.audioCtx.resume();
+    // }
 
     this.selectedSong = song;
   }
@@ -214,33 +133,6 @@ export class PlayerService {
     song.metadata = await this.metadataService.getMetadata(file);
     // console.timeEnd('full-metadata');
     return song;
-  }
-
-  getBandGain(bandFrequency: BandFrequency): number {
-    return this.bandGains[bandFrequency];
-  }
-
-  @action setBandGain(bandFrequency: BandFrequency, gainValue: number) {
-    this.bands[bandFrequency].gain.value = gainValue;
-
-    const bandGains = this.bandGains;
-    bandGains[bandFrequency] = gainValue;
-    this.bandGains = bandGains;
-  }
-
-  @action setVolume(value: number) {
-    if (value >= 0 && value <= 1) {
-      this.storageService.store('volume', value);
-      this.gainNode.gain.value = value;
-    }
-  }
-
-  get volume() {
-    return this.gainNode.gain.value;
-  }
-
-  get analyser(): AnalyserNode {
-    return this.analyserNode;
   }
 
   @action setSeekPosition(value: number | undefined, fastSeek = false) {
@@ -415,17 +307,20 @@ export class PlayerService {
 
   @action toggleRepeat() {
     switch (this.repeat) {
-      case 'off':
+      case 'off': {
         this.repeat = 'all';
         break;
-      case 'all':
+      }
+      case 'all': {
         this.audioElement.loop = true;
         this.repeat = 'one';
         break;
-      case 'one':
+      }
+      case 'one': {
         this.audioElement.loop = false;
         this.repeat = 'off';
         break;
+      }
     }
   }
 

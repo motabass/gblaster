@@ -1,12 +1,12 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { BandFrequency } from '../player.types';
+import { FrequencyBand } from '../player.types';
 
 @Pipe({
   name: 'band',
   pure: true
 })
 export class BandPipe implements PipeTransform {
-  transform(value: BandFrequency, ...args: unknown[]): string {
+  transform(value: FrequencyBand, ...args: unknown[]): string {
     if (!value) {
       return '';
     }

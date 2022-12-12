@@ -1,11 +1,11 @@
 import { ChangeDetectionStrategy, Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { LocalStorage } from 'ngx-webstorage';
-import { PlayerService } from '../player.service';
 import { Song } from '../player.types';
 import { FftSize, FrequencyBarsConfig, OsciloscopeConfig, VisualizerMode, VisualsColorConfig } from './visuals/visuals.types';
 import { VisualsService } from './visuals/visuals.service';
 import { GamepadService } from '../../services/gamepad/gamepad.service';
 import { GamepadButtons } from '../../services/gamepad/gamepad.types';
+import { AudioService } from '../audio.service';
 
 // TODO: quit app + min + max buttons in electron
 // TODO: loading indicator service
@@ -37,7 +37,7 @@ export class VisualizerComponent implements OnInit, OnDestroy {
 
   @Input() song?: Song;
 
-  constructor(private playerService: PlayerService, private gamepadService: GamepadService, private visualsService: VisualsService) {}
+  constructor(private audioService: AudioService, private gamepadService: GamepadService, private visualsService: VisualsService) {}
 
   ngOnInit(): void {
     this.gamepadService.registerButtonAction(GamepadButtons.SELECT_BUTTON, () => this.toggleVisualMode());
@@ -56,7 +56,7 @@ export class VisualizerComponent implements OnInit, OnDestroy {
   }
 
   get analyser(): AnalyserNode {
-    return this.playerService.analyser;
+    return this.audioService.analyserNode;
   }
 
   get colorConfig(): VisualsColorConfig {
@@ -64,13 +64,11 @@ export class VisualizerComponent implements OnInit, OnDestroy {
   }
 
   get mainColor(): string | undefined {
-    const color = this.song?.metadata?.coverColors?.darkVibrant?.hex;
-    return color ? color : undefined;
+    return this.song?.metadata?.coverColors?.darkVibrant?.hex;
   }
 
   get peakColor(): string | undefined {
-    const color = this.song?.metadata?.coverColors?.lightVibrant?.hex;
-    return color ? color : undefined;
+    return this.song?.metadata?.coverColors?.lightVibrant?.hex;
   }
 
   get barsConfig(): FrequencyBarsConfig {
@@ -82,7 +80,7 @@ export class VisualizerComponent implements OnInit, OnDestroy {
   }
 
   get playing(): boolean {
-    return this.playerService.playing;
+    return this.audioService.playing;
   }
 
   setFftSize(value: FftSize) {

@@ -30,9 +30,7 @@ export class MetadataService {
   ) {}
 
   async getMetadata(file: File): Promise<SongMetadata> {
-    console.time('hash');
     const crc = generateFileHash(file);
-    console.timeEnd('hash');
     if (this.useTagsCache) {
       const metadataCache: SongMetadata = await firstValueFrom(this.indexedDBService.getByKey<SongMetadata>('metatags', crc));
 
