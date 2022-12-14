@@ -8,9 +8,6 @@ import { Id3TagsService } from './id3-tags.service';
 import { LastfmMetadataService } from './lastfm-metadata.service';
 import { CoverColorPalette, RemoteCoverPicture } from './metadata.types';
 import { MusicbrainzService } from './musicbrainz.service';
-import { ThemeService } from '../../theme/theme.service';
-import { TinyColor } from '@thebespokepixel/es-tinycolor';
-import { get_palette_from_byte_array } from 'vibrant-wasm';
 
 @Injectable({ providedIn: 'root' })
 export class MetadataService {
@@ -25,8 +22,7 @@ export class MetadataService {
     private id3TagsService: Id3TagsService,
     private lastfmMetadataService: LastfmMetadataService,
     private musicbrainzService: MusicbrainzService,
-    private indexedDBService: NgxIndexedDBService,
-    private themeService: ThemeService
+    private indexedDBService: NgxIndexedDBService
   ) {}
 
   async getMetadata(file: File): Promise<SongMetadata> {
@@ -82,7 +78,7 @@ export class MetadataService {
 
     const metadata: SongMetadata = {
       crc: crc,
-      coverUrl: coverUrl ? coverUrl : { thumb: this.PLACEHOLDER_URL, original: this.PLACEHOLDER_URL },
+      coverUrl: coverUrl ?? { thumb: this.PLACEHOLDER_URL, original: this.PLACEHOLDER_URL },
       embeddedPicture: tags.picture,
       coverColors: palette,
       artist: tags?.artist,
@@ -130,25 +126,4 @@ async function extractColorsWithNodeVibrant(url: string): Promise<CoverColorPale
     darkMuted: { hex: palette.DarkMuted?.hex, textHex: palette.DarkMuted?.titleTextColor },
     lightMuted: { hex: palette.LightMuted?.hex, textHex: palette.LightMuted?.titleTextColor }
   };
-}
-async function extractColorsWithVibrantWasm(url: string): Promise<CoverColorPalette | undefined> {
-  const imageArrayBuffer = await urlToArrayBuffer(url);
-  if (imageArrayBuffer) {
-    const palette = await get_palette_from_byte_array(new Uint8Array(imageArrayBuffer));
-    //  TODO convert to hex in wasm or use rgb values
-    return {
-      vibrant: { hex: '#' + new TinyColor({ r: palette.primary[0], g: palette.primary[1], b: palette.primary[2] }).toHex(false) },
-      darkVibrant: { hex: '#' + new TinyColor({ r: palette.dark[0], g: palette.dark[1], b: palette.dark[2] }).toHex(false) },
-      lightVibrant: { hex: '#' + new TinyColor({ r: palette.light[0], g: palette.light[1], b: palette.light[2] }).toHex(false) },
-      muted: { hex: '#' + new TinyColor({ r: palette.muted[0], g: palette.muted[1], b: palette.muted[2] }).toHex(false) },
-      darkMuted: { hex: '#' + new TinyColor({ r: palette.dark_muted[0], g: palette.dark_muted[1], b: palette.dark_muted[2] }).toHex(false) },
-      lightMuted: { hex: '#' + new TinyColor({ r: palette.light_muted[0], g: palette.light_muted[1], b: palette.light_muted[2] }).toHex(false) }
-    };
-  }
-}
-
-async function urlToArrayBuffer(url: string): Promise<ArrayBuffer> {
-  const response = await fetch(url);
-  const blob = await response.blob();
-  return await blob.arrayBuffer();
 }

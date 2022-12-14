@@ -37,7 +37,13 @@
     },
     {
       "files": ["*.ts"],
-      "extends": ["plugin:unicorn/recommended"],
+      "parser": "@typescript-eslint/parser",
+      "parserOptions": {
+        "ecmaVersion": 2019,
+        "project": "./tsconfigbase.json",
+        "sourceType": "module"
+      },
+      "extends": ["plugin:unicorn/recommended", "plugin:rxjs/recommended"],
       "rules": {
         "unicorn/prevent-abbreviations": "off",
         "unicorn/numeric-separators-style": "off",
@@ -80,7 +86,14 @@
         "@angular-eslint/use-lifecycle-interface": "error",
         "@angular-eslint/use-pipe-transform-interface": "error",
         "@typescript-eslint/ban-ts-comment": "warn",
-        "@typescript-eslint/naming-convention": "warn",
+        "@typescript-eslint/naming-convention": [
+          "warn",
+          {
+            "selector": "variable",
+            "modifiers": ["const"],
+            "format": ["camelCase", "UPPER_CASE"]
+          }
+        ],
         "@typescript-eslint/adjacent-overload-signatures": "error",
         "@typescript-eslint/array-type": [
           "error",
@@ -267,7 +280,8 @@
         "eslint-plugin-import",
         "@angular-eslint/eslint-plugin",
         "@typescript-eslint",
-        "unused-imports"
+        "unused-imports",
+        "rxjs"
       ]
     },
     {
