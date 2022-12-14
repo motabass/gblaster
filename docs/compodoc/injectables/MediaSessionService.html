@@ -91,7 +91,7 @@
                                 <a href="#setPlaying" >setPlaying</a>
                             </li>
                             <li>
-                                <a href="#setSeekMediaElement" >setSeekMediaElement</a>
+                                <a href="#setSeekToHandler" >setSeekToHandler</a>
                             </li>
                             <li>
                                 <a href="#updateMediaPositionState" >updateMediaPositionState</a>
@@ -233,8 +233,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="46"
-                            class="link-to-prism">apps/gblaster/src/app/services/media-session.service.ts:46</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="40"
+                            class="link-to-prism">apps/gblaster/src/app/services/media-session.service.ts:40</a></div>
                 </td>
             </tr>
 
@@ -302,8 +302,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="56"
-                            class="link-to-prism">apps/gblaster/src/app/services/media-session.service.ts:56</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="50"
+                            class="link-to-prism">apps/gblaster/src/app/services/media-session.service.ts:50</a></div>
                 </td>
             </tr>
 
@@ -339,8 +339,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="52"
-                            class="link-to-prism">apps/gblaster/src/app/services/media-session.service.ts:52</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="46"
+                            class="link-to-prism">apps/gblaster/src/app/services/media-session.service.ts:46</a></div>
                 </td>
             </tr>
 
@@ -360,16 +360,16 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="setSeekMediaElement"></a>
+                    <a name="setSeekToHandler"></a>
                     <span class="name">
-                        <span ><b>setSeekMediaElement</b></span>
-                        <a href="#setSeekMediaElement"><span class="icon ion-ios-link"></span></a>
+                        <span ><b>setSeekToHandler</b></span>
+                        <a href="#setSeekToHandler"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>setSeekMediaElement(mediaElement: HTMLMediaElement)</code>
+<code>setSeekToHandler(action: (details: MediaSessionActionDetails) => void)</code>
                 </td>
             </tr>
 
@@ -398,9 +398,9 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>mediaElement</td>
+                                    <td>action</td>
                                     <td>
-                                            <code>HTMLMediaElement</code>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/function" target="_blank" >function</a></code>
                                     </td>
 
                                     <td>
@@ -445,8 +445,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="37"
-                            class="link-to-prism">apps/gblaster/src/app/services/media-session.service.ts:37</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="31"
+                            class="link-to-prism">apps/gblaster/src/app/services/media-session.service.ts:31</a></div>
                 </td>
             </tr>
 
@@ -518,20 +518,14 @@ export class MediaSessionService {
     }
   }
 
-  setSeekMediaElement(mediaElement: HTMLMediaElement) {
+  setSeekToHandler(action: (details: MediaSessionActionDetails) &#x3D;&gt; any) {
     if (navigator.mediaSession) {
       try {
         navigator.mediaSession.setActionHandler(&#x27;seekto&#x27;, (details) &#x3D;&gt; {
-          if (details.seekTime) {
-            if (details.fastSeek &amp;&amp; &#x27;fastSeek&#x27; in mediaElement) {
-              mediaElement.fastSeek(details.seekTime);
-            } else {
-              mediaElement.currentTime &#x3D; details.seekTime;
-            }
-          }
+          action(details);
         });
       } catch (error) {
-        console.warn(&#x60;The media session action &quot;seekto&quot; is not supported yet.&#x60;);
+        console.warn(&#x60;The media session action &quot;seekto&quot; is not supported yet.&#x60;, error);
       }
     }
   }

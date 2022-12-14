@@ -389,8 +389,8 @@ export class NativeBrowserFileLoaderService extends FileLoaderService {
       const handle &#x3D; await window.showDirectoryPicker();
       this.currentFolderHandle &#x3D; handle;
       await this.indexedDbService.update(&#x27;dirHandle&#x27;, { id: 1, handle: handle }).toPromise();
-    } catch (err) {
-      console.log(&#x27;No files: &#x27;, err);
+    } catch (error) {
+      console.log(&#x27;No files:&#x27;, error);
     }
   }
 
@@ -408,7 +408,6 @@ export class NativeBrowserFileLoaderService extends FileLoaderService {
 
 async function getAudioFilesFromDirHandle(dirHandle: FileSystemDirectoryHandle): Promise&lt;File[]&gt; {
   const files: File[] &#x3D; [];
-  // @ts-ignore
   for await (const entry of dirHandle.values()) {
     if (entry.kind &#x3D;&#x3D;&#x3D; &#x27;file&#x27;) {
       const file &#x3D; await entry.getFile();
@@ -425,13 +424,7 @@ async function getAudioFilesFromDirHandle(dirHandle: FileSystemDirectoryHandle):
 }
 
 async function verifyPermission(handle: FileSystemDirectoryHandle) {
-  // Check if permission was already granted. If so, return true.
-  // @ts-ignore
-  if ((await handle.queryPermission()) &#x3D;&#x3D;&#x3D; &#x27;granted&#x27;) {
-    return true;
-  }
   // Request permission. If the user grants permission, return true.
-  // @ts-ignore
   if ((await handle.requestPermission()) &#x3D;&#x3D;&#x3D; &#x27;granted&#x27;) {
     return true;
   }

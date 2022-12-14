@@ -123,12 +123,12 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(id3TagsService: <a href="../injectables/Id3TagsService.html" target="_self">Id3TagsService</a>, lastfmMetadataService: <a href="../injectables/LastfmMetadataService.html" target="_self">LastfmMetadataService</a>, musicbrainzService: <a href="../injectables/MusicbrainzService.html" target="_self">MusicbrainzService</a>, indexedDBService: NgxIndexedDBService, themeService: <a href="../injectables/ThemeService.html" target="_self">ThemeService</a>)</code>
+<code>constructor(id3TagsService: <a href="../injectables/Id3TagsService.html" target="_self">Id3TagsService</a>, lastfmMetadataService: <a href="../injectables/LastfmMetadataService.html" target="_self">LastfmMetadataService</a>, musicbrainzService: <a href="../injectables/MusicbrainzService.html" target="_self">MusicbrainzService</a>, indexedDBService: NgxIndexedDBService)</code>
                     </td>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="22" class="link-to-prism">apps/gblaster/src/app/player/metadata-service/metadata.service.ts:22</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">apps/gblaster/src/app/player/metadata-service/metadata.service.ts:19</a></div>
                             </td>
                         </tr>
 
@@ -193,18 +193,6 @@
                                                     </td>
                                                     
                                                 </tr>
-                                                <tr>
-                                                        <td>themeService</td>
-                                                  
-                                                        <td>
-                                                                        <code><a href="../injectables/ThemeService.html" target="_self" >ThemeService</a></code>
-                                                        </td>
-                                                  
-                                                    <td>
-                                                            No
-                                                    </td>
-                                                    
-                                                </tr>
                                         </tbody>
                                     </table>
                             </div>
@@ -241,8 +229,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="32"
-                            class="link-to-prism">apps/gblaster/src/app/player/metadata-service/metadata.service.ts:32</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="28"
+                            class="link-to-prism">apps/gblaster/src/app/player/metadata-service/metadata.service.ts:28</a></div>
                 </td>
             </tr>
 
@@ -324,7 +312,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="22" class="link-to-prism">apps/gblaster/src/app/player/metadata-service/metadata.service.ts:22</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">apps/gblaster/src/app/player/metadata-service/metadata.service.ts:19</a></div>
                         </td>
                     </tr>
 
@@ -359,7 +347,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="21" class="link-to-prism">apps/gblaster/src/app/player/metadata-service/metadata.service.ts:21</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">apps/gblaster/src/app/player/metadata-service/metadata.service.ts:18</a></div>
                         </td>
                     </tr>
 
@@ -394,7 +382,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="20" class="link-to-prism">apps/gblaster/src/app/player/metadata-service/metadata.service.ts:20</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">apps/gblaster/src/app/player/metadata-service/metadata.service.ts:17</a></div>
                         </td>
                     </tr>
 
@@ -429,7 +417,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">apps/gblaster/src/app/player/metadata-service/metadata.service.ts:19</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">apps/gblaster/src/app/player/metadata-service/metadata.service.ts:16</a></div>
                         </td>
                     </tr>
 
@@ -452,9 +440,6 @@ import { Id3TagsService } from &#x27;./id3-tags.service&#x27;;
 import { LastfmMetadataService } from &#x27;./lastfm-metadata.service&#x27;;
 import { CoverColorPalette, RemoteCoverPicture } from &#x27;./metadata.types&#x27;;
 import { MusicbrainzService } from &#x27;./musicbrainz.service&#x27;;
-import { ThemeService } from &#x27;../../theme/theme.service&#x27;;
-import { TinyColor } from &#x27;@thebespokepixel/es-tinycolor&#x27;;
-import { get_palette_from_byte_array } from &#x27;vibrant-wasm&#x27;;
 
 @Injectable({ providedIn: &#x27;root&#x27; })
 export class MetadataService {
@@ -469,14 +454,11 @@ export class MetadataService {
     private id3TagsService: Id3TagsService,
     private lastfmMetadataService: LastfmMetadataService,
     private musicbrainzService: MusicbrainzService,
-    private indexedDBService: NgxIndexedDBService,
-    private themeService: ThemeService
+    private indexedDBService: NgxIndexedDBService
   ) {}
 
   async getMetadata(file: File): Promise&lt;SongMetadata&gt; {
-    console.time(&#x27;hash&#x27;);
     const crc &#x3D; generateFileHash(file);
-    console.timeEnd(&#x27;hash&#x27;);
     if (this.useTagsCache) {
       const metadataCache: SongMetadata &#x3D; await firstValueFrom(this.indexedDBService.getByKey&lt;SongMetadata&gt;(&#x27;metatags&#x27;, crc));
 
@@ -528,7 +510,7 @@ export class MetadataService {
 
     const metadata: SongMetadata &#x3D; {
       crc: crc,
-      coverUrl: coverUrl ? coverUrl : { thumb: this.PLACEHOLDER_URL, original: this.PLACEHOLDER_URL },
+      coverUrl: coverUrl ?? { thumb: this.PLACEHOLDER_URL, original: this.PLACEHOLDER_URL },
       embeddedPicture: tags.picture,
       coverColors: palette,
       artist: tags?.artist,
@@ -576,27 +558,6 @@ async function extractColorsWithNodeVibrant(url: string): Promise&lt;CoverColorP
     darkMuted: { hex: palette.DarkMuted?.hex, textHex: palette.DarkMuted?.titleTextColor },
     lightMuted: { hex: palette.LightMuted?.hex, textHex: palette.LightMuted?.titleTextColor }
   };
-}
-async function extractColorsWithVibrantWasm(url: string): Promise&lt;CoverColorPalette | undefined&gt; {
-  const imageArrayBuffer &#x3D; await urlToArrayBuffer(url);
-  if (imageArrayBuffer) {
-    const palette &#x3D; await get_palette_from_byte_array(new Uint8Array(imageArrayBuffer));
-    //  TODO convert to hex in wasm or use rgb values
-    return {
-      vibrant: { hex: &#x27;#&#x27; + new TinyColor({ r: palette.primary[0], g: palette.primary[1], b: palette.primary[2] }).toHex(false) },
-      darkVibrant: { hex: &#x27;#&#x27; + new TinyColor({ r: palette.dark[0], g: palette.dark[1], b: palette.dark[2] }).toHex(false) },
-      lightVibrant: { hex: &#x27;#&#x27; + new TinyColor({ r: palette.light[0], g: palette.light[1], b: palette.light[2] }).toHex(false) },
-      muted: { hex: &#x27;#&#x27; + new TinyColor({ r: palette.muted[0], g: palette.muted[1], b: palette.muted[2] }).toHex(false) },
-      darkMuted: { hex: &#x27;#&#x27; + new TinyColor({ r: palette.dark_muted[0], g: palette.dark_muted[1], b: palette.dark_muted[2] }).toHex(false) },
-      lightMuted: { hex: &#x27;#&#x27; + new TinyColor({ r: palette.light_muted[0], g: palette.light_muted[1], b: palette.light_muted[2] }).toHex(false) }
-    };
-  }
-}
-
-async function urlToArrayBuffer(url: string): Promise&lt;ArrayBuffer&gt; {
-  const response &#x3D; await fetch(url);
-  const blob &#x3D; await response.blob();
-  return await blob.arrayBuffer();
 }
 </code></pre>
     </div>

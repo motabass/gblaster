@@ -102,7 +102,7 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>transform(value: <a href="../undefineds/BandFrequency.html" target="_self">BandFrequency</a>, ...args: [])</code>
+<code>transform(value: <a href="../undefineds/FrequencyBand.html" target="_self">FrequencyBand</a>, ...args: [])</code>
                 </td>
             </tr>
 
@@ -133,7 +133,7 @@
                                 <tr>
                                     <td>value</td>
                                     <td>
-                                                <code><a href="../miscellaneous/typealiases.html#BandFrequency" target="_self" >BandFrequency</a></code>
+                                                <code><a href="../miscellaneous/typealiases.html#FrequencyBand" target="_self" >FrequencyBand</a></code>
                                     </td>
 
                                     <td>
@@ -177,14 +177,14 @@
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Pipe, PipeTransform } from &#x27;@angular/core&#x27;;
-import { BandFrequency } from &#x27;../player.types&#x27;;
+import { FrequencyBand } from &#x27;../player.types&#x27;;
 
 @Pipe({
   name: &#x27;band&#x27;,
   pure: true
 })
 export class BandPipe implements PipeTransform {
-  transform(value: BandFrequency, ...args: unknown[]): string {
+  transform(value: FrequencyBand, ...args: unknown[]): string {
     if (!value) {
       return &#x27;&#x27;;
     }
