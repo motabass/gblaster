@@ -1,17 +1,17 @@
 <div class="library-layout">
   <div class="artists saerchbox">
     <mat-action-list dense>
-      <button mat-list-item *ngFor="let artist of artists$ | async" (click)="selectArtist(artist)">{{ artist }}</button>
+      <button mat-list-item *ngFor="let artist of artists | unique" (click)="selectArtist(artist)">{{ artist }}</button>
     </mat-action-list>
   </div>
   <div class="albums saerchbox">
     <mat-action-list dense>
-      <button mat-list-item *ngFor="let album of albums$ | async">{{ album }}</button>
+      <button mat-list-item *ngFor="let album of albums | unique" (click)="selectAlbum(album)">{{ album }}</button>
     </mat-action-list>
   </div>
   <div class="tracks saerchbox">
     <mat-action-list dense>
-      <button mat-list-item *ngFor="let track of tracks$ | async">{{ track }}</button>
+      <button mat-list-item *ngFor="let track of tracks | unique" (click)="selectTrack(track)">{{ track }}</button>
     </mat-action-list>
   </div>
 </div>

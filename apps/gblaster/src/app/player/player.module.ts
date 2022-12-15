@@ -30,6 +30,7 @@ import { MAT_TOOLTIP_DEFAULT_OPTIONS, MatTooltipModule } from '@angular/material
 import { FileDropOverlayComponent } from '@motabass/ui-components/file-drop-overlay';
 import { MatIconSizeModule } from '@motabass/material-helpers/mat-icon-size';
 import { LibraryComponent } from './library/library.component';
+import { NgArrayPipesModule } from 'ngx-pipes';
 
 @NgModule({
   imports: [
@@ -56,7 +57,8 @@ import { LibraryComponent } from './library/library.component';
     SafePipeModule,
     MatTooltipModule,
     FileDropOverlayComponent,
-    MatIconSizeModule
+    MatIconSizeModule,
+    NgArrayPipesModule
   ],
   declarations: [
     PlayerComponent,
