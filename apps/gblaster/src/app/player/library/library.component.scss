@@ -1,0 +1,25 @@
+.library-layout {
+  height: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 0 0;
+  grid-template-areas:
+    'artists albums'
+    'tracks tracks';
+}
+
+.saerchbox {
+  overflow-y: auto;
+  border: 1px solid lightgrey;
+}
+
+.artists {
+  grid-area: artists;
+}
+.albums {
+  grid-area: albums;
+}
+.tracks {
+  grid-area: tracks;
+}

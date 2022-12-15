@@ -138,7 +138,6 @@
     "eslint-plugin-import": "2.26.0",
     "eslint-plugin-jsdoc": "39.6.4",
     "eslint-plugin-prefer-arrow": "1.2.3",
-    "eslint-plugin-rxjs": "^5.0.2",
     "eslint-plugin-unicorn": "45.0.2",
     "firebase-tools": "11.18.0",
     "husky": "8.0.2",

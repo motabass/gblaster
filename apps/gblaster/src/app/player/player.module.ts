@@ -29,13 +29,15 @@ import { HotkeysModule } from '../services/hotkeys/hotkeys.module';
 import { MAT_TOOLTIP_DEFAULT_OPTIONS, MatTooltipModule } from '@angular/material/tooltip';
 import { FileDropOverlayComponent } from '@motabass/ui-components/file-drop-overlay';
 import { MatIconSizeModule } from '@motabass/material-helpers/mat-icon-size';
+import { LibraryComponent } from './library/library.component';
 
 @NgModule({
   imports: [
     CommonModule,
     RouterModule.forChild([
       { path: '', pathMatch: 'full', component: PlayerComponent },
-      { path: 'eq', component: EqualizerComponent }
+      { path: 'eq', component: EqualizerComponent },
+      { path: 'library', component: LibraryComponent }
     ]),
     MatIconModule,
     MatListModule,
@@ -56,7 +58,17 @@ import { MatIconSizeModule } from '@motabass/material-helpers/mat-icon-size';
     FileDropOverlayComponent,
     MatIconSizeModule
   ],
-  declarations: [PlayerComponent, PlaylistComponent, TimePipe, CoverDisplayComponent, VisualizerComponent, EqualizerComponent, BandPipe, VisualsDirective],
+  declarations: [
+    PlayerComponent,
+    PlaylistComponent,
+    TimePipe,
+    CoverDisplayComponent,
+    VisualizerComponent,
+    EqualizerComponent,
+    BandPipe,
+    VisualsDirective,
+    LibraryComponent
+  ],
   providers: [
     {
       provide: FileLoaderService,

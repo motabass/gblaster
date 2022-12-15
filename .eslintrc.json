@@ -43,7 +43,7 @@
         "project": "./tsconfigbase.json",
         "sourceType": "module"
       },
-      "extends": ["plugin:unicorn/recommended", "plugin:rxjs/recommended"],
+      "extends": ["plugin:unicorn/recommended"],
       "rules": {
         "unicorn/prevent-abbreviations": "off",
         "unicorn/numeric-separators-style": "off",
@@ -280,8 +280,7 @@
         "eslint-plugin-import",
         "@angular-eslint/eslint-plugin",
         "@typescript-eslint",
-        "unused-imports",
-        "rxjs"
+        "unused-imports"
       ]
     },
     {
