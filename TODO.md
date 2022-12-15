@@ -8,4 +8,3 @@ TODOs:
 - Writing Meta-Tags
 - Fullscreen/Multiwindow Mode
 - Localization
-- fix eq on mobile

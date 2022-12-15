@@ -81,3 +81,29 @@ body {
 .mat-tooltip {
   font-size: 13px;
 }
+
+.flex {
+  display: flex;
+  box-sizing: border-box;
+
+  &.row {
+    flex-direction: row;
+  }
+
+  &.column {
+    flex-direction: column;
+  }
+
+  &.align-space-between {
+    align-content: space-between;
+  }
+
+  &.align-center {
+    align-content: center;
+  }
+
+  &.justify-center {
+    justify-content: center;
+    justify-items: center;
+  }
+}
