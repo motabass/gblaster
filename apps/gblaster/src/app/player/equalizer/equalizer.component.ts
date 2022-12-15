@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { MatSliderChange } from '@angular/material/slider';
+import { MatLegacySliderChange as MatSliderChange } from '@angular/material/legacy-slider';
 import { BAND_FREQUENIES } from '../player.service';
 import { FrequencyBand } from '../player.types';
 import { AudioService } from '../audio.service';

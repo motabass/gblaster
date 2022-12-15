@@ -2,13 +2,13 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FlexModule } from '@angular/flex-layout/flex';
-import { MatButtonModule } from '@angular/material/button';
+import { MatLegacyButtonModule as MatButtonModule } from '@angular/material/legacy-button';
 import { MatIconModule } from '@angular/material/icon';
-import { MatInputModule } from '@angular/material/input';
-import { MatListModule } from '@angular/material/list';
-import { MatMenuModule } from '@angular/material/menu';
-import { MatSelectModule } from '@angular/material/select';
-import { MatSliderModule } from '@angular/material/slider';
+import { MatLegacyInputModule as MatInputModule } from '@angular/material/legacy-input';
+import { MatLegacyListModule as MatListModule } from '@angular/material/legacy-list';
+import { MatLegacyMenuModule as MatMenuModule } from '@angular/material/legacy-menu';
+import { MatLegacySelectModule as MatSelectModule } from '@angular/material/legacy-select';
+import { MatLegacySliderModule as MatSliderModule } from '@angular/material/legacy-slider';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterModule } from '@angular/router';
 import { SlidePanelModule } from '@motabass/ui-components/slide-panel';
@@ -26,7 +26,10 @@ import { VisualizerComponent } from './visualizer/visualizer.component';
 import { SafePipeModule } from 'safe-pipe';
 import { VisualsDirective } from './visualizer/visuals/visuals.directive';
 import { HotkeysModule } from '../services/hotkeys/hotkeys.module';
-import { MAT_TOOLTIP_DEFAULT_OPTIONS, MatTooltipModule } from '@angular/material/tooltip';
+import {
+  MAT_LEGACY_TOOLTIP_DEFAULT_OPTIONS as MAT_TOOLTIP_DEFAULT_OPTIONS,
+  MatLegacyTooltipModule as MatTooltipModule
+} from '@angular/material/legacy-tooltip';
 import { FileDropOverlayComponent } from '@motabass/ui-components/file-drop-overlay';
 import { MatIconSizeModule } from '@motabass/material-helpers/mat-icon-size';
 import { LibraryComponent } from './library/library.component';

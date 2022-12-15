@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { MatSlideToggleChange } from '@angular/material/slide-toggle';
+import { MatLegacySlideToggleChange as MatSlideToggleChange } from '@angular/material/legacy-slide-toggle';
 import { NgxIndexedDBService } from 'ngx-indexed-db';
 import { MetadataService } from '../../player/metadata-service/metadata.service';
 
