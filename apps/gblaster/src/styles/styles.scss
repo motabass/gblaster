@@ -83,15 +83,21 @@ body {
 }
 
 .flex {
-  display: flex;
+  display: flex !important;
   box-sizing: border-box;
 
   &.row {
     flex-direction: row;
+    &.gap-1 > *:not(:first-child) {
+      margin-left: 1.5rem;
+    }
   }
 
   &.column {
     flex-direction: column;
+    &.gap-1 > *:not(:first-child) {
+      margin-top: 1.5rem;
+    }
   }
 
   &.align-space-between {

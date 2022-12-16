@@ -60,7 +60,6 @@ import { NgArrayPipesModule } from 'ngx-pipes';
     SafePipeModule,
     MatTooltipModule,
     FileDropOverlayComponent,
-    MatIconSizeModule,
     NgArrayPipesModule
   ],
   declarations: [

@@ -17,7 +17,7 @@
     {{ song?.metadata?.title || song?.file?.name }}
   </h1>
   <p style="font-size: 1.5rem; margin-bottom: 8px; opacity: 0.8">{{ song?.metadata?.artist }}</p>
-  <div fxLayout="column" *ngIf="song && song.metadata" style="margin-top: 16px; opacity: 0.9">
+  <div class="flex column" *ngIf="song && song.metadata" style="margin-top: 16px; opacity: 0.9">
     <span *ngIf="song && song.metadata && song.metadata.album">
       Album: <strong>{{ song.metadata.album }}</strong>
     </span>

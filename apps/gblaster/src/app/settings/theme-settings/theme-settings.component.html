@@ -1,6 +1,6 @@
 <mat-card>
   <mat-card-title>Theme-Colors</mat-card-title>
-  <mat-card-content fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="1.5rem" style="min-height: 48px">
+  <mat-card-content class="flex column gap-1" style="min-height: 48px">
     <mat-checkbox labelPosition="before" [checked]="themeService.darkMode" (change)="changeDarkMode($event)"> Dark Mode </mat-checkbox>
   </mat-card-content>
 </mat-card>

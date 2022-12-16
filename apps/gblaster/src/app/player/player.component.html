@@ -8,7 +8,7 @@
   <mtb-visualizer class="visualizer" [song]="playingSong"></mtb-visualizer>
 </mtb-cover-display>
 
-<mat-toolbar color="primary" fxLayout="row" fxLayoutAlign="start center" class="bar">
+<mat-toolbar color="primary" class="bar flex row justify-center">
   <button mat-icon-button (click)="playPause()">
     <mat-icon matTooltip="Pause" *ngIf="playing" svgIcon="pause"></mat-icon>
     <mat-icon matTooltip="Play" *ngIf="!playing" svgIcon="play"></mat-icon>
