@@ -10,7 +10,7 @@ describe('gblaster', () => {
     getToolBarTitle().contains('gBlaster');
 
     getSidenavToggleButton().click();
-    getSidenavLink(3).click();
+    getSidenavLink(4).click();
 
     getCardTitle('Theme-Colors');
     getCardTitle('Local Storage Settings');
