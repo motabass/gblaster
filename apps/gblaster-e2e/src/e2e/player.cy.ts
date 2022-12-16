@@ -12,7 +12,7 @@ describe('gblaster', () => {
     getVolumeSlider().click('bottom');
 
     // @ts-ignore
-    cy.loadFiles().wait(700);
+    cy.loadFiles().wait(2500);
   });
 
   it('should load a file with legacy file loader', () => {
