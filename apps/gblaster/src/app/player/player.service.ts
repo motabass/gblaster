@@ -108,7 +108,7 @@ export class PlayerService {
       let tempList: Song[] = [];
       let startTime = Date.now();
 
-      for (const file of files) {
+      for (const [i, file] of files.entries()) {
         this.loaderService.show();
         const song = await this.createSongFromFile(file);
         this.loaderService.hide();
@@ -118,7 +118,7 @@ export class PlayerService {
         }
 
         // alle 2sek die Temporäre Liste in die sichtbare Playlist pushen
-        if (Date.now() - startTime > 2000) {
+        if (Date.now() - startTime > 2000 || i === files.length - 1) {
           this.currentPlaylist.push(...tempList);
           tempList = [];
           startTime = Date.now();
