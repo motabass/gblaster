@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { action } from 'mobx-angular';
 import { LocalStorage, LocalStorageService } from 'ngx-webstorage';
 import { FrequencyBand } from './player.types';
 
@@ -7,15 +6,16 @@ const FREQUENCY_BANDS: FrequencyBand[] = [60, 170, 310, 600, 1000, 3000, 6000, 1
 
 @Injectable({ providedIn: 'root' })
 export class AudioService {
-  private frequencyBandFilters: { [band: number]: BiquadFilterNode } = {};
+  private _audioElement: HTMLAudioElement;
+  private _audioContext: AudioContext;
+  private _analyserNode: AnalyserNode;
+  private _gainNode: GainNode;
+  private _frequencyFilters: { [band: number]: BiquadFilterNode } = {};
+
   @LocalStorage('equalizerGainValues', { 60: 0, 170: 0, 310: 0, 600: 0, 1000: 0, 3000: 0, 6000: 0, 12000: 0, 14000: 0, 16000: 0 })
-  private equalizerGainValues!: {
+  private _equalizerGainValues!: {
     [band: number]: number;
   };
-  private audioContext: AudioContext;
-  private gainNode: GainNode;
-  analyserNode: AnalyserNode;
-  audioElement: HTMLAudioElement;
 
   constructor(private storageService: LocalStorageService) {
     // create audio element
@@ -33,7 +33,7 @@ export class AudioService {
     });
 
     // TODO: only for cypress test!?
-    document.body.appendChild(audioElement);
+    document.body.append(audioElement);
 
     // initialize audio context
     const audioContext = new AudioContext({
@@ -54,18 +54,18 @@ export class AudioService {
 
     // set eq settings from localstorage
     for (const frequencyBand of FREQUENCY_BANDS) {
-      const filter = this.frequencyBandFilters[frequencyBand];
-      filter.gain.value = this.equalizerGainValues[frequencyBand];
+      const filter = this._frequencyFilters[frequencyBand];
+      filter.gain.value = this._equalizerGainValues[frequencyBand];
     }
 
     // set volume setting from localstorage
     const storedVolume = this.storageService.retrieve('volume');
     gain.gain.value = storedVolume ?? 0.5;
 
-    this.audioElement = audioElement;
-    this.audioContext = audioContext;
-    this.analyserNode = analyser;
-    this.gainNode = gain;
+    this._audioElement = audioElement;
+    this._audioContext = audioContext;
+    this._analyserNode = analyser;
+    this._gainNode = gain;
   }
 
   private createEqualizer(audioContext: AudioContext): { eqInput: AudioNode; eqOutput: AudioNode } {
@@ -76,7 +76,7 @@ export class AudioService {
     for (const [i, bandFrequency] of FREQUENCY_BANDS.entries()) {
       const filter = audioContext.createBiquadFilter();
 
-      this.frequencyBandFilters[bandFrequency] = filter;
+      this._frequencyFilters[bandFrequency] = filter;
 
       if (i === 0) {
         // The first filter, includes all lower frequencies
@@ -97,30 +97,84 @@ export class AudioService {
     return { eqInput: input, eqOutput: output };
   }
 
+  get analyser(): AnalyserNode {
+    return this._analyserNode;
+  }
+
+  // AUDIO ELEMENT CONTROL
+
+  setSource(url: string) {
+    this._audioElement.src = url;
+  }
+
+  setFileAsSource(file: File) {
+    const oldSrc = this._audioElement.src;
+
+    this._audioElement.src = URL.createObjectURL(file);
+
+    URL.revokeObjectURL(oldSrc);
+  }
+
+  async play() {
+    return this._audioElement.play();
+  }
+
+  get playing(): boolean {
+    return !this._audioElement.paused;
+  }
+
+  pause() {
+    this._audioElement.pause();
+  }
+
+  get paused(): boolean {
+    return this._audioElement.paused;
+  }
+
+  setLoop(loop: boolean) {
+    this._audioElement.loop = loop;
+  }
+
+  setOnEnded(callback: () => any) {
+    this._audioElement.addEventListener('ended', callback);
+  }
+
+  get duration(): number {
+    return this._audioElement.duration;
+  }
+
+  get currentTime(): number {
+    return this._audioElement.currentTime;
+  }
+
+  seekToPosition(position: number, fastSeek = false) {
+    if ('fastSeek' in this._audioElement && fastSeek) {
+      this._audioElement.fastSeek(position);
+    } else {
+      this._audioElement.currentTime = position;
+    }
+  }
+
   getBandGain(bandFrequency: FrequencyBand): number {
-    return this.equalizerGainValues[bandFrequency];
+    return this._equalizerGainValues[bandFrequency];
   }
 
-  @action setGainForFrequency(bandFrequency: FrequencyBand, gainValue: number) {
-    this.frequencyBandFilters[bandFrequency].gain.value = gainValue;
+  setGainForFrequency(bandFrequency: FrequencyBand, gainValue: number) {
+    this._frequencyFilters[bandFrequency].gain.value = gainValue;
 
-    const bandGains = this.equalizerGainValues;
+    const bandGains = this._equalizerGainValues;
     bandGains[bandFrequency] = gainValue;
-    this.equalizerGainValues = bandGains;
+    this._equalizerGainValues = bandGains;
   }
 
-  @action setVolume(value: number) {
+  setVolume(value: number) {
     if (value >= 0 && value <= 1) {
       this.storageService.store('volume', value);
-      this.gainNode.gain.value = value;
+      this._gainNode.gain.value = value;
     }
   }
 
   get volume() {
-    return this.gainNode.gain.value;
-  }
-
-  get playing(): boolean {
-    return !this.audioElement.paused;
+    return this._gainNode.gain.value;
   }
 }

@@ -56,7 +56,7 @@ export class VisualizerComponent implements OnInit, OnDestroy {
   }
 
   get analyser(): AnalyserNode {
-    return this.audioService.analyserNode;
+    return this.audioService.analyser;
   }
 
   get colorConfig(): VisualsColorConfig {

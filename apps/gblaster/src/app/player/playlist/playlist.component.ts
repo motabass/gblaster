@@ -45,7 +45,7 @@ export class PlaylistComponent {
     if (song !== this.playingSong) {
       return false;
     }
-    return !this.playerService.audioElement.paused;
+    return this.playerService.playing;
   }
 
   get playingSong(): Song | undefined {
@@ -74,7 +74,7 @@ export class PlaylistComponent {
   }
 
   get analyser(): AnalyserNode {
-    return this.audioService.analyserNode;
+    return this.audioService.analyser;
   }
 
   playlistTrackFunction(index: number, song: Song) {

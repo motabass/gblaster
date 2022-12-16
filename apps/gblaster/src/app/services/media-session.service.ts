@@ -28,11 +28,11 @@ export class MediaSessionService {
     }
   }
 
-  updateMediaPositionState(mediaElement: HTMLMediaElement) {
+  updateMediaPositionState(duration: number, currentTime: number) {
     if (navigator.mediaSession?.setPositionState) {
       navigator.mediaSession.setPositionState({
-        duration: mediaElement.duration,
-        position: mediaElement.currentTime
+        duration: duration,
+        position: currentTime
       });
     }
   }

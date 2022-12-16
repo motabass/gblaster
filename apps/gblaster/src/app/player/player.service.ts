@@ -62,24 +62,16 @@ export class PlayerService {
       });
     }
 
-    this.audioElement.addEventListener('ended', () => {
+    this.audioService.setOnEnded(() => {
       this.next();
     });
-  }
-
-  get audioElement(): HTMLAudioElement {
-    return this.audioService.audioElement;
   }
 
   private async setPlayingSong(song: Song | undefined) {
     if (!song) {
       return;
     }
-    const oldSrc = this.audioElement.src;
-
-    this.audioElement.src = URL.createObjectURL(song.file);
-
-    URL.revokeObjectURL(oldSrc);
+    this.audioService.setFileAsSource(song.file);
 
     this.playingSong = song;
 
@@ -113,13 +105,23 @@ export class PlayerService {
 
   @action async addToPlaylist(...files: File[]) {
     if (files?.length) {
+      let tempList: Song[] = [];
+      let startTime = Date.now();
+
       for (const file of files) {
         this.loaderService.show();
         const song = await this.createSongFromFile(file);
         this.loaderService.hide();
         // avoid duplicate playlist entries
         if (!this.currentPlaylist.some((playlistSong) => playlistSong.metadata?.crc === song.metadata?.crc)) {
-          this.currentPlaylist.push(song);
+          tempList.push(song);
+        }
+
+        // alle 2sek die Temporäre Liste in die sichtbare Playlist pushen
+        if (Date.now() - startTime > 2000) {
+          this.currentPlaylist.push(...tempList);
+          tempList = [];
+          startTime = Date.now();
         }
       }
     }
@@ -137,24 +139,20 @@ export class PlayerService {
 
   @action setSeekPosition(value: number | undefined, fastSeek = false) {
     if (value !== null && value !== undefined && value >= 0 && value <= this.durationSeconds) {
-      if ('fastSeek' in this.audioElement && fastSeek) {
-        this.audioElement.fastSeek(value);
-      } else {
-        this.audioElement.currentTime = value;
-      }
-      this.mediaSessionService.updateMediaPositionState(this.audioElement);
+      this.audioService.seekToPosition(value, fastSeek);
+      this.mediaSessionService.updateMediaPositionState(this.audioService.duration, this.audioService.currentTime);
     }
   }
 
   get durationSeconds(): number {
-    return this.playingSong ? Math.round(this.audioElement.duration) : 0;
+    return this.playingSong ? Math.round(this.audioService.duration) : 0;
   }
 
   getCurrentTime(): number {
     if (!this.playingSong) {
       return 0;
     }
-    const pos = this.audioElement.currentTime;
+    const pos = this.audioService.currentTime;
     return pos !== null && pos !== undefined ? Math.floor(pos) : 0;
   }
 
@@ -176,13 +174,13 @@ export class PlayerService {
 
     this.loadFinished = false;
     this.setPlayingSong(song);
-    this.audioElement.play().then(() => this.afterPlayLoaded());
+    this.audioService.play().then(() => this.afterPlayLoaded());
   }
 
   afterPlayLoaded() {
     this.loadFinished = true;
     this.mediaSessionService.setPlaying();
-    this.mediaSessionService.updateMediaPositionState(this.audioElement);
+    this.mediaSessionService.updateMediaPositionState(this.audioService.duration, this.audioService.currentTime);
     this.wakelockService.activateWakelock();
   }
 
@@ -191,15 +189,15 @@ export class PlayerService {
       if (this.selectedSong) {
         this.loadFinished = false;
         this.setPlayingSong(this.selectedSong);
-        this.audioElement.play().then(() => this.afterPlayLoaded());
+        this.audioService.play().then(() => this.afterPlayLoaded());
       }
       return;
     }
-    if (this.audioElement.paused) {
+    if (this.audioService.paused) {
       this.loadFinished = false;
-      this.audioElement.play().then(() => this.afterPlayLoaded());
+      this.audioService.play().then(() => this.afterPlayLoaded());
     } else {
-      this.audioElement.pause();
+      this.audioService.pause();
       this.mediaSessionService.setPaused();
       this.wakelockService.releaseWakelock();
     }
@@ -210,12 +208,10 @@ export class PlayerService {
       return;
     }
     if (this.playing) {
-      this.audioElement.pause();
+      this.audioService.pause();
       this.mediaSessionService.setPaused();
-      this.audioElement.currentTime = 0;
-    } else {
-      this.audioElement.currentTime = 0;
     }
+    this.audioService.seekToPosition(0);
 
     this.wakelockService.releaseWakelock();
   }
@@ -302,7 +298,7 @@ export class PlayerService {
   }
 
   get playing(): boolean {
-    return !!this.playingSong && !this.audioElement.paused;
+    return !!this.playingSong && !this.audioService.paused;
   }
 
   @action toggleRepeat() {
@@ -312,12 +308,12 @@ export class PlayerService {
         break;
       }
       case 'all': {
-        this.audioElement.loop = true;
+        this.audioService.setLoop(true);
         this.repeat = 'one';
         break;
       }
       case 'one': {
-        this.audioElement.loop = false;
+        this.audioService.setLoop(false);
         this.repeat = 'off';
         break;
       }
