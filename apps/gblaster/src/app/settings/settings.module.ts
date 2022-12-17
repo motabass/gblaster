@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FlexModule } from '@angular/flex-layout/flex';
 import { MatLegacyButtonModule as MatButtonModule } from '@angular/material/legacy-button';
 import { MatLegacyCardModule as MatCardModule } from '@angular/material/legacy-card';
 import { MatLegacyCheckboxModule as MatCheckboxModule } from '@angular/material/legacy-checkbox';
@@ -15,7 +14,6 @@ import { MetadataSettingsComponent } from './metadata-settings/metadata-settings
   imports: [
     CommonModule,
     MatCardModule,
-    FlexModule,
     MatButtonModule,
     MatCheckboxModule,
     RouterModule.forChild([{ path: '', pathMatch: 'full', component: SettingsComponent }]),

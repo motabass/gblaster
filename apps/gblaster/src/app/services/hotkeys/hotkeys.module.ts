@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
 import { NgModule, Optional, SkipSelf } from '@angular/core';
-import { FlexModule } from '@angular/flex-layout/flex';
 import { MatLegacyButtonModule as MatButtonModule } from '@angular/material/legacy-button';
 import { MatLegacyDialogModule as MatDialogModule } from '@angular/material/legacy-dialog';
 import { MatIconModule } from '@angular/material/icon';
@@ -10,7 +9,7 @@ import { HotkeysHelpDialogComponent } from './hotkeys-help-dialog.component';
 const DECLARATIONS = [HotkeysHelpDialogComponent];
 
 @NgModule({
-  imports: [CommonModule, FlexModule, MatDialogModule, MatListModule, MatButtonModule, MatIconModule],
+  imports: [CommonModule, MatDialogModule, MatListModule, MatButtonModule, MatIconModule],
   declarations: DECLARATIONS
 })
 export class HotkeysModule {

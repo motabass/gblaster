@@ -28,10 +28,10 @@
   <button mat-icon-button id="load_files" (click)="showPicker()">
     <mat-icon matTooltip="Load folder/files..." svgIcon="folder-music-outline"></mat-icon>
   </button>
-  <div fxFlex *ngIf="!playingSong"></div>
+  <div class="flex-grow" *ngIf="!playingSong"></div>
 
   <mat-slider
-    fxFlex
+    class="flex-grow"
     *ngIf="playingSong"
     min="0"
     [max]="durationSeconds"

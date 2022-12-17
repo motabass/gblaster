@@ -1,7 +1,6 @@
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { FlexModule } from '@angular/flex-layout/flex';
 import { MatLegacyButtonModule as MatButtonModule } from '@angular/material/legacy-button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatLegacyInputModule as MatInputModule } from '@angular/material/legacy-input';
@@ -47,7 +46,6 @@ import { NgArrayPipesModule } from 'ngx-pipes';
     MatListModule,
     MatButtonModule,
     MatSliderModule,
-    FlexModule,
     MatMenuModule,
     MatInputModule,
     MatSelectModule,

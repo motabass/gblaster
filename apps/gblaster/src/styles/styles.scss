@@ -113,3 +113,8 @@ body {
     justify-items: center;
   }
 }
+
+.flex-grow {
+  box-sizing: border-box;
+  flex: 1 1 0%;
+}
