@@ -7,9 +7,6 @@ import { GamepadService } from '../../services/gamepad/gamepad.service';
 import { GamepadButtons } from '../../services/gamepad/gamepad.types';
 import { AudioService } from '../audio.service';
 
-// TODO: quit app + min + max buttons in electron
-// TODO: loading indicator service
-
 @Component({
   selector: 'mtb-visualizer',
   templateUrl: './visualizer.component.html',
