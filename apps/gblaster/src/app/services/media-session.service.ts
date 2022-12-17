@@ -28,6 +28,7 @@ export class MediaSessionService {
     }
   }
 
+  //  TODO: fix position being wrong in notification
   updateMediaPositionState(duration: number, currentTime: number) {
     if (navigator.mediaSession?.setPositionState) {
       navigator.mediaSession.setPositionState({
