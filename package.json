@@ -93,6 +93,7 @@
     "ngx-webstorage": "11.1.1",
     "node-vibrant": "3.1.6",
     "readable-stream": "^4.2.0",
+    "debug": "3.2.7",
     "rxjs": "7.6.0",
     "safe-pipe": "2.0.5",
     "tslib": "2.4.1",
@@ -181,6 +182,7 @@
     "webpack-sources": "3.2.3"
   },
   "overrides": {
-    "readable-stream": "$readable-stream"
+    "readable-stream": "$readable-stream",
+    "debug": "3.2.7"
   }
 }
