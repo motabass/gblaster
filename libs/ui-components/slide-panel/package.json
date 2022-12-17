@@ -4,8 +4,8 @@
   "peerDependencies": {
     "@angular/common": "^15.0.2",
     "@angular/core": "^15.0.2",
-    "@angular/cdk": "^14.2.7",
-    "@angular/material": "^14.2.7"
+    "@angular/cdk": "^14.2.7 || ^15.0.0",
+    "@angular/material": "^14.2.7 || ^15.0.0"
 },
   "dependencies": {
     "tslib": "2.4.1"
