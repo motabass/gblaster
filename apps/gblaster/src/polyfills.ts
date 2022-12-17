@@ -48,9 +48,9 @@
 /** *************************************************************************************************
  * Zone JS is required by default for Angular itself.
  */
-import 'zone.js'; // Included with Angular CLI.
 (window as any).__Zone_disable_requestAnimationFrame = true;
 (window as any).__zone_symbol__UNPATCHED_EVENTS = ['mousemove'];
+import 'zone.js'; // Included with Angular CLI.
 
 /** *************************************************************************************************
  * APPLICATION IMPORTS
