@@ -1,5 +1,3 @@
-/// <reference types="dom-screen-wake-lock" />
-
 import { Injectable } from '@angular/core';
 
 @Injectable({

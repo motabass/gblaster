@@ -1,5 +1,3 @@
-/// <reference types="offscreencanvas" />
-
 import { scalePow, ScalePower } from 'd3-scale';
 
 let mode: string;
@@ -49,7 +47,7 @@ addEventListener(
       if (!canvasCtx) {
         return;
       }
-      // @ts-ignore
+
       canvasCtx.clearRect(0, 0, canvasCtx.canvas.width, canvasCtx.canvas.height);
     }
 
@@ -104,7 +102,7 @@ function setup(options: any) {
     .range([0, bufferLength - bufferLength / 3]);
 
   amplitudeScale = scalePow().exponent(1.7).domain([0, 255]).range([0, canvasHeight]);
-  // @ts-ignore
+
   gradient = canvasCtx.createLinearGradient(0, 0, 0, canvasHeight);
   gradient.addColorStop(1, mainColor);
   gradient.addColorStop(0.7, peakColor);
@@ -121,13 +119,12 @@ function drawOsc() {
     return;
   }
 
-  // @ts-ignore
   canvasCtx.clearRect(0, 0, canvasWidth, canvasHeight);
-  // @ts-ignore
+
   canvasCtx.lineWidth = thickness;
-  // @ts-ignore
+
   canvasCtx.strokeStyle = mainColor;
-  // @ts-ignore
+
   canvasCtx.beginPath();
 
   const sliceWidth = canvasWidth / bufferLength;
@@ -138,16 +135,14 @@ function drawOsc() {
     const y = (v * canvasHeight) / 2;
 
     if (i === 0) {
-      // @ts-ignore
       canvasCtx.moveTo(x, y);
     } else {
-      // @ts-ignore
       canvasCtx.lineTo(x, y);
     }
 
     x += sliceWidth;
   }
-  // @ts-ignore
+
   canvasCtx.stroke();
 }
 
@@ -156,7 +151,6 @@ function drawBars() {
     return;
   }
 
-  // @ts-ignore
   canvasCtx.clearRect(0, 0, canvasWidth, canvasHeight);
 
   for (let i = 0; i < meterNum; i++) {
@@ -172,26 +166,25 @@ function drawBars() {
     if (capYPositionArray.length < Math.round(meterNum)) {
       capYPositionArray.push(value);
     }
-    // @ts-ignore
+
     canvasCtx.fillStyle = mainColor;
 
     if (value < capYPositionArray[i]) {
       // draw cap on last position and decrease position
-      // @ts-ignore
+
       canvasCtx.fillRect((barWidth + gap) * i, canvasHeight - capYPositionArray[i], barWidth, capHeight);
       if (capYPositionArray[i] > capHeight) {
         capYPositionArray[i] = capYPositionArray[i] - capFalldown;
       }
     } else {
       // draw cap on top of bar and save position
-      // @ts-ignore
+
       canvasCtx.fillRect((barWidth + gap) * i, canvasHeight - value, barWidth, capHeight);
       capYPositionArray[i] = value;
     }
-    // @ts-ignore
+
     canvasCtx.fillStyle = gradient; // set the fillStyle to gradient for a better look
 
-    // @ts-ignore
     canvasCtx.fillRect((barWidth + gap) * i, canvasHeight - value + capHeight, barWidth, value - capHeight); // the bar
   }
 }

@@ -3,7 +3,7 @@
   "compilerOptions": {
     "outDir": "../../out-tsc/visuals-worker",
     "lib": ["es2020", "webworker"],
-    "types": []
+    "types": ["offscreencanvas"]
   },
-  "include": ["src/**/*.worker.ts"]
+  "include": ["src/**/*.worker.ts", "**/*.d.ts"]
 }

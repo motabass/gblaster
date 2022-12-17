@@ -1,5 +1,3 @@
-/// <reference types="wicg-file-system-access" />
-
 import { Injectable } from '@angular/core';
 import { NgxIndexedDBService } from 'ngx-indexed-db';
 import { firstValueFrom } from 'rxjs';
