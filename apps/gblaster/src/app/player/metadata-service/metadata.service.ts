@@ -110,6 +110,7 @@ export class MetadataService {
 }
 
 function generateFileHash(file: File): string {
+  // TODO: replace with real file hashing? https://stackoverflow.com/questions/20917710/fast-file-hashing-of-large-files
   const hashString: string = file.name + file.type + file.size + file.lastModified;
   return crc32(hashString, 'hex') as string;
 }
