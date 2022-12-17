@@ -47,7 +47,7 @@
   <li>Interfaces</li>
   <li
   >
-  AnalyserConfig</li>
+  VisualsWorkerMessage</li>
 </ol>
 
 <ul class="nav nav-tabs" role="tablist">
@@ -84,27 +84,37 @@
                         <td class="col-md-4">
                             <ul class="index-list">
                                 <li>
-                                        <a href="#fftSize" 
+                                        <a href="#analyserData" 
 >
-                                            fftSize
+                                            analyserData
                                         </a>
                                 </li>
                                 <li>
-                                        <a href="#maxDecibels" 
+                                            <span class="modifier">Optional</span>
+                                        <a href="#canvas" 
 >
-                                            maxDecibels
+                                            canvas
                                         </a>
                                 </li>
                                 <li>
-                                        <a href="#minDecibels" 
+                                            <span class="modifier">Optional</span>
+                                        <a href="#newSize" 
 >
-                                            minDecibels
+                                            newSize
                                         </a>
                                 </li>
                                 <li>
-                                        <a href="#smoothingTimeConstant" 
+                                            <span class="modifier">Optional</span>
+                                        <a href="#stop" 
 >
-                                            smoothingTimeConstant
+                                            stop
+                                        </a>
+                                </li>
+                                <li>
+                                            <span class="modifier">Optional</span>
+                                        <a href="#visualizerOptions" 
+>
+                                            visualizerOptions
                                         </a>
                                 </li>
                             </ul>
@@ -122,9 +132,9 @@
                         <tbody>
                                 <tr>
                                     <td class="col-md-4">
-                                        <a name="fftSize"></a>
-                                        <span class="name "><b>fftSize</b>
-                                            <a href="#fftSize">
+                                        <a name="analyserData"></a>
+                                        <span class="name "><b>analyserData</b>
+                                            <a href="#analyserData">
                                                 <span class="icon ion-ios-link"></span>
                                             </a>
                                         </span>
@@ -132,7 +142,7 @@
                                 </tr>
                                 <tr>
                                     <td class="col-md-4">
-                                        <code>fftSize:         <code><a href="../miscellaneous/typealiases.html#FftSize" target="_self" >FftSize</a></code>
+                                        <code>analyserData:     <code>Uint8Array</code>
 </code>
                                     </td>
                                 </tr>
@@ -140,7 +150,7 @@
 
                                     <tr>
                                         <td class="col-md-4">
-                                            <i>Type : </i>        <code><a href="../miscellaneous/typealiases.html#FftSize" target="_self" >FftSize</a></code>
+                                            <i>Type : </i>    <code>Uint8Array</code>
 
                                         </td>
                                     </tr>
@@ -155,9 +165,9 @@
                         <tbody>
                                 <tr>
                                     <td class="col-md-4">
-                                        <a name="maxDecibels"></a>
-                                        <span class="name "><b>maxDecibels</b>
-                                            <a href="#maxDecibels">
+                                        <a name="canvas"></a>
+                                        <span class="name "><b>canvas</b>
+                                            <a href="#canvas">
                                                 <span class="icon ion-ios-link"></span>
                                             </a>
                                         </span>
@@ -165,7 +175,7 @@
                                 </tr>
                                 <tr>
                                     <td class="col-md-4">
-                                        <code>maxDecibels:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                        <code>canvas:     <code>OffscreenCanvas</code>
 </code>
                                     </td>
                                 </tr>
@@ -173,11 +183,16 @@
 
                                     <tr>
                                         <td class="col-md-4">
-                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            <i>Type : </i>    <code>OffscreenCanvas</code>
 
                                         </td>
                                     </tr>
 
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Optional</i>
+                                        </td>
+                                    </tr>
 
 
 
@@ -188,9 +203,9 @@
                         <tbody>
                                 <tr>
                                     <td class="col-md-4">
-                                        <a name="minDecibels"></a>
-                                        <span class="name "><b>minDecibels</b>
-                                            <a href="#minDecibels">
+                                        <a name="newSize"></a>
+                                        <span class="name "><b>newSize</b>
+                                            <a href="#newSize">
                                                 <span class="icon ion-ios-link"></span>
                                             </a>
                                         </span>
@@ -198,7 +213,7 @@
                                 </tr>
                                 <tr>
                                     <td class="col-md-4">
-                                        <code>minDecibels:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                        <code>newSize:     <code>DOMRect</code>
 </code>
                                     </td>
                                 </tr>
@@ -206,11 +221,16 @@
 
                                     <tr>
                                         <td class="col-md-4">
-                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            <i>Type : </i>    <code>DOMRect</code>
 
                                         </td>
                                     </tr>
 
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Optional</i>
+                                        </td>
+                                    </tr>
 
 
 
@@ -221,9 +241,9 @@
                         <tbody>
                                 <tr>
                                     <td class="col-md-4">
-                                        <a name="smoothingTimeConstant"></a>
-                                        <span class="name "><b>smoothingTimeConstant</b>
-                                            <a href="#smoothingTimeConstant">
+                                        <a name="stop"></a>
+                                        <span class="name "><b>stop</b>
+                                            <a href="#stop">
                                                 <span class="icon ion-ios-link"></span>
                                             </a>
                                         </span>
@@ -231,7 +251,7 @@
                                 </tr>
                                 <tr>
                                     <td class="col-md-4">
-                                        <code>smoothingTimeConstant:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                        <code>stop:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
 </code>
                                     </td>
                                 </tr>
@@ -239,11 +259,54 @@
 
                                     <tr>
                                         <td class="col-md-4">
-                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
 
                                         </td>
                                     </tr>
 
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Optional</i>
+                                        </td>
+                                    </tr>
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="visualizerOptions"></a>
+                                        <span class="name "><b>visualizerOptions</b>
+                                            <a href="#visualizerOptions">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>visualizerOptions:         <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Optional</i>
+                                        </td>
+                                    </tr>
 
 
 
@@ -326,7 +389,7 @@ export interface VisualsWorkerMessage {
        <script>
             var COMPODOC_CURRENT_PAGE_DEPTH = 1;
             var COMPODOC_CURRENT_PAGE_CONTEXT = 'interface';
-            var COMPODOC_CURRENT_PAGE_URL = 'AnalyserConfig.html';
+            var COMPODOC_CURRENT_PAGE_URL = 'VisualsWorkerMessage.html';
             var MAX_SEARCH_RESULTS = 15;
        </script>
 

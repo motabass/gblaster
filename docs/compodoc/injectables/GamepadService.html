@@ -166,8 +166,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="132"
-                            class="link-to-prism">apps/gblaster/src/app/services/gamepad/gamepad.service.ts:132</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="131"
+                            class="link-to-prism">apps/gblaster/src/app/services/gamepad/gamepad.service.ts:131</a></div>
                 </td>
             </tr>
 
@@ -235,8 +235,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="115"
-                            class="link-to-prism">apps/gblaster/src/app/services/gamepad/gamepad.service.ts:115</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="114"
+                            class="link-to-prism">apps/gblaster/src/app/services/gamepad/gamepad.service.ts:114</a></div>
                 </td>
             </tr>
 
@@ -304,8 +304,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="217"
-                            class="link-to-prism">apps/gblaster/src/app/services/gamepad/gamepad.service.ts:217</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="216"
+                            class="link-to-prism">apps/gblaster/src/app/services/gamepad/gamepad.service.ts:216</a></div>
                 </td>
             </tr>
 
@@ -341,8 +341,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="119"
-                            class="link-to-prism">apps/gblaster/src/app/services/gamepad/gamepad.service.ts:119</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="118"
+                            class="link-to-prism">apps/gblaster/src/app/services/gamepad/gamepad.service.ts:118</a></div>
                 </td>
             </tr>
 
@@ -456,8 +456,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="102"
-                            class="link-to-prism">apps/gblaster/src/app/services/gamepad/gamepad.service.ts:102</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="101"
+                            class="link-to-prism">apps/gblaster/src/app/services/gamepad/gamepad.service.ts:101</a></div>
                 </td>
             </tr>
 
@@ -653,9 +653,8 @@ export class GamepadService implements OnDestroy {
         this.axesActions.push(this.createDefaultAxisAction(Number(axisIndex)));
       }
     }
-    // @ts-ignore
+
     addEventListener(&#x27;gamepadconnected&#x27;, (event: GamepadEvent) &#x3D;&gt; this.connectionListener(event));
-    // @ts-ignore
     addEventListener(&#x27;gamepaddisconnected&#x27;, (event: GamepadEvent) &#x3D;&gt; this.disconnectionListener(event));
   }
 
@@ -778,15 +777,15 @@ export class GamepadService implements OnDestroy {
     let cache &#x3D; this.pressedButtonsCaches[gamepad.index];
     const buttonCache &#x3D; cache.find((ac) &#x3D;&gt; ac.index &#x3D;&#x3D;&#x3D; buttonIndex);
     if (button.pressed) {
-      if (!buttonCache) {
-        cache.push({ index: buttonIndex, lastActionExecution: performance.now() });
-        this.fireButtonAction(buttonIndex, button.value);
-      } else {
+      if (buttonCache) {
         const timeout &#x3D; this.buttonActions[buttonIndex].timeout ?? this.DEFAULT_TURBO_TIMEOUT;
         if (this.buttonActions[buttonIndex].mode &#x3D;&#x3D;&#x3D; &#x27;turbo&#x27; &amp;&amp; performance.now() - buttonCache.lastActionExecution &gt; timeout) {
           buttonCache.lastActionExecution &#x3D; performance.now();
           this.fireButtonAction(buttonIndex, button.value);
         }
+      } else {
+        cache.push({ index: buttonIndex, lastActionExecution: performance.now() });
+        this.fireButtonAction(buttonIndex, button.value);
       }
     } else {
       if (buttonCache) {
@@ -822,15 +821,15 @@ export class GamepadService implements OnDestroy {
     let cache &#x3D; this.activeAxesCaches[gamepad.index];
     const axisCache &#x3D; cache.find((ac) &#x3D;&gt; ac.index &#x3D;&#x3D;&#x3D; axisIndex);
     if (this.isAxisValueInDetectionRange(axis)) {
-      if (!axisCache) {
-        cache.push({ index: axisIndex, lastActionExecution: performance.now() });
-        this.fireAxisAction(axisIndex, axis.valueOf());
-      } else {
+      if (axisCache) {
         const timeout &#x3D; this.axesActions[axisIndex].timeout ?? this.DEFAULT_TURBO_TIMEOUT;
         if (this.axesActions[axisIndex].mode &#x3D;&#x3D;&#x3D; &#x27;turbo&#x27; &amp;&amp; performance.now() - axisCache.lastActionExecution &gt; timeout) {
           axisCache.lastActionExecution &#x3D; performance.now();
           this.fireAxisAction(axisIndex, axis.valueOf());
         }
+      } else {
+        cache.push({ index: axisIndex, lastActionExecution: performance.now() });
+        this.fireAxisAction(axisIndex, axis.valueOf());
       }
     } else {
       if (axisCache) {

@@ -29,7 +29,7 @@ export class UpdateService extends BaseSubscribingComponent {
     }
   }
 
-  async init(): Promise<any> {
+  async init(): Promise<boolean | undefined> {
     if (this.swUpdate.isEnabled) {
       return this.swUpdate.checkForUpdate();
     }

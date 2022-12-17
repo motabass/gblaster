@@ -241,7 +241,7 @@
                 <td class="col-md-4">
 
                     <div class="io-description">
-                        <b>Returns : </b>    <code>Promise&lt;any&gt;</code>
+                        <b>Returns : </b>    <code>Promise&lt;boolean | undefined&gt;</code>
 
                     </div>
                 </td>
@@ -285,7 +285,7 @@ export class UpdateService extends BaseSubscribingComponent {
     }
   }
 
-  async init(): Promise&lt;any&gt; {
+  async init(): Promise&lt;boolean | undefined&gt; {
     if (this.swUpdate.isEnabled) {
       return this.swUpdate.checkForUpdate();
     }

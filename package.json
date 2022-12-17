@@ -1,6 +1,6 @@
 {
   "name": "motabass",
-  "version": "13.0.6",
+  "version": "13.0.7",
   "author": "motabass",
   "repository": "https://github.com/motabass/gblaster",
   "description": "Colorful Web Audio Player PWA",
@@ -92,7 +92,6 @@
     "ngx-webstorage": "11.1.1",
     "node-vibrant": "3.1.6",
     "readable-stream": "^4.2.0",
-    "debug": "4.3.4",
     "rxjs": "7.8.0",
     "safe-pipe": "2.0.5",
     "tslib": "2.4.1",
@@ -181,7 +180,6 @@
     "webpack-sources": "3.2.3"
   },
   "overrides": {
-    "readable-stream": "$readable-stream",
-    "debug": "4.3.4"
+    "readable-stream": "$readable-stream"
   }
 }

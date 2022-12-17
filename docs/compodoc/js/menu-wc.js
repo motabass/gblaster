@@ -461,6 +461,9 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                             <li class="link">
                                 <a href="interfaces/VisualsColorConfig.html" data-type="entity-link" >VisualsColorConfig</a>
                             </li>
+                            <li class="link">
+                                <a href="interfaces/VisualsWorkerMessage.html" data-type="entity-link" >VisualsWorkerMessage</a>
+                            </li>
                         </ul>
                     </li>
                     <li class="chapter">
