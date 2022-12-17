@@ -2,13 +2,11 @@
 
 A web audio player PWA using latest Web APIs.
 
-![GitHub package.json version](https://img.shields.io/github/package-json/v/motabass/gblaster)
-![Actions state](https://github.com/motabass/gblaster/actions/workflows/build.yml/badge.svg)
-[![CodeFactor](https://www.codefactor.io/repository/github/motabass/gblaster/badge)](https://www.codefactor.io/repository/github/motabass/gblaster)
-
-Demo: https://gblaster-player.firebaseapp.com
-
-GH-Pages: https://motabass.github.io/gblaster/
+![github action](https://github.com/motabass/gblaster/actions/workflows/build.yml/badge.svg)
+[![codefactor](https://www.codefactor.io/repository/github/motabass/gblaster/badge)](https://www.codefactor.io/repository/github/motabass/gblaster)
+![release](https://badgen.net/github/release/motabass/gblaster/stable)
+[![demo](https://img.shields.io/badge/demo-gblaster-blue.svg)](https://gblaster-player.firebaseapp.com)
+[![gh-pages](https://img.shields.io/badge/github-pages-blue.svg)](https://motabass.github.io/gblaster/)
 
 ### Dependencies
 
