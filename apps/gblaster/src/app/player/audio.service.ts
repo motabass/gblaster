@@ -10,6 +10,7 @@ export class AudioService {
   private _audioContext: AudioContext;
   private _analyserNode: AnalyserNode;
   private _gainNode: GainNode;
+  private _eqGainNode: GainNode;
   private _frequencyFilters: { [band: number]: BiquadFilterNode } = {};
 
   @LocalStorage('equalizerGainValues', { 60: 0, 170: 0, 310: 0, 600: 0, 1000: 0, 3000: 0, 6000: 0, 12000: 0, 14000: 0, 16000: 0 })
@@ -44,11 +45,13 @@ export class AudioService {
     const audioSource = audioContext.createMediaElementSource(audioElement);
     const analyser = audioContext.createAnalyser();
     const gain = audioContext.createGain();
+    const eqGain = audioContext.createGain();
     const { eqInput, eqOutput } = this.createEqualizer(audioContext);
 
     // connect audio nodes
     audioSource.connect(analyser);
-    analyser.connect(eqInput);
+    analyser.connect(eqGain);
+    eqGain.connect(eqInput);
     eqOutput.connect(gain);
     gain.connect(audioContext.destination);
 
@@ -65,6 +68,7 @@ export class AudioService {
     this._audioElement = audioElement;
     this._audioContext = audioContext;
     this._analyserNode = analyser;
+    this._eqGainNode = eqGain;
     this._gainNode = gain;
   }
 
@@ -116,6 +120,10 @@ export class AudioService {
   }
 
   async play() {
+    if (this._audioContext.state === 'suspended') {
+      await this._audioContext.resume();
+    }
+
     return this._audioElement.play();
   }
 
@@ -176,5 +184,13 @@ export class AudioService {
 
   get volume() {
     return this._gainNode.gain.value;
+  }
+
+  get baseGain() {
+    return this._eqGainNode.gain.value;
+  }
+
+  setBaseGain(volume: number) {
+    this._eqGainNode.gain.value = volume;
   }
 }

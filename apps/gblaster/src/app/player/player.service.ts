@@ -89,12 +89,6 @@ export class PlayerService {
       const accentColor = song.metadata.coverColors?.vibrant?.hex;
       this.themeService.setAccentColor(accentColor);
     }
-
-    // TODO: ???????????????????
-    // if (this.audioCtx.state === 'suspended') {
-    //   await this.audioCtx.resume();
-    // }
-
     this.selectedSong = song;
   }
 

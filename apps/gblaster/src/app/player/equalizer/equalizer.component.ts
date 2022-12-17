@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { MatLegacySliderChange as MatSliderChange } from '@angular/material/legacy-slider';
+import { MatLegacySliderChange, MatLegacySliderChange as MatSliderChange } from '@angular/material/legacy-slider';
 import { BAND_FREQUENIES } from '../player.service';
 import { FrequencyBand } from '../player.types';
 import { AudioService } from '../audio.service';
@@ -32,5 +32,15 @@ export class EqualizerComponent {
 
   bandTrackFunction(index: number): number {
     return index;
+  }
+
+  getBaseGain() {
+    return this.audioService.baseGain;
+  }
+
+  onBaseGainChange(event: MatLegacySliderChange) {
+    if (event.value) {
+      this.audioService.setBaseGain(event.value);
+    }
   }
 }
