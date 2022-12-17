@@ -4,9 +4,9 @@ A web audio player PWA using latest Web APIs.
 
 ![github action](https://github.com/motabass/gblaster/actions/workflows/build.yml/badge.svg)
 [![codefactor](https://www.codefactor.io/repository/github/motabass/gblaster/badge)](https://www.codefactor.io/repository/github/motabass/gblaster)
-![release](https://badgen.net/github/release/motabass/gblaster/stable)
-[![demo](https://img.shields.io/badge/demo-gblaster-blue.svg)](https://gblaster-player.firebaseapp.com)
+[![GitHub release](https://img.shields.io/github/release/motabass/gblaster.svg)](https://GitHub.com/motabass/gblaster/releases/)
 [![gh-pages](https://img.shields.io/badge/github-pages-blue.svg)](https://motabass.github.io/gblaster/)
+[![demo](https://img.shields.io/badge/demo-online-green.svg)](https://gblaster-player.firebaseapp.com)
 
 ### Dependencies
 
