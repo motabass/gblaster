@@ -24,3 +24,11 @@ export interface VisualsColorConfig {
   mainColor?: string;
   peakColor?: string;
 }
+
+export interface VisualsWorkerMessage {
+  canvas?: OffscreenCanvas;
+  newSize?: DOMRect;
+  stop?: boolean;
+  visualizerOptions?: any;
+  analyserData: Uint8Array;
+}

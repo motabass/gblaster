@@ -1,5 +1,5 @@
 import { Directive, ElementRef, Input, NgZone, OnChanges, OnDestroy, SimpleChanges } from '@angular/core';
-import { FrequencyBarsConfig, OsciloscopeConfig, VisualizerMode, VisualsColorConfig } from './visuals.types';
+import { FrequencyBarsConfig, OsciloscopeConfig, VisualizerMode, VisualsColorConfig, VisualsWorkerMessage } from './visuals.types';
 
 const FALLBACK_PRIMARY_COLOR = '#424242';
 const FALLBACK_ACCENT_COLOR = '#bcbcbc';
@@ -33,7 +33,7 @@ export class VisualsDirective implements OnDestroy, OnChanges {
     //   console.log(`page got message: ${data}`);
     // };
 
-    this.worker.postMessage({ canvas: offscreenCanvas }, [offscreenCanvas]);
+    this.worker.postMessage({ canvas: offscreenCanvas } as VisualsWorkerMessage, [offscreenCanvas]);
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -42,7 +42,7 @@ export class VisualsDirective implements OnDestroy, OnChanges {
     // give canvas size for correct dpi
     const rect = this.canvas.getBoundingClientRect();
 
-    this.worker.postMessage({ newSize: rect });
+    this.worker.postMessage({ newSize: rect } as VisualsWorkerMessage);
 
     switch (this.mode) {
       case 'bars':
@@ -55,18 +55,18 @@ export class VisualsDirective implements OnDestroy, OnChanges {
   }
 
   visualizeFrequencyBars() {
-    // TODO: messages suaber typisieren
     this.worker.postMessage({
-      start: true,
-      mode: 'bars',
-      barCount: this.barsConfig.barCount,
-      gap: this.barsConfig.gap,
-      capHeight: this.barsConfig.capHeight,
-      capFalldown: this.barsConfig.capFalldown,
-      mainColor: this.colorConfig?.mainColor || FALLBACK_PRIMARY_COLOR,
-      peakColor: this.colorConfig?.peakColor || FALLBACK_ACCENT_COLOR,
-      bufferLength: this.analyser.frequencyBinCount
-    });
+      visualizerOptions: {
+        mode: 'bars',
+        barCount: this.barsConfig.barCount,
+        gap: this.barsConfig.gap,
+        capHeight: this.barsConfig.capHeight,
+        capFalldown: this.barsConfig.capFalldown,
+        mainColor: this.colorConfig?.mainColor || FALLBACK_PRIMARY_COLOR,
+        peakColor: this.colorConfig?.peakColor || FALLBACK_ACCENT_COLOR,
+        bufferLength: this.analyser.frequencyBinCount
+      }
+    } as VisualsWorkerMessage);
 
     this.zone.runOutsideAngular(() => {
       const bufferLength = this.analyser.frequencyBinCount;
@@ -77,7 +77,7 @@ export class VisualsDirective implements OnDestroy, OnChanges {
         if (timestamp - lastTimestamp > 32) {
           // animation throttling
           this.analyser.getByteFrequencyData(analyserData);
-          this.worker.postMessage({ analyserData: analyserData });
+          this.worker.postMessage({ analyserData: analyserData } as VisualsWorkerMessage);
           lastTimestamp = timestamp;
         }
         this.animationFrameRef = requestAnimationFrame(draw);
@@ -88,13 +88,14 @@ export class VisualsDirective implements OnDestroy, OnChanges {
 
   visualizeOscilloscope() {
     this.worker.postMessage({
-      start: true,
-      mode: 'osc',
-      mainColor: this.colorConfig?.mainColor || FALLBACK_PRIMARY_COLOR,
-      peakColor: this.colorConfig?.peakColor || FALLBACK_ACCENT_COLOR,
-      bufferLength: this.analyser.frequencyBinCount,
-      thickness: this.oscConfig.thickness
-    });
+      visualizerOptions: {
+        mode: 'osc',
+        mainColor: this.colorConfig?.mainColor || FALLBACK_PRIMARY_COLOR,
+        peakColor: this.colorConfig?.peakColor || FALLBACK_ACCENT_COLOR,
+        bufferLength: this.analyser.frequencyBinCount,
+        thickness: this.oscConfig.thickness
+      }
+    } as VisualsWorkerMessage);
 
     this.zone.runOutsideAngular(() => {
       const bufferLength = this.analyser.frequencyBinCount;
@@ -105,7 +106,7 @@ export class VisualsDirective implements OnDestroy, OnChanges {
         if (timestamp - lastTimestamp > 32) {
           // animation throttling
           this.analyser.getByteTimeDomainData(analyserData);
-          this.worker.postMessage({ analyserData: analyserData });
+          this.worker.postMessage({ analyserData: analyserData } as VisualsWorkerMessage);
           lastTimestamp = timestamp;
         }
         this.animationFrameRef = requestAnimationFrame(draw);
@@ -115,7 +116,7 @@ export class VisualsDirective implements OnDestroy, OnChanges {
   }
 
   stopVisualizer() {
-    this.worker.postMessage({ stop: true });
+    this.worker.postMessage({ stop: true } as VisualsWorkerMessage);
     if (this.animationFrameRef !== undefined) {
       cancelAnimationFrame(this.animationFrameRef);
     }

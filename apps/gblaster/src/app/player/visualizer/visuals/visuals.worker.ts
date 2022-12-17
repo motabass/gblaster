@@ -1,4 +1,5 @@
 import { scalePow, ScalePower } from 'd3-scale';
+import { VisualsWorkerMessage } from './visuals.types';
 
 let mode: string;
 
@@ -29,48 +30,45 @@ let amplitudeScale: ScalePower<number, number>;
 
 let gradient: CanvasGradient;
 
-// TODO: messages sauber typisieren
-addEventListener(
-  'message',
-  (event: MessageEvent<{ canvas?: OffscreenCanvas; newSize?: DOMRect; stop?: boolean; start?: boolean; analyserData: Uint8Array }>) => {
-    if (event.data.canvas) {
-      canvas = event.data.canvas;
-      canvasCtx = canvas.getContext('2d');
+addEventListener('message', (event: MessageEvent<VisualsWorkerMessage>) => {
+  if (event.data.canvas) {
+    canvas = event.data.canvas;
+    canvasCtx = canvas.getContext('2d');
+  }
+
+  if (event.data.newSize) {
+    canvas.width = event.data.newSize.width;
+    canvas.height = event.data.newSize.height;
+  }
+
+  if (event.data.stop) {
+    if (!canvasCtx) {
+      return;
     }
 
-    if (event.data.newSize) {
-      canvas.width = event.data.newSize.width;
-      canvas.height = event.data.newSize.height;
+    canvasCtx.clearRect(0, 0, canvasCtx.canvas.width, canvasCtx.canvas.height);
+  }
+
+  // Setup
+  if (event.data.visualizerOptions) {
+    setup(event.data.visualizerOptions);
+  }
+
+  // Visualize
+  if (event.data.analyserData) {
+    analyserData = event.data.analyserData;
+
+    if (mode === 'osc') {
+      drawOsc();
     }
 
-    if (event.data.stop) {
-      if (!canvasCtx) {
-        return;
-      }
-
-      canvasCtx.clearRect(0, 0, canvasCtx.canvas.width, canvasCtx.canvas.height);
-    }
-
-    // Setup
-    if (event.data.start) {
-      setup(event.data);
-    }
-
-    // Visualize
-    if (event.data.analyserData) {
-      analyserData = event.data.analyserData;
-
-      if (mode === 'osc') {
-        drawOsc();
-      }
-
-      if (mode === 'bars') {
-        drawBars();
-      }
+    if (mode === 'bars') {
+      drawBars();
     }
   }
-);
+});
 
+// TODO: typisieren
 function setup(options: any) {
   if (!canvasCtx) {
     return;
