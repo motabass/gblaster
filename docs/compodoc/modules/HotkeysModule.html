@@ -136,7 +136,6 @@
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { CommonModule } from &#x27;@angular/common&#x27;;
 import { NgModule, Optional, SkipSelf } from &#x27;@angular/core&#x27;;
-import { FlexModule } from &#x27;@angular/flex-layout/flex&#x27;;
 import { MatLegacyButtonModule as MatButtonModule } from &#x27;@angular/material/legacy-button&#x27;;
 import { MatLegacyDialogModule as MatDialogModule } from &#x27;@angular/material/legacy-dialog&#x27;;
 import { MatIconModule } from &#x27;@angular/material/icon&#x27;;
@@ -146,7 +145,7 @@ import { HotkeysHelpDialogComponent } from &#x27;./hotkeys-help-dialog.component
 const DECLARATIONS &#x3D; [HotkeysHelpDialogComponent];
 
 @NgModule({
-  imports: [CommonModule, FlexModule, MatDialogModule, MatListModule, MatButtonModule, MatIconModule],
+  imports: [CommonModule, MatDialogModule, MatListModule, MatButtonModule, MatIconModule],
   declarations: DECLARATIONS
 })
 export class HotkeysModule {

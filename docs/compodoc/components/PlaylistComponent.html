@@ -1063,7 +1063,7 @@ export class PlaylistComponent {
     if (song !&#x3D;&#x3D; this.playingSong) {
       return false;
     }
-    return !this.playerService.audioElement.paused;
+    return this.playerService.playing;
   }
 
   get playingSong(): Song | undefined {
@@ -1092,7 +1092,7 @@ export class PlaylistComponent {
   }
 
   get analyser(): AnalyserNode {
-    return this.audioService.analyserNode;
+    return this.audioService.analyser;
   }
 
   playlistTrackFunction(index: number, song: Song) {
