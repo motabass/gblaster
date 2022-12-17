@@ -26,9 +26,8 @@ export class GamepadService implements OnDestroy {
         this.axesActions.push(this.createDefaultAxisAction(Number(axisIndex)));
       }
     }
-    // @ts-ignore
+
     addEventListener('gamepadconnected', (event: GamepadEvent) => this.connectionListener(event));
-    // @ts-ignore
     addEventListener('gamepaddisconnected', (event: GamepadEvent) => this.disconnectionListener(event));
   }
 
@@ -151,15 +150,15 @@ export class GamepadService implements OnDestroy {
     let cache = this.pressedButtonsCaches[gamepad.index];
     const buttonCache = cache.find((ac) => ac.index === buttonIndex);
     if (button.pressed) {
-      if (!buttonCache) {
-        cache.push({ index: buttonIndex, lastActionExecution: performance.now() });
-        this.fireButtonAction(buttonIndex, button.value);
-      } else {
+      if (buttonCache) {
         const timeout = this.buttonActions[buttonIndex].timeout ?? this.DEFAULT_TURBO_TIMEOUT;
         if (this.buttonActions[buttonIndex].mode === 'turbo' && performance.now() - buttonCache.lastActionExecution > timeout) {
           buttonCache.lastActionExecution = performance.now();
           this.fireButtonAction(buttonIndex, button.value);
         }
+      } else {
+        cache.push({ index: buttonIndex, lastActionExecution: performance.now() });
+        this.fireButtonAction(buttonIndex, button.value);
       }
     } else {
       if (buttonCache) {
@@ -195,15 +194,15 @@ export class GamepadService implements OnDestroy {
     let cache = this.activeAxesCaches[gamepad.index];
     const axisCache = cache.find((ac) => ac.index === axisIndex);
     if (this.isAxisValueInDetectionRange(axis)) {
-      if (!axisCache) {
-        cache.push({ index: axisIndex, lastActionExecution: performance.now() });
-        this.fireAxisAction(axisIndex, axis.valueOf());
-      } else {
+      if (axisCache) {
         const timeout = this.axesActions[axisIndex].timeout ?? this.DEFAULT_TURBO_TIMEOUT;
         if (this.axesActions[axisIndex].mode === 'turbo' && performance.now() - axisCache.lastActionExecution > timeout) {
           axisCache.lastActionExecution = performance.now();
           this.fireAxisAction(axisIndex, axis.valueOf());
         }
+      } else {
+        cache.push({ index: axisIndex, lastActionExecution: performance.now() });
+        this.fireAxisAction(axisIndex, axis.valueOf());
       }
     } else {
       if (axisCache) {
