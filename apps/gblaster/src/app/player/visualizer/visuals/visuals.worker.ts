@@ -192,6 +192,7 @@ function convertToBarkScale(frequencyData: Uint8Array, sr: number, fft: number, 
   // Calculate the energy in each bark scale band
   const barkScaleBandEnergy = new Array(numBands).fill(0);
   for (let i = 0; i < barkScaleData.length; i++) {
+    // TODO: fix not every index being set when high numBands
     const bandIndex = Math.floor((barkScaleData[i] - barkScaleData[0]) / barkScaleBandSize);
     barkScaleBandEnergy[bandIndex] += frequencyData[i];
   }
