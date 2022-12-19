@@ -16,9 +16,9 @@ import { AudioService } from '../audio.service';
 export class VisualizerComponent implements OnInit, OnDestroy {
   @LocalStorage('smoothing', 0.7) smoothing!: number;
 
-  @LocalStorage('minDb', -75) minDb!: number;
+  @LocalStorage('minDb', -70) minDb!: number;
 
-  @LocalStorage('maxDb', -35) maxDb!: number;
+  @LocalStorage('maxDb', 200) maxDb!: number;
 
   @LocalStorage('barCount', 24) barCount!: number;
 
@@ -26,9 +26,9 @@ export class VisualizerComponent implements OnInit, OnDestroy {
 
   @LocalStorage('capHeight', 4) capHeight!: number;
 
-  @LocalStorage('gap', 0) gap!: number;
+  @LocalStorage('gap', 0.5) gap!: number;
 
-  @LocalStorage('capFalldown', 0.5) capFalldown!: number;
+  @LocalStorage('capFalldown', 2) capFalldown!: number;
 
   @LocalStorage('lineThickness', 4) lineThickness!: number;
 
@@ -142,6 +142,10 @@ export class VisualizerComponent implements OnInit, OnDestroy {
       options.push(i);
     }
     return options;
+  }
+
+  get sampleRate(): number {
+    return this.audioService.sampleRate;
   }
 
   get showSlidePanel(): boolean {

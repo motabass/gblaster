@@ -1,4 +1,3 @@
-import { scalePow, ScalePower } from 'd3-scale';
 import { VisualsWorkerMessage } from './visuals.types';
 
 let mode: string;
@@ -6,6 +5,9 @@ let mode: string;
 let canvas: OffscreenCanvas;
 let canvasCtx: OffscreenCanvasRenderingContext2D | null;
 let analyserData: Uint8Array;
+
+let fftSize: number;
+let sampleRate: number;
 
 let capYPositionArray: number[] = []; // store the vertical position of hte caps for the preivous frame
 
@@ -24,9 +26,6 @@ let barWidth: number;
 let thickness: number;
 
 let bufferLength: number;
-
-let frequencyCorrectionScale: ScalePower<number, number>;
-let amplitudeScale: ScalePower<number, number>;
 
 let gradient: CanvasGradient;
 
@@ -92,14 +91,10 @@ function setup(options: any) {
 
   bufferLength = options.bufferLength;
 
+  fftSize = options.fftSize;
+  sampleRate = options.sampleRate;
+
   analyserData = new Uint8Array(bufferLength);
-
-  frequencyCorrectionScale = scalePow()
-    .exponent(2.5)
-    .domain([-7, meterNum + 5])
-    .range([0, bufferLength - bufferLength / 3]);
-
-  amplitudeScale = scalePow().exponent(1.7).domain([0, 255]).range([0, canvasHeight]);
 
   gradient = canvasCtx.createLinearGradient(0, 0, 0, canvasHeight);
   gradient.addColorStop(1, mainColor);
@@ -148,14 +143,11 @@ function drawBars() {
   if (!canvasCtx) {
     return;
   }
-
+  const barkScaleData = convertToBarkScale(analyserData, sampleRate, fftSize, meterNum);
   canvasCtx.clearRect(0, 0, canvasWidth, canvasHeight);
 
   for (let i = 0; i < meterNum; i++) {
-    const freqScaleValue = frequencyCorrectionScale(i);
-    const position = freqScaleValue ? Math.round(freqScaleValue) : 0;
-
-    let value = amplitudeScale(analyserData[position]) || 0;
+    let value = barkScaleData[i] ?? 0;
 
     if (value > canvasHeight) {
       value = canvasHeight;
@@ -185,4 +177,23 @@ function drawBars() {
 
     canvasCtx.fillRect((barWidth + gap) * i, canvasHeight - value + capHeight, barWidth, value - capHeight); // the bar
   }
+}
+
+// Function to convert frequency data to bark bands
+function convertToBarkScale(frequencyData: Uint8Array, sr: number, fft: number, numBands: number): number[] {
+  const barkScaleData = frequencyData.map((magnitude: number, index: number) => {
+    const frequency = (index * sr) / fft;
+    return 13 * Math.atan(0.00076 * frequency) + 3.5 * Math.atan((frequency / 7500) ** 2);
+  });
+
+  // Divide the range of bark values into 20 equal intervals to create bark scale bands
+  const barkScaleBandSize = (barkScaleData[barkScaleData.length - 1] - barkScaleData[0]) / numBands;
+
+  // Calculate the energy in each bark scale band
+  const barkScaleBandEnergy = new Array(numBands).fill(0);
+  for (let i = 0; i < barkScaleData.length; i++) {
+    const bandIndex = Math.floor((barkScaleData[i] - barkScaleData[0]) / barkScaleBandSize);
+    barkScaleBandEnergy[bandIndex] += frequencyData[i];
+  }
+  return barkScaleBandEnergy;
 }

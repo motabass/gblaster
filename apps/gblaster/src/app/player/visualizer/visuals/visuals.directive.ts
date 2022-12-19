@@ -17,6 +17,8 @@ export class VisualsDirective implements OnDestroy, OnChanges {
 
   @Input() colorConfig: VisualsColorConfig = {};
 
+  @Input() sampleRate!: number;
+
   canvas: HTMLCanvasElement;
 
   private animationFrameRef?: number;
@@ -64,7 +66,9 @@ export class VisualsDirective implements OnDestroy, OnChanges {
         capFalldown: this.barsConfig.capFalldown,
         mainColor: this.colorConfig?.mainColor || FALLBACK_PRIMARY_COLOR,
         peakColor: this.colorConfig?.peakColor || FALLBACK_ACCENT_COLOR,
-        bufferLength: this.analyser.frequencyBinCount
+        bufferLength: this.analyser.frequencyBinCount,
+        fftSize: this.analyser.fftSize,
+        sampleRate: this.sampleRate
       }
     } as VisualsWorkerMessage);
 

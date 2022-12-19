@@ -76,7 +76,6 @@
     "@thebespokepixel/es-tinycolor": "^3.1.0",
     "browser-id3-writer": "^4.4.0",
     "core-js": "^3.26.1",
-    "d3": "^7.7.0",
     "date-fns": "^2.29.3",
     "eslint-plugin-unused-imports": "^2.0.0",
     "fast-memoize": "^2.5.2",

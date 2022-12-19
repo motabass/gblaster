@@ -193,4 +193,8 @@ export class AudioService {
   setBaseGain(volume: number) {
     this._eqGainNode.gain.value = volume;
   }
+
+  get sampleRate(): number {
+    return this._audioContext.sampleRate;
+  }
 }

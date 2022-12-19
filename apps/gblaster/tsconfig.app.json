@@ -4,7 +4,7 @@
     "outDir": "../../dist/out-tsc",
     "module": "esnext",
     "types": ["offscreencanvas", "dom-screen-wake-lock", "wicg-file-system-access"],
-    "target": "ES2022",
+    "target": "es2020",
     "useDefineForClassFields": false
   },
   "files": ["src/main.ts", "src/polyfills.ts"],
