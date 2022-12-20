@@ -121,7 +121,7 @@
     "@types/jest": "28.1.8",
     "@types/node": "18.11.16",
     "@types/offscreencanvas": "2019.7.0",
-    "@types/prettier": "2.7.1",
+    "@types/prettier": "2.7.2",
     "@types/wicg-file-system-access": "2020.9.5",
     "@typescript-eslint/eslint-plugin": "5.46.1",
     "@typescript-eslint/parser": "5.46.1",
