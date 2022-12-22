@@ -16,7 +16,7 @@ import { AudioService } from '../audio.service';
 export class VisualizerComponent implements OnInit, OnDestroy {
   @LocalStorage('smoothing', 0.7) smoothing!: number;
 
-  @LocalStorage('minDb', -83) minDb!: number;
+  @LocalStorage('minDb', -73) minDb!: number;
 
   @LocalStorage('maxDb', 200) maxDb!: number;
 
@@ -99,12 +99,12 @@ export class VisualizerComponent implements OnInit, OnDestroy {
     }
   }
 
-  setMaxDb(value: number | null) {
-    if (value !== null) {
-      this.maxDb = value;
-      this.analyser.maxDecibels = value;
-    }
-  }
+  // setMaxDb(value: number | null) {
+  //   if (value !== null) {
+  //     this.maxDb = value;
+  //     this.analyser.maxDecibels = value;
+  //   }
+  // }
 
   setBarCount(value: number | null) {
     if (value !== null) {

@@ -31,12 +31,12 @@
       </div>
       <div *ngIf="visualMode === 'bars'">
         <h5 class="slider-label">min. DB</h5>
-        <mat-slider min="-90" [max]="maxDb - 1" step="0.1" [value]="minDb" (input)="setMinDb($event.value)" thumbLabel></mat-slider>
+        <mat-slider min="-90" max="-70" step="0.01" [value]="minDb" (input)="setMinDb($event.value)" thumbLabel></mat-slider>
       </div>
-      <div *ngIf="visualMode === 'bars'">
-        <h5 class="slider-label">max. DB</h5>
-        <mat-slider [min]="minDb + 1" max="200" step="0.1" [value]="maxDb" (input)="setMaxDb($event.value)" thumbLabel></mat-slider>
-      </div>
+      <!--      <div *ngIf="visualMode === 'bars'">-->
+      <!--        <h5 class="slider-label">max. DB</h5>-->
+      <!--        <mat-slider [min]="minDb + 1" max="200" step="0.1" [value]="maxDb" (input)="setMaxDb($event.value)" thumbLabel></mat-slider>-->
+      <!--      </div>-->
       <div *ngIf="visualMode === 'bars'">
         <h5 class="slider-label">Smoothing</h5>
         <mat-slider min="0" max="1" step="0.1" [value]="smoothing" (input)="setSmoothing($event.value)" thumbLabel></mat-slider>
