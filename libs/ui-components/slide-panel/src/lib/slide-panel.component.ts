@@ -1,9 +1,15 @@
 import { Component, HostBinding, Input, OnChanges } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { MatIconModule } from '@angular/material/icon';
+import { MatLegacyButtonModule as MatButtonModule } from '@angular/material/legacy-button';
+import { MatLegacyTooltipModule as MatTooltipModule } from '@angular/material/legacy-tooltip';
 
 @Component({
   selector: 'mtb-slide-panel',
   templateUrl: './slide-panel.component.html',
-  styleUrls: ['./slide-panel.component.scss']
+  styleUrls: ['./slide-panel.component.scss'],
+  standalone: true,
+  imports: [CommonModule, MatIconModule, MatButtonModule, MatTooltipModule]
 })
 export class SlidePanelComponent implements OnChanges {
   @Input() openedState = true;

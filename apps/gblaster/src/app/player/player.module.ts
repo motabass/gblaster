@@ -10,7 +10,6 @@ import { MatLegacySelectModule as MatSelectModule } from '@angular/material/lega
 import { MatLegacySliderModule as MatSliderModule } from '@angular/material/legacy-slider';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterModule } from '@angular/router';
-import { SlidePanelModule } from '@motabass/ui-components/slide-panel';
 import { MobxAngularModule } from 'mobx-angular';
 import { NgxIndexedDBService } from 'ngx-indexed-db';
 import { CoverDisplayComponent } from './cover-display/cover-display.component';
@@ -30,9 +29,10 @@ import {
   MatLegacyTooltipModule as MatTooltipModule
 } from '@angular/material/legacy-tooltip';
 import { FileDropOverlayComponent } from '@motabass/ui-components/file-drop-overlay';
-import { MatIconSizeModule } from '@motabass/material-helpers/mat-icon-size';
 import { LibraryComponent } from './library/library.component';
 import { NgArrayPipesModule } from 'ngx-pipes';
+import { SlidePanelComponent } from '@motabass/ui-components/slide-panel';
+import { IconSizeDirective } from '@motabass/material-helpers/mat-icon-size';
 
 @NgModule({
   imports: [
@@ -52,8 +52,8 @@ import { NgArrayPipesModule } from 'ngx-pipes';
     HotkeysModule,
     MatToolbarModule,
     MobxAngularModule,
-    SlidePanelModule,
-    MatIconSizeModule,
+    SlidePanelComponent,
+    IconSizeDirective,
     DragDropModule,
     SafePipeModule,
     MatTooltipModule,

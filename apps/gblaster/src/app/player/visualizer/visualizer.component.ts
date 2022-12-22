@@ -16,13 +16,13 @@ import { AudioService } from '../audio.service';
 export class VisualizerComponent implements OnInit, OnDestroy {
   @LocalStorage('smoothing', 0.7) smoothing!: number;
 
-  @LocalStorage('minDb', -70) minDb!: number;
+  @LocalStorage('minDb', -83) minDb!: number;
 
   @LocalStorage('maxDb', 200) maxDb!: number;
 
   @LocalStorage('barCount', 24) barCount!: number;
 
-  @LocalStorage('fftSize', 4096) fftSize!: FftSize;
+  @LocalStorage('fftSize', 2048) fftSize!: FftSize;
 
   @LocalStorage('capHeight', 4) capHeight!: number;
 
