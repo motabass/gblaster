@@ -84,9 +84,6 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                         <a href="additional-documentation/ui-components-dialogs.html" data-type="entity-link" data-context-id="additional">ui-components-dialogs</a>
                                     </li>
                                     <li class="link ">
-                                        <a href="additional-documentation/gblaster.html" data-type="entity-link" data-context-id="additional">gblaster</a>
-                                    </li>
-                                    <li class="link ">
                                         <a href="additional-documentation/helpers.html" data-type="entity-link" data-context-id="additional">helpers</a>
                                     </li>
                         </ul>
