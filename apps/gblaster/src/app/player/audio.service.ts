@@ -8,7 +8,7 @@ const FREQUENCY_BANDS: FrequencyBand[] = [60, 170, 310, 600, 1000, 3000, 6000, 1
 export class AudioService {
   private _audioElement: HTMLAudioElement;
   private _audioContext: AudioContext;
-  private _analyserNode: AnalyserNode;
+  private _audioSourceNode: MediaElementAudioSourceNode;
   private _gainNode: GainNode;
   private _eqGainNode: GainNode;
   private _frequencyFilters: { [band: number]: BiquadFilterNode } = {};
@@ -43,14 +43,12 @@ export class AudioService {
 
     // create audio nodes
     const audioSource = audioContext.createMediaElementSource(audioElement);
-    const analyser = audioContext.createAnalyser();
     const gain = audioContext.createGain();
     const eqGain = audioContext.createGain();
     const { eqInput, eqOutput } = this.createEqualizer(audioContext);
 
     // connect audio nodes
-    audioSource.connect(analyser);
-    analyser.connect(eqGain);
+    audioSource.connect(eqGain);
     eqGain.connect(eqInput);
     eqOutput.connect(gain);
     gain.connect(audioContext.destination);
@@ -66,8 +64,8 @@ export class AudioService {
     gain.gain.value = storedVolume ?? 0.5;
 
     this._audioElement = audioElement;
+    this._audioSourceNode = audioSource;
     this._audioContext = audioContext;
-    this._analyserNode = analyser;
     this._eqGainNode = eqGain;
     this._gainNode = gain;
   }
@@ -101,8 +99,10 @@ export class AudioService {
     return { eqInput: input, eqOutput: output };
   }
 
-  get analyser(): AnalyserNode {
-    return this._analyserNode;
+  plugAnalyser(): AnalyserNode {
+    const analyser = this._audioContext.createAnalyser();
+    this._audioSourceNode.connect(analyser);
+    return analyser;
   }
 
   // AUDIO ELEMENT CONTROL

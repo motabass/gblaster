@@ -77,17 +77,13 @@ export class VisualsDirective implements OnDestroy, OnChanges {
       const bufferLength = this.analyser.frequencyBinCount;
       const analyserData = new Uint8Array(bufferLength);
 
-      let lastTimestamp = 0;
-      const draw = (timestamp: number) => {
-        if (timestamp - lastTimestamp > 32) {
-          // animation throttling
-          this.analyser.getByteFrequencyData(analyserData);
-          this.worker.postMessage({ analyserData: analyserData } as VisualsWorkerMessage);
-          lastTimestamp = timestamp;
-        }
+      const draw = () => {
+        this.analyser.getByteFrequencyData(analyserData);
+        this.worker.postMessage({ analyserData: analyserData } as VisualsWorkerMessage);
+
         this.animationFrameRef = requestAnimationFrame(draw);
       };
-      this.animationFrameRef = requestAnimationFrame(draw);
+      draw();
     });
   }
 
@@ -107,17 +103,12 @@ export class VisualsDirective implements OnDestroy, OnChanges {
       const bufferLength = this.analyser.frequencyBinCount;
       const analyserData = new Uint8Array(bufferLength);
 
-      let lastTimestamp = 0;
-      const draw = (timestamp: number) => {
-        if (timestamp - lastTimestamp > 32) {
-          // animation throttling
-          this.analyser.getByteTimeDomainData(analyserData);
-          this.worker.postMessage({ analyserData: analyserData } as VisualsWorkerMessage);
-          lastTimestamp = timestamp;
-        }
+      const draw = () => {
+        this.analyser.getByteTimeDomainData(analyserData);
+        this.worker.postMessage({ analyserData: analyserData } as VisualsWorkerMessage);
         this.animationFrameRef = requestAnimationFrame(draw);
       };
-      this.animationFrameRef = requestAnimationFrame(draw);
+      draw();
     });
   }
 

@@ -16,12 +16,16 @@ import { map } from 'rxjs/operators';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PlaylistComponent {
+  analyser: AnalyserNode;
   constructor(
     private playerService: PlayerService,
     private audioService: AudioService,
     private visualsService: VisualsService,
     private loaderService: LoaderService
-  ) {}
+  ) {
+    const analyser = this.audioService.plugAnalyser();
+    this.analyser = analyser;
+  }
 
   get isLoading(): Observable<boolean> {
     return this.loaderService.isLoading;
@@ -73,19 +77,13 @@ export class PlaylistComponent {
     return this.playerService.playPauseTrack(song);
   }
 
-  get analyser(): AnalyserNode {
-    return this.audioService.analyser;
-  }
-
   playlistTrackFunction(index: number, song: Track) {
     return song.metadata?.crc;
   }
 
   get colorConfig$(): Observable<VisualsColorConfig> {
     return this.playingTrack$.pipe(
-      map((track) => {
-        return { mainColor: track?.metadata?.coverColors?.darkVibrant?.hex, peakColor: track?.metadata?.coverColors?.lightVibrant?.hex };
-      })
+      map((track) => ({ mainColor: track?.metadata?.coverColors?.darkVibrant?.hex, peakColor: track?.metadata?.coverColors?.lightVibrant?.hex }))
     );
   }
 

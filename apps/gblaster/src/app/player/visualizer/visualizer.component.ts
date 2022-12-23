@@ -34,14 +34,19 @@ export class VisualizerComponent implements OnInit, OnDestroy {
 
   @Input() track?: Track | null;
 
-  constructor(private audioService: AudioService, private gamepadService: GamepadService, private visualsService: VisualsService) {}
+  analyser: AnalyserNode;
+
+  constructor(private audioService: AudioService, private gamepadService: GamepadService, private visualsService: VisualsService) {
+    const analyser = this.audioService.plugAnalyser();
+    analyser.fftSize = this.fftSize;
+    analyser.smoothingTimeConstant = this.smoothing;
+    analyser.minDecibels = this.minDb;
+    analyser.maxDecibels = 220;
+    this.analyser = analyser;
+  }
 
   ngOnInit(): void {
     this.gamepadService.registerButtonAction(GamepadButtons.SELECT_BUTTON, () => this.toggleVisualMode());
-    this.analyser.fftSize = this.fftSize;
-    this.analyser.smoothingTimeConstant = this.smoothing;
-    this.analyser.minDecibels = this.minDb;
-    this.analyser.maxDecibels = 220;
   }
 
   get visualMode(): VisualizerMode {
@@ -50,10 +55,6 @@ export class VisualizerComponent implements OnInit, OnDestroy {
 
   toggleVisualMode() {
     this.visualsService.toggleVisualMode();
-  }
-
-  get analyser(): AnalyserNode {
-    return this.audioService.analyser;
   }
 
   get colorConfig(): VisualsColorConfig {
