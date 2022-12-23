@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgxIndexedDBService } from 'ngx-indexed-db';
-import { SongMetadata } from '../player.types';
+import { TrackMetadata } from '../player.types';
 
 @Component({
   templateUrl: './library.component.html',
@@ -15,12 +15,12 @@ export class LibraryComponent implements OnInit {
   private selectedAlbum!: string;
   private selectedTrack!: string;
 
-  private data?: SongMetadata[];
+  private data?: TrackMetadata[];
 
   constructor(private indexedDbService: NgxIndexedDBService) {}
 
   async ngOnInit() {
-    this.data = await this.indexedDbService.getAll<SongMetadata>('metatags').toPromise();
+    this.data = await this.indexedDbService.getAll<TrackMetadata>('metatags').toPromise();
     this.split();
   }
 

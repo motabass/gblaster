@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { Song } from '../player.types';
+import { Track } from '../player.types';
 import { ThemeService } from '../../theme/theme.service';
 
 @Component({
@@ -9,18 +9,18 @@ import { ThemeService } from '../../theme/theme.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CoverDisplayComponent {
-  @Input() song?: Song;
+  @Input() track?: Track | null;
 
   constructor(private themeService: ThemeService) {}
 
   get coverUrl(): string | undefined {
-    if (this.song?.metadata?.coverUrl) {
-      return this.song.metadata.coverUrl.original;
+    if (this.track?.metadata?.coverUrl) {
+      return this.track.metadata.coverUrl.original;
     }
   }
 
   get backgroundColor(): string | undefined {
-    const coverBackground = this.themeService.darkMode ? this.song?.metadata?.coverColors?.darkMuted?.hex : this.song?.metadata?.coverColors?.lightMuted?.hex;
+    const coverBackground = this.themeService.darkMode ? this.track?.metadata?.coverColors?.darkMuted?.hex : this.track?.metadata?.coverColors?.lightMuted?.hex;
     return coverBackground || 'rgba(0,0,0,0)';
   }
 

@@ -3,25 +3,26 @@ import { action, observable } from 'mobx-angular';
 import { LocalStorage } from 'ngx-webstorage';
 import { FileLoaderService } from './file-loader-service/file-loader.service.abstract';
 import { MetadataService } from './metadata-service/metadata.service';
-import { FrequencyBand, RepeatMode, Song } from './player.types';
+import { FrequencyBand, PlayState, RepeatMode, Track } from './player.types';
 import { ALLOWED_MIMETYPES } from './file-loader-service/file-loader.helpers';
 import { ThemeService } from '../theme/theme.service';
 import { LoaderService } from '../services/loader/loader.service';
 import { WakelockService } from '../services/wakelock.service';
 import { MediaSessionService } from '../services/media-session.service';
 import { AudioService } from './audio.service';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 export const BAND_FREQUENIES: FrequencyBand[] = [60, 170, 310, 600, 1000, 3000, 6000, 12000, 14000, 16000];
 
 @Injectable({ providedIn: 'any' })
 export class PlayerService {
+  private playState: BehaviorSubject<PlayState> = new BehaviorSubject<PlayState>({ state: 'stopped' });
+
   private loadFinished = true;
 
-  @observable currentPlaylist: Song[] = [];
+  @observable currentPlaylist: Track[] = [];
 
-  @observable playingSong?: Song;
-
-  @observable selectedSong?: Song;
+  @observable selectedTrack?: Track;
 
   @LocalStorage('repeat', 'off') repeat!: RepeatMode;
 
@@ -56,7 +57,7 @@ export class PlayerService {
         for (const fileHandle of launchParams.files) {
           const file = await fileHandle.getFile();
           if (ALLOWED_MIMETYPES.includes(file.type)) {
-            await this.addToPlaylist(file);
+            await this.addFilesToPlaylist(file);
           }
         }
       });
@@ -65,46 +66,73 @@ export class PlayerService {
     this.audioService.setOnEnded(() => {
       this.next();
     });
+
+    this.playState.subscribe(async (state) => {
+      if (state.state === 'playing') {
+        await this.afterPlayLoaded();
+      }
+
+      if (state.state === 'paused' || state.state === 'stopped') {
+        await this.afterPausedOrStopped();
+      }
+    });
   }
 
-  private async setPlayingSong(song: Song | undefined) {
-    if (!song) {
+  private afterPlayLoaded() {
+    this.loadFinished = true;
+    this.mediaSessionService.setPlaying();
+    this.mediaSessionService.updateMediaPositionState(this.audioService.duration, this.audioService.currentTime);
+    return this.wakelockService.activateWakelock();
+  }
+
+  private afterPausedOrStopped() {
+    this.mediaSessionService.setPaused();
+    return this.wakelockService.releaseWakelock();
+  }
+
+  private async playTrack(track: Track | undefined) {
+    if (!track) {
       return;
     }
-    this.audioService.setFileAsSource(song.file);
+    this.audioService.setFileAsSource(track.file);
 
-    this.playingSong = song;
-
-    if (song.metadata) {
+    if (track.metadata) {
       this.mediaSessionService.setBrowserMetadata({
-        title: song.metadata.title,
-        artist: song.metadata.artist,
-        album: song.metadata.album,
-        artwork: song.metadata.coverUrl?.original ? [{ src: song.metadata.coverUrl.original, sizes: '512x512' }] : undefined
+        title: track.metadata.title,
+        artist: track.metadata.artist,
+        album: track.metadata.album,
+        artwork: track.metadata.coverUrl?.original ? [{ src: track.metadata.coverUrl.original, sizes: '512x512' }] : undefined
       });
 
-      const primaryColor = song.metadata.coverColors?.darkVibrant?.hex;
+      const primaryColor = track.metadata.coverColors?.darkVibrant?.hex;
       this.themeService.setPrimaryColor(primaryColor);
 
-      const accentColor = song.metadata.coverColors?.vibrant?.hex;
+      const accentColor = track.metadata.coverColors?.vibrant?.hex;
       this.themeService.setAccentColor(accentColor);
     }
-    this.selectedSong = song;
+
+    this.selectedTrack = track;
+    await this.audioService.play();
+    this.playState.next({ currentTrack: track, state: 'playing' });
+  }
+
+  get playState$(): Observable<PlayState> {
+    return this.playState.asObservable();
   }
 
   @action async loadFiles(): Promise<void> {
     const files: File[] = await this.fileLoaderService.openFiles();
-    return this.addToPlaylist(...files);
+    return this.addFilesToPlaylist(...files);
   }
 
-  @action async addToPlaylist(...files: File[]) {
+  @action async addFilesToPlaylist(...files: File[]) {
     if (files?.length) {
-      let tempList: Song[] = [];
+      let tempList: Track[] = [];
       let startTime = Date.now();
 
       for (const [i, file] of files.entries()) {
         this.loaderService.show();
-        const song = await this.createSongFromFile(file);
+        const song = await this.createTrackFromFile(file);
         this.loaderService.hide();
         // avoid duplicate playlist entries
         if (!this.currentPlaylist.some((playlistSong) => playlistSong.metadata?.crc === song.metadata?.crc)) {
@@ -121,8 +149,8 @@ export class PlayerService {
     }
   }
 
-  private async createSongFromFile(file: File): Promise<Song> {
-    const song: Song = {
+  private async createTrackFromFile(file: File): Promise<Track> {
+    const song: Track = {
       file: file
     };
     console.time('full-metadata');
@@ -139,137 +167,130 @@ export class PlayerService {
   }
 
   get durationSeconds(): number {
-    return this.playingSong ? Math.round(this.audioService.duration) : 0;
+    const value = this.playState.getValue();
+    return value.currentTrack && value.state !== 'stopped' ? Math.round(this.audioService.duration) : 0;
   }
 
   getCurrentTime(): number {
-    if (!this.playingSong) {
+    const value = this.playState.getValue();
+    if (!value.currentTrack || value.state === 'stopped') {
       return 0;
     }
     const pos = this.audioService.currentTime;
     return pos !== null && pos !== undefined ? Math.floor(pos) : 0;
   }
 
-  @action selectSong(song: Song) {
-    this.selectedSong = song;
+  @action selectSong(song: Track) {
+    this.selectedTrack = song;
   }
 
-  @action playPauseSong(song: Song) {
+  async playPauseTrack(track: Track) {
     if (!this.loadFinished) {
       return;
     }
 
-    if (this.playingSong && song === this.playingSong) {
-      this.playPause();
+    if (this.playState.getValue().currentTrack === track) {
+      await this.playPause();
       return;
     }
 
     // this.stop();
 
     this.loadFinished = false;
-    this.setPlayingSong(song);
-    this.audioService.play().then(() => this.afterPlayLoaded());
+    await this.playTrack(track);
   }
 
-  afterPlayLoaded() {
-    this.loadFinished = true;
-    this.mediaSessionService.setPlaying();
-    this.mediaSessionService.updateMediaPositionState(this.audioService.duration, this.audioService.currentTime);
-    this.wakelockService.activateWakelock();
-  }
-
-  @action playPause() {
-    if (!this.playingSong || !this.loadFinished) {
-      if (this.selectedSong) {
+  async playPause() {
+    if (!this.playState.getValue().currentTrack || !this.loadFinished) {
+      if (this.selectedTrack) {
         this.loadFinished = false;
-        this.setPlayingSong(this.selectedSong);
-        this.audioService.play().then(() => this.afterPlayLoaded());
+        await this.playTrack(this.selectedTrack);
       }
       return;
     }
     if (this.audioService.paused) {
       this.loadFinished = false;
-      this.audioService.play().then(() => this.afterPlayLoaded());
+      await this.audioService.play();
+      this.playState.next({ state: 'playing', currentTrack: this.playState.getValue().currentTrack });
     } else {
       this.audioService.pause();
-      this.mediaSessionService.setPaused();
-      this.wakelockService.releaseWakelock();
+      this.playState.next({ state: 'paused', currentTrack: this.playState.getValue().currentTrack });
     }
   }
 
   @action stop() {
-    if (!this.playingSong || !this.loadFinished) {
+    if (!this.playState.getValue().currentTrack || !this.loadFinished) {
       return;
     }
     if (this.playing) {
       this.audioService.pause();
-      this.mediaSessionService.setPaused();
     }
     this.audioService.seekToPosition(0);
-
-    this.wakelockService.releaseWakelock();
+    this.playState.next({ state: 'stopped', currentTrack: this.playState.getValue().currentTrack });
   }
 
   @action async next(): Promise<void> {
-    if (!this.playingSong || !this.loadFinished) {
+    const value = this.playState.getValue();
+    if (!value.currentTrack || !this.loadFinished) {
       return;
     }
 
     if (this.shuffle) {
       const randomPosition = getRandomInt(0, this.currentPlaylist.length - 1);
-      return this.playPauseSong(this.currentPlaylist[randomPosition]);
+      return this.playTrack(this.currentPlaylist[randomPosition]);
     }
 
-    const currPo = this.playingSong.playlistPosition;
+    const currPo = value.currentTrack.playlistPosition;
     if (!currPo) {
       return;
     }
 
     if (currPo < this.currentPlaylist.length) {
-      return this.playPauseSong(this.currentPlaylist[currPo]);
+      return this.playTrack(this.currentPlaylist[currPo]);
     } else if (this.repeat === 'all') {
-      return this.playPauseSong(this.currentPlaylist[0]);
+      return this.playTrack(this.currentPlaylist[0]);
     }
   }
 
   @action async previous() {
-    if (!this.playingSong || !this.loadFinished) {
+    const value = this.playState.getValue();
+    if (!value.currentTrack || !this.loadFinished) {
       return;
     }
-    const currPo = this.playingSong.playlistPosition;
+    const currPo = value.currentTrack.playlistPosition;
     if (!currPo) {
       return;
     }
     if (currPo > 1) {
-      return this.playPauseSong(this.currentPlaylist[currPo - 2]);
+      return this.playTrack(this.currentPlaylist[currPo - 2]);
     }
   }
 
   @action selectNext() {
-    if (!this.selectedSong) {
+    if (!this.selectedTrack) {
       return;
     }
-    const currPo = this.selectedSong.playlistPosition;
+    const currPo = this.selectedTrack.playlistPosition;
     if (!currPo) {
       return;
     }
 
     if (currPo < this.currentPlaylist.length) {
-      this.selectedSong = this.currentPlaylist[currPo];
+      this.selectedTrack = this.currentPlaylist[currPo];
     }
   }
 
   @action selectPrevious() {
-    if (!this.selectedSong) {
+    if (!this.selectedTrack) {
       return;
     }
-    const currPo = this.selectedSong.playlistPosition;
+    const currPo = this.selectedTrack.playlistPosition;
     if (!currPo) {
       return;
     }
 
     if (currPo > 1) {
-      this.selectedSong = this.currentPlaylist[currPo - 2];
+      this.selectedTrack = this.currentPlaylist[currPo - 2];
     }
   }
 
@@ -292,7 +313,7 @@ export class PlayerService {
   }
 
   get playing(): boolean {
-    return !!this.playingSong && !this.audioService.paused;
+    return !!this.playState.getValue().currentTrack && !this.audioService.paused;
   }
 
   @action toggleRepeat() {

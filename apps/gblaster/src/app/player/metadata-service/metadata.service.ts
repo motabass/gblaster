@@ -3,11 +3,12 @@ import { Injectable } from '@angular/core';
 import { NgxIndexedDBService } from 'ngx-indexed-db';
 import { LocalStorage } from 'ngx-webstorage';
 import { firstValueFrom } from 'rxjs';
-import { SongMetadata } from '../player.types';
+import { TrackMetadata } from '../player.types';
 import { Id3TagsService } from './id3-tags.service';
 import { LastfmMetadataService } from './lastfm-metadata.service';
 import { CoverColorPalette, RemoteCoverPicture } from './metadata.types';
 import { MusicbrainzService } from './musicbrainz.service';
+import * as SparkMD5 from 'spark-md5';
 
 @Injectable({ providedIn: 'root' })
 export class MetadataService {
@@ -25,10 +26,13 @@ export class MetadataService {
     private indexedDBService: NgxIndexedDBService
   ) {}
 
-  async getMetadata(file: File): Promise<SongMetadata> {
-    const crc = generateFileHash(file);
+  async getMetadata(file: File): Promise<TrackMetadata> {
+    console.time('hash');
+    const crc = await generateFileHashMD5(file);
+    console.timeEnd('hash');
+
     if (this.useTagsCache) {
-      const metadataCache: SongMetadata = await firstValueFrom(this.indexedDBService.getByKey<SongMetadata>('metatags', crc));
+      const metadataCache: TrackMetadata = await firstValueFrom(this.indexedDBService.getByKey<TrackMetadata>('metatags', crc));
 
       if (metadataCache) {
         if (metadataCache.embeddedPicture && this.useTagEmbeddedPicture && (!metadataCache.coverUrl || this.preferTagEmbeddedPicture)) {
@@ -76,7 +80,7 @@ export class MetadataService {
       // console.timeEnd('wasm');
     }
 
-    const metadata: SongMetadata = {
+    const metadata: TrackMetadata = {
       crc: crc,
       coverUrl: coverUrl ?? { thumb: this.PLACEHOLDER_URL, original: this.PLACEHOLDER_URL },
       embeddedPicture: tags.picture,
@@ -95,7 +99,7 @@ export class MetadataService {
     return this.metadataPrepareForUse(metadata);
   }
 
-  private metadataPrepareForUse(meta: SongMetadata): SongMetadata {
+  private metadataPrepareForUse(meta: TrackMetadata): TrackMetadata {
     if (meta.embeddedPicture && this.useTagEmbeddedPicture && (!meta.coverUrl || this.preferTagEmbeddedPicture)) {
       // renew local object urls
       const url = URL.createObjectURL(new Blob([meta.embeddedPicture.data], { type: meta.embeddedPicture.format }));
@@ -113,6 +117,10 @@ function generateFileHash(file: File): string {
   // TODO: replace with real file hashing? https://stackoverflow.com/questions/20917710/fast-file-hashing-of-large-files
   const hashString: string = file.name + file.type + file.size + file.lastModified;
   return crc32(hashString, 'hex') as string;
+}
+
+async function generateFileHashMD5(file: File): Promise<string> {
+  return SparkMD5.ArrayBuffer.hash(await file.arrayBuffer());
 }
 
 async function extractColorsWithNodeVibrant(url: string): Promise<CoverColorPalette> {

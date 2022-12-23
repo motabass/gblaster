@@ -4,12 +4,14 @@ import { formatSecondsAsClock } from '@motabass/helpers';
 import { ALLOWED_MIMETYPES } from './file-loader-service/file-loader.helpers';
 import { FileLoaderService } from './file-loader-service/file-loader.service.abstract';
 import { PlayerService } from './player.service';
-import { RepeatMode, Song } from './player.types';
+import { RepeatMode, Track } from './player.types';
 import { HotkeysService } from '../services/hotkeys/hotkeys.service';
 import { GamepadService } from '../services/gamepad/gamepad.service';
 import { GamepadAxes, GamepadButtons } from '../services/gamepad/gamepad.types';
 import { TitleService } from '../services/title.service';
 import { AudioService } from './audio.service';
+import { filter, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'mtb-player',
@@ -31,7 +33,7 @@ export class PlayerComponent implements OnInit, AfterViewInit, OnDestroy {
   ) {}
 
   async ngOnInit() {
-    setTimeout(() => this.titleService.setTitle('gBlaster')); // TODO: find better way
+    setTimeout(() => this.titleService.setTitle('gBlaster')); // TODO: find better way: use new title provide by Router
 
     this.hotkeysService.initialize();
 
@@ -71,7 +73,7 @@ export class PlayerComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngAfterViewInit() {
     this.interval = window.setInterval(() => {
-      if (this.playingSong) {
+      if (this.playingTrack$) {
         this.position = this.playerService.getCurrentTime();
         // TODO: fix position reporting
         // this.mediaSessionService.updateMediaPositionState(this.playerService.audioElement)
@@ -108,8 +110,11 @@ export class PlayerComponent implements OnInit, AfterViewInit, OnDestroy {
     return this.playerService.durationSeconds;
   }
 
-  get playingSong(): Song | undefined {
-    return this.playerService.playingSong;
+  get playingTrack$(): Observable<Track | undefined> {
+    return this.playerService.playState$.pipe(
+      filter((state) => state.state === 'playing' && !!state.currentTrack),
+      map((state) => state.currentTrack)
+    );
   }
 
   get volume(): number {
@@ -146,7 +151,7 @@ export class PlayerComponent implements OnInit, AfterViewInit, OnDestroy {
     this.volume = event.value ?? 0;
   }
   async onFilesDropped(files: File[]) {
-    return this.playerService.addToPlaylist(...files);
+    return this.playerService.addFilesToPlaylist(...files);
   }
 
   get allowedTypes(): string[] {

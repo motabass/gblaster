@@ -2,13 +2,13 @@ import { Id3CoverPicture } from './metadata-service/id3-tags.types';
 import { CoverColorPalette, RemoteCoverPicture } from './metadata-service/metadata.types';
 import { IFormat } from 'music-metadata';
 
-export interface Song {
+export interface Track {
   file: File;
-  metadata?: SongMetadata;
+  metadata?: TrackMetadata;
   playlistPosition?: number;
 }
 
-export interface SongMetadata {
+export interface TrackMetadata {
   crc: string;
   artist?: string;
   title?: string;
@@ -27,3 +27,8 @@ export interface SongMetadata {
 export type FrequencyBand = 60 | 170 | 310 | 600 | 1000 | 3000 | 6000 | 12000 | 14000 | 16000;
 
 export type RepeatMode = 'off' | 'all' | 'one';
+
+export interface PlayState {
+  state: 'playing' | 'paused' | 'stopped';
+  currentTrack?: Track;
+}

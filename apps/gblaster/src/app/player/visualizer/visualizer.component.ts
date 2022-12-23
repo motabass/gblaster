@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { LocalStorage } from 'ngx-webstorage';
-import { Song } from '../player.types';
+import { Track } from '../player.types';
 import { FftSize, FrequencyBarsConfig, OsciloscopeConfig, VisualizerMode, VisualsColorConfig } from './visuals/visuals.types';
 import { VisualsService } from './visuals/visuals.service';
 import { GamepadService } from '../../services/gamepad/gamepad.service';
@@ -32,7 +32,7 @@ export class VisualizerComponent implements OnInit, OnDestroy {
 
   @LocalStorage('lineThickness', 4) lineThickness!: number;
 
-  @Input() song?: Song;
+  @Input() track?: Track | null;
 
   constructor(private audioService: AudioService, private gamepadService: GamepadService, private visualsService: VisualsService) {}
 
@@ -61,11 +61,11 @@ export class VisualizerComponent implements OnInit, OnDestroy {
   }
 
   get mainColor(): string | undefined {
-    return this.song?.metadata?.coverColors?.darkVibrant?.hex;
+    return this.track?.metadata?.coverColors?.darkVibrant?.hex;
   }
 
   get peakColor(): string | undefined {
-    return this.song?.metadata?.coverColors?.lightVibrant?.hex;
+    return this.track?.metadata?.coverColors?.lightVibrant?.hex;
   }
 
   get barsConfig(): FrequencyBarsConfig {

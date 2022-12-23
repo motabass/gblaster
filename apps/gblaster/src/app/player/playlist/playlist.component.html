@@ -16,10 +16,10 @@
         loading="lazy"
       />
       <canvas
-        *ngIf="isPlayingSong(song) && isPlaying(song) && visualMode !== 'off'"
+        *ngIf="(isPlaying$(song) | async) && visualMode !== 'off'"
         [mode]="'osc'"
         style="position: absolute; right: 0; bottom: 0; left: 0; width: 100%; height: 100%"
-        [colorConfig]="colorConfig"
+        [colorConfig]="colorConfig$ | async"
         [mtbVisual]="analyser"
         [oscConfig]="{ thickness: 2 }"
       ></canvas>
@@ -28,9 +28,9 @@
     <h3 matLine style="font-size: 0.9rem; font-weight: bold">{{ song?.metadata?.title || song.file.name }}</h3>
     <p matLine style="font-size: 0.8rem">{{ song?.metadata?.artist }}</p>
 
-    <button *ngIf="isPlayingSong(song)" mat-icon-button (click)="playPauseSong($event, song)">
-      <mat-icon *ngIf="!isPlaying(song)" class="accent-color" svgIcon="play-outline"></mat-icon>
-      <mat-icon *ngIf="isPlaying(song)" class="accent-color" svgIcon="pause"></mat-icon>
+    <button *ngIf="isPlaying$(song) | async as playing" mat-icon-button (click)="playPauseSong($event, song)">
+      <mat-icon *ngIf="!playing" class="accent-color" svgIcon="play-outline"></mat-icon>
+      <mat-icon *ngIf="playing" class="accent-color" svgIcon="pause"></mat-icon>
     </button>
   </mat-list-item>
   <ng-content></ng-content>

@@ -4,8 +4,8 @@
   </button>
 </mtb-playlist>
 
-<mtb-cover-display [song]="playingSong" class="main">
-  <mtb-visualizer class="visualizer" [song]="playingSong"></mtb-visualizer>
+<mtb-cover-display [track]="playingTrack$ | async" class="main">
+  <mtb-visualizer class="visualizer" [track]="playingTrack$ | async"></mtb-visualizer>
 </mtb-cover-display>
 
 <mat-toolbar color="primary" class="bar flex row justify-center">
@@ -28,11 +28,11 @@
   <button mat-icon-button id="load_files" (click)="showPicker()">
     <mat-icon matTooltip="Load folder/files..." svgIcon="folder-music-outline"></mat-icon>
   </button>
-  <div class="flex-grow" *ngIf="!playingSong"></div>
+  <div class="flex-grow" *ngIf="(playingTrack$ | async) === undefined"></div>
 
   <mat-slider
     class="flex-grow"
-    *ngIf="playingSong"
+    *ngIf="playingTrack$"
     min="0"
     [max]="durationSeconds"
     step="1"

@@ -1,12 +1,13 @@
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { PlayerService } from '../player.service';
-import { Song } from '../player.types';
-import { Observable } from 'rxjs';
+import { Track } from '../player.types';
+import { filter, Observable } from 'rxjs';
 import { VisualsService } from '../visualizer/visuals/visuals.service';
 import { VisualizerMode, VisualsColorConfig } from '../visualizer/visuals/visuals.types';
 import { LoaderService } from '../../services/loader/loader.service';
 import { AudioService } from '../audio.service';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'mtb-playlist',
@@ -30,7 +31,7 @@ export class PlaylistComponent {
     return this.visualsService.visualMode;
   }
 
-  get songs(): Song[] {
+  get songs(): Track[] {
     for (const [i, v] of this.playerService.currentPlaylist.entries()) {
       v.playlistPosition = i + 1;
     }
@@ -41,59 +42,54 @@ export class PlaylistComponent {
     return this.playerService.currentPlaylist;
   }
 
-  isPlaying(song: Song): boolean {
-    if (song !== this.playingSong) {
-      return false;
-    }
-    return this.playerService.playing;
+  isPlaying$(song: Track): Observable<boolean> {
+    return this.playerService.playState$.pipe(
+      filter((state) => state.state === 'playing' && !!state.currentTrack),
+      map((state) => state.currentTrack === song && this.playerService.playing)
+    );
   }
 
-  get playingSong(): Song | undefined {
-    return this.playerService.playingSong;
+  get playingTrack$(): Observable<Track | undefined> {
+    return this.playerService.playState$.pipe(
+      filter((state) => state.state === 'playing' && !!state.currentTrack),
+      map((state) => state.currentTrack)
+    );
   }
 
-  isPlayingSong(song: Song) {
-    return this.playingSong === song;
+  get selectedSong(): Track | undefined {
+    return this.playerService.selectedTrack;
   }
 
-  get selectedSong(): Song | undefined {
-    return this.playerService.selectedSong;
-  }
-
-  isSelected(song: Song) {
+  isSelected(song: Track) {
     return this.selectedSong === song;
   }
 
-  selectSong(song: Song) {
+  selectSong(song: Track) {
     this.playerService.selectSong(song);
   }
 
-  async playPauseSong(event: Event, song: Song): Promise<void> {
+  async playPauseSong(event: Event, song: Track): Promise<void> {
     event.stopPropagation();
-    return this.playerService.playPauseSong(song);
+    return this.playerService.playPauseTrack(song);
   }
 
   get analyser(): AnalyserNode {
     return this.audioService.analyser;
   }
 
-  playlistTrackFunction(index: number, song: Song) {
+  playlistTrackFunction(index: number, song: Track) {
     return song.metadata?.crc;
   }
 
-  get colorConfig(): VisualsColorConfig {
-    return { mainColor: this.mainColor, peakColor: this.peakColor };
+  get colorConfig$(): Observable<VisualsColorConfig> {
+    return this.playingTrack$.pipe(
+      map((track) => {
+        return { mainColor: track?.metadata?.coverColors?.darkVibrant?.hex, peakColor: track?.metadata?.coverColors?.lightVibrant?.hex };
+      })
+    );
   }
 
-  get mainColor(): string | undefined {
-    return this.playingSong?.metadata?.coverColors?.darkVibrant?.hex;
-  }
-
-  get peakColor(): string | undefined {
-    return this.playingSong?.metadata?.coverColors?.lightVibrant?.hex;
-  }
-
-  drop(event: CdkDragDrop<Song>) {
+  drop(event: CdkDragDrop<Track>) {
     moveItemInArray(this.songs, event.previousIndex, event.currentIndex);
   }
 }

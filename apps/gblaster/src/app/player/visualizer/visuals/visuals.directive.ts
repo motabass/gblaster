@@ -15,7 +15,7 @@ export class VisualsDirective implements OnDestroy, OnChanges {
 
   @Input() oscConfig: OsciloscopeConfig = { thickness: 2 };
 
-  @Input() colorConfig: VisualsColorConfig = {};
+  @Input() colorConfig: VisualsColorConfig | null = {};
 
   @Input() sampleRate!: number;
 
