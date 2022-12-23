@@ -66,6 +66,7 @@ export class VisualsDirective implements OnDestroy, OnChanges {
         capFalldown: this.barsConfig.capFalldown,
         mainColor: this.colorConfig?.mainColor || FALLBACK_PRIMARY_COLOR,
         peakColor: this.colorConfig?.peakColor || FALLBACK_ACCENT_COLOR,
+        alpha: this.colorConfig?.alpha ?? 1,
         bufferLength: this.analyser.frequencyBinCount,
         fftSize: this.analyser.fftSize,
         sampleRate: this.sampleRate
@@ -96,6 +97,7 @@ export class VisualsDirective implements OnDestroy, OnChanges {
         mode: 'osc',
         mainColor: this.colorConfig?.mainColor || FALLBACK_PRIMARY_COLOR,
         peakColor: this.colorConfig?.peakColor || FALLBACK_ACCENT_COLOR,
+        alpha: this.colorConfig?.alpha ?? 1,
         bufferLength: this.analyser.frequencyBinCount,
         thickness: this.oscConfig.thickness
       }

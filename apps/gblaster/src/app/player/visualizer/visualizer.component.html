@@ -29,34 +29,36 @@
           <mat-option *ngFor="let option of fftOptions" [value]="option">{{ option }}</mat-option>
         </mat-select>
       </div>
-      <div *ngIf="visualMode === 'bars'">
-        <h5 class="slider-label">min. DB</h5>
-        <mat-slider min="-90" max="-70" step="0.01" [value]="minDb" (input)="setMinDb($event.value)" thumbLabel></mat-slider>
+      <div>
+        <h5 class="slider-label">Transparency</h5>
+        <mat-slider min="0" max="1" step="0.01" [value]="alpha" (input)="setAlpha($event.value)" thumbLabel></mat-slider>
       </div>
-      <!--      <div *ngIf="visualMode === 'bars'">-->
-      <!--        <h5 class="slider-label">max. DB</h5>-->
-      <!--        <mat-slider [min]="minDb + 1" max="200" step="0.1" [value]="maxDb" (input)="setMaxDb($event.value)" thumbLabel></mat-slider>-->
-      <!--      </div>-->
-      <div *ngIf="visualMode === 'bars'">
-        <h5 class="slider-label">Smoothing</h5>
-        <mat-slider min="0" max="1" step="0.1" [value]="smoothing" (input)="setSmoothing($event.value)" thumbLabel></mat-slider>
-      </div>
-      <div *ngIf="visualMode === 'bars'">
-        <h5 class="slider-label">Bars</h5>
-        <mat-slider min="8" max="128" step="1" [value]="barCount" (input)="setBarCount($event.value)" thumbLabel></mat-slider>
-      </div>
-      <div *ngIf="visualMode === 'bars'">
-        <h5 class="slider-label">Gap</h5>
-        <mat-slider min="-1" max="20" step="0.1" [value]="gap" (input)="setGap($event.value)" thumbLabel></mat-slider>
-      </div>
-      <div *ngIf="visualMode === 'bars'">
-        <h5 class="slider-label">Cap Height</h5>
-        <mat-slider min="0" max="6" step="0.1" [value]="capHeight" (input)="setCapHeight($event.value)" thumbLabel></mat-slider>
-      </div>
-      <div *ngIf="visualMode === 'bars'">
-        <h5 class="slider-label">Cap Falldown</h5>
-        <mat-slider min="0.1" max="2" step="0.1" [value]="capFalldown" (input)="setCapFalldown($event.value)" thumbLabel></mat-slider>
-      </div>
+      <ng-container *ngIf="visualMode === 'bars'">
+        <div>
+          <h5 class="slider-label">min. DB</h5>
+          <mat-slider min="-90" max="-70" step="0.01" [value]="minDb" (input)="setMinDb($event.value)" thumbLabel></mat-slider>
+        </div>
+        <div>
+          <h5 class="slider-label">Smoothing</h5>
+          <mat-slider min="0" max="1" step="0.1" [value]="smoothing" (input)="setSmoothing($event.value)" thumbLabel></mat-slider>
+        </div>
+        <div>
+          <h5 class="slider-label">Bars</h5>
+          <mat-slider min="8" max="128" step="1" [value]="barCount" (input)="setBarCount($event.value)" thumbLabel></mat-slider>
+        </div>
+        <div>
+          <h5 class="slider-label">Gap</h5>
+          <mat-slider min="-1" max="20" step="0.1" [value]="gap" (input)="setGap($event.value)" thumbLabel></mat-slider>
+        </div>
+        <div>
+          <h5 class="slider-label">Cap Height</h5>
+          <mat-slider min="0" max="6" step="0.1" [value]="capHeight" (input)="setCapHeight($event.value)" thumbLabel></mat-slider>
+        </div>
+        <div>
+          <h5 class="slider-label">Cap Falldown</h5>
+          <mat-slider min="0.1" max="2" step="0.1" [value]="capFalldown" (input)="setCapFalldown($event.value)" thumbLabel></mat-slider>
+        </div>
+      </ng-container>
       <div *ngIf="visualMode === 'osc'">
         <h5 class="slider-label">Thickness</h5>
         <mat-slider min="1" max="10" step="0.5" [value]="lineThickness" (input)="setLineThickness($event.value)" thumbLabel></mat-slider>

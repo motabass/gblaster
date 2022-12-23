@@ -3,7 +3,7 @@ import { VisualsWorkerMessage } from './visuals.types';
 let mode: string;
 
 let canvas: OffscreenCanvas;
-let canvasCtx: OffscreenCanvasRenderingContext2D | null;
+let ctx: OffscreenCanvasRenderingContext2D | null;
 let analyserData: Uint8Array;
 
 let fftSize: number;
@@ -18,6 +18,7 @@ let capFalldown: number;
 
 let mainColor: string;
 let peakColor: string;
+let alpha: number;
 
 let canvasWidth: number;
 let canvasHeight: number;
@@ -32,7 +33,7 @@ let gradient: CanvasGradient;
 addEventListener('message', (event: MessageEvent<VisualsWorkerMessage>) => {
   if (event.data.canvas) {
     canvas = event.data.canvas;
-    canvasCtx = canvas.getContext('2d');
+    ctx = canvas.getContext('2d');
   }
 
   if (event.data.newSize) {
@@ -41,11 +42,11 @@ addEventListener('message', (event: MessageEvent<VisualsWorkerMessage>) => {
   }
 
   if (event.data.stop) {
-    if (!canvasCtx) {
+    if (!ctx) {
       return;
     }
 
-    canvasCtx.clearRect(0, 0, canvasCtx.canvas.width, canvasCtx.canvas.height);
+    ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
   }
 
   // Setup
@@ -69,7 +70,7 @@ addEventListener('message', (event: MessageEvent<VisualsWorkerMessage>) => {
 
 // TODO: typisieren
 function setup(options: any) {
-  if (!canvasCtx) {
+  if (!ctx) {
     return;
   }
 
@@ -82,11 +83,12 @@ function setup(options: any) {
 
   mainColor = options.mainColor;
   peakColor = options.peakColor;
+  alpha = options.alpha;
 
   thickness = options.thickness;
 
-  canvasWidth = canvasCtx.canvas.width;
-  canvasHeight = canvasCtx.canvas.height;
+  canvasWidth = ctx.canvas.width;
+  canvasHeight = ctx.canvas.height;
   barWidth = canvasWidth / meterNum - gap;
 
   bufferLength = options.bufferLength;
@@ -96,7 +98,7 @@ function setup(options: any) {
 
   analyserData = new Uint8Array(bufferLength);
 
-  gradient = canvasCtx.createLinearGradient(0, 0, 0, canvasHeight);
+  gradient = ctx.createLinearGradient(0, 0, 0, canvasHeight);
   gradient.addColorStop(1, mainColor);
   gradient.addColorStop(0.7, peakColor);
   gradient.addColorStop(0, peakColor);
@@ -108,43 +110,45 @@ function setup(options: any) {
 }
 
 function drawOsc() {
-  if (!canvasCtx) {
+  if (!ctx) {
     return;
   }
+  ctx.globalAlpha = alpha;
+  ctx.clearRect(0, 0, canvasWidth, canvasHeight);
 
-  canvasCtx.clearRect(0, 0, canvasWidth, canvasHeight);
+  ctx.lineWidth = thickness;
+  ctx.strokeStyle = mainColor;
 
-  canvasCtx.lineWidth = thickness;
-
-  canvasCtx.strokeStyle = mainColor;
-
-  canvasCtx.beginPath();
+  ctx.beginPath();
 
   const sliceWidth = canvasWidth / bufferLength;
   let x = 0;
 
   for (let i = 0; i < bufferLength; i++) {
-    const v = analyserData[i] / 128.0;
+    const v = analyserData[i] / 128;
     const y = (v * canvasHeight) / 2;
 
     if (i === 0) {
-      canvasCtx.moveTo(x, y);
+      ctx.moveTo(x, y);
     } else {
-      canvasCtx.lineTo(x, y);
+      ctx.lineTo(x, y);
     }
 
     x += sliceWidth;
   }
 
-  canvasCtx.stroke();
+  ctx.stroke();
 }
 
 function drawBars() {
-  if (!canvasCtx) {
+  if (!ctx) {
     return;
   }
+
   const barkScaleData = convertToBarkScale(analyserData, sampleRate, fftSize, meterNum);
-  canvasCtx.clearRect(0, 0, canvasWidth, canvasHeight);
+
+  ctx.globalAlpha = alpha;
+  ctx.clearRect(0, 0, canvasWidth, canvasHeight);
 
   for (let i = 0; i < meterNum; i++) {
     let value = barkScaleData[i] ?? 0;
@@ -157,25 +161,25 @@ function drawBars() {
       capYPositionArray.push(value);
     }
 
-    canvasCtx.fillStyle = mainColor;
+    ctx.fillStyle = mainColor;
 
     if (value < capYPositionArray[i]) {
       // draw cap on last position and decrease position
 
-      canvasCtx.fillRect((barWidth + gap) * i, canvasHeight - capYPositionArray[i], barWidth, capHeight);
+      ctx.fillRect((barWidth + gap) * i, canvasHeight - capYPositionArray[i], barWidth, capHeight);
       if (capYPositionArray[i] > capHeight) {
         capYPositionArray[i] = capYPositionArray[i] - capFalldown;
       }
     } else {
       // draw cap on top of bar and save position
 
-      canvasCtx.fillRect((barWidth + gap) * i, canvasHeight - value, barWidth, capHeight);
+      ctx.fillRect((barWidth + gap) * i, canvasHeight - value, barWidth, capHeight);
       capYPositionArray[i] = value;
     }
 
-    canvasCtx.fillStyle = gradient; // set the fillStyle to gradient for a better look
+    ctx.fillStyle = gradient; // set the fillStyle to gradient for a better look
 
-    canvasCtx.fillRect((barWidth + gap) * i, canvasHeight - value + capHeight, barWidth, value - capHeight); // the bar
+    ctx.fillRect((barWidth + gap) * i, canvasHeight - value + capHeight, barWidth, value - capHeight); // the bar
   }
 }
 

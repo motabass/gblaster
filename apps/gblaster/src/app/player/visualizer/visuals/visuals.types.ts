@@ -23,6 +23,7 @@ export interface OsciloscopeConfig {
 export interface VisualsColorConfig {
   mainColor?: string;
   peakColor?: string;
+  alpha?: number;
 }
 
 export interface VisualsWorkerMessage {

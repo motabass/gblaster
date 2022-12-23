@@ -18,7 +18,7 @@ export class VisualizerComponent implements OnInit, OnDestroy {
 
   @LocalStorage('minDb', -73) minDb!: number;
 
-  @LocalStorage('maxDb', 200) maxDb!: number;
+  @LocalStorage('alpha', 1) alpha!: number;
 
   @LocalStorage('barCount', 24) barCount!: number;
 
@@ -41,7 +41,7 @@ export class VisualizerComponent implements OnInit, OnDestroy {
     this.analyser.fftSize = this.fftSize;
     this.analyser.smoothingTimeConstant = this.smoothing;
     this.analyser.minDecibels = this.minDb;
-    this.analyser.maxDecibels = this.maxDb;
+    this.analyser.maxDecibels = 220;
   }
 
   get visualMode(): VisualizerMode {
@@ -57,7 +57,7 @@ export class VisualizerComponent implements OnInit, OnDestroy {
   }
 
   get colorConfig(): VisualsColorConfig {
-    return { mainColor: this.mainColor, peakColor: this.peakColor };
+    return { mainColor: this.mainColor, peakColor: this.peakColor, alpha: this.alpha };
   }
 
   get mainColor(): string | undefined {
@@ -99,12 +99,11 @@ export class VisualizerComponent implements OnInit, OnDestroy {
     }
   }
 
-  // setMaxDb(value: number | null) {
-  //   if (value !== null) {
-  //     this.maxDb = value;
-  //     this.analyser.maxDecibels = value;
-  //   }
-  // }
+  setAlpha(value: number | null) {
+    if (value !== null) {
+      this.alpha = value;
+    }
+  }
 
   setBarCount(value: number | null) {
     if (value !== null) {
