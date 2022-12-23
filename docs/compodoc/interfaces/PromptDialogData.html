@@ -217,7 +217,13 @@
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, Inject, OnInit } from &#x27;@angular/core&#x27;;
-import { MAT_LEGACY_DIALOG_DATA as MAT_DIALOG_DATA, MatLegacyDialogRef as MatDialogRef } from &#x27;@angular/material/legacy-dialog&#x27;;
+import {
+  MAT_LEGACY_DIALOG_DATA as MAT_DIALOG_DATA,
+  MatLegacyDialogModule as MatDialogModule,
+  MatLegacyDialogRef as MatDialogRef
+} from &#x27;@angular/material/legacy-dialog&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+import { MatLegacyButtonModule as MatButtonModule } from &#x27;@angular/material/legacy-button&#x27;;
 
 export interface PromptDialogData {
   title: string;
@@ -227,7 +233,9 @@ export interface PromptDialogData {
 
 @Component({
   selector: &#x27;mtb-prompt-dialog&#x27;,
-  templateUrl: &#x27;./prompt-dialog.component.html&#x27;
+  templateUrl: &#x27;./prompt-dialog.component.html&#x27;,
+  standalone: true,
+  imports: [CommonModule, MatDialogModule, MatButtonModule]
 })
 export class PromptDialogComponent implements OnInit {
   constructor(@Inject(MAT_DIALOG_DATA) public data: PromptDialogData, public dialogRef: MatDialogRef&lt;PromptDialogComponent&gt;) {}

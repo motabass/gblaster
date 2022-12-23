@@ -583,7 +583,7 @@
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit } from &#x27;@angular/core&#x27;;
 import { NgxIndexedDBService } from &#x27;ngx-indexed-db&#x27;;
-import { SongMetadata } from &#x27;../player.types&#x27;;
+import { TrackMetadata } from &#x27;../player.types&#x27;;
 
 @Component({
   templateUrl: &#x27;./library.component.html&#x27;,
@@ -598,12 +598,12 @@ export class LibraryComponent implements OnInit {
   private selectedAlbum!: string;
   private selectedTrack!: string;
 
-  private data?: SongMetadata[];
+  private data?: TrackMetadata[];
 
   constructor(private indexedDbService: NgxIndexedDBService) {}
 
   async ngOnInit() {
-    this.data &#x3D; await this.indexedDbService.getAll&lt;SongMetadata&gt;(&#x27;metatags&#x27;).toPromise();
+    this.data &#x3D; await this.indexedDbService.getAll&lt;TrackMetadata&gt;(&#x27;metatags&#x27;).toPromise();
     this.split();
   }
 

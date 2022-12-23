@@ -128,7 +128,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">apps/gblaster/src/app/player/metadata-service/metadata.service.ts:19</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="20" class="link-to-prism">apps/gblaster/src/app/player/metadata-service/metadata.service.ts:20</a></div>
                             </td>
                         </tr>
 
@@ -229,8 +229,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="28"
-                            class="link-to-prism">apps/gblaster/src/app/player/metadata-service/metadata.service.ts:28</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="29"
+                            class="link-to-prism">apps/gblaster/src/app/player/metadata-service/metadata.service.ts:29</a></div>
                 </td>
             </tr>
 
@@ -268,7 +268,7 @@
                     <div>
                     </div>
                     <div class="io-description">
-                        <b>Returns : </b>    <code>Promise&lt;SongMetadata&gt;</code>
+                        <b>Returns : </b>    <code>Promise&lt;TrackMetadata&gt;</code>
 
                     </div>
                     <div class="io-description">
@@ -312,7 +312,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">apps/gblaster/src/app/player/metadata-service/metadata.service.ts:19</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="20" class="link-to-prism">apps/gblaster/src/app/player/metadata-service/metadata.service.ts:20</a></div>
                         </td>
                     </tr>
 
@@ -347,7 +347,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">apps/gblaster/src/app/player/metadata-service/metadata.service.ts:18</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">apps/gblaster/src/app/player/metadata-service/metadata.service.ts:19</a></div>
                         </td>
                     </tr>
 
@@ -382,7 +382,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">apps/gblaster/src/app/player/metadata-service/metadata.service.ts:17</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">apps/gblaster/src/app/player/metadata-service/metadata.service.ts:18</a></div>
                         </td>
                     </tr>
 
@@ -417,7 +417,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">apps/gblaster/src/app/player/metadata-service/metadata.service.ts:16</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">apps/gblaster/src/app/player/metadata-service/metadata.service.ts:17</a></div>
                         </td>
                     </tr>
 
@@ -435,11 +435,12 @@ import { Injectable } from &#x27;@angular/core&#x27;;
 import { NgxIndexedDBService } from &#x27;ngx-indexed-db&#x27;;
 import { LocalStorage } from &#x27;ngx-webstorage&#x27;;
 import { firstValueFrom } from &#x27;rxjs&#x27;;
-import { SongMetadata } from &#x27;../player.types&#x27;;
+import { TrackMetadata } from &#x27;../player.types&#x27;;
 import { Id3TagsService } from &#x27;./id3-tags.service&#x27;;
 import { LastfmMetadataService } from &#x27;./lastfm-metadata.service&#x27;;
 import { CoverColorPalette, RemoteCoverPicture } from &#x27;./metadata.types&#x27;;
 import { MusicbrainzService } from &#x27;./musicbrainz.service&#x27;;
+import * as SparkMD5 from &#x27;spark-md5&#x27;;
 
 @Injectable({ providedIn: &#x27;root&#x27; })
 export class MetadataService {
@@ -457,10 +458,13 @@ export class MetadataService {
     private indexedDBService: NgxIndexedDBService
   ) {}
 
-  async getMetadata(file: File): Promise&lt;SongMetadata&gt; {
-    const crc &#x3D; generateFileHash(file);
+  async getMetadata(file: File): Promise&lt;TrackMetadata&gt; {
+    console.time(&#x27;hash&#x27;);
+    const crc &#x3D; await generateFileHashMD5(file);
+    console.timeEnd(&#x27;hash&#x27;);
+
     if (this.useTagsCache) {
-      const metadataCache: SongMetadata &#x3D; await firstValueFrom(this.indexedDBService.getByKey&lt;SongMetadata&gt;(&#x27;metatags&#x27;, crc));
+      const metadataCache: TrackMetadata &#x3D; await firstValueFrom(this.indexedDBService.getByKey&lt;TrackMetadata&gt;(&#x27;metatags&#x27;, crc));
 
       if (metadataCache) {
         if (metadataCache.embeddedPicture &amp;&amp; this.useTagEmbeddedPicture &amp;&amp; (!metadataCache.coverUrl || this.preferTagEmbeddedPicture)) {
@@ -508,7 +512,7 @@ export class MetadataService {
       // console.timeEnd(&#x27;wasm&#x27;);
     }
 
-    const metadata: SongMetadata &#x3D; {
+    const metadata: TrackMetadata &#x3D; {
       crc: crc,
       coverUrl: coverUrl ?? { thumb: this.PLACEHOLDER_URL, original: this.PLACEHOLDER_URL },
       embeddedPicture: tags.picture,
@@ -527,7 +531,7 @@ export class MetadataService {
     return this.metadataPrepareForUse(metadata);
   }
 
-  private metadataPrepareForUse(meta: SongMetadata): SongMetadata {
+  private metadataPrepareForUse(meta: TrackMetadata): TrackMetadata {
     if (meta.embeddedPicture &amp;&amp; this.useTagEmbeddedPicture &amp;&amp; (!meta.coverUrl || this.preferTagEmbeddedPicture)) {
       // renew local object urls
       const url &#x3D; URL.createObjectURL(new Blob([meta.embeddedPicture.data], { type: meta.embeddedPicture.format }));
@@ -545,6 +549,10 @@ function generateFileHash(file: File): string {
   // TODO: replace with real file hashing? https://stackoverflow.com/questions/20917710/fast-file-hashing-of-large-files
   const hashString: string &#x3D; file.name + file.type + file.size + file.lastModified;
   return crc32(hashString, &#x27;hex&#x27;) as string;
+}
+
+async function generateFileHashMD5(file: File): Promise&lt;string&gt; {
+  return SparkMD5.ArrayBuffer.hash(await file.arrayBuffer());
 }
 
 async function extractColorsWithNodeVibrant(url: string): Promise&lt;CoverColorPalette&gt; {

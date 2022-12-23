@@ -47,7 +47,7 @@
   <li>Interfaces</li>
   <li
   >
-  FrequencyBarsConfig</li>
+  PlayState</li>
 </ol>
 
 <ul class="nav nav-tabs" role="tablist">
@@ -65,7 +65,7 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>apps/gblaster/src/app/player/visualizer/visuals/visuals.types.ts</code>
+            <code>apps/gblaster/src/app/player/player.types.ts</code>
         </p>
 
 
@@ -84,27 +84,16 @@
                         <td class="col-md-4">
                             <ul class="index-list">
                                 <li>
-                                        <a href="#barCount" 
+                                            <span class="modifier">Optional</span>
+                                        <a href="#currentTrack" 
 >
-                                            barCount
+                                            currentTrack
                                         </a>
                                 </li>
                                 <li>
-                                        <a href="#capFalldown" 
+                                        <a href="#state" 
 >
-                                            capFalldown
-                                        </a>
-                                </li>
-                                <li>
-                                        <a href="#capHeight" 
->
-                                            capHeight
-                                        </a>
-                                </li>
-                                <li>
-                                        <a href="#gap" 
->
-                                            gap
+                                            state
                                         </a>
                                 </li>
                             </ul>
@@ -122,9 +111,9 @@
                         <tbody>
                                 <tr>
                                     <td class="col-md-4">
-                                        <a name="barCount"></a>
-                                        <span class="name "><b>barCount</b>
-                                            <a href="#barCount">
+                                        <a name="currentTrack"></a>
+                                        <span class="name "><b>currentTrack</b>
+                                            <a href="#currentTrack">
                                                 <span class="icon ion-ios-link"></span>
                                             </a>
                                         </span>
@@ -132,7 +121,7 @@
                                 </tr>
                                 <tr>
                                     <td class="col-md-4">
-                                        <code>barCount:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                        <code>currentTrack:         <code><a href="../interfaces/Track.html" target="_self" >Track</a></code>
 </code>
                                     </td>
                                 </tr>
@@ -140,11 +129,16 @@
 
                                     <tr>
                                         <td class="col-md-4">
-                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            <i>Type : </i>        <code><a href="../interfaces/Track.html" target="_self" >Track</a></code>
 
                                         </td>
                                     </tr>
 
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Optional</i>
+                                        </td>
+                                    </tr>
 
 
 
@@ -155,9 +149,9 @@
                         <tbody>
                                 <tr>
                                     <td class="col-md-4">
-                                        <a name="capFalldown"></a>
-                                        <span class="name "><b>capFalldown</b>
-                                            <a href="#capFalldown">
+                                        <a name="state"></a>
+                                        <span class="name "><b>state</b>
+                                            <a href="#state">
                                                 <span class="icon ion-ios-link"></span>
                                             </a>
                                         </span>
@@ -165,7 +159,7 @@
                                 </tr>
                                 <tr>
                                     <td class="col-md-4">
-                                        <code>capFalldown:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                        <code>state:     <code>&quot;playing&quot; | &quot;paused&quot; | &quot;stopped&quot;</code>
 </code>
                                     </td>
                                 </tr>
@@ -173,73 +167,7 @@
 
                                     <tr>
                                         <td class="col-md-4">
-                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
-
-                                        </td>
-                                    </tr>
-
-
-
-
-
-                        </tbody>
-                    </table>
-                    <table class="table table-sm table-bordered">
-                        <tbody>
-                                <tr>
-                                    <td class="col-md-4">
-                                        <a name="capHeight"></a>
-                                        <span class="name "><b>capHeight</b>
-                                            <a href="#capHeight">
-                                                <span class="icon ion-ios-link"></span>
-                                            </a>
-                                        </span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="col-md-4">
-                                        <code>capHeight:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
-</code>
-                                    </td>
-                                </tr>
-
-
-                                    <tr>
-                                        <td class="col-md-4">
-                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
-
-                                        </td>
-                                    </tr>
-
-
-
-
-
-                        </tbody>
-                    </table>
-                    <table class="table table-sm table-bordered">
-                        <tbody>
-                                <tr>
-                                    <td class="col-md-4">
-                                        <a name="gap"></a>
-                                        <span class="name "><b>gap</b>
-                                            <a href="#gap">
-                                                <span class="icon ion-ios-link"></span>
-                                            </a>
-                                        </span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="col-md-4">
-                                        <code>gap:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
-</code>
-                                    </td>
-                                </tr>
-
-
-                                    <tr>
-                                        <td class="col-md-4">
-                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            <i>Type : </i>    <code>&quot;playing&quot; | &quot;paused&quot; | &quot;stopped&quot;</code>
 
                                         </td>
                                     </tr>
@@ -255,40 +183,39 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">export type VisualizerMode &#x3D; &#x27;osc&#x27; | &#x27;bars&#x27; | &#x27;off&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Id3CoverPicture } from &#x27;./metadata-service/id3-tags.types&#x27;;
+import { CoverColorPalette, RemoteCoverPicture } from &#x27;./metadata-service/metadata.types&#x27;;
+import { IFormat } from &#x27;music-metadata&#x27;;
 
-export type FftSize &#x3D; 32 | 64 | 128 | 256 | 512 | 1024 | 2048 | 4096 | 8192 | 16384 | 32768;
-
-export interface AnalyserConfig {
-  fftSize: FftSize;
-  smoothingTimeConstant: number;
-  minDecibels: number;
-  maxDecibels: number;
+export interface Track {
+  file: File;
+  metadata?: TrackMetadata;
+  playlistPosition?: number;
 }
 
-export interface FrequencyBarsConfig {
-  barCount: number;
-  capHeight: number;
-  gap: number;
-  capFalldown: number;
+export interface TrackMetadata {
+  crc: string;
+  artist?: string;
+  title?: string;
+  track?: string;
+  album?: string;
+  year?: string;
+  duration?: number;
+  format?: IFormat;
+  coverUrl?: RemoteCoverPicture;
+  embeddedPicture?: Id3CoverPicture;
+  coverColors?: CoverColorPalette;
 }
 
-export interface OsciloscopeConfig {
-  thickness: number;
-}
+// EQ
 
-export interface VisualsColorConfig {
-  mainColor?: string;
-  peakColor?: string;
-  alpha?: number;
-}
+export type FrequencyBand &#x3D; 60 | 170 | 310 | 600 | 1000 | 3000 | 6000 | 12000 | 14000 | 16000;
 
-export interface VisualsWorkerMessage {
-  canvas?: OffscreenCanvas;
-  newSize?: DOMRect;
-  stop?: boolean;
-  visualizerOptions?: any;
-  analyserData: Uint8Array;
+export type RepeatMode &#x3D; &#x27;off&#x27; | &#x27;all&#x27; | &#x27;one&#x27;;
+
+export interface PlayState {
+  state: &#x27;playing&#x27; | &#x27;paused&#x27; | &#x27;stopped&#x27;;
+  currentTrack?: Track;
 }
 </code></pre>
     </div>
@@ -327,7 +254,7 @@ export interface VisualsWorkerMessage {
        <script>
             var COMPODOC_CURRENT_PAGE_DEPTH = 1;
             var COMPODOC_CURRENT_PAGE_CONTEXT = 'interface';
-            var COMPODOC_CURRENT_PAGE_URL = 'FrequencyBarsConfig.html';
+            var COMPODOC_CURRENT_PAGE_URL = 'PlayState.html';
             var MAX_SEARCH_RESULTS = 15;
        </script>
 

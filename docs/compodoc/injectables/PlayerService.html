@@ -81,15 +81,11 @@
                                 <a href="#currentPlaylist" >currentPlaylist</a>
                             </li>
                             <li>
-                                    <span class="modifier">Optional</span>
-                                <a href="#playingSong" >playingSong</a>
-                            </li>
-                            <li>
                                 <a href="#repeat" >repeat</a>
                             </li>
                             <li>
                                     <span class="modifier">Optional</span>
-                                <a href="#selectedSong" >selectedSong</a>
+                                <a href="#selectedTrack" >selectedTrack</a>
                             </li>
                             <li>
                                 <a href="#shuffle" >shuffle</a>
@@ -108,10 +104,7 @@
                         <ul class="index-list">
                             <li>
                                     <span class="modifier">Async</span>
-                                <a href="#addToPlaylist" >addToPlaylist</a>
-                            </li>
-                            <li>
-                                <a href="#afterPlayLoaded" >afterPlayLoaded</a>
+                                <a href="#addFilesToPlaylist" >addFilesToPlaylist</a>
                             </li>
                             <li>
                                 <a href="#getCurrentTime" >getCurrentTime</a>
@@ -125,10 +118,12 @@
                                 <a href="#next" >next</a>
                             </li>
                             <li>
+                                    <span class="modifier">Async</span>
                                 <a href="#playPause" >playPause</a>
                             </li>
                             <li>
-                                <a href="#playPauseSong" >playPauseSong</a>
+                                    <span class="modifier">Async</span>
+                                <a href="#playPauseTrack" >playPauseTrack</a>
                             </li>
                             <li>
                                     <span class="modifier">Async</span>
@@ -178,6 +173,9 @@
                         <td class="col-md-4">
                             <ul class="index-list">
                                 <li>
+                                    <a href="#playState$" >playState$</a>
+                                </li>
+                                <li>
                                     <a href="#durationSeconds" >durationSeconds</a>
                                 </li>
                                 <li>
@@ -201,7 +199,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">apps/gblaster/src/app/player/player.service.ts:28</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">apps/gblaster/src/app/player/player.service.ts:29</a></div>
                             </td>
                         </tr>
 
@@ -320,18 +318,18 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="addToPlaylist"></a>
+                    <a name="addFilesToPlaylist"></a>
                     <span class="name">
                         <span class="modifier">Async</span>
-                        <span ><b>addToPlaylist</b></span>
-                        <a href="#addToPlaylist"><span class="icon ion-ios-link"></span></a>
+                        <span ><b>addFilesToPlaylist</b></span>
+                        <a href="#addFilesToPlaylist"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
                     <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>addToPlaylist(...files: File[])</code>
+                    <code>addFilesToPlaylist(...files: File[])</code>
                 </td>
             </tr>
 
@@ -345,8 +343,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="100"
-                            class="link-to-prism">apps/gblaster/src/app/player/player.service.ts:100</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="128"
+                            class="link-to-prism">apps/gblaster/src/app/player/player.service.ts:128</a></div>
                 </td>
             </tr>
 
@@ -398,43 +396,6 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="afterPlayLoaded"></a>
-                    <span class="name">
-                        <span ><b>afterPlayLoaded</b></span>
-                        <a href="#afterPlayLoaded"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-<code>afterPlayLoaded()</code>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="174"
-                            class="link-to-prism">apps/gblaster/src/app/player/player.service.ts:174</a></div>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-
-                    <div class="io-description">
-                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
-
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
                     <a name="getCurrentTime"></a>
                     <span class="name">
                         <span ><b>getCurrentTime</b></span>
@@ -451,8 +412,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="145"
-                            class="link-to-prism">apps/gblaster/src/app/player/player.service.ts:145</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="174"
+                            class="link-to-prism">apps/gblaster/src/app/player/player.service.ts:174</a></div>
                 </td>
             </tr>
 
@@ -497,8 +458,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="95"
-                            class="link-to-prism">apps/gblaster/src/app/player/player.service.ts:95</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="123"
+                            class="link-to-prism">apps/gblaster/src/app/player/player.service.ts:123</a></div>
                 </td>
             </tr>
 
@@ -543,8 +504,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="213"
-                            class="link-to-prism">apps/gblaster/src/app/player/player.service.ts:213</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="232"
+                            class="link-to-prism">apps/gblaster/src/app/player/player.service.ts:232</a></div>
                 </td>
             </tr>
 
@@ -566,6 +527,7 @@
                 <td class="col-md-4">
                     <a name="playPause"></a>
                     <span class="name">
+                        <span class="modifier">Async</span>
                         <span ><b>playPause</b></span>
                         <a href="#playPause"><span class="icon ion-ios-link"></span></a>
                     </span>
@@ -573,22 +535,16 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>playPause()</code>
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>playPause()</code>
                 </td>
             </tr>
 
-            <tr>
-                <td class="col-md-4">
-                    <b>Decorators : </b>
-                    <br />
-                    <code>@action()<br /></code>
-                </td>
-            </tr>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="181"
-                            class="link-to-prism">apps/gblaster/src/app/player/player.service.ts:181</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="203"
+                            class="link-to-prism">apps/gblaster/src/app/player/player.service.ts:203</a></div>
                 </td>
             </tr>
 
@@ -597,7 +553,7 @@
                 <td class="col-md-4">
 
                     <div class="io-description">
-                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
 
                     </div>
                 </td>
@@ -608,31 +564,26 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="playPauseSong"></a>
+                    <a name="playPauseTrack"></a>
                     <span class="name">
-                        <span ><b>playPauseSong</b></span>
-                        <a href="#playPauseSong"><span class="icon ion-ios-link"></span></a>
+                        <span class="modifier">Async</span>
+                        <span ><b>playPauseTrack</b></span>
+                        <a href="#playPauseTrack"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>playPauseSong(song: <a href="../interfaces/Song.html" target="_self">Song</a>)</code>
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>playPauseTrack(track: <a href="../interfaces/Track.html" target="_self">Track</a>)</code>
                 </td>
             </tr>
 
-            <tr>
-                <td class="col-md-4">
-                    <b>Decorators : </b>
-                    <br />
-                    <code>@action()<br /></code>
-                </td>
-            </tr>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="157"
-                            class="link-to-prism">apps/gblaster/src/app/player/player.service.ts:157</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="187"
+                            class="link-to-prism">apps/gblaster/src/app/player/player.service.ts:187</a></div>
                 </td>
             </tr>
 
@@ -653,9 +604,9 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>song</td>
+                                    <td>track</td>
                                     <td>
-                                                <code><a href="../interfaces/Song.html" target="_self" >Song</a></code>
+                                                <code><a href="../interfaces/Track.html" target="_self" >Track</a></code>
                                     </td>
 
                                     <td>
@@ -670,7 +621,7 @@
                     <div>
                     </div>
                     <div class="io-description">
-                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
 
                     </div>
                     <div class="io-description">
@@ -709,8 +660,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="235"
-                            class="link-to-prism">apps/gblaster/src/app/player/player.service.ts:235</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="255"
+                            class="link-to-prism">apps/gblaster/src/app/player/player.service.ts:255</a></div>
                 </td>
             </tr>
 
@@ -746,8 +697,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="276"
-                            class="link-to-prism">apps/gblaster/src/app/player/player.service.ts:276</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="297"
+                            class="link-to-prism">apps/gblaster/src/app/player/player.service.ts:297</a></div>
                 </td>
             </tr>
 
@@ -815,8 +766,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="280"
-                            class="link-to-prism">apps/gblaster/src/app/player/player.service.ts:280</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="301"
+                            class="link-to-prism">apps/gblaster/src/app/player/player.service.ts:301</a></div>
                 </td>
             </tr>
 
@@ -891,8 +842,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="248"
-                            class="link-to-prism">apps/gblaster/src/app/player/player.service.ts:248</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="269"
+                            class="link-to-prism">apps/gblaster/src/app/player/player.service.ts:269</a></div>
                 </td>
             </tr>
 
@@ -935,8 +886,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="262"
-                            class="link-to-prism">apps/gblaster/src/app/player/player.service.ts:262</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="283"
+                            class="link-to-prism">apps/gblaster/src/app/player/player.service.ts:283</a></div>
                 </td>
             </tr>
 
@@ -965,7 +916,7 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>selectSong(song: <a href="../interfaces/Song.html" target="_self">Song</a>)</code>
+<code>selectSong(song: <a href="../interfaces/Track.html" target="_self">Track</a>)</code>
                 </td>
             </tr>
 
@@ -979,8 +930,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="153"
-                            class="link-to-prism">apps/gblaster/src/app/player/player.service.ts:153</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="183"
+                            class="link-to-prism">apps/gblaster/src/app/player/player.service.ts:183</a></div>
                 </td>
             </tr>
 
@@ -1003,7 +954,7 @@
                                 <tr>
                                     <td>song</td>
                                     <td>
-                                                <code><a href="../interfaces/Song.html" target="_self" >Song</a></code>
+                                                <code><a href="../interfaces/Track.html" target="_self" >Track</a></code>
                                     </td>
 
                                     <td>
@@ -1055,8 +1006,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="134"
-                            class="link-to-prism">apps/gblaster/src/app/player/player.service.ts:134</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="162"
+                            class="link-to-prism">apps/gblaster/src/app/player/player.service.ts:162</a></div>
                 </td>
             </tr>
 
@@ -1148,8 +1099,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="200"
-                            class="link-to-prism">apps/gblaster/src/app/player/player.service.ts:200</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="221"
+                            class="link-to-prism">apps/gblaster/src/app/player/player.service.ts:221</a></div>
                 </td>
             </tr>
 
@@ -1192,8 +1143,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="298"
-                            class="link-to-prism">apps/gblaster/src/app/player/player.service.ts:298</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="319"
+                            class="link-to-prism">apps/gblaster/src/app/player/player.service.ts:319</a></div>
                 </td>
             </tr>
 
@@ -1236,8 +1187,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="317"
-                            class="link-to-prism">apps/gblaster/src/app/player/player.service.ts:317</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="338"
+                            class="link-to-prism">apps/gblaster/src/app/player/player.service.ts:338</a></div>
                 </td>
             </tr>
 
@@ -1272,7 +1223,7 @@
             </tr>
                 <tr>
                     <td class="col-md-4">
-                        <i>Type : </i>        <code><a href="../interfaces/Song.html" target="_self" >Song[]</a></code>
+                        <i>Type : </i>        <code><a href="../interfaces/Track.html" target="_self" >Track[]</a></code>
 
                     </td>
                 </tr>
@@ -1292,43 +1243,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="20" class="link-to-prism">apps/gblaster/src/app/player/player.service.ts:20</a></div>
-                        </td>
-                    </tr>
-
-
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="playingSong"></a>
-                    <span class="name">
-                            <span class="modifier">Optional</span>
-                        <span ><b>playingSong</b></span>
-                        <a href="#playingSong"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-                <tr>
-                    <td class="col-md-4">
-                        <i>Type : </i>        <code><a href="../interfaces/Song.html" target="_self" >Song</a></code>
-
-                    </td>
-                </tr>
-                <tr>
-                    <td class="col-md-4">
-                        <b>Decorators : </b>
-                        <br />
-                        <code>
-                            @observable()<br />
-                        </code>
-                    </td>
-                </tr>
-                    <tr>
-                        <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="22" class="link-to-prism">apps/gblaster/src/app/player/player.service.ts:22</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="23" class="link-to-prism">apps/gblaster/src/app/player/player.service.ts:23</a></div>
                         </td>
                     </tr>
 
@@ -1363,7 +1278,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">apps/gblaster/src/app/player/player.service.ts:26</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="27" class="link-to-prism">apps/gblaster/src/app/player/player.service.ts:27</a></div>
                         </td>
                     </tr>
 
@@ -1374,17 +1289,17 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="selectedSong"></a>
+                    <a name="selectedTrack"></a>
                     <span class="name">
                             <span class="modifier">Optional</span>
-                        <span ><b>selectedSong</b></span>
-                        <a href="#selectedSong"><span class="icon ion-ios-link"></span></a>
+                        <span ><b>selectedTrack</b></span>
+                        <a href="#selectedTrack"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
                 <tr>
                     <td class="col-md-4">
-                        <i>Type : </i>        <code><a href="../interfaces/Song.html" target="_self" >Song</a></code>
+                        <i>Type : </i>        <code><a href="../interfaces/Track.html" target="_self" >Track</a></code>
 
                     </td>
                 </tr>
@@ -1399,7 +1314,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="24" class="link-to-prism">apps/gblaster/src/app/player/player.service.ts:24</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">apps/gblaster/src/app/player/player.service.ts:25</a></div>
                         </td>
                     </tr>
 
@@ -1434,7 +1349,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">apps/gblaster/src/app/player/player.service.ts:28</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">apps/gblaster/src/app/player/player.service.ts:29</a></div>
                         </td>
                     </tr>
 
@@ -1451,6 +1366,28 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
+                        <a name="playState$"></a>
+                        <span class="name"><b>playState$</b><a href="#playState$"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>playState$()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="119" class="link-to-prism">apps/gblaster/src/app/player/player.service.ts:119</a></div>
+                                </td>
+                            </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
                         <a name="durationSeconds"></a>
                         <span class="name"><b>durationSeconds</b><a href="#durationSeconds"><span class="icon ion-ios-link"></span></a></span>
                     </td>
@@ -1463,7 +1400,7 @@
                 </tr>
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="141" class="link-to-prism">apps/gblaster/src/app/player/player.service.ts:141</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="169" class="link-to-prism">apps/gblaster/src/app/player/player.service.ts:169</a></div>
                                 </td>
                             </tr>
 
@@ -1485,7 +1422,7 @@
                 </tr>
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="294" class="link-to-prism">apps/gblaster/src/app/player/player.service.ts:294</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="315" class="link-to-prism">apps/gblaster/src/app/player/player.service.ts:315</a></div>
                                 </td>
                             </tr>
 
@@ -1501,25 +1438,26 @@ import { action, observable } from &#x27;mobx-angular&#x27;;
 import { LocalStorage } from &#x27;ngx-webstorage&#x27;;
 import { FileLoaderService } from &#x27;./file-loader-service/file-loader.service.abstract&#x27;;
 import { MetadataService } from &#x27;./metadata-service/metadata.service&#x27;;
-import { FrequencyBand, RepeatMode, Song } from &#x27;./player.types&#x27;;
+import { FrequencyBand, PlayState, RepeatMode, Track } from &#x27;./player.types&#x27;;
 import { ALLOWED_MIMETYPES } from &#x27;./file-loader-service/file-loader.helpers&#x27;;
 import { ThemeService } from &#x27;../theme/theme.service&#x27;;
 import { LoaderService } from &#x27;../services/loader/loader.service&#x27;;
 import { WakelockService } from &#x27;../services/wakelock.service&#x27;;
 import { MediaSessionService } from &#x27;../services/media-session.service&#x27;;
 import { AudioService } from &#x27;./audio.service&#x27;;
+import { BehaviorSubject, Observable } from &#x27;rxjs&#x27;;
 
 export const BAND_FREQUENIES: FrequencyBand[] &#x3D; [60, 170, 310, 600, 1000, 3000, 6000, 12000, 14000, 16000];
 
 @Injectable({ providedIn: &#x27;any&#x27; })
 export class PlayerService {
+  private playState: BehaviorSubject&lt;PlayState&gt; &#x3D; new BehaviorSubject&lt;PlayState&gt;({ state: &#x27;stopped&#x27; });
+
   private loadFinished &#x3D; true;
 
-  @observable currentPlaylist: Song[] &#x3D; [];
+  @observable currentPlaylist: Track[] &#x3D; [];
 
-  @observable playingSong?: Song;
-
-  @observable selectedSong?: Song;
+  @observable selectedTrack?: Track;
 
   @LocalStorage(&#x27;repeat&#x27;, &#x27;off&#x27;) repeat!: RepeatMode;
 
@@ -1554,7 +1492,7 @@ export class PlayerService {
         for (const fileHandle of launchParams.files) {
           const file &#x3D; await fileHandle.getFile();
           if (ALLOWED_MIMETYPES.includes(file.type)) {
-            await this.addToPlaylist(file);
+            await this.addFilesToPlaylist(file);
           }
         }
       });
@@ -1563,46 +1501,73 @@ export class PlayerService {
     this.audioService.setOnEnded(() &#x3D;&gt; {
       this.next();
     });
+
+    this.playState.subscribe(async (state) &#x3D;&gt; {
+      if (state.state &#x3D;&#x3D;&#x3D; &#x27;playing&#x27;) {
+        await this.afterPlayLoaded();
+      }
+
+      if (state.state &#x3D;&#x3D;&#x3D; &#x27;paused&#x27; || state.state &#x3D;&#x3D;&#x3D; &#x27;stopped&#x27;) {
+        await this.afterPausedOrStopped();
+      }
+    });
   }
 
-  private async setPlayingSong(song: Song | undefined) {
-    if (!song) {
+  private afterPlayLoaded() {
+    this.loadFinished &#x3D; true;
+    this.mediaSessionService.setPlaying();
+    this.mediaSessionService.updateMediaPositionState(this.audioService.duration, this.audioService.currentTime);
+    return this.wakelockService.activateWakelock();
+  }
+
+  private afterPausedOrStopped() {
+    this.mediaSessionService.setPaused();
+    return this.wakelockService.releaseWakelock();
+  }
+
+  private async playTrack(track: Track | undefined) {
+    if (!track) {
       return;
     }
-    this.audioService.setFileAsSource(song.file);
+    this.audioService.setFileAsSource(track.file);
 
-    this.playingSong &#x3D; song;
-
-    if (song.metadata) {
+    if (track.metadata) {
       this.mediaSessionService.setBrowserMetadata({
-        title: song.metadata.title,
-        artist: song.metadata.artist,
-        album: song.metadata.album,
-        artwork: song.metadata.coverUrl?.original ? [{ src: song.metadata.coverUrl.original, sizes: &#x27;512x512&#x27; }] : undefined
+        title: track.metadata.title,
+        artist: track.metadata.artist,
+        album: track.metadata.album,
+        artwork: track.metadata.coverUrl?.original ? [{ src: track.metadata.coverUrl.original, sizes: &#x27;512x512&#x27; }] : undefined
       });
 
-      const primaryColor &#x3D; song.metadata.coverColors?.darkVibrant?.hex;
+      const primaryColor &#x3D; track.metadata.coverColors?.darkVibrant?.hex;
       this.themeService.setPrimaryColor(primaryColor);
 
-      const accentColor &#x3D; song.metadata.coverColors?.vibrant?.hex;
+      const accentColor &#x3D; track.metadata.coverColors?.vibrant?.hex;
       this.themeService.setAccentColor(accentColor);
     }
-    this.selectedSong &#x3D; song;
+
+    this.selectedTrack &#x3D; track;
+    await this.audioService.play();
+    this.playState.next({ currentTrack: track, state: &#x27;playing&#x27; });
+  }
+
+  get playState$(): Observable&lt;PlayState&gt; {
+    return this.playState.asObservable();
   }
 
   @action async loadFiles(): Promise&lt;void&gt; {
     const files: File[] &#x3D; await this.fileLoaderService.openFiles();
-    return this.addToPlaylist(...files);
+    return this.addFilesToPlaylist(...files);
   }
 
-  @action async addToPlaylist(...files: File[]) {
+  @action async addFilesToPlaylist(...files: File[]) {
     if (files?.length) {
-      let tempList: Song[] &#x3D; [];
+      let tempList: Track[] &#x3D; [];
       let startTime &#x3D; Date.now();
 
       for (const [i, file] of files.entries()) {
         this.loaderService.show();
-        const song &#x3D; await this.createSongFromFile(file);
+        const song &#x3D; await this.createTrackFromFile(file);
         this.loaderService.hide();
         // avoid duplicate playlist entries
         if (!this.currentPlaylist.some((playlistSong) &#x3D;&gt; playlistSong.metadata?.crc &#x3D;&#x3D;&#x3D; song.metadata?.crc)) {
@@ -1619,8 +1584,8 @@ export class PlayerService {
     }
   }
 
-  private async createSongFromFile(file: File): Promise&lt;Song&gt; {
-    const song: Song &#x3D; {
+  private async createTrackFromFile(file: File): Promise&lt;Track&gt; {
+    const song: Track &#x3D; {
       file: file
     };
     console.time(&#x27;full-metadata&#x27;);
@@ -1637,137 +1602,130 @@ export class PlayerService {
   }
 
   get durationSeconds(): number {
-    return this.playingSong ? Math.round(this.audioService.duration) : 0;
+    const value &#x3D; this.playState.getValue();
+    return value.currentTrack &amp;&amp; value.state !&#x3D;&#x3D; &#x27;stopped&#x27; ? Math.round(this.audioService.duration) : 0;
   }
 
   getCurrentTime(): number {
-    if (!this.playingSong) {
+    const value &#x3D; this.playState.getValue();
+    if (!value.currentTrack || value.state &#x3D;&#x3D;&#x3D; &#x27;stopped&#x27;) {
       return 0;
     }
     const pos &#x3D; this.audioService.currentTime;
     return pos !&#x3D;&#x3D; null &amp;&amp; pos !&#x3D;&#x3D; undefined ? Math.floor(pos) : 0;
   }
 
-  @action selectSong(song: Song) {
-    this.selectedSong &#x3D; song;
+  @action selectSong(song: Track) {
+    this.selectedTrack &#x3D; song;
   }
 
-  @action playPauseSong(song: Song) {
+  async playPauseTrack(track: Track) {
     if (!this.loadFinished) {
       return;
     }
 
-    if (this.playingSong &amp;&amp; song &#x3D;&#x3D;&#x3D; this.playingSong) {
-      this.playPause();
+    if (this.playState.getValue().currentTrack &#x3D;&#x3D;&#x3D; track) {
+      await this.playPause();
       return;
     }
 
     // this.stop();
 
     this.loadFinished &#x3D; false;
-    this.setPlayingSong(song);
-    this.audioService.play().then(() &#x3D;&gt; this.afterPlayLoaded());
+    await this.playTrack(track);
   }
 
-  afterPlayLoaded() {
-    this.loadFinished &#x3D; true;
-    this.mediaSessionService.setPlaying();
-    this.mediaSessionService.updateMediaPositionState(this.audioService.duration, this.audioService.currentTime);
-    this.wakelockService.activateWakelock();
-  }
-
-  @action playPause() {
-    if (!this.playingSong || !this.loadFinished) {
-      if (this.selectedSong) {
+  async playPause() {
+    if (!this.playState.getValue().currentTrack || !this.loadFinished) {
+      if (this.selectedTrack) {
         this.loadFinished &#x3D; false;
-        this.setPlayingSong(this.selectedSong);
-        this.audioService.play().then(() &#x3D;&gt; this.afterPlayLoaded());
+        await this.playTrack(this.selectedTrack);
       }
       return;
     }
     if (this.audioService.paused) {
       this.loadFinished &#x3D; false;
-      this.audioService.play().then(() &#x3D;&gt; this.afterPlayLoaded());
+      await this.audioService.play();
+      this.playState.next({ state: &#x27;playing&#x27;, currentTrack: this.playState.getValue().currentTrack });
     } else {
       this.audioService.pause();
-      this.mediaSessionService.setPaused();
-      this.wakelockService.releaseWakelock();
+      this.playState.next({ state: &#x27;paused&#x27;, currentTrack: this.playState.getValue().currentTrack });
     }
   }
 
   @action stop() {
-    if (!this.playingSong || !this.loadFinished) {
+    if (!this.playState.getValue().currentTrack || !this.loadFinished) {
       return;
     }
     if (this.playing) {
       this.audioService.pause();
-      this.mediaSessionService.setPaused();
     }
     this.audioService.seekToPosition(0);
-
-    this.wakelockService.releaseWakelock();
+    this.playState.next({ state: &#x27;stopped&#x27;, currentTrack: this.playState.getValue().currentTrack });
   }
 
   @action async next(): Promise&lt;void&gt; {
-    if (!this.playingSong || !this.loadFinished) {
+    const value &#x3D; this.playState.getValue();
+    if (!value.currentTrack || !this.loadFinished) {
       return;
     }
 
     if (this.shuffle) {
       const randomPosition &#x3D; getRandomInt(0, this.currentPlaylist.length - 1);
-      return this.playPauseSong(this.currentPlaylist[randomPosition]);
+      return this.playTrack(this.currentPlaylist[randomPosition]);
     }
 
-    const currPo &#x3D; this.playingSong.playlistPosition;
+    const currPo &#x3D; value.currentTrack.playlistPosition;
     if (!currPo) {
       return;
     }
 
     if (currPo &lt; this.currentPlaylist.length) {
-      return this.playPauseSong(this.currentPlaylist[currPo]);
+      return this.playTrack(this.currentPlaylist[currPo]);
     } else if (this.repeat &#x3D;&#x3D;&#x3D; &#x27;all&#x27;) {
-      return this.playPauseSong(this.currentPlaylist[0]);
+      return this.playTrack(this.currentPlaylist[0]);
     }
   }
 
   @action async previous() {
-    if (!this.playingSong || !this.loadFinished) {
+    const value &#x3D; this.playState.getValue();
+    if (!value.currentTrack || !this.loadFinished) {
       return;
     }
-    const currPo &#x3D; this.playingSong.playlistPosition;
+    const currPo &#x3D; value.currentTrack.playlistPosition;
     if (!currPo) {
       return;
     }
     if (currPo &gt; 1) {
-      return this.playPauseSong(this.currentPlaylist[currPo - 2]);
+      return this.playTrack(this.currentPlaylist[currPo - 2]);
     }
   }
 
   @action selectNext() {
-    if (!this.selectedSong) {
+    if (!this.selectedTrack) {
       return;
     }
-    const currPo &#x3D; this.selectedSong.playlistPosition;
+    const currPo &#x3D; this.selectedTrack.playlistPosition;
     if (!currPo) {
       return;
     }
 
     if (currPo &lt; this.currentPlaylist.length) {
-      this.selectedSong &#x3D; this.currentPlaylist[currPo];
+      this.selectedTrack &#x3D; this.currentPlaylist[currPo];
     }
   }
 
   @action selectPrevious() {
-    if (!this.selectedSong) {
+    if (!this.selectedTrack) {
       return;
     }
-    const currPo &#x3D; this.selectedSong.playlistPosition;
+    const currPo &#x3D; this.selectedTrack.playlistPosition;
     if (!currPo) {
       return;
     }
 
     if (currPo &gt; 1) {
-      this.selectedSong &#x3D; this.currentPlaylist[currPo - 2];
+      this.selectedTrack &#x3D; this.currentPlaylist[currPo - 2];
     }
   }
 
@@ -1790,7 +1748,7 @@ export class PlayerService {
   }
 
   get playing(): boolean {
-    return !!this.playingSong &amp;&amp; !this.audioService.paused;
+    return !!this.playState.getValue().currentTrack &amp;&amp; !this.audioService.paused;
   }
 
   @action toggleRepeat() {
