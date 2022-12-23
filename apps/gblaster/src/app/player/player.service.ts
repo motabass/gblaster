@@ -11,11 +11,13 @@ import { WakelockService } from '../services/wakelock.service';
 import { MediaSessionService } from '../services/media-session.service';
 import { AudioService } from './audio.service';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { BaseSubscribingClass } from '@motabass/base-components/base-subscribing-component';
+import { takeUntil } from 'rxjs/operators';
 
 export const BAND_FREQUENIES: FrequencyBand[] = [60, 170, 310, 600, 1000, 3000, 6000, 12000, 14000, 16000];
 
 @Injectable({ providedIn: 'any' })
-export class PlayerService {
+export class PlayerService extends BaseSubscribingClass {
   private playState: BehaviorSubject<PlayState> = new BehaviorSubject<PlayState>({ state: 'stopped' });
 
   private loadFinished = true;
@@ -37,6 +39,7 @@ export class PlayerService {
     private wakelockService: WakelockService,
     private mediaSessionService: MediaSessionService
   ) {
+    super();
     this.mediaSessionService.setActionHandler('play', () => this.playPause());
     this.mediaSessionService.setActionHandler('pause', () => this.playPause());
     this.mediaSessionService.setActionHandler('stop', () => this.stop());
@@ -67,7 +70,7 @@ export class PlayerService {
       this.next();
     });
 
-    this.playState.subscribe(async (state) => {
+    this.playState.pipe(takeUntil(this.destroy$)).subscribe(async (state) => {
       if (state.state === 'playing') {
         await this.afterPlayLoaded();
       }

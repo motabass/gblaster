@@ -4,12 +4,12 @@ import { SwUpdate } from '@angular/service-worker';
 import { PromptDialogComponent, PromptDialogData } from '@motabass/ui-components/dialogs';
 import { firstValueFrom } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { BaseSubscribingComponent } from '@motabass/base-components/base-subscribing-component';
+import { BaseSubscribingClass } from '@motabass/base-components/base-subscribing-component';
 
 @Injectable({
   providedIn: 'root'
 })
-export class UpdateService extends BaseSubscribingComponent {
+export class UpdateService extends BaseSubscribingClass {
   constructor(private swUpdate: SwUpdate, private dialog: MatDialog) {
     super();
     if (swUpdate.isEnabled) {

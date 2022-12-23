@@ -1,5 +1,5 @@
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy } from '@angular/core';
 import { PlayerService } from '../player.service';
 import { Track } from '../player.types';
 import { filter, Observable } from 'rxjs';
@@ -15,7 +15,7 @@ import { map } from 'rxjs/operators';
   styleUrls: ['./playlist.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class PlaylistComponent {
+export class PlaylistComponent implements OnDestroy {
   analyser: AnalyserNode;
   constructor(
     private playerService: PlayerService,
@@ -23,8 +23,11 @@ export class PlaylistComponent {
     private visualsService: VisualsService,
     private loaderService: LoaderService
   ) {
-    const analyser = this.audioService.plugAnalyser();
-    this.analyser = analyser;
+    this.analyser = this.audioService.plugAnalyser();
+  }
+
+  ngOnDestroy(): void {
+    this.analyser.disconnect();
   }
 
   get isLoading(): Observable<boolean> {
