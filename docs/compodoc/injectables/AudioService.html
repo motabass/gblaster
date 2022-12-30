@@ -89,6 +89,9 @@
                                 <a href="#play" >play</a>
                             </li>
                             <li>
+                                <a href="#plugAnalyser" >plugAnalyser</a>
+                            </li>
+                            <li>
                                 <a href="#seekToPosition" >seekToPosition</a>
                             </li>
                             <li>
@@ -128,9 +131,6 @@
                     <tr>
                         <td class="col-md-4">
                             <ul class="index-list">
-                                <li>
-                                    <a href="#analyser" >analyser</a>
-                                </li>
                                 <li>
                                     <a href="#playing" >playing</a>
                                 </li>
@@ -352,6 +352,43 @@
 
                     <div class="io-description">
                         <b>Returns : </b>    <code>unknown</code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="plugAnalyser"></a>
+                    <span class="name">
+                        <span ><b>plugAnalyser</b></span>
+                        <a href="#plugAnalyser"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>plugAnalyser()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="102"
+                            class="link-to-prism">apps/gblaster/src/app/player/audio.service.ts:102</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>AnalyserNode</code>
 
                     </div>
                 </td>
@@ -949,28 +986,6 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-                        <a name="analyser"></a>
-                        <span class="name"><b>analyser</b><a href="#analyser"><span class="icon ion-ios-link"></span></a></span>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td class="col-md-4">
-                        <span class="accessor"><b>get</b><code>analyser()</code></span>
-                    </td>
-                </tr>
-                            <tr>
-                                <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="104" class="link-to-prism">apps/gblaster/src/app/player/audio.service.ts:104</a></div>
-                                </td>
-                            </tr>
-
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
-                <tr>
-                    <td class="col-md-4">
                         <a name="playing"></a>
                         <span class="name"><b>playing</b><a href="#playing"><span class="icon ion-ios-link"></span></a></span>
                     </td>
@@ -1136,7 +1151,7 @@ const FREQUENCY_BANDS: FrequencyBand[] &#x3D; [60, 170, 310, 600, 1000, 3000, 60
 export class AudioService {
   private _audioElement: HTMLAudioElement;
   private _audioContext: AudioContext;
-  private _analyserNode: AnalyserNode;
+  private _audioSourceNode: MediaElementAudioSourceNode;
   private _gainNode: GainNode;
   private _eqGainNode: GainNode;
   private _frequencyFilters: { [band: number]: BiquadFilterNode } &#x3D; {};
@@ -1171,14 +1186,12 @@ export class AudioService {
 
     // create audio nodes
     const audioSource &#x3D; audioContext.createMediaElementSource(audioElement);
-    const analyser &#x3D; audioContext.createAnalyser();
     const gain &#x3D; audioContext.createGain();
     const eqGain &#x3D; audioContext.createGain();
     const { eqInput, eqOutput } &#x3D; this.createEqualizer(audioContext);
 
     // connect audio nodes
-    audioSource.connect(analyser);
-    analyser.connect(eqGain);
+    audioSource.connect(eqGain);
     eqGain.connect(eqInput);
     eqOutput.connect(gain);
     gain.connect(audioContext.destination);
@@ -1194,8 +1207,8 @@ export class AudioService {
     gain.gain.value &#x3D; storedVolume ?? 0.5;
 
     this._audioElement &#x3D; audioElement;
+    this._audioSourceNode &#x3D; audioSource;
     this._audioContext &#x3D; audioContext;
-    this._analyserNode &#x3D; analyser;
     this._eqGainNode &#x3D; eqGain;
     this._gainNode &#x3D; gain;
   }
@@ -1229,8 +1242,10 @@ export class AudioService {
     return { eqInput: input, eqOutput: output };
   }
 
-  get analyser(): AnalyserNode {
-    return this._analyserNode;
+  plugAnalyser(): AnalyserNode {
+    const analyser &#x3D; this._audioContext.createAnalyser();
+    this._audioSourceNode.connect(analyser);
+    return analyser;
   }
 
   // AUDIO ELEMENT CONTROL

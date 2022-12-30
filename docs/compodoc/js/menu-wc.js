@@ -280,9 +280,6 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                             </div>
                             <ul class="links collapse " ${ isNormalMode ? 'id="directives-links"' : 'id="xs-directives-links"' }>
                                 <li class="link">
-                                    <a href="directives/BaseSubscribingComponent.html" data-type="entity-link" >BaseSubscribingComponent</a>
-                                </li>
-                                <li class="link">
                                     <a href="directives/IconSizeDirective.html" data-type="entity-link" >IconSizeDirective</a>
                                 </li>
                             </ul>
@@ -310,6 +307,9 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                             <ul class="links collapse " ${ isNormalMode ? 'id="injectables-links"' : 'id="xs-injectables-links"' }>
                                 <li class="link">
                                     <a href="injectables/AudioService.html" data-type="entity-link" >AudioService</a>
+                                </li>
+                                <li class="link">
+                                    <a href="injectables/BaseSubscribingClass.html" data-type="entity-link" >BaseSubscribingClass</a>
                                 </li>
                                 <li class="link">
                                     <a href="injectables/GamepadService.html" data-type="entity-link" >GamepadService</a>

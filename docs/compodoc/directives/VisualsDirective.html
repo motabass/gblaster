@@ -401,8 +401,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="124"
-                            class="link-to-prism">apps/gblaster/src/app/player/visualizer/visuals/visuals.directive.ts:124</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="115"
+                            class="link-to-prism">apps/gblaster/src/app/player/visualizer/visuals/visuals.directive.ts:115</a></div>
                 </td>
             </tr>
 
@@ -475,8 +475,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="94"
-                            class="link-to-prism">apps/gblaster/src/app/player/visualizer/visuals/visuals.directive.ts:94</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="90"
+                            class="link-to-prism">apps/gblaster/src/app/player/visualizer/visuals/visuals.directive.ts:90</a></div>
                 </td>
             </tr>
 
@@ -610,17 +610,13 @@ export class VisualsDirective implements OnDestroy, OnChanges {
       const bufferLength &#x3D; this.analyser.frequencyBinCount;
       const analyserData &#x3D; new Uint8Array(bufferLength);
 
-      let lastTimestamp &#x3D; 0;
-      const draw &#x3D; (timestamp: number) &#x3D;&gt; {
-        if (timestamp - lastTimestamp &gt; 32) {
-          // animation throttling
-          this.analyser.getByteFrequencyData(analyserData);
-          this.worker.postMessage({ analyserData: analyserData } as VisualsWorkerMessage);
-          lastTimestamp &#x3D; timestamp;
-        }
+      const draw &#x3D; () &#x3D;&gt; {
+        this.analyser.getByteFrequencyData(analyserData);
+        this.worker.postMessage({ analyserData: analyserData } as VisualsWorkerMessage);
+
         this.animationFrameRef &#x3D; requestAnimationFrame(draw);
       };
-      this.animationFrameRef &#x3D; requestAnimationFrame(draw);
+      draw();
     });
   }
 
@@ -640,17 +636,12 @@ export class VisualsDirective implements OnDestroy, OnChanges {
       const bufferLength &#x3D; this.analyser.frequencyBinCount;
       const analyserData &#x3D; new Uint8Array(bufferLength);
 
-      let lastTimestamp &#x3D; 0;
-      const draw &#x3D; (timestamp: number) &#x3D;&gt; {
-        if (timestamp - lastTimestamp &gt; 32) {
-          // animation throttling
-          this.analyser.getByteTimeDomainData(analyserData);
-          this.worker.postMessage({ analyserData: analyserData } as VisualsWorkerMessage);
-          lastTimestamp &#x3D; timestamp;
-        }
+      const draw &#x3D; () &#x3D;&gt; {
+        this.analyser.getByteTimeDomainData(analyserData);
+        this.worker.postMessage({ analyserData: analyserData } as VisualsWorkerMessage);
         this.animationFrameRef &#x3D; requestAnimationFrame(draw);
       };
-      this.animationFrameRef &#x3D; requestAnimationFrame(draw);
+      draw();
     });
   }
 
