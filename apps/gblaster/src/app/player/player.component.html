@@ -31,12 +31,8 @@
   <div class="flex-grow" *ngIf="(playingTrack$ | async) === undefined"></div>
 
   <!-- TODO: The 'tickInterval' property no longer exists -->
-  <mat-slider class="flex-grow" *ngIf="playingTrack$" min="0" [max]="durationSeconds" step="1" thumbLabel color="accent" [displayWith]="formatLabel" #ngSlider
-    ><input
-      matSliderThumb
-      [value]="position"
-      (input)="onSliderPositionChanged({ source: ngSliderThumb, parent: ngSlider, value: ngSliderThumb.value })"
-      #ngSliderThumb="matSliderThumb"
+  <mat-slider class="flex-grow" *ngIf="playingTrack$" min="0" [max]="durationSeconds" step="1" discrete color="accent" [displayWith]="formatLabel" #ngSlider
+    ><input matSliderThumb [value]="position" (input)="onSliderPositionChanged(ngSliderThumb.value)" #ngSliderThumb="matSliderThumb"
   /></mat-slider>
 
   <div class="no-mobile" style="font-size: small; padding: 0 12px">

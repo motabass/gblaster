@@ -8,6 +8,7 @@ import { Id3TagsService } from './id3-tags.service';
 import { LastfmMetadataService } from './lastfm-metadata.service';
 import { CoverColorPalette, RemoteCoverPicture } from './metadata.types';
 import { MusicbrainzService } from './musicbrainz.service';
+
 // import * as SparkMD5 from 'spark-md5';
 
 @Injectable({ providedIn: 'root' })

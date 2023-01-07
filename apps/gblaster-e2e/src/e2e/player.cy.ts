@@ -1,4 +1,5 @@
 import { getCoverDisplay, getPlaylistItems, getVolumeButton, getVolumeSlider } from '../support/player.po';
+
 describe('gblaster', () => {
   beforeEach(() => {
     cy.visit('/player', {

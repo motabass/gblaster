@@ -81,8 +81,7 @@ export class PlayerComponent implements OnInit, AfterViewInit, OnDestroy {
     }, 1000);
   }
 
-  onSliderPositionChanged(event: MatSliderChange) {
-    const value = event.value;
+  onSliderPositionChanged(value: number) {
     if (value !== null) {
       this.playerService.setSeekPosition(value);
     }

@@ -5,7 +5,7 @@
   //overflow-x: auto;
 }
 
-.vertical-slider-container {
+::ng-deep .vertical-slider-container {
   min-height: 12rem;
   width: 64px;
   //position: relative;
@@ -13,6 +13,12 @@
   .vertical-slider {
     transform: rotate(270deg);
     transform-origin: 100% 100%;
+
+    .mdc-slider__value-indicator-text {
+      transform: rotate(90deg);
+      //white-space: nowrap;
+      display: inline-block;
+    }
     //position: absolute;
     .vertical-slider-label {
       padding-top: 24px;

@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { MatSliderChange } from '@angular/material/slider';
 import { BAND_FREQUENIES } from '../player.service';
 import { FrequencyBand } from '../player.types';
 import { AudioService } from '../audio.service';
@@ -20,14 +19,15 @@ export class EqualizerComponent {
     return this.audioService.getBandGain(bandFrequency);
   }
 
-  onGainChange(event: MatSliderChange, frequencyBand: FrequencyBand) {
-    if (event.value) {
-      this.audioService.setGainForFrequency(frequencyBand, event.value);
+  onGainChange(value: number, frequencyBand: FrequencyBand) {
+    if (value !== undefined && value !== null) {
+      this.audioService.setGainForFrequency(frequencyBand, value);
     }
   }
 
   displayFunction(value: number): string {
-    return value <= 0 ? value.toString() : '+' + value;
+    const num = value.toFixed(1);
+    return num + ' dB';
   }
 
   bandTrackFunction(index: number): number {
@@ -38,9 +38,9 @@ export class EqualizerComponent {
     return this.audioService.baseGain;
   }
 
-  onBaseGainChange(event: MatSliderChange) {
-    if (event.value) {
-      this.audioService.setBaseGain(event.value);
+  onBaseGainChange(value: number) {
+    if (value !== undefined && value !== null) {
+      this.audioService.setBaseGain(value);
     }
   }
 }
