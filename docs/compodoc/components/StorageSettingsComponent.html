@@ -263,7 +263,7 @@ export class StorageSettingsComponent {
     </div>
 
     <div class="tab-pane fade " id="c-templateData">
-        <pre class="line-numbers"><code class="language-html">&lt;mat-card&gt;
+        <pre class="line-numbers"><code class="language-html">&lt;mat-card appearance&#x3D;&quot;outlined&quot;&gt;
   &lt;mat-card-title&gt;Local Storage Settings&lt;/mat-card-title&gt;
   &lt;mat-card-content class&#x3D;&quot;flex row align-center gap-1&quot; style&#x3D;&quot;min-height: 48px&quot;&gt;
     &lt;button mat-flat-button color&#x3D;&quot;accent&quot; (click)&#x3D;&quot;clearSettingsCache()&quot;&gt;Clear Settings Cache&lt;/button&gt;
@@ -304,9 +304,9 @@ export class StorageSettingsComponent {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><mat-card>  <mat-card-title>Local Storage Settings</mat-card-title>  <mat-card-content class="flex row align-center gap-1" style="min-height: 48px">    <button mat-flat-button color="accent" (click)="clearSettingsCache()">Clear Settings Cache</button>  </mat-card-content></mat-card></div>'
+        var COMPONENT_TEMPLATE = '<div><mat-card appearance="outlined">  <mat-card-title>Local Storage Settings</mat-card-title>  <mat-card-content class="flex row align-center gap-1" style="min-height: 48px">    <button mat-flat-button color="accent" (click)="clearSettingsCache()">Clear Settings Cache</button>  </mat-card-content></mat-card></div>'
     var COMPONENTS = [{'name': 'AppComponent', 'selector': 'mtb-root'},{'name': 'CoverDisplayComponent', 'selector': 'mtb-cover-display'},{'name': 'EqualizerComponent', 'selector': 'mtb-equalizer'},{'name': 'FileDropOverlayComponent', 'selector': 'mtb-file-drop-overlay'},{'name': 'HotkeysHelpDialogComponent', 'selector': 'mtb-hotkeys-help-dialog'},{'name': 'LibraryComponent', 'selector': ''},{'name': 'MetadataSettingsComponent', 'selector': 'mtb-metadata-settings'},{'name': 'PlayerComponent', 'selector': 'mtb-player'},{'name': 'PlaylistComponent', 'selector': 'mtb-playlist'},{'name': 'PromptDialogComponent', 'selector': 'mtb-prompt-dialog'},{'name': 'SettingsComponent', 'selector': 'mtb-settings'},{'name': 'ShellComponent', 'selector': 'mtb-shell'},{'name': 'SlidePanelComponent', 'selector': 'mtb-slide-panel'},{'name': 'StorageSettingsComponent', 'selector': 'mtb-storage-settings'},{'name': 'ThemeSettingsComponent', 'selector': 'mtb-theme-settings'},{'name': 'VisualizerComponent', 'selector': 'mtb-visualizer'}];
-    var DIRECTIVES = [{'name': 'IconSizeDirective', 'selector': '[matIconSize]'},{'name': 'VisualsDirective', 'selector': '[mtbVisual]'}];
+    var DIRECTIVES = [{'name': 'VisualsDirective', 'selector': '[mtbVisual]'}];
     var ACTUAL_COMPONENT = {'name': 'StorageSettingsComponent'};
 </script>
 <script src="../js/tree.js"></script>

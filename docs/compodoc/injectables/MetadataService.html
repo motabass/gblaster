@@ -128,7 +128,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="20" class="link-to-prism">apps/gblaster/src/app/player/metadata-service/metadata.service.ts:20</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="21" class="link-to-prism">apps/gblaster/src/app/player/metadata-service/metadata.service.ts:21</a></div>
                             </td>
                         </tr>
 
@@ -229,8 +229,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="29"
-                            class="link-to-prism">apps/gblaster/src/app/player/metadata-service/metadata.service.ts:29</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="30"
+                            class="link-to-prism">apps/gblaster/src/app/player/metadata-service/metadata.service.ts:30</a></div>
                 </td>
             </tr>
 
@@ -312,7 +312,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="20" class="link-to-prism">apps/gblaster/src/app/player/metadata-service/metadata.service.ts:20</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="21" class="link-to-prism">apps/gblaster/src/app/player/metadata-service/metadata.service.ts:21</a></div>
                         </td>
                     </tr>
 
@@ -347,7 +347,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">apps/gblaster/src/app/player/metadata-service/metadata.service.ts:19</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="20" class="link-to-prism">apps/gblaster/src/app/player/metadata-service/metadata.service.ts:20</a></div>
                         </td>
                     </tr>
 
@@ -382,7 +382,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">apps/gblaster/src/app/player/metadata-service/metadata.service.ts:18</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">apps/gblaster/src/app/player/metadata-service/metadata.service.ts:19</a></div>
                         </td>
                     </tr>
 
@@ -417,7 +417,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">apps/gblaster/src/app/player/metadata-service/metadata.service.ts:17</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">apps/gblaster/src/app/player/metadata-service/metadata.service.ts:18</a></div>
                         </td>
                     </tr>
 
@@ -440,7 +440,8 @@ import { Id3TagsService } from &#x27;./id3-tags.service&#x27;;
 import { LastfmMetadataService } from &#x27;./lastfm-metadata.service&#x27;;
 import { CoverColorPalette, RemoteCoverPicture } from &#x27;./metadata.types&#x27;;
 import { MusicbrainzService } from &#x27;./musicbrainz.service&#x27;;
-import * as SparkMD5 from &#x27;spark-md5&#x27;;
+
+// import * as SparkMD5 from &#x27;spark-md5&#x27;;
 
 @Injectable({ providedIn: &#x27;root&#x27; })
 export class MetadataService {
@@ -460,7 +461,7 @@ export class MetadataService {
 
   async getMetadata(file: File): Promise&lt;TrackMetadata&gt; {
     console.time(&#x27;hash&#x27;);
-    const crc &#x3D; await generateFileHashMD5(file);
+    const crc &#x3D; generateFileHash(file);
     console.timeEnd(&#x27;hash&#x27;);
 
     if (this.useTagsCache) {
@@ -550,10 +551,10 @@ function generateFileHash(file: File): string {
   const hashString: string &#x3D; file.name + file.type + file.size + file.lastModified;
   return crc32(hashString, &#x27;hex&#x27;) as string;
 }
-
-async function generateFileHashMD5(file: File): Promise&lt;string&gt; {
-  return SparkMD5.ArrayBuffer.hash(await file.arrayBuffer());
-}
+//
+// async function generateFileHashMD5(file: File): Promise&lt;string&gt; {
+//   return SparkMD5.ArrayBuffer.hash(await file.arrayBuffer());
+// }
 
 async function extractColorsWithNodeVibrant(url: string): Promise&lt;CoverColorPalette&gt; {
   const vibrantLib &#x3D; await import(&#x27;node-vibrant/lib/browser&#x27;);

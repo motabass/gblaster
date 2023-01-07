@@ -1814,37 +1814,85 @@ export class VisualizerComponent implements OnInit, OnDestroy {
       &lt;/div&gt;
       &lt;div&gt;
         &lt;h5 class&#x3D;&quot;slider-label&quot;&gt;Transparency&lt;/h5&gt;
-        &lt;mat-slider min&#x3D;&quot;0&quot; max&#x3D;&quot;1&quot; step&#x3D;&quot;0.01&quot; [value]&#x3D;&quot;alpha&quot; (input)&#x3D;&quot;setAlpha($event.value)&quot; thumbLabel&gt;&lt;/mat-slider&gt;
+        &lt;mat-slider min&#x3D;&quot;0&quot; max&#x3D;&quot;1&quot; step&#x3D;&quot;0.01&quot; discrete #ngSlider
+          &gt;&lt;input
+            matSliderThumb
+            [value]&#x3D;&quot;alpha&quot;
+            (input)&#x3D;&quot;setAlpha({ source: ngSliderThumb, parent: ngSlider, value: ngSliderThumb.value }.value)&quot;
+            #ngSliderThumb&#x3D;&quot;matSliderThumb&quot;
+        /&gt;&lt;/mat-slider&gt;
       &lt;/div&gt;
       &lt;ng-container *ngIf&#x3D;&quot;visualMode &#x3D;&#x3D;&#x3D; &#x27;bars&#x27;&quot;&gt;
         &lt;div&gt;
           &lt;h5 class&#x3D;&quot;slider-label&quot;&gt;min. DB&lt;/h5&gt;
-          &lt;mat-slider min&#x3D;&quot;-90&quot; max&#x3D;&quot;-70&quot; step&#x3D;&quot;0.01&quot; [value]&#x3D;&quot;minDb&quot; (input)&#x3D;&quot;setMinDb($event.value)&quot; thumbLabel&gt;&lt;/mat-slider&gt;
+          &lt;mat-slider min&#x3D;&quot;-90&quot; max&#x3D;&quot;-70&quot; step&#x3D;&quot;0.01&quot; discrete #ngSlider
+            &gt;&lt;input
+              matSliderThumb
+              [value]&#x3D;&quot;minDb&quot;
+              (input)&#x3D;&quot;setMinDb({ source: ngSliderThumb, parent: ngSlider, value: ngSliderThumb.value }.value)&quot;
+              #ngSliderThumb&#x3D;&quot;matSliderThumb&quot;
+          /&gt;&lt;/mat-slider&gt;
         &lt;/div&gt;
         &lt;div&gt;
           &lt;h5 class&#x3D;&quot;slider-label&quot;&gt;Smoothing&lt;/h5&gt;
-          &lt;mat-slider min&#x3D;&quot;0&quot; max&#x3D;&quot;1&quot; step&#x3D;&quot;0.1&quot; [value]&#x3D;&quot;smoothing&quot; (input)&#x3D;&quot;setSmoothing($event.value)&quot; thumbLabel&gt;&lt;/mat-slider&gt;
+          &lt;mat-slider min&#x3D;&quot;0&quot; max&#x3D;&quot;1&quot; step&#x3D;&quot;0.1&quot; discrete #ngSlider
+            &gt;&lt;input
+              matSliderThumb
+              [value]&#x3D;&quot;smoothing&quot;
+              (input)&#x3D;&quot;setSmoothing({ source: ngSliderThumb, parent: ngSlider, value: ngSliderThumb.value }.value)&quot;
+              #ngSliderThumb&#x3D;&quot;matSliderThumb&quot;
+          /&gt;&lt;/mat-slider&gt;
         &lt;/div&gt;
         &lt;div&gt;
           &lt;h5 class&#x3D;&quot;slider-label&quot;&gt;Bars&lt;/h5&gt;
-          &lt;mat-slider min&#x3D;&quot;8&quot; max&#x3D;&quot;128&quot; step&#x3D;&quot;1&quot; [value]&#x3D;&quot;barCount&quot; (input)&#x3D;&quot;setBarCount($event.value)&quot; thumbLabel&gt;&lt;/mat-slider&gt;
+          &lt;mat-slider min&#x3D;&quot;8&quot; max&#x3D;&quot;128&quot; step&#x3D;&quot;1&quot; discrete #ngSlider
+            &gt;&lt;input
+              matSliderThumb
+              [value]&#x3D;&quot;barCount&quot;
+              (input)&#x3D;&quot;setBarCount({ source: ngSliderThumb, parent: ngSlider, value: ngSliderThumb.value }.value)&quot;
+              #ngSliderThumb&#x3D;&quot;matSliderThumb&quot;
+          /&gt;&lt;/mat-slider&gt;
         &lt;/div&gt;
         &lt;div&gt;
           &lt;h5 class&#x3D;&quot;slider-label&quot;&gt;Gap&lt;/h5&gt;
-          &lt;mat-slider min&#x3D;&quot;-1&quot; max&#x3D;&quot;20&quot; step&#x3D;&quot;0.1&quot; [value]&#x3D;&quot;gap&quot; (input)&#x3D;&quot;setGap($event.value)&quot; thumbLabel&gt;&lt;/mat-slider&gt;
+          &lt;mat-slider min&#x3D;&quot;-1&quot; max&#x3D;&quot;20&quot; step&#x3D;&quot;0.1&quot; discrete #ngSlider
+            &gt;&lt;input
+              matSliderThumb
+              [value]&#x3D;&quot;gap&quot;
+              (input)&#x3D;&quot;setGap({ source: ngSliderThumb, parent: ngSlider, value: ngSliderThumb.value }.value)&quot;
+              #ngSliderThumb&#x3D;&quot;matSliderThumb&quot;
+          /&gt;&lt;/mat-slider&gt;
         &lt;/div&gt;
         &lt;div&gt;
           &lt;h5 class&#x3D;&quot;slider-label&quot;&gt;Cap Height&lt;/h5&gt;
-          &lt;mat-slider min&#x3D;&quot;0&quot; max&#x3D;&quot;6&quot; step&#x3D;&quot;0.1&quot; [value]&#x3D;&quot;capHeight&quot; (input)&#x3D;&quot;setCapHeight($event.value)&quot; thumbLabel&gt;&lt;/mat-slider&gt;
+          &lt;mat-slider min&#x3D;&quot;0&quot; max&#x3D;&quot;6&quot; step&#x3D;&quot;0.1&quot; discrete #ngSlider
+            &gt;&lt;input
+              matSliderThumb
+              [value]&#x3D;&quot;capHeight&quot;
+              (input)&#x3D;&quot;setCapHeight({ source: ngSliderThumb, parent: ngSlider, value: ngSliderThumb.value }.value)&quot;
+              #ngSliderThumb&#x3D;&quot;matSliderThumb&quot;
+          /&gt;&lt;/mat-slider&gt;
         &lt;/div&gt;
         &lt;div&gt;
           &lt;h5 class&#x3D;&quot;slider-label&quot;&gt;Cap Falldown&lt;/h5&gt;
-          &lt;mat-slider min&#x3D;&quot;0.1&quot; max&#x3D;&quot;2&quot; step&#x3D;&quot;0.1&quot; [value]&#x3D;&quot;capFalldown&quot; (input)&#x3D;&quot;setCapFalldown($event.value)&quot; thumbLabel&gt;&lt;/mat-slider&gt;
+          &lt;mat-slider min&#x3D;&quot;0.1&quot; max&#x3D;&quot;2&quot; step&#x3D;&quot;0.1&quot; discrete #ngSlider
+            &gt;&lt;input
+              matSliderThumb
+              [value]&#x3D;&quot;capFalldown&quot;
+              (input)&#x3D;&quot;setCapFalldown({ source: ngSliderThumb, parent: ngSlider, value: ngSliderThumb.value }.value)&quot;
+              #ngSliderThumb&#x3D;&quot;matSliderThumb&quot;
+          /&gt;&lt;/mat-slider&gt;
         &lt;/div&gt;
       &lt;/ng-container&gt;
       &lt;div *ngIf&#x3D;&quot;visualMode &#x3D;&#x3D;&#x3D; &#x27;osc&#x27;&quot;&gt;
         &lt;h5 class&#x3D;&quot;slider-label&quot;&gt;Thickness&lt;/h5&gt;
-        &lt;mat-slider min&#x3D;&quot;1&quot; max&#x3D;&quot;10&quot; step&#x3D;&quot;0.5&quot; [value]&#x3D;&quot;lineThickness&quot; (input)&#x3D;&quot;setLineThickness($event.value)&quot; thumbLabel&gt;&lt;/mat-slider&gt;
+        &lt;mat-slider min&#x3D;&quot;1&quot; max&#x3D;&quot;10&quot; step&#x3D;&quot;0.5&quot; discrete #ngSlider
+          &gt;&lt;input
+            matSliderThumb
+            [value]&#x3D;&quot;lineThickness&quot;
+            (input)&#x3D;&quot;setLineThickness({ source: ngSliderThumb, parent: ngSlider, value: ngSliderThumb.value }.value)&quot;
+            #ngSliderThumb&#x3D;&quot;matSliderThumb&quot;
+        /&gt;&lt;/mat-slider&gt;
       &lt;/div&gt;
     &lt;/div&gt;
   &lt;/mtb-slide-panel&gt;
@@ -1911,9 +1959,9 @@ export class VisualizerComponent implements OnInit, OnDestroy {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><div *mobxAutorun style="width: 100%; height: 100%; position: relative">  <canvas    *ngIf="playing"    [mtbVisual]="analyser"    style="width: 100%; height: 100%"    [mode]="visualMode"    [colorConfig]="colorConfig"    [barsConfig]="barsConfig"    [oscConfig]="oscConfig"    [sampleRate]="sampleRate"  ></canvas>  <mtb-slide-panel    *ngIf="showSlidePanel"    side="right"    bottom="0"    width="100%"    height="auto"    toggleIcon="tune"    [openedState]="false"    buttonTooltip=" visualizer config"    class="visuals-slide-panel"  >    <div class="accent-font" style="padding: 16px 0; font-size: 1rem">Visualizer</div>    <div class="visuals-settings">      <div *ngIf="visualMode !== \'off\'">        <h5 class="slider-label">FFT-Size</h5>        <mat-select [value]="fftSize" (valueChange)="setFftSize($event)">          <mat-option *ngFor="let option of fftOptions" [value]="option">{{ option }}</mat-option>        </mat-select>      </div>      <div>        <h5 class="slider-label">Transparency</h5>        <mat-slider min="0" max="1" step="0.01" [value]="alpha" (input)="setAlpha($event.value)" thumbLabel></mat-slider>      </div>      <ng-container *ngIf="visualMode === \'bars\'">        <div>          <h5 class="slider-label">min. DB</h5>          <mat-slider min="-90" max="-70" step="0.01" [value]="minDb" (input)="setMinDb($event.value)" thumbLabel></mat-slider>        </div>        <div>          <h5 class="slider-label">Smoothing</h5>          <mat-slider min="0" max="1" step="0.1" [value]="smoothing" (input)="setSmoothing($event.value)" thumbLabel></mat-slider>        </div>        <div>          <h5 class="slider-label">Bars</h5>          <mat-slider min="8" max="128" step="1" [value]="barCount" (input)="setBarCount($event.value)" thumbLabel></mat-slider>        </div>        <div>          <h5 class="slider-label">Gap</h5>          <mat-slider min="-1" max="20" step="0.1" [value]="gap" (input)="setGap($event.value)" thumbLabel></mat-slider>        </div>        <div>          <h5 class="slider-label">Cap Height</h5>          <mat-slider min="0" max="6" step="0.1" [value]="capHeight" (input)="setCapHeight($event.value)" thumbLabel></mat-slider>        </div>        <div>          <h5 class="slider-label">Cap Falldown</h5>          <mat-slider min="0.1" max="2" step="0.1" [value]="capFalldown" (input)="setCapFalldown($event.value)" thumbLabel></mat-slider>        </div>      </ng-container>      <div *ngIf="visualMode === \'osc\'">        <h5 class="slider-label">Thickness</h5>        <mat-slider min="1" max="10" step="0.5" [value]="lineThickness" (input)="setLineThickness($event.value)" thumbLabel></mat-slider>      </div>    </div>  </mtb-slide-panel>  <button mat-icon-button style="position: absolute; top: 0.5rem; right: 0.5rem; z-index: 10" (click)="toggleVisualMode()">    <mat-icon matTooltip="Frequency-Bands" *ngIf="visualMode === \'bars\'" svgIcon="equalizer"></mat-icon>    <mat-icon matTooltip="Oscilloscope" *ngIf="visualMode === \'osc\'" svgIcon="current-ac"></mat-icon>    <mat-icon matTooltip="Visualizer off" *ngIf="visualMode === \'off\'" svgIcon="eye-off-outline"></mat-icon>  </button></div></div>'
+        var COMPONENT_TEMPLATE = '<div><div *mobxAutorun style="width: 100%; height: 100%; position: relative">  <canvas    *ngIf="playing"    [mtbVisual]="analyser"    style="width: 100%; height: 100%"    [mode]="visualMode"    [colorConfig]="colorConfig"    [barsConfig]="barsConfig"    [oscConfig]="oscConfig"    [sampleRate]="sampleRate"  ></canvas>  <mtb-slide-panel    *ngIf="showSlidePanel"    side="right"    bottom="0"    width="100%"    height="auto"    toggleIcon="tune"    [openedState]="false"    buttonTooltip=" visualizer config"    class="visuals-slide-panel"  >    <div class="accent-font" style="padding: 16px 0; font-size: 1rem">Visualizer</div>    <div class="visuals-settings">      <div *ngIf="visualMode !== \'off\'">        <h5 class="slider-label">FFT-Size</h5>        <mat-select [value]="fftSize" (valueChange)="setFftSize($event)">          <mat-option *ngFor="let option of fftOptions" [value]="option">{{ option }}</mat-option>        </mat-select>      </div>      <div>        <h5 class="slider-label">Transparency</h5>        <mat-slider min="0" max="1" step="0.01" discrete #ngSlider          ><input            matSliderThumb            [value]="alpha"            (input)="setAlpha({ source: ngSliderThumb, parent: ngSlider, value: ngSliderThumb.value }.value)"            #ngSliderThumb="matSliderThumb"        /></mat-slider>      </div>      <ng-container *ngIf="visualMode === \'bars\'">        <div>          <h5 class="slider-label">min. DB</h5>          <mat-slider min="-90" max="-70" step="0.01" discrete #ngSlider            ><input              matSliderThumb              [value]="minDb"              (input)="setMinDb({ source: ngSliderThumb, parent: ngSlider, value: ngSliderThumb.value }.value)"              #ngSliderThumb="matSliderThumb"          /></mat-slider>        </div>        <div>          <h5 class="slider-label">Smoothing</h5>          <mat-slider min="0" max="1" step="0.1" discrete #ngSlider            ><input              matSliderThumb              [value]="smoothing"              (input)="setSmoothing({ source: ngSliderThumb, parent: ngSlider, value: ngSliderThumb.value }.value)"              #ngSliderThumb="matSliderThumb"          /></mat-slider>        </div>        <div>          <h5 class="slider-label">Bars</h5>          <mat-slider min="8" max="128" step="1" discrete #ngSlider            ><input              matSliderThumb              [value]="barCount"              (input)="setBarCount({ source: ngSliderThumb, parent: ngSlider, value: ngSliderThumb.value }.value)"              #ngSliderThumb="matSliderThumb"          /></mat-slider>        </div>        <div>          <h5 class="slider-label">Gap</h5>          <mat-slider min="-1" max="20" step="0.1" discrete #ngSlider            ><input              matSliderThumb              [value]="gap"              (input)="setGap({ source: ngSliderThumb, parent: ngSlider, value: ngSliderThumb.value }.value)"              #ngSliderThumb="matSliderThumb"          /></mat-slider>        </div>        <div>          <h5 class="slider-label">Cap Height</h5>          <mat-slider min="0" max="6" step="0.1" discrete #ngSlider            ><input              matSliderThumb              [value]="capHeight"              (input)="setCapHeight({ source: ngSliderThumb, parent: ngSlider, value: ngSliderThumb.value }.value)"              #ngSliderThumb="matSliderThumb"          /></mat-slider>        </div>        <div>          <h5 class="slider-label">Cap Falldown</h5>          <mat-slider min="0.1" max="2" step="0.1" discrete #ngSlider            ><input              matSliderThumb              [value]="capFalldown"              (input)="setCapFalldown({ source: ngSliderThumb, parent: ngSlider, value: ngSliderThumb.value }.value)"              #ngSliderThumb="matSliderThumb"          /></mat-slider>        </div>      </ng-container>      <div *ngIf="visualMode === \'osc\'">        <h5 class="slider-label">Thickness</h5>        <mat-slider min="1" max="10" step="0.5" discrete #ngSlider          ><input            matSliderThumb            [value]="lineThickness"            (input)="setLineThickness({ source: ngSliderThumb, parent: ngSlider, value: ngSliderThumb.value }.value)"            #ngSliderThumb="matSliderThumb"        /></mat-slider>      </div>    </div>  </mtb-slide-panel>  <button mat-icon-button style="position: absolute; top: 0.5rem; right: 0.5rem; z-index: 10" (click)="toggleVisualMode()">    <mat-icon matTooltip="Frequency-Bands" *ngIf="visualMode === \'bars\'" svgIcon="equalizer"></mat-icon>    <mat-icon matTooltip="Oscilloscope" *ngIf="visualMode === \'osc\'" svgIcon="current-ac"></mat-icon>    <mat-icon matTooltip="Visualizer off" *ngIf="visualMode === \'off\'" svgIcon="eye-off-outline"></mat-icon>  </button></div></div>'
     var COMPONENTS = [{'name': 'AppComponent', 'selector': 'mtb-root'},{'name': 'CoverDisplayComponent', 'selector': 'mtb-cover-display'},{'name': 'EqualizerComponent', 'selector': 'mtb-equalizer'},{'name': 'FileDropOverlayComponent', 'selector': 'mtb-file-drop-overlay'},{'name': 'HotkeysHelpDialogComponent', 'selector': 'mtb-hotkeys-help-dialog'},{'name': 'LibraryComponent', 'selector': ''},{'name': 'MetadataSettingsComponent', 'selector': 'mtb-metadata-settings'},{'name': 'PlayerComponent', 'selector': 'mtb-player'},{'name': 'PlaylistComponent', 'selector': 'mtb-playlist'},{'name': 'PromptDialogComponent', 'selector': 'mtb-prompt-dialog'},{'name': 'SettingsComponent', 'selector': 'mtb-settings'},{'name': 'ShellComponent', 'selector': 'mtb-shell'},{'name': 'SlidePanelComponent', 'selector': 'mtb-slide-panel'},{'name': 'StorageSettingsComponent', 'selector': 'mtb-storage-settings'},{'name': 'ThemeSettingsComponent', 'selector': 'mtb-theme-settings'},{'name': 'VisualizerComponent', 'selector': 'mtb-visualizer'}];
-    var DIRECTIVES = [{'name': 'IconSizeDirective', 'selector': '[matIconSize]'},{'name': 'VisualsDirective', 'selector': '[mtbVisual]'}];
+    var DIRECTIVES = [{'name': 'VisualsDirective', 'selector': '[mtbVisual]'}];
     var ACTUAL_COMPONENT = {'name': 'VisualizerComponent'};
 </script>
 <script src="../js/tree.js"></script>

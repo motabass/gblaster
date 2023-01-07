@@ -175,7 +175,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="22" class="link-to-prism">libs/ui-components/dialogs/src/lib/prompt-dialog/prompt-dialog.component.ts:22</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">libs/ui-components/dialogs/src/lib/prompt-dialog/prompt-dialog.component.ts:18</a></div>
                             </td>
                         </tr>
 
@@ -254,8 +254,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="31"
-                            class="link-to-prism">libs/ui-components/dialogs/src/lib/prompt-dialog/prompt-dialog.component.ts:31</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="27"
+                            class="link-to-prism">libs/ui-components/dialogs/src/lib/prompt-dialog/prompt-dialog.component.ts:27</a></div>
                 </td>
             </tr>
 
@@ -291,8 +291,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="27"
-                            class="link-to-prism">libs/ui-components/dialogs/src/lib/prompt-dialog/prompt-dialog.component.ts:27</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="23"
+                            class="link-to-prism">libs/ui-components/dialogs/src/lib/prompt-dialog/prompt-dialog.component.ts:23</a></div>
                 </td>
             </tr>
 
@@ -343,7 +343,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="23" class="link-to-prism">libs/ui-components/dialogs/src/lib/prompt-dialog/prompt-dialog.component.ts:23</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">libs/ui-components/dialogs/src/lib/prompt-dialog/prompt-dialog.component.ts:19</a></div>
                         </td>
                     </tr>
 
@@ -370,7 +370,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="23" class="link-to-prism">libs/ui-components/dialogs/src/lib/prompt-dialog/prompt-dialog.component.ts:23</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">libs/ui-components/dialogs/src/lib/prompt-dialog/prompt-dialog.component.ts:19</a></div>
                         </td>
                     </tr>
 
@@ -384,13 +384,9 @@
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, Inject, OnInit } from &#x27;@angular/core&#x27;;
-import {
-  MAT_LEGACY_DIALOG_DATA as MAT_DIALOG_DATA,
-  MatLegacyDialogModule as MatDialogModule,
-  MatLegacyDialogRef as MatDialogRef
-} from &#x27;@angular/material/legacy-dialog&#x27;;
+import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from &#x27;@angular/material/dialog&#x27;;
 import { CommonModule } from &#x27;@angular/common&#x27;;
-import { MatLegacyButtonModule as MatButtonModule } from &#x27;@angular/material/legacy-button&#x27;;
+import { MatButtonModule } from &#x27;@angular/material/button&#x27;;
 
 export interface PromptDialogData {
   title: string;
@@ -462,7 +458,7 @@ export class PromptDialogComponent implements OnInit {
 <script>
         var COMPONENT_TEMPLATE = '<div><h2 matDialogTitle>{{ data.title }}</h2><mat-dialog-content>  {{ data.text }}</mat-dialog-content><mat-dialog-actions>  <button mat-button color="accent" (click)="cancel()">Abbrechen</button>  <button mat-flat-button color="accent" (click)="update()">Update</button></mat-dialog-actions></div>'
     var COMPONENTS = [{'name': 'AppComponent', 'selector': 'mtb-root'},{'name': 'CoverDisplayComponent', 'selector': 'mtb-cover-display'},{'name': 'EqualizerComponent', 'selector': 'mtb-equalizer'},{'name': 'FileDropOverlayComponent', 'selector': 'mtb-file-drop-overlay'},{'name': 'HotkeysHelpDialogComponent', 'selector': 'mtb-hotkeys-help-dialog'},{'name': 'LibraryComponent', 'selector': ''},{'name': 'MetadataSettingsComponent', 'selector': 'mtb-metadata-settings'},{'name': 'PlayerComponent', 'selector': 'mtb-player'},{'name': 'PlaylistComponent', 'selector': 'mtb-playlist'},{'name': 'PromptDialogComponent', 'selector': 'mtb-prompt-dialog'},{'name': 'SettingsComponent', 'selector': 'mtb-settings'},{'name': 'ShellComponent', 'selector': 'mtb-shell'},{'name': 'SlidePanelComponent', 'selector': 'mtb-slide-panel'},{'name': 'StorageSettingsComponent', 'selector': 'mtb-storage-settings'},{'name': 'ThemeSettingsComponent', 'selector': 'mtb-theme-settings'},{'name': 'VisualizerComponent', 'selector': 'mtb-visualizer'}];
-    var DIRECTIVES = [{'name': 'IconSizeDirective', 'selector': '[matIconSize]'},{'name': 'VisualsDirective', 'selector': '[mtbVisual]'}];
+    var DIRECTIVES = [{'name': 'VisualsDirective', 'selector': '[mtbVisual]'}];
     var ACTUAL_COMPONENT = {'name': 'PromptDialogComponent'};
 </script>
 <script src="../js/tree.js"></script>
