@@ -7,7 +7,7 @@
     [mode]="(isHandset$ | async) ? 'over' : 'side'"
     [opened]="(isHandset$ | async) === false"
   >
-    <mat-toolbar color="primary" style="height: 58px">
+    <mat-toolbar color="primary" style="height: 48px">
       <mat-icon aria-label="Side nav toggle icon" svgIcon="radio" style="margin-right: 0.7rem"></mat-icon>
       <span class="title">{{ title | async }}</span>
     </mat-toolbar>
