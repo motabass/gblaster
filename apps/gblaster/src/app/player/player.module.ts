@@ -1,13 +1,13 @@
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { MatLegacyButtonModule as MatButtonModule } from '@angular/material/legacy-button';
+import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { MatLegacyInputModule as MatInputModule } from '@angular/material/legacy-input';
-import { MatLegacyListModule as MatListModule } from '@angular/material/legacy-list';
-import { MatLegacyMenuModule as MatMenuModule } from '@angular/material/legacy-menu';
-import { MatLegacySelectModule as MatSelectModule } from '@angular/material/legacy-select';
-import { MatLegacySliderModule as MatSliderModule } from '@angular/material/legacy-slider';
+import { MatInputModule } from '@angular/material/input';
+import { MatListModule } from '@angular/material/list';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatSelectModule } from '@angular/material/select';
+import { MatSliderModule } from '@angular/material/slider';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterModule } from '@angular/router';
 import { MobxAngularModule } from 'mobx-angular';
@@ -24,15 +24,11 @@ import { VisualizerComponent } from './visualizer/visualizer.component';
 import { SafePipeModule } from 'safe-pipe';
 import { VisualsDirective } from './visualizer/visuals/visuals.directive';
 import { HotkeysModule } from '../services/hotkeys/hotkeys.module';
-import {
-  MAT_LEGACY_TOOLTIP_DEFAULT_OPTIONS as MAT_TOOLTIP_DEFAULT_OPTIONS,
-  MatLegacyTooltipModule as MatTooltipModule
-} from '@angular/material/legacy-tooltip';
+import { MAT_TOOLTIP_DEFAULT_OPTIONS, MatTooltipModule } from '@angular/material/tooltip';
 import { FileDropOverlayComponent } from '@motabass/ui-components/file-drop-overlay';
 import { LibraryComponent } from './library/library.component';
 import { NgArrayPipesModule } from 'ngx-pipes';
 import { SlidePanelComponent } from '@motabass/ui-components/slide-panel';
-import { IconSizeDirective } from '@motabass/material-helpers/mat-icon-size';
 
 @NgModule({
   imports: [
@@ -53,7 +49,6 @@ import { IconSizeDirective } from '@motabass/material-helpers/mat-icon-size';
     MatToolbarModule,
     MobxAngularModule,
     SlidePanelComponent,
-    IconSizeDirective,
     DragDropModule,
     SafePipeModule,
     MatTooltipModule,

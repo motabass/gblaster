@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { MatLegacyCheckboxChange as MatCheckboxChange } from '@angular/material/legacy-checkbox';
+import { MatCheckboxChange } from '@angular/material/checkbox';
 import { ThemeService } from '../../theme/theme.service';
 
 @Component({

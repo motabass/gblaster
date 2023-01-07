@@ -5,7 +5,6 @@
     "gblaster": "apps/gblaster",
     "gblaster-e2e": "apps/gblaster-e2e",
     "helpers": "libs/helpers",
-    "material-helpers-mat-icon-size": "libs/material-helpers/mat-icon-size",
     "ui-components-dialogs": "libs/ui-components/dialogs",
     "ui-components-file-drop-overlay": "libs/ui-components/file-drop-overlay",
     "ui-components-slide-panel": "libs/ui-components/slide-panel",

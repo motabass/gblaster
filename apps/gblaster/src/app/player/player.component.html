@@ -1,6 +1,6 @@
 <mtb-playlist class="playlist mat-elevation-z6"
   ><button style="width: 100%; text-transform: uppercase" mat-button color="accent" *ngIf="isPlaylistEmpty" (click)="onReload()">
-    <mat-icon matIconSize="1.2rem" svgIcon="reload"></mat-icon> Reload last directory
+    <mat-icon svgIcon="reload"></mat-icon> Reload last directory
   </button>
 </mtb-playlist>
 
@@ -30,19 +30,14 @@
   </button>
   <div class="flex-grow" *ngIf="(playingTrack$ | async) === undefined"></div>
 
-  <mat-slider
-    class="flex-grow"
-    *ngIf="playingTrack$"
-    min="0"
-    [max]="durationSeconds"
-    step="1"
-    tickInterval="60"
-    thumbLabel
-    color="accent"
-    [displayWith]="formatLabel"
-    [value]="position"
-    (input)="onSliderPositionChanged($event)"
-  ></mat-slider>
+  <!-- TODO: The 'tickInterval' property no longer exists -->
+  <mat-slider class="flex-grow" *ngIf="playingTrack$" min="0" [max]="durationSeconds" step="1" thumbLabel color="accent" [displayWith]="formatLabel" #ngSlider
+    ><input
+      matSliderThumb
+      [value]="position"
+      (input)="onSliderPositionChanged({ source: ngSliderThumb, parent: ngSlider, value: ngSliderThumb.value })"
+      #ngSliderThumb="matSliderThumb"
+  /></mat-slider>
 
   <div class="no-mobile" style="font-size: small; padding: 0 12px">
     <p>{{ position | time }} / {{ durationSeconds | time }}</p>
@@ -61,8 +56,18 @@
   </button>
 </mat-toolbar>
 
-<mat-menu #volumeMenu="matMenu" yPosition="above" [class]="'volume-menu'">
-  <mat-slider id="volume_slider" vertical style="height: 12rem" [value]="volume" (input)="onVolumeChange($event)" min="0" max="1" step="0.01"></mat-slider>
+<mat-menu #volumeMenu="matMenu" [class]="'volume-menu'" yPosition="above">
+  <div class="vertical-slider-container">
+    <div class="vertical-slider">
+      <mat-slider style="width: 9rem" id="volume_slider" min="0" max="1" step="0.01" #ngSlider
+        ><input
+          matSliderThumb
+          [value]="volume"
+          (input)="onVolumeChange({ source: ngSliderThumb, parent: ngSlider, value: ngSliderThumb.value })"
+          #ngSliderThumb="matSliderThumb"
+      /></mat-slider>
+    </div>
+  </div>
 </mat-menu>
 
 <mtb-file-drop-overlay [allowedTypes]="allowedTypes" (filesDroped)="onFilesDropped($event)"></mtb-file-drop-overlay>

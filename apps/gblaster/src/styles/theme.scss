@@ -14,9 +14,9 @@
 //  If you specify typography styles for the components you use elsewhere, you should delete this line.
 //  If you don't need the default component typographies but still want the hierarchy styles,
 //  you can delete this line and instead use:
-//    `@include mat.legacy-typography-hierarchy(mat.define-legacy-typography-config());`
-@include mat.all-legacy-component-typographies;
-@include mat.legacy-core;
+//    `@include mat.legacy-typography-hierarchy(mat.define-typography-config());`
+@include mat.all-component-typographies;
+@include mat.core;
 
 // Palettes
 $dynamic-primary-palette: (
@@ -112,11 +112,11 @@ $dynamic-dark-theme: mat.define-dark-theme(
 // Include all theme styles for the components.
 
 .light-theme {
-  @include mat.all-legacy-component-themes($dynamic-light-theme);
+  @include mat.all-component-themes($dynamic-light-theme);
 }
 
 .dark-theme {
-  @include mat.all-legacy-component-colors($dynamic-dark-theme);
+  @include mat.all-component-colors($dynamic-dark-theme);
 }
 
 $primary-color: var(--theme-primary-500);

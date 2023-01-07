@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { MatLegacyDialog as MatDialog, MatLegacyDialogConfig as MatDialogConfig } from '@angular/material/legacy-dialog';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { SwUpdate } from '@angular/service-worker';
 import { PromptDialogComponent, PromptDialogData } from '@motabass/ui-components/dialogs';
 import { firstValueFrom } from 'rxjs';

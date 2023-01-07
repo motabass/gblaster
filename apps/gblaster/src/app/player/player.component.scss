@@ -33,11 +33,18 @@
   @include mat.elevation(12);
 }
 
-::ng-deep .bar .mat-slider-track-wrapper {
-  background-color: white;
-}
-
 ::ng-deep .volume-menu {
   min-width: unset !important;
-  background-color: var(--theme-accent-500);
+  background-color: var(--theme-accent-500) !important;
+}
+.vertical-slider-container {
+  min-height: 12rem;
+  width: 64px;
+
+  .vertical-slider {
+    transform: rotate(270deg);
+    transform-origin: 96px 87px;
+    //transform-origin: 100% 100%;
+    //position: absolute;
+  }
 }

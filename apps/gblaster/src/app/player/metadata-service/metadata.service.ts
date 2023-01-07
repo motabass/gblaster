@@ -8,7 +8,7 @@ import { Id3TagsService } from './id3-tags.service';
 import { LastfmMetadataService } from './lastfm-metadata.service';
 import { CoverColorPalette, RemoteCoverPicture } from './metadata.types';
 import { MusicbrainzService } from './musicbrainz.service';
-import * as SparkMD5 from 'spark-md5';
+// import * as SparkMD5 from 'spark-md5';
 
 @Injectable({ providedIn: 'root' })
 export class MetadataService {
@@ -28,7 +28,7 @@ export class MetadataService {
 
   async getMetadata(file: File): Promise<TrackMetadata> {
     console.time('hash');
-    const crc = await generateFileHashMD5(file);
+    const crc = generateFileHash(file);
     console.timeEnd('hash');
 
     if (this.useTagsCache) {
@@ -118,10 +118,10 @@ function generateFileHash(file: File): string {
   const hashString: string = file.name + file.type + file.size + file.lastModified;
   return crc32(hashString, 'hex') as string;
 }
-
-async function generateFileHashMD5(file: File): Promise<string> {
-  return SparkMD5.ArrayBuffer.hash(await file.arrayBuffer());
-}
+//
+// async function generateFileHashMD5(file: File): Promise<string> {
+//   return SparkMD5.ArrayBuffer.hash(await file.arrayBuffer());
+// }
 
 async function extractColorsWithNodeVibrant(url: string): Promise<CoverColorPalette> {
   const vibrantLib = await import('node-vibrant/lib/browser');

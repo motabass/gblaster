@@ -1,9 +1,9 @@
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
-import { MatLegacyButtonModule as MatButtonModule } from '@angular/material/legacy-button';
+import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { MatLegacyListModule as MatListModule } from '@angular/material/legacy-list';
-import { MatLegacyProgressSpinnerModule as MatProgressSpinnerModule } from '@angular/material/legacy-progress-spinner';
+import { MatListModule } from '@angular/material/list';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { BrowserModule } from '@angular/platform-browser';
@@ -16,7 +16,6 @@ import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
 import { ShellComponent } from './shell/shell.component';
 import { LoaderInterceptor } from './services/loader/loader.interceptor';
-import { IconSizeDirective } from '@motabass/material-helpers/mat-icon-size';
 import { PromptDialogComponent } from '@motabass/ui-components/dialogs';
 
 const dbConfig: DBConfig = {
@@ -64,7 +63,6 @@ const dbConfig: DBConfig = {
     MatListModule,
     MatIconModule,
     MatButtonModule,
-    IconSizeDirective,
     MatProgressSpinnerModule,
     PromptDialogComponent
   ],

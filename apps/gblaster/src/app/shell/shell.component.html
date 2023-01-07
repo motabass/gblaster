@@ -8,14 +8,14 @@
     [opened]="(isHandset$ | async) === false"
   >
     <mat-toolbar color="primary" style="height: 58px">
-      <mat-icon aria-label="Side nav toggle icon" svgIcon="radio" matIconSize="2.6rem" style="margin-right: 0.7rem"></mat-icon>
+      <mat-icon aria-label="Side nav toggle icon" svgIcon="radio" style="margin-right: 0.7rem"></mat-icon>
       <span class="title">{{ title | async }}</span>
     </mat-toolbar>
     <mat-nav-list>
-      <a mat-list-item (click)="navigateTo('/player')"><mat-icon mat-list-icon svgIcon="record-player"></mat-icon>&nbsp;Player</a>
-      <a mat-list-item (click)="navigateTo('/player/eq')"><mat-icon mat-list-icon svgIcon="tune-vertical"></mat-icon>&nbsp;Equalizer</a>
-      <a mat-list-item (click)="navigateTo('/player/library')"><mat-icon mat-list-icon svgIcon="music-box-multiple-outline"></mat-icon>&nbsp;Library</a>
-      <a mat-list-item (click)="navigateTo('/settings')"><mat-icon mat-list-icon svgIcon="cog-outline"></mat-icon>&nbsp;Settings</a>
+      <a mat-list-item (click)="navigateTo('/player')"><mat-icon matListItemIcon svgIcon="record-player"></mat-icon>Player</a>
+      <a mat-list-item (click)="navigateTo('/player/eq')"><mat-icon matListItemIcon svgIcon="tune-vertical"></mat-icon>Equalizer</a>
+      <a mat-list-item (click)="navigateTo('/player/library')"><mat-icon matListItemIcon svgIcon="music-box-multiple-outline"></mat-icon>Library</a>
+      <a mat-list-item (click)="navigateTo('/settings')"><mat-icon matListItemIcon svgIcon="cog-outline"></mat-icon>Settings</a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content style="overflow: hidden">
@@ -27,9 +27,9 @@
         mat-icon-button
         (click)="drawer.toggle()"
         *ngIf="isHandset$ | async"
-        style="margin-right: 0.7rem; height: 58px"
+        style="margin-right: 0.7rem; padding: 6px"
       >
-        <mat-icon aria-label="Side nav toggle icon" matIconSize="2.7rem" svgIcon="logo"></mat-icon>
+        <mat-icon aria-label="Side nav toggle icon" style="--mdc-icon-button-icon-size: 36px; width: 36px; height: 36px" svgIcon="logo"></mat-icon>
       </button>
       <span class="title">{{ title | async }}</span>
       <mat-spinner *ngIf="isLoading | async" style="margin-left: 1rem" color="accent" diameter="32" strokeWidth="6"></mat-spinner>

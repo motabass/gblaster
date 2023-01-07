@@ -8,10 +8,6 @@
 
   &.selected {
     border-left: solid 4px var(--theme-accent-500);
-
-    .mat-list-item-content {
-      padding-left: 12px !important;
-    }
   }
 }
 
