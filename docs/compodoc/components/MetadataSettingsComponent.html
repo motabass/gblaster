@@ -717,24 +717,26 @@ export class MetadataSettingsComponent {
 
     <div class="tab-pane fade " id="c-templateData">
         <pre class="line-numbers"><code class="language-html">&lt;mat-card appearance&#x3D;&quot;outlined&quot;&gt;
-  &lt;mat-card-title&gt;Metadata-Settings&lt;/mat-card-title&gt;
-  &lt;mat-card-content class&#x3D;&quot;flex column gap-1&quot; style&#x3D;&quot;min-height: 48px&quot;&gt;
+  &lt;mat-card-header&gt;
+    &lt;mat-card-title&gt;Metadata-Settings&lt;/mat-card-title&gt;
+  &lt;/mat-card-header&gt;
+  &lt;mat-card-content class&#x3D;&quot;flex column gap-1&quot; style&#x3D;&quot;min-height: 48px; padding-top: 16px&quot;&gt;
     &lt;mat-slide-toggle [checked]&#x3D;&quot;useWebTags&quot; (change)&#x3D;&quot;onUseWebTagsChange($event)&quot; labelPosition&#x3D;&quot;before&quot;
-      &gt;Use Last.FM and Musicbrainz to get Titles&lt;/mat-slide-toggle
+      &gt;Download Metadata from Last.FM and Musicbrainz&lt;/mat-slide-toggle
     &gt;
     &lt;mat-slide-toggle #useTagPicsToggle [checked]&#x3D;&quot;useTagEmbeddedPics&quot; (change)&#x3D;&quot;onUseTagEmbeddedPicsChange($event)&quot; labelPosition&#x3D;&quot;before&quot;
-      &gt;Use Cover-Art from Id3-Tags&lt;/mat-slide-toggle
+      &gt;Use coverart from file-tags&lt;/mat-slide-toggle
     &gt;
     &lt;mat-slide-toggle
       [disabled]&#x3D;&quot;!useTagPicsToggle.checked&quot;
       [checked]&#x3D;&quot;preferTagEmbeddedPics&quot;
       (change)&#x3D;&quot;onPreferTagEmbeddedPicsChange($event)&quot;
       labelPosition&#x3D;&quot;before&quot;
-      &gt;Prefer Cover-Art from Id3-Tags&lt;/mat-slide-toggle
+      &gt;Prioritize coverart from file-Tags&lt;/mat-slide-toggle
     &gt;
     &lt;div class&#x3D;&quot;flex row gap-1&quot;&gt;
-      &lt;mat-slide-toggle [checked]&#x3D;&quot;useTagsCache&quot; (change)&#x3D;&quot;onUseTagsCacheChange($event)&quot; labelPosition&#x3D;&quot;before&quot;&gt;Use IndexedDB Cache&lt;/mat-slide-toggle&gt;
-      &lt;button mat-flat-button style&#x3D;&quot;height: 24px; padding: 0 4px; line-height: normal&quot; color&#x3D;&quot;accent&quot; (click)&#x3D;&quot;clearMetadataCache()&quot;&gt;Clear Cache&lt;/button&gt;
+      &lt;mat-slide-toggle [checked]&#x3D;&quot;useTagsCache&quot; (change)&#x3D;&quot;onUseTagsCacheChange($event)&quot; labelPosition&#x3D;&quot;before&quot;&gt;Cache Tags in Indexed-DB&lt;/mat-slide-toggle&gt;
+      &lt;button mat-flat-button style&#x3D;&quot;height: 28px; padding: 0 4px; line-height: normal&quot; color&#x3D;&quot;accent&quot; (click)&#x3D;&quot;clearMetadataCache()&quot;&gt;Clear Tags-DB&lt;/button&gt;
     &lt;/div&gt;
   &lt;/mat-card-content&gt;
 &lt;/mat-card&gt;
@@ -773,7 +775,7 @@ export class MetadataSettingsComponent {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><mat-card appearance="outlined">  <mat-card-title>Metadata-Settings</mat-card-title>  <mat-card-content class="flex column gap-1" style="min-height: 48px">    <mat-slide-toggle [checked]="useWebTags" (change)="onUseWebTagsChange($event)" labelPosition="before"      >Use Last.FM and Musicbrainz to get Titles</mat-slide-toggle    >    <mat-slide-toggle #useTagPicsToggle [checked]="useTagEmbeddedPics" (change)="onUseTagEmbeddedPicsChange($event)" labelPosition="before"      >Use Cover-Art from Id3-Tags</mat-slide-toggle    >    <mat-slide-toggle      [disabled]="!useTagPicsToggle.checked"      [checked]="preferTagEmbeddedPics"      (change)="onPreferTagEmbeddedPicsChange($event)"      labelPosition="before"      >Prefer Cover-Art from Id3-Tags</mat-slide-toggle    >    <div class="flex row gap-1">      <mat-slide-toggle [checked]="useTagsCache" (change)="onUseTagsCacheChange($event)" labelPosition="before">Use IndexedDB Cache</mat-slide-toggle>      <button mat-flat-button style="height: 24px; padding: 0 4px; line-height: normal" color="accent" (click)="clearMetadataCache()">Clear Cache</button>    </div>  </mat-card-content></mat-card></div>'
+        var COMPONENT_TEMPLATE = '<div><mat-card appearance="outlined">  <mat-card-header>    <mat-card-title>Metadata-Settings</mat-card-title>  </mat-card-header>  <mat-card-content class="flex column gap-1" style="min-height: 48px; padding-top: 16px">    <mat-slide-toggle [checked]="useWebTags" (change)="onUseWebTagsChange($event)" labelPosition="before"      >Download Metadata from Last.FM and Musicbrainz</mat-slide-toggle    >    <mat-slide-toggle #useTagPicsToggle [checked]="useTagEmbeddedPics" (change)="onUseTagEmbeddedPicsChange($event)" labelPosition="before"      >Use coverart from file-tags</mat-slide-toggle    >    <mat-slide-toggle      [disabled]="!useTagPicsToggle.checked"      [checked]="preferTagEmbeddedPics"      (change)="onPreferTagEmbeddedPicsChange($event)"      labelPosition="before"      >Prioritize coverart from file-Tags</mat-slide-toggle    >    <div class="flex row gap-1">      <mat-slide-toggle [checked]="useTagsCache" (change)="onUseTagsCacheChange($event)" labelPosition="before">Cache Tags in Indexed-DB</mat-slide-toggle>      <button mat-flat-button style="height: 28px; padding: 0 4px; line-height: normal" color="accent" (click)="clearMetadataCache()">Clear Tags-DB</button>    </div>  </mat-card-content></mat-card></div>'
     var COMPONENTS = [{'name': 'AppComponent', 'selector': 'mtb-root'},{'name': 'CoverDisplayComponent', 'selector': 'mtb-cover-display'},{'name': 'EqualizerComponent', 'selector': 'mtb-equalizer'},{'name': 'FileDropOverlayComponent', 'selector': 'mtb-file-drop-overlay'},{'name': 'HotkeysHelpDialogComponent', 'selector': 'mtb-hotkeys-help-dialog'},{'name': 'LibraryComponent', 'selector': ''},{'name': 'MetadataSettingsComponent', 'selector': 'mtb-metadata-settings'},{'name': 'PlayerComponent', 'selector': 'mtb-player'},{'name': 'PlaylistComponent', 'selector': 'mtb-playlist'},{'name': 'PromptDialogComponent', 'selector': 'mtb-prompt-dialog'},{'name': 'SettingsComponent', 'selector': 'mtb-settings'},{'name': 'ShellComponent', 'selector': 'mtb-shell'},{'name': 'SlidePanelComponent', 'selector': 'mtb-slide-panel'},{'name': 'StorageSettingsComponent', 'selector': 'mtb-storage-settings'},{'name': 'ThemeSettingsComponent', 'selector': 'mtb-theme-settings'},{'name': 'VisualizerComponent', 'selector': 'mtb-visualizer'}];
     var DIRECTIVES = [{'name': 'VisualsDirective', 'selector': '[mtbVisual]'}];
     var ACTUAL_COMPONENT = {'name': 'MetadataSettingsComponent'};
