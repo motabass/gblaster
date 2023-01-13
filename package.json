@@ -79,7 +79,7 @@
     "lucene-escape-query": "^1.0.1",
     "mobx": "6.7.0",
     "mobx-angular": "4.6.0",
-    "music-metadata": "7.13.1",
+    "music-metadata": "7.13.3",
     "music-metadata-browser": "2.5.9",
     "ngx-date-fns": "10.0.1",
     "ngx-indexed-db": "12.0.0",
