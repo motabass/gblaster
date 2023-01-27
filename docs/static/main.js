@@ -1,6 +1,6 @@
 (self["webpackChunk_nrwl_nx_source"] = self["webpackChunk_nrwl_nx_source"] || []).push([[179],{
 
-/***/ 23179:
+/***/ 90398:
 /***/ ((__unused_webpack_module, __unused_webpack___webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -492,7 +492,7 @@ function DebouncedTextInput({
     }) : null]
   });
 }
-;// CONCATENATED MODULE: ./node_modules/@nrwl/web/node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js
+;// CONCATENATED MODULE: ./node_modules/@nrwl/js/node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js
 function _objectWithoutPropertiesLoose(source, excluded) {
   if (source == null) return {};
   var target = {};
@@ -2296,6 +2296,7 @@ function ProjectNodeActions({
   } = projectGraphService.getSnapshot().context.tracing;
   const routeConstructor = useRouteConstructor();
   const navigate = (0,react_router_dom_production_min.useNavigate)();
+  const encodedId = encodeURIComponent(id);
 
   function onExclude() {
     projectGraphService.send({
@@ -2306,17 +2307,17 @@ function ProjectNodeActions({
   }
 
   function onStartTrace() {
-    navigate(routeConstructor(`/projects/trace/${encodeURIComponent(id)}`, true));
+    navigate(routeConstructor(`/projects/trace/${encodedId}`, true));
   }
 
   function onEndTrace() {
-    navigate(routeConstructor(`/projects/trace/${encodeURIComponent(start)}/${encodeURIComponent(id)}`, true));
+    navigate(routeConstructor(`/projects/trace/${encodeURIComponent(start)}/${encodedId}`, true));
   }
 
   return /*#__PURE__*/jsxRuntime_module_e("div", {
     className: "grid grid-cols-3 gap-4",
     children: [/*#__PURE__*/jsxRuntime_module_e(TooltipLinkButton, {
-      to: routeConstructor(`/projects/${id}`, true),
+      to: routeConstructor(`/projects/${encodedId}`, true),
       children: "Focus"
     }), /*#__PURE__*/jsxRuntime_module_e(TooltipButton, {
       onClick: onExclude,
@@ -70015,6 +70016,6 @@ exports.updateHistoryValue = updateHistoryValue;
 },
 /******/ __webpack_require__ => { // webpackRuntimeModules
 /******/ var __webpack_exec__ = (moduleId) => (__webpack_require__(__webpack_require__.s = moduleId))
-/******/ var __webpack_exports__ = (__webpack_exec__(23179));
+/******/ var __webpack_exports__ = (__webpack_exec__(90398));
 /******/ }
 ]);
