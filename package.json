@@ -39,6 +39,7 @@
     "update:all": "ncu -ui --format group ",
     "update:nx": "nx migrate latest",
     "migrate": "nx migrate --run-migrations=migrations.json",
+    "migrate:standalone": "ng generate @angular/core:standalone",
     "dep-graph": "nx dep-graph",
     "help": "nx help",
     "generate:lib:ui-component": "ng generate @nrwl/angular:library --name=test --style=scss --directory=ui-components --prefix=mtb --publishable --simpleModuleName",
