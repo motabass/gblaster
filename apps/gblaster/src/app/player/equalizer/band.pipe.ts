@@ -3,7 +3,8 @@ import { FrequencyBand } from '../player.types';
 
 @Pipe({
   name: 'band',
-  pure: true
+  pure: true,
+  standalone: true
 })
 export class BandPipe implements PipeTransform {
   transform(value: FrequencyBand, ...args: unknown[]): string {

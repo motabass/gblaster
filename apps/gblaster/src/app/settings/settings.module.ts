@@ -17,8 +17,11 @@ import { MetadataSettingsComponent } from './metadata-settings/metadata-settings
     MatButtonModule,
     MatCheckboxModule,
     RouterModule.forChild([{ path: '', pathMatch: 'full', component: SettingsComponent }]),
-    MatSlideToggleModule
-  ],
-  declarations: [SettingsComponent, StorageSettingsComponent, ThemeSettingsComponent, MetadataSettingsComponent]
+    MatSlideToggleModule,
+    SettingsComponent,
+    StorageSettingsComponent,
+    ThemeSettingsComponent,
+    MetadataSettingsComponent
+  ]
 })
 export class SettingsModule {}

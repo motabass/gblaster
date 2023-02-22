@@ -2,11 +2,16 @@ import { Component } from '@angular/core';
 import { BAND_FREQUENIES } from '../player.service';
 import { FrequencyBand } from '../player.types';
 import { AudioService } from '../audio.service';
+import { BandPipe } from './band.pipe';
+import { MatSliderModule } from '@angular/material/slider';
+import { NgFor } from '@angular/common';
 
 @Component({
   selector: 'mtb-equalizer',
   templateUrl: './equalizer.component.html',
-  styleUrls: ['./equalizer.component.scss']
+  styleUrls: ['./equalizer.component.scss'],
+  standalone: true,
+  imports: [NgFor, MatSliderModule, BandPipe]
 })
 export class EqualizerComponent {
   constructor(private audioService: AudioService) {}

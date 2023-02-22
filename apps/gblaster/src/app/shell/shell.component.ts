@@ -1,16 +1,24 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Component, ViewChild } from '@angular/core';
-import { MatSidenav } from '@angular/material/sidenav';
-import { Router } from '@angular/router';
+import { MatSidenav, MatSidenavModule } from '@angular/material/sidenav';
+import { Router, RouterOutlet } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { LoaderService } from '../services/loader/loader.service';
 import { TitleService } from '../services/title.service';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatButtonModule } from '@angular/material/button';
+import { NgIf, AsyncPipe } from '@angular/common';
+import { MatListModule } from '@angular/material/list';
+import { MatIconModule } from '@angular/material/icon';
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 @Component({
   selector: 'mtb-shell',
   templateUrl: './shell.component.html',
-  styleUrls: ['./shell.component.scss']
+  styleUrls: ['./shell.component.scss'],
+  standalone: true,
+  imports: [MatSidenavModule, MatToolbarModule, MatIconModule, MatListModule, NgIf, MatButtonModule, MatProgressSpinnerModule, RouterOutlet, AsyncPipe]
 })
 export class ShellComponent {
   isHandset$: Observable<boolean> = this.breakpointObserver

@@ -41,7 +41,7 @@ const dbConfig: DBConfig = {
 };
 
 @NgModule({
-  declarations: [AppComponent, ShellComponent],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -64,7 +64,8 @@ const dbConfig: DBConfig = {
     MatIconModule,
     MatButtonModule,
     MatProgressSpinnerModule,
-    PromptDialogComponent
+    PromptDialogComponent,
+    ShellComponent
   ],
   bootstrap: [AppComponent],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true }]

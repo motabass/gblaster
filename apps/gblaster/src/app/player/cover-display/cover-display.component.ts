@@ -1,12 +1,16 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { Track } from '../player.types';
 import { ThemeService } from '../../theme/theme.service';
+import { TimePipe } from '../time.pipe';
+import { NgIf, NgStyle } from '@angular/common';
 
 @Component({
   selector: 'mtb-cover-display',
   templateUrl: './cover-display.component.html',
   styleUrls: ['./cover-display.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [NgIf, NgStyle, TimePipe]
 })
 export class CoverDisplayComponent {
   @Input() track?: Track | null;

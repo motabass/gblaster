@@ -53,9 +53,7 @@ import { SlidePanelComponent } from '@motabass/ui-components/slide-panel';
     SafePipeModule,
     MatTooltipModule,
     FileDropOverlayComponent,
-    NgArrayPipesModule
-  ],
-  declarations: [
+    NgArrayPipesModule,
     PlayerComponent,
     PlaylistComponent,
     TimePipe,

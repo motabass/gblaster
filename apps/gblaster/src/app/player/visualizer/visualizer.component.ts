@@ -6,12 +6,36 @@ import { VisualsService } from './visuals/visuals.service';
 import { GamepadService } from '../../services/gamepad/gamepad.service';
 import { GamepadButtons } from '../../services/gamepad/gamepad.types';
 import { AudioService } from '../audio.service';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSliderModule } from '@angular/material/slider';
+import { MatOptionModule } from '@angular/material/core';
+import { MatSelectModule } from '@angular/material/select';
+import { SlidePanelComponent } from '../../../../../../libs/ui-components/slide-panel/src/lib/slide-panel.component';
+import { VisualsDirective } from './visuals/visuals.directive';
+import { NgIf, NgFor } from '@angular/common';
+import { MobxAngularModule } from 'mobx-angular';
 
 @Component({
   selector: 'mtb-visualizer',
   templateUrl: './visualizer.component.html',
   styleUrls: ['./visualizer.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [
+    MobxAngularModule,
+    NgIf,
+    VisualsDirective,
+    SlidePanelComponent,
+    MatSelectModule,
+    NgFor,
+    MatOptionModule,
+    MatSliderModule,
+    MatButtonModule,
+    MatIconModule,
+    MatTooltipModule
+  ]
 })
 export class VisualizerComponent implements OnInit, OnDestroy {
   @LocalStorage('smoothing', 0.7) smoothing!: number;

@@ -3,7 +3,8 @@ import { formatSecondsAsClock } from '@motabass/helpers';
 
 @Pipe({
   name: 'time',
-  pure: true
+  pure: true,
+  standalone: true
 })
 export class TimePipe implements PipeTransform {
   transform(value: number, ...args: unknown[]): string {

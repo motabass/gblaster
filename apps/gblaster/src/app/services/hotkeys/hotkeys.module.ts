@@ -9,8 +9,7 @@ import { HotkeysHelpDialogComponent } from './hotkeys-help-dialog.component';
 const DECLARATIONS = [HotkeysHelpDialogComponent];
 
 @NgModule({
-  imports: [CommonModule, MatDialogModule, MatListModule, MatButtonModule, MatIconModule],
-  declarations: DECLARATIONS
+  imports: [CommonModule, MatDialogModule, MatListModule, MatButtonModule, MatIconModule, ...DECLARATIONS]
 })
 export class HotkeysModule {
   constructor(@Optional() @SkipSelf() parentModule: HotkeysModule) {

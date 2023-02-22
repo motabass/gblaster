@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
-import { MatSliderChange } from '@angular/material/slider';
+import { MatSliderChange, MatSliderModule } from '@angular/material/slider';
 import { formatSecondsAsClock } from '@motabass/helpers';
 import { ALLOWED_MIMETYPES } from './file-loader-service/file-loader.helpers';
 import { FileLoaderService } from './file-loader-service/file-loader.service.abstract';
@@ -12,11 +12,41 @@ import { TitleService } from '../services/title.service';
 import { AudioService } from './audio.service';
 import { filter, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { TimePipe } from './time.pipe';
+import { FileDropOverlayComponent } from '../../../../../libs/ui-components/file-drop-overlay/src/lib/file-drop-overlay/file-drop-overlay.component';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { VisualizerComponent } from './visualizer/visualizer.component';
+import { CoverDisplayComponent } from './cover-display/cover-display.component';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { NgIf, NgClass, NgSwitch, NgSwitchCase, AsyncPipe } from '@angular/common';
+import { PlaylistComponent } from './playlist/playlist.component';
 
 @Component({
   selector: 'mtb-player',
   templateUrl: './player.component.html',
-  styleUrls: ['./player.component.scss']
+  styleUrls: ['./player.component.scss'],
+  standalone: true,
+  imports: [
+    PlaylistComponent,
+    NgIf,
+    MatButtonModule,
+    MatIconModule,
+    CoverDisplayComponent,
+    VisualizerComponent,
+    MatToolbarModule,
+    MatTooltipModule,
+    MatSliderModule,
+    MatMenuModule,
+    NgClass,
+    NgSwitch,
+    NgSwitchCase,
+    FileDropOverlayComponent,
+    AsyncPipe,
+    TimePipe
+  ]
 })
 export class PlayerComponent implements OnInit, AfterViewInit, OnDestroy {
   private interval?: number;

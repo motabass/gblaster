@@ -4,7 +4,8 @@ import { FrequencyBarsConfig, OsciloscopeConfig, VisualizerMode, VisualsColorCon
 const FALLBACK_PRIMARY_COLOR = '#424242';
 const FALLBACK_ACCENT_COLOR = '#bcbcbc';
 @Directive({
-  selector: '[mtbVisual]'
+  selector: '[mtbVisual]',
+  standalone: true
 })
 export class VisualsDirective implements OnDestroy, OnChanges {
   @Input('mtbVisual') analyser!: AnalyserNode;

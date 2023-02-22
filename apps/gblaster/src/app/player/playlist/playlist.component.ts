@@ -1,4 +1,4 @@
-import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { CdkDragDrop, moveItemInArray, CdkDropList, CdkDrag, CdkDragPreview, CdkDragHandle } from '@angular/cdk/drag-drop';
 import { ChangeDetectionStrategy, Component, OnDestroy } from '@angular/core';
 import { PlayerService } from '../player.service';
 import { Track } from '../player.types';
@@ -8,12 +8,36 @@ import { VisualizerMode, VisualsColorConfig } from '../visualizer/visuals/visual
 import { LoaderService } from '../../services/loader/loader.service';
 import { AudioService } from '../audio.service';
 import { map } from 'rxjs/operators';
+import { SafePipeModule } from 'safe-pipe';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { VisualsDirective } from '../visualizer/visuals/visuals.directive';
+import { NgFor, NgClass, NgIf, AsyncPipe } from '@angular/common';
+import { MatListModule } from '@angular/material/list';
+import { MobxAngularModule } from 'mobx-angular';
 
 @Component({
   selector: 'mtb-playlist',
   templateUrl: './playlist.component.html',
   styleUrls: ['./playlist.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [
+    MobxAngularModule,
+    MatListModule,
+    CdkDropList,
+    NgFor,
+    CdkDrag,
+    NgClass,
+    CdkDragPreview,
+    CdkDragHandle,
+    NgIf,
+    VisualsDirective,
+    MatButtonModule,
+    MatIconModule,
+    AsyncPipe,
+    SafePipeModule
+  ]
 })
 export class PlaylistComponent implements OnDestroy {
   analyser: AnalyserNode;
