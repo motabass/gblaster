@@ -189,7 +189,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">apps/gblaster/src/app/shell/shell.component.ts:25</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="33" class="link-to-prism">apps/gblaster/src/app/shell/shell.component.ts:33</a></div>
                             </td>
                         </tr>
 
@@ -292,8 +292,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="38"
-                            class="link-to-prism">apps/gblaster/src/app/shell/shell.component.ts:38</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="46"
+                            class="link-to-prism">apps/gblaster/src/app/shell/shell.component.ts:46</a></div>
                 </td>
             </tr>
 
@@ -393,7 +393,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">apps/gblaster/src/app/shell/shell.component.ts:16</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="24" class="link-to-prism">apps/gblaster/src/app/shell/shell.component.ts:24</a></div>
                         </td>
                     </tr>
 
@@ -424,7 +424,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">apps/gblaster/src/app/shell/shell.component.ts:25</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="33" class="link-to-prism">apps/gblaster/src/app/shell/shell.component.ts:33</a></div>
                         </td>
                     </tr>
 
@@ -460,7 +460,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="23" class="link-to-prism">apps/gblaster/src/app/shell/shell.component.ts:23</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">apps/gblaster/src/app/shell/shell.component.ts:31</a></div>
                         </td>
                     </tr>
 
@@ -489,7 +489,7 @@
                 </tr>
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="34" class="link-to-prism">apps/gblaster/src/app/shell/shell.component.ts:34</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="42" class="link-to-prism">apps/gblaster/src/app/shell/shell.component.ts:42</a></div>
                                 </td>
                             </tr>
 
@@ -502,17 +502,25 @@
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { BreakpointObserver, Breakpoints } from &#x27;@angular/cdk/layout&#x27;;
 import { Component, ViewChild } from &#x27;@angular/core&#x27;;
-import { MatSidenav } from &#x27;@angular/material/sidenav&#x27;;
-import { Router } from &#x27;@angular/router&#x27;;
+import { MatSidenav, MatSidenavModule } from &#x27;@angular/material/sidenav&#x27;;
+import { Router, RouterOutlet } from &#x27;@angular/router&#x27;;
 import { Observable, Subject } from &#x27;rxjs&#x27;;
 import { map, shareReplay } from &#x27;rxjs/operators&#x27;;
 import { LoaderService } from &#x27;../services/loader/loader.service&#x27;;
 import { TitleService } from &#x27;../services/title.service&#x27;;
+import { MatProgressSpinnerModule } from &#x27;@angular/material/progress-spinner&#x27;;
+import { MatButtonModule } from &#x27;@angular/material/button&#x27;;
+import { NgIf, AsyncPipe } from &#x27;@angular/common&#x27;;
+import { MatListModule } from &#x27;@angular/material/list&#x27;;
+import { MatIconModule } from &#x27;@angular/material/icon&#x27;;
+import { MatToolbarModule } from &#x27;@angular/material/toolbar&#x27;;
 
 @Component({
   selector: &#x27;mtb-shell&#x27;,
   templateUrl: &#x27;./shell.component.html&#x27;,
-  styleUrls: [&#x27;./shell.component.scss&#x27;]
+  styleUrls: [&#x27;./shell.component.scss&#x27;],
+  standalone: true,
+  imports: [MatSidenavModule, MatToolbarModule, MatIconModule, MatListModule, NgIf, MatButtonModule, MatProgressSpinnerModule, RouterOutlet, AsyncPipe]
 })
 export class ShellComponent {
   isHandset$: Observable&lt;boolean&gt; &#x3D; this.breakpointObserver

@@ -185,7 +185,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">apps/gblaster/src/app/player/library/library.component.ts:18</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="23" class="link-to-prism">apps/gblaster/src/app/player/library/library.component.ts:23</a></div>
                             </td>
                         </tr>
 
@@ -252,8 +252,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="42"
-                            class="link-to-prism">apps/gblaster/src/app/player/library/library.component.ts:42</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="47"
+                            class="link-to-prism">apps/gblaster/src/app/player/library/library.component.ts:47</a></div>
                 </td>
             </tr>
 
@@ -321,8 +321,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="36"
-                            class="link-to-prism">apps/gblaster/src/app/player/library/library.component.ts:36</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="41"
+                            class="link-to-prism">apps/gblaster/src/app/player/library/library.component.ts:41</a></div>
                 </td>
             </tr>
 
@@ -390,8 +390,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="48"
-                            class="link-to-prism">apps/gblaster/src/app/player/library/library.component.ts:48</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="53"
+                            class="link-to-prism">apps/gblaster/src/app/player/library/library.component.ts:53</a></div>
                 </td>
             </tr>
 
@@ -459,8 +459,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="27"
-                            class="link-to-prism">apps/gblaster/src/app/player/library/library.component.ts:27</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="32"
+                            class="link-to-prism">apps/gblaster/src/app/player/library/library.component.ts:32</a></div>
                 </td>
             </tr>
 
@@ -506,7 +506,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="11" class="link-to-prism">apps/gblaster/src/app/player/library/library.component.ts:11</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">apps/gblaster/src/app/player/library/library.component.ts:16</a></div>
                         </td>
                     </tr>
 
@@ -537,7 +537,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="10" class="link-to-prism">apps/gblaster/src/app/player/library/library.component.ts:10</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">apps/gblaster/src/app/player/library/library.component.ts:15</a></div>
                         </td>
                     </tr>
 
@@ -568,7 +568,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">apps/gblaster/src/app/player/library/library.component.ts:12</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">apps/gblaster/src/app/player/library/library.component.ts:17</a></div>
                         </td>
                     </tr>
 
@@ -584,10 +584,15 @@
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit } from &#x27;@angular/core&#x27;;
 import { NgxIndexedDBService } from &#x27;ngx-indexed-db&#x27;;
 import { TrackMetadata } from &#x27;../player.types&#x27;;
+import { NgArrayPipesModule } from &#x27;ngx-pipes&#x27;;
+import { NgFor } from &#x27;@angular/common&#x27;;
+import { MatListModule } from &#x27;@angular/material/list&#x27;;
 
 @Component({
   templateUrl: &#x27;./library.component.html&#x27;,
-  styleUrls: [&#x27;./library.component.scss&#x27;]
+  styleUrls: [&#x27;./library.component.scss&#x27;],
+  standalone: true,
+  imports: [MatListModule, NgFor, NgArrayPipesModule]
 })
 export class LibraryComponent implements OnInit {
   artists: string[] &#x3D; [];

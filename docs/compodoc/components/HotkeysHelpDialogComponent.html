@@ -187,7 +187,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">apps/gblaster/src/app/services/hotkeys/hotkeys-help-dialog.component.ts:14</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="20" class="link-to-prism">apps/gblaster/src/app/services/hotkeys/hotkeys-help-dialog.component.ts:20</a></div>
                             </td>
                         </tr>
 
@@ -266,8 +266,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="21"
-                            class="link-to-prism">apps/gblaster/src/app/services/hotkeys/hotkeys-help-dialog.component.ts:21</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="27"
+                            class="link-to-prism">apps/gblaster/src/app/services/hotkeys/hotkeys-help-dialog.component.ts:27</a></div>
                 </td>
             </tr>
 
@@ -318,7 +318,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">apps/gblaster/src/app/services/hotkeys/hotkeys-help-dialog.component.ts:15</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="21" class="link-to-prism">apps/gblaster/src/app/services/hotkeys/hotkeys-help-dialog.component.ts:21</a></div>
                         </td>
                     </tr>
 
@@ -345,7 +345,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">apps/gblaster/src/app/services/hotkeys/hotkeys-help-dialog.component.ts:15</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="21" class="link-to-prism">apps/gblaster/src/app/services/hotkeys/hotkeys-help-dialog.component.ts:21</a></div>
                         </td>
                     </tr>
 
@@ -374,7 +374,7 @@
                 </tr>
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">apps/gblaster/src/app/services/hotkeys/hotkeys-help-dialog.component.ts:17</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="23" class="link-to-prism">apps/gblaster/src/app/services/hotkeys/hotkeys-help-dialog.component.ts:23</a></div>
                                 </td>
                             </tr>
 
@@ -386,8 +386,12 @@
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, Inject } from &#x27;@angular/core&#x27;;
-import { MAT_DIALOG_DATA, MatDialogRef } from &#x27;@angular/material/dialog&#x27;;
+import { MAT_DIALOG_DATA, MatDialogRef, MatDialogModule } from &#x27;@angular/material/dialog&#x27;;
 import { HotkeyInfo } from &#x27;./hotkeys.service&#x27;;
+import { MatListModule } from &#x27;@angular/material/list&#x27;;
+import { NgIf, NgFor } from &#x27;@angular/common&#x27;;
+import { MatIconModule } from &#x27;@angular/material/icon&#x27;;
+import { MatButtonModule } from &#x27;@angular/material/button&#x27;;
 
 export interface HotkeysData {
   registeredHotkeys: Map&lt;string, HotkeyInfo&gt;;
@@ -396,7 +400,9 @@ export interface HotkeysData {
 @Component({
   selector: &#x27;mtb-hotkeys-help-dialog&#x27;,
   styleUrls: [&#x27;./hotkeys-help-dialog.component.scss&#x27;],
-  templateUrl: &#x27;./hotkeys-help-dialog.component.html&#x27;
+  templateUrl: &#x27;./hotkeys-help-dialog.component.html&#x27;,
+  standalone: true,
+  imports: [MatDialogModule, MatButtonModule, MatIconModule, NgIf, MatListModule, NgFor]
 })
 export class HotkeysHelpDialogComponent {
   constructor(public dialogRef: MatDialogRef&lt;HotkeysHelpDialogComponent&gt;, @Inject(MAT_DIALOG_DATA) public data: HotkeysData) {}

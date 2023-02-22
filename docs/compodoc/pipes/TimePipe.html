@@ -109,8 +109,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="9"
-                            class="link-to-prism">apps/gblaster/src/app/player/time.pipe.ts:9</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="10"
+                            class="link-to-prism">apps/gblaster/src/app/player/time.pipe.ts:10</a></div>
                 </td>
             </tr>
 
@@ -181,7 +181,8 @@ import { formatSecondsAsClock } from &#x27;@motabass/helpers&#x27;;
 
 @Pipe({
   name: &#x27;time&#x27;,
-  pure: true
+  pure: true,
+  standalone: true
 })
 export class TimePipe implements PipeTransform {
   transform(value: number, ...args: unknown[]): string {

@@ -127,7 +127,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="8" class="link-to-prism">apps/gblaster/src/app/settings/settings.component.ts:8</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">apps/gblaster/src/app/settings/settings.component.ts:13</a></div>
                             </td>
                         </tr>
 
@@ -146,11 +146,16 @@
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component } from &#x27;@angular/core&#x27;;
+import { StorageSettingsComponent } from &#x27;./storage-settings/storage-settings.component&#x27;;
+import { ThemeSettingsComponent } from &#x27;./theme-settings/theme-settings.component&#x27;;
+import { MetadataSettingsComponent } from &#x27;./metadata-settings/metadata-settings.component&#x27;;
 
 @Component({
   selector: &#x27;mtb-settings&#x27;,
   templateUrl: &#x27;./settings.component.html&#x27;,
-  styleUrls: [&#x27;./settings.component.scss&#x27;]
+  styleUrls: [&#x27;./settings.component.scss&#x27;],
+  standalone: true,
+  imports: [MetadataSettingsComponent, ThemeSettingsComponent, StorageSettingsComponent]
 })
 export class SettingsComponent {
   constructor() {}

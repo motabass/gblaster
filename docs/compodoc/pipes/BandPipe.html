@@ -109,8 +109,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="9"
-                            class="link-to-prism">apps/gblaster/src/app/player/equalizer/band.pipe.ts:9</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="10"
+                            class="link-to-prism">apps/gblaster/src/app/player/equalizer/band.pipe.ts:10</a></div>
                 </td>
             </tr>
 
@@ -181,7 +181,8 @@ import { FrequencyBand } from &#x27;../player.types&#x27;;
 
 @Pipe({
   name: &#x27;band&#x27;,
-  pure: true
+  pure: true,
+  standalone: true
 })
 export class BandPipe implements PipeTransform {
   transform(value: FrequencyBand, ...args: unknown[]): string {

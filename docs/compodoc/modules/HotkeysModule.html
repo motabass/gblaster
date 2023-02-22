@@ -56,14 +56,14 @@
 <title>cluster_HotkeysModule</title>
 <polygon fill="none" stroke="black" stroke-dasharray="1,5" points="8,-32.8 8,-157.8 234,-157.8 234,-32.8 8,-32.8"/>
 </g>
-<g id="clust2" class="cluster">
-<title>cluster_HotkeysModule_declarations</title>
+<g id="clust3" class="cluster">
+<title>cluster_HotkeysModule_imports</title>
 <polygon fill="none" stroke="black" points="16,-40.8 16,-92.8 226,-92.8 226,-40.8 16,-40.8"/>
 </g>
 <!-- HotkeysHelpDialogComponent -->
 <g id="node1" class="node">
 <title>HotkeysHelpDialogComponent</title>
-<polygon fill="#ffffb3" stroke="black" points="217.81,-84.8 24.19,-84.8 24.19,-48.8 217.81,-48.8 217.81,-84.8"/>
+<polygon fill="#8dd3c7" stroke="black" points="217.81,-84.8 214.81,-88.8 193.81,-88.8 190.81,-84.8 24.19,-84.8 24.19,-48.8 217.81,-48.8 217.81,-84.8"/>
 <text text-anchor="middle" x="121" y="-62.6" font-family="Times,serif" font-size="14.00">HotkeysHelpDialogComponent</text>
 </g>
 <!-- HotkeysModule -->
@@ -118,11 +118,11 @@
         <div class="container-fluid module">
             <div class="row">
                 <div class="col-sm-3">
-                    <h3>Declarations<a href="https://angular.io/api/core/NgModule#declarations" target="_blank"
-                            title="Official documentation about module declarations"><span class="icon ion-ios-information-circle-outline"></span></a></h3>
+                    <h3>Imports<a href="https://angular.io/api/core/NgModule#imports" target="_blank" title="Official documentation about module imports"><span
+                                class="icon ion-ios-information-circle-outline"></a></h3>
                     <ul class="list-group">
                         <li class="list-group-item">
-                            <a href="../components/HotkeysHelpDialogComponent.html">HotkeysHelpDialogComponent</a>
+                            <a href="../modules/HotkeysHelpDialogComponent.html">HotkeysHelpDialogComponent</a>
                         </li>
                     </ul>
                 </div>
@@ -145,8 +145,7 @@ import { HotkeysHelpDialogComponent } from &#x27;./hotkeys-help-dialog.component
 const DECLARATIONS &#x3D; [HotkeysHelpDialogComponent];
 
 @NgModule({
-  imports: [CommonModule, MatDialogModule, MatListModule, MatButtonModule, MatIconModule],
-  declarations: DECLARATIONS
+  imports: [CommonModule, MatDialogModule, MatListModule, MatButtonModule, MatIconModule, ...DECLARATIONS]
 })
 export class HotkeysModule {
   constructor(@Optional() @SkipSelf() parentModule: HotkeysModule) {
