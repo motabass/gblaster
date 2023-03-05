@@ -13,7 +13,7 @@ import { AudioService } from './audio.service';
 import { filter, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { TimePipe } from './time.pipe';
-import { FileDropOverlayComponent } from '../../../../../libs/ui-components/file-drop-overlay/src/lib/file-drop-overlay/file-drop-overlay.component';
+import { FileDropOverlayComponent } from '@motabass/ui-components/file-drop-overlay';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -21,7 +21,7 @@ import { VisualizerComponent } from './visualizer/visualizer.component';
 import { CoverDisplayComponent } from './cover-display/cover-display.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import { NgIf, NgClass, NgSwitch, NgSwitchCase, AsyncPipe } from '@angular/common';
+import { AsyncPipe, NgClass, NgIf, NgSwitch, NgSwitchCase } from '@angular/common';
 import { PlaylistComponent } from './playlist/playlist.component';
 
 @Component({

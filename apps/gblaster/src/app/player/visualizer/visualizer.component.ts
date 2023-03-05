@@ -12,9 +12,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatOptionModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
-import { SlidePanelComponent } from '../../../../../../libs/ui-components/slide-panel/src/lib/slide-panel.component';
+import { SlidePanelComponent } from '@motabass/ui-components/slide-panel';
 import { VisualsDirective } from './visuals/visuals.directive';
-import { NgIf, NgFor } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 import { MobxAngularModule } from 'mobx-angular';
 
 @Component({

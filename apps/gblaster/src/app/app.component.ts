@@ -3,10 +3,13 @@ import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ThemeService } from './theme/theme.service';
 import { UpdateService } from './update.service';
+import { ShellComponent } from './shell/shell.component';
 
 @Component({
   selector: 'mtb-root',
-  templateUrl: './app.component.html'
+  templateUrl: './app.component.html',
+  standalone: true,
+  imports: [ShellComponent]
 })
 export class AppComponent {
   constructor(updateService: UpdateService, iconRegistry: MatIconRegistry, sanitizer: DomSanitizer, themeService: ThemeService) {
