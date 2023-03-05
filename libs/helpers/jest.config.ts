@@ -11,6 +11,5 @@ export default {
       }
     ]
   },
-  moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
-  coverageDirectory: '../../coverage/libs/helpers'
+  moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx']
 };

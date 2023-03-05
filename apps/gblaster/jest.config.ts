@@ -1,8 +1,6 @@
 /* eslint-disable */
 export default {
   preset: '../../jest.preset.js',
-  coverageDirectory: '../../coverage/apps/gblaster',
-
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   globals: {},
   displayName: 'gblaster',

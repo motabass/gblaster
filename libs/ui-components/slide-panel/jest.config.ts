@@ -1,8 +1,6 @@
 /* eslint-disable */
 export default {
   preset: '../../../jest.preset.js',
-  coverageDirectory: '../../../coverage/libs/ui-components/slide-panel',
-
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   globals: {},
   displayName: 'ui-components-slide-panel',
