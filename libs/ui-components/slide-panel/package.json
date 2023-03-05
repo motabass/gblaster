@@ -8,6 +8,6 @@
     "@angular/material": "^14.2.7 || ^15.0.0"
 },
   "dependencies": {
-    "tslib": "2.4.1"
+    "tslib": "2.5.0"
   }
 }
