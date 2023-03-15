@@ -120,7 +120,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="11" class="link-to-prism">apps/gblaster/src/app/app.component.ts:11</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">apps/gblaster/src/app/app.component.ts:14</a></div>
                             </td>
                         </tr>
 
@@ -209,10 +209,13 @@ import { MatIconRegistry } from &#x27;@angular/material/icon&#x27;;
 import { DomSanitizer } from &#x27;@angular/platform-browser&#x27;;
 import { ThemeService } from &#x27;./theme/theme.service&#x27;;
 import { UpdateService } from &#x27;./update.service&#x27;;
+import { ShellComponent } from &#x27;./shell/shell.component&#x27;;
 
 @Component({
   selector: &#x27;mtb-root&#x27;,
-  templateUrl: &#x27;./app.component.html&#x27;
+  templateUrl: &#x27;./app.component.html&#x27;,
+  standalone: true,
+  imports: [ShellComponent]
 })
 export class AppComponent {
   constructor(updateService: UpdateService, iconRegistry: MatIconRegistry, sanitizer: DomSanitizer, themeService: ThemeService) {
