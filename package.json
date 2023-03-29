@@ -126,7 +126,7 @@
     "dotenv-cli": "7.1.0",
     "eslint": "8.36.0",
     "eslint-config-prettier": "8.8.0",
-    "eslint-plugin-cypress": "2.12.1",
+    "eslint-plugin-cypress": "2.13.2",
     "eslint-plugin-import": "2.27.5",
     "eslint-plugin-jsdoc": "40.1.0",
     "eslint-plugin-prefer-arrow": "1.2.3",
