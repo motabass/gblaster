@@ -158,7 +158,7 @@
     "stylelint-config-recommended": "11.0.0",
     "stylelint-config-recommended-scss": "9.0.1",
     "stylelint-config-standard": "32.0.0",
-    "stylelint-config-standard-scss": "7.0.1",
+    "stylelint-config-standard-scss": "8.0.0",
     "svgo": "3.0.2",
     "terser-webpack-plugin": "5.3.7",
     "ts-jest": "29.1.0",
