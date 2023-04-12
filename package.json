@@ -141,7 +141,7 @@
     "mini-css-extract-plugin": "^2.7.5",
     "ng-packagr": "15.2.2",
     "node-polyfill-webpack-plugin": "^2.0.1",
-    "npm-check-updates": "16.10.7",
+    "npm-check-updates": "16.10.8",
     "nx": "15.9.2",
     "nx-stylelint": "15.0.0",
     "postcss": "8.4.21",
