@@ -6,7 +6,7 @@
   "prefix": "mtb",
   "targets": {
     "build": {
-      "executor": "@nrwl/angular:package",
+      "executor": "@nx/angular:package",
       "options": {
         "tsConfig": "libs/ui-components/file-drop-overlay/tsconfig.lib.json",
         "project": "libs/ui-components/file-drop-overlay/ng-package.json",
@@ -19,14 +19,14 @@
       }
     },
     "lint": {
-      "executor": "@nrwl/linter:eslint",
+      "executor": "@nx/linter:eslint",
       "options": {
         "lintFilePatterns": ["libs/ui-components/file-drop-overlay/src/**/*.ts", "libs/ui-components/file-drop-overlay/src/**/*.html"]
       },
       "outputs": ["{options.outputFile}"]
     },
     "test": {
-      "executor": "@nrwl/jest:jest",
+      "executor": "@nx/jest:jest",
       "options": {
         "jestConfig": "libs/ui-components/file-drop-overlay/jest.config.ts",
         "passWithNoTests": true
@@ -42,7 +42,7 @@
     }
   },
   "generators": {
-    "@nrwl/angular:component": {
+    "@nx/angular:component": {
       "styleext": "scss"
     }
   },

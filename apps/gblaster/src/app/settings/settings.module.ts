@@ -24,4 +24,4 @@ import { MetadataSettingsComponent } from './metadata-settings/metadata-settings
     MetadataSettingsComponent
   ]
 })
-export class SettingsModule {}
+export default class SettingsModule {}

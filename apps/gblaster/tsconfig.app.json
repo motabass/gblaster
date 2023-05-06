@@ -2,7 +2,7 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "../../dist/out-tsc",
-    "module": "esnext",
+    "module": "ES2022",
     "types": ["offscreencanvas", "dom-screen-wake-lock", "wicg-file-system-access"],
     "target": "ES2022",
     "useDefineForClassFields": false

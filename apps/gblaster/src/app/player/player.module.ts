@@ -76,4 +76,4 @@ import { SlidePanelComponent } from '@motabass/ui-components/slide-panel';
     }
   ]
 })
-export class PlayerModule {}
+export default class PlayerModule {}

@@ -13,6 +13,7 @@ export class LastfmMetadataService {
   async getCoverPicture(tags: Id3Tags): Promise<RemoteCoverPicture | undefined> {
     if (tags.artist && tags.album) {
       // TODO: type response
+
       try {
         const data: any = await firstValueFrom(
           await this.http.get(
@@ -26,7 +27,7 @@ export class LastfmMetadataService {
           return { thumb: data.album.image[1]['#text'], original: data.album.image[5]['#text'] };
         }
       } catch (e) {
-        console.warn(e);
+        console.error(e);
       }
     }
     return;
