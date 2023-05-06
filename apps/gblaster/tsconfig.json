@@ -1,8 +1,9 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "types": ["node", "jest"],
-    "target": "ES2022"
+    "types": ["node"],
+    "target": "ES2022",
+    "sourceMap": false
   },
   "files": [],
   "include": [],
@@ -12,6 +13,9 @@
     },
     {
       "path": "./tsconfig.spec.json"
+    },
+    {
+      "path": "./tsconfig.cy.json"
     }
   ]
 }

@@ -120,6 +120,19 @@
       "options": {
         "lintFilePatterns": ["apps/gblaster/**/*.css", "apps/gblaster/**/*.scss"]
       }
+    },
+    "e2e": {
+      "executor": "@nx/cypress:cypress",
+      "options": {
+        "cypressConfig": "apps/gblaster/cypress.config.ts",
+        "testingType": "e2e",
+        "devServerTarget": "gblaster:serve"
+      },
+      "configurations": {
+        "production": {
+          "devServerTarget": "gblaster:serve:production"
+        }
+      }
     }
   },
   "tags": ["app", "angular"]
