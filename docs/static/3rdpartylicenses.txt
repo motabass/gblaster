@@ -80,7 +80,7 @@ MIT
 @heroicons/react
 MIT
 
-@nrwl/nx-source
+@nx/nx-source
 MIT
 (The MIT License)
 
