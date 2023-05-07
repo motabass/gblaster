@@ -155,7 +155,7 @@
     "typescript": "5.0.4",
     "webpack": "^5.82.0",
     "webpack-bundle-analyzer": "4.8.0",
-    "webpack-dev-server": "4.13.3",
+    "webpack-dev-server": "4.15.0",
     "webpack-merge": "5.8.0",
     "webpack-node-externals": "3.0.0",
     "webpack-sources": "3.2.3",
