@@ -72,7 +72,7 @@
     "fast-memoize": "^2.5.2",
     "lucene-escape-query": "^1.0.1",
     "mobx": "6.9.0",
-    "mobx-angular": "4.7.1",
+    "mobx-angular": "4.7.2",
     "music-metadata-browser": "2.5.10",
     "ngx-date-fns": "10.0.1",
     "ngx-indexed-db": "16.0.0",
