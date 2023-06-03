@@ -13,7 +13,7 @@
     </head>
     <body>
 
-        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+        <div class="navbar navbar-default navbar-fixed-top d-block d-sm-none">
             <a href="../" class="navbar-brand">gblaster</a>
             <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
         </div>
@@ -35,32 +35,37 @@
 
 
 <ol class="breadcrumb">
-  <li>Components</li>
-  <li
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
   >
   PlayerComponent</li>
 </ol>
 
 <ul class="nav nav-tabs" role="tablist">
-        <li class="active">
-            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
         </li>
-        <li >
-            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
         </li>
-        <li >
-            <a href="#templateData" role="tab" id="templateData-tab" data-toggle="tab" data-link="template">Template</a>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
         </li>
-        <li >
-            <a href="#styleData" role="tab" id="styleData-tab" data-toggle="tab" data-link="style">Styles</a>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
         </li>
-        <li >
-            <a href="#tree" role="tab" id="tree-tab" data-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
         </li>
 </ul>
 
 <div class="tab-content">
-    <div class="tab-pane fade active in" id="c-info"><p class="comment">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
     <h3>File</h3>
 </p>
 <p class="comment">
@@ -74,13 +79,13 @@
         <h3>Implements</h3>
     </p>
     <p class="comment">
-                    <code><a href="https://angular.io/api/core/OnInit" target="_blank" >OnInit</a></code>
-                    <code><a href="https://angular.io/api/core/AfterViewInit" target="_blank" >AfterViewInit</a></code>
-                    <code><a href="https://angular.io/api/core/OnDestroy" target="_blank" >OnDestroy</a></code>
+                <code>OnInit</code>
+                <code>AfterViewInit</code>
+                <code>OnDestroy</code>
     </p>
 
 
-<section>
+<section data-compodoc="block-metadata">
     <h3>Metadata</h3>
     <table class="table table-sm table-hover metadata">
         <tbody>
@@ -95,9 +100,37 @@
 
 
 
+
             <tr>
                 <td class="col-md-3">selector</td>
                 <td class="col-md-9"><code>mtb-player</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">Standalone</td>
+                <td class="col-md-9"><code>true</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                                <code><a href="../components/PlaylistComponent.html" target="_self" >PlaylistComponent</a></code>
+                            <code>NgIf</code>
+                            <code>MatButtonModule</code>
+                            <code>MatIconModule</code>
+                                <code><a href="../components/CoverDisplayComponent.html" target="_self" >CoverDisplayComponent</a></code>
+                                <code><a href="../components/VisualizerComponent.html" target="_self" >VisualizerComponent</a></code>
+                            <code>MatToolbarModule</code>
+                            <code>MatTooltipModule</code>
+                            <code>MatSliderModule</code>
+                            <code>MatMenuModule</code>
+                            <code>NgClass</code>
+                            <code>NgSwitch</code>
+                            <code>NgSwitchCase</code>
+                                <code><a href="../components/FileDropOverlayComponent.html" target="_self" >FileDropOverlayComponent</a></code>
+                            <code>AsyncPipe</code>
+                            <code>TimePipe</code>
+                </td>
             </tr>
 
             <tr>
@@ -123,7 +156,7 @@
     </table>
 </section>
 
-    <section>
+    <section data-compodoc="block-index">
     <h3 id="index">Index</h3>
     <table class="table table-sm table-bordered index-table">
         <tbody>
@@ -267,13 +300,13 @@
     </table>
 </section>
 
-    <section>
+    <section data-compodoc="block-constructor">
     <h3 id="constructor">Constructor</h3>
         <table class="table table-sm table-bordered">
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(playerService: <a href="../injectables/PlayerService.html" target="_self">PlayerService</a>, titleService: <a href="../injectables/TitleService.html" target="_self">TitleService</a>, gamepadService: <a href="../injectables/GamepadService.html" target="_self">GamepadService</a>, hotkeysService: <a href="../injectables/HotkeysService.html" target="_self">HotkeysService</a>, fileLoaderService: <a href="../injectables/LoaderService.html" target="_self">FileLoaderService</a>, audioService: <a href="../injectables/AudioService.html" target="_self">AudioService</a>)</code>
+<code>constructor(playerService: <a href="../injectables/PlayerService.html" target="_self">PlayerService</a>, titleService: <a href="../injectables/TitleService.html" target="_self">TitleService</a>, gamepadService: <a href="../injectables/GamepadService.html" target="_self">GamepadService</a>, hotkeysService: <a href="../injectables/HotkeysService.html" target="_self">HotkeysService</a>, fileLoaderService: <a href="../classes/FileLoaderService.html" target="_self">FileLoaderService</a>, audioService: <a href="../injectables/AudioService.html" target="_self">AudioService</a>)</code>
                     </td>
                 </tr>
                         <tr>
@@ -347,7 +380,7 @@
                                                         <td>fileLoaderService</td>
                                                   
                                                         <td>
-                                                                        <code><a href="../injectables/LoaderService.html" target="_self" >FileLoaderService</a></code>
+                                                                        <code><a href="../classes/FileLoaderService.html" target="_self" >FileLoaderService</a></code>
                                                         </td>
                                                   
                                                     <td>
@@ -380,7 +413,7 @@
 
 
 
-    <section>
+    <section data-compodoc="block-methods">
     
     <h3 id="methods">
         Methods
@@ -1523,7 +1556,7 @@
         </tbody>
     </table>
 </section>
-    <section>
+    <section data-compodoc="block-properties">
     
     <h3 id="inputs">
         Properties
@@ -1561,7 +1594,7 @@
     </table>
 </section>
 
-    <section>
+    <section data-compodoc="block-accessors">
     <h3 id="accessors">
         Accessors
     </h3>
@@ -1814,7 +1847,7 @@
 </div>
 
 
-    <div class="tab-pane fade  tab-source-code" id="c-source">
+    <div class="tab-pane fade  tab-source-code" id="source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { AfterViewInit, Component, OnDestroy, OnInit } from &#x27;@angular/core&#x27;;
 import { MatSliderChange, MatSliderModule } from &#x27;@angular/material/slider&#x27;;
 import { formatSecondsAsClock } from &#x27;@motabass/helpers&#x27;;
@@ -2102,7 +2135,7 @@ export class PlayerComponent implements OnInit, AfterViewInit, OnDestroy {
 </code></pre>
     </div>
 
-    <div class="tab-pane fade " id="c-templateData">
+    <div class="tab-pane fade " id="templateData">
         <pre class="line-numbers"><code class="language-html">&lt;mtb-playlist class&#x3D;&quot;playlist mat-elevation-z6&quot;
   &gt;&lt;button style&#x3D;&quot;width: 100%; text-transform: uppercase&quot; mat-button color&#x3D;&quot;accent&quot; *ngIf&#x3D;&quot;isPlaylistEmpty&quot; (click)&#x3D;&quot;onReload()&quot;&gt;
     &lt;mat-icon svgIcon&#x3D;&quot;reload&quot;&gt;&lt;/mat-icon&gt; Reload last directory
@@ -2175,7 +2208,7 @@ export class PlayerComponent implements OnInit, AfterViewInit, OnDestroy {
 </code></pre>
     </div>
 
-    <div class="tab-pane fade " id="c-styleData">
+    <div class="tab-pane fade " id="styleData">
                 <p class="comment">
                     <code>./player.component.scss</code>
                 </p>
@@ -2232,7 +2265,7 @@ export class PlayerComponent implements OnInit, AfterViewInit, OnDestroy {
 </code></pre>
     </div>
 
-    <div class="tab-pane fade " id="c-tree">
+    <div class="tab-pane fade " id="tree">
         <div id="tree-container"></div>
         <div class="tree-legend">
             <div class="title">

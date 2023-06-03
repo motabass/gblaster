@@ -13,7 +13,7 @@
     </head>
     <body>
 
-        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+        <div class="navbar navbar-default navbar-fixed-top d-block d-sm-none">
             <a href="../" class="navbar-brand">gblaster</a>
             <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
         </div>
@@ -35,32 +35,37 @@
 
 
 <ol class="breadcrumb">
-  <li>Components</li>
-  <li
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
   >
   VisualizerComponent</li>
 </ol>
 
 <ul class="nav nav-tabs" role="tablist">
-        <li class="active">
-            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
         </li>
-        <li >
-            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
         </li>
-        <li >
-            <a href="#templateData" role="tab" id="templateData-tab" data-toggle="tab" data-link="template">Template</a>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
         </li>
-        <li >
-            <a href="#styleData" role="tab" id="styleData-tab" data-toggle="tab" data-link="style">Styles</a>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
         </li>
-        <li >
-            <a href="#tree" role="tab" id="tree-tab" data-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
         </li>
 </ul>
 
 <div class="tab-content">
-    <div class="tab-pane fade active in" id="c-info"><p class="comment">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
     <h3>File</h3>
 </p>
 <p class="comment">
@@ -74,12 +79,12 @@
         <h3>Implements</h3>
     </p>
     <p class="comment">
-                    <code><a href="https://angular.io/api/core/OnInit" target="_blank" >OnInit</a></code>
-                    <code><a href="https://angular.io/api/core/OnDestroy" target="_blank" >OnDestroy</a></code>
+                <code>OnInit</code>
+                <code>OnDestroy</code>
     </p>
 
 
-<section>
+<section data-compodoc="block-metadata">
     <h3>Metadata</h3>
     <table class="table table-sm table-hover metadata">
         <tbody>
@@ -98,9 +103,32 @@
 
 
 
+
             <tr>
                 <td class="col-md-3">selector</td>
                 <td class="col-md-9"><code>mtb-visualizer</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">Standalone</td>
+                <td class="col-md-9"><code>true</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                            <code>MobxAngularModule</code>
+                            <code>NgIf</code>
+                                <code><a href="../directives/VisualsDirective.html" target="_self" >VisualsDirective</a></code>
+                                <code><a href="../components/SlidePanelComponent.html" target="_self" >SlidePanelComponent</a></code>
+                            <code>MatSelectModule</code>
+                            <code>NgFor</code>
+                            <code>MatOptionModule</code>
+                            <code>MatSliderModule</code>
+                            <code>MatButtonModule</code>
+                            <code>MatIconModule</code>
+                            <code>MatTooltipModule</code>
+                </td>
             </tr>
 
             <tr>
@@ -126,7 +154,7 @@
     </table>
 </section>
 
-    <section>
+    <section data-compodoc="block-index">
     <h3 id="index">Index</h3>
     <table class="table table-sm table-bordered index-table">
         <tbody>
@@ -139,33 +167,42 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
+                                    <span class="modifier"></span>
                                 <a href="#alpha" >alpha</a>
                             </li>
                             <li>
                                 <a href="#analyser" >analyser</a>
                             </li>
                             <li>
+                                    <span class="modifier"></span>
                                 <a href="#barCount" >barCount</a>
                             </li>
                             <li>
+                                    <span class="modifier"></span>
                                 <a href="#capFalldown" >capFalldown</a>
                             </li>
                             <li>
+                                    <span class="modifier"></span>
                                 <a href="#capHeight" >capHeight</a>
                             </li>
                             <li>
+                                    <span class="modifier"></span>
                                 <a href="#fftSize" >fftSize</a>
                             </li>
                             <li>
+                                    <span class="modifier"></span>
                                 <a href="#gap" >gap</a>
                             </li>
                             <li>
+                                    <span class="modifier"></span>
                                 <a href="#lineThickness" >lineThickness</a>
                             </li>
                             <li>
+                                    <span class="modifier"></span>
                                 <a href="#minDb" >minDb</a>
                             </li>
                             <li>
+                                    <span class="modifier"></span>
                                 <a href="#smoothing" >smoothing</a>
                             </li>
                         </ul>
@@ -277,7 +314,7 @@
     </table>
 </section>
 
-    <section>
+    <section data-compodoc="block-constructor">
     <h3 id="constructor">Constructor</h3>
         <table class="table table-sm table-bordered">
             <tbody>
@@ -350,7 +387,7 @@
         </table>
 </section>
 
-    <section>
+    <section data-compodoc="block-inputs">
     <h3 id="inputs">Inputs</h3>
         <table class="table table-sm table-bordered">
             <tbody>
@@ -377,7 +414,7 @@
 
 
 
-    <section>
+    <section data-compodoc="block-methods">
     
     <h3 id="methods">
         Methods
@@ -1041,7 +1078,7 @@
         </tbody>
     </table>
 </section>
-    <section>
+    <section data-compodoc="block-properties">
     
     <h3 id="inputs">
         Properties
@@ -1052,6 +1089,7 @@
                 <td class="col-md-4">
                     <a name="alpha"></a>
                     <span class="name">
+                            <span class="modifier"></span>
                         <span ><b>alpha</b></span>
                         <a href="#alpha"><span class="icon ion-ios-link"></span></a>
                     </span>
@@ -1113,6 +1151,7 @@
                 <td class="col-md-4">
                     <a name="barCount"></a>
                     <span class="name">
+                            <span class="modifier"></span>
                         <span ><b>barCount</b></span>
                         <a href="#barCount"><span class="icon ion-ios-link"></span></a>
                     </span>
@@ -1148,6 +1187,7 @@
                 <td class="col-md-4">
                     <a name="capFalldown"></a>
                     <span class="name">
+                            <span class="modifier"></span>
                         <span ><b>capFalldown</b></span>
                         <a href="#capFalldown"><span class="icon ion-ios-link"></span></a>
                     </span>
@@ -1183,6 +1223,7 @@
                 <td class="col-md-4">
                     <a name="capHeight"></a>
                     <span class="name">
+                            <span class="modifier"></span>
                         <span ><b>capHeight</b></span>
                         <a href="#capHeight"><span class="icon ion-ios-link"></span></a>
                     </span>
@@ -1218,6 +1259,7 @@
                 <td class="col-md-4">
                     <a name="fftSize"></a>
                     <span class="name">
+                            <span class="modifier"></span>
                         <span ><b>fftSize</b></span>
                         <a href="#fftSize"><span class="icon ion-ios-link"></span></a>
                     </span>
@@ -1253,6 +1295,7 @@
                 <td class="col-md-4">
                     <a name="gap"></a>
                     <span class="name">
+                            <span class="modifier"></span>
                         <span ><b>gap</b></span>
                         <a href="#gap"><span class="icon ion-ios-link"></span></a>
                     </span>
@@ -1288,6 +1331,7 @@
                 <td class="col-md-4">
                     <a name="lineThickness"></a>
                     <span class="name">
+                            <span class="modifier"></span>
                         <span ><b>lineThickness</b></span>
                         <a href="#lineThickness"><span class="icon ion-ios-link"></span></a>
                     </span>
@@ -1323,6 +1367,7 @@
                 <td class="col-md-4">
                     <a name="minDb"></a>
                     <span class="name">
+                            <span class="modifier"></span>
                         <span ><b>minDb</b></span>
                         <a href="#minDb"><span class="icon ion-ios-link"></span></a>
                     </span>
@@ -1358,6 +1403,7 @@
                 <td class="col-md-4">
                     <a name="smoothing"></a>
                     <span class="name">
+                            <span class="modifier"></span>
                         <span ><b>smoothing</b></span>
                         <a href="#smoothing"><span class="icon ion-ios-link"></span></a>
                     </span>
@@ -1389,7 +1435,7 @@
     </table>
 </section>
 
-    <section>
+    <section data-compodoc="block-accessors">
     <h3 id="accessors">
         Accessors
     </h3>
@@ -1617,7 +1663,7 @@
 </div>
 
 
-    <div class="tab-pane fade  tab-source-code" id="c-source">
+    <div class="tab-pane fade  tab-source-code" id="source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ChangeDetectionStrategy, Component, Input, OnDestroy, OnInit } from &#x27;@angular/core&#x27;;
 import { LocalStorage } from &#x27;ngx-webstorage&#x27;;
 import { Track } from &#x27;../player.types&#x27;;
@@ -1804,7 +1850,7 @@ export class VisualizerComponent implements OnInit, OnDestroy {
 </code></pre>
     </div>
 
-    <div class="tab-pane fade " id="c-templateData">
+    <div class="tab-pane fade " id="templateData">
         <pre class="line-numbers"><code class="language-html">&lt;div *mobxAutorun style&#x3D;&quot;width: 100%; height: 100%; position: relative&quot;&gt;
   &lt;canvas
     *ngIf&#x3D;&quot;playing&quot;
@@ -1930,7 +1976,7 @@ export class VisualizerComponent implements OnInit, OnDestroy {
 </code></pre>
     </div>
 
-    <div class="tab-pane fade " id="c-styleData">
+    <div class="tab-pane fade " id="styleData">
                 <p class="comment">
                     <code>./visualizer.component.scss</code>
                 </p>
@@ -1958,7 +2004,7 @@ export class VisualizerComponent implements OnInit, OnDestroy {
 </code></pre>
     </div>
 
-    <div class="tab-pane fade " id="c-tree">
+    <div class="tab-pane fade " id="tree">
         <div id="tree-container"></div>
         <div class="tree-legend">
             <div class="title">

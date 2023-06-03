@@ -13,7 +13,7 @@
     </head>
     <body>
 
-        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+        <div class="navbar navbar-default navbar-fixed-top d-block d-sm-none">
             <a href="../" class="navbar-brand">gblaster</a>
             <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
         </div>
@@ -39,21 +39,27 @@
 
 
 <ol class="breadcrumb">
-  <li>Injectables</li>
-  <li >PlayerService</li>
+  <li class="breadcrumb-item">Injectables</li>
+  <li class="breadcrumb-item" >PlayerService</li>
 </ol>
 
 <ul class="nav nav-tabs" role="tablist">
-        <li class="active">
-            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        <li class="nav-item">
+            <a href="#info" 
+                class="nav-link"
+                class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
         </li>
-        <li >
-            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        <li class="nav-item">
+            <a href="#source" 
+                class="nav-link"
+                
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
         </li>
 </ul>
 
 <div class="tab-content">
-    <div class="tab-pane fade active in" id="c-info">
+    <div class="tab-pane fade active in" id="info">
         <p class="comment">
             <h3>File</h3>
         </p>
@@ -71,7 +77,7 @@
             </p>
 
 
-            <section>
+            <section data-compodoc="block-index">
     <h3 id="index">Index</h3>
     <table class="table table-sm table-bordered index-table">
         <tbody>
@@ -84,16 +90,20 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
+                                    <span class="modifier"></span>
                                 <a href="#currentPlaylist" >currentPlaylist</a>
                             </li>
                             <li>
+                                    <span class="modifier"></span>
                                 <a href="#repeat" >repeat</a>
                             </li>
                             <li>
+                                    <span class="modifier"></span>
                                     <span class="modifier">Optional</span>
                                 <a href="#selectedTrack" >selectedTrack</a>
                             </li>
                             <li>
+                                    <span class="modifier"></span>
                                 <a href="#shuffle" >shuffle</a>
                             </li>
                             <li>
@@ -112,6 +122,7 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
+                                    <span class="modifier"></span>
                                     <span class="modifier">Async</span>
                                 <a href="#addFilesToPlaylist" >addFilesToPlaylist</a>
                             </li>
@@ -119,10 +130,12 @@
                                 <a href="#getCurrentTime" >getCurrentTime</a>
                             </li>
                             <li>
+                                    <span class="modifier"></span>
                                     <span class="modifier">Async</span>
                                 <a href="#loadFiles" >loadFiles</a>
                             </li>
                             <li>
+                                    <span class="modifier"></span>
                                     <span class="modifier">Async</span>
                                 <a href="#next" >next</a>
                             </li>
@@ -135,6 +148,7 @@
                                 <a href="#playPauseTrack" >playPauseTrack</a>
                             </li>
                             <li>
+                                    <span class="modifier"></span>
                                     <span class="modifier">Async</span>
                                 <a href="#previous" >previous</a>
                             </li>
@@ -145,24 +159,31 @@
                                 <a href="#seekRight" >seekRight</a>
                             </li>
                             <li>
+                                    <span class="modifier"></span>
                                 <a href="#selectNext" >selectNext</a>
                             </li>
                             <li>
+                                    <span class="modifier"></span>
                                 <a href="#selectPrevious" >selectPrevious</a>
                             </li>
                             <li>
+                                    <span class="modifier"></span>
                                 <a href="#selectSong" >selectSong</a>
                             </li>
                             <li>
+                                    <span class="modifier"></span>
                                 <a href="#setSeekPosition" >setSeekPosition</a>
                             </li>
                             <li>
+                                    <span class="modifier"></span>
                                 <a href="#stop" >stop</a>
                             </li>
                             <li>
+                                    <span class="modifier"></span>
                                 <a href="#toggleRepeat" >toggleRepeat</a>
                             </li>
                             <li>
+                                    <span class="modifier"></span>
                                 <a href="#toggleShuffle" >toggleShuffle</a>
                             </li>
                             <li>
@@ -200,13 +221,13 @@
     </table>
 </section>
 
-            <section>
+            <section data-compodoc="block-constructor">
     <h3 id="constructor">Constructor</h3>
         <table class="table table-sm table-bordered">
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(audioService: <a href="../injectables/AudioService.html" target="_self">AudioService</a>, fileLoaderService: <a href="../injectables/LoaderService.html" target="_self">FileLoaderService</a>, metadataService: <a href="../injectables/MetadataService.html" target="_self">MetadataService</a>, themeService: <a href="../injectables/ThemeService.html" target="_self">ThemeService</a>, loaderService: <a href="../injectables/LoaderService.html" target="_self">LoaderService</a>, wakelockService: <a href="../injectables/WakelockService.html" target="_self">WakelockService</a>, mediaSessionService: <a href="../injectables/MediaSessionService.html" target="_self">MediaSessionService</a>)</code>
+<code>constructor(audioService: <a href="../injectables/AudioService.html" target="_self">AudioService</a>, fileLoaderService: <a href="../classes/FileLoaderService.html" target="_self">FileLoaderService</a>, metadataService: <a href="../injectables/MetadataService.html" target="_self">MetadataService</a>, themeService: <a href="../injectables/ThemeService.html" target="_self">ThemeService</a>, loaderService: <a href="../injectables/LoaderService.html" target="_self">LoaderService</a>, wakelockService: <a href="../injectables/WakelockService.html" target="_self">WakelockService</a>, mediaSessionService: <a href="../injectables/MediaSessionService.html" target="_self">MediaSessionService</a>)</code>
                     </td>
                 </tr>
                         <tr>
@@ -244,7 +265,7 @@
                                                         <td>fileLoaderService</td>
                                                   
                                                         <td>
-                                                                        <code><a href="../injectables/LoaderService.html" target="_self" >FileLoaderService</a></code>
+                                                                        <code><a href="../classes/FileLoaderService.html" target="_self" >FileLoaderService</a></code>
                                                         </td>
                                                   
                                                     <td>
@@ -321,7 +342,7 @@
         </table>
 </section>
 
-            <section>
+            <section data-compodoc="block-methods">
     
     <h3 id="methods">
         Methods
@@ -332,6 +353,7 @@
                 <td class="col-md-4">
                     <a name="addFilesToPlaylist"></a>
                     <span class="name">
+                        <span class="modifier"></span>
                         <span class="modifier">Async</span>
                         <span ><b>addFilesToPlaylist</b></span>
                         <a href="#addFilesToPlaylist"><span class="icon ion-ios-link"></span></a>
@@ -447,6 +469,7 @@
                 <td class="col-md-4">
                     <a name="loadFiles"></a>
                     <span class="name">
+                        <span class="modifier"></span>
                         <span class="modifier">Async</span>
                         <span ><b>loadFiles</b></span>
                         <a href="#loadFiles"><span class="icon ion-ios-link"></span></a>
@@ -493,6 +516,7 @@
                 <td class="col-md-4">
                     <a name="next"></a>
                     <span class="name">
+                        <span class="modifier"></span>
                         <span class="modifier">Async</span>
                         <span ><b>next</b></span>
                         <a href="#next"><span class="icon ion-ios-link"></span></a>
@@ -649,6 +673,7 @@
                 <td class="col-md-4">
                     <a name="previous"></a>
                     <span class="name">
+                        <span class="modifier"></span>
                         <span class="modifier">Async</span>
                         <span ><b>previous</b></span>
                         <a href="#previous"><span class="icon ion-ios-link"></span></a>
@@ -833,6 +858,7 @@
                 <td class="col-md-4">
                     <a name="selectNext"></a>
                     <span class="name">
+                        <span class="modifier"></span>
                         <span ><b>selectNext</b></span>
                         <a href="#selectNext"><span class="icon ion-ios-link"></span></a>
                     </span>
@@ -840,7 +866,8 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>selectNext()</code>
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>selectNext()</code>
                 </td>
             </tr>
 
@@ -877,6 +904,7 @@
                 <td class="col-md-4">
                     <a name="selectPrevious"></a>
                     <span class="name">
+                        <span class="modifier"></span>
                         <span ><b>selectPrevious</b></span>
                         <a href="#selectPrevious"><span class="icon ion-ios-link"></span></a>
                     </span>
@@ -884,7 +912,8 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>selectPrevious()</code>
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>selectPrevious()</code>
                 </td>
             </tr>
 
@@ -921,6 +950,7 @@
                 <td class="col-md-4">
                     <a name="selectSong"></a>
                     <span class="name">
+                        <span class="modifier"></span>
                         <span ><b>selectSong</b></span>
                         <a href="#selectSong"><span class="icon ion-ios-link"></span></a>
                     </span>
@@ -928,7 +958,8 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>selectSong(song: <a href="../interfaces/Track.html" target="_self">Track</a>)</code>
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>selectSong(song: <a href="../interfaces/Track.html" target="_self">Track</a>)</code>
                 </td>
             </tr>
 
@@ -997,6 +1028,7 @@
                 <td class="col-md-4">
                     <a name="setSeekPosition"></a>
                     <span class="name">
+                        <span class="modifier"></span>
                         <span ><b>setSeekPosition</b></span>
                         <a href="#setSeekPosition"><span class="icon ion-ios-link"></span></a>
                     </span>
@@ -1004,7 +1036,8 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>setSeekPosition(value: number | undefined, fastSeek)</code>
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>setSeekPosition(value: number | undefined, fastSeek)</code>
                 </td>
             </tr>
 
@@ -1090,6 +1123,7 @@
                 <td class="col-md-4">
                     <a name="stop"></a>
                     <span class="name">
+                        <span class="modifier"></span>
                         <span ><b>stop</b></span>
                         <a href="#stop"><span class="icon ion-ios-link"></span></a>
                     </span>
@@ -1097,7 +1131,8 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>stop()</code>
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>stop()</code>
                 </td>
             </tr>
 
@@ -1134,6 +1169,7 @@
                 <td class="col-md-4">
                     <a name="toggleRepeat"></a>
                     <span class="name">
+                        <span class="modifier"></span>
                         <span ><b>toggleRepeat</b></span>
                         <a href="#toggleRepeat"><span class="icon ion-ios-link"></span></a>
                     </span>
@@ -1141,7 +1177,8 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>toggleRepeat()</code>
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>toggleRepeat()</code>
                 </td>
             </tr>
 
@@ -1178,6 +1215,7 @@
                 <td class="col-md-4">
                     <a name="toggleShuffle"></a>
                     <span class="name">
+                        <span class="modifier"></span>
                         <span ><b>toggleShuffle</b></span>
                         <a href="#toggleShuffle"><span class="icon ion-ios-link"></span></a>
                     </span>
@@ -1185,7 +1223,8 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>toggleShuffle()</code>
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>toggleShuffle()</code>
                 </td>
             </tr>
 
@@ -1260,7 +1299,7 @@
         </tbody>
     </table>
 </section>
-            <section>
+            <section data-compodoc="block-properties">
     
     <h3 id="inputs">
         Properties
@@ -1271,6 +1310,7 @@
                 <td class="col-md-4">
                     <a name="currentPlaylist"></a>
                     <span class="name">
+                            <span class="modifier"></span>
                         <span ><b>currentPlaylist</b></span>
                         <a href="#currentPlaylist"><span class="icon ion-ios-link"></span></a>
                     </span>
@@ -1311,6 +1351,7 @@
                 <td class="col-md-4">
                     <a name="repeat"></a>
                     <span class="name">
+                            <span class="modifier"></span>
                         <span ><b>repeat</b></span>
                         <a href="#repeat"><span class="icon ion-ios-link"></span></a>
                     </span>
@@ -1346,6 +1387,7 @@
                 <td class="col-md-4">
                     <a name="selectedTrack"></a>
                     <span class="name">
+                            <span class="modifier"></span>
                             <span class="modifier">Optional</span>
                         <span ><b>selectedTrack</b></span>
                         <a href="#selectedTrack"><span class="icon ion-ios-link"></span></a>
@@ -1382,6 +1424,7 @@
                 <td class="col-md-4">
                     <a name="shuffle"></a>
                     <span class="name">
+                            <span class="modifier"></span>
                         <span ><b>shuffle</b></span>
                         <a href="#shuffle"><span class="icon ion-ios-link"></span></a>
                     </span>
@@ -1451,7 +1494,7 @@
     </table>
 </section>
 
-            <section>
+            <section data-compodoc="block-accessors">
     <h3 id="accessors">
         Accessors
     </h3>
@@ -1525,7 +1568,7 @@
     </div>
 
 
-    <div class="tab-pane fade  tab-source-code" id="c-source">
+    <div class="tab-pane fade  tab-source-code" id="source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable } from &#x27;@angular/core&#x27;;
 import { action, observable } from &#x27;mobx-angular&#x27;;
 import { LocalStorage } from &#x27;ngx-webstorage&#x27;;
