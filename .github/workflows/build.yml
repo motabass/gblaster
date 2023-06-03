@@ -38,6 +38,6 @@ jobs:
         env:
           CI: true
       - name: Jest-Tests
-        run: npm run affected:test:all
+        run: npm run test:all
         env:
           CI: true
