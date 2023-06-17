@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Input, NgZone, OnChanges, OnDestroy, SimpleChanges } from '@angular/core';
+import { Directive, ElementRef, Input, NgZone, numberAttribute, OnChanges, OnDestroy, SimpleChanges } from '@angular/core';
 import { FrequencyBarsConfig, OsciloscopeConfig, VisualizerMode, VisualsColorConfig, VisualsWorkerMessage } from './visuals.types';
 
 const FALLBACK_PRIMARY_COLOR = '#424242';
@@ -18,7 +18,7 @@ export class VisualsDirective implements OnDestroy, OnChanges {
 
   @Input() colorConfig: VisualsColorConfig | null = {};
 
-  @Input() sampleRate!: number;
+  @Input({ transform: numberAttribute }) sampleRate!: number;
 
   canvas: HTMLCanvasElement;
 

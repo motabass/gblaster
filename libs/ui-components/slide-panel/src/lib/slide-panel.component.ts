@@ -1,4 +1,4 @@
-import { Component, HostBinding, Input, OnChanges } from '@angular/core';
+import { booleanAttribute, Component, HostBinding, Input, OnChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -12,7 +12,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
   imports: [CommonModule, MatIconModule, MatButtonModule, MatTooltipModule]
 })
 export class SlidePanelComponent implements OnChanges {
-  @Input() openedState = true;
+  @Input({ transform: booleanAttribute }) openedState = true;
 
   @Input() @HostBinding('style.bottom') bottom?: string;
 
