@@ -725,7 +725,7 @@
     ),
     { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true },
     provideAnimations(),
-    provideHttpClient(withInterceptorsFromDi()),
+    provideHttpClient(withInterceptorsFromDi(), withFetch()),
     provideRouter(
       [
         { path: &#x27;&#x27;, redirectTo: &#x27;player&#x27;, pathMatch: &#x27;full&#x27; },
