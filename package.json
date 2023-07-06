@@ -87,10 +87,10 @@
     "zone.js": "0.13.1"
   },
   "devDependencies": {
-    "@angular-devkit/architect": "0.1601.0",
-    "@angular-devkit/build-angular": "16.1.0",
-    "@angular-devkit/core": "16.1.0",
-    "@angular-devkit/schematics": "16.1.0",
+    "@angular-devkit/architect": "0.1601.4",
+    "@angular-devkit/build-angular": "16.1.4",
+    "@angular-devkit/core": "16.1.4",
+    "@angular-devkit/schematics": "16.1.4",
     "@angular-eslint/eslint-plugin": "16.0.3",
     "@angular-eslint/eslint-plugin-template": "16.0.3",
     "@angular-eslint/template-parser": "16.0.3",
@@ -98,7 +98,7 @@
     "@angular/compiler-cli": "16.1.1",
     "@angular/language-service": "16.1.1",
     "@compodoc/compodoc": "^1.1.21",
-    "@schematics/angular": "16.1.0",
+    "@schematics/angular": "16.1.4",
     "@twittwer/compodoc": "^1.9.0",
     "@types/jest": "29.5.2",
     "@types/node": "20.3.1",
