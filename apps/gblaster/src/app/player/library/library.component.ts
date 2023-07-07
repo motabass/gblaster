@@ -4,7 +4,6 @@ import { TrackMetadata } from '../player.types';
 import { NgArrayPipesModule } from 'ngx-pipes';
 import { NgFor } from '@angular/common';
 import { MatListModule } from '@angular/material/list';
-
 @Component({
   templateUrl: './library.component.html',
   styleUrls: ['./library.component.scss'],
