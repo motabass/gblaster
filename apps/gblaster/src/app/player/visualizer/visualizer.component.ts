@@ -60,7 +60,11 @@ export class VisualizerComponent implements OnInit, OnDestroy {
 
   analyser: AnalyserNode;
 
-  constructor(private audioService: AudioService, private gamepadService: GamepadService, private visualsService: VisualsService) {
+  constructor(
+    private audioService: AudioService,
+    private gamepadService: GamepadService,
+    private visualsService: VisualsService
+  ) {
     const analyser = this.audioService.plugAnalyser();
     analyser.fftSize = this.fftSize;
     analyser.smoothingTimeConstant = this.smoothing;

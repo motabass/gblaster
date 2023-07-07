@@ -31,7 +31,11 @@ export class HotkeysService {
 
   _pause = false;
 
-  constructor(private eventManager: EventManager, @Inject(DOCUMENT) private document: Document, private dialog: MatDialog) {}
+  constructor(
+    private eventManager: EventManager,
+    @Inject(DOCUMENT) private document: Document,
+    private dialog: MatDialog
+  ) {}
 
   initialize() {
     this.register({

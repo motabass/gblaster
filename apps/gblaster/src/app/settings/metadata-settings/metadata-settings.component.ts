@@ -13,7 +13,10 @@ import { MatCardModule } from '@angular/material/card';
   imports: [MatCardModule, MatSlideToggleModule, MatButtonModule]
 })
 export class MetadataSettingsComponent {
-  constructor(private metadataService: MetadataService, private indexedDBService: NgxIndexedDBService) {}
+  constructor(
+    private metadataService: MetadataService,
+    private indexedDBService: NgxIndexedDBService
+  ) {}
 
   get useWebTags() {
     return this.metadataService.useWebMetainfos;

@@ -13,7 +13,10 @@ export class FileDropOverlayComponent {
 
   @Output() readonly filesDroped: EventEmitter<File[]> = new EventEmitter<File[]>();
 
-  constructor(private hostElement: ElementRef, private renderer: Renderer2) {
+  constructor(
+    private hostElement: ElementRef,
+    private renderer: Renderer2
+  ) {
     window.addEventListener('dragenter', this.over.bind(this));
     window.addEventListener('dragstart', this.over.bind(this));
     window.addEventListener('dragover', this.over.bind(this));

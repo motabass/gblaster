@@ -26,7 +26,10 @@ export class VisualsDirective implements OnDestroy, OnChanges {
 
   private worker: Worker;
 
-  constructor(elr: ElementRef<HTMLCanvasElement>, private zone: NgZone) {
+  constructor(
+    elr: ElementRef<HTMLCanvasElement>,
+    private zone: NgZone
+  ) {
     this.canvas = elr.nativeElement;
 
     const offscreenCanvas: OffscreenCanvas = this.canvas.transferControlToOffscreen();

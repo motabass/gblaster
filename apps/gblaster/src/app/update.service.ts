@@ -10,7 +10,10 @@ import { BaseSubscribingClass } from '@motabass/base-components/base-subscribing
   providedIn: 'root'
 })
 export class UpdateService extends BaseSubscribingClass {
-  constructor(private swUpdate: SwUpdate, private dialog: MatDialog) {
+  constructor(
+    private swUpdate: SwUpdate,
+    private dialog: MatDialog
+  ) {
     super();
     if (swUpdate.isEnabled) {
       swUpdate.available.pipe(takeUntil(this.destroy$)).subscribe((event) => {

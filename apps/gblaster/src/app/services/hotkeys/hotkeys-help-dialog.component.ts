@@ -18,7 +18,10 @@ export interface HotkeysData {
   imports: [MatDialogModule, MatButtonModule, MatIconModule, NgIf, MatListModule, NgFor]
 })
 export class HotkeysHelpDialogComponent {
-  constructor(public dialogRef: MatDialogRef<HotkeysHelpDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: HotkeysData) {}
+  constructor(
+    public dialogRef: MatDialogRef<HotkeysHelpDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: HotkeysData
+  ) {}
 
   get hotkeyList() {
     return Array.from(this.data.registeredHotkeys.entries());
