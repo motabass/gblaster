@@ -47,7 +47,7 @@
     "ci:build": "npm run build:prod:gblaster",
     "ci:e2e": "nx run gblaster:e2e",
     "ci:deploy": "nx deploy gblaster",
-    "dep-graph:html": "nx dep-graph --file docs/dep-graph.html",
+    "dep-graph:html": "nx graph --file docs/dep-graph.html",
     "compodoc": "nx run workspace:compodoc",
     "generate:icon-set": "ts-node --project tools/tsconfig.tools.json tools/convertIcons.ts",
     "prepare": "husky install"
