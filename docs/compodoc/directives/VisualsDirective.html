@@ -414,8 +414,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="116"
-                            class="link-to-prism">apps/gblaster/src/app/player/visualizer/visuals/visuals.directive.ts:116</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="119"
+                            class="link-to-prism">apps/gblaster/src/app/player/visualizer/visuals/visuals.directive.ts:119</a></div>
                 </td>
             </tr>
 
@@ -451,8 +451,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="60"
-                            class="link-to-prism">apps/gblaster/src/app/player/visualizer/visuals/visuals.directive.ts:60</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="63"
+                            class="link-to-prism">apps/gblaster/src/app/player/visualizer/visuals/visuals.directive.ts:63</a></div>
                 </td>
             </tr>
 
@@ -488,8 +488,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="91"
-                            class="link-to-prism">apps/gblaster/src/app/player/visualizer/visuals/visuals.directive.ts:91</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="94"
+                            class="link-to-prism">apps/gblaster/src/app/player/visualizer/visuals/visuals.directive.ts:94</a></div>
                 </td>
             </tr>
 
@@ -572,7 +572,10 @@ export class VisualsDirective implements OnDestroy, OnChanges {
 
   private worker: Worker;
 
-  constructor(elr: ElementRef&lt;HTMLCanvasElement&gt;, private zone: NgZone) {
+  constructor(
+    elr: ElementRef&lt;HTMLCanvasElement&gt;,
+    private zone: NgZone
+  ) {
     this.canvas &#x3D; elr.nativeElement;
 
     const offscreenCanvas: OffscreenCanvas &#x3D; this.canvas.transferControlToOffscreen();

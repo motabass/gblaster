@@ -240,7 +240,10 @@ export interface PromptDialogData {
   imports: [CommonModule, MatDialogModule, MatButtonModule]
 })
 export class PromptDialogComponent implements OnInit {
-  constructor(@Inject(MAT_DIALOG_DATA) public data: PromptDialogData, public dialogRef: MatDialogRef&lt;PromptDialogComponent&gt;) {}
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public data: PromptDialogData,
+    public dialogRef: MatDialogRef&lt;PromptDialogComponent&gt;
+  ) {}
 
   ngOnInit(): void {}
 

@@ -215,8 +215,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="38"
-                            class="link-to-prism">apps/gblaster/src/app/update.service.ts:38</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="41"
+                            class="link-to-prism">apps/gblaster/src/app/update.service.ts:41</a></div>
                 </td>
             </tr>
 
@@ -254,8 +254,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="32"
-                            class="link-to-prism">apps/gblaster/src/app/update.service.ts:32</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="35"
+                            class="link-to-prism">apps/gblaster/src/app/update.service.ts:35</a></div>
                 </td>
             </tr>
 
@@ -376,7 +376,10 @@ import { BaseSubscribingClass } from &#x27;@motabass/base-components/base-subscr
   providedIn: &#x27;root&#x27;
 })
 export class UpdateService extends BaseSubscribingClass {
-  constructor(private swUpdate: SwUpdate, private dialog: MatDialog) {
+  constructor(
+    private swUpdate: SwUpdate,
+    private dialog: MatDialog
+  ) {
     super();
     if (swUpdate.isEnabled) {
       swUpdate.available.pipe(takeUntil(this.destroy$)).subscribe((event) &#x3D;&gt; {

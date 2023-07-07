@@ -336,8 +336,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="51"
-                            class="link-to-prism">libs/ui-components/file-drop-overlay/src/lib/file-drop-overlay/file-drop-overlay.component.ts:51</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="54"
+                            class="link-to-prism">libs/ui-components/file-drop-overlay/src/lib/file-drop-overlay/file-drop-overlay.component.ts:54</a></div>
                 </td>
             </tr>
 
@@ -405,8 +405,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="44"
-                            class="link-to-prism">libs/ui-components/file-drop-overlay/src/lib/file-drop-overlay/file-drop-overlay.component.ts:44</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="47"
+                            class="link-to-prism">libs/ui-components/file-drop-overlay/src/lib/file-drop-overlay/file-drop-overlay.component.ts:47</a></div>
                 </td>
             </tr>
 
@@ -474,8 +474,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="32"
-                            class="link-to-prism">libs/ui-components/file-drop-overlay/src/lib/file-drop-overlay/file-drop-overlay.component.ts:32</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="35"
+                            class="link-to-prism">libs/ui-components/file-drop-overlay/src/lib/file-drop-overlay/file-drop-overlay.component.ts:35</a></div>
                 </td>
             </tr>
 
@@ -544,7 +544,10 @@ export class FileDropOverlayComponent {
 
   @Output() readonly filesDroped: EventEmitter&lt;File[]&gt; &#x3D; new EventEmitter&lt;File[]&gt;();
 
-  constructor(private hostElement: ElementRef, private renderer: Renderer2) {
+  constructor(
+    private hostElement: ElementRef,
+    private renderer: Renderer2
+  ) {
     window.addEventListener(&#x27;dragenter&#x27;, this.over.bind(this));
     window.addEventListener(&#x27;dragstart&#x27;, this.over.bind(this));
     window.addEventListener(&#x27;dragover&#x27;, this.over.bind(this));

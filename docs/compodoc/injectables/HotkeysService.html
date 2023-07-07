@@ -239,8 +239,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="36"
-                            class="link-to-prism">apps/gblaster/src/app/services/hotkeys/hotkeys.service.ts:36</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="40"
+                            class="link-to-prism">apps/gblaster/src/app/services/hotkeys/hotkeys.service.ts:40</a></div>
                 </td>
             </tr>
 
@@ -276,8 +276,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="94"
-                            class="link-to-prism">apps/gblaster/src/app/services/hotkeys/hotkeys.service.ts:94</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="98"
+                            class="link-to-prism">apps/gblaster/src/app/services/hotkeys/hotkeys.service.ts:98</a></div>
                 </td>
             </tr>
 
@@ -313,8 +313,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="46"
-                            class="link-to-prism">apps/gblaster/src/app/services/hotkeys/hotkeys.service.ts:46</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="50"
+                            class="link-to-prism">apps/gblaster/src/app/services/hotkeys/hotkeys.service.ts:50</a></div>
                 </td>
             </tr>
 
@@ -382,8 +382,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="98"
-                            class="link-to-prism">apps/gblaster/src/app/services/hotkeys/hotkeys.service.ts:98</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="102"
+                            class="link-to-prism">apps/gblaster/src/app/services/hotkeys/hotkeys.service.ts:102</a></div>
                 </td>
             </tr>
 
@@ -419,8 +419,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="102"
-                            class="link-to-prism">apps/gblaster/src/app/services/hotkeys/hotkeys.service.ts:102</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="106"
+                            class="link-to-prism">apps/gblaster/src/app/services/hotkeys/hotkeys.service.ts:106</a></div>
                 </td>
             </tr>
 
@@ -456,8 +456,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="83"
-                            class="link-to-prism">apps/gblaster/src/app/services/hotkeys/hotkeys.service.ts:83</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="87"
+                            class="link-to-prism">apps/gblaster/src/app/services/hotkeys/hotkeys.service.ts:87</a></div>
                 </td>
             </tr>
 
@@ -691,7 +691,11 @@ export class HotkeysService {
 
   _pause &#x3D; false;
 
-  constructor(private eventManager: EventManager, @Inject(DOCUMENT) private document: Document, private dialog: MatDialog) {}
+  constructor(
+    private eventManager: EventManager,
+    @Inject(DOCUMENT) private document: Document,
+    private dialog: MatDialog
+  ) {}
 
   initialize() {
     this.register({
