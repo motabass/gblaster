@@ -128,7 +128,7 @@
     "ng-packagr": "16.1.0",
     "node-polyfill-webpack-plugin": "^2.0.1",
     "npm-check-updates": "16.10.15",
-    "nx": "16.5.0",
+    "nx": "16.6.0",
     "nx-stylelint": "15.0.0",
     "postcss": "8.4.25",
     "postcss-html": "^1.5.0",
@@ -156,13 +156,13 @@
     "webpack-node-externals": "3.0.0",
     "webpack-sources": "3.2.3",
     "nx-cloud": "16.0.5",
-    "@nx/workspace": "16.5.0",
-    "@nx/cypress": "16.5.0",
-    "@nx/linter": "16.5.0",
-    "@nx/eslint-plugin": "16.5.0",
-    "@nx/jest": "16.5.0",
-    "@nx/node": "16.5.0",
-    "@nx/angular": "16.5.0"
+    "@nx/workspace": "16.6.0",
+    "@nx/cypress": "16.6.0",
+    "@nx/linter": "16.6.0",
+    "@nx/eslint-plugin": "16.6.0",
+    "@nx/jest": "16.6.0",
+    "@nx/node": "16.6.0",
+    "@nx/angular": "16.6.0"
   },
   "overrides": {
     "readable-stream": "$readable-stream"
