@@ -10,7 +10,8 @@
       "options": {
         "tsConfig": "libs/ui-components/slide-panel/tsconfig.lib.json",
         "project": "libs/ui-components/slide-panel/ng-package.json",
-        "buildableProjectDepsInPackageJsonType": "dependencies"
+        "buildableProjectDepsInPackageJsonType": "dependencies",
+        "updateBuildableProjectDepsInPackageJson": true
       },
       "configurations": {
         "production": {

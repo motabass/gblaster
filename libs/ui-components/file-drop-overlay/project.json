@@ -10,7 +10,8 @@
       "options": {
         "tsConfig": "libs/ui-components/file-drop-overlay/tsconfig.lib.json",
         "project": "libs/ui-components/file-drop-overlay/ng-package.json",
-        "buildableProjectDepsInPackageJsonType": "dependencies"
+        "buildableProjectDepsInPackageJsonType": "dependencies",
+        "updateBuildableProjectDepsInPackageJson": true
       },
       "configurations": {
         "production": {
