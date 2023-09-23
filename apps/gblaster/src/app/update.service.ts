@@ -25,6 +25,11 @@ export class UpdateService extends BaseSubscribingClass {
           case 'VERSION_READY': {
             console.log(`Current app version: ${event.currentVersion.hash}`);
             console.log(`New app version ready for use: ${event.latestVersion.hash}`);
+            this.askUserForUpdate().then((update) => {
+              if (update) {
+                swUpdate.activateUpdate().then(() => document.location.reload());
+              }
+            });
             break;
           }
           case 'VERSION_INSTALLATION_FAILED': {
@@ -32,12 +37,6 @@ export class UpdateService extends BaseSubscribingClass {
             break;
           }
         }
-
-        this.askUserForUpdate().then((update) => {
-          if (update) {
-            swUpdate.activateUpdate().then(() => document.location.reload());
-          }
-        });
       });
     }
   }
