@@ -16,18 +16,28 @@ export class UpdateService extends BaseSubscribingClass {
   ) {
     super();
     if (swUpdate.isEnabled) {
-      swUpdate.available.pipe(takeUntil(this.destroy$)).subscribe((event) => {
-        console.log('current version is', event.current);
-        console.log('available version is', event.available);
+      swUpdate.versionUpdates.pipe(takeUntil(this.destroy$)).subscribe((event) => {
+        switch (event.type) {
+          case 'VERSION_DETECTED': {
+            console.log(`Downloading new app version: ${event.version.hash}`);
+            break;
+          }
+          case 'VERSION_READY': {
+            console.log(`Current app version: ${event.currentVersion.hash}`);
+            console.log(`New app version ready for use: ${event.latestVersion.hash}`);
+            break;
+          }
+          case 'VERSION_INSTALLATION_FAILED': {
+            console.log(`Failed to install app version '${event.version.hash}': ${event.error}`);
+            break;
+          }
+        }
+
         this.askUserForUpdate().then((update) => {
           if (update) {
             swUpdate.activateUpdate().then(() => document.location.reload());
           }
         });
-      });
-      swUpdate.activated.pipe(takeUntil(this.destroy$)).subscribe((event) => {
-        console.log('old version was', event.previous);
-        console.log('new version is', event.current);
       });
     }
   }
