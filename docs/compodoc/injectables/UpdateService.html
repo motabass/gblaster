@@ -215,8 +215,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="41"
-                            class="link-to-prism">apps/gblaster/src/app/update.service.ts:41</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="50"
+                            class="link-to-prism">apps/gblaster/src/app/update.service.ts:50</a></div>
                 </td>
             </tr>
 
@@ -254,8 +254,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="35"
-                            class="link-to-prism">apps/gblaster/src/app/update.service.ts:35</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="44"
+                            class="link-to-prism">apps/gblaster/src/app/update.service.ts:44</a></div>
                 </td>
             </tr>
 
@@ -382,18 +382,27 @@ export class UpdateService extends BaseSubscribingClass {
   ) {
     super();
     if (swUpdate.isEnabled) {
-      swUpdate.available.pipe(takeUntil(this.destroy$)).subscribe((event) &#x3D;&gt; {
-        console.log(&#x27;current version is&#x27;, event.current);
-        console.log(&#x27;available version is&#x27;, event.available);
-        this.askUserForUpdate().then((update) &#x3D;&gt; {
-          if (update) {
-            swUpdate.activateUpdate().then(() &#x3D;&gt; document.location.reload());
+      swUpdate.versionUpdates.pipe(takeUntil(this.destroy$)).subscribe((event) &#x3D;&gt; {
+        switch (event.type) {
+          case &#x27;VERSION_DETECTED&#x27;: {
+            console.log(&#x60;Downloading new app version: ${event.version.hash}&#x60;);
+            break;
           }
-        });
-      });
-      swUpdate.activated.pipe(takeUntil(this.destroy$)).subscribe((event) &#x3D;&gt; {
-        console.log(&#x27;old version was&#x27;, event.previous);
-        console.log(&#x27;new version is&#x27;, event.current);
+          case &#x27;VERSION_READY&#x27;: {
+            console.log(&#x60;Current app version: ${event.currentVersion.hash}&#x60;);
+            console.log(&#x60;New app version ready for use: ${event.latestVersion.hash}&#x60;);
+            this.askUserForUpdate().then((update) &#x3D;&gt; {
+              if (update) {
+                swUpdate.activateUpdate().then(() &#x3D;&gt; document.location.reload());
+              }
+            });
+            break;
+          }
+          case &#x27;VERSION_INSTALLATION_FAILED&#x27;: {
+            console.log(&#x60;Failed to install app version &#x27;${event.version.hash}&#x27;: ${event.error}&#x60;);
+            break;
+          }
+        }
       });
     }
   }
