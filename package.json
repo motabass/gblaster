@@ -137,7 +137,7 @@
     "node-polyfill-webpack-plugin": "^2.0.1",
     "npm-check-updates": "16.14.5",
     "nx": "16.10.0",
-    "nx-cloud": "16.4.0",
+    "nx-cloud": "16.5.2",
     "nx-stylelint": "15.0.0",
     "postcss": "8.4.31",
     "postcss-html": "^1.5.0",
