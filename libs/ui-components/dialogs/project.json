@@ -6,7 +6,7 @@
   "prefix": "mtb",
   "targets": {
     "lint": {
-      "executor": "@nx/linter:eslint",
+      "executor": "@nx/eslint:lint",
       "options": {
         "lintFilePatterns": ["libs/ui-components/dialogs/src/**/*.ts", "libs/ui-components/dialogs/src/**/*.html"]
       },
@@ -15,8 +15,7 @@
     "test": {
       "executor": "@nx/jest:jest",
       "options": {
-        "jestConfig": "libs/ui-components/dialogs/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/ui-components/dialogs/jest.config.ts"
       },
       "outputs": ["{workspaceRoot}/coverage/libs/ui-components/dialogs"]
     },

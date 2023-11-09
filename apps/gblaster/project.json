@@ -87,16 +87,16 @@
     "serve": {
       "executor": "@nx/angular:webpack-dev-server",
       "options": {
-        "browserTarget": "gblaster:build"
+        "buildTarget": "gblaster:build"
       },
       "configurations": {
         "production": {
-          "browserTarget": "gblaster:build:production"
+          "buildTarget": "gblaster:build:production"
         }
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
+      "executor": "@nx/eslint:lint",
       "options": {
         "lintFilePatterns": ["apps/gblaster/src/**/*.ts", "apps/gblaster/src/**/*.html"]
       },
@@ -105,8 +105,7 @@
     "test": {
       "executor": "@nx/jest:jest",
       "options": {
-        "jestConfig": "apps/gblaster/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "apps/gblaster/jest.config.ts"
       },
       "outputs": ["{workspaceRoot}/coverage/apps/gblaster"]
     },

@@ -20,7 +20,7 @@
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
+      "executor": "@nx/eslint:lint",
       "options": {
         "lintFilePatterns": ["libs/ui-components/file-drop-overlay/src/**/*.ts", "libs/ui-components/file-drop-overlay/src/**/*.html"]
       },
@@ -29,8 +29,7 @@
     "test": {
       "executor": "@nx/jest:jest",
       "options": {
-        "jestConfig": "libs/ui-components/file-drop-overlay/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/ui-components/file-drop-overlay/jest.config.ts"
       },
       "outputs": ["{workspaceRoot}/coverage/libs/ui-components/file-drop-overlay"]
     },
