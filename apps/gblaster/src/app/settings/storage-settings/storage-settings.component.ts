@@ -6,7 +6,7 @@ import { MatCardModule } from '@angular/material/card';
 @Component({
   selector: 'mtb-storage-settings',
   templateUrl: './storage-settings.component.html',
-  styleUrls: ['./storage-settings.component.scss'],
+  styleUrl: './storage-settings.component.scss',
   standalone: true,
   imports: [MatCardModule, MatButtonModule]
 })

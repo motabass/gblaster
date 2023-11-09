@@ -7,7 +7,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 @Component({
   selector: 'mtb-slide-panel',
   templateUrl: './slide-panel.component.html',
-  styleUrls: ['./slide-panel.component.scss'],
+  styleUrl: './slide-panel.component.scss',
   standalone: true,
   imports: [CommonModule, MatIconModule, MatButtonModule, MatTooltipModule]
 })

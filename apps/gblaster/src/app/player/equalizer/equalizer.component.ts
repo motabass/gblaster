@@ -9,7 +9,7 @@ import { NgFor } from '@angular/common';
 @Component({
   selector: 'mtb-equalizer',
   templateUrl: './equalizer.component.html',
-  styleUrls: ['./equalizer.component.scss'],
+  styleUrl: './equalizer.component.scss',
   standalone: true,
   imports: [NgFor, MatSliderModule, BandPipe]
 })

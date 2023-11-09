@@ -6,7 +6,7 @@ import { NgFor } from '@angular/common';
 import { MatListModule } from '@angular/material/list';
 @Component({
   templateUrl: './library.component.html',
-  styleUrls: ['./library.component.scss'],
+  styleUrl: './library.component.scss',
   standalone: true,
   imports: [MatListModule, NgFor, NgArrayPipesModule]
 })

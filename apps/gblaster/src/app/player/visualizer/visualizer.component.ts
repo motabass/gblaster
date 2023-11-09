@@ -20,7 +20,7 @@ import { MobxAngularModule } from 'mobx-angular';
 @Component({
   selector: 'mtb-visualizer',
   templateUrl: './visualizer.component.html',
-  styleUrls: ['./visualizer.component.scss'],
+  styleUrl: './visualizer.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [

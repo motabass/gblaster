@@ -7,7 +7,7 @@ import { NgIf, NgStyle } from '@angular/common';
 @Component({
   selector: 'mtb-cover-display',
   templateUrl: './cover-display.component.html',
-  styleUrls: ['./cover-display.component.scss'],
+  styleUrl: './cover-display.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [NgIf, NgStyle, TimePipe]

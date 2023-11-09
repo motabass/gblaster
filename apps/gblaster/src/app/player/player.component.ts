@@ -27,7 +27,7 @@ import { PlaylistComponent } from './playlist/playlist.component';
 @Component({
   selector: 'mtb-player',
   templateUrl: './player.component.html',
-  styleUrls: ['./player.component.scss'],
+  styleUrl: './player.component.scss',
   standalone: true,
   imports: [
     PlaylistComponent,

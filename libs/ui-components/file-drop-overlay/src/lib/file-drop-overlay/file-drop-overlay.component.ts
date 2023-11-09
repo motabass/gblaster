@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'mtb-file-drop-overlay',
   templateUrl: './file-drop-overlay.component.html',
-  styleUrls: ['./file-drop-overlay.component.scss'],
+  styleUrl: './file-drop-overlay.component.scss',
   standalone: true,
   imports: [CommonModule]
 })

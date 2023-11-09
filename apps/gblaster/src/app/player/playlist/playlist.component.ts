@@ -19,7 +19,7 @@ import { MobxAngularModule } from 'mobx-angular';
 @Component({
   selector: 'mtb-playlist',
   templateUrl: './playlist.component.html',
-  styleUrls: ['./playlist.component.scss'],
+  styleUrl: './playlist.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [

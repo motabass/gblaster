@@ -16,7 +16,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 @Component({
   selector: 'mtb-shell',
   templateUrl: './shell.component.html',
-  styleUrls: ['./shell.component.scss'],
+  styleUrl: './shell.component.scss',
   standalone: true,
   imports: [MatSidenavModule, MatToolbarModule, MatIconModule, MatListModule, NgIf, MatButtonModule, MatProgressSpinnerModule, RouterOutlet, AsyncPipe]
 })

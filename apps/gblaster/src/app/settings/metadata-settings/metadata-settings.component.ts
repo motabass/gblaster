@@ -8,7 +8,7 @@ import { MatCardModule } from '@angular/material/card';
 @Component({
   selector: 'mtb-metadata-settings',
   templateUrl: './metadata-settings.component.html',
-  styleUrls: ['./metadata-settings.component.scss'],
+  styleUrl: './metadata-settings.component.scss',
   standalone: true,
   imports: [MatCardModule, MatSlideToggleModule, MatButtonModule]
 })
