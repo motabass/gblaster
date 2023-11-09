@@ -9,9 +9,7 @@
       "executor": "@nx/angular:package",
       "options": {
         "tsConfig": "libs/ui-components/slide-panel/tsconfig.lib.json",
-        "project": "libs/ui-components/slide-panel/ng-package.json",
-        "buildableProjectDepsInPackageJsonType": "dependencies",
-        "updateBuildableProjectDepsInPackageJson": true
+        "project": "libs/ui-components/slide-panel/ng-package.json"
       },
       "configurations": {
         "production": {

@@ -9,9 +9,7 @@
       "executor": "@nx/angular:package",
       "options": {
         "tsConfig": "libs/ui-components/file-drop-overlay/tsconfig.lib.json",
-        "project": "libs/ui-components/file-drop-overlay/ng-package.json",
-        "buildableProjectDepsInPackageJsonType": "dependencies",
-        "updateBuildableProjectDepsInPackageJson": true
+        "project": "libs/ui-components/file-drop-overlay/ng-package.json"
       },
       "configurations": {
         "production": {
