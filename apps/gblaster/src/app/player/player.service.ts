@@ -153,13 +153,13 @@ export class PlayerService extends BaseSubscribingClass {
   }
 
   private async createTrackFromFile(file: File): Promise<Track> {
-    const song: Track = {
-      file: file
-    };
     console.time('full-metadata');
-    song.metadata = await this.metadataService.getMetadata(file);
+    const metadata = await this.metadataService.getMetadata(file);
     console.timeEnd('full-metadata');
-    return song;
+    return {
+      file: file,
+      metadata: metadata
+    };
   }
 
   @action setSeekPosition(value: number | undefined, fastSeek = false) {

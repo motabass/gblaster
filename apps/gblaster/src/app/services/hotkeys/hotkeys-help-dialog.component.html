@@ -5,9 +5,12 @@
 </div>
 
 <mat-dialog-content>
-  <p *ngIf="hotkeyList.length === 0">Auf dieser Seite stehen keine Tastenkürzel zur verfügung.</p>
+  @if (hotkeyList.length === 0) {
+  <p>Auf dieser Seite stehen keine Tastenkürzel zur verfügung.</p>
+  }
   <mat-list>
-    <mat-list-item *ngFor="let hotkey of hotkeyList">
+    @for (hotkey of hotkeyList; track hotkey) {
+    <mat-list-item>
       <div class="keyboard-key">
         {{
           hotkey[0]
@@ -27,5 +30,6 @@
       </div>
       <p style="margin-left: 16px">{{ hotkey[1].description }}</p>
     </mat-list-item>
+    }
   </mat-list>
 </mat-dialog-content>

@@ -35,10 +35,6 @@ export class EqualizerComponent {
     return num + ' dB';
   }
 
-  bandTrackFunction(index: number): number {
-    return index;
-  }
-
   getBaseGain() {
     return this.audioService.baseGain;
   }

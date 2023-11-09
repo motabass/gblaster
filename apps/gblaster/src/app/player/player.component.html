@@ -1,7 +1,9 @@
 <mtb-playlist class="playlist mat-elevation-z6"
-  ><button style="width: 100%; text-transform: uppercase" mat-button color="accent" *ngIf="isPlaylistEmpty" (click)="onReload()">
+  >@if (isPlaylistEmpty) {
+  <button style="width: 100%; text-transform: uppercase" mat-button color="accent" (click)="onReload()">
     <mat-icon svgIcon="reload"></mat-icon> Reload last directory
   </button>
+  }
 </mtb-playlist>
 
 <mtb-cover-display [track]="playingTrack$ | async" class="main">
@@ -10,8 +12,11 @@
 
 <mat-toolbar color="primary" class="bar flex row justify-center">
   <button mat-icon-button (click)="playPause()">
-    <mat-icon matTooltip="Pause" *ngIf="playing" svgIcon="pause"></mat-icon>
-    <mat-icon matTooltip="Play" *ngIf="!playing" svgIcon="play"></mat-icon>
+    @if (playing) {
+    <mat-icon matTooltip="Pause" svgIcon="pause"></mat-icon>
+    } @if (!playing) {
+    <mat-icon matTooltip="Play" svgIcon="play"></mat-icon>
+    }
   </button>
 
   <button mat-icon-button (click)="stop()">
@@ -28,12 +33,16 @@
   <button mat-icon-button id="load_files" (click)="showPicker()">
     <mat-icon matTooltip="Load folder/files..." svgIcon="folder-music-outline"></mat-icon>
   </button>
-  <div class="flex-grow" *ngIf="(playingTrack$ | async) === undefined"></div>
+  @if ((playingTrack$ | async) === undefined) {
+  <div class="flex-grow"></div>
+  }
 
   <!-- TODO: The 'tickInterval' property no longer exists -->
-  <mat-slider class="flex-grow" *ngIf="playingTrack$" min="0" [max]="durationSeconds" step="1" discrete color="accent" [displayWith]="formatLabel" #ngSlider
+  @if (playingTrack$) {
+  <mat-slider class="flex-grow" min="0" [max]="durationSeconds" step="1" discrete color="accent" [displayWith]="formatLabel" #ngSlider
     ><input matSliderThumb [value]="position" (input)="onSliderPositionChanged(ngSliderThumb.value)" #ngSliderThumb="matSliderThumb"
   /></mat-slider>
+  }
 
   <div class="no-mobile" style="font-size: small; padding: 0 12px">
     <p>{{ position | time }} / {{ durationSeconds | time }}</p>
@@ -45,10 +54,14 @@
   <button mat-icon-button [ngClass]="{ 'disabled-color': !shuffle }" (click)="toggleShuffle()">
     <mat-icon [matTooltip]="shuffle ? 'Shuffle on' : 'Shuffle off'" svgIcon="shuffle-variant"></mat-icon>
   </button>
-  <button mat-icon-button [ngClass]="{ 'disabled-color': repeat === 'off' }" (click)="toggleRepeat()" [ngSwitch]="repeat">
-    <mat-icon matTooltip="Repeat off" *ngSwitchCase="'off'" svgIcon="repeat-off"></mat-icon>
-    <mat-icon matTooltip="Repeat all" *ngSwitchCase="'all'" svgIcon="repeat"></mat-icon>
-    <mat-icon matTooltip="Repeat one" *ngSwitchCase="'one'" svgIcon="repeat-once"></mat-icon>
+  <button mat-icon-button [ngClass]="{ 'disabled-color': repeat === 'off' }" (click)="toggleRepeat()">
+    @switch (repeat) { @case ('off') {
+    <mat-icon matTooltip="Repeat off" svgIcon="repeat-off"></mat-icon>
+    } @case ('all') {
+    <mat-icon matTooltip="Repeat all" svgIcon="repeat"></mat-icon>
+    } @case ('one') {
+    <mat-icon matTooltip="Repeat one" svgIcon="repeat-once"></mat-icon>
+    } }
   </button>
 </mat-toolbar>
 

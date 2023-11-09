@@ -1,4 +1,8 @@
-export function formatSecondsAsClock(value: number, leadingMinuteZero = true): string {
+export function formatSecondsAsClock(value: number | undefined, leadingMinuteZero = true): string {
+  if (value === undefined || value === null) {
+    return leadingMinuteZero ? '00:00' : '0:00';
+  }
+
   if (value > 0) {
     const durationSeconds = value;
 

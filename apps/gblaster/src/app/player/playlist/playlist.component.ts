@@ -104,10 +104,6 @@ export class PlaylistComponent implements OnDestroy {
     return this.playerService.playPauseTrack(song);
   }
 
-  playlistTrackFunction(index: number, song: Track) {
-    return song.metadata?.crc;
-  }
-
   get colorConfig$(): Observable<VisualsColorConfig> {
     return this.playingTrack$.pipe(
       map((track) => ({ mainColor: track?.metadata?.coverColors?.darkVibrant?.hex, peakColor: track?.metadata?.coverColors?.lightVibrant?.hex }))

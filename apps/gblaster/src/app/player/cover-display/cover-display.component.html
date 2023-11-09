@@ -17,30 +17,38 @@
     {{ track?.metadata?.title || track?.file?.name }}
   </h1>
   <p style="font-size: 1.5rem; margin-bottom: 8px; opacity: 0.8">{{ track?.metadata?.artist }}</p>
-  <div class="flex column" *ngIf="track && track.metadata" style="margin-top: 16px; opacity: 0.9">
-    <span *ngIf="track && track.metadata && track.metadata.album">
-      Album: <strong>{{ track.metadata.album }}</strong>
+  <div class="flex column" style="margin-top: 16px; opacity: 0.9">
+    @if (track?.metadata?.album) {
+    <span>
+      Album: <strong>{{ track?.metadata?.album }}</strong>
     </span>
-    <span *ngIf="track && track.metadata && track.metadata.year">
-      Year: <strong>{{ track.metadata.year }}</strong>
+    } @if (track?.metadata?.year) {
+    <span>
+      Year: <strong>{{ track?.metadata?.year }}</strong>
     </span>
+    }
     <span>&nbsp;</span>
-    <span *ngIf="track.metadata.format && track.metadata.format.duration">
-      Duration: <strong>{{ track.metadata.format.duration | time }}</strong>
+    @if (track?.metadata?.format?.duration) {
+    <span>
+      Duration: <strong>{{ track?.metadata?.format?.duration | time }}</strong>
     </span>
-    <span *ngIf="track.metadata.format && track.metadata.format.container && track.metadata.format.codec">
-      Format: <strong>{{ track.metadata.format.container }} ({{ track.metadata.format.codec }})</strong>
+    } @if (track?.metadata?.format?.container && track?.metadata?.format?.codec) {
+    <span>
+      Format: <strong>{{ track?.metadata?.format?.container }} ({{ track?.metadata?.format?.codec }})</strong>
     </span>
-    <span *ngIf="track.metadata.format && track.metadata.format.bitrate">
-      Bitrate: <strong>{{ getBitrate(track.metadata.format.bitrate) }} kb/s</strong>
+    } @if (track?.metadata?.format?.bitrate) {
+    <span>
+      Bitrate: <strong>{{ getBitrate(track?.metadata?.format?.bitrate) }} kb/s</strong>
     </span>
-    <span *ngIf="track.metadata.format && track.metadata.format.sampleRate">
-      Sample-Rate: <strong>{{ track.metadata.format.sampleRate }}</strong>
+    } @if (track?.metadata?.format?.sampleRate) {
+    <span>
+      Sample-Rate: <strong>{{ track?.metadata?.format?.sampleRate }}</strong>
     </span>
+    }
   </div>
 </div>
+@if (track && coverUrl) {
 <div
-  *ngIf="track && coverUrl"
   style="
     position: absolute;
     top: 0;
@@ -58,4 +66,5 @@
     'background-color': backgroundColor
   }"
 ></div>
+}
 <ng-content></ng-content>

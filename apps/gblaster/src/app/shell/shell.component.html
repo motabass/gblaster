@@ -28,19 +28,22 @@
   </mat-sidenav>
   <mat-sidenav-content style="overflow: hidden">
     <mat-toolbar color="primary" class="mat-elevation-z6">
+      @if (isHandset$ | async) {
       <button
         id="sidenav_menu_button"
         type="button"
         aria-label="Toggle sidenav"
         mat-icon-button
         (click)="drawer.toggle()"
-        *ngIf="isHandset$ | async"
         style="margin-right: 0.7rem; padding: 6px"
       >
         <mat-icon aria-label="Side nav toggle icon" style="--mdc-icon-button-icon-size: 36px; width: 36px; height: 36px" svgIcon="logo"></mat-icon>
       </button>
+      }
       <span class="title">{{ title | async }}</span>
-      <mat-spinner *ngIf="isLoading | async" style="margin-left: 1rem" color="accent" diameter="32" strokeWidth="6"></mat-spinner>
+      @if (isLoading | async) {
+      <mat-spinner style="margin-left: 1rem" color="accent" diameter="32" strokeWidth="6"></mat-spinner>
+      }
     </mat-toolbar>
     <div class="router-outlet"><router-outlet></router-outlet></div>
   </mat-sidenav-content>

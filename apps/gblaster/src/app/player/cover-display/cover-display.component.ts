@@ -13,17 +13,15 @@ import { NgIf, NgStyle } from '@angular/common';
   imports: [NgIf, NgStyle, TimePipe]
 })
 export class CoverDisplayComponent {
-  @Input() track?: Track | null;
+  @Input({ required: true }) track?: Track | null;
 
   constructor(private themeService: ThemeService) {}
 
-  get coverUrl(): string | undefined {
-    if (this.track?.metadata?.coverUrl) {
-      return this.track.metadata.coverUrl.original;
-    }
+  get coverUrl() {
+    return this.track?.metadata?.coverUrl?.original;
   }
 
-  get backgroundColor(): string | undefined {
+  get backgroundColor(): string {
     const coverBackground = this.themeService.darkMode ? this.track?.metadata?.coverColors?.darkMuted?.hex : this.track?.metadata?.coverColors?.lightMuted?.hex;
     return coverBackground || 'rgba(0,0,0,0)';
   }
@@ -32,7 +30,10 @@ export class CoverDisplayComponent {
   //   return this.song?.metadata?.coverColors?.vibrant ? this.song.metadata.coverColors.vibrant.textHex : undefined;
   // }
 
-  getBitrate(bitrate: number): string {
+  getBitrate(bitrate: number | undefined): string {
+    if (!bitrate) {
+      return '0';
+    }
     return Math.round(bitrate / 1000).toString();
   }
 }
