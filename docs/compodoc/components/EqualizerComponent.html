@@ -55,10 +55,6 @@
                 role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
         </li>
         <li class="nav-item">
-            <a href="#styleData" class="nav-link"
-                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
-        </li>
-        <li class="nav-item">
             <a href="#tree" class="nav-link"
                 role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
         </li>
@@ -112,10 +108,6 @@
                 </td>
             </tr>
 
-            <tr>
-                <td class="col-md-3">styleUrls</td>
-                <td class="col-md-9"><code>./equalizer.component.scss</code></td>
-            </tr>
 
 
 
@@ -126,6 +118,10 @@
 
 
 
+            <tr>
+                <td class="col-md-3">styleUrl</td>
+                <td class="col-md-9"><code>./equalizer.component.scss</code></td>
+            </tr>
 
 
 
@@ -148,9 +144,6 @@
                 <tr>
                     <td class="col-md-4">
                         <ul class="index-list">
-                            <li>
-                                <a href="#bandTrackFunction" >bandTrackFunction</a>
-                            </li>
                             <li>
                                 <a href="#displayFunction" >displayFunction</a>
                             </li>
@@ -250,73 +243,6 @@
     <h3 id="methods">
         Methods
     </h3>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="bandTrackFunction"></a>
-                    <span class="name">
-                        <span ><b>bandTrackFunction</b></span>
-                        <a href="#bandTrackFunction"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-<code>bandTrackFunction(index: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
-                </td>
-            </tr>
-
-
-                    <tr>
-                        <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="38"
-                                    class="link-to-prism">apps/gblaster/src/app/player/equalizer/equalizer.component.ts:38</a></div>
-                        </td>
-                    </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-
-                            <div class="io-description">
-                                <b>Parameters :</b>
-                                
-                                <table class="params">
-                                    <thead>
-                                        <tr>
-                                            <td>Name</td>
-                                                <td>Type</td>
-                                            <td>Optional</td>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                                <td>index</td>
-                                            <td>
-                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
-                                            </td>
-
-                                            <td>
-                                                    No
-                                            </td>
-
-
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        <div class="io-description">
-                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
-
-                        </div>
-                            <div class="io-description">
-                                
-                            </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
     <table class="table table-sm table-bordered">
         <tbody>
             <tr>
@@ -471,8 +397,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="42"
-                                    class="link-to-prism">apps/gblaster/src/app/player/equalizer/equalizer.component.ts:42</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="38"
+                                    class="link-to-prism">apps/gblaster/src/app/player/equalizer/equalizer.component.ts:38</a></div>
                         </td>
                     </tr>
 
@@ -508,8 +434,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="46"
-                                    class="link-to-prism">apps/gblaster/src/app/player/equalizer/equalizer.component.ts:46</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="42"
+                                    class="link-to-prism">apps/gblaster/src/app/player/equalizer/equalizer.component.ts:42</a></div>
                         </td>
                     </tr>
 
@@ -678,7 +604,7 @@ import { NgFor } from &#x27;@angular/common&#x27;;
 @Component({
   selector: &#x27;mtb-equalizer&#x27;,
   templateUrl: &#x27;./equalizer.component.html&#x27;,
-  styleUrls: [&#x27;./equalizer.component.scss&#x27;],
+  styleUrl: &#x27;./equalizer.component.scss&#x27;,
   standalone: true,
   imports: [NgFor, MatSliderModule, BandPipe]
 })
@@ -704,10 +630,6 @@ export class EqualizerComponent {
     return num + &#x27; dB&#x27;;
   }
 
-  bandTrackFunction(index: number): number {
-    return index;
-  }
-
   getBaseGain() {
     return this.audioService.baseGain;
   }
@@ -724,19 +646,21 @@ export class EqualizerComponent {
     <div class="tab-pane fade " id="templateData">
         <pre class="line-numbers"><code class="language-html">&lt;div style&#x3D;&quot;padding-bottom: 1rem; height: 100%; box-sizing: border-box&quot;&gt;
   &lt;div class&#x3D;&quot;flex row&quot; style&#x3D;&quot;overflow-x: scroll; padding: 24px; height: 40%&quot;&gt;
-    &lt;div *ngFor&#x3D;&quot;let band of BANDS; trackBy: bandTrackFunction&quot; class&#x3D;&quot;vertical-slider-container&quot;&gt;
+    @for (band of BANDS; track band) {
+    &lt;div class&#x3D;&quot;vertical-slider-container&quot;&gt;
       &lt;div class&#x3D;&quot;flex row justify-center vertical-slider&quot;&gt;
         &lt;div class&#x3D;&quot;vertical-slider-label&quot;&gt;{{ band | band }}&lt;/div&gt;
-        &lt;mat-slider [displayWith]&#x3D;&quot;displayFunction&quot; discrete min&#x3D;&quot;-12&quot; max&#x3D;&quot;12&quot; step&#x3D;&quot;0.01&quot; #ngSlider
+        &lt;mat-slider [displayWith]&#x3D;&quot;displayFunction&quot; discrete min&#x3D;&quot;-12&quot; max&#x3D;&quot;12&quot; step&#x3D;&quot;0.01&quot;
           &gt;&lt;input matSliderThumb [value]&#x3D;&quot;getBandGain(band)&quot; (input)&#x3D;&quot;onGainChange(ngSliderThumb.value, band)&quot; #ngSliderThumb&#x3D;&quot;matSliderThumb&quot;
         /&gt;&lt;/mat-slider&gt;
       &lt;/div&gt;
     &lt;/div&gt;
+    }
 
     &lt;div class&#x3D;&quot;vertical-slider-container&quot;&gt;
       &lt;div class&#x3D;&quot;flex row justify-center vertical-slider&quot;&gt;
         &lt;div class&#x3D;&quot;vertical-slider-label&quot;&gt;GAIN&lt;/div&gt;
-        &lt;mat-slider [displayWith]&#x3D;&quot;displayFunction&quot; discrete min&#x3D;&quot;0&quot; max&#x3D;&quot;2&quot; step&#x3D;&quot;0.01&quot; #ngSlider
+        &lt;mat-slider [displayWith]&#x3D;&quot;displayFunction&quot; discrete min&#x3D;&quot;0&quot; max&#x3D;&quot;2&quot; step&#x3D;&quot;0.01&quot;
           &gt;&lt;input matSliderThumb [value]&#x3D;&quot;getBaseGain()&quot; (input)&#x3D;&quot;onBaseGainChange(ngSliderThumb.value)&quot; #ngSliderThumb&#x3D;&quot;matSliderThumb&quot;
         /&gt;&lt;/mat-slider&gt;
       &lt;/div&gt;
@@ -746,43 +670,6 @@ export class EqualizerComponent {
 </code></pre>
     </div>
 
-    <div class="tab-pane fade " id="styleData">
-                <p class="comment">
-                    <code>./equalizer.component.scss</code>
-                </p>
-                <pre class="line-numbers"><code class="language-scss">:host {
-  display: block;
-  padding: 2rem 1rem;
-  //height: 100%;
-  //overflow-x: auto;
-}
-
-::ng-deep .vertical-slider-container {
-  min-height: 12rem;
-  width: 64px;
-  //position: relative;
-
-  .vertical-slider {
-    transform: rotate(270deg);
-    transform-origin: 100% 100%;
-
-    .mdc-slider__value-indicator-text {
-      transform: rotate(90deg);
-      //white-space: nowrap;
-      display: inline-block;
-    }
-    //position: absolute;
-    .vertical-slider-label {
-      padding-top: 24px;
-      font-size: smaller;
-      text-align: center;
-      width: 100%;
-      transform: rotate(90deg);
-    }
-  }
-}
-</code></pre>
-    </div>
 
     <div class="tab-pane fade " id="tree">
         <div id="tree-container"></div>
@@ -809,7 +696,7 @@ export class EqualizerComponent {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><div style="padding-bottom: 1rem; height: 100%; box-sizing: border-box">  <div class="flex row" style="overflow-x: scroll; padding: 24px; height: 40%">    <div *ngFor="let band of BANDS; trackBy: bandTrackFunction" class="vertical-slider-container">      <div class="flex row justify-center vertical-slider">        <div class="vertical-slider-label">{{ band | band }}</div>        <mat-slider [displayWith]="displayFunction" discrete min="-12" max="12" step="0.01" #ngSlider          ><input matSliderThumb [value]="getBandGain(band)" (input)="onGainChange(ngSliderThumb.value, band)" #ngSliderThumb="matSliderThumb"        /></mat-slider>      </div>    </div>    <div class="vertical-slider-container">      <div class="flex row justify-center vertical-slider">        <div class="vertical-slider-label">GAIN</div>        <mat-slider [displayWith]="displayFunction" discrete min="0" max="2" step="0.01" #ngSlider          ><input matSliderThumb [value]="getBaseGain()" (input)="onBaseGainChange(ngSliderThumb.value)" #ngSliderThumb="matSliderThumb"        /></mat-slider>      </div>    </div>  </div></div></div>'
+        var COMPONENT_TEMPLATE = '<div><div style="padding-bottom: 1rem; height: 100%; box-sizing: border-box">  <div class="flex row" style="overflow-x: scroll; padding: 24px; height: 40%">    @for (band of BANDS; track band) {    <div class="vertical-slider-container">      <div class="flex row justify-center vertical-slider">        <div class="vertical-slider-label">{{ band | band }}</div>        <mat-slider [displayWith]="displayFunction" discrete min="-12" max="12" step="0.01"          ><input matSliderThumb [value]="getBandGain(band)" (input)="onGainChange(ngSliderThumb.value, band)" #ngSliderThumb="matSliderThumb"        /></mat-slider>      </div>    </div>    }    <div class="vertical-slider-container">      <div class="flex row justify-center vertical-slider">        <div class="vertical-slider-label">GAIN</div>        <mat-slider [displayWith]="displayFunction" discrete min="0" max="2" step="0.01"          ><input matSliderThumb [value]="getBaseGain()" (input)="onBaseGainChange(ngSliderThumb.value)" #ngSliderThumb="matSliderThumb"        /></mat-slider>      </div>    </div>  </div></div></div>'
     var COMPONENTS = [{'name': 'AppComponent', 'selector': 'mtb-root'},{'name': 'CoverDisplayComponent', 'selector': 'mtb-cover-display'},{'name': 'EqualizerComponent', 'selector': 'mtb-equalizer'},{'name': 'FileDropOverlayComponent', 'selector': 'mtb-file-drop-overlay'},{'name': 'HotkeysHelpDialogComponent', 'selector': 'mtb-hotkeys-help-dialog'},{'name': 'LibraryComponent', 'selector': ''},{'name': 'MetadataSettingsComponent', 'selector': 'mtb-metadata-settings'},{'name': 'PlayerComponent', 'selector': 'mtb-player'},{'name': 'PlaylistComponent', 'selector': 'mtb-playlist'},{'name': 'PromptDialogComponent', 'selector': 'mtb-prompt-dialog'},{'name': 'SettingsComponent', 'selector': 'mtb-settings'},{'name': 'ShellComponent', 'selector': 'mtb-shell'},{'name': 'SlidePanelComponent', 'selector': 'mtb-slide-panel'},{'name': 'StorageSettingsComponent', 'selector': 'mtb-storage-settings'},{'name': 'ThemeSettingsComponent', 'selector': 'mtb-theme-settings'},{'name': 'VisualizerComponent', 'selector': 'mtb-visualizer'}];
     var DIRECTIVES = [{'name': 'VisualsDirective', 'selector': '[mtbVisual]'}];
     var ACTUAL_COMPONENT = {'name': 'EqualizerComponent'};

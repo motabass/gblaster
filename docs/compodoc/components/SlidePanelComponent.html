@@ -55,10 +55,6 @@
                 role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
         </li>
         <li class="nav-item">
-            <a href="#styleData" class="nav-link"
-                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
-        </li>
-        <li class="nav-item">
             <a href="#tree" class="nav-link"
                 role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
         </li>
@@ -119,10 +115,6 @@
                 </td>
             </tr>
 
-            <tr>
-                <td class="col-md-3">styleUrls</td>
-                <td class="col-md-9"><code>./slide-panel.component.scss</code></td>
-            </tr>
 
 
 
@@ -133,6 +125,10 @@
 
 
 
+            <tr>
+                <td class="col-md-3">styleUrl</td>
+                <td class="col-md-9"><code>./slide-panel.component.scss</code></td>
+            </tr>
 
 
 
@@ -696,7 +692,7 @@ import { MatTooltipModule } from &#x27;@angular/material/tooltip&#x27;;
 @Component({
   selector: &#x27;mtb-slide-panel&#x27;,
   templateUrl: &#x27;./slide-panel.component.html&#x27;,
-  styleUrls: [&#x27;./slide-panel.component.scss&#x27;],
+  styleUrl: &#x27;./slide-panel.component.scss&#x27;,
   standalone: true,
   imports: [CommonModule, MatIconModule, MatButtonModule, MatTooltipModule]
 })
@@ -749,12 +745,19 @@ export class SlidePanelComponent implements OnChanges {
 
     <div class="tab-pane fade " id="templateData">
         <pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;slide-panel-toggle-wrapper&quot; [ngClass]&#x3D;&quot;{ &#x27;slide-panel-toggle-wrapper-opened&#x27;: openedState }&quot;&gt;
-  &lt;button *ngIf&#x3D;&quot;side &#x3D;&#x3D;&#x3D; &#x27;left&#x27;&quot; class&#x3D;&quot;slide-panel-toggle&quot; mat-icon-button style&#x3D;&quot;color: white&quot; (click)&#x3D;&quot;openedState ? closePanel() : openPanel()&quot;&gt;
-    &lt;mat-icon [matTooltip]&#x3D;&quot;(openedState ? &#x27;Close &#x27; : &#x27;Open &#x27;) + buttonTooltip&quot; matTooltipPosition&#x3D;&quot;right&quot; *ngIf&#x3D;&quot;toggleIcon&quot; [svgIcon]&#x3D;&quot;toggleIcon&quot;&gt;&lt;/mat-icon&gt;
+  @if (side &#x3D;&#x3D;&#x3D; &#x27;left&#x27;) {
+  &lt;button class&#x3D;&quot;slide-panel-toggle&quot; mat-icon-button style&#x3D;&quot;color: white&quot; (click)&#x3D;&quot;openedState ? closePanel() : openPanel()&quot;&gt;
+    @if (toggleIcon) {
+    &lt;mat-icon [matTooltip]&#x3D;&quot;(openedState ? &#x27;Close &#x27; : &#x27;Open &#x27;) + buttonTooltip&quot; matTooltipPosition&#x3D;&quot;right&quot; [svgIcon]&#x3D;&quot;toggleIcon&quot;&gt;&lt;/mat-icon&gt;
+    }
   &lt;/button&gt;
-  &lt;button *ngIf&#x3D;&quot;side &#x3D;&#x3D;&#x3D; &#x27;right&#x27;&quot; class&#x3D;&quot;slide-panel-toggle&quot; mat-icon-button style&#x3D;&quot;color: white&quot; (click)&#x3D;&quot;openedState ? closePanel() : openPanel()&quot;&gt;
-    &lt;mat-icon [matTooltip]&#x3D;&quot;(openedState ? &#x27;Close &#x27; : &#x27;Open &#x27;) + buttonTooltip&quot; matTooltipPosition&#x3D;&quot;left&quot; *ngIf&#x3D;&quot;toggleIcon&quot; [svgIcon]&#x3D;&quot;toggleIcon&quot;&gt;&lt;/mat-icon&gt;
+  } @if (side &#x3D;&#x3D;&#x3D; &#x27;right&#x27;) {
+  &lt;button class&#x3D;&quot;slide-panel-toggle&quot; mat-icon-button style&#x3D;&quot;color: white&quot; (click)&#x3D;&quot;openedState ? closePanel() : openPanel()&quot;&gt;
+    @if (toggleIcon) {
+    &lt;mat-icon [matTooltip]&#x3D;&quot;(openedState ? &#x27;Close &#x27; : &#x27;Open &#x27;) + buttonTooltip&quot; matTooltipPosition&#x3D;&quot;left&quot; [svgIcon]&#x3D;&quot;toggleIcon&quot;&gt;&lt;/mat-icon&gt;
+    }
   &lt;/button&gt;
+  }
 &lt;/div&gt;
 &lt;div class&#x3D;&quot;panel-content&quot;&gt;
   &lt;ng-content&gt;&lt;/ng-content&gt;
@@ -762,120 +765,6 @@ export class SlidePanelComponent implements OnChanges {
 </code></pre>
     </div>
 
-    <div class="tab-pane fade " id="styleData">
-                <p class="comment">
-                    <code>./slide-panel.component.scss</code>
-                </p>
-                <pre class="line-numbers"><code class="language-scss">@use &#x27;@angular/material&#x27; as mat;
-
-:host {
-  --transition-speed: 0.6s;
-  --toggle-size: 3rem;
-  --toggle-offset: 1.5rem;
-  --toggle-icon-padding: 20px;
-
-  position: absolute;
-  transition: var(--transition-speed);
-
-  .panel-content {
-    max-height: 100%;
-    height: 100%;
-    width: 100%;
-    padding: 0.8rem 2rem;
-    box-sizing: border-box;
-    @include mat.elevation(4);
-
-    background-color: rgb(0 0 0 / 60%);
-    transition: var(--transition-speed);
-  }
-
-  &amp;.closed-slide-panel {
-    pointer-events: none;
-
-    .panel-content {
-      pointer-events: none;
-    }
-  }
-
-  .slide-panel-toggle-wrapper {
-    pointer-events: auto;
-    position: absolute;
-    bottom: 0;
-    height: var(--toggle-size);
-    z-index: 20;
-
-    .slide-panel-toggle {
-      width: var(--toggle-size);
-      height: var(--toggle-size);
-      background-color: rgb(0 0 0 / 40%);
-      color: white;
-      border-radius: 50%;
-      z-index: 21;
-    }
-  }
-
-  &amp;.left {
-    left: 0;
-
-    .panel-content {
-      clip-path: inset(-5px -5px -5px 0%);
-    }
-
-    .slide-panel-toggle-wrapper {
-      clip-path: inset(0 0 0 var(--toggle-offset));
-      right: calc(-1 * var(--toggle-offset));
-
-      &amp;.slide-panel-toggle-wrapper-opened {
-        right: unset;
-        left: calc(-1 * var(--toggle-offset));
-      }
-    }
-
-    .slide-panel-toggle {
-      padding: 0 0 0 var(--toggle-icon-padding);
-    }
-
-    &amp;.closed-slide-panel {
-      transform: translateX(-100%);
-
-      .panel-content {
-        clip-path: inset(-5px -5px -5px 100%);
-      }
-    }
-  }
-
-  &amp;.right {
-    right: 0;
-
-    .panel-content {
-      clip-path: inset(-5px 0% -5px -5px);
-    }
-
-    .slide-panel-toggle-wrapper {
-      clip-path: inset(0 var(--toggle-offset) 0 0);
-      left: calc(-1 * var(--toggle-offset));
-
-      &amp;.slide-panel-toggle-wrapper-opened {
-        left: unset;
-        right: calc(-1 * var(--toggle-offset));
-      }
-    }
-
-    .slide-panel-toggle {
-      padding: 0 var(--toggle-icon-padding) 0 0;
-    }
-
-    &amp;.closed-slide-panel {
-      transform: translateX(100%);
-
-      .panel-content {
-        clip-path: inset(-5px 100% -5px -5px);
-      }
-    }
-  }
-}
-</code></pre>
-    </div>
 
     <div class="tab-pane fade " id="tree">
         <div id="tree-container"></div>
@@ -902,7 +791,7 @@ export class SlidePanelComponent implements OnChanges {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><div class="slide-panel-toggle-wrapper" [ngClass]="{ \'slide-panel-toggle-wrapper-opened\': openedState }">  <button *ngIf="side === \'left\'" class="slide-panel-toggle" mat-icon-button style="color: white" (click)="openedState ? closePanel() : openPanel()">    <mat-icon [matTooltip]="(openedState ? \'Close \' : \'Open \') + buttonTooltip" matTooltipPosition="right" *ngIf="toggleIcon" [svgIcon]="toggleIcon"></mat-icon>  </button>  <button *ngIf="side === \'right\'" class="slide-panel-toggle" mat-icon-button style="color: white" (click)="openedState ? closePanel() : openPanel()">    <mat-icon [matTooltip]="(openedState ? \'Close \' : \'Open \') + buttonTooltip" matTooltipPosition="left" *ngIf="toggleIcon" [svgIcon]="toggleIcon"></mat-icon>  </button></div><div class="panel-content">  <ng-content></ng-content></div></div>'
+        var COMPONENT_TEMPLATE = '<div><div class="slide-panel-toggle-wrapper" [ngClass]="{ \'slide-panel-toggle-wrapper-opened\': openedState }">  @if (side === \'left\') {  <button class="slide-panel-toggle" mat-icon-button style="color: white" (click)="openedState ? closePanel() : openPanel()">    @if (toggleIcon) {    <mat-icon [matTooltip]="(openedState ? \'Close \' : \'Open \') + buttonTooltip" matTooltipPosition="right" [svgIcon]="toggleIcon"></mat-icon>    }  </button>  } @if (side === \'right\') {  <button class="slide-panel-toggle" mat-icon-button style="color: white" (click)="openedState ? closePanel() : openPanel()">    @if (toggleIcon) {    <mat-icon [matTooltip]="(openedState ? \'Close \' : \'Open \') + buttonTooltip" matTooltipPosition="left" [svgIcon]="toggleIcon"></mat-icon>    }  </button>  }</div><div class="panel-content">  <ng-content></ng-content></div></div>'
     var COMPONENTS = [{'name': 'AppComponent', 'selector': 'mtb-root'},{'name': 'CoverDisplayComponent', 'selector': 'mtb-cover-display'},{'name': 'EqualizerComponent', 'selector': 'mtb-equalizer'},{'name': 'FileDropOverlayComponent', 'selector': 'mtb-file-drop-overlay'},{'name': 'HotkeysHelpDialogComponent', 'selector': 'mtb-hotkeys-help-dialog'},{'name': 'LibraryComponent', 'selector': ''},{'name': 'MetadataSettingsComponent', 'selector': 'mtb-metadata-settings'},{'name': 'PlayerComponent', 'selector': 'mtb-player'},{'name': 'PlaylistComponent', 'selector': 'mtb-playlist'},{'name': 'PromptDialogComponent', 'selector': 'mtb-prompt-dialog'},{'name': 'SettingsComponent', 'selector': 'mtb-settings'},{'name': 'ShellComponent', 'selector': 'mtb-shell'},{'name': 'SlidePanelComponent', 'selector': 'mtb-slide-panel'},{'name': 'StorageSettingsComponent', 'selector': 'mtb-storage-settings'},{'name': 'ThemeSettingsComponent', 'selector': 'mtb-theme-settings'},{'name': 'VisualizerComponent', 'selector': 'mtb-visualizer'}];
     var DIRECTIVES = [{'name': 'VisualsDirective', 'selector': '[mtbVisual]'}];
     var ACTUAL_COMPONENT = {'name': 'SlidePanelComponent'};

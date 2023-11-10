@@ -55,10 +55,6 @@
                 role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
         </li>
         <li class="nav-item">
-            <a href="#styleData" class="nav-link"
-                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
-        </li>
-        <li class="nav-item">
             <a href="#tree" class="nav-link"
                 role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
         </li>
@@ -116,10 +112,6 @@
                 </td>
             </tr>
 
-            <tr>
-                <td class="col-md-3">styleUrls</td>
-                <td class="col-md-9"><code>./cover-display.component.scss</code></td>
-            </tr>
 
 
 
@@ -130,6 +122,10 @@
 
 
 
+            <tr>
+                <td class="col-md-3">styleUrl</td>
+                <td class="col-md-9"><code>./cover-display.component.scss</code></td>
+            </tr>
 
 
 
@@ -263,6 +259,11 @@
 
                     </td>
                 </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Required : </i>&nbsp;<b>true</b>
+                    </td>
+                </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
                                     <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">apps/gblaster/src/app/player/cover-display/cover-display.component.ts:16</a></div>
@@ -292,15 +293,15 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>getBitrate(bitrate: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+<code>getBitrate(bitrate: number | undefined)</code>
                 </td>
             </tr>
 
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="35"
-                                    class="link-to-prism">apps/gblaster/src/app/player/cover-display/cover-display.component.ts:35</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="33"
+                                    class="link-to-prism">apps/gblaster/src/app/player/cover-display/cover-display.component.ts:33</a></div>
                         </td>
                     </tr>
 
@@ -323,7 +324,7 @@
                                         <tr>
                                                 <td>bitrate</td>
                                             <td>
-                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                                        <code>number | undefined</code>
                                             </td>
 
                                             <td>
@@ -390,7 +391,7 @@
                 </tr>
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">apps/gblaster/src/app/player/cover-display/cover-display.component.ts:26</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="24" class="link-to-prism">apps/gblaster/src/app/player/cover-display/cover-display.component.ts:24</a></div>
                                 </td>
                             </tr>
 
@@ -410,23 +411,21 @@ import { NgIf, NgStyle } from &#x27;@angular/common&#x27;;
 @Component({
   selector: &#x27;mtb-cover-display&#x27;,
   templateUrl: &#x27;./cover-display.component.html&#x27;,
-  styleUrls: [&#x27;./cover-display.component.scss&#x27;],
+  styleUrl: &#x27;./cover-display.component.scss&#x27;,
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [NgIf, NgStyle, TimePipe]
 })
 export class CoverDisplayComponent {
-  @Input() track?: Track | null;
+  @Input({ required: true }) track?: Track | null;
 
   constructor(private themeService: ThemeService) {}
 
-  get coverUrl(): string | undefined {
-    if (this.track?.metadata?.coverUrl) {
-      return this.track.metadata.coverUrl.original;
-    }
+  get coverUrl() {
+    return this.track?.metadata?.coverUrl?.original;
   }
 
-  get backgroundColor(): string | undefined {
+  get backgroundColor(): string {
     const coverBackground &#x3D; this.themeService.darkMode ? this.track?.metadata?.coverColors?.darkMuted?.hex : this.track?.metadata?.coverColors?.lightMuted?.hex;
     return coverBackground || &#x27;rgba(0,0,0,0)&#x27;;
   }
@@ -435,7 +434,10 @@ export class CoverDisplayComponent {
   //   return this.song?.metadata?.coverColors?.vibrant ? this.song.metadata.coverColors.vibrant.textHex : undefined;
   // }
 
-  getBitrate(bitrate: number): string {
+  getBitrate(bitrate: number | undefined): string {
+    if (!bitrate) {
+      return &#x27;0&#x27;;
+    }
     return Math.round(bitrate / 1000).toString();
   }
 }
@@ -462,30 +464,38 @@ export class CoverDisplayComponent {
     {{ track?.metadata?.title || track?.file?.name }}
   &lt;/h1&gt;
   &lt;p style&#x3D;&quot;font-size: 1.5rem; margin-bottom: 8px; opacity: 0.8&quot;&gt;{{ track?.metadata?.artist }}&lt;/p&gt;
-  &lt;div class&#x3D;&quot;flex column&quot; *ngIf&#x3D;&quot;track &amp;&amp; track.metadata&quot; style&#x3D;&quot;margin-top: 16px; opacity: 0.9&quot;&gt;
-    &lt;span *ngIf&#x3D;&quot;track &amp;&amp; track.metadata &amp;&amp; track.metadata.album&quot;&gt;
-      Album: &lt;strong&gt;{{ track.metadata.album }}&lt;/strong&gt;
+  &lt;div class&#x3D;&quot;flex column&quot; style&#x3D;&quot;margin-top: 16px; opacity: 0.9&quot;&gt;
+    @if (track?.metadata?.album) {
+    &lt;span&gt;
+      Album: &lt;strong&gt;{{ track?.metadata?.album }}&lt;/strong&gt;
     &lt;/span&gt;
-    &lt;span *ngIf&#x3D;&quot;track &amp;&amp; track.metadata &amp;&amp; track.metadata.year&quot;&gt;
-      Year: &lt;strong&gt;{{ track.metadata.year }}&lt;/strong&gt;
+    } @if (track?.metadata?.year) {
+    &lt;span&gt;
+      Year: &lt;strong&gt;{{ track?.metadata?.year }}&lt;/strong&gt;
     &lt;/span&gt;
+    }
     &lt;span&gt;&amp;nbsp;&lt;/span&gt;
-    &lt;span *ngIf&#x3D;&quot;track.metadata.format &amp;&amp; track.metadata.format.duration&quot;&gt;
-      Duration: &lt;strong&gt;{{ track.metadata.format.duration | time }}&lt;/strong&gt;
+    @if (track?.metadata?.format?.duration) {
+    &lt;span&gt;
+      Duration: &lt;strong&gt;{{ track?.metadata?.format?.duration | time }}&lt;/strong&gt;
     &lt;/span&gt;
-    &lt;span *ngIf&#x3D;&quot;track.metadata.format &amp;&amp; track.metadata.format.container &amp;&amp; track.metadata.format.codec&quot;&gt;
-      Format: &lt;strong&gt;{{ track.metadata.format.container }} ({{ track.metadata.format.codec }})&lt;/strong&gt;
+    } @if (track?.metadata?.format?.container &amp;&amp; track?.metadata?.format?.codec) {
+    &lt;span&gt;
+      Format: &lt;strong&gt;{{ track?.metadata?.format?.container }} ({{ track?.metadata?.format?.codec }})&lt;/strong&gt;
     &lt;/span&gt;
-    &lt;span *ngIf&#x3D;&quot;track.metadata.format &amp;&amp; track.metadata.format.bitrate&quot;&gt;
-      Bitrate: &lt;strong&gt;{{ getBitrate(track.metadata.format.bitrate) }} kb/s&lt;/strong&gt;
+    } @if (track?.metadata?.format?.bitrate) {
+    &lt;span&gt;
+      Bitrate: &lt;strong&gt;{{ getBitrate(track?.metadata?.format?.bitrate) }} kb/s&lt;/strong&gt;
     &lt;/span&gt;
-    &lt;span *ngIf&#x3D;&quot;track.metadata.format &amp;&amp; track.metadata.format.sampleRate&quot;&gt;
-      Sample-Rate: &lt;strong&gt;{{ track.metadata.format.sampleRate }}&lt;/strong&gt;
+    } @if (track?.metadata?.format?.sampleRate) {
+    &lt;span&gt;
+      Sample-Rate: &lt;strong&gt;{{ track?.metadata?.format?.sampleRate }}&lt;/strong&gt;
     &lt;/span&gt;
+    }
   &lt;/div&gt;
 &lt;/div&gt;
+@if (track &amp;&amp; coverUrl) {
 &lt;div
-  *ngIf&#x3D;&quot;track &amp;&amp; coverUrl&quot;
   style&#x3D;&quot;
     position: absolute;
     top: 0;
@@ -503,20 +513,11 @@ export class CoverDisplayComponent {
     &#x27;background-color&#x27;: backgroundColor
   }&quot;
 &gt;&lt;/div&gt;
+}
 &lt;ng-content&gt;&lt;/ng-content&gt;
 </code></pre>
     </div>
 
-    <div class="tab-pane fade " id="styleData">
-                <p class="comment">
-                    <code>./cover-display.component.scss</code>
-                </p>
-                <pre class="line-numbers"><code class="language-scss">:host {
-  height: 100%;
-  width: 100%;
-}
-</code></pre>
-    </div>
 
     <div class="tab-pane fade " id="tree">
         <div id="tree-container"></div>
@@ -543,7 +544,7 @@ export class CoverDisplayComponent {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><div  style="    position: absolute;    top: 0;    right: 0;    bottom: 0;    left: 0;    z-index: 5;    overflow-x: auto;    padding: 1rem;    user-select: text;    text-shadow: -1px 1px 6px black;  "  class="mat-typography">  <h1 style="font-size: 3rem; font-weight: bold; line-height: 3.3rem; margin-bottom: 4px; opacity: 0.9">    {{ track?.metadata?.title || track?.file?.name }}  </h1>  <p style="font-size: 1.5rem; margin-bottom: 8px; opacity: 0.8">{{ track?.metadata?.artist }}</p>  <div class="flex column" *ngIf="track && track.metadata" style="margin-top: 16px; opacity: 0.9">    <span *ngIf="track && track.metadata && track.metadata.album">      Album: <strong>{{ track.metadata.album }}</strong>    </span>    <span *ngIf="track && track.metadata && track.metadata.year">      Year: <strong>{{ track.metadata.year }}</strong>    </span>    <span>&nbsp;</span>    <span *ngIf="track.metadata.format && track.metadata.format.duration">      Duration: <strong>{{ track.metadata.format.duration | time }}</strong>    </span>    <span *ngIf="track.metadata.format && track.metadata.format.container && track.metadata.format.codec">      Format: <strong>{{ track.metadata.format.container }} ({{ track.metadata.format.codec }})</strong>    </span>    <span *ngIf="track.metadata.format && track.metadata.format.bitrate">      Bitrate: <strong>{{ getBitrate(track.metadata.format.bitrate) }} kb/s</strong>    </span>    <span *ngIf="track.metadata.format && track.metadata.format.sampleRate">      Sample-Rate: <strong>{{ track.metadata.format.sampleRate }}</strong>    </span>  </div></div><div  *ngIf="track && coverUrl"  style="    position: absolute;    top: 0;    right: 0;    bottom: 0;    left: 0;    z-index: -1;    opacity: 1;    background-size: contain;    background-position: top center;    background-repeat: no-repeat;  "  [ngStyle]="{    \'background-image\': \'url(\' + coverUrl + \')\',    \'background-color\': backgroundColor  }"></div><ng-content></ng-content></div>'
+        var COMPONENT_TEMPLATE = '<div><div  style="    position: absolute;    top: 0;    right: 0;    bottom: 0;    left: 0;    z-index: 5;    overflow-x: auto;    padding: 1rem;    user-select: text;    text-shadow: -1px 1px 6px black;  "  class="mat-typography">  <h1 style="font-size: 3rem; font-weight: bold; line-height: 3.3rem; margin-bottom: 4px; opacity: 0.9">    {{ track?.metadata?.title || track?.file?.name }}  </h1>  <p style="font-size: 1.5rem; margin-bottom: 8px; opacity: 0.8">{{ track?.metadata?.artist }}</p>  <div class="flex column" style="margin-top: 16px; opacity: 0.9">    @if (track?.metadata?.album) {    <span>      Album: <strong>{{ track?.metadata?.album }}</strong>    </span>    } @if (track?.metadata?.year) {    <span>      Year: <strong>{{ track?.metadata?.year }}</strong>    </span>    }    <span>&nbsp;</span>    @if (track?.metadata?.format?.duration) {    <span>      Duration: <strong>{{ track?.metadata?.format?.duration | time }}</strong>    </span>    } @if (track?.metadata?.format?.container && track?.metadata?.format?.codec) {    <span>      Format: <strong>{{ track?.metadata?.format?.container }} ({{ track?.metadata?.format?.codec }})</strong>    </span>    } @if (track?.metadata?.format?.bitrate) {    <span>      Bitrate: <strong>{{ getBitrate(track?.metadata?.format?.bitrate) }} kb/s</strong>    </span>    } @if (track?.metadata?.format?.sampleRate) {    <span>      Sample-Rate: <strong>{{ track?.metadata?.format?.sampleRate }}</strong>    </span>    }  </div></div>@if (track && coverUrl) {<div  style="    position: absolute;    top: 0;    right: 0;    bottom: 0;    left: 0;    z-index: -1;    opacity: 1;    background-size: contain;    background-position: top center;    background-repeat: no-repeat;  "  [ngStyle]="{    \'background-image\': \'url(\' + coverUrl + \')\',    \'background-color\': backgroundColor  }"></div>}<ng-content></ng-content></div>'
     var COMPONENTS = [{'name': 'AppComponent', 'selector': 'mtb-root'},{'name': 'CoverDisplayComponent', 'selector': 'mtb-cover-display'},{'name': 'EqualizerComponent', 'selector': 'mtb-equalizer'},{'name': 'FileDropOverlayComponent', 'selector': 'mtb-file-drop-overlay'},{'name': 'HotkeysHelpDialogComponent', 'selector': 'mtb-hotkeys-help-dialog'},{'name': 'LibraryComponent', 'selector': ''},{'name': 'MetadataSettingsComponent', 'selector': 'mtb-metadata-settings'},{'name': 'PlayerComponent', 'selector': 'mtb-player'},{'name': 'PlaylistComponent', 'selector': 'mtb-playlist'},{'name': 'PromptDialogComponent', 'selector': 'mtb-prompt-dialog'},{'name': 'SettingsComponent', 'selector': 'mtb-settings'},{'name': 'ShellComponent', 'selector': 'mtb-shell'},{'name': 'SlidePanelComponent', 'selector': 'mtb-slide-panel'},{'name': 'StorageSettingsComponent', 'selector': 'mtb-storage-settings'},{'name': 'ThemeSettingsComponent', 'selector': 'mtb-theme-settings'},{'name': 'VisualizerComponent', 'selector': 'mtb-visualizer'}];
     var DIRECTIVES = [{'name': 'VisualsDirective', 'selector': '[mtbVisual]'}];
     var ACTUAL_COMPONENT = {'name': 'CoverDisplayComponent'};

@@ -55,10 +55,6 @@
                 role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
         </li>
         <li class="nav-item">
-            <a href="#styleData" class="nav-link"
-                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
-        </li>
-        <li class="nav-item">
             <a href="#tree" class="nav-link"
                 role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
         </li>
@@ -112,10 +108,6 @@
                 </td>
             </tr>
 
-            <tr>
-                <td class="col-md-3">styleUrls</td>
-                <td class="col-md-9"><code>./settings.component.scss</code></td>
-            </tr>
 
 
 
@@ -126,6 +118,10 @@
 
 
 
+            <tr>
+                <td class="col-md-3">styleUrl</td>
+                <td class="col-md-9"><code>./settings.component.scss</code></td>
+            </tr>
 
 
 
@@ -173,7 +169,7 @@ import { MetadataSettingsComponent } from &#x27;./metadata-settings/metadata-set
 @Component({
   selector: &#x27;mtb-settings&#x27;,
   templateUrl: &#x27;./settings.component.html&#x27;,
-  styleUrls: [&#x27;./settings.component.scss&#x27;],
+  styleUrl: &#x27;./settings.component.scss&#x27;,
   standalone: true,
   imports: [MetadataSettingsComponent, ThemeSettingsComponent, StorageSettingsComponent]
 })
@@ -190,42 +186,6 @@ export class SettingsComponent {
 </code></pre>
     </div>
 
-    <div class="tab-pane fade " id="styleData">
-                <p class="comment">
-                    <code>./settings.component.scss</code>
-                </p>
-                <pre class="line-numbers"><code class="language-scss">:host {
-  padding: 16px;
-  box-sizing: border-box;
-  width: 100%;
-  height: 100%;
-  display: grid;
-  grid-gap: 1.5rem;
-  grid-template-columns: 1fr 1fr;
-  grid-template-areas: &#x27;metadata theme storage&#x27;;
-  @media (max-width: 1199px) {
-    grid-template-columns: 1fr;
-    grid-auto-rows: max-content;
-    grid-template-areas:
-      &#x27;metadata&#x27;
-      &#x27;theme&#x27;
-      &#x27;storage&#x27;;
-  }
-}
-
-.metadata {
-  grid-area: metadata;
-}
-
-.theme {
-  grid-area: theme;
-}
-
-.storage {
-  grid-area: storage;
-}
-</code></pre>
-    </div>
 
     <div class="tab-pane fade " id="tree">
         <div id="tree-container"></div>

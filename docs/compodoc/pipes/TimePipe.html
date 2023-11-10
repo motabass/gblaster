@@ -112,7 +112,7 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>transform(value: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, ...args: [])</code>
+<code>transform(value: number | undefined, ...args: [])</code>
                 </td>
             </tr>
 
@@ -143,7 +143,7 @@
                                         <tr>
                                                 <td>value</td>
                                             <td>
-                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                                        <code>number | undefined</code>
                                             </td>
 
                                             <td>
@@ -193,7 +193,7 @@ import { formatSecondsAsClock } from &#x27;@motabass/helpers&#x27;;
   standalone: true
 })
 export class TimePipe implements PipeTransform {
-  transform(value: number, ...args: unknown[]): string {
+  transform(value: number | undefined, ...args: unknown[]): string {
     return formatSecondsAsClock(value);
   }
 }

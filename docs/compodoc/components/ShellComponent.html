@@ -55,10 +55,6 @@
                 role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
         </li>
         <li class="nav-item">
-            <a href="#styleData" class="nav-link"
-                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
-        </li>
-        <li class="nav-item">
             <a href="#tree" class="nav-link"
                 role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
         </li>
@@ -118,10 +114,6 @@
                 </td>
             </tr>
 
-            <tr>
-                <td class="col-md-3">styleUrls</td>
-                <td class="col-md-9"><code>./shell.component.scss</code></td>
-            </tr>
 
 
 
@@ -132,6 +124,10 @@
 
 
 
+            <tr>
+                <td class="col-md-3">styleUrl</td>
+                <td class="col-md-9"><code>./shell.component.scss</code></td>
+            </tr>
 
 
 
@@ -544,7 +540,7 @@ import { MatToolbarModule } from &#x27;@angular/material/toolbar&#x27;;
 @Component({
   selector: &#x27;mtb-shell&#x27;,
   templateUrl: &#x27;./shell.component.html&#x27;,
-  styleUrls: [&#x27;./shell.component.scss&#x27;],
+  styleUrl: &#x27;./shell.component.scss&#x27;,
   standalone: true,
   imports: [MatSidenavModule, MatToolbarModule, MatIconModule, MatListModule, NgIf, MatButtonModule, MatProgressSpinnerModule, RouterOutlet, AsyncPipe]
 })
@@ -610,19 +606,22 @@ export class ShellComponent {
   &lt;/mat-sidenav&gt;
   &lt;mat-sidenav-content style&#x3D;&quot;overflow: hidden&quot;&gt;
     &lt;mat-toolbar color&#x3D;&quot;primary&quot; class&#x3D;&quot;mat-elevation-z6&quot;&gt;
+      @if (isHandset$ | async) {
       &lt;button
         id&#x3D;&quot;sidenav_menu_button&quot;
         type&#x3D;&quot;button&quot;
         aria-label&#x3D;&quot;Toggle sidenav&quot;
         mat-icon-button
         (click)&#x3D;&quot;drawer.toggle()&quot;
-        *ngIf&#x3D;&quot;isHandset$ | async&quot;
         style&#x3D;&quot;margin-right: 0.7rem; padding: 6px&quot;
       &gt;
         &lt;mat-icon aria-label&#x3D;&quot;Side nav toggle icon&quot; style&#x3D;&quot;--mdc-icon-button-icon-size: 36px; width: 36px; height: 36px&quot; svgIcon&#x3D;&quot;logo&quot;&gt;&lt;/mat-icon&gt;
       &lt;/button&gt;
+      }
       &lt;span class&#x3D;&quot;title&quot;&gt;{{ title | async }}&lt;/span&gt;
-      &lt;mat-spinner *ngIf&#x3D;&quot;isLoading | async&quot; style&#x3D;&quot;margin-left: 1rem&quot; color&#x3D;&quot;accent&quot; diameter&#x3D;&quot;32&quot; strokeWidth&#x3D;&quot;6&quot;&gt;&lt;/mat-spinner&gt;
+      @if (isLoading | async) {
+      &lt;mat-spinner style&#x3D;&quot;margin-left: 1rem&quot; color&#x3D;&quot;accent&quot; diameter&#x3D;&quot;32&quot; strokeWidth&#x3D;&quot;6&quot;&gt;&lt;/mat-spinner&gt;
+      }
     &lt;/mat-toolbar&gt;
     &lt;div class&#x3D;&quot;router-outlet&quot;&gt;&lt;router-outlet&gt;&lt;/router-outlet&gt;&lt;/div&gt;
   &lt;/mat-sidenav-content&gt;
@@ -630,42 +629,6 @@ export class ShellComponent {
 </code></pre>
     </div>
 
-    <div class="tab-pane fade " id="styleData">
-                <p class="comment">
-                    <code>./shell.component.scss</code>
-                </p>
-                <pre class="line-numbers"><code class="language-scss">.sidenav-container {
-  height: 100%;
-}
-
-.sidenav {
-  width: 230px;
-}
-
-.sidenav .mat-toolbar {
-  background: inherit;
-}
-
-.mat-toolbar.mat-primary {
-  position: sticky;
-  top: 0;
-  z-index: 1;
-}
-
-.router-outlet {
-  width: 100%;
-  height: calc(100% - 48px);
-  @media (max-width: 599px) {
-    height: calc(100% - 48px);
-  }
-}
-
-.title {
-  font-family: &#x27;Permanent Marker&#x27;, cursive;
-  font-size: 2rem;
-}
-</code></pre>
-    </div>
 
     <div class="tab-pane fade " id="tree">
         <div id="tree-container"></div>
@@ -692,7 +655,7 @@ export class ShellComponent {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><mat-sidenav-container class="sidenav-container">  <mat-sidenav    #drawer    class="sidenav"    fixedInViewport    [attr.role]="(isHandset$ | async) ? \'dialog\' : \'navigation\'"    [mode]="(isHandset$ | async) ? \'over\' : \'side\'"    [opened]="(isHandset$ | async) === false"  >    <mat-toolbar color="primary" style="height: 48px">      <mat-icon aria-label="Side nav toggle icon" svgIcon="radio" style="margin-right: 0.7rem"></mat-icon>      <span class="title">{{ title | async }}</span>    </mat-toolbar>    <mat-nav-list>      <mat-list-item (click)="navigateTo(\'/player\')">        <mat-icon matListItemAvatar svgIcon="record-player"></mat-icon><span matListItemTitle> Player</span></mat-list-item      >      <mat-list-item (click)="navigateTo(\'/player/eq\')">        <mat-icon matListItemAvatar svgIcon="tune-vertical"></mat-icon><span matListItemTitle> Equalizer</span></mat-list-item      >      <mat-list-item (click)="navigateTo(\'/player/library\')"        ><mat-icon matListItemAvatar svgIcon="music-box-multiple-outline"></mat-icon><span matListItemTitle> Library</span></mat-list-item      >      <mat-list-item (click)="navigateTo(\'/settings\')">        <mat-icon matListItemAvatar svgIcon="cog-outline"></mat-icon><span matListItemTitle> Settings</span></mat-list-item      >    </mat-nav-list>  </mat-sidenav>  <mat-sidenav-content style="overflow: hidden">    <mat-toolbar color="primary" class="mat-elevation-z6">      <button        id="sidenav_menu_button"        type="button"        aria-label="Toggle sidenav"        mat-icon-button        (click)="drawer.toggle()"        *ngIf="isHandset$ | async"        style="margin-right: 0.7rem; padding: 6px"      >        <mat-icon aria-label="Side nav toggle icon" style="--mdc-icon-button-icon-size: 36px; width: 36px; height: 36px" svgIcon="logo"></mat-icon>      </button>      <span class="title">{{ title | async }}</span>      <mat-spinner *ngIf="isLoading | async" style="margin-left: 1rem" color="accent" diameter="32" strokeWidth="6"></mat-spinner>    </mat-toolbar>    <div class="router-outlet"><router-outlet></router-outlet></div>  </mat-sidenav-content></mat-sidenav-container></div>'
+        var COMPONENT_TEMPLATE = '<div><mat-sidenav-container class="sidenav-container">  <mat-sidenav    #drawer    class="sidenav"    fixedInViewport    [attr.role]="(isHandset$ | async) ? \'dialog\' : \'navigation\'"    [mode]="(isHandset$ | async) ? \'over\' : \'side\'"    [opened]="(isHandset$ | async) === false"  >    <mat-toolbar color="primary" style="height: 48px">      <mat-icon aria-label="Side nav toggle icon" svgIcon="radio" style="margin-right: 0.7rem"></mat-icon>      <span class="title">{{ title | async }}</span>    </mat-toolbar>    <mat-nav-list>      <mat-list-item (click)="navigateTo(\'/player\')">        <mat-icon matListItemAvatar svgIcon="record-player"></mat-icon><span matListItemTitle> Player</span></mat-list-item      >      <mat-list-item (click)="navigateTo(\'/player/eq\')">        <mat-icon matListItemAvatar svgIcon="tune-vertical"></mat-icon><span matListItemTitle> Equalizer</span></mat-list-item      >      <mat-list-item (click)="navigateTo(\'/player/library\')"        ><mat-icon matListItemAvatar svgIcon="music-box-multiple-outline"></mat-icon><span matListItemTitle> Library</span></mat-list-item      >      <mat-list-item (click)="navigateTo(\'/settings\')">        <mat-icon matListItemAvatar svgIcon="cog-outline"></mat-icon><span matListItemTitle> Settings</span></mat-list-item      >    </mat-nav-list>  </mat-sidenav>  <mat-sidenav-content style="overflow: hidden">    <mat-toolbar color="primary" class="mat-elevation-z6">      @if (isHandset$ | async) {      <button        id="sidenav_menu_button"        type="button"        aria-label="Toggle sidenav"        mat-icon-button        (click)="drawer.toggle()"        style="margin-right: 0.7rem; padding: 6px"      >        <mat-icon aria-label="Side nav toggle icon" style="--mdc-icon-button-icon-size: 36px; width: 36px; height: 36px" svgIcon="logo"></mat-icon>      </button>      }      <span class="title">{{ title | async }}</span>      @if (isLoading | async) {      <mat-spinner style="margin-left: 1rem" color="accent" diameter="32" strokeWidth="6"></mat-spinner>      }    </mat-toolbar>    <div class="router-outlet"><router-outlet></router-outlet></div>  </mat-sidenav-content></mat-sidenav-container></div>'
     var COMPONENTS = [{'name': 'AppComponent', 'selector': 'mtb-root'},{'name': 'CoverDisplayComponent', 'selector': 'mtb-cover-display'},{'name': 'EqualizerComponent', 'selector': 'mtb-equalizer'},{'name': 'FileDropOverlayComponent', 'selector': 'mtb-file-drop-overlay'},{'name': 'HotkeysHelpDialogComponent', 'selector': 'mtb-hotkeys-help-dialog'},{'name': 'LibraryComponent', 'selector': ''},{'name': 'MetadataSettingsComponent', 'selector': 'mtb-metadata-settings'},{'name': 'PlayerComponent', 'selector': 'mtb-player'},{'name': 'PlaylistComponent', 'selector': 'mtb-playlist'},{'name': 'PromptDialogComponent', 'selector': 'mtb-prompt-dialog'},{'name': 'SettingsComponent', 'selector': 'mtb-settings'},{'name': 'ShellComponent', 'selector': 'mtb-shell'},{'name': 'SlidePanelComponent', 'selector': 'mtb-slide-panel'},{'name': 'StorageSettingsComponent', 'selector': 'mtb-storage-settings'},{'name': 'ThemeSettingsComponent', 'selector': 'mtb-theme-settings'},{'name': 'VisualizerComponent', 'selector': 'mtb-visualizer'}];
     var DIRECTIVES = [{'name': 'VisualsDirective', 'selector': '[mtbVisual]'}];
     var ACTUAL_COMPONENT = {'name': 'ShellComponent'};

@@ -55,10 +55,6 @@
                 role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
         </li>
         <li class="nav-item">
-            <a href="#styleData" class="nav-link"
-                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
-        </li>
-        <li class="nav-item">
             <a href="#tree" class="nav-link"
                 role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
         </li>
@@ -112,10 +108,6 @@
                 </td>
             </tr>
 
-            <tr>
-                <td class="col-md-3">styleUrls</td>
-                <td class="col-md-9"><code>./metadata-settings.component.scss</code></td>
-            </tr>
 
 
 
@@ -126,6 +118,10 @@
 
 
 
+            <tr>
+                <td class="col-md-3">styleUrl</td>
+                <td class="col-md-9"><code>./metadata-settings.component.scss</code></td>
+            </tr>
 
 
 
@@ -685,7 +681,7 @@ import { MatCardModule } from &#x27;@angular/material/card&#x27;;
 @Component({
   selector: &#x27;mtb-metadata-settings&#x27;,
   templateUrl: &#x27;./metadata-settings.component.html&#x27;,
-  styleUrls: [&#x27;./metadata-settings.component.scss&#x27;],
+  styleUrl: &#x27;./metadata-settings.component.scss&#x27;,
   standalone: true,
   imports: [MatCardModule, MatSlideToggleModule, MatButtonModule]
 })
@@ -762,12 +758,6 @@ export class MetadataSettingsComponent {
 </code></pre>
     </div>
 
-    <div class="tab-pane fade " id="styleData">
-                <p class="comment">
-                    <code>./metadata-settings.component.scss</code>
-                </p>
-                <pre class="line-numbers"><code class="language-scss"></code></pre>
-    </div>
 
     <div class="tab-pane fade " id="tree">
         <div id="tree-container"></div>

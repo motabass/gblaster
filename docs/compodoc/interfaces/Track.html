@@ -96,7 +96,6 @@
                                         </a>
                                 </li>
                                 <li>
-                                            <span class="modifier">Optional</span>
                                         <a href="#metadata" 
 >
                                             metadata
@@ -180,11 +179,6 @@
                                         </td>
                                     </tr>
 
-                                    <tr>
-                                        <td class="col-md-4">
-                                            <i>Optional</i>
-                                        </td>
-                                    </tr>
 
 
 
@@ -240,7 +234,7 @@ import { IFormat } from &#x27;music-metadata&#x27;;
 
 export interface Track {
   file: File;
-  metadata?: TrackMetadata;
+  metadata: TrackMetadata;
   playlistPosition?: number;
 }
 

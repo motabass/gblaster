@@ -55,10 +55,6 @@
                 role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
         </li>
         <li class="nav-item">
-            <a href="#styleData" class="nav-link"
-                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
-        </li>
-        <li class="nav-item">
             <a href="#tree" class="nav-link"
                 role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
         </li>
@@ -110,10 +106,6 @@
                 </td>
             </tr>
 
-            <tr>
-                <td class="col-md-3">styleUrls</td>
-                <td class="col-md-9"><code>./file-drop-overlay.component.scss</code></td>
-            </tr>
 
 
 
@@ -124,6 +116,10 @@
 
 
 
+            <tr>
+                <td class="col-md-3">styleUrl</td>
+                <td class="col-md-9"><code>./file-drop-overlay.component.scss</code></td>
+            </tr>
 
 
 
@@ -529,7 +525,7 @@ import { CommonModule } from &#x27;@angular/common&#x27;;
 @Component({
   selector: &#x27;mtb-file-drop-overlay&#x27;,
   templateUrl: &#x27;./file-drop-overlay.component.html&#x27;,
-  styleUrls: [&#x27;./file-drop-overlay.component.scss&#x27;],
+  styleUrl: &#x27;./file-drop-overlay.component.scss&#x27;,
   standalone: true,
   imports: [CommonModule]
 })
@@ -597,28 +593,6 @@ export class FileDropOverlayComponent {
 </code></pre>
     </div>
 
-    <div class="tab-pane fade " id="styleData">
-                <p class="comment">
-                    <code>./file-drop-overlay.component.scss</code>
-                </p>
-                <pre class="line-numbers"><code class="language-scss">:host {
-  display: none;
-  position: fixed;
-  box-sizing: border-box;
-  border: 6px dashed var(--theme-accent-500);
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  z-index: 199;
-  align-items: center;
-  justify-content: center;
-  pointer-events: none;
-  color: white;
-  background-color: rgb(255 255 255 / 20%);
-}
-</code></pre>
-    </div>
 
     <div class="tab-pane fade " id="tree">
         <div id="tree-container"></div>
