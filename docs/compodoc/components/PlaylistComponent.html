@@ -976,35 +976,36 @@ export class PlaylistComponent implements OnDestroy {
     <div class="tab-pane fade " id="templateData">
         <pre class="line-numbers"><code class="language-html">&lt;mat-list cdkDropList [cdkDropListDisabled]&#x3D;&quot;isLoading | async&quot; (cdkDropListDropped)&#x3D;&quot;drop($event)&quot; dense class&#x3D;&quot;pl&quot; *mobxAutorun&gt;
   @for (song of songs; track song.metadata?.crc; let index &#x3D; $index) {
-  &lt;mat-list-item cdkDrag [ngClass]&#x3D;&quot;{ selected: isSelected(song) }&quot; class&#x3D;&quot;playlist-item&quot; (dblclick)&#x3D;&quot;playPauseSong($event, song)&quot; (click)&#x3D;&quot;selectSong(song)&quot;&gt;
-    &lt;span *cdkDragPreview&gt;&lt;/span&gt;
-    &lt;div cdkDragHandle matListItemAvatar style&#x3D;&quot;overflow: hidden; border-radius: 4px; position: relative; width: 50px; height: 50px&quot;&gt;
-      @if (song &amp;&amp; song.metadata &amp;&amp; song.metadata.coverUrl) {
-      &lt;img
-        style&#x3D;&quot;position: absolute; top: 0; right: 0; bottom: 0; left: 0; width: 100%; height: 100%&quot;
-        [src]&#x3D;&quot;song.metadata.coverUrl.thumb | safe: &#x27;resourceUrl&#x27;&quot;
-        loading&#x3D;&quot;lazy&quot;
-      /&gt;
-      } @if ((isPlaying$(song) | async) &amp;&amp; visualMode !&#x3D;&#x3D; &#x27;off&#x27;) {
-      &lt;canvas
-        [mode]&#x3D;&quot;&#x27;osc&#x27;&quot;
-        style&#x3D;&quot;position: absolute; right: 0; bottom: 0; left: 0; width: 100%; height: 100%&quot;
-        [colorConfig]&#x3D;&quot;colorConfig$ | async&quot;
-        [mtbVisual]&#x3D;&quot;analyser&quot;
-        [oscConfig]&#x3D;&quot;{ thickness: 2 }&quot;
-      &gt;&lt;/canvas&gt;
+    &lt;mat-list-item cdkDrag [ngClass]&#x3D;&quot;{ selected: isSelected(song) }&quot; class&#x3D;&quot;playlist-item&quot; (dblclick)&#x3D;&quot;playPauseSong($event, song)&quot; (click)&#x3D;&quot;selectSong(song)&quot;&gt;
+      &lt;span *cdkDragPreview&gt;&lt;/span&gt;
+      &lt;div cdkDragHandle matListItemAvatar style&#x3D;&quot;overflow: hidden; border-radius: 4px; position: relative; width: 50px; height: 50px&quot;&gt;
+        @if (song &amp;&amp; song.metadata &amp;&amp; song.metadata.coverUrl) {
+          &lt;img
+            style&#x3D;&quot;position: absolute; top: 0; right: 0; bottom: 0; left: 0; width: 100%; height: 100%&quot;
+            [src]&#x3D;&quot;song.metadata.coverUrl.thumb | safe: &#x27;resourceUrl&#x27;&quot;
+            loading&#x3D;&quot;lazy&quot;
+          /&gt;
+        }
+        @if ((isPlaying$(song) | async) &amp;&amp; visualMode !&#x3D;&#x3D; &#x27;off&#x27;) {
+          &lt;canvas
+            [mode]&#x3D;&quot;&#x27;osc&#x27;&quot;
+            style&#x3D;&quot;position: absolute; right: 0; bottom: 0; left: 0; width: 100%; height: 100%&quot;
+            [colorConfig]&#x3D;&quot;colorConfig$ | async&quot;
+            [mtbVisual]&#x3D;&quot;analyser&quot;
+            [oscConfig]&#x3D;&quot;{ thickness: 2 }&quot;
+          &gt;&lt;/canvas&gt;
+        }
+      &lt;/div&gt;
+
+      &lt;h3 matListItemTitle style&#x3D;&quot;font-size: 0.9rem; font-weight: bold&quot;&gt;{{ song?.metadata?.title || song.file.name }}&lt;/h3&gt;
+      &lt;p matListItemLine style&#x3D;&quot;font-size: 0.8rem&quot;&gt;{{ song?.metadata?.artist }}&lt;/p&gt;
+
+      @if (isPlaying$(song) | async; as playing) {
+        &lt;button matListItemMeta mat-icon-button (click)&#x3D;&quot;playPauseSong($event, song)&quot;&gt;
+          &lt;mat-icon class&#x3D;&quot;accent-color&quot; [svgIcon]&#x3D;&quot;playing ? &#x27;pause&#x27; : &#x27;play-outline&#x27;&quot;&gt;&lt;/mat-icon&gt;
+        &lt;/button&gt;
       }
-    &lt;/div&gt;
-
-    &lt;h3 matListItemTitle style&#x3D;&quot;font-size: 0.9rem; font-weight: bold&quot;&gt;{{ song?.metadata?.title || song.file.name }}&lt;/h3&gt;
-    &lt;p matListItemLine style&#x3D;&quot;font-size: 0.8rem&quot;&gt;{{ song?.metadata?.artist }}&lt;/p&gt;
-
-    @if (isPlaying$(song) | async; as playing) {
-    &lt;button matListItemMeta mat-icon-button (click)&#x3D;&quot;playPauseSong($event, song)&quot;&gt;
-      &lt;mat-icon class&#x3D;&quot;accent-color&quot; [svgIcon]&#x3D;&quot;playing ? &#x27;pause&#x27; : &#x27;play-outline&#x27;&quot;&gt;&lt;/mat-icon&gt;
-    &lt;/button&gt;
-    }
-  &lt;/mat-list-item&gt;
+    &lt;/mat-list-item&gt;
   }
   &lt;ng-content&gt;&lt;/ng-content&gt;
 &lt;/mat-list&gt;
@@ -1037,7 +1038,7 @@ export class PlaylistComponent implements OnDestroy {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><mat-list cdkDropList [cdkDropListDisabled]="isLoading | async" (cdkDropListDropped)="drop($event)" dense class="pl" *mobxAutorun>  @for (song of songs; track song.metadata?.crc; let index = $index) {  <mat-list-item cdkDrag [ngClass]="{ selected: isSelected(song) }" class="playlist-item" (dblclick)="playPauseSong($event, song)" (click)="selectSong(song)">    <span *cdkDragPreview></span>    <div cdkDragHandle matListItemAvatar style="overflow: hidden; border-radius: 4px; position: relative; width: 50px; height: 50px">      @if (song && song.metadata && song.metadata.coverUrl) {      <img        style="position: absolute; top: 0; right: 0; bottom: 0; left: 0; width: 100%; height: 100%"        [src]="song.metadata.coverUrl.thumb | safe: \'resourceUrl\'"        loading="lazy"      />      } @if ((isPlaying$(song) | async) && visualMode !== \'off\') {      <canvas        [mode]="\'osc\'"        style="position: absolute; right: 0; bottom: 0; left: 0; width: 100%; height: 100%"        [colorConfig]="colorConfig$ | async"        [mtbVisual]="analyser"        [oscConfig]="{ thickness: 2 }"      ></canvas>      }    </div>    <h3 matListItemTitle style="font-size: 0.9rem; font-weight: bold">{{ song?.metadata?.title || song.file.name }}</h3>    <p matListItemLine style="font-size: 0.8rem">{{ song?.metadata?.artist }}</p>    @if (isPlaying$(song) | async; as playing) {    <button matListItemMeta mat-icon-button (click)="playPauseSong($event, song)">      <mat-icon class="accent-color" [svgIcon]="playing ? \'pause\' : \'play-outline\'"></mat-icon>    </button>    }  </mat-list-item>  }  <ng-content></ng-content></mat-list></div>'
+        var COMPONENT_TEMPLATE = '<div><mat-list cdkDropList [cdkDropListDisabled]="isLoading | async" (cdkDropListDropped)="drop($event)" dense class="pl" *mobxAutorun>  @for (song of songs; track song.metadata?.crc; let index = $index) {    <mat-list-item cdkDrag [ngClass]="{ selected: isSelected(song) }" class="playlist-item" (dblclick)="playPauseSong($event, song)" (click)="selectSong(song)">      <span *cdkDragPreview></span>      <div cdkDragHandle matListItemAvatar style="overflow: hidden; border-radius: 4px; position: relative; width: 50px; height: 50px">        @if (song && song.metadata && song.metadata.coverUrl) {          <img            style="position: absolute; top: 0; right: 0; bottom: 0; left: 0; width: 100%; height: 100%"            [src]="song.metadata.coverUrl.thumb | safe: \'resourceUrl\'"            loading="lazy"          />        }        @if ((isPlaying$(song) | async) && visualMode !== \'off\') {          <canvas            [mode]="\'osc\'"            style="position: absolute; right: 0; bottom: 0; left: 0; width: 100%; height: 100%"            [colorConfig]="colorConfig$ | async"            [mtbVisual]="analyser"            [oscConfig]="{ thickness: 2 }"          ></canvas>        }      </div>      <h3 matListItemTitle style="font-size: 0.9rem; font-weight: bold">{{ song?.metadata?.title || song.file.name }}</h3>      <p matListItemLine style="font-size: 0.8rem">{{ song?.metadata?.artist }}</p>      @if (isPlaying$(song) | async; as playing) {        <button matListItemMeta mat-icon-button (click)="playPauseSong($event, song)">          <mat-icon class="accent-color" [svgIcon]="playing ? \'pause\' : \'play-outline\'"></mat-icon>        </button>      }    </mat-list-item>  }  <ng-content></ng-content></mat-list></div>'
     var COMPONENTS = [{'name': 'AppComponent', 'selector': 'mtb-root'},{'name': 'CoverDisplayComponent', 'selector': 'mtb-cover-display'},{'name': 'EqualizerComponent', 'selector': 'mtb-equalizer'},{'name': 'FileDropOverlayComponent', 'selector': 'mtb-file-drop-overlay'},{'name': 'HotkeysHelpDialogComponent', 'selector': 'mtb-hotkeys-help-dialog'},{'name': 'LibraryComponent', 'selector': ''},{'name': 'MetadataSettingsComponent', 'selector': 'mtb-metadata-settings'},{'name': 'PlayerComponent', 'selector': 'mtb-player'},{'name': 'PlaylistComponent', 'selector': 'mtb-playlist'},{'name': 'PromptDialogComponent', 'selector': 'mtb-prompt-dialog'},{'name': 'SettingsComponent', 'selector': 'mtb-settings'},{'name': 'ShellComponent', 'selector': 'mtb-shell'},{'name': 'SlidePanelComponent', 'selector': 'mtb-slide-panel'},{'name': 'StorageSettingsComponent', 'selector': 'mtb-storage-settings'},{'name': 'ThemeSettingsComponent', 'selector': 'mtb-theme-settings'},{'name': 'VisualizerComponent', 'selector': 'mtb-visualizer'}];
     var DIRECTIVES = [{'name': 'VisualsDirective', 'selector': '[mtbVisual]'}];
     var ACTUAL_COMPONENT = {'name': 'PlaylistComponent'};
