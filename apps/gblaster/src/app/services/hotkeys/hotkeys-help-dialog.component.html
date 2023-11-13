@@ -6,30 +6,30 @@
 
 <mat-dialog-content>
   @if (hotkeyList.length === 0) {
-  <p>Auf dieser Seite stehen keine Tastenkürzel zur verfügung.</p>
+    <p>Auf dieser Seite stehen keine Tastenkürzel zur verfügung.</p>
   }
   <mat-list>
     @for (hotkey of hotkeyList; track hotkey) {
-    <mat-list-item>
-      <div class="keyboard-key">
-        {{
-          hotkey[0]
-            .toString()
-            .substr(0, hotkey[0].length - 2)
-            .toUpperCase()
-        }}
-      </div>
-      &nbsp;&nbsp;+&nbsp;
-      <div class="keyboard-key">
-        {{
-          hotkey[0]
-            .toString()
-            .substr(hotkey[0].length - 1, 1)
-            .toUpperCase()
-        }}
-      </div>
-      <p style="margin-left: 16px">{{ hotkey[1].description }}</p>
-    </mat-list-item>
+      <mat-list-item>
+        <div class="keyboard-key">
+          {{
+            hotkey[0]
+              .toString()
+              .substr(0, hotkey[0].length - 2)
+              .toUpperCase()
+          }}
+        </div>
+        &nbsp;&nbsp;+&nbsp;
+        <div class="keyboard-key">
+          {{
+            hotkey[0]
+              .toString()
+              .substr(hotkey[0].length - 1, 1)
+              .toUpperCase()
+          }}
+        </div>
+        <p style="margin-left: 16px">{{ hotkey[1].description }}</p>
+      </mat-list-item>
     }
   </mat-list>
 </mat-dialog-content>

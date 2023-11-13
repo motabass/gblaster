@@ -2,7 +2,7 @@
   <div class="artists saerchbox">
     <mat-action-list dense>
       @for (artist of artists | unique; track artist) {
-      <button mat-list-item (click)="selectArtist(artist)">{{ artist }}</button>
+        <button mat-list-item (click)="selectArtist(artist)">{{ artist }}</button>
       }
     </mat-action-list>
   </div>
@@ -10,14 +10,14 @@
   <div class="albums saerchbox">
     <mat-action-list dense>
       @for (album of albums | unique; track album) {
-      <button mat-list-item (click)="selectAlbum(album)">{{ album }}</button>
+        <button mat-list-item (click)="selectAlbum(album)">{{ album }}</button>
       }
     </mat-action-list>
   </div>
   <div class="tracks saerchbox">
     <mat-action-list dense>
       @for (track of tracks | unique; track track) {
-      <button mat-list-item (click)="selectTrack(track)">{{ track }}</button>
+        <button mat-list-item (click)="selectTrack(track)">{{ track }}</button>
       }
     </mat-action-list>
   </div>

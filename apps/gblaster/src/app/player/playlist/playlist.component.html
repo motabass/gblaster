@@ -1,34 +1,35 @@
 <mat-list cdkDropList [cdkDropListDisabled]="isLoading | async" (cdkDropListDropped)="drop($event)" dense class="pl" *mobxAutorun>
   @for (song of songs; track song.metadata?.crc; let index = $index) {
-  <mat-list-item cdkDrag [ngClass]="{ selected: isSelected(song) }" class="playlist-item" (dblclick)="playPauseSong($event, song)" (click)="selectSong(song)">
-    <span *cdkDragPreview></span>
-    <div cdkDragHandle matListItemAvatar style="overflow: hidden; border-radius: 4px; position: relative; width: 50px; height: 50px">
-      @if (song && song.metadata && song.metadata.coverUrl) {
-      <img
-        style="position: absolute; top: 0; right: 0; bottom: 0; left: 0; width: 100%; height: 100%"
-        [src]="song.metadata.coverUrl.thumb | safe: 'resourceUrl'"
-        loading="lazy"
-      />
-      } @if ((isPlaying$(song) | async) && visualMode !== 'off') {
-      <canvas
-        [mode]="'osc'"
-        style="position: absolute; right: 0; bottom: 0; left: 0; width: 100%; height: 100%"
-        [colorConfig]="colorConfig$ | async"
-        [mtbVisual]="analyser"
-        [oscConfig]="{ thickness: 2 }"
-      ></canvas>
+    <mat-list-item cdkDrag [ngClass]="{ selected: isSelected(song) }" class="playlist-item" (dblclick)="playPauseSong($event, song)" (click)="selectSong(song)">
+      <span *cdkDragPreview></span>
+      <div cdkDragHandle matListItemAvatar style="overflow: hidden; border-radius: 4px; position: relative; width: 50px; height: 50px">
+        @if (song && song.metadata && song.metadata.coverUrl) {
+          <img
+            style="position: absolute; top: 0; right: 0; bottom: 0; left: 0; width: 100%; height: 100%"
+            [src]="song.metadata.coverUrl.thumb | safe: 'resourceUrl'"
+            loading="lazy"
+          />
+        }
+        @if ((isPlaying$(song) | async) && visualMode !== 'off') {
+          <canvas
+            [mode]="'osc'"
+            style="position: absolute; right: 0; bottom: 0; left: 0; width: 100%; height: 100%"
+            [colorConfig]="colorConfig$ | async"
+            [mtbVisual]="analyser"
+            [oscConfig]="{ thickness: 2 }"
+          ></canvas>
+        }
+      </div>
+
+      <h3 matListItemTitle style="font-size: 0.9rem; font-weight: bold">{{ song?.metadata?.title || song.file.name }}</h3>
+      <p matListItemLine style="font-size: 0.8rem">{{ song?.metadata?.artist }}</p>
+
+      @if (isPlaying$(song) | async; as playing) {
+        <button matListItemMeta mat-icon-button (click)="playPauseSong($event, song)">
+          <mat-icon class="accent-color" [svgIcon]="playing ? 'pause' : 'play-outline'"></mat-icon>
+        </button>
       }
-    </div>
-
-    <h3 matListItemTitle style="font-size: 0.9rem; font-weight: bold">{{ song?.metadata?.title || song.file.name }}</h3>
-    <p matListItemLine style="font-size: 0.8rem">{{ song?.metadata?.artist }}</p>
-
-    @if (isPlaying$(song) | async; as playing) {
-    <button matListItemMeta mat-icon-button (click)="playPauseSong($event, song)">
-      <mat-icon class="accent-color" [svgIcon]="playing ? 'pause' : 'play-outline'"></mat-icon>
-    </button>
-    }
-  </mat-list-item>
+    </mat-list-item>
   }
   <ng-content></ng-content>
 </mat-list>

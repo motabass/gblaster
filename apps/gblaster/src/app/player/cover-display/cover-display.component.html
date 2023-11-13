@@ -19,52 +19,56 @@
   <p style="font-size: 1.5rem; margin-bottom: 8px; opacity: 0.8">{{ track?.metadata?.artist }}</p>
   <div class="flex column" style="margin-top: 16px; opacity: 0.9">
     @if (track?.metadata?.album) {
-    <span>
-      Album: <strong>{{ track?.metadata?.album }}</strong>
-    </span>
-    } @if (track?.metadata?.year) {
-    <span>
-      Year: <strong>{{ track?.metadata?.year }}</strong>
-    </span>
+      <span>
+        Album: <strong>{{ track?.metadata?.album }}</strong>
+      </span>
+    }
+    @if (track?.metadata?.year) {
+      <span>
+        Year: <strong>{{ track?.metadata?.year }}</strong>
+      </span>
     }
     <span>&nbsp;</span>
     @if (track?.metadata?.format?.duration) {
-    <span>
-      Duration: <strong>{{ track?.metadata?.format?.duration | time }}</strong>
-    </span>
-    } @if (track?.metadata?.format?.container && track?.metadata?.format?.codec) {
-    <span>
-      Format: <strong>{{ track?.metadata?.format?.container }} ({{ track?.metadata?.format?.codec }})</strong>
-    </span>
-    } @if (track?.metadata?.format?.bitrate) {
-    <span>
-      Bitrate: <strong>{{ getBitrate(track?.metadata?.format?.bitrate) }} kb/s</strong>
-    </span>
-    } @if (track?.metadata?.format?.sampleRate) {
-    <span>
-      Sample-Rate: <strong>{{ track?.metadata?.format?.sampleRate }}</strong>
-    </span>
+      <span>
+        Duration: <strong>{{ track?.metadata?.format?.duration | time }}</strong>
+      </span>
+    }
+    @if (track?.metadata?.format?.container && track?.metadata?.format?.codec) {
+      <span>
+        Format: <strong>{{ track?.metadata?.format?.container }} ({{ track?.metadata?.format?.codec }})</strong>
+      </span>
+    }
+    @if (track?.metadata?.format?.bitrate) {
+      <span>
+        Bitrate: <strong>{{ getBitrate(track?.metadata?.format?.bitrate) }} kb/s</strong>
+      </span>
+    }
+    @if (track?.metadata?.format?.sampleRate) {
+      <span>
+        Sample-Rate: <strong>{{ track?.metadata?.format?.sampleRate }}</strong>
+      </span>
     }
   </div>
 </div>
 @if (track && coverUrl) {
-<div
-  style="
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    z-index: -1;
-    opacity: 1;
-    background-size: contain;
-    background-position: top center;
-    background-repeat: no-repeat;
-  "
-  [ngStyle]="{
-    'background-image': 'url(' + coverUrl + ')',
-    'background-color': backgroundColor
-  }"
-></div>
+  <div
+    style="
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      z-index: -1;
+      opacity: 1;
+      background-size: contain;
+      background-position: top center;
+      background-repeat: no-repeat;
+    "
+    [ngStyle]="{
+      'background-image': 'url(' + coverUrl + ')',
+      'background-color': backgroundColor
+    }"
+  ></div>
 }
 <ng-content></ng-content>
