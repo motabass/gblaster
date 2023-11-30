@@ -270,8 +270,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="50"
-                                    class="link-to-prism">apps/gblaster/src/app/update.service.ts:50</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="51"
+                                    class="link-to-prism">apps/gblaster/src/app/update.service.ts:51</a></div>
                         </td>
                     </tr>
 
@@ -423,6 +423,7 @@ export class UpdateService extends BaseSubscribingClass {
     if (this.swUpdate.isEnabled) {
       return this.swUpdate.checkForUpdate();
     }
+    return;
   }
 
   async askUserForUpdate(): Promise&lt;boolean&gt; {
