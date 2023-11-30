@@ -10,3 +10,4 @@ package.json
 package-lock.json
 
 /.nx/cache
+.angular
