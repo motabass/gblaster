@@ -45,6 +45,7 @@ export class UpdateService extends BaseSubscribingClass {
     if (this.swUpdate.isEnabled) {
       return this.swUpdate.checkForUpdate();
     }
+    return;
   }
 
   async askUserForUpdate(): Promise<boolean> {

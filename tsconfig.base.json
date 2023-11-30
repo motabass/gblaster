@@ -11,10 +11,9 @@
     "allowSyntheticDefaultImports": true,
     "strict": true,
     "importHelpers": true,
-    "target": "ES2022",
-    "module": "ES2022",
-    "typeRoots": ["node_modules/@types"],
-    "lib": ["ES2022", "dom"],
+    "target": "es2022",
+    "module": "esnext",
+    "lib": ["es2022", "dom"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
@@ -28,10 +27,5 @@
       "@motabass/workspace": ["libs/workspace/src/index.ts"]
     }
   },
-  "exclude": ["node_modules", "tmp"],
-  "angularCompilerOptions": {
-    "fullTemplateTypeCheck": true,
-    "strictTemplates": true,
-    "strictInputAccessModifiers": true
-  }
+  "exclude": ["node_modules", "tmp"]
 }

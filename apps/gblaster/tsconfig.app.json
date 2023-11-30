@@ -2,12 +2,9 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "../../dist/out-tsc",
-    "module": "ES2022",
-    "types": ["wicg-file-system-access"],
-    "target": "ES2022",
-    "useDefineForClassFields": false
+    "types": ["wicg-file-system-access"]
   },
   "files": ["src/main.ts", "src/polyfills.ts"],
-  "include": ["**/*.d.ts"],
-  "exclude": ["**/*.spec.ts", "**/*.test.ts", "jest.config.ts"]
+  "include": ["src/**/*.d.ts"],
+  "exclude": ["jest.config.ts", "src/**/*.test.ts", "src/**/*.spec.ts"]
 }
