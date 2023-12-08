@@ -14,12 +14,8 @@ import { NgFor } from '@angular/common';
   imports: [NgFor, MatSliderModule, BandPipe]
 })
 export class EqualizerComponent {
+  BANDS = BAND_FREQUENCIES;
   constructor(private audioService: AudioService) {}
-
-  get BANDS(): FrequencyBand[] {
-    return BAND_FREQUENCIES;
-  }
-
   getBandGain(bandFrequency: FrequencyBand): number {
     return this.audioService.getBandGain(bandFrequency);
   }
