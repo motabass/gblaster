@@ -42,7 +42,7 @@ export class VisualizerComponent implements OnInit, OnDestroy {
 
   @LocalStorage('minDb', -73) minDb!: number;
 
-  @LocalStorage('alpha', 1) alpha!: number;
+  @LocalStorage('alpha', 0.75) alpha!: number;
 
   @LocalStorage('barCount', 24) barCount!: number;
 
@@ -54,7 +54,7 @@ export class VisualizerComponent implements OnInit, OnDestroy {
 
   @LocalStorage('capFalldown', 2) capFalldown!: number;
 
-  @LocalStorage('lineThickness', 4) lineThickness!: number;
+  @LocalStorage('lineThickness', 8) lineThickness!: number;
 
   @Input() track?: Track | null;
 

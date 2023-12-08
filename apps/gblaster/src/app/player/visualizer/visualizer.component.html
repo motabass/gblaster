@@ -35,85 +35,51 @@
         }
         <div>
           <h5 class="slider-label">Transparency</h5>
-          <mat-slider min="0" max="1" step="0.01" discrete #ngSlider
-            ><input
-              matSliderThumb
-              [value]="alpha"
-              (input)="setAlpha({ source: ngSliderThumb, parent: ngSlider, value: ngSliderThumb.value }.value)"
-              #ngSliderThumb="matSliderThumb"
-          /></mat-slider>
+          <mat-slider min="0" max="1" step="0.01" discrete><input #thumb matSliderThumb [value]="alpha" (input)="setAlpha(thumb.valueAsNumber)" /></mat-slider>
         </div>
         @if (visualMode === 'bars') {
           <div>
             <h5 class="slider-label">min. DB</h5>
-            <mat-slider min="-90" max="-70" step="0.01" discrete #ngSlider
-              ><input
-                matSliderThumb
-                [value]="minDb"
-                (input)="setMinDb({ source: ngSliderThumb, parent: ngSlider, value: ngSliderThumb.value }.value)"
-                #ngSliderThumb="matSliderThumb"
+            <mat-slider min="-90" max="-70" step="0.01" discrete
+              ><input #alphaThumb matSliderThumb [value]="minDb" (input)="setMinDb(alphaThumb.valueAsNumber)"
             /></mat-slider>
           </div>
           <div>
             <h5 class="slider-label">Smoothing</h5>
-            <mat-slider min="0" max="1" step="0.1" discrete #ngSlider
-              ><input
-                matSliderThumb
-                [value]="smoothing"
-                (input)="setSmoothing({ source: ngSliderThumb, parent: ngSlider, value: ngSliderThumb.value }.value)"
-                #ngSliderThumb="matSliderThumb"
+            <mat-slider min="0" max="1" step="0.1" discrete
+              ><input matSliderThumb [value]="smoothing" (input)="setSmoothing(smoothingThumb.valueAsNumber)" #smoothingThumb
             /></mat-slider>
           </div>
           <div>
             <h5 class="slider-label">Bars</h5>
-            <mat-slider min="8" max="128" step="1" discrete #ngSlider
-              ><input
-                matSliderThumb
-                [value]="barCount"
-                (input)="setBarCount({ source: ngSliderThumb, parent: ngSlider, value: ngSliderThumb.value }.value)"
-                #ngSliderThumb="matSliderThumb"
+            <mat-slider min="8" max="128" step="1" discrete
+              ><input matSliderThumb [value]="barCount" (input)="setBarCount(barCountThumb.valueAsNumber)" #barCountThumb
             /></mat-slider>
           </div>
           <div>
             <h5 class="slider-label">Gap</h5>
-            <mat-slider min="-1" max="20" step="0.1" discrete #ngSlider
-              ><input
-                matSliderThumb
-                [value]="gap"
-                (input)="setGap({ source: ngSliderThumb, parent: ngSlider, value: ngSliderThumb.value }.value)"
-                #ngSliderThumb="matSliderThumb"
+            <mat-slider min="-1" max="20" step="0.1" discrete
+              ><input matSliderThumb [value]="gap" (input)="setGap(gapThumb.valueAsNumber)" #gapThumb
             /></mat-slider>
           </div>
           <div>
             <h5 class="slider-label">Cap Height</h5>
-            <mat-slider min="0" max="6" step="0.1" discrete #ngSlider
-              ><input
-                matSliderThumb
-                [value]="capHeight"
-                (input)="setCapHeight({ source: ngSliderThumb, parent: ngSlider, value: ngSliderThumb.value }.value)"
-                #ngSliderThumb="matSliderThumb"
+            <mat-slider min="0" max="6" step="0.1" discrete
+              ><input matSliderThumb [value]="capHeight" (input)="setCapHeight(capHeightThumb.valueAsNumber)" #capHeightThumb
             /></mat-slider>
           </div>
           <div>
             <h5 class="slider-label">Cap Falldown</h5>
-            <mat-slider min="0.1" max="2" step="0.1" discrete #ngSlider
-              ><input
-                matSliderThumb
-                [value]="capFalldown"
-                (input)="setCapFalldown({ source: ngSliderThumb, parent: ngSlider, value: ngSliderThumb.value }.value)"
-                #ngSliderThumb="matSliderThumb"
+            <mat-slider min="0.1" max="2" step="0.1" discrete
+              ><input matSliderThumb [value]="capFalldown" (input)="setCapFalldown(capFalldownThumb.valueAsNumber)" #capFalldownThumb
             /></mat-slider>
           </div>
         }
         @if (visualMode === 'osc') {
           <div>
             <h5 class="slider-label">Thickness</h5>
-            <mat-slider min="1" max="10" step="0.5" discrete #ngSlider
-              ><input
-                matSliderThumb
-                [value]="lineThickness"
-                (input)="setLineThickness({ source: ngSliderThumb, parent: ngSlider, value: ngSliderThumb.value }.value)"
-                #ngSliderThumb="matSliderThumb"
+            <mat-slider min="1" max="10" step="0.5" discrete
+              ><input matSliderThumb [value]="lineThickness" (input)="setLineThickness(lineThicknessThumb.valueAsNumber)" #lineThicknessThumb
             /></mat-slider>
           </div>
         }

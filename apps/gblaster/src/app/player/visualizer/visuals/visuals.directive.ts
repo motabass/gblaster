@@ -26,6 +26,8 @@ export class VisualsDirective implements OnDestroy, OnChanges {
 
   private worker: Worker;
 
+  private analyserData!: Uint8Array;
+
   constructor(
     elr: ElementRef<HTMLCanvasElement>,
     private zone: NgZone
@@ -78,12 +80,12 @@ export class VisualsDirective implements OnDestroy, OnChanges {
     } as VisualsWorkerMessage);
 
     this.zone.runOutsideAngular(() => {
-      const bufferLength = this.analyser.frequencyBinCount;
-      const analyserData = new Uint8Array(bufferLength);
-
+      if (!this.analyserData) {
+        this.analyserData = new Uint8Array(this.analyser.frequencyBinCount);
+      }
       const draw = () => {
-        this.analyser.getByteFrequencyData(analyserData);
-        this.worker.postMessage({ analyserData: analyserData } as VisualsWorkerMessage);
+        this.analyser.getByteFrequencyData(this.analyserData);
+        this.worker.postMessage({ analyserData: this.analyserData } as VisualsWorkerMessage);
 
         this.animationFrameRef = requestAnimationFrame(draw);
       };
@@ -104,12 +106,12 @@ export class VisualsDirective implements OnDestroy, OnChanges {
     } as VisualsWorkerMessage);
 
     this.zone.runOutsideAngular(() => {
-      const bufferLength = this.analyser.frequencyBinCount;
-      const analyserData = new Uint8Array(bufferLength);
-
+      if (!this.analyserData) {
+        this.analyserData = new Uint8Array(this.analyser.frequencyBinCount);
+      }
       const draw = () => {
-        this.analyser.getByteTimeDomainData(analyserData);
-        this.worker.postMessage({ analyserData: analyserData } as VisualsWorkerMessage);
+        this.analyser.getByteTimeDomainData(this.analyserData);
+        this.worker.postMessage({ analyserData: this.analyserData } as VisualsWorkerMessage);
         this.animationFrameRef = requestAnimationFrame(draw);
       };
       draw();

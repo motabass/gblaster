@@ -1,6 +1,6 @@
-import { VisualsWorkerMessage } from './visuals.types';
+import { VisualizerMode, VisualizerOptions, VisualsWorkerMessage } from './visuals.types';
 
-let mode: string;
+let mode: VisualizerMode = 'off';
 
 let canvas: OffscreenCanvas;
 let ctx: OffscreenCanvasRenderingContext2D | null;
@@ -68,33 +68,31 @@ addEventListener('message', (event: MessageEvent<VisualsWorkerMessage>) => {
   }
 });
 
-// TODO: typisieren
-function setup(options: any) {
+function setup(options: VisualizerOptions) {
   if (!ctx) {
     return;
   }
 
+  if (options.mode === 'bars') {
+    meterNum = options.barCount;
+    gap = options.gap;
+    capHeight = options.capHeight;
+    capFalldown = options.capFalldown;
+    fftSize = options.fftSize;
+    sampleRate = options.sampleRate;
+  } else if (options.mode === 'osc') {
+    thickness = options.thickness;
+  }
+
   mode = options.mode;
-
-  meterNum = options.barCount;
-  gap = options.gap; // gap between meters
-  capHeight = options.capHeight; // cap thickness
-  capFalldown = options.capFalldown;
-
   mainColor = options.mainColor;
   peakColor = options.peakColor;
   alpha = options.alpha;
-
-  thickness = options.thickness;
+  bufferLength = options.bufferLength;
 
   canvasWidth = ctx.canvas.width;
   canvasHeight = ctx.canvas.height;
   barWidth = canvasWidth / meterNum - gap;
-
-  bufferLength = options.bufferLength;
-
-  fftSize = options.fftSize;
-  sampleRate = options.sampleRate;
 
   analyserData = new Uint8Array(bufferLength);
 
