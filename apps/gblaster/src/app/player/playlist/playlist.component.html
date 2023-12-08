@@ -24,9 +24,13 @@
       <h3 matListItemTitle style="font-size: 0.9rem; font-weight: bold">{{ song?.metadata?.title || song.file.name }}</h3>
       <p matListItemLine style="font-size: 0.8rem">{{ song?.metadata?.artist }}</p>
 
-      @if (isPlaying$(song) | async; as playing) {
+      @if (isActive$(song) | async) {
         <button matListItemMeta mat-icon-button (click)="playPauseSong($event, song)">
-          <mat-icon class="accent-color" [svgIcon]="playing ? 'pause' : 'play-outline'"></mat-icon>
+          @if (isPlaying$(song) | async; as playing) {
+            <mat-icon class="accent-color" svgIcon="pause"></mat-icon>
+          } @else {
+            <mat-icon class="accent-color" svgIcon="play-outline"></mat-icon>
+          }
         </button>
       }
     </mat-list-item>

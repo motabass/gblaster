@@ -20,7 +20,6 @@ import { MobxAngularModule } from 'mobx-angular';
   selector: 'mtb-playlist',
   templateUrl: './playlist.component.html',
   styleUrl: './playlist.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [
     MobxAngularModule,
@@ -71,6 +70,13 @@ export class PlaylistComponent implements OnDestroy {
       this.selectSong(this.playerService.currentPlaylist[0]);
     }
     return this.playerService.currentPlaylist;
+  }
+
+  isActive$(song: Track): Observable<boolean> {
+    return this.playerService.playState$.pipe(
+      filter((state) => state.state === 'playing' || state.state === 'paused'),
+      map((state) => state.currentTrack === song)
+    );
   }
 
   isPlaying$(song: Track): Observable<boolean> {
