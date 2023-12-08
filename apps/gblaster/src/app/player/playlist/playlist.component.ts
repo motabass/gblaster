@@ -15,6 +15,7 @@ import { VisualsDirective } from '../visualizer/visuals/visuals.directive';
 import { NgFor, NgClass, NgIf, AsyncPipe } from '@angular/common';
 import { MatListModule } from '@angular/material/list';
 import { MobxAngularModule } from 'mobx-angular';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'mtb-playlist',
@@ -35,7 +36,8 @@ import { MobxAngularModule } from 'mobx-angular';
     MatButtonModule,
     MatIconModule,
     AsyncPipe,
-    SafePipeModule
+    SafePipeModule,
+    MatProgressSpinnerModule
   ]
 })
 export class PlaylistComponent implements OnDestroy {
