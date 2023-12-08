@@ -1,4 +1,4 @@
-<mat-list cdkDropList [cdkDropListDisabled]="isLoading | async" (cdkDropListDropped)="drop($event)" dense class="pl" *mobxAutorun>
+<mat-list cdkDropList [cdkDropListDisabled]="isLoading | async" (cdkDropListDropped)="drop($event)" class="pl" *mobxAutorun>
   @for (song of songs; track song.metadata?.crc; let index = $index) {
     <mat-list-item cdkDrag [ngClass]="{ selected: isSelected(song) }" class="playlist-item" (dblclick)="playPauseSong($event, song)" (click)="selectSong(song)">
       <span *cdkDragPreview></span>
