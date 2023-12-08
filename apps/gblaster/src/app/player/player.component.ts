@@ -53,6 +53,8 @@ export class PlayerComponent implements OnInit, AfterViewInit, OnDestroy {
 
   position = 0;
 
+  positionUpdateActive = true;
+
   constructor(
     private playerService: PlayerService,
     private titleService: TitleService,
@@ -103,7 +105,7 @@ export class PlayerComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngAfterViewInit() {
     this.interval = window.setInterval(() => {
-      if (this.playingTrack$) {
+      if (this.playingTrack$ && this.positionUpdateActive) {
         this.position = this.playerService.getCurrentTime();
         // TODO: fix position reporting
         // this.mediaSessionService.updateMediaPositionState(this.playerService.audioElement)
@@ -112,9 +114,15 @@ export class PlayerComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   onSliderPositionChanged(value: number) {
+    this.positionUpdateActive = true;
+
     if (value !== null) {
       this.playerService.setSeekPosition(value);
     }
+  }
+
+  pauseSliderPositionUpdate() {
+    this.positionUpdateActive = false;
   }
 
   seekLeft(value: number) {

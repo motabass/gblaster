@@ -14,8 +14,7 @@
   <button mat-icon-button (click)="playPause()">
     @if (playing) {
       <mat-icon matTooltip="Pause" svgIcon="pause"></mat-icon>
-    }
-    @if (!playing) {
+    } @else {
       <mat-icon matTooltip="Play" svgIcon="play"></mat-icon>
     }
   </button>
@@ -34,15 +33,18 @@
   <button mat-icon-button id="load_files" (click)="showPicker()">
     <mat-icon matTooltip="Load folder/files..." svgIcon="folder-music-outline"></mat-icon>
   </button>
-  @if ((playingTrack$ | async) === undefined) {
-    <div class="flex-grow"></div>
-  }
-
   <!-- TODO: The 'tickInterval' property no longer exists -->
-  @if (playingTrack$) {
+  @if (playingTrack$ | async) {
     <mat-slider class="flex-grow" min="0" [max]="durationSeconds" step="1" discrete color="accent" [displayWith]="formatLabel"
-      ><input matSliderThumb [value]="position" (input)="onSliderPositionChanged(ngSliderThumb.value)" #ngSliderThumb="matSliderThumb"
+      ><input
+        matSliderThumb
+        [value]="position"
+        (input)="pauseSliderPositionUpdate()"
+        (valueChange)="onSliderPositionChanged(ngSliderThumb.value)"
+        #ngSliderThumb="matSliderThumb"
     /></mat-slider>
+  } @else {
+    <div class="flex-grow"></div>
   }
 
   <div class="no-mobile" style="font-size: small; padding: 0 12px">
