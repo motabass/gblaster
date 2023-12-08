@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BAND_FREQUENIES } from '../player.service';
+import { BAND_FREQUENCIES } from '../player.service';
 import { FrequencyBand } from '../player.types';
 import { AudioService } from '../audio.service';
 import { BandPipe } from './band.pipe';
@@ -17,7 +17,7 @@ export class EqualizerComponent {
   constructor(private audioService: AudioService) {}
 
   get BANDS(): FrequencyBand[] {
-    return BAND_FREQUENIES;
+    return BAND_FREQUENCIES;
   }
 
   getBandGain(bandFrequency: FrequencyBand): number {

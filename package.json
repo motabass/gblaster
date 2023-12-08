@@ -17,7 +17,7 @@
     "publish:file-drop-overlay": "npm run build:file-drop-overlay && cd dist/libs/ui-components/file-drop-overlay/ && npm publish --access public",
     "test": "nx test",
     "deploy": "nx deploy",
-    "lint": "nx workspace-lint & nx lint --fix",
+    "lint": "nx lint --fix",
     "lint:styles": "stylelint \"{apps,libs}/**/*.{css,scss,html,ts}\" --fix",
     "e2e": "nx e2e gblaster",
     "e2e:watch": "nx e2e gblaster --watch",

@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
-import { MatSliderChange, MatSliderModule } from '@angular/material/slider';
+import { MatSliderModule } from '@angular/material/slider';
 import { formatSecondsAsClock } from '@motabass/helpers';
 import { ALLOWED_MIMETYPES } from './file-loader-service/file-loader.helpers';
 import { FileLoaderService } from './file-loader-service/file-loader.service.abstract';
@@ -176,8 +176,8 @@ export class PlayerComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
-  onVolumeChange(event: MatSliderChange) {
-    this.volume = event.value ?? 0;
+  onVolumeChange(value: number) {
+    this.volume = value ?? 0;
   }
   async onFilesDropped(files: File[]) {
     return this.playerService.addFilesToPlaylist(...files);
@@ -198,7 +198,7 @@ export class PlayerComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   playPause() {
-    this.playerService.playPause();
+    void this.playerService.playPause();
   }
 
   stop() {
@@ -206,11 +206,11 @@ export class PlayerComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   next() {
-    this.playerService.next();
+    void this.playerService.next();
   }
 
   previous() {
-    this.playerService.previous();
+    void this.playerService.previous();
   }
 
   get volumeIcon(): string {

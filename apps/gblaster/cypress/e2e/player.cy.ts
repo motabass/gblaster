@@ -4,7 +4,7 @@ describe('gblaster', () => {
   beforeEach(() => {
     cy.visit('/player', {
       onBeforeLoad(win) {
-        // @ts-ignore
+        // @ts-expect-error
         delete win.showOpenFilePicker;
       }
     });
@@ -12,7 +12,7 @@ describe('gblaster', () => {
     getVolumeButton().click();
     getVolumeSlider().click('bottom');
 
-    // @ts-ignore
+    // @ts-expect-error
     cy.loadFiles().wait(2500);
   });
 

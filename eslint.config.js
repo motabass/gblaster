@@ -97,7 +97,6 @@ module.exports = [
         '@angular-eslint/no-pipe-impure': 'error',
         '@angular-eslint/no-queries-metadata-property': 'error',
         '@angular-eslint/prefer-output-readonly': 'error',
-        '@angular-eslint/use-component-selector': 'error',
         '@angular-eslint/use-component-view-encapsulation': 'error',
         '@angular-eslint/use-lifecycle-interface': 'error',
         '@angular-eslint/use-pipe-transform-interface': 'error',

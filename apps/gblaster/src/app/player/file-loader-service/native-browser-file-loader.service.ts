@@ -26,7 +26,7 @@ export class NativeBrowserFileLoaderService extends FileLoaderService {
 
   async showPicker(): Promise<void> {
     try {
-      const handle = await window.showDirectoryPicker();
+      const handle = await showDirectoryPicker();
       this.currentFolderHandle = handle;
       await this.indexedDbService.update('dirHandle', { id: 1, handle: handle }).toPromise();
     } catch (error) {

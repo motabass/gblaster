@@ -29,11 +29,11 @@ export class LibraryComponent implements OnInit {
   }
 
   split() {
-    // @ts-ignore
+    // @ts-expect-error
     this.artists = this.data.map((tag) => tag.artist).filter((artist) => !!artist);
-    // @ts-ignore
+    // @ts-expect-error
     this.albums = this.data.map((tag) => tag.album).filter((album) => !!album);
-    // @ts-ignore
+    // @ts-expect-error
     this.tracks = this.data.map((tag) => tag.title).filter((title) => !!title);
   }
 
