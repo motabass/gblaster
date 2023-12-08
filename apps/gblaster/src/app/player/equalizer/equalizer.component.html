@@ -15,7 +15,7 @@
       <div class="flex row justify-center vertical-slider">
         <div class="vertical-slider-label">GAIN</div>
         <mat-slider [displayWith]="displayFunction" discrete min="0" max="2" step="0.01"
-          ><input matSliderThumb [value]="getBaseGain()" (input)="onBaseGainChange(gainThumb.valueAsNumber)" #gainThumb
+          ><input matSliderThumb [value]="getBaseGain()" (input)="onBaseGainChange(gainThumb.value)" #gainThumb="matSliderThumb"
         /></mat-slider>
       </div>
     </div>
