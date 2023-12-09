@@ -85,7 +85,7 @@
       "outputs": ["{options.outputPath}"]
     },
     "serve": {
-      "executor": "@nx/angular:webpack-dev-server",
+      "executor": "@nx/angular:dev-server",
       "options": {
         "buildTarget": "gblaster:build"
       },
@@ -97,9 +97,6 @@
     },
     "lint": {
       "executor": "@nx/eslint:lint",
-      "options": {
-        "lintFilePatterns": ["apps/gblaster/src/**/*.ts", "apps/gblaster/src/**/*.html"]
-      },
       "outputs": ["{options.outputFile}"]
     },
     "test": {

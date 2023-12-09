@@ -6,10 +6,7 @@
   "prefix": "motabass",
   "targets": {
     "lint": {
-      "executor": "@nx/eslint:lint",
-      "options": {
-        "lintFilePatterns": ["libs/base-components/base-subscribing-component/**/*.ts", "libs/base-components/base-subscribing-component/**/*.html"]
-      }
+      "executor": "@nx/eslint:lint"
     }
   },
   "tags": ["lib", "base", "angular"]

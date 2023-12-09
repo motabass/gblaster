@@ -19,9 +19,6 @@
     },
     "lint": {
       "executor": "@nx/eslint:lint",
-      "options": {
-        "lintFilePatterns": ["libs/ui-components/slide-panel/src/**/*.ts", "libs/ui-components/slide-panel/src/**/*.html"]
-      },
       "outputs": ["{options.outputFile}"]
     },
     "test": {
