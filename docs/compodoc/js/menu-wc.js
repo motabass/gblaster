@@ -313,6 +313,12 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 <a href="interfaces/AnalyserConfig.html" data-type="entity-link" >AnalyserConfig</a>
                             </li>
                             <li class="link">
+                                <a href="interfaces/BarsVisualizerOptions.html" data-type="entity-link" >BarsVisualizerOptions</a>
+                            </li>
+                            <li class="link">
+                                <a href="interfaces/BaseVisualizerOptions.html" data-type="entity-link" >BaseVisualizerOptions</a>
+                            </li>
+                            <li class="link">
                                 <a href="interfaces/Chainable.html" data-type="entity-link" >Chainable</a>
                             </li>
                             <li class="link">
@@ -347,6 +353,9 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                             </li>
                             <li class="link">
                                 <a href="interfaces/OsciloscopeConfig.html" data-type="entity-link" >OsciloscopeConfig</a>
+                            </li>
+                            <li class="link">
+                                <a href="interfaces/OscVisualizerOptions.html" data-type="entity-link" >OscVisualizerOptions</a>
                             </li>
                             <li class="link">
                                 <a href="interfaces/PlayState.html" data-type="entity-link" >PlayState</a>

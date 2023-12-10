@@ -450,7 +450,7 @@ export class NativeBrowserFileLoaderService extends FileLoaderService {
 
   async showPicker(): Promise&lt;void&gt; {
     try {
-      const handle &#x3D; await window.showDirectoryPicker();
+      const handle &#x3D; await showDirectoryPicker();
       this.currentFolderHandle &#x3D; handle;
       await this.indexedDbService.update(&#x27;dirHandle&#x27;, { id: 1, handle: handle }).toPromise();
     } catch (error) {

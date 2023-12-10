@@ -319,9 +319,7 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">export type VisualizerMode &#x3D; &#x27;osc&#x27; | &#x27;bars&#x27; | &#x27;off&#x27;;
-
-export type FftSize &#x3D; 32 | 64 | 128 | 256 | 512 | 1024 | 2048 | 4096 | 8192 | 16384 | 32768;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">export type FftSize &#x3D; 32 | 64 | 128 | 256 | 512 | 1024 | 2048 | 4096 | 8192 | 16384 | 32768;
 
 export interface AnalyserConfig {
   fftSize: FftSize;
@@ -351,9 +349,35 @@ export interface VisualsWorkerMessage {
   canvas?: OffscreenCanvas;
   newSize?: DOMRect;
   stop?: boolean;
-  visualizerOptions?: any;
+  visualizerOptions?: VisualizerOptions;
   analyserData: Uint8Array;
 }
+export interface BaseVisualizerOptions {
+  mode: VisualizerMode;
+  mainColor: string;
+  peakColor: string;
+  alpha: number;
+  bufferLength: number;
+}
+
+export interface BarsVisualizerOptions extends BaseVisualizerOptions {
+  mode: &#x27;bars&#x27;;
+  barCount: number;
+  gap: number;
+  capHeight: number;
+  capFalldown: number;
+  fftSize: number;
+  sampleRate: number;
+}
+
+export interface OscVisualizerOptions extends BaseVisualizerOptions {
+  mode: &#x27;osc&#x27;;
+  thickness: number;
+}
+
+export type VisualizerOptions &#x3D; BarsVisualizerOptions | OscVisualizerOptions;
+
+export type VisualizerMode &#x3D; &#x27;osc&#x27; | &#x27;bars&#x27; | &#x27;off&#x27;;
 </code></pre>
     </div>
 </div>

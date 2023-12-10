@@ -1585,7 +1585,7 @@ import { BehaviorSubject, Observable } from &#x27;rxjs&#x27;;
 import { BaseSubscribingClass } from &#x27;@motabass/base-components/base-subscribing-component&#x27;;
 import { takeUntil } from &#x27;rxjs/operators&#x27;;
 
-export const BAND_FREQUENIES: FrequencyBand[] &#x3D; [60, 170, 310, 600, 1000, 3000, 6000, 12000, 14000, 16000];
+export const BAND_FREQUENCIES: FrequencyBand[] &#x3D; [60, 170, 310, 600, 1000, 3000, 6000, 12000, 14000, 16000];
 
 @Injectable({ providedIn: &#x27;any&#x27; })
 export class PlayerService extends BaseSubscribingClass {
@@ -1621,7 +1621,7 @@ export class PlayerService extends BaseSubscribingClass {
     this.mediaSessionService.setSeekToHandler((details) &#x3D;&gt; this.seekToHandler(details));
 
     if (&#x27;launchQueue&#x27; in window) {
-      // @ts-ignore
+      // @ts-expect-error
       window.launchQueue.setConsumer(async (launchParams) &#x3D;&gt; {
         console.log(&#x27;Handling launch params:&#x27;, launchParams);
         // Nothing to do when the queue is empty.
@@ -1638,7 +1638,7 @@ export class PlayerService extends BaseSubscribingClass {
     }
 
     this.audioService.setOnEnded(() &#x3D;&gt; {
-      this.next();
+      void this.next();
     });
 
     this.playState.pipe(takeUntil(this.destroy$)).subscribe(async (state) &#x3D;&gt; {

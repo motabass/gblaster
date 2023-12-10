@@ -245,7 +245,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="27" class="link-to-prism">apps/gblaster/src/app/player/visualizer/visuals/visuals.directive.ts:27</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">apps/gblaster/src/app/player/visualizer/visuals/visuals.directive.ts:29</a></div>
                             </td>
                         </tr>
 
@@ -472,8 +472,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="119"
-                                    class="link-to-prism">apps/gblaster/src/app/player/visualizer/visuals/visuals.directive.ts:119</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="121"
+                                    class="link-to-prism">apps/gblaster/src/app/player/visualizer/visuals/visuals.directive.ts:121</a></div>
                         </td>
                     </tr>
 
@@ -509,8 +509,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="63"
-                                    class="link-to-prism">apps/gblaster/src/app/player/visualizer/visuals/visuals.directive.ts:63</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="65"
+                                    class="link-to-prism">apps/gblaster/src/app/player/visualizer/visuals/visuals.directive.ts:65</a></div>
                         </td>
                     </tr>
 
@@ -546,8 +546,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="94"
-                                    class="link-to-prism">apps/gblaster/src/app/player/visualizer/visuals/visuals.directive.ts:94</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="96"
+                                    class="link-to-prism">apps/gblaster/src/app/player/visualizer/visuals/visuals.directive.ts:96</a></div>
                         </td>
                     </tr>
 
@@ -630,6 +630,8 @@ export class VisualsDirective implements OnDestroy, OnChanges {
 
   private worker: Worker;
 
+  private analyserData!: Uint8Array;
+
   constructor(
     elr: ElementRef&lt;HTMLCanvasElement&gt;,
     private zone: NgZone
@@ -682,12 +684,12 @@ export class VisualsDirective implements OnDestroy, OnChanges {
     } as VisualsWorkerMessage);
 
     this.zone.runOutsideAngular(() &#x3D;&gt; {
-      const bufferLength &#x3D; this.analyser.frequencyBinCount;
-      const analyserData &#x3D; new Uint8Array(bufferLength);
-
+      if (!this.analyserData) {
+        this.analyserData &#x3D; new Uint8Array(this.analyser.frequencyBinCount);
+      }
       const draw &#x3D; () &#x3D;&gt; {
-        this.analyser.getByteFrequencyData(analyserData);
-        this.worker.postMessage({ analyserData: analyserData } as VisualsWorkerMessage);
+        this.analyser.getByteFrequencyData(this.analyserData);
+        this.worker.postMessage({ analyserData: this.analyserData } as VisualsWorkerMessage);
 
         this.animationFrameRef &#x3D; requestAnimationFrame(draw);
       };
@@ -708,12 +710,12 @@ export class VisualsDirective implements OnDestroy, OnChanges {
     } as VisualsWorkerMessage);
 
     this.zone.runOutsideAngular(() &#x3D;&gt; {
-      const bufferLength &#x3D; this.analyser.frequencyBinCount;
-      const analyserData &#x3D; new Uint8Array(bufferLength);
-
+      if (!this.analyserData) {
+        this.analyserData &#x3D; new Uint8Array(this.analyser.frequencyBinCount);
+      }
       const draw &#x3D; () &#x3D;&gt; {
-        this.analyser.getByteTimeDomainData(analyserData);
-        this.worker.postMessage({ analyserData: analyserData } as VisualsWorkerMessage);
+        this.analyser.getByteTimeDomainData(this.analyserData);
+        this.worker.postMessage({ analyserData: this.analyserData } as VisualsWorkerMessage);
         this.animationFrameRef &#x3D; requestAnimationFrame(draw);
       };
       draw();

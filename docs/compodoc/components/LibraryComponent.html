@@ -680,11 +680,11 @@ export class LibraryComponent implements OnInit {
   }
 
   split() {
-    // @ts-ignore
+    // @ts-expect-error
     this.artists &#x3D; this.data.map((tag) &#x3D;&gt; tag.artist).filter((artist) &#x3D;&gt; !!artist);
-    // @ts-ignore
+    // @ts-expect-error
     this.albums &#x3D; this.data.map((tag) &#x3D;&gt; tag.album).filter((album) &#x3D;&gt; !!album);
-    // @ts-ignore
+    // @ts-expect-error
     this.tracks &#x3D; this.data.map((tag) &#x3D;&gt; tag.title).filter((title) &#x3D;&gt; !!title);
   }
 
