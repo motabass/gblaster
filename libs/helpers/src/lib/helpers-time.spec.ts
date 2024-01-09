@@ -1,4 +1,4 @@
-import { formatSecondsAsClock } from '@motabass/helpers';
+import { formatSecondsAsClock } from './helpers-time';
 
 describe('helpersTime', () => {
   it('formats seconds as clock string', () => {

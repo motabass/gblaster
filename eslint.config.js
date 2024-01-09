@@ -181,7 +181,7 @@ module.exports = [
         'guard-for-in': 'error',
         'id-blacklist': 'off',
         'id-match': 'off',
-        'import/no-deprecated': 'warn',
+        'import/no-deprecated': 'off',
         'jsdoc/check-alignment': 'error',
         'jsdoc/check-indentation': 'error',
         'linebreak-style': 'off',
