@@ -9,8 +9,6 @@
   box-shadow: black 2px 2px 2px;
   display: flex;
   flex-direction: row;
-  align-content: center;
-  justify-content: center;
-  align-items: center;
-  justify-items: center;
+  place-content: center center;
+  place-items: center center;
 }

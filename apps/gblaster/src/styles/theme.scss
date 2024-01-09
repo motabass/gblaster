@@ -51,7 +51,6 @@ $dynamic-primary-palette: (
     A700: var(--theme-primary-contrast-a700)
   )
 );
-
 $dynamic-accent-palette: (
   50: var(--theme-accent-50),
   100: var(--theme-accent-100),
@@ -89,7 +88,6 @@ $dynamic-accent-palette: (
 $dynamic-primary: mat.define-palette($dynamic-primary-palette);
 $dynamic-accent: mat.define-palette($dynamic-accent-palette);
 $warn: mat.define-palette(mat.$red-palette);
-
 $dynamic-light-theme: mat.define-light-theme(
   (
     color: (
@@ -120,7 +118,6 @@ $dynamic-dark-theme: mat.define-dark-theme(
 }
 
 $primary-color: var(--theme-primary-500);
-
 $accent-color: var(--theme-accent-500);
 
 .primary-color {

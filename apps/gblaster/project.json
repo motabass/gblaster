@@ -114,7 +114,8 @@
       "executor": "nx-stylelint:lint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["apps/gblaster/**/*.css", "apps/gblaster/**/*.scss"]
+        "lintFilePatterns": ["apps/gblaster/**/*.css", "apps/gblaster/**/*.scss"],
+        "fix": true
       }
     },
     "e2e": {

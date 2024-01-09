@@ -1,6 +1,7 @@
 :host {
   display: block;
   padding: 2rem 1rem;
+
   //height: 100%;
   //overflow-x: auto;
 }
@@ -8,6 +9,7 @@
 ::ng-deep .vertical-slider-container {
   min-height: 12rem;
   width: 64px;
+
   //position: relative;
 
   .vertical-slider {
@@ -16,9 +18,11 @@
 
     .mdc-slider__value-indicator-text {
       transform: rotate(90deg);
+
       //white-space: nowrap;
       display: inline-block;
     }
+
     //position: absolute;
     .vertical-slider-label {
       padding-top: 24px;

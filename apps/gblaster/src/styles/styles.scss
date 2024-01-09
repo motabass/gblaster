@@ -61,7 +61,7 @@ body {
 
 // Scrollbar END
 
-@media (max-width: 599px) {
+@media (width <= 599px) {
   .no-mobile {
     display: none !important;
   }
@@ -82,6 +82,7 @@ body {
 
   &.row {
     flex-direction: row;
+
     &.gap-1 > *:not(:first-child) {
       margin-left: 1.5rem;
     }
@@ -89,6 +90,7 @@ body {
 
   &.column {
     flex-direction: column;
+
     &.gap-1 > *:not(:first-child) {
       margin-top: 1.5rem;
     }

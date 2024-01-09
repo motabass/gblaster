@@ -9,9 +9,7 @@
     {
       "files": ["**/*.scss"],
       "extends": ["stylelint-config-standard-scss", "stylelint-config-recommended-scss"],
-      "rules": {
-        "scss/dollar-variable-empty-line-before": "off"
-      }
+      "rules": {}
     },
     {
       "files": ["**/*.html"],

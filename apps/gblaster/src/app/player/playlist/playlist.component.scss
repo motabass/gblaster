@@ -15,8 +15,7 @@
   padding: 0.5rem 0;
   height: 100%;
   box-sizing: border-box;
-  overflow-y: auto;
-  overflow-x: hidden;
+  overflow: hidden auto;
 }
 
 /* Animate items as they're being sorted. */
