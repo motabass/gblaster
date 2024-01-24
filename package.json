@@ -139,7 +139,7 @@
     "jsonc-eslint-parser": "^2.4.0",
     "lint-staged": "^15.2.0",
     "mini-css-extract-plugin": "^2.7.7",
-    "ng-packagr": "17.1.0",
+    "ng-packagr": "17.1.2",
     "node-polyfill-webpack-plugin": "^3.0.0",
     "npm-check-updates": "16.14.12",
     "nx": "17.2.8",
