@@ -40,10 +40,6 @@
       "inputs": ["default", "^production"],
       "cache": true
     },
-    "lint": {
-      "inputs": ["default", "{workspaceRoot}/.eslintrc.json", "{workspaceRoot}/eslint.config.js"],
-      "cache": true
-    },
     "stylelint": {
       "cache": true
     },
@@ -62,6 +58,10 @@
           "codeCoverage": true
         }
       }
+    },
+    "@nx/eslint:lint": {
+      "inputs": ["default", "{workspaceRoot}/.eslintrc.json", "{workspaceRoot}/eslint.config.js"],
+      "cache": true
     }
   },
   "namedInputs": {
