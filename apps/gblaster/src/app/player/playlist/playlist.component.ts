@@ -1,5 +1,5 @@
-import { CdkDragDrop, moveItemInArray, CdkDropList, CdkDrag, CdkDragPreview, CdkDragHandle } from '@angular/cdk/drag-drop';
-import { ChangeDetectionStrategy, Component, OnDestroy } from '@angular/core';
+import { CdkDrag, CdkDragDrop, CdkDragHandle, CdkDragPreview, CdkDropList, moveItemInArray } from '@angular/cdk/drag-drop';
+import { Component, OnDestroy } from '@angular/core';
 import { PlayerService } from '../player.service';
 import { Track } from '../player.types';
 import { filter, Observable } from 'rxjs';
@@ -12,7 +12,7 @@ import { SafePipeModule } from 'safe-pipe';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { VisualsDirective } from '../visualizer/visuals/visuals.directive';
-import { NgFor, NgClass, NgIf, AsyncPipe } from '@angular/common';
+import { AsyncPipe, NgClass, NgFor, NgIf } from '@angular/common';
 import { MatListModule } from '@angular/material/list';
 import { MobxAngularModule } from 'mobx-angular';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
