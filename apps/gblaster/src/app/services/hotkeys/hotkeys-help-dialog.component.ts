@@ -1,8 +1,8 @@
 import { Component, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef, MatDialogModule } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { HotkeyInfo } from './hotkeys.service';
 import { MatListModule } from '@angular/material/list';
-import { NgIf, NgFor } from '@angular/common';
+import { JsonPipe, NgFor, NgIf } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 
@@ -15,7 +15,7 @@ export interface HotkeysData {
   styleUrl: './hotkeys-help-dialog.component.scss',
   templateUrl: './hotkeys-help-dialog.component.html',
   standalone: true,
-  imports: [MatDialogModule, MatButtonModule, MatIconModule, NgIf, MatListModule, NgFor]
+  imports: [MatDialogModule, MatButtonModule, MatIconModule, NgIf, MatListModule, NgFor, JsonPipe]
 })
 export class HotkeysHelpDialogComponent {
   constructor(
@@ -24,7 +24,7 @@ export class HotkeysHelpDialogComponent {
   ) {}
 
   get hotkeyList() {
-    return Array.from(this.data.registeredHotkeys.entries());
+    return [...this.data.registeredHotkeys.entries()];
   }
 
   close() {

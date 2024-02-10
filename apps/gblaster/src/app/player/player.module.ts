@@ -23,7 +23,6 @@ import { TimePipe } from './time.pipe';
 import { VisualizerComponent } from './visualizer/visualizer.component';
 import { SafePipeModule } from 'safe-pipe';
 import { VisualsDirective } from './visualizer/visuals/visuals.directive';
-import { HotkeysModule } from '../services/hotkeys/hotkeys.module';
 import { MAT_TOOLTIP_DEFAULT_OPTIONS, MatTooltipModule } from '@angular/material/tooltip';
 import { FileDropOverlayComponent } from '@motabass/ui-components/file-drop-overlay';
 import { LibraryComponent } from './library/library.component';
@@ -45,7 +44,6 @@ import { SlidePanelComponent } from '@motabass/ui-components/slide-panel';
     MatMenuModule,
     MatInputModule,
     MatSelectModule,
-    HotkeysModule,
     MatToolbarModule,
     MobxAngularModule,
     SlidePanelComponent,
