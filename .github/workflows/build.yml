@@ -24,4 +24,6 @@ jobs:
         env:
           CI: true
       - uses: nrwl/nx-set-shas@v4
+        # This line is needed for nx affected to work when CI is running on a PR
+      - run: git branch --track main origin/main
       - run: npx nx affected -t test build e2e-ci
