@@ -73,9 +73,12 @@
       "!{projectRoot}/tsconfig.spec.json",
       "!{projectRoot}/jest.config.[jt]s",
       "!{projectRoot}/src/test-setup.[jt]s",
-      "!{projectRoot}/eslint.config.js"
+      "!{projectRoot}/eslint.config.js",
+      "!{projectRoot}/cypress/**/*",
+      "!{projectRoot}/**/*.cy.[jt]s?(x)",
+      "!{projectRoot}/cypress.config.[jt]s"
     ]
   },
-  "nxCloudAccessToken": "NmE3ZDg0NTEtMTE0Zi00YjRiLTg2OWEtMGIyY2IyMGY2YjQ4fHJlYWQtd3JpdGU=",
+  "nxCloudAccessToken": "NzI0ZTRiYzQtMjRiMy00MTYyLTkzODctNzMwOThmMmQ4Mjg0fHJlYWQtd3JpdGU=",
   "parallel": 1
 }
