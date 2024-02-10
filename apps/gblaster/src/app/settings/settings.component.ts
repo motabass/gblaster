@@ -10,6 +10,6 @@ import { MetadataSettingsComponent } from './metadata-settings/metadata-settings
   standalone: true,
   imports: [MetadataSettingsComponent, ThemeSettingsComponent, StorageSettingsComponent]
 })
-export class SettingsComponent {
+export default class SettingsComponent {
   constructor() {}
 }
