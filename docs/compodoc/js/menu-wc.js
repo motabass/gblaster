@@ -85,58 +85,6 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                     </li>
                         </ul>
                     </li>
-                    <li class="chapter modules">
-                        <a data-type="chapter-link" href="modules.html">
-                            <div class="menu-toggler linked" data-bs-toggle="collapse" ${ isNormalMode ?
-                                'data-bs-target="#modules-links"' : 'data-bs-target="#xs-modules-links"' }>
-                                <span class="icon ion-ios-archive"></span>
-                                <span class="link-name">Modules</span>
-                                <span class="icon ion-ios-arrow-down"></span>
-                            </div>
-                        </a>
-                        <ul class="links collapse " ${ isNormalMode ? 'id="modules-links"' : 'id="xs-modules-links"' }>
-                            <li class="link">
-                                <a href="modules/HotkeysModule.html" data-type="entity-link" >HotkeysModule</a>
-                            </li>
-                            <li class="link">
-                                <a href="modules/PlayerModule.html" data-type="entity-link" >PlayerModule</a>
-                                <li class="chapter inner">
-                                    <div class="simple menu-toggler" data-bs-toggle="collapse" ${ isNormalMode ?
-                                        'data-bs-target="#directives-links-module-PlayerModule-3034bf5e8545ba80368bae7c3a4021a1009cc80ede22d9a5ef550f5d0d7c0ab00dad34c415ef0bd23963f8a750ef6e9d750573244fabbb97051dbc151070ac6f"' : 'data-bs-target="#xs-directives-links-module-PlayerModule-3034bf5e8545ba80368bae7c3a4021a1009cc80ede22d9a5ef550f5d0d7c0ab00dad34c415ef0bd23963f8a750ef6e9d750573244fabbb97051dbc151070ac6f"' }>
-                                        <span class="icon ion-md-code-working"></span>
-                                        <span>Directives</span>
-                                        <span class="icon ion-ios-arrow-down"></span>
-                                    </div>
-                                    <ul class="links collapse" ${ isNormalMode ? 'id="directives-links-module-PlayerModule-3034bf5e8545ba80368bae7c3a4021a1009cc80ede22d9a5ef550f5d0d7c0ab00dad34c415ef0bd23963f8a750ef6e9d750573244fabbb97051dbc151070ac6f"' :
-                                        'id="xs-directives-links-module-PlayerModule-3034bf5e8545ba80368bae7c3a4021a1009cc80ede22d9a5ef550f5d0d7c0ab00dad34c415ef0bd23963f8a750ef6e9d750573244fabbb97051dbc151070ac6f"' }>
-                                        <li class="link">
-                                            <a href="directives/VisualsDirective.html" data-type="entity-link" data-context="sub-entity" data-context-id="modules" >VisualsDirective</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                    <li class="chapter inner">
-                                        <div class="simple menu-toggler" data-bs-toggle="collapse" ${ isNormalMode ?
-                                            'data-bs-target="#pipes-links-module-PlayerModule-3034bf5e8545ba80368bae7c3a4021a1009cc80ede22d9a5ef550f5d0d7c0ab00dad34c415ef0bd23963f8a750ef6e9d750573244fabbb97051dbc151070ac6f"' : 'data-bs-target="#xs-pipes-links-module-PlayerModule-3034bf5e8545ba80368bae7c3a4021a1009cc80ede22d9a5ef550f5d0d7c0ab00dad34c415ef0bd23963f8a750ef6e9d750573244fabbb97051dbc151070ac6f"' }>
-                                            <span class="icon ion-md-add"></span>
-                                            <span>Pipes</span>
-                                            <span class="icon ion-ios-arrow-down"></span>
-                                        </div>
-                                        <ul class="links collapse" ${ isNormalMode ? 'id="pipes-links-module-PlayerModule-3034bf5e8545ba80368bae7c3a4021a1009cc80ede22d9a5ef550f5d0d7c0ab00dad34c415ef0bd23963f8a750ef6e9d750573244fabbb97051dbc151070ac6f"' :
-                                            'id="xs-pipes-links-module-PlayerModule-3034bf5e8545ba80368bae7c3a4021a1009cc80ede22d9a5ef550f5d0d7c0ab00dad34c415ef0bd23963f8a750ef6e9d750573244fabbb97051dbc151070ac6f"' }>
-                                            <li class="link">
-                                                <a href="pipes/BandPipe.html" data-type="entity-link" data-context="sub-entity" data-context-id="modules" >BandPipe</a>
-                                            </li>
-                                            <li class="link">
-                                                <a href="pipes/TimePipe.html" data-type="entity-link" data-context="sub-entity" data-context-id="modules" >TimePipe</a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                            </li>
-                            <li class="link">
-                                <a href="modules/SettingsModule.html" data-type="entity-link" >SettingsModule</a>
-                            </li>
-                </ul>
-                </li>
                     <li class="chapter">
                         <div class="simple menu-toggler" data-bs-toggle="collapse" ${ isNormalMode ? 'data-bs-target="#components-links"' :
                             'data-bs-target="#xs-components-links"' }>

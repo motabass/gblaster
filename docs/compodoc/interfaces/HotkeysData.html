@@ -203,10 +203,10 @@
 
     <div class="tab-pane fade  tab-source-code" id="source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, Inject } from &#x27;@angular/core&#x27;;
-import { MAT_DIALOG_DATA, MatDialogRef, MatDialogModule } from &#x27;@angular/material/dialog&#x27;;
+import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from &#x27;@angular/material/dialog&#x27;;
 import { HotkeyInfo } from &#x27;./hotkeys.service&#x27;;
 import { MatListModule } from &#x27;@angular/material/list&#x27;;
-import { NgIf, NgFor } from &#x27;@angular/common&#x27;;
+import { JsonPipe, NgFor, NgIf } from &#x27;@angular/common&#x27;;
 import { MatIconModule } from &#x27;@angular/material/icon&#x27;;
 import { MatButtonModule } from &#x27;@angular/material/button&#x27;;
 
@@ -219,7 +219,7 @@ export interface HotkeysData {
   styleUrl: &#x27;./hotkeys-help-dialog.component.scss&#x27;,
   templateUrl: &#x27;./hotkeys-help-dialog.component.html&#x27;,
   standalone: true,
-  imports: [MatDialogModule, MatButtonModule, MatIconModule, NgIf, MatListModule, NgFor]
+  imports: [MatDialogModule, MatButtonModule, MatIconModule, NgIf, MatListModule, NgFor, JsonPipe]
 })
 export class HotkeysHelpDialogComponent {
   constructor(
@@ -228,7 +228,7 @@ export class HotkeysHelpDialogComponent {
   ) {}
 
   get hotkeyList() {
-    return Array.from(this.data.registeredHotkeys.entries());
+    return [...this.data.registeredHotkeys.entries()];
   }
 
   close() {
