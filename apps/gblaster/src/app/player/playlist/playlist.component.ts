@@ -8,7 +8,6 @@ import { VisualizerMode, VisualsColorConfig } from '../visualizer/visuals/visual
 import { LoaderService } from '../../services/loader/loader.service';
 import { AudioService } from '../audio.service';
 import { map } from 'rxjs/operators';
-import { SafePipeModule } from 'safe-pipe';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { VisualsDirective } from '../visualizer/visuals/visuals.directive';
@@ -16,6 +15,7 @@ import { AsyncPipe, NgClass, NgFor, NgIf } from '@angular/common';
 import { MatListModule } from '@angular/material/list';
 import { MobxAngularModule } from 'mobx-angular';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { SafePipe } from 'safe-pipe';
 
 @Component({
   selector: 'mtb-playlist',
@@ -36,8 +36,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatButtonModule,
     MatIconModule,
     AsyncPipe,
-    SafePipeModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    SafePipe
   ]
 })
 export class PlaylistComponent implements OnDestroy {

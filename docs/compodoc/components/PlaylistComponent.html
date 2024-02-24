@@ -179,8 +179,8 @@
                             <code>MatButtonModule</code>
                             <code>MatIconModule</code>
                             <code>AsyncPipe</code>
-                            <code>SafePipeModule</code>
                             <code>MatProgressSpinnerModule</code>
+                            <code>SafePipe</code>
                 </td>
             </tr>
 
@@ -989,7 +989,6 @@ import { VisualizerMode, VisualsColorConfig } from &#x27;../visualizer/visuals/v
 import { LoaderService } from &#x27;../../services/loader/loader.service&#x27;;
 import { AudioService } from &#x27;../audio.service&#x27;;
 import { map } from &#x27;rxjs/operators&#x27;;
-import { SafePipeModule } from &#x27;safe-pipe&#x27;;
 import { MatIconModule } from &#x27;@angular/material/icon&#x27;;
 import { MatButtonModule } from &#x27;@angular/material/button&#x27;;
 import { VisualsDirective } from &#x27;../visualizer/visuals/visuals.directive&#x27;;
@@ -997,6 +996,7 @@ import { AsyncPipe, NgClass, NgFor, NgIf } from &#x27;@angular/common&#x27;;
 import { MatListModule } from &#x27;@angular/material/list&#x27;;
 import { MobxAngularModule } from &#x27;mobx-angular&#x27;;
 import { MatProgressSpinnerModule } from &#x27;@angular/material/progress-spinner&#x27;;
+import { SafePipe } from &#x27;safe-pipe&#x27;;
 
 @Component({
   selector: &#x27;mtb-playlist&#x27;,
@@ -1017,8 +1017,8 @@ import { MatProgressSpinnerModule } from &#x27;@angular/material/progress-spinne
     MatButtonModule,
     MatIconModule,
     AsyncPipe,
-    SafePipeModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    SafePipe
   ]
 })
 export class PlaylistComponent implements OnDestroy {
