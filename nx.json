@@ -7,9 +7,6 @@
       }
     }
   },
-  "cli": {
-    "analytics": "af77e131-c1a7-404f-ae63-d6276bace048"
-  },
   "generators": {
     "@nx/angular:application": {
       "style": "scss",
@@ -76,7 +73,7 @@
       "!{projectRoot}/cypress.config.[jt]s"
     ]
   },
-  "nxCloudAccessToken": "NzI0ZTRiYzQtMjRiMy00MTYyLTkzODctNzMwOThmMmQ4Mjg0fHJlYWQtd3JpdGU=",
   "parallel": 1,
-  "defaultBase": "main"
+  "defaultBase": "main",
+  "nxCloudAccessToken": "MmEyZWY2NzEtYTliYy00YzE4LWFhMjMtMWQzM2I1OTQzZjE0fHJlYWQtd3JpdGU="
 }
