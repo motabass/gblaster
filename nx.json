@@ -7,9 +7,6 @@
       }
     }
   },
-  "affected": {
-    "defaultBase": "main"
-  },
   "cli": {
     "analytics": "af77e131-c1a7-404f-ae63-d6276bace048"
   },
@@ -80,5 +77,6 @@
     ]
   },
   "nxCloudAccessToken": "NzI0ZTRiYzQtMjRiMy00MTYyLTkzODctNzMwOThmMmQ4Mjg0fHJlYWQtd3JpdGU=",
-  "parallel": 1
+  "parallel": 1,
+  "defaultBase": "main"
 }
