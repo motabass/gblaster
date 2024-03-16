@@ -1,6 +1,6 @@
 {
   "name": "gblaster",
-  "version": "15.1.17",
+  "version": "16.0.0",
   "author": "motabass",
   "repository": "https://github.com/motabass/gblaster",
   "description": "Colorful Web Audio Player PWA",
@@ -179,4 +179,3 @@
     "readable-stream": "$readable-stream"
   }
 }
-
