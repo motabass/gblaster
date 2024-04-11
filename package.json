@@ -169,7 +169,7 @@
     "tsconfig-paths": "4.2.0",
     "typescript": "5.4.4",
     "webpack": "^5.91.0",
-    "webpack-bundle-analyzer": "4.10.1",
+    "webpack-bundle-analyzer": "4.10.2",
     "webpack-dev-server": "5.0.4",
     "webpack-merge": "5.10.0",
     "webpack-node-externals": "3.0.0",
