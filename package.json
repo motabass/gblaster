@@ -79,7 +79,7 @@
     "ngx-indexed-db": "17.1.0",
     "ngx-pipes": "3.2.2",
     "ngx-webstorage": "13.0.1",
-    "node-vibrant": "3.1.6",
+    "node-vibrant": "^3.2.1-alpha.1",
     "readable-stream": "^4.5.2",
     "rxjs": "7.8.1",
     "safe-pipe": "3.0.4",
@@ -179,4 +179,3 @@
     "readable-stream": "$readable-stream"
   }
 }
-
