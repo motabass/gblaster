@@ -47,7 +47,12 @@ module.exports = [
         project: './tsconfig.base.json',
         sourceType: 'module'
       },
-      extends: ['plugin:@nx/typescript', 'plugin:unicorn/recommended'],
+      extends: [
+        'plugin:@nx/typescript',
+        'plugin:@typescript-eslint/recommended-type-checked',
+        'plugin:@typescript-eslint/stylistic-type-checked',
+        'plugin:unicorn/recommended'
+      ],
       plugins: [
         'eslint-plugin-jsdoc',
         'eslint-plugin-prefer-arrow',
@@ -63,6 +68,8 @@ module.exports = [
       rules: {
         'unicorn/prevent-abbreviations': 'off',
         'unicorn/numeric-separators-style': 'off',
+        '@angular-eslint/prefer-standalone': 'error',
+        '@angular-eslint/no-duplicates-in-metadata-arrays': 'error',
         '@angular-eslint/component-class-suffix': 'error',
         '@angular-eslint/component-max-inline-declarations': 'error',
         '@angular-eslint/component-selector': [
@@ -255,6 +262,7 @@ module.exports = [
     ...config,
     files: ['**/*.html'],
     rules: {
+      '@angular-eslint/template/prefer-control-flow': 'error',
       '@angular-eslint/template/banana-in-box': 'error',
       '@angular-eslint/template/no-inline-styles': 'warn',
       '@angular-eslint/template/conditional-complexity': ['error', { maxComplexity: 4 }],

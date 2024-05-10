@@ -21,7 +21,7 @@ module.exports = [
           'error',
           {
             type: 'attribute',
-            prefix: 'mtb',
+            prefix: '',
             style: 'camelCase'
           }
         ],
@@ -29,7 +29,7 @@ module.exports = [
           'error',
           {
             type: 'element',
-            prefix: 'mtb',
+            prefix: '',
             style: 'kebab-case'
           }
         ]

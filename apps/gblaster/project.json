@@ -8,7 +8,7 @@
     }
   },
   "sourceRoot": "apps/gblaster/src",
-  "prefix": "mtb",
+  "prefix": "",
   "targets": {
     "build": {
       "executor": "@nx/angular:webpack-browser",
