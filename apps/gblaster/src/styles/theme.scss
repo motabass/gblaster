@@ -85,10 +85,10 @@ $dynamic-accent-palette: (
 );
 
 // Define Themes
-$dynamic-primary: mat.define-palette($dynamic-primary-palette);
-$dynamic-accent: mat.define-palette($dynamic-accent-palette);
-$warn: mat.define-palette(mat.$red-palette);
-$dynamic-light-theme: mat.define-light-theme(
+$dynamic-primary: mat.m2-define-palette($dynamic-primary-palette);
+$dynamic-accent: mat.m2-define-palette($dynamic-accent-palette);
+$warn: mat.m2-define-palette(mat.$m2-red-palette);
+$dynamic-light-theme: mat.m2-define-light-theme(
   (
     color: (
       primary: $dynamic-primary,
@@ -97,7 +97,7 @@ $dynamic-light-theme: mat.define-light-theme(
     )
   )
 );
-$dynamic-dark-theme: mat.define-dark-theme(
+$dynamic-dark-theme: mat.m2-define-dark-theme(
   (
     color: (
       primary: $dynamic-primary,
