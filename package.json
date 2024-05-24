@@ -144,7 +144,7 @@
     "lint-staged": "^15.2.4",
     "mini-css-extract-plugin": "^2.9.0",
     "ng-packagr": "18.0.0",
-    "node-polyfill-webpack-plugin": "^3.0.0",
+    "node-polyfill-webpack-plugin": "^4.0.0",
     "npm-check-updates": "16.14.20",
     "nx": "19.0.7",
     "nx-stylelint": "17.1.4",
