@@ -108,9 +108,14 @@ $dynamic-dark-theme: mat.m2-define-dark-theme(
 );
 
 // Include all theme styles for the components.
+html {
+  @include mat.all-component-bases($dynamic-light-theme);
+  @include mat.all-component-densities($dynamic-light-theme);
+  @include mat.all-component-typographies($dynamic-light-theme);
+}
 
 .light-theme {
-  @include mat.all-component-themes($dynamic-light-theme);
+  @include mat.all-component-colors($dynamic-light-theme);
 }
 
 .dark-theme {
