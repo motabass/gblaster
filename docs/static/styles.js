@@ -1,1 +1,1 @@
-"use strict";(self.webpackChunk=self.webpackChunk||[]).push([[2],{22232:(s,e,k)=>{k.r(e)}},s=>{var e;e=22232,s(s.s=e)}]);
+"use strict";(self.webpackChunk=self.webpackChunk||[]).push([[532],{96467:()=>{}},s=>{var e;e=96467,s(s.s=e)}]);
