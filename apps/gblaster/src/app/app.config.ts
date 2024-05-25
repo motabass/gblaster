@@ -1,4 +1,4 @@
-import { ApplicationConfig, importProvidersFrom } from '@angular/core';
+import { ApplicationConfig, importProvidersFrom, provideZoneChangeDetection } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
@@ -71,6 +71,7 @@ export const appConfig: ApplicationConfig = {
     },
     { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true },
     provideAnimations(),
+    provideZoneChangeDetection({ eventCoalescing: true }),
     provideHttpClient(withInterceptorsFromDi(), withFetch()),
     provideRouter(
       [
