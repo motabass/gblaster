@@ -13,7 +13,7 @@
     </head>
     <body>
           <script>
-               // Blocking script to avaoid flickering dark mode
+               // Blocking script to avoid flickering dark mode
                // Dark mode toggle button
                var useDark = window.matchMedia('(prefers-color-scheme: dark)');
                var darkModeState = useDark.matches;
@@ -62,9 +62,11 @@
                toggleDarkMode(darkModeState);
           </script>
 
-        <div class="navbar navbar-default navbar-fixed-top d-block d-sm-none">
-            <a href="./" class="navbar-brand">gblaster</a>
-            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="./" class="navbar-brand">gblaster</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
         </div>
 
         <div class="xs-menu menu" id="mobile-menu">
@@ -73,7 +75,7 @@
 
         <div class="container-fluid main">
            <div class="row main">
-               <div class="hidden-xs menu">
+               <div class="d-none d-md-block menu">
                    <compodoc-menu mode="normal"></compodoc-menu>
                </div>
                <!-- START CONTENT -->
@@ -101,27 +103,27 @@
         <li>
             <b>@allex/crc32</b> : ^1.0.4</li>
         <li>
-            <b>@angular/animations</b> : 18.0.0</li>
+            <b>@angular/animations</b> : 18.0.2</li>
         <li>
-            <b>@angular/cdk</b> : 18.0.0</li>
+            <b>@angular/cdk</b> : 18.0.2</li>
         <li>
-            <b>@angular/common</b> : 18.0.0</li>
+            <b>@angular/common</b> : 18.0.2</li>
         <li>
-            <b>@angular/compiler</b> : 18.0.0</li>
+            <b>@angular/compiler</b> : 18.0.2</li>
         <li>
-            <b>@angular/core</b> : 18.0.0</li>
+            <b>@angular/core</b> : 18.0.2</li>
         <li>
-            <b>@angular/forms</b> : 18.0.0</li>
+            <b>@angular/forms</b> : 18.0.2</li>
         <li>
-            <b>@angular/material</b> : 18.0.0</li>
+            <b>@angular/material</b> : 18.0.2</li>
         <li>
-            <b>@angular/platform-browser</b> : 18.0.0</li>
+            <b>@angular/platform-browser</b> : 18.0.2</li>
         <li>
-            <b>@angular/platform-browser-dynamic</b> : 18.0.0</li>
+            <b>@angular/platform-browser-dynamic</b> : 18.0.2</li>
         <li>
-            <b>@angular/router</b> : 18.0.0</li>
+            <b>@angular/router</b> : 18.0.2</li>
         <li>
-            <b>@angular/service-worker</b> : 18.0.0</li>
+            <b>@angular/service-worker</b> : 18.0.2</li>
         <li>
             <b>@thebespokepixel/es-tinycolor</b> : ^3.1.0</li>
         <li>
@@ -157,9 +159,9 @@
         <li>
             <b>spark-md5</b> : ^3.0.2</li>
         <li>
-            <b>tslib</b> : 2.6.2</li>
+            <b>tslib</b> : 2.6.3</li>
         <li>
-            <b>zone.js</b> : 0.14.6</li>
+            <b>zone.js</b> : 0.14.7</li>
     </ul>
 
 
