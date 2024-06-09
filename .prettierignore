@@ -11,3 +11,5 @@ package-lock.json
 
 /.nx/cache
 .angular
+
+/.nx/workspace-data
