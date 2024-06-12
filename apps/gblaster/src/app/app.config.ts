@@ -42,6 +42,11 @@ export const appConfig: ApplicationConfig = {
       ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production, registrationStrategy: 'registerImmediately' }),
       NgxIndexedDBModule.forRoot(dbConfig)
     ),
+    provideNgxWebstorage(withNgxWebstorageConfig({ separator: '|', caseSensitive: true, prefix: 'gblaster' }), withLocalStorage()),
+    provideAnimations(),
+    provideZoneChangeDetection({ eventCoalescing: true }),
+    provideHttpClient(withInterceptorsFromDi(), withFetch()),
+    provideRouter(routes, withEnabledBlockingInitialNavigation()),
     {
       provide: FileLoaderService,
       useFactory: FileLoaderServiceFactory,
@@ -51,11 +56,6 @@ export const appConfig: ApplicationConfig = {
       provide: MAT_TOOLTIP_DEFAULT_OPTIONS,
       useValue: { showDelay: 800, position: 'above', disableTooltipInteractivity: true }
     },
-    { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true },
-    provideNgxWebstorage(withNgxWebstorageConfig({ separator: '|', caseSensitive: true, prefix: 'gblaster' }), withLocalStorage()),
-    provideAnimations(),
-    provideZoneChangeDetection({ eventCoalescing: true }),
-    provideHttpClient(withInterceptorsFromDi(), withFetch()),
-    provideRouter(routes, withEnabledBlockingInitialNavigation())
+    { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true }
   ]
 };
