@@ -229,6 +229,9 @@
                             <a href="#peakColor" title="apps/gblaster/src/app/player/visualizer/visuals/visuals.worker.ts" ><b>peakColor</b>&nbsp;&nbsp;&nbsp;(apps/.../visuals.worker.ts)</a>
                         </li>
                         <li>
+                            <a href="#routes" title="apps/gblaster/src/app/app.routes.ts" ><b>routes</b>&nbsp;&nbsp;&nbsp;(apps/.../app.routes.ts)</a>
+                        </li>
+                        <li>
                             <a href="#sampleRate" title="apps/gblaster/src/app/player/visualizer/visuals/visuals.worker.ts" ><b>sampleRate</b>&nbsp;&nbsp;&nbsp;(apps/.../visuals.worker.ts)</a>
                         </li>
                         <li>
@@ -766,15 +769,7 @@
     importProvidersFrom(
       BrowserModule,
       ServiceWorkerModule.register(&#x27;ngsw-worker.js&#x27;, { enabled: environment.production, registrationStrategy: &#x27;registerImmediately&#x27; }),
-      NgxWebstorageModule.forRoot(),
-      NgxIndexedDBModule.forRoot(dbConfig),
-      MatSidenavModule,
-      MatToolbarModule,
-      MatListModule,
-      MatIconModule,
-      MatButtonModule,
-      MatProgressSpinnerModule,
-      MatDialogModule
+      NgxIndexedDBModule.forRoot(dbConfig)
     ),
     {
       provide: FileLoaderService,
@@ -786,20 +781,11 @@
       useValue: { showDelay: 800, position: &#x27;above&#x27;, disableTooltipInteractivity: true }
     },
     { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true },
+    provideNgxWebstorage(withNgxWebstorageConfig({ separator: &#x27;|&#x27;, caseSensitive: true, prefix: &#x27;gblaster&#x27; }), withLocalStorage()),
     provideAnimations(),
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideHttpClient(withInterceptorsFromDi(), withFetch()),
-    provideRouter(
-      [
-        { path: &#x27;&#x27;, redirectTo: &#x27;player&#x27;, pathMatch: &#x27;full&#x27; },
-        { path: &#x27;player&#x27;, component: PlayerComponent },
-        { path: &#x27;player/eq&#x27;, component: EqualizerComponent },
-        { path: &#x27;player/library&#x27;, component: LibraryComponent },
-        { path: &#x27;settings&#x27;, component: SettingsComponent },
-        { path: &#x27;**&#x27;, redirectTo: &#x27;&#x27; }
-      ],
-      withEnabledBlockingInitialNavigation()
-    )
+    provideRouter(routes, withEnabledBlockingInitialNavigation())
   ]
 }</code>
                     </td>
@@ -1267,6 +1253,42 @@
                 <tr>
                     <td class="col-md-4">
                         <i>Default value : </i><code>() &#x3D;&gt; cy.get(&#x27;.title&#x27;)</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>apps/gblaster/src/app/app.routes.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="routes"></a>
+                    <span class="name">
+                        <span ><b>routes</b></span>
+                        <a href="#routes"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Route[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[
+  { path: &#x27;&#x27;, redirectTo: &#x27;player&#x27;, pathMatch: &#x27;full&#x27; },
+  { path: &#x27;player&#x27;, component: PlayerComponent },
+  { path: &#x27;player/eq&#x27;, component: EqualizerComponent },
+  { path: &#x27;player/library&#x27;, component: LibraryComponent },
+  { path: &#x27;settings&#x27;, component: SettingsComponent },
+  { path: &#x27;**&#x27;, redirectTo: &#x27;&#x27; }
+]</code>
                     </td>
                 </tr>
 

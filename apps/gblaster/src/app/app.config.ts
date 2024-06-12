@@ -8,13 +8,10 @@ import { provideRouter, withEnabledBlockingInitialNavigation } from '@angular/ro
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { HTTP_INTERCEPTORS, provideHttpClient, withFetch, withInterceptorsFromDi } from '@angular/common/http';
 import { LoaderInterceptor } from './services/loader/loader.interceptor';
-import SettingsComponent from './settings/settings.component';
-import { PlayerComponent } from './player/player.component';
-import { EqualizerComponent } from './player/equalizer/equalizer.component';
-import { LibraryComponent } from './player/library/library.component';
 import { FileLoaderService } from './player/file-loader-service/file-loader.service.abstract';
 import { FileLoaderServiceFactory } from './player/file-loader-service/file-loader.service.factory';
 import { MAT_TOOLTIP_DEFAULT_OPTIONS } from '@angular/material/tooltip';
+import { routes } from './app.routes';
 
 const dbConfig: DBConfig = {
   name: 'metadataCache',
@@ -59,16 +56,6 @@ export const appConfig: ApplicationConfig = {
     provideAnimations(),
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideHttpClient(withInterceptorsFromDi(), withFetch()),
-    provideRouter(
-      [
-        { path: '', redirectTo: 'player', pathMatch: 'full' },
-        { path: 'player', component: PlayerComponent },
-        { path: 'player/eq', component: EqualizerComponent },
-        { path: 'player/library', component: LibraryComponent },
-        { path: 'settings', component: SettingsComponent },
-        { path: '**', redirectTo: '' }
-      ],
-      withEnabledBlockingInitialNavigation()
-    )
+    provideRouter(routes, withEnabledBlockingInitialNavigation())
   ]
 };
