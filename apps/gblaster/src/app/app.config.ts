@@ -2,15 +2,8 @@ import { ApplicationConfig, importProvidersFrom, provideZoneChangeDetection } fr
 import { BrowserModule } from '@angular/platform-browser';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
-import { NgxWebstorageModule } from 'ngx-webstorage';
+import { provideNgxWebstorage, withLocalStorage, withNgxWebstorageConfig } from 'ngx-webstorage';
 import { DBConfig, NgxIndexedDBModule, NgxIndexedDBService } from 'ngx-indexed-db';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatListModule } from '@angular/material/list';
-import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MatDialogModule } from '@angular/material/dialog';
 import { provideRouter, withEnabledBlockingInitialNavigation } from '@angular/router';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { HTTP_INTERCEPTORS, provideHttpClient, withFetch, withInterceptorsFromDi } from '@angular/common/http';
@@ -50,15 +43,7 @@ export const appConfig: ApplicationConfig = {
     importProvidersFrom(
       BrowserModule,
       ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production, registrationStrategy: 'registerImmediately' }),
-      NgxWebstorageModule.forRoot(),
-      NgxIndexedDBModule.forRoot(dbConfig),
-      MatSidenavModule,
-      MatToolbarModule,
-      MatListModule,
-      MatIconModule,
-      MatButtonModule,
-      MatProgressSpinnerModule,
-      MatDialogModule
+      NgxIndexedDBModule.forRoot(dbConfig)
     ),
     {
       provide: FileLoaderService,
@@ -70,6 +55,7 @@ export const appConfig: ApplicationConfig = {
       useValue: { showDelay: 800, position: 'above', disableTooltipInteractivity: true }
     },
     { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true },
+    provideNgxWebstorage(withNgxWebstorageConfig({ separator: '|', caseSensitive: true, prefix: 'gblaster' }), withLocalStorage()),
     provideAnimations(),
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideHttpClient(withInterceptorsFromDi(), withFetch()),
