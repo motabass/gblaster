@@ -771,6 +771,11 @@
       ServiceWorkerModule.register(&#x27;ngsw-worker.js&#x27;, { enabled: environment.production, registrationStrategy: &#x27;registerImmediately&#x27; }),
       NgxIndexedDBModule.forRoot(dbConfig)
     ),
+    provideNgxWebstorage(withNgxWebstorageConfig({ separator: &#x27;|&#x27;, caseSensitive: true, prefix: &#x27;gblaster&#x27; }), withLocalStorage()),
+    provideAnimations(),
+    provideZoneChangeDetection({ eventCoalescing: true }),
+    provideHttpClient(withInterceptorsFromDi(), withFetch()),
+    provideRouter(routes, withEnabledBlockingInitialNavigation()),
     {
       provide: FileLoaderService,
       useFactory: FileLoaderServiceFactory,
@@ -780,12 +785,7 @@
       provide: MAT_TOOLTIP_DEFAULT_OPTIONS,
       useValue: { showDelay: 800, position: &#x27;above&#x27;, disableTooltipInteractivity: true }
     },
-    { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true },
-    provideNgxWebstorage(withNgxWebstorageConfig({ separator: &#x27;|&#x27;, caseSensitive: true, prefix: &#x27;gblaster&#x27; }), withLocalStorage()),
-    provideAnimations(),
-    provideZoneChangeDetection({ eventCoalescing: true }),
-    provideHttpClient(withInterceptorsFromDi(), withFetch()),
-    provideRouter(routes, withEnabledBlockingInitialNavigation())
+    { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true }
   ]
 }</code>
                     </td>
