@@ -13,19 +13,7 @@
     "build": {
       "executor": "@nx/angular:webpack-browser",
       "options": {
-        "customWebpackConfig": {
-          "path": "apps/gblaster/extra-webpack.config.js"
-        },
-        "allowedCommonJsDependencies": [
-          "music-metadata-browser",
-          "music-metadata/lib/core",
-          "debug",
-          "readable-web-to-node-stream",
-          "typedarray-to-buffer",
-          "node-vibrant/lib/browser",
-          "lucene-escape-query",
-          "fast-memoize"
-        ],
+        "allowedCommonJsDependencies": [],
         "outputPath": "dist/apps/gblaster",
         "index": "apps/gblaster/src/index.html",
         "main": "apps/gblaster/src/main.ts",

@@ -1,6 +1,6 @@
 import { Id3CoverPicture, Id3Tags } from './id3-tags.types';
-import { parseBlob } from 'music-metadata-browser';
 import type { IAudioMetadata } from 'music-metadata';
+import { parseBlob } from 'music-metadata';
 
 addEventListener('message', async (event: MessageEvent<{ file: File }>) => {
   if (event.data.file) {
