@@ -139,7 +139,7 @@
     "lint-staged": "^15.2.7",
     "mini-css-extract-plugin": "^2.9.0",
     "ng-packagr": "18.1.0",
-    "npm-check-updates": "16.14.20",
+    "npm-check-updates": "17.0.6",
     "nx": "19.5.3",
     "nx-stylelint": "17.1.5",
     "postcss": "8.4.40",
