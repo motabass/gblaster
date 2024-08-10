@@ -11,7 +11,7 @@
   "prefix": "",
   "targets": {
     "build": {
-      "executor": "@nx/angular:browser-esbuild",
+      "executor": "@nx/angular:webpack-browser",
       "options": {
         "allowedCommonJsDependencies": [],
         "outputPath": "dist/apps/gblaster",
@@ -22,7 +22,8 @@
         "assets": ["apps/gblaster/src/favicon.ico", "apps/gblaster/src/assets", "apps/gblaster/src/manifest.webmanifest"],
         "styles": ["apps/gblaster/src/styles/theme.scss", "apps/gblaster/src/styles/styles.scss"],
         "scripts": [],
-
+        "webWorkerTsConfig": "apps/gblaster/tsconfig.worker.json",
+        "vendorChunk": true,
         "extractLicenses": false,
         "buildOptimizer": false,
         "sourceMap": true,

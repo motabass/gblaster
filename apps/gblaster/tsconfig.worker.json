@@ -1,0 +1,9 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "outDir": "../../out-tsc/visuals-worker",
+    "lib": ["es2020", "webworker"],
+    "types": []
+  },
+  "include": ["src/**/*.worker.ts", "**/*.d.ts"]
+}
