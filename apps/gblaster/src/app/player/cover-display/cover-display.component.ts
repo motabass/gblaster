@@ -1,8 +1,8 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { Track } from '../player.types';
+import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
 import { ThemeService } from '../../theme/theme.service';
 import { TimePipe } from '../time.pipe';
 import { NgIf, NgStyle } from '@angular/common';
+import { Track } from '../player.types';
 
 @Component({
   selector: 'mtb-cover-display',
@@ -13,18 +13,18 @@ import { NgIf, NgStyle } from '@angular/common';
   imports: [NgIf, NgStyle, TimePipe]
 })
 export class CoverDisplayComponent {
-  @Input({ required: true }) track?: Track | null;
+  track = input<Track>();
 
   constructor(private themeService: ThemeService) {}
 
-  get coverUrl() {
-    return this.track?.metadata?.coverUrl?.original;
-  }
+  coverUrl = computed(() => this.track()?.metadata?.coverUrl?.original);
 
-  get backgroundColor(): string {
-    const coverBackground = this.themeService.darkMode ? this.track?.metadata?.coverColors?.darkMuted?.hex : this.track?.metadata?.coverColors?.lightMuted?.hex;
+  backgroundColor = computed(() => {
+    const coverBackground = this.themeService.darkMode
+      ? this.track()?.metadata?.coverColors?.darkMuted?.hex
+      : this.track()?.metadata?.coverColors?.lightMuted?.hex;
     return coverBackground || 'rgba(0,0,0,0)';
-  }
+  });
 
   // get fontColor(): string | undefined {
   //   return this.song?.metadata?.coverColors?.vibrant ? this.song.metadata.coverColors.vibrant.textHex : undefined;
