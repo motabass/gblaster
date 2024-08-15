@@ -1,6 +1,6 @@
 {
   "name": "gblaster",
-  "version": "18.2.0",
+  "version": "18.2.1",
   "author": "motabass",
   "repository": "https://github.com/motabass/gblaster",
   "description": "Colorful Web Audio Player PWA",
@@ -48,10 +48,10 @@
     "dep-graph:html": "nx graph --file docs/dep-graph.html",
     "compodoc": "nx run workspace:compodoc",
     "generate:icon-set": "ts-node --project tools/tsconfig.tools.json tools/convertIcons.ts",
-    "build:stats:gblaster": "npm run build:prod -- --stats-json --named-chunksl",
-    "analyze:treemap:gblaster": "npm run build:prod -- --stats-json --named-chunks && esbuild-visualizer --template treemap --metadata ./dist/apps/gblaster/stats.json --filename docs/analyzer-report-treemap.html",
-    "analyze:sunburst:gblaster": "npm run build:prod -- --stats-json --named-chunks && esbuild-visualizer --template sunburst --metadata ./dist/apps/gblaster/stats.json --filename docs/analyzer-report-sunburst.html",
-    "analyze:network:gblaster": "npm run build:prod -- --stats-json --named-chunks && esbuild-visualizer --template network --metadata ./dist/apps/gblaster/stats.json --filename docs/analyzer-report-network.html",
+    "build:stats:gblaster": "npm run build:prod -- --stats-json --named-chunks",
+    "analyze:treemap:gblaster": "esbuild-visualizer --template treemap --metadata ./dist/apps/gblaster/stats.json --filename docs/analyzer-report-treemap.html",
+    "analyze:sunburst:gblaster": "esbuild-visualizer --template sunburst --metadata ./dist/apps/gblaster/stats.json --filename docs/analyzer-report-sunburst.html",
+    "analyze:network:gblaster": "esbuild-visualizer --template network --metadata ./dist/apps/gblaster/stats.json --filename docs/analyzer-report-network.html",
     "prepare": "husky"
   },
   "dependencies": {
