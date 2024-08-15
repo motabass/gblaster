@@ -48,6 +48,10 @@
     "dep-graph:html": "nx graph --file docs/dep-graph.html",
     "compodoc": "nx run workspace:compodoc",
     "generate:icon-set": "ts-node --project tools/tsconfig.tools.json tools/convertIcons.ts",
+    "build:stats:gblaster": "npm run build:prod -- --stats-json --named-chunksl",
+    "analyze:treemap:gblaster": "npm run build:prod -- --stats-json --named-chunks && esbuild-visualizer --template treemap --metadata ./dist/apps/gblaster/stats.json --filename docs/analyzer-report-treemap.html",
+    "analyze:sunburst:gblaster": "npm run build:prod -- --stats-json --named-chunks && esbuild-visualizer --template sunburst --metadata ./dist/apps/gblaster/stats.json --filename docs/analyzer-report-sunburst.html",
+    "analyze:network:gblaster": "npm run build:prod -- --stats-json --named-chunks && esbuild-visualizer --template network --metadata ./dist/apps/gblaster/stats.json --filename docs/analyzer-report-network.html",
     "prepare": "husky"
   },
   "dependencies": {
@@ -119,6 +123,7 @@
     "cypress-file-upload": "5.0.8",
     "dotenv": "16.4.5",
     "dotenv-cli": "7.4.2",
+    "esbuild-visualizer": "^0.6.0",
     "eslint": "8.57.0",
     "eslint-config-prettier": "9.1.0",
     "eslint-plugin-cypress": "3.5.0",
