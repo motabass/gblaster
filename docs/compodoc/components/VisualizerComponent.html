@@ -1,0 +1,2117 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>gblaster</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">gblaster</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  VisualizerComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>apps/gblaster/src/app/player/visualizer/visualizer.component.ts</code>
+</p>
+
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                <code>OnInit</code>
+                <code>OnDestroy</code>
+    </p>
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+            <tr>
+                <td class="col-md-3">changeDetection</td>
+                <td class="col-md-9"><code>ChangeDetectionStrategy.OnPush</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>mtb-visualizer</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">standalone</td>
+                <td class="col-md-9"><code>true</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                            <code>NgIf</code>
+                                <code><a href="../directives/VisualsDirective.html" target="_self" >VisualsDirective</a></code>
+                                <code><a href="../components/SlidePanelComponent.html" target="_self" >SlidePanelComponent</a></code>
+                            <code>MatSelectModule</code>
+                            <code>NgFor</code>
+                            <code>MatOptionModule</code>
+                            <code>MatSliderModule</code>
+                            <code>MatButtonModule</code>
+                            <code>MatIconModule</code>
+                            <code>MatTooltipModule</code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./visualizer.component.html</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">styleUrl</td>
+                <td class="col-md-9"><code>./visualizer.component.scss</code></td>
+            </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier"></span>
+                                <a href="#alpha" >alpha</a>
+                            </li>
+                            <li>
+                                <a href="#analyser" >analyser</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                <a href="#barCount" >barCount</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                <a href="#capFalldown" >capFalldown</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                <a href="#capHeight" >capHeight</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                <a href="#fftSize" >fftSize</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                <a href="#gap" >gap</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                <a href="#lineThickness" >lineThickness</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                <a href="#minDb" >minDb</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                <a href="#smoothing" >smoothing</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#visualsService" >visualsService</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#setAlpha" >setAlpha</a>
+                            </li>
+                            <li>
+                                <a href="#setBarCount" >setBarCount</a>
+                            </li>
+                            <li>
+                                <a href="#setCapFalldown" >setCapFalldown</a>
+                            </li>
+                            <li>
+                                <a href="#setCapHeight" >setCapHeight</a>
+                            </li>
+                            <li>
+                                <a href="#setFftSize" >setFftSize</a>
+                            </li>
+                            <li>
+                                <a href="#setGap" >setGap</a>
+                            </li>
+                            <li>
+                                <a href="#setLineThickness" >setLineThickness</a>
+                            </li>
+                            <li>
+                                <a href="#setMinDb" >setMinDb</a>
+                            </li>
+                            <li>
+                                <a href="#setSmoothing" >setSmoothing</a>
+                            </li>
+                            <li>
+                                <a href="#toggleVisualMode" >toggleVisualMode</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Inputs</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#track" >track</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Accessors</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                    <a href="#colorConfig" >colorConfig</a>
+                                </li>
+                                <li>
+                                    <a href="#mainColor" >mainColor</a>
+                                </li>
+                                <li>
+                                    <a href="#peakColor" >peakColor</a>
+                                </li>
+                                <li>
+                                    <a href="#barsConfig" >barsConfig</a>
+                                </li>
+                                <li>
+                                    <a href="#oscConfig" >oscConfig</a>
+                                </li>
+                                <li>
+                                    <a href="#playing" >playing</a>
+                                </li>
+                                <li>
+                                    <a href="#fftOptions" >fftOptions</a>
+                                </li>
+                                <li>
+                                    <a href="#sampleRate" >sampleRate</a>
+                                </li>
+                                <li>
+                                    <a href="#showSlidePanel" >showSlidePanel</a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(audioService: <a href="../injectables/AudioService.html" target="_self">AudioService</a>, gamepadService: <a href="../injectables/GamepadService.html" target="_self">GamepadService</a>, visualsService: <a href="../injectables/VisualsService.html" target="_self">VisualsService</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="59" class="link-to-prism">apps/gblaster/src/app/player/visualizer/visualizer.component.ts:59</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>audioService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/AudioService.html" target="_self" >AudioService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>gamepadService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/GamepadService.html" target="_self" >GamepadService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>visualsService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/VisualsService.html" target="_self" >VisualsService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+    <section data-compodoc="block-inputs">
+    <h3 id="inputs">Inputs</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="track"></a>
+                        <b>track</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/Track.html" target="_self" >Track | null</a></code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="57" class="link-to-prism">apps/gblaster/src/app/player/visualizer/visualizer.component.ts:57</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="setAlpha"></a>
+                    <span class="name">
+                        <span ><b>setAlpha</b></span>
+                        <a href="#setAlpha"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>setAlpha(value: number | null)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="125"
+                                    class="link-to-prism">apps/gblaster/src/app/player/visualizer/visualizer.component.ts:125</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>value</td>
+                                            <td>
+                                                        <code>number | null</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="setBarCount"></a>
+                    <span class="name">
+                        <span ><b>setBarCount</b></span>
+                        <a href="#setBarCount"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>setBarCount(value: number | null)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="131"
+                                    class="link-to-prism">apps/gblaster/src/app/player/visualizer/visualizer.component.ts:131</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>value</td>
+                                            <td>
+                                                        <code>number | null</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="setCapFalldown"></a>
+                    <span class="name">
+                        <span ><b>setCapFalldown</b></span>
+                        <a href="#setCapFalldown"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>setCapFalldown(value: number | null)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="143"
+                                    class="link-to-prism">apps/gblaster/src/app/player/visualizer/visualizer.component.ts:143</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>value</td>
+                                            <td>
+                                                        <code>number | null</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="setCapHeight"></a>
+                    <span class="name">
+                        <span ><b>setCapHeight</b></span>
+                        <a href="#setCapHeight"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>setCapHeight(value: number | null)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="137"
+                                    class="link-to-prism">apps/gblaster/src/app/player/visualizer/visualizer.component.ts:137</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>value</td>
+                                            <td>
+                                                        <code>number | null</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="setFftSize"></a>
+                    <span class="name">
+                        <span ><b>setFftSize</b></span>
+                        <a href="#setFftSize"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>setFftSize(value: <a href="../undefineds/FftSize.html" target="_self">FftSize</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="106"
+                                    class="link-to-prism">apps/gblaster/src/app/player/visualizer/visualizer.component.ts:106</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>value</td>
+                                            <td>
+                                                            <code><a href="../miscellaneous/typealiases.html#FftSize" target="_self" >FftSize</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="setGap"></a>
+                    <span class="name">
+                        <span ><b>setGap</b></span>
+                        <a href="#setGap"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>setGap(value: number | null)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="155"
+                                    class="link-to-prism">apps/gblaster/src/app/player/visualizer/visualizer.component.ts:155</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>value</td>
+                                            <td>
+                                                        <code>number | null</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="setLineThickness"></a>
+                    <span class="name">
+                        <span ><b>setLineThickness</b></span>
+                        <a href="#setLineThickness"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>setLineThickness(value: number | null)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="149"
+                                    class="link-to-prism">apps/gblaster/src/app/player/visualizer/visualizer.component.ts:149</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>value</td>
+                                            <td>
+                                                        <code>number | null</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="setMinDb"></a>
+                    <span class="name">
+                        <span ><b>setMinDb</b></span>
+                        <a href="#setMinDb"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>setMinDb(value: number | null)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="118"
+                                    class="link-to-prism">apps/gblaster/src/app/player/visualizer/visualizer.component.ts:118</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>value</td>
+                                            <td>
+                                                        <code>number | null</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="setSmoothing"></a>
+                    <span class="name">
+                        <span ><b>setSmoothing</b></span>
+                        <a href="#setSmoothing"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>setSmoothing(value: number | null)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="111"
+                                    class="link-to-prism">apps/gblaster/src/app/player/visualizer/visualizer.component.ts:111</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>value</td>
+                                            <td>
+                                                        <code>number | null</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="toggleVisualMode"></a>
+                    <span class="name">
+                        <span ><b>toggleVisualMode</b></span>
+                        <a href="#toggleVisualMode"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>toggleVisualMode()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="78"
+                                    class="link-to-prism">apps/gblaster/src/app/player/visualizer/visualizer.component.ts:78</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="alpha"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                        <span ><b>alpha</b></span>
+                        <a href="#alpha"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <b>Decorators : </b>
+                        <br />
+                        <code>
+                            @LocalStorage(&#x27;alpha&#x27;, 0.75)<br />
+                        </code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="43" class="link-to-prism">apps/gblaster/src/app/player/visualizer/visualizer.component.ts:43</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="analyser"></a>
+                    <span class="name">
+                        <span ><b>analyser</b></span>
+                        <a href="#analyser"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>AnalyserNode</code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="59" class="link-to-prism">apps/gblaster/src/app/player/visualizer/visualizer.component.ts:59</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="barCount"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                        <span ><b>barCount</b></span>
+                        <a href="#barCount"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <b>Decorators : </b>
+                        <br />
+                        <code>
+                            @LocalStorage(&#x27;barCount&#x27;, 24)<br />
+                        </code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="45" class="link-to-prism">apps/gblaster/src/app/player/visualizer/visualizer.component.ts:45</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="capFalldown"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                        <span ><b>capFalldown</b></span>
+                        <a href="#capFalldown"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <b>Decorators : </b>
+                        <br />
+                        <code>
+                            @LocalStorage(&#x27;capFalldown&#x27;, 2)<br />
+                        </code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="53" class="link-to-prism">apps/gblaster/src/app/player/visualizer/visualizer.component.ts:53</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="capHeight"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                        <span ><b>capHeight</b></span>
+                        <a href="#capHeight"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <b>Decorators : </b>
+                        <br />
+                        <code>
+                            @LocalStorage(&#x27;capHeight&#x27;, 4)<br />
+                        </code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="49" class="link-to-prism">apps/gblaster/src/app/player/visualizer/visualizer.component.ts:49</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="fftSize"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                        <span ><b>fftSize</b></span>
+                        <a href="#fftSize"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../miscellaneous/typealiases.html#FftSize" target="_self" >FftSize</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <b>Decorators : </b>
+                        <br />
+                        <code>
+                            @LocalStorage(&#x27;fftSize&#x27;, 2048)<br />
+                        </code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="47" class="link-to-prism">apps/gblaster/src/app/player/visualizer/visualizer.component.ts:47</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="gap"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                        <span ><b>gap</b></span>
+                        <a href="#gap"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <b>Decorators : </b>
+                        <br />
+                        <code>
+                            @LocalStorage(&#x27;gap&#x27;, 0.5)<br />
+                        </code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="51" class="link-to-prism">apps/gblaster/src/app/player/visualizer/visualizer.component.ts:51</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="lineThickness"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                        <span ><b>lineThickness</b></span>
+                        <a href="#lineThickness"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <b>Decorators : </b>
+                        <br />
+                        <code>
+                            @LocalStorage(&#x27;lineThickness&#x27;, 8)<br />
+                        </code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="55" class="link-to-prism">apps/gblaster/src/app/player/visualizer/visualizer.component.ts:55</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="minDb"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                        <span ><b>minDb</b></span>
+                        <a href="#minDb"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <b>Decorators : </b>
+                        <br />
+                        <code>
+                            @LocalStorage(&#x27;minDb&#x27;, undefined)<br />
+                        </code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="41" class="link-to-prism">apps/gblaster/src/app/player/visualizer/visualizer.component.ts:41</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="smoothing"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                        <span ><b>smoothing</b></span>
+                        <a href="#smoothing"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <b>Decorators : </b>
+                        <br />
+                        <code>
+                            @LocalStorage(&#x27;smoothing&#x27;, 0.7)<br />
+                        </code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="39" class="link-to-prism">apps/gblaster/src/app/player/visualizer/visualizer.component.ts:39</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="visualsService"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>visualsService</b></span>
+                        <a href="#visualsService"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../injectables/VisualsService.html" target="_self" >VisualsService</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="64" class="link-to-prism">apps/gblaster/src/app/player/visualizer/visualizer.component.ts:64</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-accessors">
+    <h3 id="accessors">
+        Accessors
+    </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="colorConfig"></a>
+                        <span class="name"><b>colorConfig</b><a href="#colorConfig"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>colorConfig()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="82" class="link-to-prism">apps/gblaster/src/app/player/visualizer/visualizer.component.ts:82</a></div>
+                                </td>
+                            </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="mainColor"></a>
+                        <span class="name"><b>mainColor</b><a href="#mainColor"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>mainColor()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="86" class="link-to-prism">apps/gblaster/src/app/player/visualizer/visualizer.component.ts:86</a></div>
+                                </td>
+                            </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="peakColor"></a>
+                        <span class="name"><b>peakColor</b><a href="#peakColor"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>peakColor()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="90" class="link-to-prism">apps/gblaster/src/app/player/visualizer/visualizer.component.ts:90</a></div>
+                                </td>
+                            </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="barsConfig"></a>
+                        <span class="name"><b>barsConfig</b><a href="#barsConfig"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>barsConfig()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="94" class="link-to-prism">apps/gblaster/src/app/player/visualizer/visualizer.component.ts:94</a></div>
+                                </td>
+                            </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="oscConfig"></a>
+                        <span class="name"><b>oscConfig</b><a href="#oscConfig"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>oscConfig()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="98" class="link-to-prism">apps/gblaster/src/app/player/visualizer/visualizer.component.ts:98</a></div>
+                                </td>
+                            </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="playing"></a>
+                        <span class="name"><b>playing</b><a href="#playing"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>playing()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="102" class="link-to-prism">apps/gblaster/src/app/player/visualizer/visualizer.component.ts:102</a></div>
+                                </td>
+                            </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="fftOptions"></a>
+                        <span class="name"><b>fftOptions</b><a href="#fftOptions"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>fftOptions()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="161" class="link-to-prism">apps/gblaster/src/app/player/visualizer/visualizer.component.ts:161</a></div>
+                                </td>
+                            </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="sampleRate"></a>
+                        <span class="name"><b>sampleRate</b><a href="#sampleRate"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>sampleRate()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="169" class="link-to-prism">apps/gblaster/src/app/player/visualizer/visualizer.component.ts:169</a></div>
+                                </td>
+                            </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="showSlidePanel"></a>
+                        <span class="name"><b>showSlidePanel</b><a href="#showSlidePanel"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>showSlidePanel()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="173" class="link-to-prism">apps/gblaster/src/app/player/visualizer/visualizer.component.ts:173</a></div>
+                                </td>
+                            </tr>
+
+            </tbody>
+        </table>
+</section>
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ChangeDetectionStrategy, Component, Input, OnDestroy, OnInit } from &#x27;@angular/core&#x27;;
+import { LocalStorage } from &#x27;ngx-webstorage&#x27;;
+import { Track } from &#x27;../player.types&#x27;;
+import type { FftSize, FrequencyBarsConfig, OsciloscopeConfig, VisualsColorConfig } from &#x27;./visuals/visuals.types&#x27;;
+import { VisualsService } from &#x27;./visuals/visuals.service&#x27;;
+import { GamepadService } from &#x27;../../services/gamepad/gamepad.service&#x27;;
+import { GamepadButtons } from &#x27;../../services/gamepad/gamepad.types&#x27;;
+import { AudioService } from &#x27;../audio.service&#x27;;
+import { MatTooltipModule } from &#x27;@angular/material/tooltip&#x27;;
+import { MatIconModule } from &#x27;@angular/material/icon&#x27;;
+import { MatButtonModule } from &#x27;@angular/material/button&#x27;;
+import { MatSliderModule } from &#x27;@angular/material/slider&#x27;;
+import { MatOptionModule } from &#x27;@angular/material/core&#x27;;
+import { MatSelectModule } from &#x27;@angular/material/select&#x27;;
+import { SlidePanelComponent } from &#x27;@motabass/ui-components/slide-panel&#x27;;
+import { VisualsDirective } from &#x27;./visuals/visuals.directive&#x27;;
+import { NgFor, NgIf } from &#x27;@angular/common&#x27;;
+
+@Component({
+  selector: &#x27;mtb-visualizer&#x27;,
+  templateUrl: &#x27;./visualizer.component.html&#x27;,
+  styleUrl: &#x27;./visualizer.component.scss&#x27;,
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [
+    NgIf,
+    VisualsDirective,
+    SlidePanelComponent,
+    MatSelectModule,
+    NgFor,
+    MatOptionModule,
+    MatSliderModule,
+    MatButtonModule,
+    MatIconModule,
+    MatTooltipModule
+  ]
+})
+export class VisualizerComponent implements OnInit, OnDestroy {
+  @LocalStorage(&#x27;smoothing&#x27;, 0.7) smoothing!: number;
+
+  @LocalStorage(&#x27;minDb&#x27;, -73) minDb!: number;
+
+  @LocalStorage(&#x27;alpha&#x27;, 0.75) alpha!: number;
+
+  @LocalStorage(&#x27;barCount&#x27;, 24) barCount!: number;
+
+  @LocalStorage(&#x27;fftSize&#x27;, 2048) fftSize!: FftSize;
+
+  @LocalStorage(&#x27;capHeight&#x27;, 4) capHeight!: number;
+
+  @LocalStorage(&#x27;gap&#x27;, 0.5) gap!: number;
+
+  @LocalStorage(&#x27;capFalldown&#x27;, 2) capFalldown!: number;
+
+  @LocalStorage(&#x27;lineThickness&#x27;, 8) lineThickness!: number;
+
+  @Input() track?: Track | null;
+
+  analyser: AnalyserNode;
+
+  constructor(
+    private audioService: AudioService,
+    private gamepadService: GamepadService,
+    public visualsService: VisualsService
+  ) {
+    const analyser &#x3D; this.audioService.plugAnalyser();
+    analyser.fftSize &#x3D; this.fftSize;
+    analyser.smoothingTimeConstant &#x3D; this.smoothing;
+    analyser.minDecibels &#x3D; this.minDb;
+    analyser.maxDecibels &#x3D; 220;
+    this.analyser &#x3D; analyser;
+  }
+
+  ngOnInit(): void {
+    this.gamepadService.registerButtonAction(GamepadButtons.SELECT_BUTTON, () &#x3D;&gt; this.toggleVisualMode());
+  }
+
+  toggleVisualMode() {
+    this.visualsService.toggleVisualMode();
+  }
+
+  get colorConfig(): VisualsColorConfig {
+    return { mainColor: this.mainColor, peakColor: this.peakColor, alpha: this.alpha };
+  }
+
+  get mainColor(): string | undefined {
+    return this.track?.metadata?.coverColors?.darkVibrant?.hex;
+  }
+
+  get peakColor(): string | undefined {
+    return this.track?.metadata?.coverColors?.lightVibrant?.hex;
+  }
+
+  get barsConfig(): FrequencyBarsConfig {
+    return { barCount: this.barCount, capHeight: this.capHeight, gap: this.gap, capFalldown: this.capFalldown };
+  }
+
+  get oscConfig(): OsciloscopeConfig {
+    return { thickness: this.lineThickness };
+  }
+
+  get playing(): boolean {
+    return this.audioService.playing;
+  }
+
+  setFftSize(value: FftSize) {
+    this.fftSize &#x3D; value;
+    this.analyser.fftSize &#x3D; value;
+  }
+
+  setSmoothing(value: number | null) {
+    if (value !&#x3D;&#x3D; null) {
+      this.smoothing &#x3D; value;
+      this.analyser.smoothingTimeConstant &#x3D; value;
+    }
+  }
+
+  setMinDb(value: number | null) {
+    if (value !&#x3D;&#x3D; null) {
+      this.minDb &#x3D; value;
+      this.analyser.minDecibels &#x3D; value;
+    }
+  }
+
+  setAlpha(value: number | null) {
+    if (value !&#x3D;&#x3D; null) {
+      this.alpha &#x3D; value;
+    }
+  }
+
+  setBarCount(value: number | null) {
+    if (value !&#x3D;&#x3D; null) {
+      this.barCount &#x3D; value;
+    }
+  }
+
+  setCapHeight(value: number | null) {
+    if (value !&#x3D;&#x3D; null) {
+      this.capHeight &#x3D; value;
+    }
+  }
+
+  setCapFalldown(value: number | null) {
+    if (value !&#x3D;&#x3D; null) {
+      this.capFalldown &#x3D; value;
+    }
+  }
+
+  setLineThickness(value: number | null) {
+    if (value !&#x3D;&#x3D; null) {
+      this.lineThickness &#x3D; value;
+    }
+  }
+
+  setGap(value: number | null) {
+    if (value !&#x3D;&#x3D; null) {
+      this.gap &#x3D; value;
+    }
+  }
+
+  get fftOptions(): number[] {
+    const options: number[] &#x3D; [];
+    for (let i &#x3D; 32; i &lt;&#x3D; 32768; i *&#x3D; 2) {
+      options.push(i);
+    }
+    return options;
+  }
+
+  get sampleRate(): number {
+    return this.audioService.sampleRate;
+  }
+
+  get showSlidePanel(): boolean {
+    return this.visualsService.visualMode() !&#x3D;&#x3D; &#x27;off&#x27;;
+  }
+
+  ngOnDestroy(): void {
+    this.gamepadService.deregisterButtonAction(GamepadButtons.SELECT_BUTTON);
+    this.analyser.disconnect();
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;div style&#x3D;&quot;width: 100%; height: 100%; position: relative&quot;&gt;
+  @if (playing) {
+    &lt;canvas
+      [mtbVisual]&#x3D;&quot;analyser&quot;
+      style&#x3D;&quot;width: 100%; height: 100%&quot;
+      [mode]&#x3D;&quot;visualsService.visualMode()&quot;
+      [colorConfig]&#x3D;&quot;colorConfig&quot;
+      [barsConfig]&#x3D;&quot;barsConfig&quot;
+      [oscConfig]&#x3D;&quot;oscConfig&quot;
+      [sampleRate]&#x3D;&quot;sampleRate&quot;
+    &gt;&lt;/canvas&gt;
+  }
+  @if (showSlidePanel) {
+    &lt;mtb-slide-panel
+      side&#x3D;&quot;right&quot;
+      bottom&#x3D;&quot;0&quot;
+      width&#x3D;&quot;100%&quot;
+      height&#x3D;&quot;auto&quot;
+      toggleIcon&#x3D;&quot;tune&quot;
+      openedState&#x3D;&quot;false&quot;
+      buttonTooltip&#x3D;&quot; visualizer config&quot;
+      class&#x3D;&quot;visuals-slide-panel&quot;
+    &gt;
+      &lt;div class&#x3D;&quot;accent-font&quot; style&#x3D;&quot;padding: 16px 0; font-size: 1rem&quot;&gt;Visualizer&lt;/div&gt;
+      &lt;div class&#x3D;&quot;visuals-settings&quot;&gt;
+        @if (visualsService.visualMode() !&#x3D;&#x3D; &#x27;off&#x27;) {
+          &lt;div&gt;
+            &lt;h5 class&#x3D;&quot;slider-label&quot;&gt;FFT-Size&lt;/h5&gt;
+            &lt;mat-select [value]&#x3D;&quot;fftSize&quot; (valueChange)&#x3D;&quot;setFftSize($event)&quot;&gt;
+              @for (option of fftOptions; track option) {
+                &lt;mat-option [value]&#x3D;&quot;option&quot;&gt;{{ option }}&lt;/mat-option&gt;
+              }
+            &lt;/mat-select&gt;
+          &lt;/div&gt;
+        }
+        &lt;div&gt;
+          &lt;h5 class&#x3D;&quot;slider-label&quot;&gt;Transparency&lt;/h5&gt;
+          &lt;mat-slider min&#x3D;&quot;0&quot; max&#x3D;&quot;1&quot; step&#x3D;&quot;0.01&quot; discrete
+            &gt;&lt;input #alphaThumb&#x3D;&quot;matSliderThumb&quot; matSliderThumb [value]&#x3D;&quot;alpha&quot; (input)&#x3D;&quot;setAlpha(alphaThumb.value)&quot;
+          /&gt;&lt;/mat-slider&gt;
+        &lt;/div&gt;
+
+        @switch (visualsService.visualMode()) {
+          @case (&#x27;bars&#x27;) {
+            &lt;div&gt;
+              &lt;h5 class&#x3D;&quot;slider-label&quot;&gt;min. DB&lt;/h5&gt;
+              &lt;mat-slider min&#x3D;&quot;-90&quot; max&#x3D;&quot;-70&quot; step&#x3D;&quot;0.01&quot; discrete
+                &gt;&lt;input #minDbThumb&#x3D;&quot;matSliderThumb&quot; matSliderThumb [value]&#x3D;&quot;minDb&quot; (input)&#x3D;&quot;setMinDb(minDbThumb.value)&quot;
+              /&gt;&lt;/mat-slider&gt;
+            &lt;/div&gt;
+            &lt;div&gt;
+              &lt;h5 class&#x3D;&quot;slider-label&quot;&gt;Smoothing&lt;/h5&gt;
+              &lt;mat-slider min&#x3D;&quot;0&quot; max&#x3D;&quot;1&quot; step&#x3D;&quot;0.1&quot; discrete
+                &gt;&lt;input matSliderThumb [value]&#x3D;&quot;smoothing&quot; (input)&#x3D;&quot;setSmoothing(smoothingThumb.value)&quot; #smoothingThumb&#x3D;&quot;matSliderThumb&quot;
+              /&gt;&lt;/mat-slider&gt;
+            &lt;/div&gt;
+            &lt;div&gt;
+              &lt;h5 class&#x3D;&quot;slider-label&quot;&gt;Bars&lt;/h5&gt;
+              &lt;mat-slider min&#x3D;&quot;8&quot; max&#x3D;&quot;128&quot; step&#x3D;&quot;1&quot; discrete
+                &gt;&lt;input matSliderThumb [value]&#x3D;&quot;barCount&quot; (input)&#x3D;&quot;setBarCount(barCountThumb.value)&quot; #barCountThumb&#x3D;&quot;matSliderThumb&quot;
+              /&gt;&lt;/mat-slider&gt;
+            &lt;/div&gt;
+            &lt;div&gt;
+              &lt;h5 class&#x3D;&quot;slider-label&quot;&gt;Gap&lt;/h5&gt;
+              &lt;mat-slider min&#x3D;&quot;-1&quot; max&#x3D;&quot;20&quot; step&#x3D;&quot;0.1&quot; discrete
+                &gt;&lt;input matSliderThumb [value]&#x3D;&quot;gap&quot; (input)&#x3D;&quot;setGap(gapThumb.value)&quot; #gapThumb&#x3D;&quot;matSliderThumb&quot;
+              /&gt;&lt;/mat-slider&gt;
+            &lt;/div&gt;
+            &lt;div&gt;
+              &lt;h5 class&#x3D;&quot;slider-label&quot;&gt;Cap Height&lt;/h5&gt;
+              &lt;mat-slider min&#x3D;&quot;0&quot; max&#x3D;&quot;6&quot; step&#x3D;&quot;0.1&quot; discrete
+                &gt;&lt;input matSliderThumb [value]&#x3D;&quot;capHeight&quot; (input)&#x3D;&quot;setCapHeight(capHeightThumb.value)&quot; #capHeightThumb&#x3D;&quot;matSliderThumb&quot;
+              /&gt;&lt;/mat-slider&gt;
+            &lt;/div&gt;
+            &lt;div&gt;
+              &lt;h5 class&#x3D;&quot;slider-label&quot;&gt;Cap Falldown&lt;/h5&gt;
+              &lt;mat-slider min&#x3D;&quot;0.1&quot; max&#x3D;&quot;2&quot; step&#x3D;&quot;0.1&quot; discrete
+                &gt;&lt;input matSliderThumb [value]&#x3D;&quot;capFalldown&quot; (input)&#x3D;&quot;setCapFalldown(capFalldownThumb.value)&quot; #capFalldownThumb&#x3D;&quot;matSliderThumb&quot;
+              /&gt;&lt;/mat-slider&gt;
+            &lt;/div&gt;
+          }
+          @case (&#x27;osc&#x27;) {
+            &lt;div&gt;
+              &lt;h5 class&#x3D;&quot;slider-label&quot;&gt;Thickness&lt;/h5&gt;
+              &lt;mat-slider min&#x3D;&quot;1&quot; max&#x3D;&quot;10&quot; step&#x3D;&quot;0.5&quot; discrete
+                &gt;&lt;input matSliderThumb [value]&#x3D;&quot;lineThickness&quot; (input)&#x3D;&quot;setLineThickness(lineThicknessThumb.value)&quot; #lineThicknessThumb&#x3D;&quot;matSliderThumb&quot;
+              /&gt;&lt;/mat-slider&gt;
+            &lt;/div&gt;
+          }
+        }
+      &lt;/div&gt;
+    &lt;/mtb-slide-panel&gt;
+  }
+
+  &lt;button mat-icon-button style&#x3D;&quot;position: absolute; top: 0.5rem; right: 0.5rem; z-index: 10&quot; (click)&#x3D;&quot;toggleVisualMode()&quot;&gt;
+    @switch (visualsService.visualMode()) {
+      @case (&#x27;bars&#x27;) {
+        &lt;mat-icon matTooltip&#x3D;&quot;Frequency-Bands&quot; svgIcon&#x3D;&quot;equalizer&quot;&gt;&lt;/mat-icon&gt;
+      }
+      @case (&#x27;osc&#x27;) {
+        &lt;mat-icon matTooltip&#x3D;&quot;Oscilloscope&quot; svgIcon&#x3D;&quot;current-ac&quot;&gt;&lt;/mat-icon&gt;
+      }
+      @case (&#x27;off&#x27;) {
+        &lt;mat-icon matTooltip&#x3D;&quot;Visualizer off&quot; svgIcon&#x3D;&quot;eye-off-outline&quot;&gt;&lt;/mat-icon&gt;
+      }
+    }
+  &lt;/button&gt;
+&lt;/div&gt;
+</code></pre>
+    </div>
+
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><div style="width: 100%; height: 100%; position: relative">  @if (playing) {    <canvas      [mtbVisual]="analyser"      style="width: 100%; height: 100%"      [mode]="visualsService.visualMode()"      [colorConfig]="colorConfig"      [barsConfig]="barsConfig"      [oscConfig]="oscConfig"      [sampleRate]="sampleRate"    ></canvas>  }  @if (showSlidePanel) {    <mtb-slide-panel      side="right"      bottom="0"      width="100%"      height="auto"      toggleIcon="tune"      openedState="false"      buttonTooltip=" visualizer config"      class="visuals-slide-panel"    >      <div class="accent-font" style="padding: 16px 0; font-size: 1rem">Visualizer</div>      <div class="visuals-settings">        @if (visualsService.visualMode() !== \'off\') {          <div>            <h5 class="slider-label">FFT-Size</h5>            <mat-select [value]="fftSize" (valueChange)="setFftSize($event)">              @for (option of fftOptions; track option) {                <mat-option [value]="option">{{ option }}</mat-option>              }            </mat-select>          </div>        }        <div>          <h5 class="slider-label">Transparency</h5>          <mat-slider min="0" max="1" step="0.01" discrete            ><input #alphaThumb="matSliderThumb" matSliderThumb [value]="alpha" (input)="setAlpha(alphaThumb.value)"          /></mat-slider>        </div>        @switch (visualsService.visualMode()) {          @case (\'bars\') {            <div>              <h5 class="slider-label">min. DB</h5>              <mat-slider min="-90" max="-70" step="0.01" discrete                ><input #minDbThumb="matSliderThumb" matSliderThumb [value]="minDb" (input)="setMinDb(minDbThumb.value)"              /></mat-slider>            </div>            <div>              <h5 class="slider-label">Smoothing</h5>              <mat-slider min="0" max="1" step="0.1" discrete                ><input matSliderThumb [value]="smoothing" (input)="setSmoothing(smoothingThumb.value)" #smoothingThumb="matSliderThumb"              /></mat-slider>            </div>            <div>              <h5 class="slider-label">Bars</h5>              <mat-slider min="8" max="128" step="1" discrete                ><input matSliderThumb [value]="barCount" (input)="setBarCount(barCountThumb.value)" #barCountThumb="matSliderThumb"              /></mat-slider>            </div>            <div>              <h5 class="slider-label">Gap</h5>              <mat-slider min="-1" max="20" step="0.1" discrete                ><input matSliderThumb [value]="gap" (input)="setGap(gapThumb.value)" #gapThumb="matSliderThumb"              /></mat-slider>            </div>            <div>              <h5 class="slider-label">Cap Height</h5>              <mat-slider min="0" max="6" step="0.1" discrete                ><input matSliderThumb [value]="capHeight" (input)="setCapHeight(capHeightThumb.value)" #capHeightThumb="matSliderThumb"              /></mat-slider>            </div>            <div>              <h5 class="slider-label">Cap Falldown</h5>              <mat-slider min="0.1" max="2" step="0.1" discrete                ><input matSliderThumb [value]="capFalldown" (input)="setCapFalldown(capFalldownThumb.value)" #capFalldownThumb="matSliderThumb"              /></mat-slider>            </div>          }          @case (\'osc\') {            <div>              <h5 class="slider-label">Thickness</h5>              <mat-slider min="1" max="10" step="0.5" discrete                ><input matSliderThumb [value]="lineThickness" (input)="setLineThickness(lineThicknessThumb.value)" #lineThicknessThumb="matSliderThumb"              /></mat-slider>            </div>          }        }      </div>    </mtb-slide-panel>  }  <button mat-icon-button style="position: absolute; top: 0.5rem; right: 0.5rem; z-index: 10" (click)="toggleVisualMode()">    @switch (visualsService.visualMode()) {      @case (\'bars\') {        <mat-icon matTooltip="Frequency-Bands" svgIcon="equalizer"></mat-icon>      }      @case (\'osc\') {        <mat-icon matTooltip="Oscilloscope" svgIcon="current-ac"></mat-icon>      }      @case (\'off\') {        <mat-icon matTooltip="Visualizer off" svgIcon="eye-off-outline"></mat-icon>      }    }  </button></div></div>'
+    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'mtb-root'},{'name': 'CoverDisplayComponent', 'selector': 'mtb-cover-display'},{'name': 'EqualizerComponent', 'selector': 'mtb-equalizer'},{'name': 'FileDropOverlayComponent', 'selector': 'mtb-file-drop-overlay'},{'name': 'HotkeysHelpDialogComponent', 'selector': 'mtb-hotkeys-help-dialog'},{'name': 'LibraryComponent', 'selector': ''},{'name': 'MetadataSettingsComponent', 'selector': 'mtb-metadata-settings'},{'name': 'PlayerComponent', 'selector': 'mtb-player'},{'name': 'PlaylistComponent', 'selector': 'mtb-playlist'},{'name': 'PromptDialogComponent', 'selector': 'mtb-prompt-dialog'},{'name': 'SettingsComponent', 'selector': 'mtb-settings'},{'name': 'ShellComponent', 'selector': 'mtb-shell'},{'name': 'SlidePanelComponent', 'selector': 'mtb-slide-panel'},{'name': 'StorageSettingsComponent', 'selector': 'mtb-storage-settings'},{'name': 'ThemeSettingsComponent', 'selector': 'mtb-theme-settings'},{'name': 'VisualizerComponent', 'selector': 'mtb-visualizer'}];
+    var DIRECTIVES = [{'name': 'VisualsDirective', 'selector': '[mtbVisual]'}];
+    var ACTUAL_COMPONENT = {'name': 'VisualizerComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'VisualizerComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>
