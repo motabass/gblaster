@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { LocalStorage } from 'ngx-webstorage';
 import { Track } from '../player.types';
-import { FftSize, FrequencyBarsConfig, OsciloscopeConfig, VisualizerMode, VisualsColorConfig } from './visuals/visuals.types';
+import type { FftSize, FrequencyBarsConfig, OsciloscopeConfig, VisualizerMode, VisualsColorConfig } from './visuals/visuals.types';
 import { VisualsService } from './visuals/visuals.service';
 import { GamepadService } from '../../services/gamepad/gamepad.service';
 import { GamepadButtons } from '../../services/gamepad/gamepad.types';

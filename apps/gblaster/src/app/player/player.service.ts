@@ -3,7 +3,7 @@ import { action, observable } from 'mobx-angular';
 import { LocalStorage } from 'ngx-webstorage';
 import { FileLoaderService } from './file-loader-service/file-loader.service.abstract';
 import { MetadataService } from './metadata-service/metadata.service';
-import { FrequencyBand, PlayState, RepeatMode, Track } from './player.types';
+import type { FrequencyBand, PlayState, RepeatMode, Track } from './player.types';
 import { ALLOWED_MIMETYPES } from './file-loader-service/file-loader.helpers';
 import { ThemeService } from '../theme/theme.service';
 import { LoaderService } from '../services/loader/loader.service';

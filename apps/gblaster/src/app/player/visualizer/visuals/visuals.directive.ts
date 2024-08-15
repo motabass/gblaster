@@ -1,5 +1,5 @@
 import { Directive, ElementRef, Input, NgZone, numberAttribute, OnChanges, OnDestroy, SimpleChanges } from '@angular/core';
-import { FrequencyBarsConfig, OsciloscopeConfig, VisualizerMode, VisualsColorConfig, VisualsWorkerMessage } from './visuals.types';
+import type { FrequencyBarsConfig, OsciloscopeConfig, VisualizerMode, VisualsColorConfig, VisualsWorkerMessage } from './visuals.types';
 
 const FALLBACK_PRIMARY_COLOR = '#424242';
 const FALLBACK_ACCENT_COLOR = '#bcbcbc';

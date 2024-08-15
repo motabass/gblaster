@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { action, observable } from 'mobx-angular';
 import { LocalStorageService } from 'ngx-webstorage';
-import { VisualizerMode } from './visuals.types';
+import type { VisualizerMode } from './visuals.types';
 
 @Injectable({
   providedIn: 'root'
