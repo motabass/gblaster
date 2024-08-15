@@ -5,7 +5,7 @@
   height: 100%;
   display: grid;
   grid-template-columns: minmax(300px, 3fr) 5fr;
-  grid-template-rows: calc(100% - 48px) 48px;
+  grid-template-rows: calc(100% - 77px) 60px;
   grid-template-areas:
     'playlist main'
     'bar bar';
