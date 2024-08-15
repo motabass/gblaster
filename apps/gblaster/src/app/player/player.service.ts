@@ -76,12 +76,8 @@ export class PlayerService extends BaseSubscribingClass {
     });
 
     effect(() => {
-      const state = this.playState();
-      if (state.state === 'playing') {
-        void this.afterPlayLoaded();
-      }
-      if (state.state === 'paused' || state.state === 'stopped') {
-        void this.afterPausedOrStopped();
+      if (this.playState().state === 'playing' && !Number.isNaN(this.audioService.duration)) {
+        this.mediaSessionService.updateMediaPositionState(this.audioService.duration, this.audioService.currentTime());
       }
     });
   }
@@ -89,7 +85,6 @@ export class PlayerService extends BaseSubscribingClass {
   private afterPlayLoaded() {
     this.loadFinished = true;
     this.mediaSessionService.setPlaying();
-    this.mediaSessionService.updateMediaPositionState(this.audioService.duration, this.audioService.currentTime());
     return this.wakelockService.activateWakelock();
   }
 
@@ -122,6 +117,7 @@ export class PlayerService extends BaseSubscribingClass {
     this.selectedTrack.set(track);
     await this.audioService.play();
     this.playState.set({ currentTrack: track, state: 'playing' });
+    await this.afterPlayLoaded();
   }
 
   async loadFiles(): Promise<void> {
@@ -226,9 +222,10 @@ export class PlayerService extends BaseSubscribingClass {
         currentTrack: playstate.currentTrack
       }));
     }
+    await this.afterPausedOrStopped();
   }
 
-  stop() {
+  async stop() {
     if (!this.playState().currentTrack || !this.loadFinished) {
       return;
     }
@@ -237,6 +234,7 @@ export class PlayerService extends BaseSubscribingClass {
     }
     this.audioService.seekToPosition(0);
     this.playState.update((state) => ({ state: 'stopped', currentTrack: state.currentTrack }));
+    await this.afterPausedOrStopped();
   }
 
   async next(): Promise<void> {
