@@ -142,6 +142,9 @@ export class PlayerService extends BaseSubscribingClass {
         // alle 2sek die Temporäre Liste in die sichtbare Playlist pushen
         if (Date.now() - startTime > 2000 || i === files.length - 1) {
           this.currentPlaylist.update((currentList) => [...currentList, ...tempList]);
+          if (this.selectedTrack() === undefined && this.currentPlaylist().length > 0) {
+            this.selectSong(this.currentPlaylist()[0]);
+          }
           tempList = [];
           startTime = Date.now();
         }

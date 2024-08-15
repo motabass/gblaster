@@ -58,12 +58,6 @@ export class PlaylistComponent implements OnDestroy {
     }
 
     return this.playerService.currentPlaylist().map((track, index) => ({ ...track, playlistPosition: index + 1 }));
-
-    //  TODO
-    // if (!this.playerService.selectedTrack() && this.playerService.currentPlaylist().length > 0) {
-    //   this.selectSong(this.playerService.currentPlaylist()[0]);
-    // }
-    // return this.playerService.currentPlaylist();
   });
 
   colorConfig = computed(() => {
@@ -86,10 +80,6 @@ export class PlaylistComponent implements OnDestroy {
       const state = this.playerService.playState();
       return state.state === 'playing' && state.currentTrack?.metadata?.crc === song.metadata?.crc && this.playerService.playing();
     });
-  }
-
-  selectSong(song: Track) {
-    this.playerService.selectSong(song);
   }
 
   async playPauseSong(event: Event, song: Track): Promise<void> {
