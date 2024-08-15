@@ -1,5 +1,5 @@
-<mat-list cdkDropList [cdkDropListDisabled]="isLoading | async" (cdkDropListDropped)="drop($event)" class="pl" *mobxAutorun>
-  @for (song of songs; track song.metadata.crc; let index = $index) {
+<mat-list cdkDropList [cdkDropListDisabled]="loaderService.isLoading()" (cdkDropListDropped)="drop($event)" class="playlist">
+  @for (song of songs(); track song.metadata.crc; let index = $index) {
     @defer (on viewport) {
       <mat-list-item
         cdkDrag
@@ -18,11 +18,11 @@
               loading="lazy"
             />
           }
-          @if ((isPlaying$(song) | async) && visualMode !== 'off') {
+          @if (isPlaying(song)() && visualsService.visualMode() !== 'off') {
             <canvas
               [mode]="'osc'"
               style="position: absolute; right: 0; bottom: 0; left: 0; width: 100%; height: 100%"
-              [colorConfig]="colorConfig$ | async"
+              [colorConfig]="colorConfig()"
               [mtbVisual]="analyser"
               [oscConfig]="{ thickness: 2 }"
             ></canvas>
@@ -32,9 +32,9 @@
         <h3 matListItemTitle style="font-size: 0.9rem; font-weight: bold">{{ song?.metadata?.title || song.file.name }}</h3>
         <p matListItemLine style="font-size: 0.8rem">{{ song?.metadata?.artist }}</p>
 
-        @if (isActive$(song) | async) {
+        @if (isActive(song)()) {
           <button matListItemMeta mat-icon-button (click)="playPauseSong($event, song)">
-            @if (isPlaying$(song) | async; as playing) {
+            @if (isPlaying(song)(); as playing) {
               <mat-icon class="accent-color" svgIcon="pause"></mat-icon>
             } @else {
               <mat-icon class="accent-color" svgIcon="play-outline"></mat-icon>

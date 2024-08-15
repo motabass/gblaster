@@ -1,19 +1,16 @@
 import { CdkDrag, CdkDragDrop, CdkDragHandle, CdkDragPreview, CdkDropList, moveItemInArray } from '@angular/cdk/drag-drop';
-import { Component, OnDestroy } from '@angular/core';
+import { Component, computed, OnDestroy, Signal } from '@angular/core';
 import { PlayerService } from '../player.service';
 import { Track } from '../player.types';
-import { filter, Observable } from 'rxjs';
 import { VisualsService } from '../visualizer/visuals/visuals.service';
-import { VisualizerMode, VisualsColorConfig } from '../visualizer/visuals/visuals.types';
+import { VisualsColorConfig } from '../visualizer/visuals/visuals.types';
 import { LoaderService } from '../../services/loader/loader.service';
 import { AudioService } from '../audio.service';
-import { map } from 'rxjs/operators';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { VisualsDirective } from '../visualizer/visuals/visuals.directive';
 import { AsyncPipe, NgClass, NgFor, NgIf } from '@angular/common';
 import { MatListModule } from '@angular/material/list';
-import { MobxAngularModule } from 'mobx-angular';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { SafePipe } from 'safe-pipe';
 
@@ -23,7 +20,6 @@ import { SafePipe } from 'safe-pipe';
   styleUrl: './playlist.component.scss',
   standalone: true,
   imports: [
-    MobxAngularModule,
     MatListModule,
     CdkDropList,
     NgFor,
@@ -43,10 +39,10 @@ import { SafePipe } from 'safe-pipe';
 export class PlaylistComponent implements OnDestroy {
   analyser: AnalyserNode;
   constructor(
-    private playerService: PlayerService,
+    public playerService: PlayerService,
     private audioService: AudioService,
-    private visualsService: VisualsService,
-    private loaderService: LoaderService
+    public visualsService: VisualsService,
+    public loaderService: LoaderService
   ) {
     this.analyser = this.audioService.plugAnalyser();
   }
@@ -55,48 +51,35 @@ export class PlaylistComponent implements OnDestroy {
     this.analyser.disconnect();
   }
 
-  get isLoading(): Observable<boolean> {
-    return this.loaderService.isLoading;
-  }
-
-  get visualMode(): VisualizerMode {
-    return this.visualsService.visualMode;
-  }
-
-  get songs(): Track[] {
-    for (const [i, v] of this.playerService.currentPlaylist.entries()) {
+  songs = computed(() => {
+    for (const [i, v] of this.playerService.currentPlaylist().entries()) {
       v.playlistPosition = i + 1;
     }
 
-    if (!this.selectedSong && this.playerService.currentPlaylist.length > 0) {
-      this.selectSong(this.playerService.currentPlaylist[0]);
-    }
-    return this.playerService.currentPlaylist;
+    return this.playerService.currentPlaylist().map((track, index) => ({ ...track, playlistPosition: index + 1 }));
+
+    // if (!this.playerService.selectedTrack() && this.playerService.currentPlaylist().length > 0) {
+    //   this.selectSong(this.playerService.currentPlaylist()[0]);
+    // }
+    // return this.playerService.currentPlaylist();
+  });
+
+  isActive(song: Track): Signal<boolean> {
+    return computed(() => {
+      const state = this.playerService.playState();
+      return (state.state === 'playing' || state.state === 'paused') && state.currentTrack?.metadata?.crc === song.metadata?.crc;
+    });
   }
 
-  isActive$(song: Track): Observable<boolean> {
-    return this.playerService.playState$.pipe(
-      filter((state) => state.state === 'playing' || state.state === 'paused'),
-      map((state) => state.currentTrack === song)
-    );
-  }
-
-  isPlaying$(song: Track): Observable<boolean> {
-    return this.playerService.playState$.pipe(
-      filter((state) => state.state === 'playing' && !!state.currentTrack),
-      map((state) => state.currentTrack === song && this.playerService.playing)
-    );
-  }
-
-  get playingTrack$(): Observable<Track | undefined> {
-    return this.playerService.playState$.pipe(
-      filter((state) => state.state === 'playing' && !!state.currentTrack),
-      map((state) => state.currentTrack)
-    );
+  isPlaying(song: Track): Signal<boolean> {
+    return computed(() => {
+      const state = this.playerService.playState();
+      return state.state === 'playing' && state.currentTrack?.metadata?.crc === song.metadata?.crc && this.playerService.playing();
+    });
   }
 
   get selectedSong(): Track | undefined {
-    return this.playerService.selectedTrack;
+    return this.playerService.selectedTrack();
   }
 
   isSelected(song: Track) {
@@ -112,13 +95,15 @@ export class PlaylistComponent implements OnDestroy {
     return this.playerService.playPauseTrack(song);
   }
 
-  get colorConfig$(): Observable<VisualsColorConfig> {
-    return this.playingTrack$.pipe(
-      map((track) => ({ mainColor: track?.metadata?.coverColors?.darkVibrant?.hex, peakColor: track?.metadata?.coverColors?.lightVibrant?.hex }))
-    );
-  }
+  colorConfig = computed(() => {
+    const track = this.playerService.playingTrack();
+    if (track) {
+      return { mainColor: track?.metadata?.coverColors?.darkVibrant?.hex, peakColor: track?.metadata?.coverColors?.lightVibrant?.hex } as VisualsColorConfig;
+    }
+    return { mainColor: undefined, peakColor: undefined } as VisualsColorConfig;
+  });
 
   drop(event: CdkDragDrop<Track>) {
-    moveItemInArray(this.songs, event.previousIndex, event.currentIndex);
+    moveItemInArray(this.songs(), event.previousIndex, event.currentIndex);
   }
 }

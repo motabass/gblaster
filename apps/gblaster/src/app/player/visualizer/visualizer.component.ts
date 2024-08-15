@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { LocalStorage } from 'ngx-webstorage';
 import { Track } from '../player.types';
-import type { FftSize, FrequencyBarsConfig, OsciloscopeConfig, VisualizerMode, VisualsColorConfig } from './visuals/visuals.types';
+import type { FftSize, FrequencyBarsConfig, OsciloscopeConfig, VisualsColorConfig } from './visuals/visuals.types';
 import { VisualsService } from './visuals/visuals.service';
 import { GamepadService } from '../../services/gamepad/gamepad.service';
 import { GamepadButtons } from '../../services/gamepad/gamepad.types';
@@ -15,7 +15,6 @@ import { MatSelectModule } from '@angular/material/select';
 import { SlidePanelComponent } from '@motabass/ui-components/slide-panel';
 import { VisualsDirective } from './visuals/visuals.directive';
 import { NgFor, NgIf } from '@angular/common';
-import { MobxAngularModule } from 'mobx-angular';
 
 @Component({
   selector: 'mtb-visualizer',
@@ -24,7 +23,6 @@ import { MobxAngularModule } from 'mobx-angular';
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [
-    MobxAngularModule,
     NgIf,
     VisualsDirective,
     SlidePanelComponent,
@@ -63,7 +61,7 @@ export class VisualizerComponent implements OnInit, OnDestroy {
   constructor(
     private audioService: AudioService,
     private gamepadService: GamepadService,
-    private visualsService: VisualsService
+    public visualsService: VisualsService
   ) {
     const analyser = this.audioService.plugAnalyser();
     analyser.fftSize = this.fftSize;
@@ -75,10 +73,6 @@ export class VisualizerComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.gamepadService.registerButtonAction(GamepadButtons.SELECT_BUTTON, () => this.toggleVisualMode());
-  }
-
-  get visualMode(): VisualizerMode {
-    return this.visualsService.visualMode;
   }
 
   toggleVisualMode() {
@@ -177,7 +171,7 @@ export class VisualizerComponent implements OnInit, OnDestroy {
   }
 
   get showSlidePanel(): boolean {
-    return this.visualMode !== 'off';
+    return this.visualsService.visualMode() !== 'off';
   }
 
   ngOnDestroy(): void {

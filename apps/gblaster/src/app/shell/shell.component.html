@@ -3,13 +3,13 @@
     #drawer
     class="sidenav"
     fixedInViewport
-    [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
-    [mode]="(isHandset$ | async) ? 'over' : 'side'"
-    [opened]="(isHandset$ | async) === false"
+    [attr.role]="isHandset() ? 'dialog' : 'navigation'"
+    [mode]="isHandset() ? 'over' : 'side'"
+    [opened]="!isHandset()"
   >
     <mat-toolbar color="primary" style="height: 48px">
       <mat-icon aria-label="Side nav toggle icon" svgIcon="radio" style="margin-right: 0.7rem"></mat-icon>
-      <span class="title">{{ title | async }}</span>
+      <span class="title">{{ titleService.title() }}</span>
     </mat-toolbar>
     <mat-nav-list>
       <mat-list-item (click)="navigateTo('/player')">
@@ -28,7 +28,7 @@
   </mat-sidenav>
   <mat-sidenav-content style="overflow: hidden">
     <mat-toolbar color="primary" class="mat-elevation-z6">
-      @if (isHandset$ | async) {
+      @if (isHandset()) {
         <button
           id="sidenav_menu_button"
           type="button"
@@ -40,8 +40,8 @@
           <mat-icon aria-label="Side nav toggle icon" style="--mdc-icon-button-icon-size: 36px; width: 36px; height: 36px" svgIcon="logo"></mat-icon>
         </button>
       }
-      <span class="title">{{ title | async }}</span>
-      @if (isLoading | async) {
+      <span class="title">{{ titleService.title() }}</span>
+      @if (loaderService.isLoading()) {
         <mat-spinner style="margin-left: 1rem" color="accent" diameter="32" strokeWidth="6"></mat-spinner>
       }
     </mat-toolbar>

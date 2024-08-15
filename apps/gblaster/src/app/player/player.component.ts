@@ -4,14 +4,12 @@ import { formatSecondsAsClock } from '@motabass/helpers';
 import { ALLOWED_MIMETYPES } from './file-loader-service/file-loader.helpers';
 import { FileLoaderService } from './file-loader-service/file-loader.service.abstract';
 import { PlayerService } from './player.service';
-import { RepeatMode, Track } from './player.types';
+import { RepeatMode } from './player.types';
 import { HotkeysService } from '../services/hotkeys/hotkeys.service';
 import { GamepadService } from '../services/gamepad/gamepad.service';
 import { GamepadAxes, GamepadButtons } from '../services/gamepad/gamepad.types';
 import { TitleService } from '../services/title.service';
 import { AudioService } from './audio.service';
-import { filter, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 import { TimePipe } from './time.pipe';
 import { FileDropOverlayComponent } from '@motabass/ui-components/file-drop-overlay';
 import { MatMenuModule } from '@angular/material/menu';
@@ -56,7 +54,7 @@ export class PlayerComponent implements OnInit, AfterViewInit, OnDestroy {
   positionUpdateActive = true;
 
   constructor(
-    private playerService: PlayerService,
+    public playerService: PlayerService,
     private titleService: TitleService,
     private gamepadService: GamepadService,
     private hotkeysService: HotkeysService,
@@ -65,7 +63,7 @@ export class PlayerComponent implements OnInit, AfterViewInit, OnDestroy {
   ) {}
 
   async ngOnInit() {
-    setTimeout(() => this.titleService.setTitle('gBlaster')); // TODO: find better way: use new title provide by Router
+    this.titleService.setTitle('gBlaster');
 
     this.hotkeysService.initialize();
 
@@ -100,13 +98,13 @@ export class PlayerComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   get isPlaylistEmpty(): boolean {
-    return this.playerService.currentPlaylist.length === 0;
+    return this.playerService.currentPlaylist().length === 0;
   }
 
   ngAfterViewInit() {
     this.interval = window.setInterval(() => {
-      if (this.playingTrack$ && this.positionUpdateActive) {
-        this.position = this.playerService.getCurrentTime();
+      if (this.playerService.playingTrack() && this.positionUpdateActive) {
+        this.position = this.playerService.currentTime();
         // TODO: fix position reporting
         // this.mediaSessionService.updateMediaPositionState(this.playerService.audioElement)
       }
@@ -141,17 +139,6 @@ export class PlayerComponent implements OnInit, AfterViewInit, OnDestroy {
     if (value < 0) {
       this.seekLeft(value * -1);
     }
-  }
-
-  get durationSeconds(): number {
-    return this.playerService.durationSeconds;
-  }
-
-  get playingTrack$(): Observable<Track | undefined> {
-    return this.playerService.playState$.pipe(
-      filter((state) => state.state === 'playing' && !!state.currentTrack),
-      map((state) => state.currentTrack)
-    );
   }
 
   get volume(): number {
@@ -237,7 +224,7 @@ export class PlayerComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   get playing(): boolean {
-    return this.playerService.playing;
+    return this.playerService.playing();
   }
 
   get shuffle(): boolean {

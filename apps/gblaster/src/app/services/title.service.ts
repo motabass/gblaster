@@ -1,19 +1,16 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TitleService {
-  defaultTitle = 'gBlaster';
-  private dataSource: BehaviorSubject<string> = new BehaviorSubject(this.defaultTitle);
-  title = this.dataSource.asObservable();
+  title = signal<string>('');
 
-  constructor(private titleService: Title) {}
+  constructor(private angularTitleService: Title) {}
 
   setTitle(title: string) {
-    this.titleService.setTitle(title);
-    this.dataSource.next(title);
+    this.angularTitleService.setTitle(title);
+    this.title.set(title);
   }
 }

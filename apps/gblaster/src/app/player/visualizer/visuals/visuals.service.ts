@@ -1,5 +1,4 @@
-import { Injectable } from '@angular/core';
-import { action, observable } from 'mobx-angular';
+import { Injectable, signal } from '@angular/core';
 import { LocalStorageService } from 'ngx-webstorage';
 import type { VisualizerMode } from './visuals.types';
 
@@ -7,25 +6,27 @@ import type { VisualizerMode } from './visuals.types';
   providedIn: 'root'
 })
 export class VisualsService {
-  @observable visualMode!: VisualizerMode;
+  visualMode = signal<VisualizerMode>('off');
 
   constructor(private localStorageService: LocalStorageService) {
     const mode = this.localStorageService.retrieve('visualMode');
-    this.visualMode = mode ?? 'off';
+    if (mode) {
+      this.visualMode.set(mode);
+    }
   }
 
-  @action toggleVisualMode() {
-    switch (this.visualMode) {
+  toggleVisualMode() {
+    switch (this.visualMode()) {
       case 'off':
-        this.visualMode = 'bars';
+        this.visualMode.set('bars');
         this.localStorageService.store('visualMode', 'bars');
         break;
       case 'bars':
-        this.visualMode = 'osc';
+        this.visualMode.set('osc');
         this.localStorageService.store('visualMode', 'osc');
         break;
       case 'osc':
-        this.visualMode = 'off';
+        this.visualMode.set('off');
         this.localStorageService.store('visualMode', 'off');
         break;
     }

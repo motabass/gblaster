@@ -1,9 +1,9 @@
-<div *mobxAutorun style="width: 100%; height: 100%; position: relative">
+<div style="width: 100%; height: 100%; position: relative">
   @if (playing) {
     <canvas
       [mtbVisual]="analyser"
       style="width: 100%; height: 100%"
-      [mode]="visualMode"
+      [mode]="visualsService.visualMode()"
       [colorConfig]="colorConfig"
       [barsConfig]="barsConfig"
       [oscConfig]="oscConfig"
@@ -23,7 +23,7 @@
     >
       <div class="accent-font" style="padding: 16px 0; font-size: 1rem">Visualizer</div>
       <div class="visuals-settings">
-        @if (visualMode !== 'off') {
+        @if (visualsService.visualMode() !== 'off') {
           <div>
             <h5 class="slider-label">FFT-Size</h5>
             <mat-select [value]="fftSize" (valueChange)="setFftSize($event)">
@@ -40,7 +40,7 @@
           /></mat-slider>
         </div>
 
-        @switch (visualMode) {
+        @switch (visualsService.visualMode()) {
           @case ('bars') {
             <div>
               <h5 class="slider-label">min. DB</h5>
@@ -93,7 +93,7 @@
   }
 
   <button mat-icon-button style="position: absolute; top: 0.5rem; right: 0.5rem; z-index: 10" (click)="toggleVisualMode()">
-    @switch (visualMode) {
+    @switch (visualsService.visualMode()) {
       @case ('bars') {
         <mat-icon matTooltip="Frequency-Bands" svgIcon="equalizer"></mat-icon>
       }

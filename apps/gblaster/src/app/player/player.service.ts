@@ -1,5 +1,4 @@
-import { Injectable } from '@angular/core';
-import { action, observable } from 'mobx-angular';
+import { computed, effect, Injectable, signal } from '@angular/core';
 import { LocalStorage } from 'ngx-webstorage';
 import { FileLoaderService } from './file-loader-service/file-loader.service.abstract';
 import { MetadataService } from './metadata-service/metadata.service';
@@ -10,25 +9,31 @@ import { LoaderService } from '../services/loader/loader.service';
 import { WakelockService } from '../services/wakelock.service';
 import { MediaSessionService } from '../services/media-session.service';
 import { AudioService } from './audio.service';
-import { BehaviorSubject, Observable } from 'rxjs';
 import { BaseSubscribingClass } from '@motabass/base-components/base-subscribing-component';
-import { takeUntil } from 'rxjs/operators';
 
 export const BAND_FREQUENCIES: FrequencyBand[] = [60, 170, 310, 600, 1000, 3000, 6000, 12000, 14000, 16000];
 
 @Injectable({ providedIn: 'any' })
 export class PlayerService extends BaseSubscribingClass {
-  private playState: BehaviorSubject<PlayState> = new BehaviorSubject<PlayState>({ state: 'stopped' });
-
   private loadFinished = true;
 
-  @observable currentPlaylist: Track[] = [];
+  currentPlaylist = signal<Track[]>([]);
 
-  @observable selectedTrack?: Track;
+  selectedTrack = signal<Track | undefined>(undefined);
 
   @LocalStorage('repeat', 'off') repeat!: RepeatMode;
 
   @LocalStorage('shuffle', false) shuffle!: boolean;
+
+  playState = signal<PlayState>({ state: 'stopped' });
+
+  playingTrack = computed(() => {
+    const state = this.playState();
+    if (state.state === 'playing' && !!state.currentTrack) {
+      return state.currentTrack;
+    }
+    return undefined;
+  });
 
   constructor(
     private audioService: AudioService,
@@ -70,13 +75,13 @@ export class PlayerService extends BaseSubscribingClass {
       void this.next();
     });
 
-    this.playState.pipe(takeUntil(this.destroy$)).subscribe(async (state) => {
-      if (state.state === 'playing') {
-        await this.afterPlayLoaded();
+    effect(() => {
+      const { state } = this.playState();
+      if (state === 'playing') {
+        void this.afterPlayLoaded();
       }
-
-      if (state.state === 'paused' || state.state === 'stopped') {
-        await this.afterPausedOrStopped();
+      if (state === 'paused' || state === 'stopped') {
+        void this.afterPausedOrStopped();
       }
     });
   }
@@ -114,21 +119,17 @@ export class PlayerService extends BaseSubscribingClass {
       this.themeService.setAccentColor(accentColor);
     }
 
-    this.selectedTrack = track;
+    this.selectedTrack.set(track);
     await this.audioService.play();
-    this.playState.next({ currentTrack: track, state: 'playing' });
+    this.playState.set({ currentTrack: track, state: 'playing' });
   }
 
-  get playState$(): Observable<PlayState> {
-    return this.playState.asObservable();
-  }
-
-  @action async loadFiles(): Promise<void> {
+  async loadFiles(): Promise<void> {
     const files: File[] = await this.fileLoaderService.openFiles();
     return this.addFilesToPlaylist(...files);
   }
 
-  @action async addFilesToPlaylist(...files: File[]) {
+  async addFilesToPlaylist(...files: File[]) {
     if (files?.length) {
       let tempList: Track[] = [];
       let startTime = Date.now();
@@ -138,13 +139,13 @@ export class PlayerService extends BaseSubscribingClass {
         const song = await this.createTrackFromFile(file);
         this.loaderService.hide();
         // avoid duplicate playlist entries
-        if (!this.currentPlaylist.some((playlistSong) => playlistSong.metadata?.crc === song.metadata?.crc)) {
+        if (!this.currentPlaylist().some((playlistSong) => playlistSong.metadata?.crc === song.metadata?.crc)) {
           tempList.push(song);
         }
 
         // alle 2sek die Temporäre Liste in die sichtbare Playlist pushen
         if (Date.now() - startTime > 2000 || i === files.length - 1) {
-          this.currentPlaylist.push(...tempList);
+          this.currentPlaylist.update((currentList) => [...currentList, ...tempList]);
           tempList = [];
           startTime = Date.now();
         }
@@ -162,29 +163,29 @@ export class PlayerService extends BaseSubscribingClass {
     };
   }
 
-  @action setSeekPosition(value: number | undefined, fastSeek = false) {
-    if (value !== null && value !== undefined && value >= 0 && value <= this.durationSeconds) {
+  setSeekPosition(value: number | undefined, fastSeek = false) {
+    if (value !== null && value !== undefined && value >= 0 && value <= this.durationSeconds()) {
       this.audioService.seekToPosition(value, fastSeek);
       this.mediaSessionService.updateMediaPositionState(this.audioService.duration, this.audioService.currentTime);
     }
   }
 
-  get durationSeconds(): number {
-    const value = this.playState.getValue();
+  durationSeconds = computed(() => {
+    const value = this.playState();
     return value.currentTrack && value.state !== 'stopped' ? Math.round(this.audioService.duration) : 0;
-  }
+  });
 
-  getCurrentTime(): number {
-    const value = this.playState.getValue();
+  currentTime = computed(() => {
+    const value = this.playState();
     if (!value.currentTrack || value.state === 'stopped') {
       return 0;
     }
     const pos = this.audioService.currentTime;
     return pos !== null && pos !== undefined ? Math.floor(pos) : 0;
-  }
+  });
 
-  @action selectSong(song: Track) {
-    this.selectedTrack = song;
+  selectSong(song: Track) {
+    this.selectedTrack.set(song);
   }
 
   async playPauseTrack(track: Track) {
@@ -192,7 +193,7 @@ export class PlayerService extends BaseSubscribingClass {
       return;
     }
 
-    if (this.playState.getValue().currentTrack === track) {
+    if (this.playState().currentTrack === track) {
       await this.playPause();
       return;
     }
@@ -204,59 +205,65 @@ export class PlayerService extends BaseSubscribingClass {
   }
 
   async playPause() {
-    if (!this.playState.getValue().currentTrack || !this.loadFinished) {
-      if (this.selectedTrack) {
+    if (!this.playState().currentTrack || !this.loadFinished) {
+      if (this.selectedTrack()) {
         this.loadFinished = false;
-        await this.playTrack(this.selectedTrack);
+        await this.playTrack(this.selectedTrack());
       }
       return;
     }
     if (this.audioService.paused) {
       this.loadFinished = false;
       await this.audioService.play();
-      this.playState.next({ state: 'playing', currentTrack: this.playState.getValue().currentTrack });
+      this.playState.update((playstate) => ({
+        state: 'playing',
+        currentTrack: playstate.currentTrack
+      }));
     } else {
       this.audioService.pause();
-      this.playState.next({ state: 'paused', currentTrack: this.playState.getValue().currentTrack });
+      this.playState.update((playstate) => ({
+        state: 'paused',
+        currentTrack: playstate.currentTrack
+      }));
     }
   }
 
-  @action stop() {
-    if (!this.playState.getValue().currentTrack || !this.loadFinished) {
+  stop() {
+    if (!this.playState().currentTrack || !this.loadFinished) {
       return;
     }
-    if (this.playing) {
+    if (this.playing()) {
       this.audioService.pause();
     }
     this.audioService.seekToPosition(0);
-    this.playState.next({ state: 'stopped', currentTrack: this.playState.getValue().currentTrack });
+    this.playState.update((state) => ({ state: 'stopped', currentTrack: state.currentTrack }));
   }
 
-  @action async next(): Promise<void> {
-    const value = this.playState.getValue();
-    if (!value.currentTrack || !this.loadFinished) {
+  async next(): Promise<void> {
+    const state = this.playState();
+    if (!state.currentTrack || !this.loadFinished) {
       return;
     }
 
     if (this.shuffle) {
-      const randomPosition = getRandomInt(0, this.currentPlaylist.length - 1);
-      return this.playTrack(this.currentPlaylist[randomPosition]);
+      const randomPosition = getRandomInt(0, this.currentPlaylist().length - 1);
+      return this.playTrack(this.currentPlaylist()[randomPosition]);
     }
 
-    const currPo = value.currentTrack.playlistPosition;
+    const currPo = state.currentTrack.playlistPosition;
     if (!currPo) {
       return;
     }
 
-    if (currPo < this.currentPlaylist.length) {
-      return this.playTrack(this.currentPlaylist[currPo]);
+    if (currPo < this.currentPlaylist().length) {
+      return this.playTrack(this.currentPlaylist()[currPo]);
     } else if (this.repeat === 'all') {
-      return this.playTrack(this.currentPlaylist[0]);
+      return this.playTrack(this.currentPlaylist()[0]);
     }
   }
 
-  @action async previous() {
-    const value = this.playState.getValue();
+  async previous() {
+    const value = this.playState();
     if (!value.currentTrack || !this.loadFinished) {
       return;
     }
@@ -265,44 +272,44 @@ export class PlayerService extends BaseSubscribingClass {
       return;
     }
     if (currPo > 1) {
-      return this.playTrack(this.currentPlaylist[currPo - 2]);
+      return this.playTrack(this.currentPlaylist()[currPo - 2]);
     }
   }
 
-  @action selectNext() {
-    if (!this.selectedTrack) {
+  selectNext() {
+    if (!this.selectedTrack()) {
       return;
     }
-    const currPo = this.selectedTrack.playlistPosition;
+    const currPo = this.selectedTrack()?.playlistPosition;
     if (!currPo) {
       return;
     }
 
     if (currPo < this.currentPlaylist.length) {
-      this.selectedTrack = this.currentPlaylist[currPo];
+      this.selectedTrack.set(this.currentPlaylist()[currPo]);
     }
   }
 
-  @action selectPrevious() {
-    if (!this.selectedTrack) {
+  selectPrevious() {
+    if (!this.selectedTrack()) {
       return;
     }
-    const currPo = this.selectedTrack.playlistPosition;
+    const currPo = this.selectedTrack()?.playlistPosition;
     if (!currPo) {
       return;
     }
 
     if (currPo > 1) {
-      this.selectedTrack = this.currentPlaylist[currPo - 2];
+      this.selectedTrack.set(this.currentPlaylist()[currPo - 2]);
     }
   }
 
   seekLeft(seconds: number) {
-    this.setSeekPosition(this.getCurrentTime() - seconds);
+    this.setSeekPosition(this.currentTime() - seconds);
   }
 
   seekRight(seconds: number) {
-    this.setSeekPosition(this.getCurrentTime() + seconds);
+    this.setSeekPosition(this.currentTime() + seconds);
   }
 
   private seekToHandler(details: MediaSessionActionDetails) {
@@ -315,11 +322,9 @@ export class PlayerService extends BaseSubscribingClass {
     }
   }
 
-  get playing(): boolean {
-    return !!this.playState.getValue().currentTrack && !this.audioService.paused;
-  }
+  playing = computed(() => !!this.playState().currentTrack && !this.audioService.paused);
 
-  @action toggleRepeat() {
+  toggleRepeat() {
     switch (this.repeat) {
       case 'off': {
         this.repeat = 'all';
@@ -338,7 +343,7 @@ export class PlayerService extends BaseSubscribingClass {
     }
   }
 
-  @action toggleShuffle() {
+  toggleShuffle() {
     this.shuffle = !this.shuffle;
   }
 }

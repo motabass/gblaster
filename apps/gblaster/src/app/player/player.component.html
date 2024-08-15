@@ -6,13 +6,13 @@
   }
 </mtb-playlist>
 
-<mtb-cover-display [track]="playingTrack$ | async" class="main">
-  <mtb-visualizer class="visualizer" [track]="playingTrack$ | async"></mtb-visualizer>
+<mtb-cover-display [track]="playerService.playingTrack()" class="main">
+  <mtb-visualizer class="visualizer" [track]="playerService.playingTrack()"></mtb-visualizer>
 </mtb-cover-display>
 
 <mat-toolbar color="primary" class="bar flex row justify-center">
   <button mat-icon-button (click)="playPause()">
-    @if (playing) {
+    @if (playerService.playing()) {
       <mat-icon matTooltip="Pause" svgIcon="pause"></mat-icon>
     } @else {
       <mat-icon matTooltip="Play" svgIcon="play"></mat-icon>
@@ -34,8 +34,8 @@
     <mat-icon matTooltip="Load folder/files..." svgIcon="folder-music-outline"></mat-icon>
   </button>
   <!-- TODO: The 'tickInterval' property no longer exists -->
-  @if (playingTrack$ | async) {
-    <mat-slider class="flex-grow" min="0" [max]="durationSeconds" step="1" discrete color="accent" [displayWith]="formatLabel"
+  @if (playerService.playingTrack()) {
+    <mat-slider class="flex-grow" min="0" [max]="playerService.durationSeconds()" step="1" discrete color="accent" [displayWith]="formatLabel"
       ><input
         matSliderThumb
         [value]="position"
@@ -48,7 +48,7 @@
   }
 
   <div class="no-mobile" style="font-size: small; padding: 0 12px">
-    <p>{{ position | time }} / {{ durationSeconds | time }}</p>
+    <p>{{ position | time }} / {{ this.playerService.durationSeconds() | time }}</p>
   </div>
 
   <button mat-icon-button id="volume_button" [matMenuTriggerFor]="volumeMenu">
