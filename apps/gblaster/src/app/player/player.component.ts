@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { MatSliderModule } from '@angular/material/slider';
 import { formatSecondsAsClock } from '@motabass/helpers';
 import { ALLOWED_MIMETYPES } from './file-loader-service/file-loader.helpers';
@@ -27,6 +27,7 @@ import { PlaylistComponent } from './playlist/playlist.component';
   templateUrl: './player.component.html',
   styleUrl: './player.component.scss',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     PlaylistComponent,
     NgIf,
@@ -46,11 +47,7 @@ import { PlaylistComponent } from './playlist/playlist.component';
     TimePipe
   ]
 })
-export class PlayerComponent implements OnInit, AfterViewInit, OnDestroy {
-  private interval?: number;
-
-  position = 0;
-
+export class PlayerComponent implements OnInit, OnDestroy {
   positionUpdateActive = true;
 
   constructor(
@@ -77,14 +74,32 @@ export class PlayerComponent implements OnInit, AfterViewInit, OnDestroy {
 
     this.gamepadService.registerButtonAction(GamepadButtons.L2_BUTTON, (value) => this.seekLeft(value), 'turbo');
     this.gamepadService.registerButtonAction(GamepadButtons.R2_BUTTON, (value) => this.seekRight(value), 'turbo');
-    this.gamepadService.registerAxisAction(GamepadAxes.S1_X, (value) => this.alterSeekPositionByAxis(value), 'turbo', 64);
 
-    this.gamepadService.registerAxisAction(GamepadAxes.S2_Y, (value) => this.alterVolumeByAxis(value), 'hold');
+    this.gamepadService.registerAxisAction(
+      GamepadAxes.S1_X,
+      (value) => this.seekRight(value),
+      (value) => this.seekLeft(value),
+      'turbo',
+      64
+    );
+
+    this.gamepadService.registerAxisAction(
+      GamepadAxes.S2_Y,
+      (value) => this.decreaseVolume(value),
+      (value) => this.increaseVolume(value),
+      'hold'
+    );
+
     this.gamepadService.registerButtonAction(GamepadButtons.S2_BUTTON, () => this.toggleMute());
 
     this.gamepadService.registerButtonAction(GamepadButtons.DPAD_UP, () => this.playerService.selectPrevious());
     this.gamepadService.registerButtonAction(GamepadButtons.DPAD_DOWN, () => this.playerService.selectNext());
-    this.gamepadService.registerAxisAction(GamepadAxes.S1_Y, (value) => this.alterSelectionByAxis(value), 'turbo');
+    this.gamepadService.registerAxisAction(
+      GamepadAxes.S1_Y,
+      () => this.playerService.selectNext(),
+      () => this.playerService.selectPrevious(),
+      'turbo'
+    );
 
     this.gamepadService.registerButtonAction(GamepadButtons.R1_BUTTON, () => this.next(), 'turbo');
     this.gamepadService.registerButtonAction(GamepadButtons.L1_BUTTON, () => this.previous(), 'turbo');
@@ -99,16 +114,6 @@ export class PlayerComponent implements OnInit, AfterViewInit, OnDestroy {
 
   get isPlaylistEmpty(): boolean {
     return this.playerService.currentPlaylist().length === 0;
-  }
-
-  ngAfterViewInit() {
-    this.interval = window.setInterval(() => {
-      if (this.playerService.playingTrack() && this.positionUpdateActive) {
-        this.position = this.playerService.currentTime();
-        // TODO: fix position reporting
-        // this.mediaSessionService.updateMediaPositionState(this.playerService.audioElement)
-      }
-    }, 1000);
   }
 
   onSliderPositionChanged(value: number) {
@@ -131,16 +136,6 @@ export class PlayerComponent implements OnInit, AfterViewInit, OnDestroy {
     this.playerService.seekRight(value * 10);
   }
 
-  alterSeekPositionByAxis(value: number) {
-    if (value > 0) {
-      this.seekRight(value);
-    }
-
-    if (value < 0) {
-      this.seekLeft(value * -1);
-    }
-  }
-
   get volume(): number {
     return this.audioService.volume;
   }
@@ -159,16 +154,6 @@ export class PlayerComponent implements OnInit, AfterViewInit, OnDestroy {
 
   decreaseVolume(value: number) {
     this.volume = this.volume - value / 100;
-  }
-
-  alterVolumeByAxis(value: number) {
-    if (value > 0) {
-      this.decreaseVolume(value);
-    }
-
-    if (value < 0) {
-      this.increaseVolume(value * -1);
-    }
   }
 
   onVolumeChange(value: number) {
@@ -257,9 +242,6 @@ export class PlayerComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    if (this.interval) {
-      clearInterval(this.interval);
-    }
     this.gamepadService.deregisterButtonAction(GamepadButtons.A_BUTTON);
     this.gamepadService.deregisterButtonAction(GamepadButtons.B_BUTTON);
     this.gamepadService.deregisterButtonAction(GamepadButtons.X_BUTTON);

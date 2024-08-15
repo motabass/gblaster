@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import { LocalStorage, LocalStorageService } from 'ngx-webstorage';
 import { FrequencyBand } from './player.types';
+import { interval } from 'rxjs';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { map } from 'rxjs/operators';
 
 const FREQUENCY_BANDS: FrequencyBand[] = [60, 170, 310, 600, 1000, 3000, 6000, 12000, 14000, 16000];
 
@@ -151,9 +154,7 @@ export class AudioService {
     return this._audioElement.duration;
   }
 
-  get currentTime(): number {
-    return this._audioElement.currentTime;
-  }
+  currentTime = toSignal(interval(100).pipe(map(() => this._audioElement.currentTime)), { initialValue: 0 });
 
   seekToPosition(position: number, fastSeek = false) {
     if ('fastSeek' in this._audioElement && fastSeek) {

@@ -38,7 +38,7 @@
     <mat-slider class="flex-grow" min="0" [max]="playerService.durationSeconds()" step="1" discrete color="accent" [displayWith]="formatLabel"
       ><input
         matSliderThumb
-        [value]="position"
+        [value]="playerService.currentTime()"
         (input)="pauseSliderPositionUpdate()"
         (valueChange)="onSliderPositionChanged(ngSliderThumb.value)"
         #ngSliderThumb="matSliderThumb"
@@ -48,7 +48,7 @@
   }
 
   <div class="no-mobile" style="font-size: small; padding: 0 12px">
-    <p>{{ position | time }} / {{ this.playerService.durationSeconds() | time }}</p>
+    <p>{{ playerService.currentTime() | time }} / {{ this.playerService.durationSeconds() | time }}</p>
   </div>
 
   <button mat-icon-button id="volume_button" [matMenuTriggerFor]="volumeMenu">

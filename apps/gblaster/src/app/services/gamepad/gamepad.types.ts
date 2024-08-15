@@ -1,12 +1,22 @@
 export type ActionFunction = (buttonValue: number) => void;
 
 export interface GamepadAction {
-  action: ActionFunction;
   index: number;
   mode: string;
   timeout: number;
   default?: boolean;
+  axisDirection?: AxisDirection;
 }
+export interface AxisGamepadAction extends GamepadAction {
+  positiveActionFunction: ActionFunction;
+  negativeActionFunction: ActionFunction;
+}
+
+export interface ButtonGamepadAction extends GamepadAction {
+  action: ActionFunction;
+}
+
+export type AxisDirection = 'negative' | 'positive';
 
 export interface ActionCache {
   index: number;

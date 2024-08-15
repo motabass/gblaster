@@ -1,5 +1,5 @@
 import { CdkDrag, CdkDragDrop, CdkDragHandle, CdkDragPreview, CdkDropList, moveItemInArray } from '@angular/cdk/drag-drop';
-import { Component, computed, OnDestroy, Signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, OnDestroy, Signal } from '@angular/core';
 import { PlayerService } from '../player.service';
 import { Track } from '../player.types';
 import { VisualsService } from '../visualizer/visuals/visuals.service';
@@ -19,6 +19,7 @@ import { SafePipe } from 'safe-pipe';
   templateUrl: './playlist.component.html',
   styleUrl: './playlist.component.scss',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     MatListModule,
     CdkDropList,

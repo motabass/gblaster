@@ -89,7 +89,7 @@ export class PlayerService extends BaseSubscribingClass {
   private afterPlayLoaded() {
     this.loadFinished = true;
     this.mediaSessionService.setPlaying();
-    this.mediaSessionService.updateMediaPositionState(this.audioService.duration, this.audioService.currentTime);
+    this.mediaSessionService.updateMediaPositionState(this.audioService.duration, this.audioService.currentTime());
     return this.wakelockService.activateWakelock();
   }
 
@@ -166,7 +166,7 @@ export class PlayerService extends BaseSubscribingClass {
   setSeekPosition(value: number | undefined, fastSeek = false) {
     if (value !== null && value !== undefined && value >= 0 && value <= this.durationSeconds()) {
       this.audioService.seekToPosition(value, fastSeek);
-      this.mediaSessionService.updateMediaPositionState(this.audioService.duration, this.audioService.currentTime);
+      this.mediaSessionService.updateMediaPositionState(this.audioService.duration, this.audioService.currentTime());
     }
   }
 
@@ -176,11 +176,11 @@ export class PlayerService extends BaseSubscribingClass {
   });
 
   currentTime = computed(() => {
-    const value = this.playState();
-    if (!value.currentTrack || value.state === 'stopped') {
+    const state = this.playState();
+    if (!state.currentTrack || state.state === 'stopped') {
       return 0;
     }
-    const pos = this.audioService.currentTime;
+    const pos = this.audioService.currentTime();
     return pos !== null && pos !== undefined ? Math.floor(pos) : 0;
   });
 
