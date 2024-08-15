@@ -76,11 +76,11 @@ export class PlayerService extends BaseSubscribingClass {
     });
 
     effect(() => {
-      const { state } = this.playState();
-      if (state === 'playing') {
+      const state = this.playState();
+      if (state.state === 'playing') {
         void this.afterPlayLoaded();
       }
-      if (state === 'paused' || state === 'stopped') {
+      if (state.state === 'paused' || state.state === 'stopped') {
         void this.afterPausedOrStopped();
       }
     });

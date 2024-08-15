@@ -59,10 +59,19 @@ export class PlaylistComponent implements OnDestroy {
 
     return this.playerService.currentPlaylist().map((track, index) => ({ ...track, playlistPosition: index + 1 }));
 
+    //  TODO
     // if (!this.playerService.selectedTrack() && this.playerService.currentPlaylist().length > 0) {
     //   this.selectSong(this.playerService.currentPlaylist()[0]);
     // }
     // return this.playerService.currentPlaylist();
+  });
+
+  colorConfig = computed(() => {
+    const track = this.playerService.playingTrack();
+    if (track) {
+      return { mainColor: track?.metadata?.coverColors?.darkVibrant?.hex, peakColor: track?.metadata?.coverColors?.lightVibrant?.hex } as VisualsColorConfig;
+    }
+    return { mainColor: undefined, peakColor: undefined } as VisualsColorConfig;
   });
 
   isActive(song: Track): Signal<boolean> {
@@ -79,14 +88,6 @@ export class PlaylistComponent implements OnDestroy {
     });
   }
 
-  get selectedSong(): Track | undefined {
-    return this.playerService.selectedTrack();
-  }
-
-  isSelected(song: Track) {
-    return this.selectedSong === song;
-  }
-
   selectSong(song: Track) {
     this.playerService.selectSong(song);
   }
@@ -95,14 +96,6 @@ export class PlaylistComponent implements OnDestroy {
     event.stopPropagation();
     return this.playerService.playPauseTrack(song);
   }
-
-  colorConfig = computed(() => {
-    const track = this.playerService.playingTrack();
-    if (track) {
-      return { mainColor: track?.metadata?.coverColors?.darkVibrant?.hex, peakColor: track?.metadata?.coverColors?.lightVibrant?.hex } as VisualsColorConfig;
-    }
-    return { mainColor: undefined, peakColor: undefined } as VisualsColorConfig;
-  });
 
   drop(event: CdkDragDrop<Track>) {
     moveItemInArray(this.songs(), event.previousIndex, event.currentIndex);

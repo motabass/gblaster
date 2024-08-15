@@ -156,6 +156,8 @@ export class AudioService {
 
   currentTime = toSignal(interval(100).pipe(map(() => this._audioElement.currentTime)), { initialValue: 0 });
 
+  volume = toSignal(interval(100).pipe(map(() => this._gainNode.gain.value)), { initialValue: 0 });
+
   seekToPosition(position: number, fastSeek = false) {
     if ('fastSeek' in this._audioElement && fastSeek) {
       this._audioElement.fastSeek(position);
@@ -181,10 +183,6 @@ export class AudioService {
       this.storageService.store('volume', value);
       this._gainNode.gain.value = value;
     }
-  }
-
-  get volume() {
-    return this._gainNode.gain.value;
   }
 
   get baseGain() {

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, OnDestroy, OnInit } from '@angular/core';
 import { MatSliderModule } from '@angular/material/slider';
 import { formatSecondsAsClock } from '@motabass/helpers';
 import { ALLOWED_MIMETYPES } from './file-loader-service/file-loader.helpers';
@@ -50,13 +50,15 @@ import { PlaylistComponent } from './playlist/playlist.component';
 export class PlayerComponent implements OnInit, OnDestroy {
   positionUpdateActive = true;
 
+  allowedTypes = ALLOWED_MIMETYPES;
+
   constructor(
     public playerService: PlayerService,
     private titleService: TitleService,
     private gamepadService: GamepadService,
     private hotkeysService: HotkeysService,
     private fileLoaderService: FileLoaderService,
-    private audioService: AudioService
+    public audioService: AudioService
   ) {}
 
   async ngOnInit() {
@@ -112,9 +114,7 @@ export class PlayerComponent implements OnInit, OnDestroy {
     return this.fileLoaderService.currentFolderHandle ? this.loadFiles() : this.showPicker();
   }
 
-  get isPlaylistEmpty(): boolean {
-    return this.playerService.currentPlaylist().length === 0;
-  }
+  isPlaylistEmpty = computed(() => this.playerService.currentPlaylist().length === 0);
 
   onSliderPositionChanged(value: number) {
     this.positionUpdateActive = true;
@@ -133,15 +133,7 @@ export class PlayerComponent implements OnInit, OnDestroy {
   }
 
   seekRight(value: number) {
-    this.playerService.seekRight(value * 10);
-  }
-
-  get volume(): number {
-    return this.audioService.volume;
-  }
-
-  set volume(value: number) {
-    this.audioService.setVolume(value);
+    this.playerService.seekRight(value + 10);
   }
 
   toggleMute() {
@@ -149,32 +141,19 @@ export class PlayerComponent implements OnInit, OnDestroy {
   }
 
   increaseVolume(value: number) {
-    this.volume = this.volume + value / 100;
+    this.audioService.setVolume(this.audioService.volume() + value / 100);
   }
 
   decreaseVolume(value: number) {
-    this.volume = this.volume - value / 100;
+    this.audioService.setVolume(this.audioService.volume() - value / 100);
   }
 
   onVolumeChange(value: number) {
-    this.volume = value ?? 0;
+    this.audioService.setVolume(value ?? 0);
   }
+
   async onFilesDropped(files: File[]) {
     return this.playerService.addFilesToPlaylist(...files);
-  }
-
-  get allowedTypes(): string[] {
-    return ALLOWED_MIMETYPES;
-  }
-
-  alterSelectionByAxis(value: number) {
-    if (value < 0) {
-      this.playerService.selectPrevious();
-    }
-
-    if (value > 0) {
-      this.playerService.selectNext();
-    }
   }
 
   playPause() {
@@ -193,8 +172,8 @@ export class PlayerComponent implements OnInit, OnDestroy {
     void this.playerService.previous();
   }
 
-  get volumeIcon(): string {
-    const vol = this.volume;
+  volumeIcon = computed(() => {
+    const vol = this.audioService.volume();
     if (vol === 0) {
       return 'volume-variant-off';
     }
@@ -206,11 +185,7 @@ export class PlayerComponent implements OnInit, OnDestroy {
     }
 
     return 'volume-high';
-  }
-
-  get playing(): boolean {
-    return this.playerService.playing();
-  }
+  });
 
   get shuffle(): boolean {
     return this.playerService.shuffle;

@@ -1,5 +1,5 @@
 <mtb-playlist class="playlist mat-elevation-z6">
-  @if (isPlaylistEmpty) {
+  @if (isPlaylistEmpty()) {
     <button style="width: 100%; text-transform: uppercase" mat-button color="accent" (click)="onReload()">
       <mat-icon svgIcon="reload"></mat-icon> Reload last directory
     </button>
@@ -52,7 +52,7 @@
   </div>
 
   <button mat-icon-button id="volume_button" [matMenuTriggerFor]="volumeMenu">
-    <mat-icon [matTooltip]="'Volume: ' + (volume * 100).toFixed(0)" [svgIcon]="volumeIcon"></mat-icon>
+    <mat-icon [matTooltip]="'Volume: ' + (audioService.volume() * 100).toFixed(0)" [svgIcon]="volumeIcon()"></mat-icon>
   </button>
   <button mat-icon-button [ngClass]="{ 'disabled-color': !shuffle }" (click)="toggleShuffle()">
     <mat-icon [matTooltip]="shuffle ? 'Shuffle on' : 'Shuffle off'" svgIcon="shuffle-variant"></mat-icon>
@@ -76,7 +76,7 @@
   <div class="vertical-slider-container">
     <div class="vertical-slider">
       <mat-slider style="width: 9rem" id="volume_slider" min="0" max="1" step="0.01"
-        ><input #volumeSlider="matSliderThumb" matSliderThumb [value]="volume" (input)="onVolumeChange(volumeSlider.value)"
+        ><input #volumeSlider="matSliderThumb" matSliderThumb [value]="audioService.volume()" (input)="onVolumeChange(volumeSlider.value)"
       /></mat-slider>
     </div>
   </div>
