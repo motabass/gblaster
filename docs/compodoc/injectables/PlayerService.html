@@ -1582,8 +1582,8 @@ export class PlayerService extends BaseSubscribingClass {
 
   async addFilesToPlaylist(...files: File[]) {
     if (files?.length) {
-      let tempList: Track[] &#x3D; [];
-      let startTime &#x3D; Date.now();
+      // let tempList: Track[] &#x3D; [];
+      // let startTime &#x3D; Date.now();
 
       for (const [i, file] of files.entries()) {
         this.loaderService.show();
@@ -1591,18 +1591,18 @@ export class PlayerService extends BaseSubscribingClass {
         this.loaderService.hide();
         // avoid duplicate playlist entries
         if (!this.currentPlaylist().some((playlistSong) &#x3D;&gt; playlistSong.metadata?.crc &#x3D;&#x3D;&#x3D; song.metadata?.crc)) {
-          tempList.push(song);
+          this.currentPlaylist.update((playlist) &#x3D;&gt; [...playlist, song]);
         }
 
-        // alle 2sek die Temporäre Liste in die sichtbare Playlist pushen
-        if (Date.now() - startTime &gt; 2000 || i &#x3D;&#x3D;&#x3D; files.length - 1) {
-          this.currentPlaylist.update((currentList) &#x3D;&gt; [...currentList, ...tempList]);
-          if (this.selectedTrack() &#x3D;&#x3D;&#x3D; undefined &amp;&amp; this.currentPlaylist().length &gt; 0) {
-            this.selectSong(this.currentPlaylist()[0]);
-          }
-          tempList &#x3D; [];
-          startTime &#x3D; Date.now();
-        }
+        // // alle 2sek die Temporäre Liste in die sichtbare Playlist pushen
+        // if (Date.now() - startTime &gt; 2000 || i &#x3D;&#x3D;&#x3D; files.length - 1) {
+        //   this.currentPlaylist.update((currentList) &#x3D;&gt; [...currentList, ...tempList]);
+        //   if (this.selectedTrack() &#x3D;&#x3D;&#x3D; undefined &amp;&amp; this.currentPlaylist().length &gt; 0) {
+        //     this.selectSong(this.currentPlaylist()[0]);
+        //   }
+        //   tempList &#x3D; [];
+        //   startTime &#x3D; Date.now();
+        // }
       }
     }
   }

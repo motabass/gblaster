@@ -190,6 +190,26 @@
     <h3 id="index">Index</h3>
     <table class="table table-sm table-bordered index-table">
         <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#backgroundColor" >backgroundColor</a>
+                            </li>
+                            <li>
+                                <a href="#coverUrl" >coverUrl</a>
+                            </li>
+                            <li>
+                                <a href="#track" >track</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
 
                 <tr>
                     <td class="col-md-4">
@@ -224,23 +244,6 @@
 
 
 
-                    <tr>
-                        <td class="col-md-4">
-                            <h6><b>Accessors</b></h6>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <ul class="index-list">
-                                <li>
-                                    <a href="#coverUrl" >coverUrl</a>
-                                </li>
-                                <li>
-                                    <a href="#backgroundColor" >backgroundColor</a>
-                                </li>
-                            </ul>
-                        </td>
-                    </tr>
         </tbody>
     </table>
 </section>
@@ -302,17 +305,6 @@
                     <td class="col-md-4">
                         <a name="track"></a>
                         <b>track</b>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="col-md-4">
-                        <i>Type : </i>        <code><a href="../interfaces/Track.html" target="_self" >Track | null</a></code>
-
-                    </td>
-                </tr>
-                <tr>
-                    <td class="col-md-4">
-                        <i>Required : </i>&nbsp;<b>true</b>
                     </td>
                 </tr>
                         <tr>
@@ -399,65 +391,97 @@
         </tbody>
     </table>
 </section>
-
-    <section data-compodoc="block-accessors">
-    <h3 id="accessors">
-        Accessors
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
     </h3>
-        <table class="table table-sm table-bordered">
-            <tbody>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="backgroundColor"></a>
+                    <span class="name">
+                        <span ><b>backgroundColor</b></span>
+                        <a href="#backgroundColor"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
                 <tr>
                     <td class="col-md-4">
-                        <a name="coverUrl"></a>
-                        <span class="name"><b>coverUrl</b><a href="#coverUrl"><span class="icon ion-ios-link"></span></a></span>
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; {
+    const coverBackground &#x3D; this.themeService.darkMode
+      ? this.track()?.metadata?.coverColors?.darkMuted?.hex
+      : this.track()?.metadata?.coverColors?.lightMuted?.hex;
+    return coverBackground || &#x27;rgba(0,0,0,0)&#x27;;
+  })</code>
                     </td>
                 </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="22" class="link-to-prism">apps/gblaster/src/app/player/cover-display/cover-display.component.ts:22</a></div>
+                        </td>
+                    </tr>
 
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="coverUrl"></a>
+                    <span class="name">
+                        <span ><b>coverUrl</b></span>
+                        <a href="#coverUrl"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
                 <tr>
                     <td class="col-md-4">
-                        <span class="accessor"><b>get</b><code>coverUrl()</code></span>
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; this.track()?.metadata?.coverUrl?.original)</code>
                     </td>
                 </tr>
-                            <tr>
-                                <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="20" class="link-to-prism">apps/gblaster/src/app/player/cover-display/cover-display.component.ts:20</a></div>
-                                </td>
-                            </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="20" class="link-to-prism">apps/gblaster/src/app/player/cover-display/cover-display.component.ts:20</a></div>
+                        </td>
+                    </tr>
 
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
-                <tr>
-                    <td class="col-md-4">
-                        <a name="backgroundColor"></a>
-                        <span class="name"><b>backgroundColor</b><a href="#backgroundColor"><span class="icon ion-ios-link"></span></a></span>
-                    </td>
-                </tr>
 
-                <tr>
-                    <td class="col-md-4">
-                        <span class="accessor"><b>get</b><code>backgroundColor()</code></span>
-                    </td>
-                </tr>
-                            <tr>
-                                <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="24" class="link-to-prism">apps/gblaster/src/app/player/cover-display/cover-display.component.ts:24</a></div>
-                                </td>
-                            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="track"></a>
+                    <span class="name">
+                        <span ><b>track</b></span>
+                        <a href="#track"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">apps/gblaster/src/app/player/cover-display/cover-display.component.ts:16</a></div>
+                        </td>
+                    </tr>
 
-            </tbody>
-        </table>
+
+        </tbody>
+    </table>
 </section>
+
 </div>
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ChangeDetectionStrategy, Component, Input } from &#x27;@angular/core&#x27;;
-import { Track } from &#x27;../player.types&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ChangeDetectionStrategy, Component, computed, input } from &#x27;@angular/core&#x27;;
 import { ThemeService } from &#x27;../../theme/theme.service&#x27;;
 import { TimePipe } from &#x27;../time.pipe&#x27;;
 import { NgIf, NgStyle } from &#x27;@angular/common&#x27;;
+import { Track } from &#x27;../player.types&#x27;;
 
 @Component({
   selector: &#x27;mtb-cover-display&#x27;,
@@ -468,18 +492,18 @@ import { NgIf, NgStyle } from &#x27;@angular/common&#x27;;
   imports: [NgIf, NgStyle, TimePipe]
 })
 export class CoverDisplayComponent {
-  @Input({ required: true }) track?: Track | null;
+  track &#x3D; input&lt;Track&gt;();
 
   constructor(private themeService: ThemeService) {}
 
-  get coverUrl() {
-    return this.track?.metadata?.coverUrl?.original;
-  }
+  coverUrl &#x3D; computed(() &#x3D;&gt; this.track()?.metadata?.coverUrl?.original);
 
-  get backgroundColor(): string {
-    const coverBackground &#x3D; this.themeService.darkMode ? this.track?.metadata?.coverColors?.darkMuted?.hex : this.track?.metadata?.coverColors?.lightMuted?.hex;
+  backgroundColor &#x3D; computed(() &#x3D;&gt; {
+    const coverBackground &#x3D; this.themeService.darkMode
+      ? this.track()?.metadata?.coverColors?.darkMuted?.hex
+      : this.track()?.metadata?.coverColors?.lightMuted?.hex;
     return coverBackground || &#x27;rgba(0,0,0,0)&#x27;;
-  }
+  });
 
   // get fontColor(): string | undefined {
   //   return this.song?.metadata?.coverColors?.vibrant ? this.song.metadata.coverColors.vibrant.textHex : undefined;
@@ -512,44 +536,44 @@ export class CoverDisplayComponent {
   class&#x3D;&quot;mat-typography&quot;
 &gt;
   &lt;h1 style&#x3D;&quot;font-size: 3rem; font-weight: bold; line-height: 3.3rem; margin-bottom: 4px; opacity: 0.9&quot;&gt;
-    {{ track?.metadata?.title || track?.file?.name }}
+    {{ track()?.metadata?.title || track()?.file?.name }}
   &lt;/h1&gt;
-  &lt;p style&#x3D;&quot;font-size: 1.5rem; margin-bottom: 8px; opacity: 0.8&quot;&gt;{{ track?.metadata?.artist }}&lt;/p&gt;
+  &lt;p style&#x3D;&quot;font-size: 1.5rem; margin-bottom: 8px; opacity: 0.8&quot;&gt;{{ track()?.metadata?.artist }}&lt;/p&gt;
   &lt;div class&#x3D;&quot;flex column&quot; style&#x3D;&quot;margin-top: 16px; opacity: 0.9&quot;&gt;
-    @if (track?.metadata?.album) {
+    @if (track()?.metadata?.album) {
       &lt;span&gt;
-        Album: &lt;strong&gt;{{ track?.metadata?.album }}&lt;/strong&gt;
+        Album: &lt;strong&gt;{{ track()?.metadata?.album }}&lt;/strong&gt;
       &lt;/span&gt;
     }
-    @if (track?.metadata?.year) {
+    @if (track()?.metadata?.year) {
       &lt;span&gt;
-        Year: &lt;strong&gt;{{ track?.metadata?.year }}&lt;/strong&gt;
+        Year: &lt;strong&gt;{{ track()?.metadata?.year }}&lt;/strong&gt;
       &lt;/span&gt;
     }
     &lt;span&gt;&amp;nbsp;&lt;/span&gt;
-    @if (track?.metadata?.format?.duration) {
+    @if (track()?.metadata?.format?.duration) {
       &lt;span&gt;
-        Duration: &lt;strong&gt;{{ track?.metadata?.format?.duration | time }}&lt;/strong&gt;
+        Duration: &lt;strong&gt;{{ track()?.metadata?.format?.duration | time }}&lt;/strong&gt;
       &lt;/span&gt;
     }
-    @if (track?.metadata?.format?.container &amp;&amp; track?.metadata?.format?.codec) {
+    @if (track()?.metadata?.format?.container &amp;&amp; track()?.metadata?.format?.codec) {
       &lt;span&gt;
-        Format: &lt;strong&gt;{{ track?.metadata?.format?.container }} ({{ track?.metadata?.format?.codec }})&lt;/strong&gt;
+        Format: &lt;strong&gt;{{ track()?.metadata?.format?.container }} ({{ track()?.metadata?.format?.codec }})&lt;/strong&gt;
       &lt;/span&gt;
     }
-    @if (track?.metadata?.format?.bitrate) {
+    @if (track()?.metadata?.format?.bitrate) {
       &lt;span&gt;
-        Bitrate: &lt;strong&gt;{{ getBitrate(track?.metadata?.format?.bitrate) }} kb/s&lt;/strong&gt;
+        Bitrate: &lt;strong&gt;{{ getBitrate(track()?.metadata?.format?.bitrate) }} kb/s&lt;/strong&gt;
       &lt;/span&gt;
     }
-    @if (track?.metadata?.format?.sampleRate) {
+    @if (track()?.metadata?.format?.sampleRate) {
       &lt;span&gt;
-        Sample-Rate: &lt;strong&gt;{{ track?.metadata?.format?.sampleRate }}&lt;/strong&gt;
+        Sample-Rate: &lt;strong&gt;{{ track()?.metadata?.format?.sampleRate }}&lt;/strong&gt;
       &lt;/span&gt;
     }
   &lt;/div&gt;
 &lt;/div&gt;
-@if (track &amp;&amp; coverUrl) {
+@if (track() &amp;&amp; coverUrl()) {
   &lt;div
     style&#x3D;&quot;
       position: absolute;
@@ -564,8 +588,8 @@ export class CoverDisplayComponent {
       background-repeat: no-repeat;
     &quot;
     [ngStyle]&#x3D;&quot;{
-      &#x27;background-image&#x27;: &#x27;url(&#x27; + coverUrl + &#x27;)&#x27;,
-      &#x27;background-color&#x27;: backgroundColor
+      &#x27;background-image&#x27;: &#x27;url(&#x27; + coverUrl() + &#x27;)&#x27;,
+      &#x27;background-color&#x27;: backgroundColor()
     }&quot;
   &gt;&lt;/div&gt;
 }
@@ -599,7 +623,7 @@ export class CoverDisplayComponent {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><div  style="    position: absolute;    top: 0;    right: 0;    bottom: 0;    left: 0;    z-index: 5;    overflow-x: auto;    padding: 1rem;    user-select: text;    text-shadow: -1px 1px 6px black;  "  class="mat-typography">  <h1 style="font-size: 3rem; font-weight: bold; line-height: 3.3rem; margin-bottom: 4px; opacity: 0.9">    {{ track?.metadata?.title || track?.file?.name }}  </h1>  <p style="font-size: 1.5rem; margin-bottom: 8px; opacity: 0.8">{{ track?.metadata?.artist }}</p>  <div class="flex column" style="margin-top: 16px; opacity: 0.9">    @if (track?.metadata?.album) {      <span>        Album: <strong>{{ track?.metadata?.album }}</strong>      </span>    }    @if (track?.metadata?.year) {      <span>        Year: <strong>{{ track?.metadata?.year }}</strong>      </span>    }    <span>&nbsp;</span>    @if (track?.metadata?.format?.duration) {      <span>        Duration: <strong>{{ track?.metadata?.format?.duration | time }}</strong>      </span>    }    @if (track?.metadata?.format?.container && track?.metadata?.format?.codec) {      <span>        Format: <strong>{{ track?.metadata?.format?.container }} ({{ track?.metadata?.format?.codec }})</strong>      </span>    }    @if (track?.metadata?.format?.bitrate) {      <span>        Bitrate: <strong>{{ getBitrate(track?.metadata?.format?.bitrate) }} kb/s</strong>      </span>    }    @if (track?.metadata?.format?.sampleRate) {      <span>        Sample-Rate: <strong>{{ track?.metadata?.format?.sampleRate }}</strong>      </span>    }  </div></div>@if (track && coverUrl) {  <div    style="      position: absolute;      top: 0;      right: 0;      bottom: 0;      left: 0;      z-index: -1;      opacity: 1;      background-size: contain;      background-position: top center;      background-repeat: no-repeat;    "    [ngStyle]="{      \'background-image\': \'url(\' + coverUrl + \')\',      \'background-color\': backgroundColor    }"  ></div>}<ng-content></ng-content></div>'
+        var COMPONENT_TEMPLATE = '<div><div  style="    position: absolute;    top: 0;    right: 0;    bottom: 0;    left: 0;    z-index: 5;    overflow-x: auto;    padding: 1rem;    user-select: text;    text-shadow: -1px 1px 6px black;  "  class="mat-typography">  <h1 style="font-size: 3rem; font-weight: bold; line-height: 3.3rem; margin-bottom: 4px; opacity: 0.9">    {{ track()?.metadata?.title || track()?.file?.name }}  </h1>  <p style="font-size: 1.5rem; margin-bottom: 8px; opacity: 0.8">{{ track()?.metadata?.artist }}</p>  <div class="flex column" style="margin-top: 16px; opacity: 0.9">    @if (track()?.metadata?.album) {      <span>        Album: <strong>{{ track()?.metadata?.album }}</strong>      </span>    }    @if (track()?.metadata?.year) {      <span>        Year: <strong>{{ track()?.metadata?.year }}</strong>      </span>    }    <span>&nbsp;</span>    @if (track()?.metadata?.format?.duration) {      <span>        Duration: <strong>{{ track()?.metadata?.format?.duration | time }}</strong>      </span>    }    @if (track()?.metadata?.format?.container && track()?.metadata?.format?.codec) {      <span>        Format: <strong>{{ track()?.metadata?.format?.container }} ({{ track()?.metadata?.format?.codec }})</strong>      </span>    }    @if (track()?.metadata?.format?.bitrate) {      <span>        Bitrate: <strong>{{ getBitrate(track()?.metadata?.format?.bitrate) }} kb/s</strong>      </span>    }    @if (track()?.metadata?.format?.sampleRate) {      <span>        Sample-Rate: <strong>{{ track()?.metadata?.format?.sampleRate }}</strong>      </span>    }  </div></div>@if (track() && coverUrl()) {  <div    style="      position: absolute;      top: 0;      right: 0;      bottom: 0;      left: 0;      z-index: -1;      opacity: 1;      background-size: contain;      background-position: top center;      background-repeat: no-repeat;    "    [ngStyle]="{      \'background-image\': \'url(\' + coverUrl() + \')\',      \'background-color\': backgroundColor()    }"  ></div>}<ng-content></ng-content></div>'
     var COMPONENTS = [{'name': 'AppComponent', 'selector': 'mtb-root'},{'name': 'CoverDisplayComponent', 'selector': 'mtb-cover-display'},{'name': 'EqualizerComponent', 'selector': 'mtb-equalizer'},{'name': 'FileDropOverlayComponent', 'selector': 'mtb-file-drop-overlay'},{'name': 'HotkeysHelpDialogComponent', 'selector': 'mtb-hotkeys-help-dialog'},{'name': 'LibraryComponent', 'selector': ''},{'name': 'MetadataSettingsComponent', 'selector': 'mtb-metadata-settings'},{'name': 'PlayerComponent', 'selector': 'mtb-player'},{'name': 'PlaylistComponent', 'selector': 'mtb-playlist'},{'name': 'PromptDialogComponent', 'selector': 'mtb-prompt-dialog'},{'name': 'SettingsComponent', 'selector': 'mtb-settings'},{'name': 'ShellComponent', 'selector': 'mtb-shell'},{'name': 'SlidePanelComponent', 'selector': 'mtb-slide-panel'},{'name': 'StorageSettingsComponent', 'selector': 'mtb-storage-settings'},{'name': 'ThemeSettingsComponent', 'selector': 'mtb-theme-settings'},{'name': 'VisualizerComponent', 'selector': 'mtb-visualizer'}];
     var DIRECTIVES = [{'name': 'VisualsDirective', 'selector': '[mtbVisual]'}];
     var ACTUAL_COMPONENT = {'name': 'CoverDisplayComponent'};
