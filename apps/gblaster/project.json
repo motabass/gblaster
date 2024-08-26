@@ -2,32 +2,33 @@
   "name": "gblaster",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
+  "sourceRoot": "apps/gblaster/src",
+  "prefix": "",
+  "tags": ["app", "angular"],
   "generators": {
     "@nx/angular:component": {
       "style": "scss"
     }
   },
-  "sourceRoot": "apps/gblaster/src",
-  "prefix": "",
   "targets": {
     "build": {
-      "executor": "@nx/angular:browser-esbuild",
+      "executor": "@nx/angular:application",
       "options": {
         "allowedCommonJsDependencies": [],
-        "outputPath": "dist/apps/gblaster",
+        "outputPath": {
+          "base": "dist/apps/gblaster"
+        },
         "index": "apps/gblaster/src/index.html",
-        "main": "apps/gblaster/src/main.ts",
-        "polyfills": "apps/gblaster/src/polyfills.ts",
+        "polyfills": ["apps/gblaster/src/polyfills.ts"],
         "tsConfig": "apps/gblaster/tsconfig.app.json",
         "assets": ["apps/gblaster/src/favicon.ico", "apps/gblaster/src/assets", "apps/gblaster/src/manifest.webmanifest"],
         "styles": ["apps/gblaster/src/styles/theme.scss", "apps/gblaster/src/styles/styles.scss"],
         "scripts": [],
-
         "extractLicenses": false,
-        "buildOptimizer": false,
         "sourceMap": true,
         "optimization": false,
-        "namedChunks": true
+        "namedChunks": true,
+        "browser": "apps/gblaster/src/main.ts"
       },
       "configurations": {
         "production": {
@@ -51,8 +52,6 @@
           "sourceMap": false,
           "namedChunks": false,
           "extractLicenses": true,
-          "vendorChunk": false,
-          "buildOptimizer": true,
           "budgets": [
             {
               "type": "initial",
@@ -65,11 +64,10 @@
               "maximumError": "10kb"
             }
           ],
-          "serviceWorker": true,
-          "ngswConfigPath": "apps/gblaster/ngsw-config.json"
+          "serviceWorker": "apps/gblaster/ngsw-config.json"
         }
       },
-      "outputs": ["{options.outputPath}"]
+      "outputs": ["{options.outputPath.base}"]
     },
     "serve": {
       "executor": "@nx/angular:dev-server",
@@ -118,6 +116,5 @@
         }
       }
     }
-  },
-  "tags": ["app", "angular"]
+  }
 }

@@ -4,7 +4,7 @@
       <mat-list-item
         cdkDrag
         style="height: 72px"
-        [ngClass]="{ selected: this.playerService.selectedTrack()?.metadata?.crc === song.metadata?.crc }"
+        [ngClass]="{ selected: this.playerService.selectedTrack()?.metadata?.crc === song.metadata.crc }"
         class="playlist-item"
         (dblclick)="playPauseSong($event, song)"
         (click)="playerService.selectSong(song)"
