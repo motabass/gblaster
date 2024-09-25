@@ -119,7 +119,7 @@
     "@typescript-eslint/parser": "7.17.0",
     "@typescript-eslint/utils": "7.17.0",
     "autoprefixer": "^10.4.20",
-    "cypress": "13.13.3",
+    "cypress": "13.15.0",
     "cypress-file-upload": "5.0.8",
     "dotenv": "16.4.5",
     "dotenv-cli": "7.4.2",
