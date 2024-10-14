@@ -180,54 +180,6 @@
     </table>
 </section>
 
-            <section data-compodoc="block-constructor">
-    <h3 id="constructor">Constructor</h3>
-        <table class="table table-sm table-bordered">
-            <tbody>
-                <tr>
-                    <td class="col-md-4">
-<code>constructor(indexedDbService: NgxIndexedDBService)</code>
-                    </td>
-                </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="11" class="link-to-prism">apps/gblaster/src/app/player/file-loader-service/native-browser-file-loader.service.ts:11</a></div>
-                            </td>
-                        </tr>
-
-                <tr>
-                    <td class="col-md-4">
-                            <div>
-                                    <b>Parameters :</b>
-                                    <table class="params">
-                                        <thead>
-                                            <tr>
-                                                <td>Name</td>
-                                                    <td>Type</td>
-                                                <td>Optional</td>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                                <tr>
-                                                        <td>indexedDbService</td>
-                                                  
-                                                        <td>
-                                                                    <code>NgxIndexedDBService</code>
-                                                        </td>
-                                                  
-                                                    <td>
-                                                            No
-                                                    </td>
-                                                    
-                                                </tr>
-                                        </tbody>
-                                    </table>
-                            </div>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-</section>
 
             <section data-compodoc="block-methods">
     
@@ -262,7 +214,7 @@
                     </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in         <code><a href="../classes/FileLoaderService.html#source" target="_self" >FileLoaderService:17</a></code>
+                                <div class="io-line">Defined in         <code><a href="../classes/FileLoaderService.html#source" target="_self" >FileLoaderService:15</a></code>
 </div>
                         </td>
                     </tr>
@@ -307,7 +259,7 @@
                     </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in         <code><a href="../classes/FileLoaderService.html#source" target="_self" >FileLoaderService:37</a></code>
+                                <div class="io-line">Defined in         <code><a href="../classes/FileLoaderService.html#source" target="_self" >FileLoaderService:35</a></code>
 </div>
                         </td>
                     </tr>
@@ -352,7 +304,7 @@
                     </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in         <code><a href="../classes/FileLoaderService.html#source" target="_self" >FileLoaderService:27</a></code>
+                                <div class="io-line">Defined in         <code><a href="../classes/FileLoaderService.html#source" target="_self" >FileLoaderService:25</a></code>
 </div>
                         </td>
                     </tr>
@@ -401,7 +353,7 @@
                         </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in         <code><a href="../classes/FileLoaderService.html#source" target="_self" >FileLoaderService:11</a></code>
+                                <div class="io-line">Defined in         <code><a href="../classes/FileLoaderService.html#source" target="_self" >FileLoaderService:13</a></code>
 </div>
                         </td>
                     </tr>
@@ -415,7 +367,7 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable } from &#x27;@angular/core&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable, inject } from &#x27;@angular/core&#x27;;
 import { NgxIndexedDBService } from &#x27;ngx-indexed-db&#x27;;
 import { firstValueFrom } from &#x27;rxjs&#x27;;
 import { ALLOWED_MIMETYPES } from &#x27;./file-loader.helpers&#x27;;
@@ -425,11 +377,9 @@ import { FileLoaderService } from &#x27;./file-loader.service.abstract&#x27;;
   providedIn: &#x27;root&#x27;
 })
 export class NativeBrowserFileLoaderService extends FileLoaderService {
-  currentFolderHandle?: FileSystemDirectoryHandle;
+  private indexedDbService &#x3D; inject(NgxIndexedDBService);
 
-  constructor(private indexedDbService: NgxIndexedDBService) {
-    super();
-  }
+  currentFolderHandle?: FileSystemDirectoryHandle;
 
   async init() {
     const entry &#x3D; await firstValueFrom(this.indexedDbService.getByID&lt;any&gt;(&#x27;dirHandle&#x27;, 1));

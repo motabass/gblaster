@@ -170,45 +170,15 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(localStorageService: LocalStorageService)</code>
+<code>constructor()</code>
                     </td>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="9" class="link-to-prism">apps/gblaster/src/app/player/visualizer/visuals/visuals.service.ts:9</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="11" class="link-to-prism">apps/gblaster/src/app/player/visualizer/visuals/visuals.service.ts:11</a></div>
                             </td>
                         </tr>
 
-                <tr>
-                    <td class="col-md-4">
-                            <div>
-                                    <b>Parameters :</b>
-                                    <table class="params">
-                                        <thead>
-                                            <tr>
-                                                <td>Name</td>
-                                                    <td>Type</td>
-                                                <td>Optional</td>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                                <tr>
-                                                        <td>localStorageService</td>
-                                                  
-                                                        <td>
-                                                                    <code>LocalStorageService</code>
-                                                        </td>
-                                                  
-                                                    <td>
-                                                            No
-                                                    </td>
-                                                    
-                                                </tr>
-                                        </tbody>
-                                    </table>
-                            </div>
-                    </td>
-                </tr>
             </tbody>
         </table>
 </section>
@@ -238,8 +208,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="18"
-                                    class="link-to-prism">apps/gblaster/src/app/player/visualizer/visuals/visuals.service.ts:18</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="20"
+                                    class="link-to-prism">apps/gblaster/src/app/player/visualizer/visuals/visuals.service.ts:20</a></div>
                         </td>
                     </tr>
 
@@ -279,7 +249,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="9" class="link-to-prism">apps/gblaster/src/app/player/visualizer/visuals/visuals.service.ts:9</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="11" class="link-to-prism">apps/gblaster/src/app/player/visualizer/visuals/visuals.service.ts:11</a></div>
                         </td>
                     </tr>
 
@@ -292,7 +262,7 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable, signal } from &#x27;@angular/core&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable, signal, inject } from &#x27;@angular/core&#x27;;
 import { LocalStorageService } from &#x27;ngx-webstorage&#x27;;
 import type { VisualizerMode } from &#x27;./visuals.types&#x27;;
 
@@ -300,9 +270,11 @@ import type { VisualizerMode } from &#x27;./visuals.types&#x27;;
   providedIn: &#x27;root&#x27;
 })
 export class VisualsService {
+  private localStorageService &#x3D; inject(LocalStorageService);
+
   visualMode &#x3D; signal&lt;VisualizerMode&gt;(&#x27;off&#x27;);
 
-  constructor(private localStorageService: LocalStorageService) {
+  constructor() {
     const mode &#x3D; this.localStorageService.retrieve(&#x27;visualMode&#x27;);
     if (mode) {
       this.visualMode.set(mode);

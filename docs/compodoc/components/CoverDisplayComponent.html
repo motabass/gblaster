@@ -157,7 +157,6 @@
             <tr>
                 <td class="col-md-3">imports</td>
                 <td class="col-md-9">
-                            <code>NgIf</code>
                             <code>NgStyle</code>
                             <code>TimePipe</code>
                 </td>
@@ -248,54 +247,6 @@
     </table>
 </section>
 
-    <section data-compodoc="block-constructor">
-    <h3 id="constructor">Constructor</h3>
-        <table class="table table-sm table-bordered">
-            <tbody>
-                <tr>
-                    <td class="col-md-4">
-<code>constructor(themeService: <a href="../injectables/ThemeService.html" target="_self">ThemeService</a>)</code>
-                    </td>
-                </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">apps/gblaster/src/app/player/cover-display/cover-display.component.ts:16</a></div>
-                            </td>
-                        </tr>
-
-                <tr>
-                    <td class="col-md-4">
-                            <div>
-                                    <b>Parameters :</b>
-                                    <table class="params">
-                                        <thead>
-                                            <tr>
-                                                <td>Name</td>
-                                                    <td>Type</td>
-                                                <td>Optional</td>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                                <tr>
-                                                        <td>themeService</td>
-                                                  
-                                                        <td>
-                                                                        <code><a href="../injectables/ThemeService.html" target="_self" >ThemeService</a></code>
-                                                        </td>
-                                                  
-                                                    <td>
-                                                            No
-                                                    </td>
-                                                    
-                                                </tr>
-                                        </tbody>
-                                    </table>
-                            </div>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-</section>
 
     <section data-compodoc="block-inputs">
     <h3 id="inputs">Inputs</h3>
@@ -309,7 +260,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">apps/gblaster/src/app/player/cover-display/cover-display.component.ts:16</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">apps/gblaster/src/app/player/cover-display/cover-display.component.ts:18</a></div>
                             </td>
                         </tr>
             </tbody>
@@ -464,7 +415,7 @@
             </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">apps/gblaster/src/app/player/cover-display/cover-display.component.ts:16</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">apps/gblaster/src/app/player/cover-display/cover-display.component.ts:18</a></div>
                         </td>
                     </tr>
 
@@ -477,10 +428,10 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ChangeDetectionStrategy, Component, computed, input } from &#x27;@angular/core&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ChangeDetectionStrategy, Component, computed, input, inject } from &#x27;@angular/core&#x27;;
 import { ThemeService } from &#x27;../../theme/theme.service&#x27;;
 import { TimePipe } from &#x27;../time.pipe&#x27;;
-import { NgIf, NgStyle } from &#x27;@angular/common&#x27;;
+import { NgStyle } from &#x27;@angular/common&#x27;;
 import { Track } from &#x27;../player.types&#x27;;
 
 @Component({
@@ -489,12 +440,12 @@ import { Track } from &#x27;../player.types&#x27;;
   styleUrl: &#x27;./cover-display.component.scss&#x27;,
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [NgIf, NgStyle, TimePipe]
+  imports: [NgStyle, TimePipe]
 })
 export class CoverDisplayComponent {
-  track &#x3D; input&lt;Track&gt;();
+  private themeService &#x3D; inject(ThemeService);
 
-  constructor(private themeService: ThemeService) {}
+  track &#x3D; input&lt;Track&gt;();
 
   coverUrl &#x3D; computed(() &#x3D;&gt; this.track()?.metadata?.coverUrl?.original);
 

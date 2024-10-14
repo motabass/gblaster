@@ -164,54 +164,6 @@
     </table>
 </section>
 
-            <section data-compodoc="block-constructor">
-    <h3 id="constructor">Constructor</h3>
-        <table class="table table-sm table-bordered">
-            <tbody>
-                <tr>
-                    <td class="col-md-4">
-<code>constructor(angularTitleService: Title)</code>
-                    </td>
-                </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="8" class="link-to-prism">apps/gblaster/src/app/services/title.service.ts:8</a></div>
-                            </td>
-                        </tr>
-
-                <tr>
-                    <td class="col-md-4">
-                            <div>
-                                    <b>Parameters :</b>
-                                    <table class="params">
-                                        <thead>
-                                            <tr>
-                                                <td>Name</td>
-                                                    <td>Type</td>
-                                                <td>Optional</td>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                                <tr>
-                                                        <td>angularTitleService</td>
-                                                  
-                                                        <td>
-                                                                    <code>Title</code>
-                                                        </td>
-                                                  
-                                                    <td>
-                                                            No
-                                                    </td>
-                                                    
-                                                </tr>
-                                        </tbody>
-                                    </table>
-                            </div>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-</section>
 
             <section data-compodoc="block-methods">
     
@@ -309,7 +261,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="8" class="link-to-prism">apps/gblaster/src/app/services/title.service.ts:8</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="10" class="link-to-prism">apps/gblaster/src/app/services/title.service.ts:10</a></div>
                         </td>
                     </tr>
 
@@ -322,16 +274,16 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable, signal } from &#x27;@angular/core&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable, signal, inject } from &#x27;@angular/core&#x27;;
 import { Title } from &#x27;@angular/platform-browser&#x27;;
 
 @Injectable({
   providedIn: &#x27;root&#x27;
 })
 export class TitleService {
-  title &#x3D; signal&lt;string&gt;(&#x27;&#x27;);
+  private angularTitleService &#x3D; inject(Title);
 
-  constructor(private angularTitleService: Title) {}
+  title &#x3D; signal&lt;string&gt;(&#x27;&#x27;);
 
   setTitle(title: string) {
     this.angularTitleService.setTitle(title);

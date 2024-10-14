@@ -1283,10 +1283,10 @@
                     <td class="col-md-4">
                         <i>Default value : </i><code>[
   { path: &#x27;&#x27;, redirectTo: &#x27;player&#x27;, pathMatch: &#x27;full&#x27; },
-  { path: &#x27;player&#x27;, component: PlayerComponent },
-  { path: &#x27;player/eq&#x27;, component: EqualizerComponent },
-  { path: &#x27;player/library&#x27;, component: LibraryComponent },
-  { path: &#x27;settings&#x27;, component: SettingsComponent },
+  { path: &#x27;player&#x27;, loadComponent: () &#x3D;&gt; import(&#x27;./player/player.component&#x27;) },
+  { path: &#x27;player/eq&#x27;, loadComponent: () &#x3D;&gt; import(&#x27;./player/equalizer/equalizer.component&#x27;) },
+  { path: &#x27;player/library&#x27;, loadComponent: () &#x3D;&gt; import(&#x27;./player/library/library.component&#x27;) },
+  { path: &#x27;settings&#x27;, loadComponent: () &#x3D;&gt; import(&#x27;./settings/settings.component&#x27;) },
   { path: &#x27;**&#x27;, redirectTo: &#x27;&#x27; }
 ]</code>
                     </td>

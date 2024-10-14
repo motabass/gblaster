@@ -313,7 +313,7 @@
 
     <div class="tab-pane fade  tab-source-code" id="source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { DOCUMENT } from &#x27;@angular/common&#x27;;
-import { Inject, Injectable } from &#x27;@angular/core&#x27;;
+import { Injectable, inject } from &#x27;@angular/core&#x27;;
 import { MatDialog, MatDialogRef } from &#x27;@angular/material/dialog&#x27;;
 import { EventManager } from &#x27;@angular/platform-browser&#x27;;
 import { Observable, Subscription } from &#x27;rxjs&#x27;;
@@ -333,6 +333,10 @@ export interface HotkeyInfo {
 
 @Injectable({ providedIn: &#x27;root&#x27; })
 export class HotkeysService {
+  private eventManager &#x3D; inject(EventManager);
+  private document &#x3D; inject&lt;Document&gt;(DOCUMENT);
+  private dialog &#x3D; inject(MatDialog);
+
   defaults: Partial&lt;Hotkey&gt; &#x3D; {
     element: this.document
   };
@@ -344,12 +348,6 @@ export class HotkeysService {
   dialogRef?: MatDialogRef&lt;HotkeysHelpDialogComponent&gt;;
 
   _pause &#x3D; false;
-
-  constructor(
-    private eventManager: EventManager,
-    @Inject(DOCUMENT) private document: Document,
-    private dialog: MatDialog
-  ) {}
 
   initialize() {
     this.register({

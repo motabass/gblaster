@@ -181,57 +181,15 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(swUpdate: SwUpdate, dialog: MatDialog)</code>
+<code>constructor()</code>
                     </td>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">apps/gblaster/src/app/update.service.ts:12</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">apps/gblaster/src/app/update.service.ts:14</a></div>
                             </td>
                         </tr>
 
-                <tr>
-                    <td class="col-md-4">
-                            <div>
-                                    <b>Parameters :</b>
-                                    <table class="params">
-                                        <thead>
-                                            <tr>
-                                                <td>Name</td>
-                                                    <td>Type</td>
-                                                <td>Optional</td>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                                <tr>
-                                                        <td>swUpdate</td>
-                                                  
-                                                        <td>
-                                                                    <code>SwUpdate</code>
-                                                        </td>
-                                                  
-                                                    <td>
-                                                            No
-                                                    </td>
-                                                    
-                                                </tr>
-                                                <tr>
-                                                        <td>dialog</td>
-                                                  
-                                                        <td>
-                                                                    <code>MatDialog</code>
-                                                        </td>
-                                                  
-                                                    <td>
-                                                            No
-                                                    </td>
-                                                    
-                                                </tr>
-                                        </tbody>
-                                    </table>
-                            </div>
-                    </td>
-                </tr>
             </tbody>
         </table>
 </section>
@@ -263,8 +221,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="51"
-                                    class="link-to-prism">apps/gblaster/src/app/update.service.ts:51</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="53"
+                                    class="link-to-prism">apps/gblaster/src/app/update.service.ts:53</a></div>
                         </td>
                     </tr>
 
@@ -302,8 +260,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="44"
-                                    class="link-to-prism">apps/gblaster/src/app/update.service.ts:44</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="46"
+                                    class="link-to-prism">apps/gblaster/src/app/update.service.ts:46</a></div>
                         </td>
                     </tr>
 
@@ -369,7 +327,7 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable } from &#x27;@angular/core&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable, inject } from &#x27;@angular/core&#x27;;
 import { MatDialog, MatDialogConfig } from &#x27;@angular/material/dialog&#x27;;
 import { SwUpdate } from &#x27;@angular/service-worker&#x27;;
 import { PromptDialogComponent, PromptDialogData } from &#x27;@motabass/ui-components/dialogs&#x27;;
@@ -381,11 +339,13 @@ import { BaseSubscribingClass } from &#x27;@motabass/base-components/base-subscr
   providedIn: &#x27;root&#x27;
 })
 export class UpdateService extends BaseSubscribingClass {
-  constructor(
-    private swUpdate: SwUpdate,
-    private dialog: MatDialog
-  ) {
+  private swUpdate &#x3D; inject(SwUpdate);
+  private dialog &#x3D; inject(MatDialog);
+
+  constructor() {
     super();
+    const swUpdate &#x3D; this.swUpdate;
+
     if (swUpdate.isEnabled) {
       swUpdate.versionUpdates.pipe(takeUntil(this.destroy$)).subscribe((event) &#x3D;&gt; {
         switch (event.type) {

@@ -209,54 +209,6 @@
     </table>
 </section>
 
-    <section data-compodoc="block-constructor">
-    <h3 id="constructor">Constructor</h3>
-        <table class="table table-sm table-bordered">
-            <tbody>
-                <tr>
-                    <td class="col-md-4">
-<code>constructor(localStorage: LocalStorageService)</code>
-                    </td>
-                </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">apps/gblaster/src/app/settings/storage-settings/storage-settings.component.ts:13</a></div>
-                            </td>
-                        </tr>
-
-                <tr>
-                    <td class="col-md-4">
-                            <div>
-                                    <b>Parameters :</b>
-                                    <table class="params">
-                                        <thead>
-                                            <tr>
-                                                <td>Name</td>
-                                                    <td>Type</td>
-                                                <td>Optional</td>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                                <tr>
-                                                        <td>localStorage</td>
-                                                  
-                                                        <td>
-                                                                    <code>LocalStorageService</code>
-                                                        </td>
-                                                  
-                                                    <td>
-                                                            No
-                                                    </td>
-                                                    
-                                                </tr>
-                                        </tbody>
-                                    </table>
-                            </div>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-</section>
 
 
 
@@ -310,7 +262,7 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component } from &#x27;@angular/core&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, inject } from &#x27;@angular/core&#x27;;
 import { LocalStorageService } from &#x27;ngx-webstorage&#x27;;
 import { MatButtonModule } from &#x27;@angular/material/button&#x27;;
 import { MatCardModule } from &#x27;@angular/material/card&#x27;;
@@ -323,7 +275,7 @@ import { MatCardModule } from &#x27;@angular/material/card&#x27;;
   imports: [MatCardModule, MatButtonModule]
 })
 export class StorageSettingsComponent {
-  constructor(private localStorage: LocalStorageService) {}
+  private localStorage &#x3D; inject(LocalStorageService);
 
   clearSettingsCache() {
     this.localStorage.clear();

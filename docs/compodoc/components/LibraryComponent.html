@@ -156,7 +156,6 @@
                 <td class="col-md-3">imports</td>
                 <td class="col-md-9">
                             <code>MatListModule</code>
-                            <code>NgFor</code>
                             <code>NgArrayPipesModule</code>
                 </td>
             </tr>
@@ -241,54 +240,6 @@
     </table>
 </section>
 
-    <section data-compodoc="block-constructor">
-    <h3 id="constructor">Constructor</h3>
-        <table class="table table-sm table-bordered">
-            <tbody>
-                <tr>
-                    <td class="col-md-4">
-<code>constructor(indexedDbService: NgxIndexedDBService)</code>
-                    </td>
-                </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="23" class="link-to-prism">apps/gblaster/src/app/player/library/library.component.ts:23</a></div>
-                            </td>
-                        </tr>
-
-                <tr>
-                    <td class="col-md-4">
-                            <div>
-                                    <b>Parameters :</b>
-                                    <table class="params">
-                                        <thead>
-                                            <tr>
-                                                <td>Name</td>
-                                                    <td>Type</td>
-                                                <td>Optional</td>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                                <tr>
-                                                        <td>indexedDbService</td>
-                                                  
-                                                        <td>
-                                                                    <code>NgxIndexedDBService</code>
-                                                        </td>
-                                                  
-                                                    <td>
-                                                            No
-                                                    </td>
-                                                    
-                                                </tr>
-                                        </tbody>
-                                    </table>
-                            </div>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-</section>
 
 
 
@@ -319,8 +270,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="47"
-                                    class="link-to-prism">apps/gblaster/src/app/player/library/library.component.ts:47</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="46"
+                                    class="link-to-prism">apps/gblaster/src/app/player/library/library.component.ts:46</a></div>
                         </td>
                     </tr>
 
@@ -386,8 +337,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="41"
-                                    class="link-to-prism">apps/gblaster/src/app/player/library/library.component.ts:41</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="40"
+                                    class="link-to-prism">apps/gblaster/src/app/player/library/library.component.ts:40</a></div>
                         </td>
                     </tr>
 
@@ -453,8 +404,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="53"
-                                    class="link-to-prism">apps/gblaster/src/app/player/library/library.component.ts:53</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="52"
+                                    class="link-to-prism">apps/gblaster/src/app/player/library/library.component.ts:52</a></div>
                         </td>
                     </tr>
 
@@ -520,8 +471,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="32"
-                                    class="link-to-prism">apps/gblaster/src/app/player/library/library.component.ts:32</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="31"
+                                    class="link-to-prism">apps/gblaster/src/app/player/library/library.component.ts:31</a></div>
                         </td>
                     </tr>
 
@@ -567,7 +518,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">apps/gblaster/src/app/player/library/library.component.ts:16</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">apps/gblaster/src/app/player/library/library.component.ts:17</a></div>
                         </td>
                     </tr>
 
@@ -598,7 +549,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">apps/gblaster/src/app/player/library/library.component.ts:15</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">apps/gblaster/src/app/player/library/library.component.ts:16</a></div>
                         </td>
                     </tr>
 
@@ -629,7 +580,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">apps/gblaster/src/app/player/library/library.component.ts:17</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">apps/gblaster/src/app/player/library/library.component.ts:18</a></div>
                         </td>
                     </tr>
 
@@ -642,20 +593,21 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit } from &#x27;@angular/core&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit, inject } from &#x27;@angular/core&#x27;;
 import { NgxIndexedDBService } from &#x27;ngx-indexed-db&#x27;;
 import { TrackMetadata } from &#x27;../player.types&#x27;;
 import { NgArrayPipesModule } from &#x27;ngx-pipes&#x27;;
-import { NgFor } from &#x27;@angular/common&#x27;;
 import { MatListModule } from &#x27;@angular/material/list&#x27;;
 
 @Component({
   templateUrl: &#x27;./library.component.html&#x27;,
   styleUrl: &#x27;./library.component.scss&#x27;,
   standalone: true,
-  imports: [MatListModule, NgFor, NgArrayPipesModule]
+  imports: [MatListModule, NgArrayPipesModule]
 })
-export class LibraryComponent implements OnInit {
+export default class LibraryComponent implements OnInit {
+  private indexedDbService &#x3D; inject(NgxIndexedDBService);
+
   artists: string[] &#x3D; [];
   albums: string[] &#x3D; [];
   tracks: string[] &#x3D; [];
@@ -665,8 +617,6 @@ export class LibraryComponent implements OnInit {
   private selectedTrack!: string;
 
   private data?: TrackMetadata[];
-
-  constructor(private indexedDbService: NgxIndexedDBService) {}
 
   async ngOnInit() {
     this.data &#x3D; await this.indexedDbService.getAll&lt;TrackMetadata&gt;(&#x27;metatags&#x27;).toPromise();

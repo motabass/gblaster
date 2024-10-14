@@ -153,7 +153,6 @@
             <tr>
                 <td class="col-md-3">imports</td>
                 <td class="col-md-9">
-                            <code>NgFor</code>
                             <code>MatSliderModule</code>
                             <code>BandPipe</code>
                 </td>
@@ -236,54 +235,6 @@
     </table>
 </section>
 
-    <section data-compodoc="block-constructor">
-    <h3 id="constructor">Constructor</h3>
-        <table class="table table-sm table-bordered">
-            <tbody>
-                <tr>
-                    <td class="col-md-4">
-<code>constructor(audioService: <a href="../injectables/AudioService.html" target="_self">AudioService</a>)</code>
-                    </td>
-                </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">apps/gblaster/src/app/player/equalizer/equalizer.component.ts:17</a></div>
-                            </td>
-                        </tr>
-
-                <tr>
-                    <td class="col-md-4">
-                            <div>
-                                    <b>Parameters :</b>
-                                    <table class="params">
-                                        <thead>
-                                            <tr>
-                                                <td>Name</td>
-                                                    <td>Type</td>
-                                                <td>Optional</td>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                                <tr>
-                                                        <td>audioService</td>
-                                                  
-                                                        <td>
-                                                                        <code><a href="../injectables/AudioService.html" target="_self" >AudioService</a></code>
-                                                        </td>
-                                                  
-                                                    <td>
-                                                            No
-                                                    </td>
-                                                    
-                                                </tr>
-                                        </tbody>
-                                    </table>
-                            </div>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-</section>
 
 
 
@@ -635,7 +586,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">apps/gblaster/src/app/player/equalizer/equalizer.component.ts:17</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">apps/gblaster/src/app/player/equalizer/equalizer.component.ts:18</a></div>
                         </td>
                     </tr>
 
@@ -648,24 +599,24 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component } from &#x27;@angular/core&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, inject } from &#x27;@angular/core&#x27;;
 import { BAND_FREQUENCIES } from &#x27;../player.service&#x27;;
 import { FrequencyBand } from &#x27;../player.types&#x27;;
 import { AudioService } from &#x27;../audio.service&#x27;;
 import { BandPipe } from &#x27;./band.pipe&#x27;;
 import { MatSliderModule } from &#x27;@angular/material/slider&#x27;;
-import { NgFor } from &#x27;@angular/common&#x27;;
 
 @Component({
   selector: &#x27;mtb-equalizer&#x27;,
   templateUrl: &#x27;./equalizer.component.html&#x27;,
   styleUrl: &#x27;./equalizer.component.scss&#x27;,
   standalone: true,
-  imports: [NgFor, MatSliderModule, BandPipe]
+  imports: [MatSliderModule, BandPipe]
 })
-export class EqualizerComponent {
+export default class EqualizerComponent {
+  private audioService &#x3D; inject(AudioService);
+
   BANDS &#x3D; BAND_FREQUENCIES;
-  constructor(private audioService: AudioService) {}
   getBandGain(bandFrequency: FrequencyBand): number {
     return this.audioService.getBandGain(bandFrequency);
   }

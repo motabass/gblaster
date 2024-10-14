@@ -151,54 +151,6 @@
     </table>
 </section>
 
-            <section data-compodoc="block-constructor">
-    <h3 id="constructor">Constructor</h3>
-        <table class="table table-sm table-bordered">
-            <tbody>
-                <tr>
-                    <td class="col-md-4">
-<code>constructor(http: HttpClient)</code>
-                    </td>
-                </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="9" class="link-to-prism">apps/gblaster/src/app/player/metadata-service/lastfm-metadata.service.ts:9</a></div>
-                            </td>
-                        </tr>
-
-                <tr>
-                    <td class="col-md-4">
-                            <div>
-                                    <b>Parameters :</b>
-                                    <table class="params">
-                                        <thead>
-                                            <tr>
-                                                <td>Name</td>
-                                                    <td>Type</td>
-                                                <td>Optional</td>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                                <tr>
-                                                        <td>http</td>
-                                                  
-                                                        <td>
-                                                                    <code>HttpClient</code>
-                                                        </td>
-                                                  
-                                                    <td>
-                                                            No
-                                                    </td>
-                                                    
-                                                </tr>
-                                        </tbody>
-                                    </table>
-                            </div>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-</section>
 
             <section data-compodoc="block-methods">
     
@@ -281,16 +233,16 @@
 
     <div class="tab-pane fade  tab-source-code" id="source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { HttpClient } from &#x27;@angular/common/http&#x27;;
-import { Injectable } from &#x27;@angular/core&#x27;;
+import { Injectable, inject } from &#x27;@angular/core&#x27;;
 import { firstValueFrom } from &#x27;rxjs&#x27;;
 import { Id3Tags } from &#x27;./id3-tags.types&#x27;;
 import { RemoteCoverPicture } from &#x27;./metadata.types&#x27;;
 
 @Injectable({ providedIn: &#x27;root&#x27; })
 export class LastfmMetadataService {
-  private readonly LASTFM_API_KEY &#x3D; &#x27;3a67934408152a2fc3f7216c022ec1df&#x27;;
+  private http &#x3D; inject(HttpClient);
 
-  constructor(private http: HttpClient) {}
+  private readonly LASTFM_API_KEY &#x3D; &#x27;3a67934408152a2fc3f7216c022ec1df&#x27;;
 
   async getCoverPicture(tags: Id3Tags): Promise&lt;RemoteCoverPicture | undefined&gt; {
     if (tags.artist &amp;&amp; tags.album) {

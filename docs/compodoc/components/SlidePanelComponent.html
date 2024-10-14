@@ -159,10 +159,10 @@
             <tr>
                 <td class="col-md-3">imports</td>
                 <td class="col-md-9">
-                            <code>CommonModule</code>
                             <code>MatIconModule</code>
                             <code>MatButtonModule</code>
                             <code>MatTooltipModule</code>
+                            <code>NgClass</code>
                 </td>
             </tr>
 
@@ -735,17 +735,17 @@
 
     <div class="tab-pane fade  tab-source-code" id="source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { booleanAttribute, Component, HostBinding, Input, OnChanges } from &#x27;@angular/core&#x27;;
-import { CommonModule } from &#x27;@angular/common&#x27;;
 import { MatIconModule } from &#x27;@angular/material/icon&#x27;;
 import { MatButtonModule } from &#x27;@angular/material/button&#x27;;
 import { MatTooltipModule } from &#x27;@angular/material/tooltip&#x27;;
+import { NgClass } from &#x27;@angular/common&#x27;;
 
 @Component({
   selector: &#x27;mtb-slide-panel&#x27;,
   templateUrl: &#x27;./slide-panel.component.html&#x27;,
   styleUrl: &#x27;./slide-panel.component.scss&#x27;,
   standalone: true,
-  imports: [CommonModule, MatIconModule, MatButtonModule, MatTooltipModule]
+  imports: [MatIconModule, MatButtonModule, MatTooltipModule, NgClass]
 })
 export class SlidePanelComponent implements OnChanges {
   @Input({ transform: booleanAttribute }) openedState &#x3D; true;
