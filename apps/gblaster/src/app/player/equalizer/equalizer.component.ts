@@ -12,7 +12,7 @@ import { MatSliderModule } from '@angular/material/slider';
   standalone: true,
   imports: [MatSliderModule, BandPipe]
 })
-export class EqualizerComponent {
+export default class EqualizerComponent {
   BANDS = BAND_FREQUENCIES;
   constructor(private audioService: AudioService) {}
   getBandGain(bandFrequency: FrequencyBand): number {

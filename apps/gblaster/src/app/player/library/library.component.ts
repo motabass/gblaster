@@ -10,7 +10,7 @@ import { MatListModule } from '@angular/material/list';
   standalone: true,
   imports: [MatListModule, NgArrayPipesModule]
 })
-export class LibraryComponent implements OnInit {
+export default class LibraryComponent implements OnInit {
   artists: string[] = [];
   albums: string[] = [];
   tracks: string[] = [];

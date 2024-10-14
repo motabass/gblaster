@@ -43,7 +43,7 @@ import { PlaylistComponent } from './playlist/playlist.component';
     TimePipe
   ]
 })
-export class PlayerComponent implements OnInit, OnDestroy {
+export default class PlayerComponent implements OnInit, OnDestroy {
   positionUpdateActive = true;
 
   allowedTypes = ALLOWED_MIMETYPES;
