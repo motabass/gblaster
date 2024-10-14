@@ -14,7 +14,6 @@ import { MatOptionModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { SlidePanelComponent } from '@motabass/ui-components/slide-panel';
 import { VisualsDirective } from './visuals/visuals.directive';
-import { NgFor, NgIf } from '@angular/common';
 
 @Component({
   selector: 'mtb-visualizer',
@@ -22,18 +21,7 @@ import { NgFor, NgIf } from '@angular/common';
   styleUrl: './visualizer.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [
-    NgIf,
-    VisualsDirective,
-    SlidePanelComponent,
-    MatSelectModule,
-    NgFor,
-    MatOptionModule,
-    MatSliderModule,
-    MatButtonModule,
-    MatIconModule,
-    MatTooltipModule
-  ]
+  imports: [VisualsDirective, SlidePanelComponent, MatSelectModule, MatOptionModule, MatSliderModule, MatButtonModule, MatIconModule, MatTooltipModule]
 })
 export class VisualizerComponent implements OnInit, OnDestroy {
   @LocalStorage('smoothing', 0.7) smoothing!: number;

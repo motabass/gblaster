@@ -8,7 +8,6 @@ import { LoaderService } from '../services/loader/loader.service';
 import { TitleService } from '../services/title.service';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatButtonModule } from '@angular/material/button';
-import { AsyncPipe, NgIf } from '@angular/common';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -19,7 +18,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
   templateUrl: './shell.component.html',
   styleUrl: './shell.component.scss',
   standalone: true,
-  imports: [MatSidenavModule, MatToolbarModule, MatIconModule, MatListModule, NgIf, MatButtonModule, MatProgressSpinnerModule, RouterOutlet, AsyncPipe]
+  imports: [MatSidenavModule, MatToolbarModule, MatIconModule, MatListModule, MatButtonModule, MatProgressSpinnerModule, RouterOutlet]
 })
 export class ShellComponent {
   private isHandset$: Observable<boolean> = this.breakpointObserver

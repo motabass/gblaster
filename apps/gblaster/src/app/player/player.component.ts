@@ -19,7 +19,7 @@ import { VisualizerComponent } from './visualizer/visualizer.component';
 import { CoverDisplayComponent } from './cover-display/cover-display.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import { AsyncPipe, NgClass, NgIf, NgSwitch, NgSwitchCase } from '@angular/common';
+import { NgClass } from '@angular/common';
 import { PlaylistComponent } from './playlist/playlist.component';
 
 @Component({
@@ -30,7 +30,6 @@ import { PlaylistComponent } from './playlist/playlist.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     PlaylistComponent,
-    NgIf,
     MatButtonModule,
     MatIconModule,
     CoverDisplayComponent,
@@ -40,10 +39,7 @@ import { PlaylistComponent } from './playlist/playlist.component';
     MatSliderModule,
     MatMenuModule,
     NgClass,
-    NgSwitch,
-    NgSwitchCase,
     FileDropOverlayComponent,
-    AsyncPipe,
     TimePipe
   ]
 })

@@ -4,14 +4,13 @@ import { FrequencyBand } from '../player.types';
 import { AudioService } from '../audio.service';
 import { BandPipe } from './band.pipe';
 import { MatSliderModule } from '@angular/material/slider';
-import { NgFor } from '@angular/common';
 
 @Component({
   selector: 'mtb-equalizer',
   templateUrl: './equalizer.component.html',
   styleUrl: './equalizer.component.scss',
   standalone: true,
-  imports: [NgFor, MatSliderModule, BandPipe]
+  imports: [MatSliderModule, BandPipe]
 })
 export class EqualizerComponent {
   BANDS = BAND_FREQUENCIES;

@@ -1,15 +1,15 @@
 import { booleanAttribute, Component, HostBinding, Input, OnChanges } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { NgClass } from '@angular/common';
 
 @Component({
   selector: 'mtb-slide-panel',
   templateUrl: './slide-panel.component.html',
   styleUrl: './slide-panel.component.scss',
   standalone: true,
-  imports: [CommonModule, MatIconModule, MatButtonModule, MatTooltipModule]
+  imports: [MatIconModule, MatButtonModule, MatTooltipModule, NgClass]
 })
 export class SlidePanelComponent implements OnChanges {
   @Input({ transform: booleanAttribute }) openedState = true;

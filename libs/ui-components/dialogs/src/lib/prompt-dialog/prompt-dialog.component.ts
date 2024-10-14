@@ -1,6 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
-import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 
 export interface PromptDialogData {
@@ -13,7 +12,7 @@ export interface PromptDialogData {
   selector: 'mtb-prompt-dialog',
   templateUrl: './prompt-dialog.component.html',
   standalone: true,
-  imports: [CommonModule, MatDialogModule, MatButtonModule]
+  imports: [MatDialogModule, MatButtonModule]
 })
 export class PromptDialogComponent implements OnInit {
   constructor(

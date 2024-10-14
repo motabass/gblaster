@@ -9,7 +9,7 @@ import { AudioService } from '../audio.service';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { VisualsDirective } from '../visualizer/visuals/visuals.directive';
-import { AsyncPipe, NgClass, NgFor, NgIf } from '@angular/common';
+import { NgClass } from '@angular/common';
 import { MatListModule } from '@angular/material/list';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { SafePipe } from 'safe-pipe';
@@ -23,16 +23,13 @@ import { SafePipe } from 'safe-pipe';
   imports: [
     MatListModule,
     CdkDropList,
-    NgFor,
     CdkDrag,
     NgClass,
     CdkDragPreview,
     CdkDragHandle,
-    NgIf,
     VisualsDirective,
     MatButtonModule,
     MatIconModule,
-    AsyncPipe,
     MatProgressSpinnerModule,
     SafePipe
   ]

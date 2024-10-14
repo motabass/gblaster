@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
 import { ThemeService } from '../../theme/theme.service';
 import { TimePipe } from '../time.pipe';
-import { NgIf, NgStyle } from '@angular/common';
+import { NgStyle } from '@angular/common';
 import { Track } from '../player.types';
 
 @Component({
@@ -10,7 +10,7 @@ import { Track } from '../player.types';
   styleUrl: './cover-display.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [NgIf, NgStyle, TimePipe]
+  imports: [NgStyle, TimePipe]
 })
 export class CoverDisplayComponent {
   track = input<Track>();
