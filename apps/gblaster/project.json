@@ -26,7 +26,8 @@
         "extractLicenses": false,
         "sourceMap": true,
         "optimization": false,
-        "namedChunks": true
+        "namedChunks": true,
+        "webWorkerTsConfig": "apps/gblaster/tsconfig.worker.json"
       },
       "configurations": {
         "production": {
@@ -86,7 +87,8 @@
     "test": {
       "executor": "@nx/jest:jest",
       "options": {
-        "jestConfig": "apps/gblaster/jest.config.ts"
+        "jestConfig": "apps/gblaster/jest.config.ts",
+        "webWorkerTsConfig": "apps/gblaster/tsconfig.worker.json"
       },
       "outputs": ["{workspaceRoot}/coverage/apps/gblaster"]
     },
