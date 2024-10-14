@@ -1,5 +1,5 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, inject } from '@angular/core';
 import { MatSidenav, MatSidenavModule } from '@angular/material/sidenav';
 import { Router, RouterOutlet } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -21,6 +21,11 @@ import { toSignal } from '@angular/core/rxjs-interop';
   imports: [MatSidenavModule, MatToolbarModule, MatIconModule, MatListModule, MatButtonModule, MatProgressSpinnerModule, RouterOutlet]
 })
 export class ShellComponent {
+  private breakpointObserver = inject(BreakpointObserver);
+  titleService = inject(TitleService);
+  loaderService = inject(LoaderService);
+  private router = inject(Router);
+
   private isHandset$: Observable<boolean> = this.breakpointObserver
     .observe([Breakpoints.XSmall, Breakpoints.Small, Breakpoints.Medium, Breakpoints.Large, Breakpoints.XLarge])
     .pipe(
@@ -31,13 +36,6 @@ export class ShellComponent {
   isHandset = toSignal(this.isHandset$, { initialValue: false });
 
   @ViewChild('drawer') sidenav?: MatSidenav;
-
-  constructor(
-    private breakpointObserver: BreakpointObserver,
-    public titleService: TitleService,
-    public loaderService: LoaderService,
-    private router: Router
-  ) {}
 
   navigateTo(route: string, skipLocationChange = false) {
     this.sidenav?.close();

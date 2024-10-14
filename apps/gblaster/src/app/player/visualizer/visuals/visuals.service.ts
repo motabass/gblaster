@@ -1,4 +1,4 @@
-import { Injectable, signal } from '@angular/core';
+import { Injectable, signal, inject } from '@angular/core';
 import { LocalStorageService } from 'ngx-webstorage';
 import type { VisualizerMode } from './visuals.types';
 
@@ -6,9 +6,11 @@ import type { VisualizerMode } from './visuals.types';
   providedIn: 'root'
 })
 export class VisualsService {
+  private localStorageService = inject(LocalStorageService);
+
   visualMode = signal<VisualizerMode>('off');
 
-  constructor(private localStorageService: LocalStorageService) {
+  constructor() {
     const mode = this.localStorageService.retrieve('visualMode');
     if (mode) {
       this.visualMode.set(mode);

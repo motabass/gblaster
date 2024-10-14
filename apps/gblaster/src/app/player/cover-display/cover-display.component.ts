@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, input, inject } from '@angular/core';
 import { ThemeService } from '../../theme/theme.service';
 import { TimePipe } from '../time.pipe';
 import { NgStyle } from '@angular/common';
@@ -13,9 +13,9 @@ import { Track } from '../player.types';
   imports: [NgStyle, TimePipe]
 })
 export class CoverDisplayComponent {
-  track = input<Track>();
+  private themeService = inject(ThemeService);
 
-  constructor(private themeService: ThemeService) {}
+  track = input<Track>();
 
   coverUrl = computed(() => this.track()?.metadata?.coverUrl?.original);
 

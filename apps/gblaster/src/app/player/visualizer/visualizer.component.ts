@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnDestroy, OnInit, inject } from '@angular/core';
 import { LocalStorage } from 'ngx-webstorage';
 import { Track } from '../player.types';
 import type { FftSize, FrequencyBarsConfig, OsciloscopeConfig, VisualsColorConfig } from './visuals/visuals.types';
@@ -24,6 +24,10 @@ import { VisualsDirective } from './visuals/visuals.directive';
   imports: [VisualsDirective, SlidePanelComponent, MatSelectModule, MatOptionModule, MatSliderModule, MatButtonModule, MatIconModule, MatTooltipModule]
 })
 export class VisualizerComponent implements OnInit, OnDestroy {
+  private audioService = inject(AudioService);
+  private gamepadService = inject(GamepadService);
+  visualsService = inject(VisualsService);
+
   @LocalStorage('smoothing', 0.7) smoothing!: number;
 
   @LocalStorage('minDb', -73) minDb!: number;
@@ -46,11 +50,7 @@ export class VisualizerComponent implements OnInit, OnDestroy {
 
   analyser: AnalyserNode;
 
-  constructor(
-    private audioService: AudioService,
-    private gamepadService: GamepadService,
-    public visualsService: VisualsService
-  ) {
+  constructor() {
     const analyser = this.audioService.plugAnalyser();
     analyser.fftSize = this.fftSize;
     analyser.smoothingTimeConstant = this.smoothing;

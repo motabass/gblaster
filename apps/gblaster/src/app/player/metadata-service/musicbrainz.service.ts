@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import luceneEscapeQuery from 'lucene-escape-query';
 import { firstValueFrom } from 'rxjs';
 import { Id3Tags } from './id3-tags.types';
@@ -7,7 +7,7 @@ import { RemoteCoverPicture } from './metadata.types';
 
 @Injectable({ providedIn: 'root' })
 export class MusicbrainzService {
-  constructor(private http: HttpClient) {}
+  private http = inject(HttpClient);
 
   async getCoverPicture(tags: Id3Tags): Promise<RemoteCoverPicture | undefined> {
     if (tags.artist && tags.album) {

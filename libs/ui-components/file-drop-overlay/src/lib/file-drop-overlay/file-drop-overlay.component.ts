@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, Input, Output, Renderer2 } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, Output, Renderer2, inject } from '@angular/core';
 
 @Component({
   selector: 'mtb-file-drop-overlay',
@@ -8,14 +8,14 @@ import { Component, ElementRef, EventEmitter, Input, Output, Renderer2 } from '@
   imports: []
 })
 export class FileDropOverlayComponent {
+  private hostElement = inject(ElementRef);
+  private renderer = inject(Renderer2);
+
   @Input() allowedTypes: string[] = ['*/*'];
 
   @Output() readonly filesDroped: EventEmitter<File[]> = new EventEmitter<File[]>();
 
-  constructor(
-    private hostElement: ElementRef,
-    private renderer: Renderer2
-  ) {
+  constructor() {
     window.addEventListener('dragenter', this.over.bind(this));
     window.addEventListener('dragstart', this.over.bind(this));
     window.addEventListener('dragover', this.over.bind(this));

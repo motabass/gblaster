@@ -1,4 +1,4 @@
-import { computed, effect, Injectable, signal } from '@angular/core';
+import { computed, effect, Injectable, signal, inject } from '@angular/core';
 import { LocalStorage } from 'ngx-webstorage';
 import { FileLoaderService } from './file-loader-service/file-loader.service.abstract';
 import { MetadataService } from './metadata-service/metadata.service';
@@ -15,6 +15,14 @@ export const BAND_FREQUENCIES: FrequencyBand[] = [60, 170, 310, 600, 1000, 3000,
 
 @Injectable({ providedIn: 'any' })
 export class PlayerService extends BaseSubscribingClass {
+  private audioService = inject(AudioService);
+  private fileLoaderService = inject(FileLoaderService);
+  private metadataService = inject(MetadataService);
+  private themeService = inject(ThemeService);
+  private loaderService = inject(LoaderService);
+  private wakelockService = inject(WakelockService);
+  private mediaSessionService = inject(MediaSessionService);
+
   private loadFinished = true;
 
   currentPlaylist = signal<Track[]>([]);
@@ -35,15 +43,7 @@ export class PlayerService extends BaseSubscribingClass {
     return undefined;
   });
 
-  constructor(
-    private audioService: AudioService,
-    private fileLoaderService: FileLoaderService,
-    private metadataService: MetadataService,
-    private themeService: ThemeService,
-    private loaderService: LoaderService,
-    private wakelockService: WakelockService,
-    private mediaSessionService: MediaSessionService
-  ) {
+  constructor() {
     super();
     this.mediaSessionService.setActionHandler('play', () => this.playPause());
     this.mediaSessionService.setActionHandler('pause', () => this.playPause());

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { NgxIndexedDBService } from 'ngx-indexed-db';
 import { firstValueFrom } from 'rxjs';
 import { ALLOWED_MIMETYPES } from './file-loader.helpers';
@@ -8,11 +8,9 @@ import { FileLoaderService } from './file-loader.service.abstract';
   providedIn: 'root'
 })
 export class NativeBrowserFileLoaderService extends FileLoaderService {
-  currentFolderHandle?: FileSystemDirectoryHandle;
+  private indexedDbService = inject(NgxIndexedDBService);
 
-  constructor(private indexedDbService: NgxIndexedDBService) {
-    super();
-  }
+  currentFolderHandle?: FileSystemDirectoryHandle;
 
   async init() {
     const entry = await firstValueFrom(this.indexedDbService.getByID<any>('dirHandle', 1));

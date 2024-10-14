@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MatCheckboxChange, MatCheckboxModule } from '@angular/material/checkbox';
 import { ThemeService } from '../../theme/theme.service';
 import { MatCardModule } from '@angular/material/card';
@@ -10,7 +10,7 @@ import { MatCardModule } from '@angular/material/card';
   imports: [MatCardModule, MatCheckboxModule]
 })
 export class ThemeSettingsComponent {
-  constructor(public themeService: ThemeService) {}
+  themeService = inject(ThemeService);
 
   changeDarkMode(event: MatCheckboxChange) {
     this.themeService.darkMode = event.checked;

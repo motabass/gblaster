@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { LocalStorage, LocalStorageService } from 'ngx-webstorage';
 import { FrequencyBand } from './player.types';
 import { interval } from 'rxjs';
@@ -9,6 +9,8 @@ const FREQUENCY_BANDS: FrequencyBand[] = [60, 170, 310, 600, 1000, 3000, 6000, 1
 
 @Injectable({ providedIn: 'root' })
 export class AudioService {
+  private storageService = inject(LocalStorageService);
+
   private _audioElement: HTMLAudioElement;
   private _audioContext: AudioContext;
   private _audioSourceNode: MediaElementAudioSourceNode;
@@ -21,7 +23,7 @@ export class AudioService {
     [band: number]: number;
   };
 
-  constructor(private storageService: LocalStorageService) {
+  constructor() {
     // create audio element
     const audioElement = new Audio();
     audioElement.loop = false;

@@ -1,13 +1,13 @@
-import { Injectable, signal } from '@angular/core';
+import { Injectable, signal, inject } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TitleService {
-  title = signal<string>('');
+  private angularTitleService = inject(Title);
 
-  constructor(private angularTitleService: Title) {}
+  title = signal<string>('');
 
   setTitle(title: string) {
     this.angularTitleService.setTitle(title);

@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Input, NgZone, numberAttribute, OnChanges, OnDestroy, SimpleChanges } from '@angular/core';
+import { Directive, ElementRef, Input, NgZone, numberAttribute, OnChanges, OnDestroy, SimpleChanges, inject } from '@angular/core';
 import type { FrequencyBarsConfig, OsciloscopeConfig, VisualizerMode, VisualsColorConfig, VisualsWorkerMessage } from './visuals.types';
 
 const FALLBACK_PRIMARY_COLOR = '#424242';
@@ -8,6 +8,8 @@ const FALLBACK_ACCENT_COLOR = '#bcbcbc';
   standalone: true
 })
 export class VisualsDirective implements OnDestroy, OnChanges {
+  private zone = inject(NgZone);
+
   @Input('mtbVisual') analyser!: AnalyserNode;
 
   @Input() mode: VisualizerMode = 'bars';
@@ -28,10 +30,9 @@ export class VisualsDirective implements OnDestroy, OnChanges {
 
   private analyserData!: Uint8Array;
 
-  constructor(
-    elr: ElementRef<HTMLCanvasElement>,
-    private zone: NgZone
-  ) {
+  constructor() {
+    const elr = inject<ElementRef<HTMLCanvasElement>>(ElementRef);
+
     this.canvas = elr.nativeElement;
 
     const offscreenCanvas: OffscreenCanvas = this.canvas.transferControlToOffscreen();

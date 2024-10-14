@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MatSlideToggleChange, MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { NgxIndexedDBService } from 'ngx-indexed-db';
 import { MetadataService } from '../../player/metadata-service/metadata.service';
@@ -13,10 +13,8 @@ import { MatCardModule } from '@angular/material/card';
   imports: [MatCardModule, MatSlideToggleModule, MatButtonModule]
 })
 export class MetadataSettingsComponent {
-  constructor(
-    private metadataService: MetadataService,
-    private indexedDBService: NgxIndexedDBService
-  ) {}
+  private metadataService = inject(MetadataService);
+  private indexedDBService = inject(NgxIndexedDBService);
 
   get useWebTags() {
     return this.metadataService.useWebMetainfos;

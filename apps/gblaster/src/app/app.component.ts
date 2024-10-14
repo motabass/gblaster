@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ThemeService } from './theme/theme.service';
@@ -12,7 +12,12 @@ import { ShellComponent } from './shell/shell.component';
   imports: [ShellComponent]
 })
 export class AppComponent {
-  constructor(updateService: UpdateService, iconRegistry: MatIconRegistry, sanitizer: DomSanitizer, themeService: ThemeService) {
+  constructor() {
+    const updateService = inject(UpdateService);
+    const iconRegistry = inject(MatIconRegistry);
+    const sanitizer = inject(DomSanitizer);
+    const themeService = inject(ThemeService);
+
     updateService.init();
 
     themeService.initializeTheme();

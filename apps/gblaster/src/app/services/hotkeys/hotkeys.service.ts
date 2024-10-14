@@ -1,5 +1,5 @@
 import { DOCUMENT } from '@angular/common';
-import { Inject, Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { EventManager } from '@angular/platform-browser';
 import { Observable, Subscription } from 'rxjs';
@@ -19,6 +19,10 @@ export interface HotkeyInfo {
 
 @Injectable({ providedIn: 'root' })
 export class HotkeysService {
+  private eventManager = inject(EventManager);
+  private document = inject<Document>(DOCUMENT);
+  private dialog = inject(MatDialog);
+
   defaults: Partial<Hotkey> = {
     element: this.document
   };
@@ -30,12 +34,6 @@ export class HotkeysService {
   dialogRef?: MatDialogRef<HotkeysHelpDialogComponent>;
 
   _pause = false;
-
-  constructor(
-    private eventManager: EventManager,
-    @Inject(DOCUMENT) private document: Document,
-    private dialog: MatDialog
-  ) {}
 
   initialize() {
     this.register({

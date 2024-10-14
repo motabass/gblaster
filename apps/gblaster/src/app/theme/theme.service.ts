@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Meta } from '@angular/platform-browser';
 import { TinyColor } from '@thebespokepixel/es-tinycolor';
 import { LocalStorage } from 'ngx-webstorage';
@@ -9,6 +9,8 @@ import { FALLBACK_ACCENT_COLOR, FALLBACK_PRIMARY_COLOR } from './default-colors'
   providedIn: 'root'
 })
 export class ThemeService {
+  private meta = inject(Meta);
+
   primaryColor = FALLBACK_PRIMARY_COLOR;
 
   accentColor = FALLBACK_ACCENT_COLOR;
@@ -17,8 +19,6 @@ export class ThemeService {
 
   primaryColorPalette: Color[] = [];
   accentColorPalette: Color[] = [];
-
-  constructor(private meta: Meta) {}
 
   initializeTheme() {
     if (window.matchMedia('(prefers-color-scheme: dark)').matches) {

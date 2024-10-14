@@ -1,5 +1,5 @@
 import { CdkDrag, CdkDragDrop, CdkDragHandle, CdkDragPreview, CdkDropList, moveItemInArray } from '@angular/cdk/drag-drop';
-import { ChangeDetectionStrategy, Component, computed, OnDestroy, Signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, OnDestroy, Signal, inject } from '@angular/core';
 import { PlayerService } from '../player.service';
 import { Track } from '../player.types';
 import { VisualsService } from '../visualizer/visuals/visuals.service';
@@ -35,13 +35,13 @@ import { SafePipe } from 'safe-pipe';
   ]
 })
 export class PlaylistComponent implements OnDestroy {
+  playerService = inject(PlayerService);
+  private audioService = inject(AudioService);
+  visualsService = inject(VisualsService);
+  loaderService = inject(LoaderService);
+
   analyser: AnalyserNode;
-  constructor(
-    public playerService: PlayerService,
-    private audioService: AudioService,
-    public visualsService: VisualsService,
-    public loaderService: LoaderService
-  ) {
+  constructor() {
     this.analyser = this.audioService.plugAnalyser();
   }
 

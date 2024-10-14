@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { SwUpdate } from '@angular/service-worker';
 import { PromptDialogComponent, PromptDialogData } from '@motabass/ui-components/dialogs';
@@ -10,11 +10,13 @@ import { BaseSubscribingClass } from '@motabass/base-components/base-subscribing
   providedIn: 'root'
 })
 export class UpdateService extends BaseSubscribingClass {
-  constructor(
-    private swUpdate: SwUpdate,
-    private dialog: MatDialog
-  ) {
+  private swUpdate = inject(SwUpdate);
+  private dialog = inject(MatDialog);
+
+  constructor() {
     super();
+    const swUpdate = this.swUpdate;
+
     if (swUpdate.isEnabled) {
       swUpdate.versionUpdates.pipe(takeUntil(this.destroy$)).subscribe((event) => {
         switch (event.type) {

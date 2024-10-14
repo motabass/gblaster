@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, OnDestroy, OnInit, inject } from '@angular/core';
 import { MatSliderModule } from '@angular/material/slider';
 import { formatSecondsAsClock } from '@motabass/helpers';
 import { ALLOWED_MIMETYPES } from './file-loader-service/file-loader.helpers';
@@ -44,18 +44,16 @@ import { PlaylistComponent } from './playlist/playlist.component';
   ]
 })
 export default class PlayerComponent implements OnInit, OnDestroy {
+  playerService = inject(PlayerService);
+  private titleService = inject(TitleService);
+  private gamepadService = inject(GamepadService);
+  private hotkeysService = inject(HotkeysService);
+  private fileLoaderService = inject(FileLoaderService);
+  audioService = inject(AudioService);
+
   positionUpdateActive = true;
 
   allowedTypes = ALLOWED_MIMETYPES;
-
-  constructor(
-    public playerService: PlayerService,
-    private titleService: TitleService,
-    private gamepadService: GamepadService,
-    private hotkeysService: HotkeysService,
-    private fileLoaderService: FileLoaderService,
-    public audioService: AudioService
-  ) {}
 
   async ngOnInit() {
     this.titleService.setTitle('gBlaster');

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { BAND_FREQUENCIES } from '../player.service';
 import { FrequencyBand } from '../player.types';
 import { AudioService } from '../audio.service';
@@ -13,8 +13,9 @@ import { MatSliderModule } from '@angular/material/slider';
   imports: [MatSliderModule, BandPipe]
 })
 export default class EqualizerComponent {
+  private audioService = inject(AudioService);
+
   BANDS = BAND_FREQUENCIES;
-  constructor(private audioService: AudioService) {}
   getBandGain(bandFrequency: FrequencyBand): number {
     return this.audioService.getBandGain(bandFrequency);
   }

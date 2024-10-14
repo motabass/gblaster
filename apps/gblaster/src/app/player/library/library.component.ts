@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { NgxIndexedDBService } from 'ngx-indexed-db';
 import { TrackMetadata } from '../player.types';
 import { NgArrayPipesModule } from 'ngx-pipes';
@@ -11,6 +11,8 @@ import { MatListModule } from '@angular/material/list';
   imports: [MatListModule, NgArrayPipesModule]
 })
 export default class LibraryComponent implements OnInit {
+  private indexedDbService = inject(NgxIndexedDBService);
+
   artists: string[] = [];
   albums: string[] = [];
   tracks: string[] = [];
@@ -20,8 +22,6 @@ export default class LibraryComponent implements OnInit {
   private selectedTrack!: string;
 
   private data?: TrackMetadata[];
-
-  constructor(private indexedDbService: NgxIndexedDBService) {}
 
   async ngOnInit() {
     this.data = await this.indexedDbService.getAll<TrackMetadata>('metatags').toPromise();

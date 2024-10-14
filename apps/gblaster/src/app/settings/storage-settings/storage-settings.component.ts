@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { LocalStorageService } from 'ngx-webstorage';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -11,7 +11,7 @@ import { MatCardModule } from '@angular/material/card';
   imports: [MatCardModule, MatButtonModule]
 })
 export class StorageSettingsComponent {
-  constructor(private localStorage: LocalStorageService) {}
+  private localStorage = inject(LocalStorageService);
 
   clearSettingsCache() {
     this.localStorage.clear();

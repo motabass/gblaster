@@ -1,5 +1,5 @@
 import { crc32 } from '@allex/crc32';
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { NgxIndexedDBService } from 'ngx-indexed-db';
 import { LocalStorage } from 'ngx-webstorage';
 import { firstValueFrom } from 'rxjs';
@@ -13,19 +13,17 @@ import { MusicbrainzService } from './musicbrainz.service';
 
 @Injectable({ providedIn: 'root' })
 export class MetadataService {
+  private id3TagsService = inject(Id3TagsService);
+  private lastfmMetadataService = inject(LastfmMetadataService);
+  private musicbrainzService = inject(MusicbrainzService);
+  private indexedDBService = inject(NgxIndexedDBService);
+
   private readonly PLACEHOLDER_URL = 'assets/icons/record.svg';
 
   @LocalStorage('useWebMetainfos', true) useWebMetainfos!: boolean;
   @LocalStorage('useTagsCache', true) useTagsCache!: boolean;
   @LocalStorage('useTagEmbeddedPicture', true) useTagEmbeddedPicture!: boolean;
   @LocalStorage('preferTagEmbeddedPicture', true) preferTagEmbeddedPicture!: boolean;
-
-  constructor(
-    private id3TagsService: Id3TagsService,
-    private lastfmMetadataService: LastfmMetadataService,
-    private musicbrainzService: MusicbrainzService,
-    private indexedDBService: NgxIndexedDBService
-  ) {}
 
   async getMetadata(file: File): Promise<TrackMetadata> {
     console.time('hash');

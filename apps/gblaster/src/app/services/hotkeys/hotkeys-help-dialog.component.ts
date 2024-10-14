@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { HotkeyInfo } from './hotkeys.service';
 import { MatListModule } from '@angular/material/list';
@@ -17,10 +17,8 @@ export interface HotkeysData {
   imports: [MatDialogModule, MatButtonModule, MatIconModule, MatListModule]
 })
 export class HotkeysHelpDialogComponent {
-  constructor(
-    public dialogRef: MatDialogRef<HotkeysHelpDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: HotkeysData
-  ) {}
+  dialogRef = inject<MatDialogRef<HotkeysHelpDialogComponent>>(MatDialogRef);
+  data = inject<HotkeysData>(MAT_DIALOG_DATA);
 
   get hotkeyList() {
     return [...this.data.registeredHotkeys.entries()];
