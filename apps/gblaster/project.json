@@ -12,23 +12,21 @@
   },
   "targets": {
     "build": {
-      "executor": "@nx/angular:application",
+      "executor": "@nx/angular:browser-esbuild",
       "options": {
         "allowedCommonJsDependencies": [],
-        "outputPath": {
-          "base": "dist/apps/gblaster"
-        },
+        "outputPath": "dist/apps/gblaster",
         "index": "apps/gblaster/src/index.html",
         "polyfills": ["apps/gblaster/src/polyfills.ts"],
         "tsConfig": "apps/gblaster/tsconfig.app.json",
+        "main": "apps/gblaster/src/main.ts",
         "assets": ["apps/gblaster/src/favicon.ico", "apps/gblaster/src/assets", "apps/gblaster/src/manifest.webmanifest"],
         "styles": ["apps/gblaster/src/styles/theme.scss", "apps/gblaster/src/styles/styles.scss"],
         "scripts": [],
         "extractLicenses": false,
         "sourceMap": true,
         "optimization": false,
-        "namedChunks": true,
-        "browser": "apps/gblaster/src/main.ts"
+        "namedChunks": true
       },
       "configurations": {
         "production": {
@@ -64,7 +62,8 @@
               "maximumError": "10kb"
             }
           ],
-          "serviceWorker": "apps/gblaster/ngsw-config.json"
+          "serviceWorker": true,
+          "ngswConfigPath": "apps/gblaster/ngsw-config.json"
         }
       },
       "outputs": ["{options.outputPath.base}"]
