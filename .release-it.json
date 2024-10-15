@@ -4,7 +4,7 @@
     "publish": false
   },
   "hooks": {
-    "after:bump": "npx auto-changelog -p && npm run dep-graph:html && npm run build:stats:gblaster && npm run analyze:treemap:gblaster && npm run analyze:sunburst:gblaster && npm run analyze:network:gblaster &&  npm run compodoc",
+    "after:bump": "npx auto-changelog -p && npm run dep-graph:html  && npm run compodoc",
     "after:release": "echo Successfully released ${name} v${version} to ${repo.repository}."
   },
   "git": {
