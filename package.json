@@ -144,7 +144,7 @@
     "npm-check-updates": "17.1.10",
     "nx": "20.0.12",
     "nx-stylelint": "18.0.0",
-    "postcss": "8.4.47",
+    "postcss": "8.4.49",
     "postcss-html": "^1.7.0",
     "postcss-import": "16.1.0",
     "postcss-preset-env": "~10.0.9",
