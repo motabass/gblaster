@@ -410,7 +410,7 @@
 
     <div class="tab-pane fade  tab-source-code" id="source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { crc32 } from &#x27;@allex/crc32&#x27;;
-import { Injectable, inject } from &#x27;@angular/core&#x27;;
+import { inject, Injectable } from &#x27;@angular/core&#x27;;
 import { NgxIndexedDBService } from &#x27;ngx-indexed-db&#x27;;
 import { LocalStorage } from &#x27;ngx-webstorage&#x27;;
 import { firstValueFrom } from &#x27;rxjs&#x27;;
@@ -437,9 +437,9 @@ export class MetadataService {
   @LocalStorage(&#x27;preferTagEmbeddedPicture&#x27;, true) preferTagEmbeddedPicture!: boolean;
 
   async getMetadata(file: File): Promise&lt;TrackMetadata&gt; {
-    console.time(&#x27;hash&#x27;);
+    // console.time(&#x27;hash&#x27;);
     const crc &#x3D; generateFileHash(file);
-    console.timeEnd(&#x27;hash&#x27;);
+    // console.timeEnd(&#x27;hash&#x27;);
 
     if (this.useTagsCache) {
       const metadataCache: TrackMetadata &#x3D; await firstValueFrom(this.indexedDBService.getByKey&lt;TrackMetadata&gt;(&#x27;metatags&#x27;, crc));
@@ -457,9 +457,9 @@ export class MetadataService {
         }
       }
     }
-    console.time(&#x27;id3tags&#x27;);
+    // console.time(&#x27;id3tags&#x27;);
     const tags &#x3D; await this.id3TagsService.extractTags(file);
-    console.timeEnd(&#x27;id3tags&#x27;);
+    // console.timeEnd(&#x27;id3tags&#x27;);
     if (!tags) {
       // if no tags
       return { crc: crc };
@@ -469,12 +469,12 @@ export class MetadataService {
 
     if (this.useWebMetainfos) {
       if (tags.artist &amp;&amp; tags.album) {
-        console.time(&#x27;webcover&#x27;);
+        // console.time(&#x27;webcover&#x27;);
         coverUrl &#x3D; await this.lastfmMetadataService.getCoverPicture(tags);
         if (!coverUrl) {
           coverUrl &#x3D; await this.musicbrainzService.getCoverPicture(tags);
         }
-        console.timeEnd(&#x27;webcover&#x27;);
+        // console.timeEnd(&#x27;webcover&#x27;);
       } else {
         console.warn(&#x27;Missing tags for lookup&#x27;);
       }
@@ -482,9 +482,9 @@ export class MetadataService {
 
     let palette: CoverColorPalette | undefined;
     if (coverUrl) {
-      console.time(&#x27;vibrant&#x27;);
+      // console.time(&#x27;vibrant&#x27;);
       palette &#x3D; await extractColorsWithNodeVibrant(coverUrl.original);
-      console.timeEnd(&#x27;vibrant&#x27;);
+      // console.timeEnd(&#x27;vibrant&#x27;);
       // console.time(&#x27;wasm&#x27;);
       // palette &#x3D; await extractColorsWithVibrantWasm(coverUrl.original);
       // console.timeEnd(&#x27;wasm&#x27;);

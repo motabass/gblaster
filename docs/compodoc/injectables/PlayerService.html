@@ -1351,7 +1351,7 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { computed, effect, Injectable, signal, inject } from &#x27;@angular/core&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { computed, effect, inject, Injectable, signal } from &#x27;@angular/core&#x27;;
 import { LocalStorage } from &#x27;ngx-webstorage&#x27;;
 import { FileLoaderService } from &#x27;./file-loader-service/file-loader.service.abstract&#x27;;
 import { MetadataService } from &#x27;./metadata-service/metadata.service&#x27;;
@@ -1506,9 +1506,9 @@ export class PlayerService extends BaseSubscribingClass {
   }
 
   private async createTrackFromFile(file: File): Promise&lt;Track&gt; {
-    console.time(&#x27;full-metadata&#x27;);
+    // console.time(&#x27;full-metadata&#x27;);
     const metadata &#x3D; await this.metadataService.getMetadata(file);
-    console.timeEnd(&#x27;full-metadata&#x27;);
+    // console.timeEnd(&#x27;full-metadata&#x27;);
     return {
       file: file,
       metadata: metadata
