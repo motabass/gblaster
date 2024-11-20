@@ -1,5 +1,5 @@
 import { crc32 } from '@allex/crc32';
-import { Injectable, inject } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { NgxIndexedDBService } from 'ngx-indexed-db';
 import { LocalStorage } from 'ngx-webstorage';
 import { firstValueFrom } from 'rxjs';
@@ -26,9 +26,9 @@ export class MetadataService {
   @LocalStorage('preferTagEmbeddedPicture', true) preferTagEmbeddedPicture!: boolean;
 
   async getMetadata(file: File): Promise<TrackMetadata> {
-    console.time('hash');
+    // console.time('hash');
     const crc = generateFileHash(file);
-    console.timeEnd('hash');
+    // console.timeEnd('hash');
 
     if (this.useTagsCache) {
       const metadataCache: TrackMetadata = await firstValueFrom(this.indexedDBService.getByKey<TrackMetadata>('metatags', crc));
@@ -46,9 +46,9 @@ export class MetadataService {
         }
       }
     }
-    console.time('id3tags');
+    // console.time('id3tags');
     const tags = await this.id3TagsService.extractTags(file);
-    console.timeEnd('id3tags');
+    // console.timeEnd('id3tags');
     if (!tags) {
       // if no tags
       return { crc: crc };
@@ -58,12 +58,12 @@ export class MetadataService {
 
     if (this.useWebMetainfos) {
       if (tags.artist && tags.album) {
-        console.time('webcover');
+        // console.time('webcover');
         coverUrl = await this.lastfmMetadataService.getCoverPicture(tags);
         if (!coverUrl) {
           coverUrl = await this.musicbrainzService.getCoverPicture(tags);
         }
-        console.timeEnd('webcover');
+        // console.timeEnd('webcover');
       } else {
         console.warn('Missing tags for lookup');
       }
@@ -71,9 +71,9 @@ export class MetadataService {
 
     let palette: CoverColorPalette | undefined;
     if (coverUrl) {
-      console.time('vibrant');
+      // console.time('vibrant');
       palette = await extractColorsWithNodeVibrant(coverUrl.original);
-      console.timeEnd('vibrant');
+      // console.timeEnd('vibrant');
       // console.time('wasm');
       // palette = await extractColorsWithVibrantWasm(coverUrl.original);
       // console.timeEnd('wasm');

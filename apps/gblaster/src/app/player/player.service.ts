@@ -1,4 +1,4 @@
-import { computed, effect, Injectable, signal, inject } from '@angular/core';
+import { computed, effect, inject, Injectable, signal } from '@angular/core';
 import { LocalStorage } from 'ngx-webstorage';
 import { FileLoaderService } from './file-loader-service/file-loader.service.abstract';
 import { MetadataService } from './metadata-service/metadata.service';
@@ -153,9 +153,9 @@ export class PlayerService extends BaseSubscribingClass {
   }
 
   private async createTrackFromFile(file: File): Promise<Track> {
-    console.time('full-metadata');
+    // console.time('full-metadata');
     const metadata = await this.metadataService.getMetadata(file);
-    console.timeEnd('full-metadata');
+    // console.timeEnd('full-metadata');
     return {
       file: file,
       metadata: metadata
