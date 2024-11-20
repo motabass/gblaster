@@ -7,7 +7,6 @@ import { MetadataSettingsComponent } from './metadata-settings/metadata-settings
   selector: 'mtb-settings',
   templateUrl: './settings.component.html',
   styleUrl: './settings.component.scss',
-  standalone: true,
   imports: [MetadataSettingsComponent, ThemeSettingsComponent, StorageSettingsComponent]
 })
 export default class SettingsComponent {

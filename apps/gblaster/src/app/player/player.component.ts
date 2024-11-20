@@ -26,7 +26,6 @@ import { PlaylistComponent } from './playlist/playlist.component';
   selector: 'mtb-player',
   templateUrl: './player.component.html',
   styleUrl: './player.component.scss',
-  standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     PlaylistComponent,

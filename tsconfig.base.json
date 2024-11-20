@@ -30,7 +30,8 @@
   "angularCompilerOptions": {
     "extendedDiagnostics": true,
     "strictInjectionParameters": true,
-    "strictTemplates": true
+    "strictTemplates": true,
+    "strictStandalone": true
   },
   "exclude": ["node_modules", "tmp"]
 }

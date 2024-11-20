@@ -18,7 +18,6 @@ import { SafePipe } from 'safe-pipe';
   selector: 'mtb-playlist',
   templateUrl: './playlist.component.html',
   styleUrl: './playlist.component.scss',
-  standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     MatListModule,

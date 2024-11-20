@@ -4,7 +4,6 @@ import { Component, ElementRef, EventEmitter, Input, Output, Renderer2, inject }
   selector: 'mtb-file-drop-overlay',
   templateUrl: './file-drop-overlay.component.html',
   styleUrl: './file-drop-overlay.component.scss',
-  standalone: true,
   imports: []
 })
 export class FileDropOverlayComponent {

@@ -8,7 +8,6 @@ import { ShellComponent } from './shell/shell.component';
 @Component({
   selector: 'mtb-root',
   templateUrl: './app.component.html',
-  standalone: true,
   imports: [ShellComponent]
 })
 export class AppComponent {

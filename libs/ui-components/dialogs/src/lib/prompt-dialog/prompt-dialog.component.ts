@@ -11,7 +11,6 @@ export interface PromptDialogData {
 @Component({
   selector: 'mtb-prompt-dialog',
   templateUrl: './prompt-dialog.component.html',
-  standalone: true,
   imports: [MatDialogModule, MatButtonModule]
 })
 export class PromptDialogComponent implements OnInit {

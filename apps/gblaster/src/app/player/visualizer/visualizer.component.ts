@@ -20,7 +20,6 @@ import { VisualsDirective } from './visuals/visuals.directive';
   templateUrl: './visualizer.component.html',
   styleUrl: './visualizer.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
   imports: [VisualsDirective, SlidePanelComponent, MatSelectModule, MatOptionModule, MatSliderModule, MatButtonModule, MatIconModule, MatTooltipModule]
 })
 export class VisualizerComponent implements OnInit, OnDestroy {

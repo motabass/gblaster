@@ -8,7 +8,6 @@ import { NgClass } from '@angular/common';
   selector: 'mtb-slide-panel',
   templateUrl: './slide-panel.component.html',
   styleUrl: './slide-panel.component.scss',
-  standalone: true,
   imports: [MatIconModule, MatButtonModule, MatTooltipModule, NgClass]
 })
 export class SlidePanelComponent implements OnChanges {

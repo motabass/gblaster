@@ -68,7 +68,6 @@ module.exports = [
       rules: {
         'unicorn/prevent-abbreviations': 'off',
         'unicorn/numeric-separators-style': 'off',
-        '@angular-eslint/prefer-standalone': 'error',
         '@angular-eslint/no-duplicates-in-metadata-arrays': 'error',
         '@angular-eslint/component-class-suffix': 'error',
         '@angular-eslint/component-max-inline-declarations': 'error',

@@ -17,7 +17,6 @@ import { toSignal } from '@angular/core/rxjs-interop';
   selector: 'mtb-shell',
   templateUrl: './shell.component.html',
   styleUrl: './shell.component.scss',
-  standalone: true,
   imports: [MatSidenavModule, MatToolbarModule, MatIconModule, MatListModule, MatButtonModule, MatProgressSpinnerModule, RouterOutlet]
 })
 export class ShellComponent {

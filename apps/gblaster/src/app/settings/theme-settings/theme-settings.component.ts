@@ -6,7 +6,6 @@ import { MatCardModule } from '@angular/material/card';
 @Component({
   selector: 'mtb-theme-settings',
   templateUrl: './theme-settings.component.html',
-  standalone: true,
   imports: [MatCardModule, MatCheckboxModule]
 })
 export class ThemeSettingsComponent {

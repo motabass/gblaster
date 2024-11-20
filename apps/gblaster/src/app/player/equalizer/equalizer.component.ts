@@ -9,7 +9,6 @@ import { MatSliderModule } from '@angular/material/slider';
   selector: 'mtb-equalizer',
   templateUrl: './equalizer.component.html',
   styleUrl: './equalizer.component.scss',
-  standalone: true,
   imports: [MatSliderModule, BandPipe]
 })
 export default class EqualizerComponent {

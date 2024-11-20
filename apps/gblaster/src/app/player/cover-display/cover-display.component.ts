@@ -9,7 +9,6 @@ import { Track } from '../player.types';
   templateUrl: './cover-display.component.html',
   styleUrl: './cover-display.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
   imports: [NgStyle, TimePipe]
 })
 export class CoverDisplayComponent {

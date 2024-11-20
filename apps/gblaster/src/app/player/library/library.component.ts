@@ -7,7 +7,6 @@ import { MatListModule } from '@angular/material/list';
 @Component({
   templateUrl: './library.component.html',
   styleUrl: './library.component.scss',
-  standalone: true,
   imports: [MatListModule, NgArrayPipesModule]
 })
 export default class LibraryComponent implements OnInit {
