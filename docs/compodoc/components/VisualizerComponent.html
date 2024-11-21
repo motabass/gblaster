@@ -246,6 +246,10 @@
                                 <a href="#smoothing" >smoothing</a>
                             </li>
                             <li>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#track" >track</a>
+                            </li>
+                            <li>
                                 <a href="#visualsService" >visualsService</a>
                             </li>
                         </ul>
@@ -294,20 +298,6 @@
                     </td>
                 </tr>
 
-                <tr>
-                    <td class="col-md-4">
-                        <h6><b>Inputs</b></h6>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="col-md-4">
-                        <ul class="index-list">
-                            <li>
-                                <a href="#track" >track</a>
-                            </li>
-                        </ul>
-                    </td>
-                </tr>
 
 
 
@@ -373,30 +363,7 @@
         </table>
 </section>
 
-    <section data-compodoc="block-inputs">
-    <h3 id="inputs">Inputs</h3>
-        <table class="table table-sm table-bordered">
-            <tbody>
-                <tr>
-                    <td class="col-md-4">
-                        <a name="track"></a>
-                        <b>track</b>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="col-md-4">
-                        <i>Type : </i>        <code><a href="../interfaces/Track.html" target="_self" >Track | null</a></code>
 
-                    </td>
-                </tr>
-                        <tr>
-                            <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="48" class="link-to-prism">apps/gblaster/src/app/player/visualizer/visualizer.component.ts:48</a></div>
-                            </td>
-                        </tr>
-            </tbody>
-        </table>
-</section>
 
 
 
@@ -1405,6 +1372,32 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
+                    <a name="track"></a>
+                    <span class="name">
+                            <span class="modifier">Readonly</span>
+                        <span ><b>track</b></span>
+                        <a href="#track"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>input&lt;Track | null&gt;()</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="48" class="link-to-prism">apps/gblaster/src/app/player/visualizer/visualizer.component.ts:48</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
                     <a name="visualsService"></a>
                     <span class="name">
                         <span ><b>visualsService</b></span>
@@ -1635,7 +1628,7 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ChangeDetectionStrategy, Component, Input, OnDestroy, OnInit, inject } from &#x27;@angular/core&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, inject, input } from &#x27;@angular/core&#x27;;
 import { LocalStorage } from &#x27;ngx-webstorage&#x27;;
 import { Track } from &#x27;../player.types&#x27;;
 import type { FftSize, FrequencyBarsConfig, OsciloscopeConfig, VisualsColorConfig } from &#x27;./visuals/visuals.types&#x27;;
@@ -1682,7 +1675,7 @@ export class VisualizerComponent implements OnInit, OnDestroy {
 
   @LocalStorage(&#x27;lineThickness&#x27;, 8) lineThickness!: number;
 
-  @Input() track?: Track | null;
+  readonly track &#x3D; input&lt;Track | null&gt;();
 
   analyser: AnalyserNode;
 
@@ -1708,11 +1701,11 @@ export class VisualizerComponent implements OnInit, OnDestroy {
   }
 
   get mainColor(): string | undefined {
-    return this.track?.metadata?.coverColors?.darkVibrant?.hex;
+    return this.track()?.metadata?.coverColors?.darkVibrant?.hex;
   }
 
   get peakColor(): string | undefined {
-    return this.track?.metadata?.coverColors?.lightVibrant?.hex;
+    return this.track()?.metadata?.coverColors?.lightVibrant?.hex;
   }
 
   get barsConfig(): FrequencyBarsConfig {

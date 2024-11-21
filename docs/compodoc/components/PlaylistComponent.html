@@ -259,6 +259,20 @@
 
 
 
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Accessors</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                    <a href="#sampleRate" >sampleRate</a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
         </tbody>
     </table>
 </section>
@@ -744,12 +758,39 @@
     </table>
 </section>
 
+    <section data-compodoc="block-accessors">
+    <h3 id="accessors">
+        Accessors
+    </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="sampleRate"></a>
+                        <span class="name"><b>sampleRate</b><a href="#sampleRate"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>sampleRate()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="90" class="link-to-prism">apps/gblaster/src/app/player/playlist/playlist.component.ts:90</a></div>
+                                </td>
+                            </tr>
+
+            </tbody>
+        </table>
+</section>
 </div>
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { CdkDrag, CdkDragDrop, CdkDragHandle, CdkDragPreview, CdkDropList, moveItemInArray } from &#x27;@angular/cdk/drag-drop&#x27;;
-import { ChangeDetectionStrategy, Component, computed, OnDestroy, Signal, inject } from &#x27;@angular/core&#x27;;
+import { ChangeDetectionStrategy, Component, computed, inject, OnDestroy, Signal } from &#x27;@angular/core&#x27;;
 import { PlayerService } from &#x27;../player.service&#x27;;
 import { Track } from &#x27;../player.types&#x27;;
 import { VisualsService } from &#x27;../visualizer/visuals/visuals.service&#x27;;
@@ -836,6 +877,10 @@ export class PlaylistComponent implements OnDestroy {
   drop(event: CdkDragDrop&lt;Track&gt;) {
     moveItemInArray(this.songs(), event.previousIndex, event.currentIndex);
   }
+
+  get sampleRate(): number {
+    return this.audioService.sampleRate;
+  }
 }
 </code></pre>
     </div>
@@ -868,6 +913,7 @@ export class PlaylistComponent implements OnDestroy {
               [colorConfig]&#x3D;&quot;colorConfig()&quot;
               [mtbVisual]&#x3D;&quot;analyser&quot;
               [oscConfig]&#x3D;&quot;{ thickness: 2 }&quot;
+              [sampleRate]&#x3D;&quot;sampleRate&quot;
             &gt;&lt;/canvas&gt;
           }
         &lt;/div&gt;
@@ -922,7 +968,7 @@ export class PlaylistComponent implements OnDestroy {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><mat-list cdkDropList [cdkDropListDisabled]="loaderService.isLoading()" (cdkDropListDropped)="drop($event)" class="playlist">  @for (song of songs(); track song.metadata.crc; let index = $index) {    @defer (on viewport) {      <mat-list-item        cdkDrag        style="height: 72px"        [ngClass]="{ selected: this.playerService.selectedTrack()?.metadata?.crc === song.metadata.crc }"        class="playlist-item"        (dblclick)="playPauseSong($event, song)"        (click)="playerService.selectSong(song)"      >        <span *cdkDragPreview></span>        <div cdkDragHandle matListItemAvatar style="overflow: hidden; border-radius: 4px; position: relative; width: 50px; height: 50px">          @if (song && song.metadata && song.metadata.coverUrl) {            <img              style="position: absolute; top: 0; right: 0; bottom: 0; left: 0; width: 100%; height: 100%"              [src]="song.metadata.coverUrl.thumb | safe: \'resourceUrl\'"              loading="lazy"            />          }          @if (isPlaying(song)() && visualsService.visualMode() !== \'off\') {            <canvas              [mode]="\'osc\'"              style="position: absolute; right: 0; bottom: 0; left: 0; width: 100%; height: 100%"              [colorConfig]="colorConfig()"              [mtbVisual]="analyser"              [oscConfig]="{ thickness: 2 }"            ></canvas>          }        </div>        <h3 matListItemTitle style="font-size: 0.9rem; font-weight: bold">{{ song?.metadata?.title || song.file.name }}</h3>        <p matListItemLine style="font-size: 0.8rem">{{ song?.metadata?.artist }}</p>        @if (isActive(song)()) {          <button matListItemMeta mat-icon-button (click)="playPauseSong($event, song)">            @if (isPlaying(song)(); as playing) {              <mat-icon class="accent-color" svgIcon="pause"></mat-icon>            } @else {              <mat-icon class="accent-color" svgIcon="play-outline"></mat-icon>            }          </button>        }      </mat-list-item>    } @placeholder {      <div style="height: 72px" class="flex row justify-center align-center">        <mat-spinner diameter="30" color="accent"></mat-spinner>      </div>    }  }  <ng-content></ng-content></mat-list></div>'
+        var COMPONENT_TEMPLATE = '<div><mat-list cdkDropList [cdkDropListDisabled]="loaderService.isLoading()" (cdkDropListDropped)="drop($event)" class="playlist">  @for (song of songs(); track song.metadata.crc; let index = $index) {    @defer (on viewport) {      <mat-list-item        cdkDrag        style="height: 72px"        [ngClass]="{ selected: this.playerService.selectedTrack()?.metadata?.crc === song.metadata.crc }"        class="playlist-item"        (dblclick)="playPauseSong($event, song)"        (click)="playerService.selectSong(song)"      >        <span *cdkDragPreview></span>        <div cdkDragHandle matListItemAvatar style="overflow: hidden; border-radius: 4px; position: relative; width: 50px; height: 50px">          @if (song && song.metadata && song.metadata.coverUrl) {            <img              style="position: absolute; top: 0; right: 0; bottom: 0; left: 0; width: 100%; height: 100%"              [src]="song.metadata.coverUrl.thumb | safe: \'resourceUrl\'"              loading="lazy"            />          }          @if (isPlaying(song)() && visualsService.visualMode() !== \'off\') {            <canvas              [mode]="\'osc\'"              style="position: absolute; right: 0; bottom: 0; left: 0; width: 100%; height: 100%"              [colorConfig]="colorConfig()"              [mtbVisual]="analyser"              [oscConfig]="{ thickness: 2 }"              [sampleRate]="sampleRate"            ></canvas>          }        </div>        <h3 matListItemTitle style="font-size: 0.9rem; font-weight: bold">{{ song?.metadata?.title || song.file.name }}</h3>        <p matListItemLine style="font-size: 0.8rem">{{ song?.metadata?.artist }}</p>        @if (isActive(song)()) {          <button matListItemMeta mat-icon-button (click)="playPauseSong($event, song)">            @if (isPlaying(song)(); as playing) {              <mat-icon class="accent-color" svgIcon="pause"></mat-icon>            } @else {              <mat-icon class="accent-color" svgIcon="play-outline"></mat-icon>            }          </button>        }      </mat-list-item>    } @placeholder {      <div style="height: 72px" class="flex row justify-center align-center">        <mat-spinner diameter="30" color="accent"></mat-spinner>      </div>    }  }  <ng-content></ng-content></mat-list></div>'
     var COMPONENTS = [{'name': 'AppComponent', 'selector': 'mtb-root'},{'name': 'CoverDisplayComponent', 'selector': 'mtb-cover-display'},{'name': 'EqualizerComponent', 'selector': 'mtb-equalizer'},{'name': 'FileDropOverlayComponent', 'selector': 'mtb-file-drop-overlay'},{'name': 'HotkeysHelpDialogComponent', 'selector': 'mtb-hotkeys-help-dialog'},{'name': 'LibraryComponent', 'selector': ''},{'name': 'MetadataSettingsComponent', 'selector': 'mtb-metadata-settings'},{'name': 'PlayerComponent', 'selector': 'mtb-player'},{'name': 'PlaylistComponent', 'selector': 'mtb-playlist'},{'name': 'PromptDialogComponent', 'selector': 'mtb-prompt-dialog'},{'name': 'SettingsComponent', 'selector': 'mtb-settings'},{'name': 'ShellComponent', 'selector': 'mtb-shell'},{'name': 'SlidePanelComponent', 'selector': 'mtb-slide-panel'},{'name': 'StorageSettingsComponent', 'selector': 'mtb-storage-settings'},{'name': 'ThemeSettingsComponent', 'selector': 'mtb-theme-settings'},{'name': 'VisualizerComponent', 'selector': 'mtb-visualizer'}];
     var DIRECTIVES = [{'name': 'VisualsDirective', 'selector': '[mtbVisual]'}];
     var ACTUAL_COMPONENT = {'name': 'PlaylistComponent'};
