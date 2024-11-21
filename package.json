@@ -140,7 +140,7 @@
     "jsonc-eslint-parser": "^2.4.0",
     "lint-staged": "^15.2.10",
     "mini-css-extract-plugin": "^2.9.2",
-    "ng-packagr": "19.0.0",
+    "ng-packagr": "18.2.1",
     "npm-check-updates": "17.1.11",
     "nx": "20.1.2",
     "nx-stylelint": "18.0.0",
