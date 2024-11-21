@@ -12,14 +12,16 @@
   },
   "targets": {
     "build": {
-      "executor": "@nx/angular:webpack-browser",
+      "executor": "@nx/angular:application",
       "options": {
         "allowedCommonJsDependencies": [],
-        "outputPath": "dist/apps/gblaster",
+        "outputPath": {
+          "base": "dist/apps/gblaster",
+          "browser": ""
+        },
         "index": "apps/gblaster/src/index.html",
         "polyfills": ["apps/gblaster/src/polyfills.ts"],
         "tsConfig": "apps/gblaster/tsconfig.app.json",
-        "main": "apps/gblaster/src/main.ts",
         "assets": ["apps/gblaster/src/favicon.ico", "apps/gblaster/src/assets", "apps/gblaster/src/manifest.webmanifest"],
         "styles": ["apps/gblaster/src/styles/theme.scss", "apps/gblaster/src/styles/styles.scss"],
         "scripts": [],
@@ -27,7 +29,8 @@
         "sourceMap": true,
         "optimization": false,
         "namedChunks": true,
-        "webWorkerTsConfig": "apps/gblaster/tsconfig.worker.json"
+        "webWorkerTsConfig": "apps/gblaster/tsconfig.worker.json",
+        "browser": "apps/gblaster/src/main.ts"
       },
       "configurations": {
         "production": {
@@ -63,11 +66,10 @@
               "maximumError": "10kb"
             }
           ],
-          "serviceWorker": true,
-          "ngswConfigPath": "apps/gblaster/ngsw-config.json"
+          "serviceWorker": "apps/gblaster/ngsw-config.json"
         }
       },
-      "outputs": ["{options.outputPath}"]
+      "outputs": ["{options.outputPath.base}"]
     },
     "serve": {
       "executor": "@nx/angular:dev-server",
