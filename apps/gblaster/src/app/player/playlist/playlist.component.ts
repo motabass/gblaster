@@ -1,5 +1,5 @@
 import { CdkDrag, CdkDragDrop, CdkDragHandle, CdkDragPreview, CdkDropList, moveItemInArray } from '@angular/cdk/drag-drop';
-import { ChangeDetectionStrategy, Component, computed, OnDestroy, Signal, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, OnDestroy, Signal } from '@angular/core';
 import { PlayerService } from '../player.service';
 import { Track } from '../player.types';
 import { VisualsService } from '../visualizer/visuals/visuals.service';
@@ -85,5 +85,9 @@ export class PlaylistComponent implements OnDestroy {
 
   drop(event: CdkDragDrop<Track>) {
     moveItemInArray(this.songs(), event.previousIndex, event.currentIndex);
+  }
+
+  get sampleRate(): number {
+    return this.audioService.sampleRate;
   }
 }
