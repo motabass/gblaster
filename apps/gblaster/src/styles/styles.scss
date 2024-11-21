@@ -20,11 +20,6 @@ body {
   color: black;
 }
 
-::selection {
-  background-color: var(--theme-accent-500);
-  color: black;
-}
-
 // Scrollbar START
 ::-webkit-scrollbar {
   width: 10px;

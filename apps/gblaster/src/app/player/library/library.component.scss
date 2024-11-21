@@ -3,7 +3,7 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 1fr;
-  gap: 0 0;
+  gap: 0;
   grid-template-areas:
     'artists albums'
     'tracks tracks';
