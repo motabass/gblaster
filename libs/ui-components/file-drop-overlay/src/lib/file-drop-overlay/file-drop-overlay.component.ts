@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, Renderer2, inject, output } from '@angular/core';
+import { Component, ElementRef, Renderer2, inject, output, input } from '@angular/core';
 
 @Component({
   selector: 'mtb-file-drop-overlay',
@@ -10,7 +10,7 @@ export class FileDropOverlayComponent {
   private hostElement = inject(ElementRef);
   private renderer = inject(Renderer2);
 
-  @Input() allowedTypes: string[] = ['*/*'];
+  readonly allowedTypes = input<string[]>(['*/*']);
 
   readonly filesDroped = output<File[]>();
 
@@ -54,7 +54,7 @@ export class FileDropOverlayComponent {
     if (event.dataTransfer.files) {
       for (let i = 0; i < event.dataTransfer.files.length; i++) {
         const file = event.dataTransfer.files?.item(i);
-        if (file && this.allowedTypes.includes(file.type)) {
+        if (file && this.allowedTypes().includes(file.type)) {
           files.push(file);
         }
       }

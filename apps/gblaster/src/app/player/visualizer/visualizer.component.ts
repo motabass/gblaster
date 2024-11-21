@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnDestroy, OnInit, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, inject, input } from '@angular/core';
 import { LocalStorage } from 'ngx-webstorage';
 import { Track } from '../player.types';
 import type { FftSize, FrequencyBarsConfig, OsciloscopeConfig, VisualsColorConfig } from './visuals/visuals.types';
@@ -45,7 +45,7 @@ export class VisualizerComponent implements OnInit, OnDestroy {
 
   @LocalStorage('lineThickness', 8) lineThickness!: number;
 
-  @Input() track?: Track | null;
+  readonly track = input<Track | null>();
 
   analyser: AnalyserNode;
 
@@ -71,11 +71,11 @@ export class VisualizerComponent implements OnInit, OnDestroy {
   }
 
   get mainColor(): string | undefined {
-    return this.track?.metadata?.coverColors?.darkVibrant?.hex;
+    return this.track()?.metadata?.coverColors?.darkVibrant?.hex;
   }
 
   get peakColor(): string | undefined {
-    return this.track?.metadata?.coverColors?.lightVibrant?.hex;
+    return this.track()?.metadata?.coverColors?.lightVibrant?.hex;
   }
 
   get barsConfig(): FrequencyBarsConfig {

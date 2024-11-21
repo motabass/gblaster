@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Input, NgZone, numberAttribute, OnChanges, OnDestroy, SimpleChanges, inject } from '@angular/core';
+import { Directive, ElementRef, NgZone, numberAttribute, OnChanges, OnDestroy, SimpleChanges, inject, input } from '@angular/core';
 import type { FrequencyBarsConfig, OsciloscopeConfig, VisualizerMode, VisualsColorConfig, VisualsWorkerMessage } from './visuals.types';
 
 const FALLBACK_PRIMARY_COLOR = '#424242';
@@ -10,17 +10,17 @@ const FALLBACK_ACCENT_COLOR = '#bcbcbc';
 export class VisualsDirective implements OnDestroy, OnChanges {
   private zone = inject(NgZone);
 
-  @Input('mtbVisual') analyser!: AnalyserNode;
+  readonly analyser = input.required<AnalyserNode>({ alias: 'mtbVisual' });
 
-  @Input() mode: VisualizerMode = 'bars';
+  readonly mode = input<VisualizerMode>('bars');
 
-  @Input() barsConfig: FrequencyBarsConfig = { gap: 0, capHeight: 1, barCount: 24, capFalldown: 0.5 };
+  readonly barsConfig = input<FrequencyBarsConfig>({ gap: 0, capHeight: 1, barCount: 24, capFalldown: 0.5 });
 
-  @Input() oscConfig: OsciloscopeConfig = { thickness: 2 };
+  readonly oscConfig = input<OsciloscopeConfig>({ thickness: 2 });
 
-  @Input() colorConfig: VisualsColorConfig | null = {};
+  readonly colorConfig = input<VisualsColorConfig | null>({});
 
-  @Input({ transform: numberAttribute }) sampleRate!: number;
+  readonly sampleRate = input.required<number, unknown>({ transform: numberAttribute });
 
   canvas: HTMLCanvasElement;
 
@@ -53,7 +53,7 @@ export class VisualsDirective implements OnDestroy, OnChanges {
 
     this.worker.postMessage({ newSize: rect } as VisualsWorkerMessage);
 
-    switch (this.mode) {
+    switch (this.mode()) {
       case 'bars':
         this.visualizeFrequencyBars();
         break;
@@ -67,25 +67,25 @@ export class VisualsDirective implements OnDestroy, OnChanges {
     this.worker.postMessage({
       visualizerOptions: {
         mode: 'bars',
-        barCount: this.barsConfig.barCount,
-        gap: this.barsConfig.gap,
-        capHeight: this.barsConfig.capHeight,
-        capFalldown: this.barsConfig.capFalldown,
-        mainColor: this.colorConfig?.mainColor || FALLBACK_PRIMARY_COLOR,
-        peakColor: this.colorConfig?.peakColor || FALLBACK_ACCENT_COLOR,
-        alpha: this.colorConfig?.alpha ?? 1,
-        bufferLength: this.analyser.frequencyBinCount,
-        fftSize: this.analyser.fftSize,
-        sampleRate: this.sampleRate
+        barCount: this.barsConfig().barCount,
+        gap: this.barsConfig().gap,
+        capHeight: this.barsConfig().capHeight,
+        capFalldown: this.barsConfig().capFalldown,
+        mainColor: this.colorConfig()?.mainColor || FALLBACK_PRIMARY_COLOR,
+        peakColor: this.colorConfig()?.peakColor || FALLBACK_ACCENT_COLOR,
+        alpha: this.colorConfig()?.alpha ?? 1,
+        bufferLength: this.analyser().frequencyBinCount,
+        fftSize: this.analyser().fftSize,
+        sampleRate: this.sampleRate()
       }
     } as VisualsWorkerMessage);
 
     this.zone.runOutsideAngular(() => {
       if (!this.analyserData) {
-        this.analyserData = new Uint8Array(this.analyser.frequencyBinCount);
+        this.analyserData = new Uint8Array(this.analyser().frequencyBinCount);
       }
       const draw = () => {
-        this.analyser.getByteFrequencyData(this.analyserData);
+        this.analyser().getByteFrequencyData(this.analyserData);
         this.worker.postMessage({ analyserData: this.analyserData } as VisualsWorkerMessage);
 
         this.animationFrameRef = requestAnimationFrame(draw);
@@ -98,20 +98,20 @@ export class VisualsDirective implements OnDestroy, OnChanges {
     this.worker.postMessage({
       visualizerOptions: {
         mode: 'osc',
-        mainColor: this.colorConfig?.mainColor || FALLBACK_PRIMARY_COLOR,
-        peakColor: this.colorConfig?.peakColor || FALLBACK_ACCENT_COLOR,
-        alpha: this.colorConfig?.alpha ?? 1,
-        bufferLength: this.analyser.frequencyBinCount,
-        thickness: this.oscConfig.thickness
+        mainColor: this.colorConfig()?.mainColor || FALLBACK_PRIMARY_COLOR,
+        peakColor: this.colorConfig()?.peakColor || FALLBACK_ACCENT_COLOR,
+        alpha: this.colorConfig()?.alpha ?? 1,
+        bufferLength: this.analyser().frequencyBinCount,
+        thickness: this.oscConfig().thickness
       }
     } as VisualsWorkerMessage);
 
     this.zone.runOutsideAngular(() => {
       if (!this.analyserData) {
-        this.analyserData = new Uint8Array(this.analyser.frequencyBinCount);
+        this.analyserData = new Uint8Array(this.analyser().frequencyBinCount);
       }
       const draw = () => {
-        this.analyser.getByteTimeDomainData(this.analyserData);
+        this.analyser().getByteTimeDomainData(this.analyserData);
         this.worker.postMessage({ analyserData: this.analyserData } as VisualsWorkerMessage);
         this.animationFrameRef = requestAnimationFrame(draw);
       };

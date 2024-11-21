@@ -1,4 +1,4 @@
-import { booleanAttribute, Component, HostBinding, Input, OnChanges } from '@angular/core';
+import { booleanAttribute, Component, HostBinding, Input, OnChanges, input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -11,21 +11,41 @@ import { NgClass } from '@angular/common';
   imports: [MatIconModule, MatButtonModule, MatTooltipModule, NgClass]
 })
 export class SlidePanelComponent implements OnChanges {
+  // TODO: Skipped for migration because:
+  //  Your application code writes to the input. This prevents migration.
   @Input({ transform: booleanAttribute }) openedState = true;
 
+  // TODO: Skipped for migration because:
+  //  This input is used in combination with `@HostBinding` and migrating would
+  //  break.
   @Input() @HostBinding('style.bottom') bottom?: string;
 
+  // TODO: Skipped for migration because:
+  //  This input is used in combination with `@HostBinding` and migrating would
+  //  break.
   @Input() @HostBinding('style.top') top?: string;
 
+  // TODO: Skipped for migration because:
+  //  This input is used in combination with `@HostBinding` and migrating would
+  //  break.
   @Input() @HostBinding('style.width') width = '20rem';
 
+  // TODO: Skipped for migration because:
+  //  This input is used in combination with `@HostBinding` and migrating would
+  //  break.
   @Input() @HostBinding('style.height') height = '20rem';
 
+  // TODO: Skipped for migration because:
+  //  This input is used in combination with `@HostBinding` and migrating would
+  //  break.
   @Input() @HostBinding('class') side: 'left' | 'right' = 'left';
 
+  // TODO: Skipped for migration because:
+  //  This input is used in a control flow expression (e.g. `@if` or `*ngIf`)
+  //  and migrating would break narrowing currently.
   @Input() toggleIcon?: string;
 
-  @Input() buttonTooltip? = '';
+  readonly buttonTooltip = input<string | undefined>('');
 
   constructor() {}
 

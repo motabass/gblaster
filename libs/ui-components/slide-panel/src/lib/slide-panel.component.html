@@ -3,14 +3,14 @@
     @case ('left') {
       <button class="slide-panel-toggle" mat-icon-button style="color: white" (click)="openedState ? closePanel() : openPanel()">
         @if (toggleIcon) {
-          <mat-icon [matTooltip]="(openedState ? 'Close ' : 'Open ') + buttonTooltip" matTooltipPosition="right" [svgIcon]="toggleIcon"></mat-icon>
+          <mat-icon [matTooltip]="(openedState ? 'Close ' : 'Open ') + buttonTooltip()" matTooltipPosition="right" [svgIcon]="toggleIcon"></mat-icon>
         }
       </button>
     }
     @case ('right') {
       <button class="slide-panel-toggle" mat-icon-button style="color: white" (click)="openedState ? closePanel() : openPanel()">
         @if (toggleIcon) {
-          <mat-icon [matTooltip]="(openedState ? 'Close ' : 'Open ') + buttonTooltip" matTooltipPosition="left" [svgIcon]="toggleIcon"></mat-icon>
+          <mat-icon [matTooltip]="(openedState ? 'Close ' : 'Open ') + buttonTooltip()" matTooltipPosition="left" [svgIcon]="toggleIcon"></mat-icon>
         }
       </button>
     }
