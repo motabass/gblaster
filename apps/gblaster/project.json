@@ -80,17 +80,26 @@
         }
       }
     },
-    "lint": {
-      "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"]
-    },
     "test": {
-      "executor": "@nx/jest:jest",
+      "inputs": [
+        "default",
+        "^production",
+        "{workspaceRoot}/jest.preset.js",
+        {
+          "externalDependencies": ["jest"]
+        }
+      ],
       "options": {
-        "jestConfig": "apps/gblaster/jest.config.ts",
+        "passWithNoTests": true,
         "webWorkerTsConfig": "apps/gblaster/tsconfig.worker.json"
       },
-      "outputs": ["{workspaceRoot}/coverage/apps/gblaster"]
+      "outputs": ["{workspaceRoot}/coverage/apps/gblaster", "{projectRoot}\\coverage"],
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "coverage": true
+        }
+      }
     },
     "deploy": {
       "executor": "@angular/fire:deploy",

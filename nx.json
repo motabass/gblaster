@@ -23,7 +23,7 @@
     }
   },
   "defaultProject": "gblaster",
-  "useInferencePlugins": false,
+  "useInferencePlugins": true,
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
   "targetDefaults": {
     "build": {
@@ -77,5 +77,19 @@
   "parallel": 1,
   "defaultBase": "main",
   "nxCloudAccessToken": "NmE3ZDg0NTEtMTE0Zi00YjRiLTg2OWEtMGIyY2IyMGY2YjQ4fHJlYWQtd3JpdGU=",
-  "useLegacyCache": true
+  "useLegacyCache": true,
+  "plugins": [
+    {
+      "plugin": "@nx/eslint/plugin",
+      "options": {
+        "targetName": "lint"
+      }
+    },
+    {
+      "plugin": "@nx/jest/plugin",
+      "options": {
+        "targetName": "test"
+      }
+    }
+  ]
 }
