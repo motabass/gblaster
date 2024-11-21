@@ -1,5 +1,5 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { Component, ViewChild, inject } from '@angular/core';
+import { Component, inject, viewChild } from '@angular/core';
 import { MatSidenav, MatSidenavModule } from '@angular/material/sidenav';
 import { Router, RouterOutlet } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -34,10 +34,10 @@ export class ShellComponent {
 
   isHandset = toSignal(this.isHandset$, { initialValue: false });
 
-  @ViewChild('drawer') sidenav?: MatSidenav;
+  readonly sidenav = viewChild<MatSidenav>('drawer');
 
   navigateTo(route: string, skipLocationChange = false) {
-    this.sidenav?.close();
+    this.sidenav()?.close();
     this.router.navigate([route], { skipLocationChange: skipLocationChange });
   }
 }
