@@ -6,7 +6,7 @@
   "prefix": "mtb",
   "targets": {
     "build": {
-      "executor": "@nx/angular:package",
+      "executor": "@nx/angular:ng-packagr-lite",
       "options": {
         "tsConfig": "libs/ui-components/file-drop-overlay/tsconfig.lib.json",
         "project": "libs/ui-components/file-drop-overlay/ng-package.json"
