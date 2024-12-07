@@ -11,6 +11,8 @@ jobs:
   deploy:
     runs-on: ubuntu-24.04
     steps:
+      - name: Cleanup
+        uses: asilbek99/action-cleanup@v1
       - name: Checkout
         uses: actions/checkout@v4
       - name: Setup NodeJS
