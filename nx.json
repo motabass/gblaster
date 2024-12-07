@@ -77,7 +77,6 @@
   "parallel": 1,
   "defaultBase": "main",
   "nxCloudAccessToken": "NmE3ZDg0NTEtMTE0Zi00YjRiLTg2OWEtMGIyY2IyMGY2YjQ4fHJlYWQtd3JpdGU=",
-  "useLegacyCache": true,
   "plugins": [
     {
       "plugin": "@nx/eslint/plugin",
