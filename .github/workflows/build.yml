@@ -30,7 +30,7 @@ jobs:
         env:
           CI: true
       - name: Build
-        run: npm run ci:build
+        run: nx reset && npm run ci:build
         env:
           CI: true
       - name: Cypress E2E Tests
