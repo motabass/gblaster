@@ -13,6 +13,7 @@
   "targets": {
     "build": {
       "executor": "@nx/angular:application",
+      "outputs": ["{options.outputPath.base}"],
       "options": {
         "allowedCommonJsDependencies": [],
         "outputPath": {
@@ -22,13 +23,10 @@
         "index": "apps/gblaster/src/index.html",
         "polyfills": ["apps/gblaster/src/polyfills.ts"],
         "tsConfig": "apps/gblaster/tsconfig.app.json",
+        "inlineStyleLanguage": "scss",
         "assets": ["apps/gblaster/src/favicon.ico", "apps/gblaster/src/assets", "apps/gblaster/src/manifest.webmanifest"],
         "styles": ["apps/gblaster/src/styles/theme.scss", "apps/gblaster/src/styles/styles.scss"],
         "scripts": [],
-        "extractLicenses": false,
-        "sourceMap": true,
-        "optimization": false,
-        "namedChunks": true,
         "webWorkerTsConfig": "apps/gblaster/tsconfig.worker.json",
         "browser": "apps/gblaster/src/main.ts"
       },
@@ -40,20 +38,7 @@
               "with": "apps/gblaster/src/environments/environment.prod.ts"
             }
           ],
-          "optimization": {
-            "scripts": true,
-            "fonts": {
-              "inline": true
-            },
-            "styles": {
-              "minify": true,
-              "inlineCritical": true
-            }
-          },
           "outputHashing": "all",
-          "sourceMap": false,
-          "namedChunks": false,
-          "extractLicenses": true,
           "budgets": [
             {
               "type": "initial",
@@ -67,19 +52,35 @@
             }
           ],
           "serviceWorker": "apps/gblaster/ngsw-config.json"
+        },
+        "development": {
+          "optimization": false,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true
         }
       },
-      "outputs": ["{options.outputPath.base}"]
+      "defaultConfiguration": "production"
     },
     "serve": {
       "executor": "@nx/angular:dev-server",
-      "options": {
-        "buildTarget": "gblaster:build"
-      },
       "configurations": {
         "production": {
           "buildTarget": "gblaster:build:production"
+        },
+        "development": {
+          "buildTarget": "gblaster:build:development"
         }
+      },
+      "defaultConfiguration": "development"
+    },
+    "serve-static": {
+      "executor": "@nx/web:file-server",
+      "options": {
+        "buildTarget": "gblaster:build",
+        "port": 4200,
+        "staticFilePath": "dist/apps/gblaster",
+        "spa": true
       }
     },
     "test": {
