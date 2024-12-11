@@ -9,10 +9,10 @@
   },
   "generators": {
     "@nx/angular:application": {
-      "e2eTestRunner": "cypress",
-      "linter": "eslint",
       "style": "scss",
-      "unitTestRunner": "jest"
+      "linter": "eslint",
+      "unitTestRunner": "jest",
+      "e2eTestRunner": "cypress"
     },
     "@nx/angular:library": {
       "linter": "eslint",
