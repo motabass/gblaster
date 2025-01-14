@@ -206,8 +206,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="28"
-                                    class="link-to-prism">apps/gblaster/src/app/player/metadata-service/metadata.service.ts:28</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="29"
+                                    class="link-to-prism">apps/gblaster/src/app/player/metadata-service/metadata.service.ts:29</a></div>
                         </td>
                     </tr>
 
@@ -288,7 +288,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">apps/gblaster/src/app/player/metadata-service/metadata.service.ts:26</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="27" class="link-to-prism">apps/gblaster/src/app/player/metadata-service/metadata.service.ts:27</a></div>
                         </td>
                     </tr>
 
@@ -324,7 +324,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">apps/gblaster/src/app/player/metadata-service/metadata.service.ts:25</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">apps/gblaster/src/app/player/metadata-service/metadata.service.ts:26</a></div>
                         </td>
                     </tr>
 
@@ -360,7 +360,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="24" class="link-to-prism">apps/gblaster/src/app/player/metadata-service/metadata.service.ts:24</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">apps/gblaster/src/app/player/metadata-service/metadata.service.ts:25</a></div>
                         </td>
                     </tr>
 
@@ -396,7 +396,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="23" class="link-to-prism">apps/gblaster/src/app/player/metadata-service/metadata.service.ts:23</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="24" class="link-to-prism">apps/gblaster/src/app/player/metadata-service/metadata.service.ts:24</a></div>
                         </td>
                     </tr>
 
@@ -419,6 +419,7 @@ import { Id3TagsService } from &#x27;./id3-tags.service&#x27;;
 import { LastfmMetadataService } from &#x27;./lastfm-metadata.service&#x27;;
 import { CoverColorPalette, RemoteCoverPicture } from &#x27;./metadata.types&#x27;;
 import { MusicbrainzService } from &#x27;./musicbrainz.service&#x27;;
+import { Vibrant } from &#x27;node-vibrant/browser&#x27;;
 
 // import * as SparkMD5 from &#x27;spark-md5&#x27;;
 
@@ -534,9 +535,7 @@ function generateFileHash(file: File): string {
 // }
 
 async function extractColorsWithNodeVibrant(url: string): Promise&lt;CoverColorPalette&gt; {
-  const vibrantLib &#x3D; await import(&#x27;node-vibrant/lib/browser&#x27;);
-  const vibrant &#x3D; vibrantLib.default;
-  const palette &#x3D; await vibrant.from(url).getPalette();
+  const palette &#x3D; await Vibrant.from(url).getPalette();
   return {
     vibrant: { hex: palette.Vibrant?.hex, textHex: palette.Vibrant?.titleTextColor },
     darkVibrant: { hex: palette.DarkVibrant?.hex, textHex: palette.DarkVibrant?.titleTextColor },
