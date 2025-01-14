@@ -8,6 +8,7 @@ import { Id3TagsService } from './id3-tags.service';
 import { LastfmMetadataService } from './lastfm-metadata.service';
 import { CoverColorPalette, RemoteCoverPicture } from './metadata.types';
 import { MusicbrainzService } from './musicbrainz.service';
+import { Vibrant } from 'node-vibrant/browser';
 
 // import * as SparkMD5 from 'spark-md5';
 
@@ -123,9 +124,7 @@ function generateFileHash(file: File): string {
 // }
 
 async function extractColorsWithNodeVibrant(url: string): Promise<CoverColorPalette> {
-  const vibrantLib = await import('node-vibrant/lib/browser');
-  const vibrant = vibrantLib.default;
-  const palette = await vibrant.from(url).getPalette();
+  const palette = await Vibrant.from(url).getPalette();
   return {
     vibrant: { hex: palette.Vibrant?.hex, textHex: palette.Vibrant?.titleTextColor },
     darkVibrant: { hex: palette.DarkVibrant?.hex, textHex: palette.DarkVibrant?.titleTextColor },
