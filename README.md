@@ -37,3 +37,7 @@ Material Icons:
 Tag Reader:
 
 [music-metadata](https://github.com/Borewit/music-metadata)
+
+Color extraction from cover-art:
+
+[node-vibrant](https://github.com/Vibrant-Colors/node-vibrant)
