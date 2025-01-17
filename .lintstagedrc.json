@@ -1,4 +1,3 @@
 {
-  "*.ts": "eslint --fix --no-config-lookup --plugin @typescript-eslint --plugin unused-imports --parser @typescript-eslint/parser --rule unused-imports/no-unused-imports:error --rule @typescript-eslint/no-inferrable-types:error",
   "*": "prettier --ignore-unknown --write"
 }

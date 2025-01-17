@@ -53,14 +53,7 @@ module.exports = [
         'plugin:@typescript-eslint/stylistic-type-checked',
         'plugin:unicorn/recommended'
       ],
-      plugins: [
-        'eslint-plugin-jsdoc',
-        'eslint-plugin-prefer-arrow',
-        'eslint-plugin-import',
-        '@angular-eslint/eslint-plugin',
-        '@typescript-eslint',
-        'unused-imports'
-      ]
+      plugins: ['eslint-plugin-jsdoc', 'eslint-plugin-prefer-arrow', 'eslint-plugin-import', '@angular-eslint/eslint-plugin', '@typescript-eslint']
     })
     .map((config) => ({
       ...config,
@@ -239,8 +232,7 @@ module.exports = [
         'space-in-parens': ['off', 'never'],
         'spaced-comment': ['error', 'always', { markers: ['/'] }],
         'use-isnan': 'error',
-        'valid-typeof': 'off',
-        'unused-imports/no-unused-imports': 'error'
+        'valid-typeof': 'off'
       }
     })),
   ...compat.config({ extends: ['plugin:@nx/angular-template'] }).map((config) => ({
