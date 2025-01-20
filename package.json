@@ -73,7 +73,7 @@
     "fast-memoize": "^2.5.2",
     "lucene-escape-query": "^1.0.1",
     "music-metadata": "10.7.0",
-    "ngx-date-fns": "11.0.0",
+    "ngx-date-fns": "11.0.1",
     "ngx-indexed-db": "19.3.1",
     "ngx-pipes": "3.2.2",
     "ngx-webstorage": "19.0.1",
