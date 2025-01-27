@@ -155,7 +155,7 @@
     "prettier": "3.4.2",
     "release-it": "18.1.1",
     "source-map-loader": "5.0.0",
-    "stylelint": "16.13.2",
+    "stylelint": "16.14.1",
     "stylelint-config-html": "^1.1.0",
     "stylelint-config-recommended": "15.0.0",
     "stylelint-config-recommended-scss": "14.1.0",
