@@ -42,7 +42,7 @@ jobs:
       - name: Run ESLint
         run: npx eslint -f checkstyle -o eslint-report.xml .
       - name: Upload ESLint Report
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: eslint-report
           path: eslint-report.xml
