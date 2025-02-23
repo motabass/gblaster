@@ -2,6 +2,7 @@ const { FlatCompat } = require('@eslint/eslintrc');
 const nxEslintPlugin = require('@nx/eslint-plugin');
 const js = require('@eslint/js');
 const eslintPluginUnicorn = require('eslint-plugin-unicorn');
+const eslintConfigPrettier = require('eslint-config-prettier');
 const compat = new FlatCompat({
   baseDirectory: __dirname,
   recommendedConfig: js.configs.recommended
@@ -246,5 +247,6 @@ module.exports = [
       '@angular-eslint/template/use-track-by-function': 'error',
       '@angular-eslint/template/prefer-static-string-properties': 'error'
     }
-  }))
+  })),
+  eslintConfigPrettier
 ];
