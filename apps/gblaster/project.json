@@ -12,7 +12,7 @@
   },
   "targets": {
     "build": {
-      "executor": "@nx/angular:application",
+      "executor": "@angular-devkit/build-angular:application",
       "outputs": ["{options.outputPath.base}"],
       "options": {
         "allowedCommonJsDependencies": [],
