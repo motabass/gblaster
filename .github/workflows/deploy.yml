@@ -39,6 +39,13 @@ jobs:
         run: npm run test:all
         env:
           CI: true
+      - name: Run ESLint
+        run: npx eslint -f checkstyle -o eslint-report.xml .
+      - name: Upload ESLint Report
+        uses: actions/upload-artifact@v3
+        with:
+          name: eslint-report
+          path: eslint-report.xml
       - name: Deploy
         uses: w9jds/firebase-action@v13.31.2
         with:
