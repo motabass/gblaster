@@ -288,24 +288,6 @@
     </table>
 </section>
 
-    <section data-compodoc="block-constructor">
-    <h3 id="constructor">Constructor</h3>
-        <table class="table table-sm table-bordered">
-            <tbody>
-                <tr>
-                    <td class="col-md-4">
-<code>constructor()</code>
-                    </td>
-                </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="48" class="link-to-prism">libs/ui-components/slide-panel/src/lib/slide-panel.component.ts:48</a></div>
-                            </td>
-                        </tr>
-
-            </tbody>
-        </table>
-</section>
 
     <section data-compodoc="block-inputs">
     <h3 id="inputs">Inputs</h3>
@@ -503,7 +485,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="52" class="link-to-prism">libs/ui-components/slide-panel/src/lib/slide-panel.component.ts:52</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="50" class="link-to-prism">libs/ui-components/slide-panel/src/lib/slide-panel.component.ts:50</a></div>
                         </td>
                     </tr>
 
@@ -534,7 +516,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="53" class="link-to-prism">libs/ui-components/slide-panel/src/lib/slide-panel.component.ts:53</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="51" class="link-to-prism">libs/ui-components/slide-panel/src/lib/slide-panel.component.ts:51</a></div>
                         </td>
                     </tr>
 
@@ -569,8 +551,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="71"
-                                    class="link-to-prism">libs/ui-components/slide-panel/src/lib/slide-panel.component.ts:71</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="69"
+                                    class="link-to-prism">libs/ui-components/slide-panel/src/lib/slide-panel.component.ts:69</a></div>
                         </td>
                     </tr>
 
@@ -606,8 +588,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="65"
-                                    class="link-to-prism">libs/ui-components/slide-panel/src/lib/slide-panel.component.ts:65</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="63"
+                                    class="link-to-prism">libs/ui-components/slide-panel/src/lib/slide-panel.component.ts:63</a></div>
                         </td>
                     </tr>
 
@@ -683,7 +665,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="52" class="link-to-prism">libs/ui-components/slide-panel/src/lib/slide-panel.component.ts:52</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="50" class="link-to-prism">libs/ui-components/slide-panel/src/lib/slide-panel.component.ts:50</a></div>
                         </td>
                     </tr>
 
@@ -718,7 +700,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="53" class="link-to-prism">libs/ui-components/slide-panel/src/lib/slide-panel.component.ts:53</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="51" class="link-to-prism">libs/ui-components/slide-panel/src/lib/slide-panel.component.ts:51</a></div>
                         </td>
                     </tr>
 
@@ -731,7 +713,7 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { booleanAttribute, Component, HostBinding, Input, OnChanges, input } from &#x27;@angular/core&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { booleanAttribute, Component, HostBinding, Input, input, OnChanges } from &#x27;@angular/core&#x27;;
 import { MatIconModule } from &#x27;@angular/material/icon&#x27;;
 import { MatButtonModule } from &#x27;@angular/material/button&#x27;;
 import { MatTooltipModule } from &#x27;@angular/material/tooltip&#x27;;
@@ -779,8 +761,6 @@ export class SlidePanelComponent implements OnChanges {
   @Input() toggleIcon?: string;
 
   readonly buttonTooltip &#x3D; input&lt;string | undefined&gt;(&#x27;&#x27;);
-
-  constructor() {}
 
   @HostBinding(&#x27;class.closed-slide-panel&#x27;) closed &#x3D; false;
   @HostBinding(&#x27;class.opened-slide-panel&#x27;) open &#x3D; true;
