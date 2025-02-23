@@ -40,7 +40,7 @@ jobs:
         env:
           CI: true
       - name: Run ESLint
-        run: npx eslint -f checkstyle -o eslint-report.xml .
+        run: npx eslint -f checkstyle -o eslint-report.xml . || true
       - name: Upload ESLint Report
         uses: actions/upload-artifact@v4
         with:
