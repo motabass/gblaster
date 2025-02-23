@@ -1,9 +1,8 @@
-import { ApplicationConfig, importProvidersFrom, provideZoneChangeDetection } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { ServiceWorkerModule } from '@angular/service-worker';
+import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
+import { provideServiceWorker } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { provideNgxWebstorage, withLocalStorage, withNgxWebstorageConfig } from 'ngx-webstorage';
-import { DBConfig, NgxIndexedDBModule, NgxIndexedDBService } from 'ngx-indexed-db';
+import { DBConfig, NgxIndexedDBService, provideIndexedDb } from 'ngx-indexed-db';
 import { provideRouter, withEnabledBlockingInitialNavigation } from '@angular/router';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { HTTP_INTERCEPTORS, provideHttpClient, withFetch, withInterceptorsFromDi } from '@angular/common/http';
@@ -37,11 +36,8 @@ const dbConfig: DBConfig = {
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    importProvidersFrom(
-      BrowserModule,
-      ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production, registrationStrategy: 'registerImmediately' }),
-      NgxIndexedDBModule.forRoot(dbConfig)
-    ),
+    provideIndexedDb(dbConfig),
+    provideServiceWorker('ngsw-worker.js', { enabled: environment.production, registrationStrategy: 'registerImmediately' }),
     provideNgxWebstorage(withNgxWebstorageConfig({ separator: '|', caseSensitive: true, prefix: 'gblaster' }), withLocalStorage()),
     provideAnimations(),
     provideZoneChangeDetection({ eventCoalescing: true }),
