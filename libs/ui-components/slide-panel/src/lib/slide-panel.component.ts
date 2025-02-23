@@ -1,4 +1,4 @@
-import { booleanAttribute, Component, HostBinding, Input, OnChanges, input } from '@angular/core';
+import { booleanAttribute, Component, HostBinding, Input, input, OnChanges } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -46,8 +46,6 @@ export class SlidePanelComponent implements OnChanges {
   @Input() toggleIcon?: string;
 
   readonly buttonTooltip = input<string | undefined>('');
-
-  constructor() {}
 
   @HostBinding('class.closed-slide-panel') closed = false;
   @HostBinding('class.opened-slide-panel') open = true;
