@@ -1,14 +1,16 @@
 const { FlatCompat } = require('@eslint/eslintrc');
 const nxEslintPlugin = require('@nx/eslint-plugin');
 const js = require('@eslint/js');
+const eslintPluginUnicorn = require('eslint-plugin-unicorn');
 const compat = new FlatCompat({
   baseDirectory: __dirname,
   recommendedConfig: js.configs.recommended
 });
 module.exports = [
-  { plugins: { '@nx': nxEslintPlugin } },
+  { plugins: { '@nx': nxEslintPlugin, unicorn: eslintPluginUnicorn } },
   {
     files: ['**/*.ts', '**/*.tsx', '**/*.js', '**/*.jsx'],
+
     rules: {
       '@nx/enforce-module-boundaries': [
         'error',
@@ -29,7 +31,7 @@ module.exports = [
       ]
     }
   },
-  ...compat.config({ extends: ['plugin:@nx/typescript', 'plugin:unicorn/recommended'] }).map((config) => ({
+  ...compat.config({ extends: ['plugin:@nx/typescript'] }).map((config) => ({
     ...config,
     files: ['**/*.ts', '**/*.tsx'],
     rules: {}
@@ -47,12 +49,7 @@ module.exports = [
         project: './tsconfig.base.json',
         sourceType: 'module'
       },
-      extends: [
-        'plugin:@nx/typescript',
-        'plugin:@typescript-eslint/recommended-type-checked',
-        'plugin:@typescript-eslint/stylistic-type-checked',
-        'plugin:unicorn/recommended'
-      ],
+      extends: ['plugin:@nx/typescript', 'plugin:@typescript-eslint/recommended-type-checked', 'plugin:@typescript-eslint/stylistic-type-checked'],
       plugins: ['eslint-plugin-jsdoc', 'eslint-plugin-prefer-arrow', 'eslint-plugin-import', '@angular-eslint/eslint-plugin', '@typescript-eslint']
     })
     .map((config) => ({
@@ -246,7 +243,8 @@ module.exports = [
       '@angular-eslint/template/cyclomatic-complexity': ['error', { maxComplexity: 5 }],
       '@angular-eslint/template/eqeqeq': 'error',
       '@angular-eslint/template/no-negated-async': 'error',
-      '@angular-eslint/template/use-track-by-function': 'error'
+      '@angular-eslint/template/use-track-by-function': 'error',
+      '@angular-eslint/template/prefer-static-string-properties': 'error'
     }
   }))
 ];
