@@ -30,6 +30,17 @@ let bufferLength: number;
 
 let gradient: CanvasGradient;
 
+// Pre-calculate frequency to bark conversion map
+let frequencyToBarkMap: number[];
+
+function initBarkScaleMap(sr: number, fft: number) {
+  frequencyToBarkMap = new Array(fft / 2);
+  for (let i = 0; i < fft / 2; i++) {
+    const frequency = (i * sr) / fft;
+    frequencyToBarkMap[i] = 13 * Math.atan(0.00076 * frequency) + 3.5 * Math.atan((frequency / 7500) ** 2);
+  }
+}
+
 addEventListener('message', (event: MessageEvent<VisualsWorkerMessage>) => {
   if (event.data.canvas) {
     canvas = event.data.canvas;
@@ -139,12 +150,11 @@ function drawOsc() {
 }
 
 function drawBars() {
-  if (!ctx) {
-    return;
-  }
+  if (!ctx) return;
 
   const barkScaleData = convertToBarkScale(analyserData, sampleRate, fftSize, meterNum);
 
+  ctx.save();
   ctx.globalAlpha = alpha;
   ctx.clearRect(0, 0, canvasWidth, canvasHeight);
 
@@ -179,24 +189,25 @@ function drawBars() {
 
     ctx.fillRect((barWidth + gap) * i, canvasHeight - value + capHeight, barWidth, value - capHeight); // the bar
   }
+
+  ctx.restore(); // Restore state once
 }
 
 // Function to convert frequency data to bark bands
 function convertToBarkScale(frequencyData: Uint8Array, sr: number, fft: number, numBands: number): number[] {
-  const barkScaleData = frequencyData.map((magnitude: number, index: number) => {
-    const frequency = (index * sr) / fft;
-    return 13 * Math.atan(0.00076 * frequency) + 3.5 * Math.atan((frequency / 7500) ** 2);
-  });
-
-  // Divide the range of bark values into 20 equal intervals to create bark scale bands
-  const barkScaleBandSize = (barkScaleData[barkScaleData.length - 1] - barkScaleData[0]) / numBands;
-
-  // Calculate the energy in each bark scale band
-  const barkScaleBandEnergy = new Array(numBands).fill(0);
-  for (let i = 0; i < barkScaleData.length; i++) {
-    // TODO: fix not every index being set when high numBands
-    const bandIndex = Math.floor((barkScaleData[i] - barkScaleData[0]) / barkScaleBandSize);
-    barkScaleBandEnergy[bandIndex] += frequencyData[i];
+  if (!frequencyToBarkMap) {
+    initBarkScaleMap(sr, fft);
   }
-  return barkScaleBandEnergy;
+
+  const barkScaleBandSize = (frequencyToBarkMap[frequencyToBarkMap.length - 1] - frequencyToBarkMap[0]) / numBands;
+  const barkScaleBandEnergy = new Float32Array(numBands);
+
+  for (let i = 0; i < frequencyData.length; i++) {
+    const bandIndex = Math.floor((frequencyToBarkMap[i] - frequencyToBarkMap[0]) / barkScaleBandSize);
+    if (bandIndex < numBands) {
+      barkScaleBandEnergy[bandIndex] += frequencyData[i];
+    }
+  }
+
+  return Array.from(barkScaleBandEnergy);
 }
