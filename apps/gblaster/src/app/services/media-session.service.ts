@@ -10,7 +10,7 @@ export class MediaSessionService {
     if (navigator.mediaSession) {
       try {
         navigator.mediaSession.setActionHandler(action, handler);
-      } catch (error) {
+      } catch {
         console.warn(`The media session action "${action}" is not supported yet.`);
       }
     }

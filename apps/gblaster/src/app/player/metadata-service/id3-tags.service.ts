@@ -6,7 +6,7 @@ export class Id3TagsService {
   worker: Worker;
 
   constructor() {
-    this.worker = new Worker(new URL('./metadata.worker', import.meta.url), { type: 'module' });
+    this.worker = new Worker(new URL('metadata.worker', import.meta.url), { type: 'module' });
   }
 
   async extractTags(file: File): Promise<Id3Tags | null> {
@@ -15,9 +15,9 @@ export class Id3TagsService {
         // worker.terminate();
         resolve(data.tags);
       };
-      this.worker.onerror = (err) => {
+      this.worker.onerror = (error) => {
         // worker.terminate();
-        reject(err);
+        reject(error);
       };
 
       this.worker.postMessage({ file: file });

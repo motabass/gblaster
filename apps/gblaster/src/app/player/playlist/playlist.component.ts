@@ -49,8 +49,8 @@ export class PlaylistComponent implements OnDestroy {
   }
 
   songs = computed(() => {
-    for (const [i, v] of this.playerService.currentPlaylist().entries()) {
-      v.playlistPosition = i + 1;
+    for (const [index, v] of this.playerService.currentPlaylist().entries()) {
+      v.playlistPosition = index + 1;
     }
 
     return this.playerService.currentPlaylist().map((track, index) => ({ ...track, playlistPosition: index + 1 }));

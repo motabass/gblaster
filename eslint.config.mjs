@@ -24,7 +24,8 @@ export default [
             }
           ]
         }
-      ]
+      ],
+      'unicorn/prefer-string-raw': 'off'
     }
   },
   {

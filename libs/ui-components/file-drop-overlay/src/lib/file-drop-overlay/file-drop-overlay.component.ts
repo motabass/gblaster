@@ -15,14 +15,14 @@ export class FileDropOverlayComponent {
   readonly filesDroped = output<File[]>();
 
   constructor() {
-    window.addEventListener('dragenter', this.over.bind(this));
-    window.addEventListener('dragstart', this.over.bind(this));
-    window.addEventListener('dragover', this.over.bind(this));
+    globalThis.addEventListener('dragenter', this.over.bind(this));
+    globalThis.addEventListener('dragstart', this.over.bind(this));
+    globalThis.addEventListener('dragover', this.over.bind(this));
 
-    window.addEventListener('dragleave', this.leave.bind(this));
-    window.addEventListener('dragend', this.leave.bind(this));
+    globalThis.addEventListener('dragleave', this.leave.bind(this));
+    globalThis.addEventListener('dragend', this.leave.bind(this));
 
-    window.addEventListener('drop', (event: DragEvent) => {
+    globalThis.addEventListener('drop', (event: DragEvent) => {
       event.preventDefault();
       event.stopPropagation();
       this.leave(event);
@@ -52,8 +52,8 @@ export class FileDropOverlayComponent {
   drop(event: any) {
     const files: File[] = [];
     if (event.dataTransfer.files) {
-      for (let i = 0; i < event.dataTransfer.files.length; i++) {
-        const file = event.dataTransfer.files?.item(i);
+      for (let index = 0; index < event.dataTransfer.files.length; index++) {
+        const file = event.dataTransfer.files?.item(index);
         if (file && this.allowedTypes().includes(file.type)) {
           files.push(file);
         }

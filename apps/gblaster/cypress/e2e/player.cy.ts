@@ -43,9 +43,9 @@ describe('gblaster', () => {
 
     cy.get('audio')
       .first()
-      .should((el) => {
-        expect(el[0].duration).to.greaterThan(0);
-        expect(el[0].paused).to.equal(false);
+      .should((element) => {
+        expect(element[0].duration).to.greaterThan(0);
+        expect(element[0].paused).to.equal(false);
       });
   });
 });

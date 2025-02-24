@@ -11,7 +11,7 @@ import { MediaSessionService } from '../services/media-session.service';
 import { AudioService } from './audio.service';
 import { BaseSubscribingClass } from '@motabass/base-components/base-subscribing-component';
 
-export const BAND_FREQUENCIES: FrequencyBand[] = [60, 170, 310, 600, 1000, 3000, 6000, 12000, 14000, 16000];
+export const BAND_FREQUENCIES: FrequencyBand[] = [60, 170, 310, 600, 1000, 3000, 6000, 12_000, 14_000, 16_000];
 
 @Injectable({ providedIn: 'any' })
 export class PlayerService extends BaseSubscribingClass {
@@ -40,7 +40,7 @@ export class PlayerService extends BaseSubscribingClass {
     if (state.state === 'playing' && !!state.currentTrack) {
       return state.currentTrack;
     }
-    return undefined;
+    return;
   });
 
   constructor() {
@@ -54,15 +54,15 @@ export class PlayerService extends BaseSubscribingClass {
     this.mediaSessionService.setActionHandler('seekforward', () => this.seekRight(10));
     this.mediaSessionService.setSeekToHandler((details) => this.seekToHandler(details));
 
-    if ('launchQueue' in window) {
+    if ('launchQueue' in globalThis) {
       // @ts-expect-error
-      window.launchQueue.setConsumer(async (launchParams) => {
-        console.log('Handling launch params:', launchParams);
+      globalThis.launchQueue.setConsumer(async (launchParameters) => {
+        console.log('Handling launch params:', launchParameters);
         // Nothing to do when the queue is empty.
-        if (launchParams.files.length === 0) {
+        if (launchParameters.files.length === 0) {
           return;
         }
-        for (const fileHandle of launchParams.files) {
+        for (const fileHandle of launchParameters.files) {
           const file = await fileHandle.getFile();
           if (ALLOWED_MIMETYPES.includes(file.type)) {
             await this.addFilesToPlaylist(file);
@@ -130,7 +130,7 @@ export class PlayerService extends BaseSubscribingClass {
       // let tempList: Track[] = [];
       // let startTime = Date.now();
 
-      for (const [i, file] of files.entries()) {
+      for (const [index, file] of files.entries()) {
         this.loaderService.show();
         const song = await this.createTrackFromFile(file);
         this.loaderService.hide();
@@ -251,13 +251,13 @@ export class PlayerService extends BaseSubscribingClass {
       return this.playTrack(this.currentPlaylist()[randomPosition]);
     }
 
-    const currPo = state.currentTrack.playlistPosition;
-    if (!currPo) {
+    const currentPosition = state.currentTrack.playlistPosition;
+    if (!currentPosition) {
       return;
     }
 
-    if (currPo < this.currentPlaylist().length) {
-      return this.playTrack(this.currentPlaylist()[currPo]);
+    if (currentPosition < this.currentPlaylist().length) {
+      return this.playTrack(this.currentPlaylist()[currentPosition]);
     } else if (this.repeat === 'all') {
       return this.playTrack(this.currentPlaylist()[0]);
     }
@@ -268,12 +268,12 @@ export class PlayerService extends BaseSubscribingClass {
     if (!value.currentTrack || !this.loadFinished) {
       return;
     }
-    const currPo = value.currentTrack.playlistPosition;
-    if (!currPo) {
+    const currentPo = value.currentTrack.playlistPosition;
+    if (!currentPo) {
       return;
     }
-    if (currPo > 1) {
-      return this.playTrack(this.currentPlaylist()[currPo - 2]);
+    if (currentPo > 1) {
+      return this.playTrack(this.currentPlaylist()[currentPo - 2]);
     }
   }
 
@@ -281,13 +281,13 @@ export class PlayerService extends BaseSubscribingClass {
     if (!this.selectedTrack()) {
       return;
     }
-    const currPo = this.selectedTrack()?.playlistPosition;
-    if (!currPo) {
+    const currentPo = this.selectedTrack()?.playlistPosition;
+    if (!currentPo) {
       return;
     }
 
-    if (currPo < this.currentPlaylist.length) {
-      this.selectedTrack.set(this.currentPlaylist()[currPo]);
+    if (currentPo < this.currentPlaylist.length) {
+      this.selectedTrack.set(this.currentPlaylist()[currentPo]);
     }
   }
 
@@ -295,13 +295,13 @@ export class PlayerService extends BaseSubscribingClass {
     if (!this.selectedTrack()) {
       return;
     }
-    const currPo = this.selectedTrack()?.playlistPosition;
-    if (!currPo) {
+    const currentPo = this.selectedTrack()?.playlistPosition;
+    if (!currentPo) {
       return;
     }
 
-    if (currPo > 1) {
-      this.selectedTrack.set(this.currentPlaylist()[currPo - 2]);
+    if (currentPo > 1) {
+      this.selectedTrack.set(this.currentPlaylist()[currentPo - 2]);
     }
   }
 

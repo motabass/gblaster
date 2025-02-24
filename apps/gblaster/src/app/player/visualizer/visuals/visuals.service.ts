@@ -19,18 +19,21 @@ export class VisualsService {
 
   toggleVisualMode() {
     switch (this.visualMode()) {
-      case 'off':
+      case 'off': {
         this.visualMode.set('bars');
         this.localStorageService.store('visualMode', 'bars');
         break;
-      case 'bars':
+      }
+      case 'bars': {
         this.visualMode.set('osc');
         this.localStorageService.store('visualMode', 'osc');
         break;
-      case 'osc':
+      }
+      case 'osc': {
         this.visualMode.set('off');
         this.localStorageService.store('visualMode', 'off');
         break;
+      }
     }
   }
 }

@@ -24,7 +24,7 @@ export interface TrackMetadata {
 
 // EQ
 
-export type FrequencyBand = 60 | 170 | 310 | 600 | 1000 | 3000 | 6000 | 12000 | 14000 | 16000;
+export type FrequencyBand = 60 | 170 | 310 | 600 | 1000 | 3000 | 6000 | 12_000 | 14_000 | 16_000;
 
 export type RepeatMode = 'off' | 'all' | 'one';
 

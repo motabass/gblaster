@@ -5,7 +5,7 @@ import { interval } from 'rxjs';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { map } from 'rxjs/operators';
 
-const FREQUENCY_BANDS: FrequencyBand[] = [60, 170, 310, 600, 1000, 3000, 6000, 12000, 14000, 16000];
+const FREQUENCY_BANDS: FrequencyBand[] = [60, 170, 310, 600, 1000, 3000, 6000, 12_000, 14_000, 16_000];
 
 @Injectable({ providedIn: 'root' })
 export class AudioService {
@@ -18,7 +18,7 @@ export class AudioService {
   private _eqGainNode: GainNode;
   private _frequencyFilters: { [band: number]: BiquadFilterNode } = {};
 
-  @LocalStorage('equalizerGainValues', { 60: 0, 170: 0, 310: 0, 600: 0, 1000: 0, 3000: 0, 6000: 0, 12000: 0, 14000: 0, 16000: 0 })
+  @LocalStorage('equalizerGainValues', { 60: 0, 170: 0, 310: 0, 600: 0, 1000: 0, 3000: 0, 6000: 0, 12_000: 0, 14_000: 0, 16_000: 0 })
   private _equalizerGainValues!: {
     [band: number]: number;
   };
@@ -80,15 +80,15 @@ export class AudioService {
     input.gain.value = 1;
 
     let output = input;
-    for (const [i, bandFrequency] of FREQUENCY_BANDS.entries()) {
+    for (const [index, bandFrequency] of FREQUENCY_BANDS.entries()) {
       const filter = audioContext.createBiquadFilter();
 
       this._frequencyFilters[bandFrequency] = filter;
 
-      if (i === 0) {
+      if (index === 0) {
         // The first filter, includes all lower frequencies
         filter.type = 'lowshelf';
-      } else if (i === FREQUENCY_BANDS.length - 1) {
+      } else if (index === FREQUENCY_BANDS.length - 1) {
         // The last filter, includes all higher frequencies
         filter.type = 'highshelf';
       } else {
@@ -117,11 +117,11 @@ export class AudioService {
   }
 
   setFileAsSource(file: File) {
-    const oldSrc = this._audioElement.src;
+    const oldSource = this._audioElement.src;
 
     this._audioElement.src = URL.createObjectURL(file);
 
-    URL.revokeObjectURL(oldSrc);
+    URL.revokeObjectURL(oldSource);
   }
 
   async play() {

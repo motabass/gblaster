@@ -37,7 +37,7 @@ export class GamepadService implements OnDestroy {
     console.log(`New gamepad with Number ${event.gamepad.index} connected: `);
     console.log(gamepad);
 
-    this.checkIntervals[event.gamepad.index] = window.setInterval(() => {
+    this.checkIntervals[event.gamepad.index] = globalThis.setInterval(() => {
       const gps = navigator.getGamepads();
       const gp = gps[event.gamepad.index];
 

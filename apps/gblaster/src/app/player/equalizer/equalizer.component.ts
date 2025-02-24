@@ -26,8 +26,8 @@ export default class EqualizerComponent {
   }
 
   displayFunction(value: number): string {
-    const num = value.toFixed(1);
-    return num + ' dB';
+    const number_ = value.toFixed(1);
+    return number_ + ' dB';
   }
 
   getBaseGain() {

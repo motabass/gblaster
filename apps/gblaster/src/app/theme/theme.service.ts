@@ -21,7 +21,7 @@ export class ThemeService {
   accentColorPalette: Color[] = [];
 
   initializeTheme() {
-    if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    if (globalThis.matchMedia('(prefers-color-scheme: dark)').matches) {
       this._darkMode = true;
     }
     this.setOverlayClass();
@@ -41,11 +41,7 @@ export class ThemeService {
   }
 
   setPrimaryColor(color?: string) {
-    if (!color) {
-      this.primaryColor = FALLBACK_PRIMARY_COLOR;
-    } else {
-      this.primaryColor = color;
-    }
+    this.primaryColor = color ? color : FALLBACK_PRIMARY_COLOR;
     this.primaryColorPalette = this.computeColors(this.primaryColor);
 
     for (const clr of this.primaryColorPalette) {
@@ -62,11 +58,7 @@ export class ThemeService {
   }
 
   setAccentColor(color?: string) {
-    if (!color) {
-      this.accentColor = FALLBACK_ACCENT_COLOR;
-    } else {
-      this.accentColor = color;
-    }
+    this.accentColor = color ? color : FALLBACK_ACCENT_COLOR;
     this.accentColorPalette = this.computeColors(this.accentColor);
 
     for (const clr of this.accentColorPalette) {

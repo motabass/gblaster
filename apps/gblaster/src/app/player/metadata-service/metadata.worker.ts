@@ -18,9 +18,9 @@ async function extractTags(file: File): Promise<Id3Tags | null> {
       skipPostHeaders: false,
       skipCovers: false
     });
-  } catch (e) {
+  } catch (error) {
     console.warn(`Tags von "${file.name}" (${file.type}) konnten nicht gelesen werden: `);
-    console.error(e);
+    console.error(error);
     return null;
   }
   let cover: Id3CoverPicture | undefined;

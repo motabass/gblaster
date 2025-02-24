@@ -55,7 +55,7 @@ export class HotkeysService {
       return;
     }
 
-    const merged = { ...this.defaults, ...options, keys: options.keys.replace(/\+/g, '.') };
+    const merged = { ...this.defaults, ...options, keys: options.keys.replaceAll('+', '.') };
     const event = `keydown.${merged.keys}`;
 
     const observable = new Observable((observer) => {
@@ -83,7 +83,7 @@ export class HotkeysService {
   }
 
   unregister(keys: string) {
-    const realKeys = keys.replace(/\+/g, '.');
+    const realKeys = keys.replaceAll('+', '.');
     const hk = this.hotkeys.get(realKeys);
 
     if (hk) {
@@ -102,20 +102,20 @@ export class HotkeysService {
   }
 
   toggleHelpDialog() {
-    if (!this.helpOpen) {
+    if (this.helpOpen) {
+      this.helpOpen = false;
+      this.dialogRef?.close();
+    } else {
       this.helpOpen = true;
-      const dialogRef = this.dialog.open(HotkeysHelpDialogComponent, {
+      const dialogReference = this.dialog.open(HotkeysHelpDialogComponent, {
         width: '360px',
         hasBackdrop: false,
         data: { registeredHotkeys: this.hotkeys }
       });
-      dialogRef.afterClosed().subscribe(() => {
+      dialogReference.afterClosed().subscribe(() => {
         this.helpOpen = false;
       });
-      this.dialogRef = dialogRef;
-    } else {
-      this.helpOpen = false;
-      this.dialogRef?.close();
+      this.dialogRef = dialogReference;
     }
   }
 }

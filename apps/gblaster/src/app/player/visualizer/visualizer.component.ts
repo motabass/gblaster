@@ -147,8 +147,8 @@ export class VisualizerComponent implements OnInit, OnDestroy {
 
   get fftOptions(): number[] {
     const options: number[] = [];
-    for (let i = 32; i <= 32768; i *= 2) {
-      options.push(i);
+    for (let index = 32; index <= 32_768; index *= 2) {
+      options.push(index);
     }
     return options;
   }

@@ -7,7 +7,7 @@ import { formatSecondsAsClock } from '@motabass/helpers';
   standalone: true
 })
 export class TimePipe implements PipeTransform {
-  transform(value: number | undefined, ...args: unknown[]): string {
+  transform(value: number | undefined, ...arguments_: unknown[]): string {
     return formatSecondsAsClock(value);
   }
 }

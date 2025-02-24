@@ -37,7 +37,7 @@ export class VisualsDirective implements OnDestroy, OnChanges {
 
     const offscreenCanvas: OffscreenCanvas = this.canvas.transferControlToOffscreen();
 
-    this.worker = new Worker(new URL('./visuals.worker', import.meta.url), { type: 'module' });
+    this.worker = new Worker(new URL('visuals.worker', import.meta.url), { type: 'module' });
     // this.worker.onmessage = ({ data }) => {
     //   console.log(`page got message: ${data}`);
     // };
@@ -54,12 +54,14 @@ export class VisualsDirective implements OnDestroy, OnChanges {
     this.worker.postMessage({ newSize: rect } as VisualsWorkerMessage);
 
     switch (this.mode()) {
-      case 'bars':
+      case 'bars': {
         this.visualizeFrequencyBars();
         break;
-      case 'osc':
+      }
+      case 'osc': {
         this.visualizeOscilloscope();
         break;
+      }
     }
   }
 

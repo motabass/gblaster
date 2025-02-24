@@ -12,7 +12,7 @@ import { FileLoaderServiceFactory } from './player/file-loader-service/file-load
 import { MAT_TOOLTIP_DEFAULT_OPTIONS } from '@angular/material/tooltip';
 import { routes } from './app.routes';
 
-const dbConfig: DBConfig = {
+const databaseConfig: DBConfig = {
   name: 'metadataCache',
   version: 2,
   objectStoresMeta: [
@@ -36,7 +36,7 @@ const dbConfig: DBConfig = {
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideIndexedDb(dbConfig),
+    provideIndexedDb(databaseConfig),
     provideServiceWorker('ngsw-worker.js', { enabled: environment.production, registrationStrategy: 'registerImmediately' }),
     provideNgxWebstorage(withNgxWebstorageConfig({ separator: '|', caseSensitive: true, prefix: 'gblaster' }), withLocalStorage()),
     provideAnimations(),

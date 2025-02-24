@@ -31,7 +31,7 @@ export class MusicbrainzService {
         let coverData: any;
         try {
           coverData = await firstValueFrom(this.http.get(`https://coverartarchive.org/release-group/${id}`));
-        } catch (e) {
+        } catch {
           console.error('Kein Cover mit der ID gefunden');
           return;
         }
@@ -41,8 +41,8 @@ export class MusicbrainzService {
         const coverUrl: string = coverImage.image;
 
         return { thumb: thumbUrl.replace('http://', 'https://'), original: coverUrl.replace('http://', 'https://') };
-      } catch (err) {
-        console.warn('Konnte MusicBrainz nicht abfragen', err);
+      } catch (error) {
+        console.warn('Konnte MusicBrainz nicht abfragen', error);
         return;
       }
     }

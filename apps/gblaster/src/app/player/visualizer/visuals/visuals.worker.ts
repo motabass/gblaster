@@ -2,14 +2,14 @@ import { VisualizerMode, VisualizerOptions, VisualsWorkerMessage } from './visua
 
 let mode: VisualizerMode = 'off';
 let canvas: OffscreenCanvas;
-let ctx: OffscreenCanvasRenderingContext2D | null;
+let context: OffscreenCanvasRenderingContext2D | null;
 let analyserData: Uint8Array;
 
 // Pre-calculated values
 let fftSize: number;
 let sampleRate: number;
 let capYPositionArray: Float32Array; // Changed to typed array
-let meterNum: number;
+let meterNumber: number;
 let gap: number;
 let capHeight: number;
 let capFalldown: number;
@@ -30,16 +30,16 @@ let sliceWidthCache: number;
 
 function initBarkScaleMap(sr: number, fft: number) {
   frequencyToBarkMap = new Float32Array(fft / 2);
-  for (let i = 0; i < fft / 2; i++) {
-    const frequency = (i * sr) / fft;
-    frequencyToBarkMap[i] = 13 * Math.atan(0.00076 * frequency) + 3.5 * Math.atan((frequency / 7500) ** 2);
+  for (let index = 0; index < fft / 2; index++) {
+    const frequency = (index * sr) / fft;
+    frequencyToBarkMap[index] = 13 * Math.atan(0.000_76 * frequency) + 3.5 * Math.atan((frequency / 7500) ** 2);
   }
 }
 
 addEventListener('message', (event: MessageEvent<VisualsWorkerMessage>) => {
   if (event.data.canvas) {
     canvas = event.data.canvas;
-    ctx = canvas.getContext('2d');
+    context = canvas.getContext('2d');
   }
 
   if (event.data.newSize) {
@@ -47,8 +47,8 @@ addEventListener('message', (event: MessageEvent<VisualsWorkerMessage>) => {
     canvas.height = event.data.newSize.height;
   }
 
-  if (event.data.stop && ctx) {
-    ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+  if (event.data.stop && context) {
+    context.clearRect(0, 0, context.canvas.width, context.canvas.height);
   }
 
   if (event.data.visualizerOptions) {
@@ -59,22 +59,24 @@ addEventListener('message', (event: MessageEvent<VisualsWorkerMessage>) => {
     analyserData = event.data.analyserData;
 
     switch (mode) {
-      case 'osc':
+      case 'osc': {
         drawOsc();
         break;
-      case 'bars':
+      }
+      case 'bars': {
         drawBars();
         break;
+      }
     }
   }
 });
 
 function setup(options: VisualizerOptions) {
-  if (!ctx) return;
+  if (!context) return;
 
   mode = options.mode;
   if (mode === 'bars') {
-    meterNum = options.barCount;
+    meterNumber = options.barCount;
     gap = options.gap;
     capHeight = options.capHeight;
     capFalldown = options.capFalldown;
@@ -82,8 +84,8 @@ function setup(options: VisualizerOptions) {
     sampleRate = options.sampleRate;
 
     // Pre-allocate arrays
-    capYPositionArray = new Float32Array(meterNum).fill(capHeight);
-    barkScaleBandEnergy = new Float32Array(meterNum);
+    capYPositionArray = new Float32Array(meterNumber).fill(capHeight);
+    barkScaleBandEnergy = new Float32Array(meterNumber);
   } else if (mode === 'osc') {
     thickness = options.thickness;
   }
@@ -93,16 +95,16 @@ function setup(options: VisualizerOptions) {
   alpha = options.alpha;
   bufferLength = options.bufferLength;
 
-  canvasWidth = ctx.canvas.width;
-  canvasHeight = ctx.canvas.height;
-  barWidth = canvasWidth / meterNum - gap;
+  canvasWidth = context.canvas.width;
+  canvasHeight = context.canvas.height;
+  barWidth = canvasWidth / meterNumber - gap;
 
   // Pre-calculate slice width for oscilloscope
   sliceWidthCache = canvasWidth / bufferLength;
 
   analyserData = new Uint8Array(bufferLength);
 
-  gradient = ctx.createLinearGradient(0, 0, 0, canvasHeight);
+  gradient = context.createLinearGradient(0, 0, 0, canvasHeight);
   gradient.addColorStop(1, mainColor);
   gradient.addColorStop(0.7, peakColor);
   gradient.addColorStop(0, peakColor);
@@ -111,54 +113,54 @@ function setup(options: VisualizerOptions) {
 let oscilloscopePath: Path2D;
 
 function drawOsc() {
-  if (!ctx) return;
+  if (!context) return;
 
-  ctx.clearRect(0, 0, canvasWidth, canvasHeight);
-  ctx.globalAlpha = alpha;
-  ctx.lineWidth = thickness;
-  ctx.strokeStyle = mainColor;
+  context.clearRect(0, 0, canvasWidth, canvasHeight);
+  context.globalAlpha = alpha;
+  context.lineWidth = thickness;
+  context.strokeStyle = mainColor;
 
   oscilloscopePath = new Path2D();
   let x = 0;
   oscilloscopePath.moveTo(x, (analyserData[0] / 128) * (canvasHeight / 2));
 
-  for (let i = 1; i < bufferLength; i++) {
+  for (let index = 1; index < bufferLength; index++) {
     x += sliceWidthCache;
-    oscilloscopePath.lineTo(x, (analyserData[i] / 128) * (canvasHeight / 2));
+    oscilloscopePath.lineTo(x, (analyserData[index] / 128) * (canvasHeight / 2));
   }
 
-  ctx.stroke(oscilloscopePath);
+  context.stroke(oscilloscopePath);
 }
 
 function drawBars() {
-  if (!ctx) return;
+  if (!context) return;
 
   const barkScaleData = convertToBarkScale();
 
-  ctx.clearRect(0, 0, canvasWidth, canvasHeight);
-  ctx.globalAlpha = alpha;
+  context.clearRect(0, 0, canvasWidth, canvasHeight);
+  context.globalAlpha = alpha;
 
   const barGapWidth = barWidth + gap;
 
-  for (let i = 0; i < meterNum; i++) {
-    const value = Math.min(barkScaleData[i] || 0, canvasHeight);
-    const x = barGapWidth * i;
+  for (let index = 0; index < meterNumber; index++) {
+    const value = Math.min(barkScaleData[index] || 0, canvasHeight);
+    const x = barGapWidth * index;
 
     // Draw cap
-    ctx.fillStyle = mainColor;
-    if (value < capYPositionArray[i]) {
-      ctx.fillRect(x, canvasHeight - capYPositionArray[i], barWidth, capHeight);
-      if (capYPositionArray[i] > capHeight) {
-        capYPositionArray[i] -= capFalldown;
+    context.fillStyle = mainColor;
+    if (value < capYPositionArray[index]) {
+      context.fillRect(x, canvasHeight - capYPositionArray[index], barWidth, capHeight);
+      if (capYPositionArray[index] > capHeight) {
+        capYPositionArray[index] -= capFalldown;
       }
     } else {
-      ctx.fillRect(x, canvasHeight - value, barWidth, capHeight);
-      capYPositionArray[i] = value;
+      context.fillRect(x, canvasHeight - value, barWidth, capHeight);
+      capYPositionArray[index] = value;
     }
 
     // Draw bar
-    ctx.fillStyle = gradient;
-    ctx.fillRect(x, canvasHeight - value + capHeight, barWidth, value - capHeight);
+    context.fillStyle = gradient;
+    context.fillRect(x, canvasHeight - value + capHeight, barWidth, value - capHeight);
   }
 }
 
@@ -167,13 +169,13 @@ function convertToBarkScale(): Float32Array {
     initBarkScaleMap(sampleRate, fftSize);
   }
 
-  const barkScaleBandSize = (frequencyToBarkMap[frequencyToBarkMap.length - 1] - frequencyToBarkMap[0]) / meterNum;
+  const barkScaleBandSize = (frequencyToBarkMap.at(-1) - frequencyToBarkMap[0]) / meterNumber;
   barkScaleBandEnergy.fill(0);
 
-  for (let i = 0; i < analyserData.length; i++) {
-    const bandIndex = Math.floor((frequencyToBarkMap[i] - frequencyToBarkMap[0]) / barkScaleBandSize);
-    if (bandIndex < meterNum) {
-      barkScaleBandEnergy[bandIndex] += analyserData[i];
+  for (const [index, analyserDatum] of analyserData.entries()) {
+    const bandIndex = Math.floor((frequencyToBarkMap[index] - frequencyToBarkMap[0]) / barkScaleBandSize);
+    if (bandIndex < meterNumber) {
+      barkScaleBandEnergy[bandIndex] += analyserDatum;
     }
   }
 
