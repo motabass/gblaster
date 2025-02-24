@@ -533,14 +533,14 @@ export class FileDropOverlayComponent {
   readonly filesDroped &#x3D; output&lt;File[]&gt;();
 
   constructor() {
-    window.addEventListener(&#x27;dragenter&#x27;, this.over.bind(this));
-    window.addEventListener(&#x27;dragstart&#x27;, this.over.bind(this));
-    window.addEventListener(&#x27;dragover&#x27;, this.over.bind(this));
+    globalThis.addEventListener(&#x27;dragenter&#x27;, this.over.bind(this));
+    globalThis.addEventListener(&#x27;dragstart&#x27;, this.over.bind(this));
+    globalThis.addEventListener(&#x27;dragover&#x27;, this.over.bind(this));
 
-    window.addEventListener(&#x27;dragleave&#x27;, this.leave.bind(this));
-    window.addEventListener(&#x27;dragend&#x27;, this.leave.bind(this));
+    globalThis.addEventListener(&#x27;dragleave&#x27;, this.leave.bind(this));
+    globalThis.addEventListener(&#x27;dragend&#x27;, this.leave.bind(this));
 
-    window.addEventListener(&#x27;drop&#x27;, (event: DragEvent) &#x3D;&gt; {
+    globalThis.addEventListener(&#x27;drop&#x27;, (event: DragEvent) &#x3D;&gt; {
       event.preventDefault();
       event.stopPropagation();
       this.leave(event);
@@ -570,8 +570,8 @@ export class FileDropOverlayComponent {
   drop(event: any) {
     const files: File[] &#x3D; [];
     if (event.dataTransfer.files) {
-      for (let i &#x3D; 0; i &lt; event.dataTransfer.files.length; i++) {
-        const file &#x3D; event.dataTransfer.files?.item(i);
+      for (let index &#x3D; 0; index &lt; event.dataTransfer.files.length; index++) {
+        const file &#x3D; event.dataTransfer.files?.item(index);
         if (file &amp;&amp; this.allowedTypes().includes(file.type)) {
           files.push(file);
         }

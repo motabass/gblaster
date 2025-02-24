@@ -690,7 +690,7 @@ export class HotkeysService {
       return;
     }
 
-    const merged &#x3D; { ...this.defaults, ...options, keys: options.keys.replace(/\+/g, &#x27;.&#x27;) };
+    const merged &#x3D; { ...this.defaults, ...options, keys: options.keys.replaceAll(&#x27;+&#x27;, &#x27;.&#x27;) };
     const event &#x3D; &#x60;keydown.${merged.keys}&#x60;;
 
     const observable &#x3D; new Observable((observer) &#x3D;&gt; {
@@ -718,7 +718,7 @@ export class HotkeysService {
   }
 
   unregister(keys: string) {
-    const realKeys &#x3D; keys.replace(/\+/g, &#x27;.&#x27;);
+    const realKeys &#x3D; keys.replaceAll(&#x27;+&#x27;, &#x27;.&#x27;);
     const hk &#x3D; this.hotkeys.get(realKeys);
 
     if (hk) {
@@ -737,20 +737,20 @@ export class HotkeysService {
   }
 
   toggleHelpDialog() {
-    if (!this.helpOpen) {
+    if (this.helpOpen) {
+      this.helpOpen &#x3D; false;
+      this.dialogRef?.close();
+    } else {
       this.helpOpen &#x3D; true;
-      const dialogRef &#x3D; this.dialog.open(HotkeysHelpDialogComponent, {
+      const dialogReference &#x3D; this.dialog.open(HotkeysHelpDialogComponent, {
         width: &#x27;360px&#x27;,
         hasBackdrop: false,
         data: { registeredHotkeys: this.hotkeys }
       });
-      dialogRef.afterClosed().subscribe(() &#x3D;&gt; {
+      dialogReference.afterClosed().subscribe(() &#x3D;&gt; {
         this.helpOpen &#x3D; false;
       });
-      this.dialogRef &#x3D; dialogRef;
-    } else {
-      this.helpOpen &#x3D; false;
-      this.dialogRef?.close();
+      this.dialogRef &#x3D; dialogReference;
     }
   }
 }

@@ -260,8 +260,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="64"
-                                    class="link-to-prism">apps/gblaster/src/app/theme/theme.service.ts:64</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="60"
+                                    class="link-to-prism">apps/gblaster/src/app/theme/theme.service.ts:60</a></div>
                         </td>
                     </tr>
 
@@ -631,7 +631,7 @@ export class ThemeService {
   accentColorPalette: Color[] &#x3D; [];
 
   initializeTheme() {
-    if (window.matchMedia(&#x27;(prefers-color-scheme: dark)&#x27;).matches) {
+    if (globalThis.matchMedia(&#x27;(prefers-color-scheme: dark)&#x27;).matches) {
       this._darkMode &#x3D; true;
     }
     this.setOverlayClass();
@@ -651,11 +651,7 @@ export class ThemeService {
   }
 
   setPrimaryColor(color?: string) {
-    if (!color) {
-      this.primaryColor &#x3D; FALLBACK_PRIMARY_COLOR;
-    } else {
-      this.primaryColor &#x3D; color;
-    }
+    this.primaryColor &#x3D; color ? color : FALLBACK_PRIMARY_COLOR;
     this.primaryColorPalette &#x3D; this.computeColors(this.primaryColor);
 
     for (const clr of this.primaryColorPalette) {
@@ -672,11 +668,7 @@ export class ThemeService {
   }
 
   setAccentColor(color?: string) {
-    if (!color) {
-      this.accentColor &#x3D; FALLBACK_ACCENT_COLOR;
-    } else {
-      this.accentColor &#x3D; color;
-    }
+    this.accentColor &#x3D; color ? color : FALLBACK_ACCENT_COLOR;
     this.accentColorPalette &#x3D; this.computeColors(this.accentColor);
 
     for (const clr of this.accentColorPalette) {

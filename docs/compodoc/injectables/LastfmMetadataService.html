@@ -260,8 +260,8 @@ export class LastfmMetadataService {
         if (!data.error &amp;&amp; data.album?.image[5][&#x27;#text&#x27;]) {
           return { thumb: data.album.image[1][&#x27;#text&#x27;], original: data.album.image[5][&#x27;#text&#x27;] };
         }
-      } catch (e) {
-        console.error(e);
+      } catch (error) {
+        console.error(error);
       }
     }
     return;

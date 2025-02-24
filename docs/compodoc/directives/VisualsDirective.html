@@ -270,8 +270,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="122"
-                                    class="link-to-prism">apps/gblaster/src/app/player/visualizer/visuals/visuals.directive.ts:122</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="124"
+                                    class="link-to-prism">apps/gblaster/src/app/player/visualizer/visuals/visuals.directive.ts:124</a></div>
                         </td>
                     </tr>
 
@@ -307,8 +307,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="66"
-                                    class="link-to-prism">apps/gblaster/src/app/player/visualizer/visuals/visuals.directive.ts:66</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="68"
+                                    class="link-to-prism">apps/gblaster/src/app/player/visualizer/visuals/visuals.directive.ts:68</a></div>
                         </td>
                     </tr>
 
@@ -344,8 +344,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="97"
-                                    class="link-to-prism">apps/gblaster/src/app/player/visualizer/visuals/visuals.directive.ts:97</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="99"
+                                    class="link-to-prism">apps/gblaster/src/app/player/visualizer/visuals/visuals.directive.ts:99</a></div>
                         </td>
                     </tr>
 
@@ -595,7 +595,7 @@ export class VisualsDirective implements OnDestroy, OnChanges {
 
     const offscreenCanvas: OffscreenCanvas &#x3D; this.canvas.transferControlToOffscreen();
 
-    this.worker &#x3D; new Worker(new URL(&#x27;./visuals.worker&#x27;, import.meta.url), { type: &#x27;module&#x27; });
+    this.worker &#x3D; new Worker(new URL(&#x27;visuals.worker&#x27;, import.meta.url), { type: &#x27;module&#x27; });
     // this.worker.onmessage &#x3D; ({ data }) &#x3D;&gt; {
     //   console.log(&#x60;page got message: ${data}&#x60;);
     // };
@@ -612,12 +612,14 @@ export class VisualsDirective implements OnDestroy, OnChanges {
     this.worker.postMessage({ newSize: rect } as VisualsWorkerMessage);
 
     switch (this.mode()) {
-      case &#x27;bars&#x27;:
+      case &#x27;bars&#x27;: {
         this.visualizeFrequencyBars();
         break;
-      case &#x27;osc&#x27;:
+      }
+      case &#x27;osc&#x27;: {
         this.visualizeOscilloscope();
         break;
+      }
     }
   }
 

@@ -283,18 +283,21 @@ export class VisualsService {
 
   toggleVisualMode() {
     switch (this.visualMode()) {
-      case &#x27;off&#x27;:
+      case &#x27;off&#x27;: {
         this.visualMode.set(&#x27;bars&#x27;);
         this.localStorageService.store(&#x27;visualMode&#x27;, &#x27;bars&#x27;);
         break;
-      case &#x27;bars&#x27;:
+      }
+      case &#x27;bars&#x27;: {
         this.visualMode.set(&#x27;osc&#x27;);
         this.localStorageService.store(&#x27;visualMode&#x27;, &#x27;osc&#x27;);
         break;
-      case &#x27;osc&#x27;:
+      }
+      case &#x27;osc&#x27;: {
         this.visualMode.set(&#x27;off&#x27;);
         this.localStorageService.store(&#x27;visualMode&#x27;, &#x27;off&#x27;);
         break;
+      }
     }
   }
 }

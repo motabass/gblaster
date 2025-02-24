@@ -714,8 +714,8 @@
                 <tr>
                     <td class="col-md-4">
                         <i>Default value : </i><code>computed(() &#x3D;&gt; {
-    for (const [i, v] of this.playerService.currentPlaylist().entries()) {
-      v.playlistPosition &#x3D; i + 1;
+    for (const [index, v] of this.playerService.currentPlaylist().entries()) {
+      v.playlistPosition &#x3D; index + 1;
     }
 
     return this.playerService.currentPlaylist().map((track, index) &#x3D;&gt; ({ ...track, playlistPosition: index + 1 }));
@@ -840,8 +840,8 @@ export class PlaylistComponent implements OnDestroy {
   }
 
   songs &#x3D; computed(() &#x3D;&gt; {
-    for (const [i, v] of this.playerService.currentPlaylist().entries()) {
-      v.playlistPosition &#x3D; i + 1;
+    for (const [index, v] of this.playerService.currentPlaylist().entries()) {
+      v.playlistPosition &#x3D; index + 1;
     }
 
     return this.playerService.currentPlaylist().map((track, index) &#x3D;&gt; ({ ...track, playlistPosition: index + 1 }));

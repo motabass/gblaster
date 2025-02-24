@@ -408,7 +408,7 @@ export class LegacyFileLoaderService extends FileLoaderService {
     this.fileInput.accept &#x3D; ALLOWED_MIMETYPES.join(&#x27;|&#x27;);
     this.fileInput.multiple &#x3D; true;
 
-    document.body.appendChild(this.fileInput);
+    document.body.append(this.fileInput);
   }
 
   async init() {}
@@ -420,8 +420,8 @@ export class LegacyFileLoaderService extends FileLoaderService {
   private getFiles(): File[] {
     const files: File[] &#x3D; [];
     if (this.fileInput.files) {
-      for (let i &#x3D; 0; i &lt; this.fileInput.files.length; i++) {
-        const file &#x3D; this.fileInput.files?.item(i);
+      for (let index &#x3D; 0; index &lt; this.fileInput.files.length; index++) {
+        const file &#x3D; this.fileInput.files?.item(index);
         if (file &amp;&amp; ALLOWED_MIMETYPES.includes(file.type)) {
           files.push(file);
         }
@@ -433,7 +433,7 @@ export class LegacyFileLoaderService extends FileLoaderService {
   async showPicker(): Promise&lt;void&gt; {
     this.fileInput.click();
     const files: File[] &#x3D; await new Promise((resolve) &#x3D;&gt; {
-      this.fileInput.onchange &#x3D; () &#x3D;&gt; resolve(this.getFiles()); // resolve with input, not event
+      this.fileInput.addEventListener(&#x27;change&#x27;, () &#x3D;&gt; resolve(this.getFiles())); // resolve with input, not event
     });
 
     this.files &#x3D; files;

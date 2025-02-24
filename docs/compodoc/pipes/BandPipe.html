@@ -163,7 +163,7 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>transform(value: <a href="../undefineds/FrequencyBand.html" target="_self">FrequencyBand</a>, ...args: [])</code>
+<code>transform(value: <a href="../undefineds/FrequencyBand.html" target="_self">FrequencyBand</a>, ...arguments_: [])</code>
                 </td>
             </tr>
 
@@ -204,7 +204,7 @@
 
                                         </tr>
                                         <tr>
-                                                <td>args</td>
+                                                <td>arguments_</td>
                                             <td>
                                                         <code>[]</code>
                                             </td>
@@ -244,17 +244,17 @@ import { FrequencyBand } from &#x27;../player.types&#x27;;
   standalone: true
 })
 export class BandPipe implements PipeTransform {
-  transform(value: FrequencyBand, ...args: unknown[]): string {
+  transform(value: FrequencyBand, ...arguments_: unknown[]): string {
     if (!value) {
       return &#x27;&#x27;;
     }
 
     if (value &lt; 1000) {
       return value.toString();
-    } else if (value &gt;&#x3D; 1000 &amp;&amp; value &lt; 10000) {
-      return value.toString().substr(0, 1) + &#x27;K&#x27;;
-    } else if (value &gt;&#x3D; 10000) {
-      return value.toString().substr(0, 2) + &#x27;K&#x27;;
+    } else if (value &gt;&#x3D; 1000 &amp;&amp; value &lt; 10_000) {
+      return value.toString().slice(0, 1) + &#x27;K&#x27;;
+    } else if (value &gt;&#x3D; 10_000) {
+      return value.toString().slice(0, 2) + &#x27;K&#x27;;
     }
 
     return value.toString();

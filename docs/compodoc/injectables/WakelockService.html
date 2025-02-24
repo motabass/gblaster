@@ -332,8 +332,8 @@ export class WakelockService {
       try {
         this.wakelock &#x3D; await navigator.wakeLock.request(&#x27;screen&#x27;);
         this.wakelock.addEventListener(&#x27;release&#x27;, () &#x3D;&gt; {});
-      } catch (err: any) {
-        console.warn(&#x60;${err.name}, ${err.message}&#x60;);
+      } catch (error: any) {
+        console.warn(&#x60;${error.name}, ${error.message}&#x60;);
       }
     }
   }

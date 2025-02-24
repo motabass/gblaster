@@ -163,7 +163,7 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>transform(value: number | undefined, ...args: [])</code>
+<code>transform(value: number | undefined, ...arguments_: [])</code>
                 </td>
             </tr>
 
@@ -204,7 +204,7 @@
 
                                         </tr>
                                         <tr>
-                                                <td>args</td>
+                                                <td>arguments_</td>
                                             <td>
                                                         <code>[]</code>
                                             </td>
@@ -244,7 +244,7 @@ import { formatSecondsAsClock } from &#x27;@motabass/helpers&#x27;;
   standalone: true
 })
 export class TimePipe implements PipeTransform {
-  transform(value: number | undefined, ...args: unknown[]): string {
+  transform(value: number | undefined, ...arguments_: unknown[]): string {
     return formatSecondsAsClock(value);
   }
 }
