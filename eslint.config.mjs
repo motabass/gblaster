@@ -2,11 +2,11 @@ import nx from '@nx/eslint-plugin';
 import eslintPluginUnicorn from 'eslint-plugin-unicorn';
 
 export default [
-  { plugins: { unicorn: eslintPluginUnicorn } },
   ...nx.configs['flat/base'],
   ...nx.configs['flat/typescript'],
   ...nx.configs['flat/javascript'],
   {
+    ...eslintPluginUnicorn.configs.recommended,
     ignores: ['**/dist']
   },
   {
