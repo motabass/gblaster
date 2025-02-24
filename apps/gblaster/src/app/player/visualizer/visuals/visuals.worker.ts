@@ -108,6 +108,8 @@ function setup(options: VisualizerOptions) {
   gradient.addColorStop(0, peakColor);
 }
 
+let oscilloscopePath: Path2D;
+
 function drawOsc() {
   if (!ctx) return;
 
@@ -115,17 +117,17 @@ function drawOsc() {
   ctx.globalAlpha = alpha;
   ctx.lineWidth = thickness;
   ctx.strokeStyle = mainColor;
-  ctx.beginPath();
 
+  oscilloscopePath = new Path2D();
   let x = 0;
-  ctx.moveTo(x, (analyserData[0] / 128) * (canvasHeight / 2));
+  oscilloscopePath.moveTo(x, (analyserData[0] / 128) * (canvasHeight / 2));
 
   for (let i = 1; i < bufferLength; i++) {
     x += sliceWidthCache;
-    ctx.lineTo(x, (analyserData[i] / 128) * (canvasHeight / 2));
+    oscilloscopePath.lineTo(x, (analyserData[i] / 128) * (canvasHeight / 2));
   }
 
-  ctx.stroke();
+  ctx.stroke(oscilloscopePath);
 }
 
 function drawBars() {
