@@ -119,7 +119,7 @@
     "dotenv-cli": "8.0.0",
     "esbuild-visualizer": "^0.7.0",
     "eslint": "9.21.0",
-    "eslint-config-prettier": "10.0.1",
+    "eslint-config-prettier": "10.0.2",
     "eslint-plugin-cypress": "4.1.0",
     "eslint-plugin-unicorn": "57.0.0",
     "eslint-formatter-checkstyle": "8.40.0",
