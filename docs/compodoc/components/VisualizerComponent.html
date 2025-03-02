@@ -1628,7 +1628,7 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, inject, input } from &#x27;@angular/core&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ChangeDetectionStrategy, Component, inject, input, OnDestroy, OnInit } from &#x27;@angular/core&#x27;;
 import { LocalStorage } from &#x27;ngx-webstorage&#x27;;
 import { Track } from &#x27;../player.types&#x27;;
 import type { FftSize, FrequencyBarsConfig, OsciloscopeConfig, VisualsColorConfig } from &#x27;./visuals/visuals.types&#x27;;
@@ -1654,7 +1654,7 @@ import { VisualsDirective } from &#x27;./visuals/visuals.directive&#x27;;
 })
 export class VisualizerComponent implements OnInit, OnDestroy {
   private audioService &#x3D; inject(AudioService);
-  private gamepadService &#x3D; inject(GamepadService);
+  private gamepadService &#x3D; inject(GamepadService, { optional: true });
   visualsService &#x3D; inject(VisualsService);
 
   @LocalStorage(&#x27;smoothing&#x27;, 0.7) smoothing!: number;
@@ -1689,7 +1689,7 @@ export class VisualizerComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.gamepadService.registerButtonAction(GamepadButtons.SELECT_BUTTON, () &#x3D;&gt; this.toggleVisualMode());
+    this.gamepadService?.registerButtonAction(GamepadButtons.SELECT_BUTTON, () &#x3D;&gt; this.toggleVisualMode());
   }
 
   toggleVisualMode() {
@@ -1792,7 +1792,7 @@ export class VisualizerComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.gamepadService.deregisterButtonAction(GamepadButtons.SELECT_BUTTON);
+    this.gamepadService?.deregisterButtonAction(GamepadButtons.SELECT_BUTTON);
     this.analyser.disconnect();
   }
 }
@@ -1825,7 +1825,8 @@ export class VisualizerComponent implements OnInit, OnDestroy {
     &gt;
       &lt;div class&#x3D;&quot;accent-font&quot; style&#x3D;&quot;padding: 16px 0; font-size: 1rem&quot;&gt;Visualizer&lt;/div&gt;
       &lt;div class&#x3D;&quot;visuals-settings&quot;&gt;
-        @if (visualsService.visualMode() !&#x3D;&#x3D; &#x27;off&#x27;) {
+        @let mode &#x3D; visualsService.visualMode();
+        @if (mode !&#x3D;&#x3D; &#x27;off&#x27;) {
           &lt;div&gt;
             &lt;h5 class&#x3D;&quot;slider-label&quot;&gt;FFT-Size&lt;/h5&gt;
             &lt;mat-select [value]&#x3D;&quot;fftSize&quot; (valueChange)&#x3D;&quot;setFftSize($event)&quot;&gt;
@@ -1842,53 +1843,51 @@ export class VisualizerComponent implements OnInit, OnDestroy {
           /&gt;&lt;/mat-slider&gt;
         &lt;/div&gt;
 
-        @switch (visualsService.visualMode()) {
-          @case (&#x27;bars&#x27;) {
-            &lt;div&gt;
-              &lt;h5 class&#x3D;&quot;slider-label&quot;&gt;min. DB&lt;/h5&gt;
-              &lt;mat-slider min&#x3D;&quot;-90&quot; max&#x3D;&quot;-70&quot; step&#x3D;&quot;0.01&quot; discrete
-                &gt;&lt;input #minDbThumb&#x3D;&quot;matSliderThumb&quot; matSliderThumb [value]&#x3D;&quot;minDb&quot; (input)&#x3D;&quot;setMinDb(minDbThumb.value)&quot;
-              /&gt;&lt;/mat-slider&gt;
-            &lt;/div&gt;
-            &lt;div&gt;
-              &lt;h5 class&#x3D;&quot;slider-label&quot;&gt;Smoothing&lt;/h5&gt;
-              &lt;mat-slider min&#x3D;&quot;0&quot; max&#x3D;&quot;1&quot; step&#x3D;&quot;0.1&quot; discrete
-                &gt;&lt;input matSliderThumb [value]&#x3D;&quot;smoothing&quot; (input)&#x3D;&quot;setSmoothing(smoothingThumb.value)&quot; #smoothingThumb&#x3D;&quot;matSliderThumb&quot;
-              /&gt;&lt;/mat-slider&gt;
-            &lt;/div&gt;
-            &lt;div&gt;
-              &lt;h5 class&#x3D;&quot;slider-label&quot;&gt;Bars&lt;/h5&gt;
-              &lt;mat-slider min&#x3D;&quot;8&quot; max&#x3D;&quot;128&quot; step&#x3D;&quot;1&quot; discrete
-                &gt;&lt;input matSliderThumb [value]&#x3D;&quot;barCount&quot; (input)&#x3D;&quot;setBarCount(barCountThumb.value)&quot; #barCountThumb&#x3D;&quot;matSliderThumb&quot;
-              /&gt;&lt;/mat-slider&gt;
-            &lt;/div&gt;
-            &lt;div&gt;
-              &lt;h5 class&#x3D;&quot;slider-label&quot;&gt;Gap&lt;/h5&gt;
-              &lt;mat-slider min&#x3D;&quot;-1&quot; max&#x3D;&quot;20&quot; step&#x3D;&quot;0.1&quot; discrete
-                &gt;&lt;input matSliderThumb [value]&#x3D;&quot;gap&quot; (input)&#x3D;&quot;setGap(gapThumb.value)&quot; #gapThumb&#x3D;&quot;matSliderThumb&quot;
-              /&gt;&lt;/mat-slider&gt;
-            &lt;/div&gt;
-            &lt;div&gt;
-              &lt;h5 class&#x3D;&quot;slider-label&quot;&gt;Cap Height&lt;/h5&gt;
-              &lt;mat-slider min&#x3D;&quot;0&quot; max&#x3D;&quot;6&quot; step&#x3D;&quot;0.1&quot; discrete
-                &gt;&lt;input matSliderThumb [value]&#x3D;&quot;capHeight&quot; (input)&#x3D;&quot;setCapHeight(capHeightThumb.value)&quot; #capHeightThumb&#x3D;&quot;matSliderThumb&quot;
-              /&gt;&lt;/mat-slider&gt;
-            &lt;/div&gt;
-            &lt;div&gt;
-              &lt;h5 class&#x3D;&quot;slider-label&quot;&gt;Cap Falldown&lt;/h5&gt;
-              &lt;mat-slider min&#x3D;&quot;0.1&quot; max&#x3D;&quot;2&quot; step&#x3D;&quot;0.1&quot; discrete
-                &gt;&lt;input matSliderThumb [value]&#x3D;&quot;capFalldown&quot; (input)&#x3D;&quot;setCapFalldown(capFalldownThumb.value)&quot; #capFalldownThumb&#x3D;&quot;matSliderThumb&quot;
-              /&gt;&lt;/mat-slider&gt;
-            &lt;/div&gt;
-          }
-          @case (&#x27;osc&#x27;) {
-            &lt;div&gt;
-              &lt;h5 class&#x3D;&quot;slider-label&quot;&gt;Thickness&lt;/h5&gt;
-              &lt;mat-slider min&#x3D;&quot;1&quot; max&#x3D;&quot;10&quot; step&#x3D;&quot;0.5&quot; discrete
-                &gt;&lt;input matSliderThumb [value]&#x3D;&quot;lineThickness&quot; (input)&#x3D;&quot;setLineThickness(lineThicknessThumb.value)&quot; #lineThicknessThumb&#x3D;&quot;matSliderThumb&quot;
-              /&gt;&lt;/mat-slider&gt;
-            &lt;/div&gt;
-          }
+        @if (mode &#x3D;&#x3D;&#x3D; &#x27;bars&#x27; || mode &#x3D;&#x3D;&#x3D; &#x27;circular-bars&#x27;) {
+          &lt;div&gt;
+            &lt;h5 class&#x3D;&quot;slider-label&quot;&gt;min. DB&lt;/h5&gt;
+            &lt;mat-slider min&#x3D;&quot;-90&quot; max&#x3D;&quot;-70&quot; step&#x3D;&quot;0.01&quot; discrete
+              &gt;&lt;input #minDbThumb&#x3D;&quot;matSliderThumb&quot; matSliderThumb [value]&#x3D;&quot;minDb&quot; (input)&#x3D;&quot;setMinDb(minDbThumb.value)&quot;
+            /&gt;&lt;/mat-slider&gt;
+          &lt;/div&gt;
+          &lt;div&gt;
+            &lt;h5 class&#x3D;&quot;slider-label&quot;&gt;Smoothing&lt;/h5&gt;
+            &lt;mat-slider min&#x3D;&quot;0&quot; max&#x3D;&quot;1&quot; step&#x3D;&quot;0.1&quot; discrete
+              &gt;&lt;input matSliderThumb [value]&#x3D;&quot;smoothing&quot; (input)&#x3D;&quot;setSmoothing(smoothingThumb.value)&quot; #smoothingThumb&#x3D;&quot;matSliderThumb&quot;
+            /&gt;&lt;/mat-slider&gt;
+          &lt;/div&gt;
+          &lt;div&gt;
+            &lt;h5 class&#x3D;&quot;slider-label&quot;&gt;Bars&lt;/h5&gt;
+            &lt;mat-slider min&#x3D;&quot;8&quot; max&#x3D;&quot;128&quot; step&#x3D;&quot;1&quot; discrete
+              &gt;&lt;input matSliderThumb [value]&#x3D;&quot;barCount&quot; (input)&#x3D;&quot;setBarCount(barCountThumb.value)&quot; #barCountThumb&#x3D;&quot;matSliderThumb&quot;
+            /&gt;&lt;/mat-slider&gt;
+          &lt;/div&gt;
+          &lt;div&gt;
+            &lt;h5 class&#x3D;&quot;slider-label&quot;&gt;Gap&lt;/h5&gt;
+            &lt;mat-slider min&#x3D;&quot;-1&quot; max&#x3D;&quot;20&quot; step&#x3D;&quot;0.1&quot; discrete
+              &gt;&lt;input matSliderThumb [value]&#x3D;&quot;gap&quot; (input)&#x3D;&quot;setGap(gapThumb.value)&quot; #gapThumb&#x3D;&quot;matSliderThumb&quot;
+            /&gt;&lt;/mat-slider&gt;
+          &lt;/div&gt;
+          &lt;div&gt;
+            &lt;h5 class&#x3D;&quot;slider-label&quot;&gt;Cap Height&lt;/h5&gt;
+            &lt;mat-slider min&#x3D;&quot;0&quot; max&#x3D;&quot;6&quot; step&#x3D;&quot;0.1&quot; discrete
+              &gt;&lt;input matSliderThumb [value]&#x3D;&quot;capHeight&quot; (input)&#x3D;&quot;setCapHeight(capHeightThumb.value)&quot; #capHeightThumb&#x3D;&quot;matSliderThumb&quot;
+            /&gt;&lt;/mat-slider&gt;
+          &lt;/div&gt;
+          &lt;div&gt;
+            &lt;h5 class&#x3D;&quot;slider-label&quot;&gt;Cap Falldown&lt;/h5&gt;
+            &lt;mat-slider min&#x3D;&quot;0.1&quot; max&#x3D;&quot;2&quot; step&#x3D;&quot;0.1&quot; discrete
+              &gt;&lt;input matSliderThumb [value]&#x3D;&quot;capFalldown&quot; (input)&#x3D;&quot;setCapFalldown(capFalldownThumb.value)&quot; #capFalldownThumb&#x3D;&quot;matSliderThumb&quot;
+            /&gt;&lt;/mat-slider&gt;
+          &lt;/div&gt;
+        }
+        @if (mode &#x3D;&#x3D;&#x3D; &#x27;osc&#x27; || mode &#x3D;&#x3D;&#x3D; &#x27;circular-osc&#x27;) {
+          &lt;div&gt;
+            &lt;h5 class&#x3D;&quot;slider-label&quot;&gt;Thickness&lt;/h5&gt;
+            &lt;mat-slider min&#x3D;&quot;1&quot; max&#x3D;&quot;10&quot; step&#x3D;&quot;0.5&quot; discrete
+              &gt;&lt;input matSliderThumb [value]&#x3D;&quot;lineThickness&quot; (input)&#x3D;&quot;setLineThickness(lineThicknessThumb.value)&quot; #lineThicknessThumb&#x3D;&quot;matSliderThumb&quot;
+            /&gt;&lt;/mat-slider&gt;
+          &lt;/div&gt;
         }
       &lt;/div&gt;
     &lt;/mtb-slide-panel&gt;
@@ -1901,6 +1900,12 @@ export class VisualizerComponent implements OnInit, OnDestroy {
       }
       @case (&#x27;osc&#x27;) {
         &lt;mat-icon matTooltip&#x3D;&quot;Oscilloscope&quot; svgIcon&#x3D;&quot;current-ac&quot;&gt;&lt;/mat-icon&gt;
+      }
+      @case (&#x27;circular-bars&#x27;) {
+        &lt;mat-icon matTooltip&#x3D;&quot;Circular Frequency-Bands&quot; svgIcon&#x3D;&quot;equalizer&quot;&gt;&lt;/mat-icon&gt;
+      }
+      @case (&#x27;circular-osc&#x27;) {
+        &lt;mat-icon matTooltip&#x3D;&quot;Circular Oscilloscope&quot; svgIcon&#x3D;&quot;current-ac&quot;&gt;&lt;/mat-icon&gt;
       }
       @case (&#x27;off&#x27;) {
         &lt;mat-icon matTooltip&#x3D;&quot;Visualizer off&quot; svgIcon&#x3D;&quot;eye-off-outline&quot;&gt;&lt;/mat-icon&gt;
@@ -1937,7 +1942,7 @@ export class VisualizerComponent implements OnInit, OnDestroy {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><div style="width: 100%; height: 100%; position: relative">  @if (playing) {    <canvas      [mtbVisual]="analyser"      style="width: 100%; height: 100%"      [mode]="visualsService.visualMode()"      [colorConfig]="colorConfig"      [barsConfig]="barsConfig"      [oscConfig]="oscConfig"      [sampleRate]="sampleRate"    ></canvas>  }  @if (showSlidePanel) {    <mtb-slide-panel      side="right"      bottom="0"      width="100%"      height="auto"      toggleIcon="tune"      openedState="false"      buttonTooltip=" visualizer config"      class="visuals-slide-panel"    >      <div class="accent-font" style="padding: 16px 0; font-size: 1rem">Visualizer</div>      <div class="visuals-settings">        @if (visualsService.visualMode() !== \'off\') {          <div>            <h5 class="slider-label">FFT-Size</h5>            <mat-select [value]="fftSize" (valueChange)="setFftSize($event)">              @for (option of fftOptions; track option) {                <mat-option [value]="option">{{ option }}</mat-option>              }            </mat-select>          </div>        }        <div>          <h5 class="slider-label">Transparency</h5>          <mat-slider min="0" max="1" step="0.01" discrete            ><input #alphaThumb="matSliderThumb" matSliderThumb [value]="alpha" (input)="setAlpha(alphaThumb.value)"          /></mat-slider>        </div>        @switch (visualsService.visualMode()) {          @case (\'bars\') {            <div>              <h5 class="slider-label">min. DB</h5>              <mat-slider min="-90" max="-70" step="0.01" discrete                ><input #minDbThumb="matSliderThumb" matSliderThumb [value]="minDb" (input)="setMinDb(minDbThumb.value)"              /></mat-slider>            </div>            <div>              <h5 class="slider-label">Smoothing</h5>              <mat-slider min="0" max="1" step="0.1" discrete                ><input matSliderThumb [value]="smoothing" (input)="setSmoothing(smoothingThumb.value)" #smoothingThumb="matSliderThumb"              /></mat-slider>            </div>            <div>              <h5 class="slider-label">Bars</h5>              <mat-slider min="8" max="128" step="1" discrete                ><input matSliderThumb [value]="barCount" (input)="setBarCount(barCountThumb.value)" #barCountThumb="matSliderThumb"              /></mat-slider>            </div>            <div>              <h5 class="slider-label">Gap</h5>              <mat-slider min="-1" max="20" step="0.1" discrete                ><input matSliderThumb [value]="gap" (input)="setGap(gapThumb.value)" #gapThumb="matSliderThumb"              /></mat-slider>            </div>            <div>              <h5 class="slider-label">Cap Height</h5>              <mat-slider min="0" max="6" step="0.1" discrete                ><input matSliderThumb [value]="capHeight" (input)="setCapHeight(capHeightThumb.value)" #capHeightThumb="matSliderThumb"              /></mat-slider>            </div>            <div>              <h5 class="slider-label">Cap Falldown</h5>              <mat-slider min="0.1" max="2" step="0.1" discrete                ><input matSliderThumb [value]="capFalldown" (input)="setCapFalldown(capFalldownThumb.value)" #capFalldownThumb="matSliderThumb"              /></mat-slider>            </div>          }          @case (\'osc\') {            <div>              <h5 class="slider-label">Thickness</h5>              <mat-slider min="1" max="10" step="0.5" discrete                ><input matSliderThumb [value]="lineThickness" (input)="setLineThickness(lineThicknessThumb.value)" #lineThicknessThumb="matSliderThumb"              /></mat-slider>            </div>          }        }      </div>    </mtb-slide-panel>  }  <button mat-icon-button style="position: absolute; top: 0.5rem; right: 0.5rem; z-index: 10" (click)="toggleVisualMode()">    @switch (visualsService.visualMode()) {      @case (\'bars\') {        <mat-icon matTooltip="Frequency-Bands" svgIcon="equalizer"></mat-icon>      }      @case (\'osc\') {        <mat-icon matTooltip="Oscilloscope" svgIcon="current-ac"></mat-icon>      }      @case (\'off\') {        <mat-icon matTooltip="Visualizer off" svgIcon="eye-off-outline"></mat-icon>      }    }  </button></div></div>'
+        var COMPONENT_TEMPLATE = '<div><div style="width: 100%; height: 100%; position: relative">  @if (playing) {    <canvas      [mtbVisual]="analyser"      style="width: 100%; height: 100%"      [mode]="visualsService.visualMode()"      [colorConfig]="colorConfig"      [barsConfig]="barsConfig"      [oscConfig]="oscConfig"      [sampleRate]="sampleRate"    ></canvas>  }  @if (showSlidePanel) {    <mtb-slide-panel      side="right"      bottom="0"      width="100%"      height="auto"      toggleIcon="tune"      openedState="false"      buttonTooltip=" visualizer config"      class="visuals-slide-panel"    >      <div class="accent-font" style="padding: 16px 0; font-size: 1rem">Visualizer</div>      <div class="visuals-settings">        @let mode = visualsService.visualMode();        @if (mode !== \'off\') {          <div>            <h5 class="slider-label">FFT-Size</h5>            <mat-select [value]="fftSize" (valueChange)="setFftSize($event)">              @for (option of fftOptions; track option) {                <mat-option [value]="option">{{ option }}</mat-option>              }            </mat-select>          </div>        }        <div>          <h5 class="slider-label">Transparency</h5>          <mat-slider min="0" max="1" step="0.01" discrete            ><input #alphaThumb="matSliderThumb" matSliderThumb [value]="alpha" (input)="setAlpha(alphaThumb.value)"          /></mat-slider>        </div>        @if (mode === \'bars\' || mode === \'circular-bars\') {          <div>            <h5 class="slider-label">min. DB</h5>            <mat-slider min="-90" max="-70" step="0.01" discrete              ><input #minDbThumb="matSliderThumb" matSliderThumb [value]="minDb" (input)="setMinDb(minDbThumb.value)"            /></mat-slider>          </div>          <div>            <h5 class="slider-label">Smoothing</h5>            <mat-slider min="0" max="1" step="0.1" discrete              ><input matSliderThumb [value]="smoothing" (input)="setSmoothing(smoothingThumb.value)" #smoothingThumb="matSliderThumb"            /></mat-slider>          </div>          <div>            <h5 class="slider-label">Bars</h5>            <mat-slider min="8" max="128" step="1" discrete              ><input matSliderThumb [value]="barCount" (input)="setBarCount(barCountThumb.value)" #barCountThumb="matSliderThumb"            /></mat-slider>          </div>          <div>            <h5 class="slider-label">Gap</h5>            <mat-slider min="-1" max="20" step="0.1" discrete              ><input matSliderThumb [value]="gap" (input)="setGap(gapThumb.value)" #gapThumb="matSliderThumb"            /></mat-slider>          </div>          <div>            <h5 class="slider-label">Cap Height</h5>            <mat-slider min="0" max="6" step="0.1" discrete              ><input matSliderThumb [value]="capHeight" (input)="setCapHeight(capHeightThumb.value)" #capHeightThumb="matSliderThumb"            /></mat-slider>          </div>          <div>            <h5 class="slider-label">Cap Falldown</h5>            <mat-slider min="0.1" max="2" step="0.1" discrete              ><input matSliderThumb [value]="capFalldown" (input)="setCapFalldown(capFalldownThumb.value)" #capFalldownThumb="matSliderThumb"            /></mat-slider>          </div>        }        @if (mode === \'osc\' || mode === \'circular-osc\') {          <div>            <h5 class="slider-label">Thickness</h5>            <mat-slider min="1" max="10" step="0.5" discrete              ><input matSliderThumb [value]="lineThickness" (input)="setLineThickness(lineThicknessThumb.value)" #lineThicknessThumb="matSliderThumb"            /></mat-slider>          </div>        }      </div>    </mtb-slide-panel>  }  <button mat-icon-button style="position: absolute; top: 0.5rem; right: 0.5rem; z-index: 10" (click)="toggleVisualMode()">    @switch (visualsService.visualMode()) {      @case (\'bars\') {        <mat-icon matTooltip="Frequency-Bands" svgIcon="equalizer"></mat-icon>      }      @case (\'osc\') {        <mat-icon matTooltip="Oscilloscope" svgIcon="current-ac"></mat-icon>      }      @case (\'circular-bars\') {        <mat-icon matTooltip="Circular Frequency-Bands" svgIcon="equalizer"></mat-icon>      }      @case (\'circular-osc\') {        <mat-icon matTooltip="Circular Oscilloscope" svgIcon="current-ac"></mat-icon>      }      @case (\'off\') {        <mat-icon matTooltip="Visualizer off" svgIcon="eye-off-outline"></mat-icon>      }    }  </button></div></div>'
     var COMPONENTS = [{'name': 'AppComponent', 'selector': 'mtb-root'},{'name': 'CoverDisplayComponent', 'selector': 'mtb-cover-display'},{'name': 'EqualizerComponent', 'selector': 'mtb-equalizer'},{'name': 'FileDropOverlayComponent', 'selector': 'mtb-file-drop-overlay'},{'name': 'HotkeysHelpDialogComponent', 'selector': 'mtb-hotkeys-help-dialog'},{'name': 'LibraryComponent', 'selector': ''},{'name': 'MetadataSettingsComponent', 'selector': 'mtb-metadata-settings'},{'name': 'PlayerComponent', 'selector': 'mtb-player'},{'name': 'PlaylistComponent', 'selector': 'mtb-playlist'},{'name': 'PromptDialogComponent', 'selector': 'mtb-prompt-dialog'},{'name': 'SettingsComponent', 'selector': 'mtb-settings'},{'name': 'ShellComponent', 'selector': 'mtb-shell'},{'name': 'SlidePanelComponent', 'selector': 'mtb-slide-panel'},{'name': 'StorageSettingsComponent', 'selector': 'mtb-storage-settings'},{'name': 'ThemeSettingsComponent', 'selector': 'mtb-theme-settings'},{'name': 'VisualizerComponent', 'selector': 'mtb-visualizer'}];
     var DIRECTIVES = [{'name': 'VisualsDirective', 'selector': '[mtbVisual]'}];
     var ACTUAL_COMPONENT = {'name': 'VisualizerComponent'};

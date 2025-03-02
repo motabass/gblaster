@@ -270,8 +270,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="124"
-                                    class="link-to-prism">apps/gblaster/src/app/player/visualizer/visuals/visuals.directive.ts:124</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="132"
+                                    class="link-to-prism">apps/gblaster/src/app/player/visualizer/visuals/visuals.directive.ts:132</a></div>
                         </td>
                     </tr>
 
@@ -300,15 +300,15 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>visualizeFrequencyBars()</code>
+<code>visualizeFrequencyBars(circular: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank">boolean</a>)</code>
                 </td>
             </tr>
 
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="68"
-                                    class="link-to-prism">apps/gblaster/src/app/player/visualizer/visuals/visuals.directive.ts:68</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="76"
+                                    class="link-to-prism">apps/gblaster/src/app/player/visualizer/visuals/visuals.directive.ts:76</a></div>
                         </td>
                     </tr>
 
@@ -316,10 +316,40 @@
             <tr>
                 <td class="col-md-4">
 
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>circular</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
 
                         </div>
+                            <div class="io-description">
+                                
+                            </div>
                 </td>
             </tr>
         </tbody>
@@ -337,15 +367,15 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>visualizeOscilloscope()</code>
+<code>visualizeOscilloscope(circular: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank">boolean</a>)</code>
                 </td>
             </tr>
 
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="99"
-                                    class="link-to-prism">apps/gblaster/src/app/player/visualizer/visuals/visuals.directive.ts:99</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="107"
+                                    class="link-to-prism">apps/gblaster/src/app/player/visualizer/visuals/visuals.directive.ts:107</a></div>
                         </td>
                     </tr>
 
@@ -353,10 +383,40 @@
             <tr>
                 <td class="col-md-4">
 
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>circular</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
 
                         </div>
+                            <div class="io-description">
+                                
+                            </div>
                 </td>
             </tr>
         </tbody>
@@ -556,7 +616,7 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Directive, ElementRef, NgZone, numberAttribute, OnChanges, OnDestroy, SimpleChanges, inject, input } from &#x27;@angular/core&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Directive, ElementRef, inject, input, NgZone, numberAttribute, OnChanges, OnDestroy, SimpleChanges } from &#x27;@angular/core&#x27;;
 import type { FrequencyBarsConfig, OsciloscopeConfig, VisualizerMode, VisualsColorConfig, VisualsWorkerMessage } from &#x27;./visuals.types&#x27;;
 
 const FALLBACK_PRIMARY_COLOR &#x3D; &#x27;#424242&#x27;;
@@ -613,20 +673,28 @@ export class VisualsDirective implements OnDestroy, OnChanges {
 
     switch (this.mode()) {
       case &#x27;bars&#x27;: {
-        this.visualizeFrequencyBars();
+        this.visualizeFrequencyBars(false);
         break;
       }
       case &#x27;osc&#x27;: {
-        this.visualizeOscilloscope();
+        this.visualizeOscilloscope(false);
+        break;
+      }
+      case &#x27;circular-osc&#x27;: {
+        this.visualizeOscilloscope(true);
+        break;
+      }
+      case &#x27;circular-bars&#x27;: {
+        this.visualizeFrequencyBars(true);
         break;
       }
     }
   }
 
-  visualizeFrequencyBars() {
+  visualizeFrequencyBars(circular: boolean) {
     this.worker.postMessage({
       visualizerOptions: {
-        mode: &#x27;bars&#x27;,
+        mode: circular ? &#x27;circular-bars&#x27; : &#x27;bars&#x27;,
         barCount: this.barsConfig().barCount,
         gap: this.barsConfig().gap,
         capHeight: this.barsConfig().capHeight,
@@ -654,10 +722,10 @@ export class VisualsDirective implements OnDestroy, OnChanges {
     });
   }
 
-  visualizeOscilloscope() {
+  visualizeOscilloscope(circular: boolean) {
     this.worker.postMessage({
       visualizerOptions: {
-        mode: &#x27;osc&#x27;,
+        mode: circular ? &#x27;circular-osc&#x27; : &#x27;osc&#x27;,
         mainColor: this.colorConfig()?.mainColor || FALLBACK_PRIMARY_COLOR,
         peakColor: this.colorConfig()?.peakColor || FALLBACK_ACCENT_COLOR,
         alpha: this.colorConfig()?.alpha ?? 1,

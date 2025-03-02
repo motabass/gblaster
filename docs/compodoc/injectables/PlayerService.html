@@ -1373,7 +1373,7 @@ export class PlayerService extends BaseSubscribingClass {
   private metadataService &#x3D; inject(MetadataService);
   private themeService &#x3D; inject(ThemeService);
   private loaderService &#x3D; inject(LoaderService);
-  private wakelockService &#x3D; inject(WakelockService);
+  private wakelockService &#x3D; inject(WakelockService, { optional: true });
   private mediaSessionService &#x3D; inject(MediaSessionService);
 
   private loadFinished &#x3D; true;
@@ -1438,12 +1438,12 @@ export class PlayerService extends BaseSubscribingClass {
   private afterPlayLoaded() {
     this.loadFinished &#x3D; true;
     this.mediaSessionService.setPlaying();
-    return this.wakelockService.activateWakelock();
+    return this.wakelockService?.activateWakelock();
   }
 
   private afterPausedOrStopped() {
     this.mediaSessionService.setPaused();
-    return this.wakelockService.releaseWakelock();
+    return this.wakelockService?.releaseWakelock();
   }
 
   private async playTrack(track: Track | undefined) {

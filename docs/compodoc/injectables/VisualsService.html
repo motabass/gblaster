@@ -262,7 +262,7 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable, signal, inject } from &#x27;@angular/core&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { inject, Injectable, signal } from &#x27;@angular/core&#x27;;
 import { LocalStorageService } from &#x27;ngx-webstorage&#x27;;
 import type { VisualizerMode } from &#x27;./visuals.types&#x27;;
 
@@ -294,6 +294,16 @@ export class VisualsService {
         break;
       }
       case &#x27;osc&#x27;: {
+        this.visualMode.set(&#x27;circular-bars&#x27;);
+        this.localStorageService.store(&#x27;visualMode&#x27;, &#x27;off&#x27;);
+        break;
+      }
+      case &#x27;circular-bars&#x27;: {
+        this.visualMode.set(&#x27;circular-osc&#x27;);
+        this.localStorageService.store(&#x27;visualMode&#x27;, &#x27;circular-osc&#x27;);
+        break;
+      }
+      case &#x27;circular-osc&#x27;: {
         this.visualMode.set(&#x27;off&#x27;);
         this.localStorageService.store(&#x27;visualMode&#x27;, &#x27;off&#x27;);
         break;
