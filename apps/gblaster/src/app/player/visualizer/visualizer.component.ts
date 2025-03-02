@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, inject, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, input, OnDestroy, OnInit } from '@angular/core';
 import { LocalStorage } from 'ngx-webstorage';
 import { Track } from '../player.types';
 import type { FftSize, FrequencyBarsConfig, OsciloscopeConfig, VisualsColorConfig } from './visuals/visuals.types';
@@ -24,7 +24,7 @@ import { VisualsDirective } from './visuals/visuals.directive';
 })
 export class VisualizerComponent implements OnInit, OnDestroy {
   private audioService = inject(AudioService);
-  private gamepadService = inject(GamepadService);
+  private gamepadService = inject(GamepadService, { optional: true });
   visualsService = inject(VisualsService);
 
   @LocalStorage('smoothing', 0.7) smoothing!: number;
@@ -59,7 +59,7 @@ export class VisualizerComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.gamepadService.registerButtonAction(GamepadButtons.SELECT_BUTTON, () => this.toggleVisualMode());
+    this.gamepadService?.registerButtonAction(GamepadButtons.SELECT_BUTTON, () => this.toggleVisualMode());
   }
 
   toggleVisualMode() {
@@ -162,7 +162,7 @@ export class VisualizerComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.gamepadService.deregisterButtonAction(GamepadButtons.SELECT_BUTTON);
+    this.gamepadService?.deregisterButtonAction(GamepadButtons.SELECT_BUTTON);
     this.analyser.disconnect();
   }
 }

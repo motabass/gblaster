@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, OnDestroy, OnInit, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, OnDestroy, OnInit } from '@angular/core';
 import { MatSliderModule } from '@angular/material/slider';
 import { formatSecondsAsClock } from '@motabass/helpers';
 import { ALLOWED_MIMETYPES } from './file-loader-service/file-loader.helpers';
@@ -45,8 +45,8 @@ import { PlaylistComponent } from './playlist/playlist.component';
 export default class PlayerComponent implements OnInit, OnDestroy {
   playerService = inject(PlayerService);
   private titleService = inject(TitleService);
-  private gamepadService = inject(GamepadService);
-  private hotkeysService = inject(HotkeysService);
+  private gamepadService = inject(GamepadService, { optional: true });
+  private hotkeysService = inject(HotkeysService, { optional: true });
   private fileLoaderService = inject(FileLoaderService);
   audioService = inject(AudioService);
 
@@ -57,49 +57,53 @@ export default class PlayerComponent implements OnInit, OnDestroy {
   async ngOnInit() {
     this.titleService.setTitle('gBlaster');
 
-    this.hotkeysService.initialize();
+    if (this.hotkeysService) {
+      this.hotkeysService.initialize();
 
-    this.hotkeysService.register({ keys: 'shift+p', description: 'Play/Pause', callback: () => this.playPause() });
+      this.hotkeysService.register({ keys: 'shift+p', description: 'Play/Pause', callback: () => this.playPause() });
+    }
 
-    this.gamepadService.registerButtonAction(GamepadButtons.A_BUTTON, () => this.playPause());
-    this.gamepadService.registerButtonAction(GamepadButtons.B_BUTTON, () => this.stop());
+    if (this.gamepadService) {
+      this.gamepadService.registerButtonAction(GamepadButtons.A_BUTTON, () => this.playPause());
+      this.gamepadService.registerButtonAction(GamepadButtons.B_BUTTON, () => this.stop());
 
-    this.gamepadService.registerButtonAction(GamepadButtons.X_BUTTON, () => this.toggleShuffle());
-    this.gamepadService.registerButtonAction(GamepadButtons.Y_BUTTON, () => this.toggleRepeat());
+      this.gamepadService.registerButtonAction(GamepadButtons.X_BUTTON, () => this.toggleShuffle());
+      this.gamepadService.registerButtonAction(GamepadButtons.Y_BUTTON, () => this.toggleRepeat());
 
-    this.gamepadService.registerButtonAction(GamepadButtons.L2_BUTTON, (value) => this.seekLeft(value), 'turbo');
-    this.gamepadService.registerButtonAction(GamepadButtons.R2_BUTTON, (value) => this.seekRight(value), 'turbo');
+      this.gamepadService.registerButtonAction(GamepadButtons.L2_BUTTON, (value) => this.seekLeft(value), 'turbo');
+      this.gamepadService.registerButtonAction(GamepadButtons.R2_BUTTON, (value) => this.seekRight(value), 'turbo');
 
-    this.gamepadService.registerAxisAction(
-      GamepadAxes.S1_X,
-      (value) => this.seekRight(value),
-      (value) => this.seekLeft(value),
-      'turbo',
-      64
-    );
+      this.gamepadService.registerAxisAction(
+        GamepadAxes.S1_X,
+        (value) => this.seekRight(value),
+        (value) => this.seekLeft(value),
+        'turbo',
+        64
+      );
 
-    this.gamepadService.registerAxisAction(
-      GamepadAxes.S2_Y,
-      (value) => this.decreaseVolume(value),
-      (value) => this.increaseVolume(value),
-      'hold'
-    );
+      this.gamepadService.registerAxisAction(
+        GamepadAxes.S2_Y,
+        (value) => this.decreaseVolume(value),
+        (value) => this.increaseVolume(value),
+        'hold'
+      );
 
-    this.gamepadService.registerButtonAction(GamepadButtons.S2_BUTTON, () => this.toggleMute());
+      this.gamepadService.registerButtonAction(GamepadButtons.S2_BUTTON, () => this.toggleMute());
 
-    this.gamepadService.registerButtonAction(GamepadButtons.DPAD_UP, () => this.playerService.selectPrevious());
-    this.gamepadService.registerButtonAction(GamepadButtons.DPAD_DOWN, () => this.playerService.selectNext());
-    this.gamepadService.registerAxisAction(
-      GamepadAxes.S1_Y,
-      () => this.playerService.selectNext(),
-      () => this.playerService.selectPrevious(),
-      'turbo'
-    );
+      this.gamepadService.registerButtonAction(GamepadButtons.DPAD_UP, () => this.playerService.selectPrevious());
+      this.gamepadService.registerButtonAction(GamepadButtons.DPAD_DOWN, () => this.playerService.selectNext());
+      this.gamepadService.registerAxisAction(
+        GamepadAxes.S1_Y,
+        () => this.playerService.selectNext(),
+        () => this.playerService.selectPrevious(),
+        'turbo'
+      );
 
-    this.gamepadService.registerButtonAction(GamepadButtons.R1_BUTTON, () => this.next(), 'turbo');
-    this.gamepadService.registerButtonAction(GamepadButtons.L1_BUTTON, () => this.previous(), 'turbo');
+      this.gamepadService.registerButtonAction(GamepadButtons.R1_BUTTON, () => this.next(), 'turbo');
+      this.gamepadService.registerButtonAction(GamepadButtons.L1_BUTTON, () => this.previous(), 'turbo');
 
-    this.gamepadService.registerButtonAction(GamepadButtons.START_BUTTON, () => this.showPicker());
+      this.gamepadService.registerButtonAction(GamepadButtons.START_BUTTON, () => this.showPicker());
+    }
   }
 
   async onReload() {
@@ -210,20 +214,22 @@ export default class PlayerComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.gamepadService.deregisterButtonAction(GamepadButtons.A_BUTTON);
-    this.gamepadService.deregisterButtonAction(GamepadButtons.B_BUTTON);
-    this.gamepadService.deregisterButtonAction(GamepadButtons.X_BUTTON);
-    this.gamepadService.deregisterButtonAction(GamepadButtons.Y_BUTTON);
-    this.gamepadService.deregisterButtonAction(GamepadButtons.L2_BUTTON);
-    this.gamepadService.deregisterButtonAction(GamepadButtons.R2_BUTTON);
-    this.gamepadService.deregisterButtonAction(GamepadButtons.S2_BUTTON);
-    this.gamepadService.deregisterButtonAction(GamepadButtons.DPAD_UP);
-    this.gamepadService.deregisterButtonAction(GamepadButtons.DPAD_DOWN);
-    this.gamepadService.deregisterButtonAction(GamepadButtons.R1_BUTTON);
-    this.gamepadService.deregisterButtonAction(GamepadButtons.L1_BUTTON);
-    this.gamepadService.deregisterButtonAction(GamepadButtons.START_BUTTON);
-    this.gamepadService.deregisterAxisAction(GamepadAxes.S1_X);
-    this.gamepadService.deregisterAxisAction(GamepadAxes.S2_Y);
-    this.gamepadService.deregisterAxisAction(GamepadAxes.S1_Y);
+    if (this.gamepadService) {
+      this.gamepadService.deregisterButtonAction(GamepadButtons.A_BUTTON);
+      this.gamepadService.deregisterButtonAction(GamepadButtons.B_BUTTON);
+      this.gamepadService.deregisterButtonAction(GamepadButtons.X_BUTTON);
+      this.gamepadService.deregisterButtonAction(GamepadButtons.Y_BUTTON);
+      this.gamepadService.deregisterButtonAction(GamepadButtons.L2_BUTTON);
+      this.gamepadService.deregisterButtonAction(GamepadButtons.R2_BUTTON);
+      this.gamepadService.deregisterButtonAction(GamepadButtons.S2_BUTTON);
+      this.gamepadService.deregisterButtonAction(GamepadButtons.DPAD_UP);
+      this.gamepadService.deregisterButtonAction(GamepadButtons.DPAD_DOWN);
+      this.gamepadService.deregisterButtonAction(GamepadButtons.R1_BUTTON);
+      this.gamepadService.deregisterButtonAction(GamepadButtons.L1_BUTTON);
+      this.gamepadService.deregisterButtonAction(GamepadButtons.START_BUTTON);
+      this.gamepadService.deregisterAxisAction(GamepadAxes.S1_X);
+      this.gamepadService.deregisterAxisAction(GamepadAxes.S2_Y);
+      this.gamepadService.deregisterAxisAction(GamepadAxes.S1_Y);
+    }
   }
 }

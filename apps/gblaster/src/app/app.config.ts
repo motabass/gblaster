@@ -11,6 +11,12 @@ import { FileLoaderService } from './player/file-loader-service/file-loader.serv
 import { FileLoaderServiceFactory } from './player/file-loader-service/file-loader.service.factory';
 import { MAT_TOOLTIP_DEFAULT_OPTIONS } from '@angular/material/tooltip';
 import { routes } from './app.routes';
+import { gamepadServiceFactory } from './services/gamepad/gamepad.service.factory';
+import { GamepadService } from './services/gamepad/gamepad.service';
+import { HotkeysService } from './services/hotkeys/hotkeys.service';
+import { hotkeysServiceFactory } from './services/hotkeys/hotkeys.service.factory';
+import { WakelockService } from './services/wakelock.service';
+import { wakelockServiceFactory } from './services/wakelock.service.factory';
 
 const databaseConfig: DBConfig = {
   name: 'metadataCache',
@@ -48,6 +54,9 @@ export const appConfig: ApplicationConfig = {
       useFactory: FileLoaderServiceFactory,
       deps: [NgxIndexedDBService]
     },
+    { provide: GamepadService, useFactory: gamepadServiceFactory },
+    { provide: HotkeysService, useFactory: hotkeysServiceFactory },
+    { provide: WakelockService, useFactory: wakelockServiceFactory },
     {
       provide: MAT_TOOLTIP_DEFAULT_OPTIONS,
       useValue: { showDelay: 800, position: 'above', disableTooltipInteractivity: true }

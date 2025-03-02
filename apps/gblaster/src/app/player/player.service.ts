@@ -20,7 +20,7 @@ export class PlayerService extends BaseSubscribingClass {
   private metadataService = inject(MetadataService);
   private themeService = inject(ThemeService);
   private loaderService = inject(LoaderService);
-  private wakelockService = inject(WakelockService);
+  private wakelockService = inject(WakelockService, { optional: true });
   private mediaSessionService = inject(MediaSessionService);
 
   private loadFinished = true;
@@ -85,12 +85,12 @@ export class PlayerService extends BaseSubscribingClass {
   private afterPlayLoaded() {
     this.loadFinished = true;
     this.mediaSessionService.setPlaying();
-    return this.wakelockService.activateWakelock();
+    return this.wakelockService?.activateWakelock();
   }
 
   private afterPausedOrStopped() {
     this.mediaSessionService.setPaused();
-    return this.wakelockService.releaseWakelock();
+    return this.wakelockService?.releaseWakelock();
   }
 
   private async playTrack(track: Track | undefined) {
