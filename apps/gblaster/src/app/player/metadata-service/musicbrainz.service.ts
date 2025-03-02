@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, inject } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import luceneEscapeQuery from 'lucene-escape-query';
 import { firstValueFrom } from 'rxjs';
 import { Id3Tags } from './id3-tags.types';
@@ -32,7 +32,7 @@ export class MusicbrainzService {
         try {
           coverData = await firstValueFrom(this.http.get(`https://coverartarchive.org/release-group/${id}`));
         } catch {
-          console.error('Kein Cover mit der ID gefunden');
+          console.warn('Kein Cover mit der ID gefunden');
           return;
         }
 
@@ -40,7 +40,7 @@ export class MusicbrainzService {
         const thumbUrl: string = coverImage.thumbnails['500'];
         const coverUrl: string = coverImage.image;
 
-        return { thumb: thumbUrl.replace('http://', 'https://'), original: coverUrl.replace('http://', 'https://') };
+        return { thumb: thumbUrl?.replace('http://', 'https://'), original: coverUrl?.replace('http://', 'https://') };
       } catch (error) {
         console.warn('Konnte MusicBrainz nicht abfragen', error);
         return;
