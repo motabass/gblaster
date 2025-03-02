@@ -8,21 +8,21 @@
     [opened]="!isHandset()"
   >
     <mat-toolbar color="primary" style="height: 48px">
-      <mat-icon aria-label="Side nav toggle icon" svgIcon="radio" style="margin-right: 0.7rem"></mat-icon>
+      <mat-icon aria-label="Side nav toggle icon" svgIcon="radio" style="margin-right: 0.7rem" />
       <span class="title">{{ titleService.title() }}</span>
     </mat-toolbar>
     <mat-nav-list>
       <mat-list-item (click)="navigateTo('/player')">
-        <mat-icon matListItemAvatar svgIcon="record-player"></mat-icon><span matListItemTitle> Player</span></mat-list-item
+        <mat-icon matListItemAvatar svgIcon="record-player" /><span matListItemTitle> Player</span></mat-list-item
       >
       <mat-list-item (click)="navigateTo('/player/eq')">
-        <mat-icon matListItemAvatar svgIcon="tune-vertical"></mat-icon><span matListItemTitle> Equalizer</span></mat-list-item
+        <mat-icon matListItemAvatar svgIcon="tune-vertical" /><span matListItemTitle> Equalizer</span></mat-list-item
       >
       <mat-list-item (click)="navigateTo('/player/library')"
-        ><mat-icon matListItemAvatar svgIcon="music-box-multiple-outline"></mat-icon><span matListItemTitle> Library</span></mat-list-item
+        ><mat-icon matListItemAvatar svgIcon="music-box-multiple-outline" /><span matListItemTitle> Library</span></mat-list-item
       >
       <mat-list-item (click)="navigateTo('/settings')">
-        <mat-icon matListItemAvatar svgIcon="cog-outline"></mat-icon><span matListItemTitle> Settings</span></mat-list-item
+        <mat-icon matListItemAvatar svgIcon="cog-outline" /><span matListItemTitle> Settings</span></mat-list-item
       >
     </mat-nav-list>
   </mat-sidenav>
@@ -42,7 +42,7 @@
       }
       <span class="title">{{ titleService.title() }}</span>
       @if (loaderService.isLoading()) {
-        <mat-spinner style="margin-left: 1rem" color="accent" diameter="32" strokeWidth="6"></mat-spinner>
+        <mat-spinner style="margin-left: 1rem" color="accent" diameter="32" strokeWidth="6" />
       }
     </mat-toolbar>
     <div class="router-outlet"><router-outlet></router-outlet></div>

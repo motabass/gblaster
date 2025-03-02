@@ -7,7 +7,7 @@
 </mtb-playlist>
 
 <mtb-cover-display [track]="playerService.playingTrack()" class="main">
-  <mtb-visualizer class="visualizer" [track]="playerService.playingTrack()"></mtb-visualizer>
+  <mtb-visualizer class="visualizer" [track]="playerService.playingTrack()" />
 </mtb-cover-display>
 
 <mat-toolbar color="primary" class="bar flex row justify-center">
@@ -82,4 +82,4 @@
   </div>
 </mat-menu>
 
-<mtb-file-drop-overlay [allowedTypes]="allowedTypes" (filesDroped)="onFilesDropped($event)"></mtb-file-drop-overlay>
+<mtb-file-drop-overlay [allowedTypes]="allowedTypes" (filesDroped)="onFilesDropped($event)" />
