@@ -67,6 +67,14 @@ addEventListener('message', (event: MessageEvent<VisualsWorkerMessage>) => {
         drawBars();
         break;
       }
+      case 'circular-osc': {
+        drawCircularOsc();
+        break;
+      }
+      case 'circular-bars': {
+        drawCircularBars();
+        break;
+      }
     }
   }
 });
@@ -75,7 +83,7 @@ function setup(options: VisualizerOptions) {
   if (!context) return;
 
   mode = options.mode;
-  if (mode === 'bars') {
+  if (mode === 'bars' || mode === 'circular-bars') {
     meterNumber = options.barCount;
     gap = options.gap;
     capHeight = options.capHeight;
@@ -86,7 +94,7 @@ function setup(options: VisualizerOptions) {
     // Pre-allocate arrays
     capYPositionArray = new Float32Array(meterNumber).fill(capHeight);
     barkScaleBandEnergy = new Float32Array(meterNumber);
-  } else if (mode === 'osc') {
+  } else if (mode === 'osc' || mode === 'circular-osc') {
     thickness = options.thickness;
   }
 
@@ -169,6 +177,113 @@ function drawBars() {
   }
 
   capYPositionArray.set(capYPositionArrayCopy);
+}
+
+let rotation: number = 0;
+
+function drawCircularBars() {
+  if (!context) return;
+
+  const barkScaleData = convertToBarkScale();
+
+  context.clearRect(0, 0, canvasWidth, canvasHeight);
+  context.globalAlpha = alpha;
+
+  let centerX: number = canvasWidth / 2;
+  let centerY: number = canvasHeight / 2;
+  let radius: number = Math.min(centerX, centerY) * 1.2;
+
+  // Slowly rotate the visualization
+  rotation += 0.003;
+
+  // Draw circle backdrop
+  context.beginPath();
+  context.arc(centerX, centerY, radius * 0.3, 0, Math.PI * 2);
+  context.fillStyle = mainColor;
+  context.globalAlpha = 0.2 * alpha;
+  context.fill();
+  context.globalAlpha = alpha;
+
+  // Draw frequency bars in circular pattern
+  const angleStep = (Math.PI * 2) / meterNumber;
+
+  for (let i = 0; i < meterNumber; i++) {
+    const value = Math.min(barkScaleData[i] || 0, 256) / 256;
+    const angle = rotation + i * angleStep;
+
+    const innerRadius = radius * 0.3;
+    const outerRadius = innerRadius + radius * 0.9 * value;
+
+    // Draw bar
+    context.beginPath();
+    context.moveTo(centerX + innerRadius * Math.cos(angle), centerY + innerRadius * Math.sin(angle));
+    context.lineTo(centerX + outerRadius * Math.cos(angle), centerY + outerRadius * Math.sin(angle));
+
+    // Calculate width based on radius
+    const lineWidth = ((radius * Math.PI) / meterNumber) * 0.7;
+
+    context.lineWidth = lineWidth;
+    context.strokeStyle = gradient;
+    context.stroke();
+
+    // Add caps at the end of each line
+    if (value > 0.05) {
+      context.beginPath();
+      context.arc(centerX + outerRadius * Math.cos(angle), centerY + outerRadius * Math.sin(angle), lineWidth / 2, 0, Math.PI * 2);
+      context.fillStyle = peakColor;
+      context.fill();
+    }
+  }
+}
+
+function drawCircularOsc() {
+  if (!context) return;
+
+  context.clearRect(0, 0, canvasWidth, canvasHeight);
+  context.globalAlpha = alpha;
+
+  // Slowly rotate the visualization
+  rotation += 0.003;
+
+  const centerX = canvasWidth / 2;
+  const centerY = canvasHeight / 2;
+  const radius = Math.min(centerX, centerY) * 0.5;
+
+  // Draw a reference circle
+  context.beginPath();
+  context.arc(centerX, centerY, radius, 0, Math.PI * 2);
+  context.strokeStyle = mainColor;
+  context.globalAlpha = 0.2 * alpha;
+  context.lineWidth = 1;
+  context.stroke();
+  context.globalAlpha = alpha;
+
+  // Draw the waveform as a circular path
+  context.beginPath();
+  const angleStep = (Math.PI * 2) / bufferLength;
+
+  for (let i = 0; i < bufferLength; i++) {
+    // Convert the time domain data (0-255) to radius variation
+    // 128 is the center line for audio data
+    const scaleFactor = 1 + ((analyserData[i] - 128) / 128) * 0.9;
+    const currentRadius = radius * scaleFactor;
+
+    const angle = rotation + i * angleStep;
+    const x = centerX + Math.cos(angle) * currentRadius;
+    const y = centerY + Math.sin(angle) * currentRadius;
+
+    if (i === 0) {
+      context.moveTo(x, y);
+    } else {
+      context.lineTo(x, y);
+    }
+  }
+
+  // Close the path to form a complete circle
+  context.closePath();
+  context.lineWidth = thickness;
+  context.strokeStyle = peakColor;
+  context.stroke();
 }
 
 function convertToBarkScale(): Float32Array {

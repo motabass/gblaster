@@ -1,4 +1,4 @@
-import { Injectable, signal, inject } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 import { LocalStorageService } from 'ngx-webstorage';
 import type { VisualizerMode } from './visuals.types';
 
@@ -30,6 +30,16 @@ export class VisualsService {
         break;
       }
       case 'osc': {
+        this.visualMode.set('circular-bars');
+        this.localStorageService.store('visualMode', 'off');
+        break;
+      }
+      case 'circular-bars': {
+        this.visualMode.set('circular-osc');
+        this.localStorageService.store('visualMode', 'circular-osc');
+        break;
+      }
+      case 'circular-osc': {
         this.visualMode.set('off');
         this.localStorageService.store('visualMode', 'off');
         break;

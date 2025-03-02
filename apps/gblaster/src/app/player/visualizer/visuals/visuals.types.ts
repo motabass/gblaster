@@ -56,4 +56,4 @@ export interface OscVisualizerOptions extends BaseVisualizerOptions {
 
 export type VisualizerOptions = BarsVisualizerOptions | OscVisualizerOptions;
 
-export type VisualizerMode = 'osc' | 'bars' | 'off';
+export type VisualizerMode = 'off' | 'bars' | 'osc' | 'circular-bars' | 'circular-osc';

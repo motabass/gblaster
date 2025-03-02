@@ -1,4 +1,4 @@
-import { Directive, ElementRef, NgZone, numberAttribute, OnChanges, OnDestroy, SimpleChanges, inject, input } from '@angular/core';
+import { Directive, ElementRef, inject, input, NgZone, numberAttribute, OnChanges, OnDestroy, SimpleChanges } from '@angular/core';
 import type { FrequencyBarsConfig, OsciloscopeConfig, VisualizerMode, VisualsColorConfig, VisualsWorkerMessage } from './visuals.types';
 
 const FALLBACK_PRIMARY_COLOR = '#424242';
@@ -55,20 +55,28 @@ export class VisualsDirective implements OnDestroy, OnChanges {
 
     switch (this.mode()) {
       case 'bars': {
-        this.visualizeFrequencyBars();
+        this.visualizeFrequencyBars(false);
         break;
       }
       case 'osc': {
-        this.visualizeOscilloscope();
+        this.visualizeOscilloscope(false);
+        break;
+      }
+      case 'circular-osc': {
+        this.visualizeOscilloscope(true);
+        break;
+      }
+      case 'circular-bars': {
+        this.visualizeFrequencyBars(true);
         break;
       }
     }
   }
 
-  visualizeFrequencyBars() {
+  visualizeFrequencyBars(circular: boolean) {
     this.worker.postMessage({
       visualizerOptions: {
-        mode: 'bars',
+        mode: circular ? 'circular-bars' : 'bars',
         barCount: this.barsConfig().barCount,
         gap: this.barsConfig().gap,
         capHeight: this.barsConfig().capHeight,
@@ -96,10 +104,10 @@ export class VisualsDirective implements OnDestroy, OnChanges {
     });
   }
 
-  visualizeOscilloscope() {
+  visualizeOscilloscope(circular: boolean) {
     this.worker.postMessage({
       visualizerOptions: {
-        mode: 'osc',
+        mode: circular ? 'circular-osc' : 'osc',
         mainColor: this.colorConfig()?.mainColor || FALLBACK_PRIMARY_COLOR,
         peakColor: this.colorConfig()?.peakColor || FALLBACK_ACCENT_COLOR,
         alpha: this.colorConfig()?.alpha ?? 1,

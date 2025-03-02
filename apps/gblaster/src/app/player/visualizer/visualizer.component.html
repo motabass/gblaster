@@ -23,7 +23,8 @@
     >
       <div class="accent-font" style="padding: 16px 0; font-size: 1rem">Visualizer</div>
       <div class="visuals-settings">
-        @if (visualsService.visualMode() !== 'off') {
+        @let mode = visualsService.visualMode();
+        @if (mode !== 'off') {
           <div>
             <h5 class="slider-label">FFT-Size</h5>
             <mat-select [value]="fftSize" (valueChange)="setFftSize($event)">
@@ -40,53 +41,51 @@
           /></mat-slider>
         </div>
 
-        @switch (visualsService.visualMode()) {
-          @case ('bars') {
-            <div>
-              <h5 class="slider-label">min. DB</h5>
-              <mat-slider min="-90" max="-70" step="0.01" discrete
-                ><input #minDbThumb="matSliderThumb" matSliderThumb [value]="minDb" (input)="setMinDb(minDbThumb.value)"
-              /></mat-slider>
-            </div>
-            <div>
-              <h5 class="slider-label">Smoothing</h5>
-              <mat-slider min="0" max="1" step="0.1" discrete
-                ><input matSliderThumb [value]="smoothing" (input)="setSmoothing(smoothingThumb.value)" #smoothingThumb="matSliderThumb"
-              /></mat-slider>
-            </div>
-            <div>
-              <h5 class="slider-label">Bars</h5>
-              <mat-slider min="8" max="128" step="1" discrete
-                ><input matSliderThumb [value]="barCount" (input)="setBarCount(barCountThumb.value)" #barCountThumb="matSliderThumb"
-              /></mat-slider>
-            </div>
-            <div>
-              <h5 class="slider-label">Gap</h5>
-              <mat-slider min="-1" max="20" step="0.1" discrete
-                ><input matSliderThumb [value]="gap" (input)="setGap(gapThumb.value)" #gapThumb="matSliderThumb"
-              /></mat-slider>
-            </div>
-            <div>
-              <h5 class="slider-label">Cap Height</h5>
-              <mat-slider min="0" max="6" step="0.1" discrete
-                ><input matSliderThumb [value]="capHeight" (input)="setCapHeight(capHeightThumb.value)" #capHeightThumb="matSliderThumb"
-              /></mat-slider>
-            </div>
-            <div>
-              <h5 class="slider-label">Cap Falldown</h5>
-              <mat-slider min="0.1" max="2" step="0.1" discrete
-                ><input matSliderThumb [value]="capFalldown" (input)="setCapFalldown(capFalldownThumb.value)" #capFalldownThumb="matSliderThumb"
-              /></mat-slider>
-            </div>
-          }
-          @case ('osc') {
-            <div>
-              <h5 class="slider-label">Thickness</h5>
-              <mat-slider min="1" max="10" step="0.5" discrete
-                ><input matSliderThumb [value]="lineThickness" (input)="setLineThickness(lineThicknessThumb.value)" #lineThicknessThumb="matSliderThumb"
-              /></mat-slider>
-            </div>
-          }
+        @if (mode === 'bars' || mode === 'circular-bars') {
+          <div>
+            <h5 class="slider-label">min. DB</h5>
+            <mat-slider min="-90" max="-70" step="0.01" discrete
+              ><input #minDbThumb="matSliderThumb" matSliderThumb [value]="minDb" (input)="setMinDb(minDbThumb.value)"
+            /></mat-slider>
+          </div>
+          <div>
+            <h5 class="slider-label">Smoothing</h5>
+            <mat-slider min="0" max="1" step="0.1" discrete
+              ><input matSliderThumb [value]="smoothing" (input)="setSmoothing(smoothingThumb.value)" #smoothingThumb="matSliderThumb"
+            /></mat-slider>
+          </div>
+          <div>
+            <h5 class="slider-label">Bars</h5>
+            <mat-slider min="8" max="128" step="1" discrete
+              ><input matSliderThumb [value]="barCount" (input)="setBarCount(barCountThumb.value)" #barCountThumb="matSliderThumb"
+            /></mat-slider>
+          </div>
+          <div>
+            <h5 class="slider-label">Gap</h5>
+            <mat-slider min="-1" max="20" step="0.1" discrete
+              ><input matSliderThumb [value]="gap" (input)="setGap(gapThumb.value)" #gapThumb="matSliderThumb"
+            /></mat-slider>
+          </div>
+          <div>
+            <h5 class="slider-label">Cap Height</h5>
+            <mat-slider min="0" max="6" step="0.1" discrete
+              ><input matSliderThumb [value]="capHeight" (input)="setCapHeight(capHeightThumb.value)" #capHeightThumb="matSliderThumb"
+            /></mat-slider>
+          </div>
+          <div>
+            <h5 class="slider-label">Cap Falldown</h5>
+            <mat-slider min="0.1" max="2" step="0.1" discrete
+              ><input matSliderThumb [value]="capFalldown" (input)="setCapFalldown(capFalldownThumb.value)" #capFalldownThumb="matSliderThumb"
+            /></mat-slider>
+          </div>
+        }
+        @if (mode === 'osc' || mode === 'circular-osc') {
+          <div>
+            <h5 class="slider-label">Thickness</h5>
+            <mat-slider min="1" max="10" step="0.5" discrete
+              ><input matSliderThumb [value]="lineThickness" (input)="setLineThickness(lineThicknessThumb.value)" #lineThicknessThumb="matSliderThumb"
+            /></mat-slider>
+          </div>
         }
       </div>
     </mtb-slide-panel>
@@ -99,6 +98,12 @@
       }
       @case ('osc') {
         <mat-icon matTooltip="Oscilloscope" svgIcon="current-ac"></mat-icon>
+      }
+      @case ('circular-bars') {
+        <mat-icon matTooltip="Circular Frequency-Bands" svgIcon="equalizer"></mat-icon>
+      }
+      @case ('circular-osc') {
+        <mat-icon matTooltip="Circular Oscilloscope" svgIcon="current-ac"></mat-icon>
       }
       @case ('off') {
         <mat-icon matTooltip="Visualizer off" svgIcon="eye-off-outline"></mat-icon>
