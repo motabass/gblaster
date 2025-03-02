@@ -120,13 +120,16 @@ function drawOsc() {
   context.lineWidth = thickness;
   context.strokeStyle = mainColor;
 
+  const halfCanvasHeight = canvasHeight / 2;
+  const scaleFactor = halfCanvasHeight / 128;
+
   oscilloscopePath = new Path2D();
   let x = 0;
-  oscilloscopePath.moveTo(x, (analyserData[0] / 128) * (canvasHeight / 2));
+  oscilloscopePath.moveTo(x, analyserData[0] * scaleFactor);
 
   for (let index = 1; index < bufferLength; index++) {
     x += sliceWidthCache;
-    oscilloscopePath.lineTo(x, (analyserData[index] / 128) * (canvasHeight / 2));
+    oscilloscopePath.lineTo(x, analyserData[index] * scaleFactor);
   }
 
   context.stroke(oscilloscopePath);
@@ -141,27 +144,31 @@ function drawBars() {
   context.globalAlpha = alpha;
 
   const barGapWidth = barWidth + gap;
+  const capYPositionArrayCopy = capYPositionArray.slice();
+
+  context.fillStyle = gradient;
 
   for (let index = 0; index < meterNumber; index++) {
     const value = Math.min(barkScaleData[index] || 0, canvasHeight);
     const x = barGapWidth * index;
 
     // Draw cap
-    context.fillStyle = mainColor;
-    if (value < capYPositionArray[index]) {
-      context.fillRect(x, canvasHeight - capYPositionArray[index], barWidth, capHeight);
-      if (capYPositionArray[index] > capHeight) {
-        capYPositionArray[index] -= capFalldown;
-      }
+    if (value < capYPositionArrayCopy[index]) {
+      context.fillStyle = mainColor;
+      context.fillRect(x, canvasHeight - capYPositionArrayCopy[index], barWidth, capHeight);
+      capYPositionArrayCopy[index] = Math.max(capYPositionArrayCopy[index] - capFalldown, capHeight);
     } else {
+      context.fillStyle = mainColor;
       context.fillRect(x, canvasHeight - value, barWidth, capHeight);
-      capYPositionArray[index] = value;
+      capYPositionArrayCopy[index] = value;
     }
 
     // Draw bar
     context.fillStyle = gradient;
     context.fillRect(x, canvasHeight - value + capHeight, barWidth, value - capHeight);
   }
+
+  capYPositionArray.set(capYPositionArrayCopy);
 }
 
 function convertToBarkScale(): Float32Array {
