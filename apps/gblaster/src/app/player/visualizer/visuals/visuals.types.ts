@@ -40,7 +40,7 @@ export interface BaseVisualizerOptions {
 }
 
 export interface BarsVisualizerOptions extends BaseVisualizerOptions {
-  mode: 'bars';
+  mode: 'bars' | 'circular-bars';
   barCount: number;
   gap: number;
   capHeight: number;
@@ -50,10 +50,18 @@ export interface BarsVisualizerOptions extends BaseVisualizerOptions {
 }
 
 export interface OscVisualizerOptions extends BaseVisualizerOptions {
-  mode: 'osc';
+  mode: 'osc' | 'circular-osc';
   thickness: number;
 }
 
 export type VisualizerOptions = BarsVisualizerOptions | OscVisualizerOptions;
 
 export type VisualizerMode = 'off' | 'bars' | 'osc' | 'circular-bars' | 'circular-osc';
+
+export function isBarsVisualizerOptions(options: VisualizerOptions): options is BarsVisualizerOptions {
+  return options.mode === 'bars' || options.mode === 'circular-bars';
+}
+
+export function isOscVisualizerOptions(options: VisualizerOptions): options is OscVisualizerOptions {
+  return options.mode === 'osc' || options.mode === 'circular-osc';
+}

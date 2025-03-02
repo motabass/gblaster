@@ -1,4 +1,4 @@
-import { VisualizerMode, VisualizerOptions, VisualsWorkerMessage } from './visuals.types';
+import { isBarsVisualizerOptions, isOscVisualizerOptions, VisualizerMode, VisualizerOptions, VisualsWorkerMessage } from './visuals.types';
 
 let mode: VisualizerMode = 'off';
 let canvas: OffscreenCanvas;
@@ -83,7 +83,7 @@ function setup(options: VisualizerOptions) {
   if (!context) return;
 
   mode = options.mode;
-  if (mode === 'bars' || mode === 'circular-bars') {
+  if (isBarsVisualizerOptions(options)) {
     meterNumber = options.barCount;
     gap = options.gap;
     capHeight = options.capHeight;
@@ -94,7 +94,7 @@ function setup(options: VisualizerOptions) {
     // Pre-allocate arrays
     capYPositionArray = new Float32Array(meterNumber).fill(capHeight);
     barkScaleBandEnergy = new Float32Array(meterNumber);
-  } else if (mode === 'osc' || mode === 'circular-osc') {
+  } else if (isOscVisualizerOptions(options)) {
     thickness = options.thickness;
   }
 
@@ -152,7 +152,7 @@ function drawBars() {
   context.globalAlpha = alpha;
 
   const barGapWidth = barWidth + gap;
-  const capYPositionArrayCopy = capYPositionArray.slice();
+  const capYPositionArrayCopy = [...capYPositionArray];
 
   context.fillStyle = gradient;
 
@@ -179,7 +179,7 @@ function drawBars() {
   capYPositionArray.set(capYPositionArrayCopy);
 }
 
-let rotation: number = 0;
+let rotation = 0;
 
 function drawCircularBars() {
   if (!context) return;
@@ -189,9 +189,9 @@ function drawCircularBars() {
   context.clearRect(0, 0, canvasWidth, canvasHeight);
   context.globalAlpha = alpha;
 
-  let centerX: number = canvasWidth / 2;
-  let centerY: number = canvasHeight / 2;
-  let radius: number = Math.min(centerX, centerY) * 1.2;
+  const centerX = canvasWidth / 2;
+  const centerY = canvasHeight / 2;
+  const radius = Math.min(centerX, centerY) * 1.2;
 
   // Slowly rotate the visualization
   rotation += 0.003;
@@ -207,9 +207,9 @@ function drawCircularBars() {
   // Draw frequency bars in circular pattern
   const angleStep = (Math.PI * 2) / meterNumber;
 
-  for (let i = 0; i < meterNumber; i++) {
-    const value = Math.min(barkScaleData[i] || 0, 256) / 256;
-    const angle = rotation + i * angleStep;
+  for (let index = 0; index < meterNumber; index++) {
+    const value = Math.min(barkScaleData[index] || 0, 256) / 256;
+    const angle = rotation + index * angleStep;
 
     const innerRadius = radius * 0.3;
     const outerRadius = innerRadius + radius * 0.9 * value;
@@ -262,17 +262,17 @@ function drawCircularOsc() {
   context.beginPath();
   const angleStep = (Math.PI * 2) / bufferLength;
 
-  for (let i = 0; i < bufferLength; i++) {
+  for (let index = 0; index < bufferLength; index++) {
     // Convert the time domain data (0-255) to radius variation
     // 128 is the center line for audio data
-    const scaleFactor = 1 + ((analyserData[i] - 128) / 128) * 0.9;
+    const scaleFactor = 1 + ((analyserData[index] - 128) / 128) * 0.9;
     const currentRadius = radius * scaleFactor;
 
-    const angle = rotation + i * angleStep;
+    const angle = rotation + index * angleStep;
     const x = centerX + Math.cos(angle) * currentRadius;
     const y = centerY + Math.sin(angle) * currentRadius;
 
-    if (i === 0) {
+    if (index === 0) {
       context.moveTo(x, y);
     } else {
       context.lineTo(x, y);

@@ -1,4 +1,6 @@
 <div style="width: 100%; height: 100%; position: relative">
+  @let visualizerMode = visualsService.visualMode();
+
   @if (playing) {
     <canvas
       [mtbVisual]="analyser"
@@ -23,8 +25,7 @@
     >
       <div class="accent-font" style="padding: 16px 0; font-size: 1rem">Visualizer</div>
       <div class="visuals-settings">
-        @let mode = visualsService.visualMode();
-        @if (mode !== 'off') {
+        @if (visualizerMode !== 'off') {
           <div>
             <h5 class="slider-label">FFT-Size</h5>
             <mat-select [value]="fftSize" (valueChange)="setFftSize($event)">
@@ -41,7 +42,7 @@
           /></mat-slider>
         </div>
 
-        @if (mode === 'bars' || mode === 'circular-bars') {
+        @if (visualizerMode === 'bars' || visualizerMode === 'circular-bars') {
           <div>
             <h5 class="slider-label">min. DB</h5>
             <mat-slider min="-90" max="-70" step="0.01" discrete
@@ -79,7 +80,7 @@
             /></mat-slider>
           </div>
         }
-        @if (mode === 'osc' || mode === 'circular-osc') {
+        @if (visualizerMode === 'osc' || visualizerMode === 'circular-osc') {
           <div>
             <h5 class="slider-label">Thickness</h5>
             <mat-slider min="1" max="10" step="0.5" discrete
@@ -92,7 +93,7 @@
   }
 
   <button mat-icon-button style="position: absolute; top: 0.5rem; right: 0.5rem; z-index: 10" (click)="toggleVisualMode()">
-    @switch (visualsService.visualMode()) {
+    @switch (visualizerMode) {
       @case ('bars') {
         <mat-icon matTooltip="Frequency-Bands" svgIcon="equalizer"></mat-icon>
       }
