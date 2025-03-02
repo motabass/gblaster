@@ -233,7 +233,7 @@
 
     <div class="tab-pane fade  tab-source-code" id="source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { HttpClient } from &#x27;@angular/common/http&#x27;;
-import { Injectable, inject } from &#x27;@angular/core&#x27;;
+import { inject, Injectable } from &#x27;@angular/core&#x27;;
 import luceneEscapeQuery from &#x27;lucene-escape-query&#x27;;
 import { firstValueFrom } from &#x27;rxjs&#x27;;
 import { Id3Tags } from &#x27;./id3-tags.types&#x27;;
@@ -266,7 +266,7 @@ export class MusicbrainzService {
         try {
           coverData &#x3D; await firstValueFrom(this.http.get(&#x60;https://coverartarchive.org/release-group/${id}&#x60;));
         } catch {
-          console.error(&#x27;Kein Cover mit der ID gefunden&#x27;);
+          console.warn(&#x27;Kein Cover mit der ID gefunden&#x27;);
           return;
         }
 
@@ -274,7 +274,7 @@ export class MusicbrainzService {
         const thumbUrl: string &#x3D; coverImage.thumbnails[&#x27;500&#x27;];
         const coverUrl: string &#x3D; coverImage.image;
 
-        return { thumb: thumbUrl.replace(&#x27;http://&#x27;, &#x27;https://&#x27;), original: coverUrl.replace(&#x27;http://&#x27;, &#x27;https://&#x27;) };
+        return { thumb: thumbUrl?.replace(&#x27;http://&#x27;, &#x27;https://&#x27;), original: coverUrl?.replace(&#x27;http://&#x27;, &#x27;https://&#x27;) };
       } catch (error) {
         console.warn(&#x27;Konnte MusicBrainz nicht abfragen&#x27;, error);
         return;

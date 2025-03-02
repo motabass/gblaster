@@ -106,6 +106,10 @@
                 role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
         </li>
         <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li class="nav-item">
             <a href="#tree" class="nav-link"
                 role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
         </li>
@@ -122,6 +126,13 @@
 
 
 
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                <code>AfterViewInit</code>
+                <code>OnDestroy</code>
+    </p>
 
 
 <section data-compodoc="block-metadata">
@@ -147,6 +158,10 @@
 
 
 
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./file-drop-overlay.component.scss</code></td>
+            </tr>
 
 
 
@@ -157,10 +172,6 @@
 
 
 
-            <tr>
-                <td class="col-md-3">styleUrl</td>
-                <td class="col-md-9"><code>./file-drop-overlay.component.scss</code></td>
-            </tr>
 
 
 
@@ -223,24 +234,6 @@
     </table>
 </section>
 
-    <section data-compodoc="block-constructor">
-    <h3 id="constructor">Constructor</h3>
-        <table class="table table-sm table-bordered">
-            <tbody>
-                <tr>
-                    <td class="col-md-4">
-<code>constructor()</code>
-                    </td>
-                </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">libs/ui-components/file-drop-overlay/src/lib/file-drop-overlay/file-drop-overlay.component.ts:15</a></div>
-                            </td>
-                        </tr>
-
-            </tbody>
-        </table>
-</section>
 
 
 
@@ -264,15 +257,15 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>drop(event: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+<code>drop(event: DragEvent)</code>
                 </td>
             </tr>
 
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="52"
-                                    class="link-to-prism">libs/ui-components/file-drop-overlay/src/lib/file-drop-overlay/file-drop-overlay.component.ts:52</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="54"
+                                    class="link-to-prism">libs/ui-components/file-drop-overlay/src/lib/file-drop-overlay/file-drop-overlay.component.ts:54</a></div>
                         </td>
                     </tr>
 
@@ -295,7 +288,7 @@
                                         <tr>
                                                 <td>event</td>
                                             <td>
-                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                                        <code>DragEvent</code>
                                             </td>
 
                                             <td>
@@ -338,8 +331,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="45"
-                                    class="link-to-prism">libs/ui-components/file-drop-overlay/src/lib/file-drop-overlay/file-drop-overlay.component.ts:45</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="48"
+                                    class="link-to-prism">libs/ui-components/file-drop-overlay/src/lib/file-drop-overlay/file-drop-overlay.component.ts:48</a></div>
                         </td>
                     </tr>
 
@@ -398,15 +391,15 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>over(event: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+<code>over(event: DragEvent)</code>
                 </td>
             </tr>
 
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="33"
-                                    class="link-to-prism">libs/ui-components/file-drop-overlay/src/lib/file-drop-overlay/file-drop-overlay.component.ts:33</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="38"
+                                    class="link-to-prism">libs/ui-components/file-drop-overlay/src/lib/file-drop-overlay/file-drop-overlay.component.ts:38</a></div>
                         </td>
                     </tr>
 
@@ -429,7 +422,7 @@
                                         <tr>
                                                 <td>event</td>
                                             <td>
-                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                                        <code>DragEvent</code>
                                             </td>
 
                                             <td>
@@ -477,7 +470,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">libs/ui-components/file-drop-overlay/src/lib/file-drop-overlay/file-drop-overlay.component.ts:13</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">libs/ui-components/file-drop-overlay/src/lib/file-drop-overlay/file-drop-overlay.component.ts:12</a></div>
                         </td>
                     </tr>
 
@@ -503,7 +496,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">libs/ui-components/file-drop-overlay/src/lib/file-drop-overlay/file-drop-overlay.component.ts:15</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">libs/ui-components/file-drop-overlay/src/lib/file-drop-overlay/file-drop-overlay.component.ts:14</a></div>
                         </td>
                     </tr>
 
@@ -516,15 +509,14 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, ElementRef, Renderer2, inject, output, input } from &#x27;@angular/core&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { AfterViewInit, Component, ElementRef, inject, input, OnDestroy, output, Renderer2 } from &#x27;@angular/core&#x27;;
 
 @Component({
   selector: &#x27;mtb-file-drop-overlay&#x27;,
   templateUrl: &#x27;./file-drop-overlay.component.html&#x27;,
-  styleUrl: &#x27;./file-drop-overlay.component.scss&#x27;,
-  imports: []
+  styleUrls: [&#x27;./file-drop-overlay.component.scss&#x27;]
 })
-export class FileDropOverlayComponent {
+export class FileDropOverlayComponent implements AfterViewInit, OnDestroy {
   private hostElement &#x3D; inject(ElementRef);
   private renderer &#x3D; inject(Renderer2);
 
@@ -532,49 +524,59 @@ export class FileDropOverlayComponent {
 
   readonly filesDroped &#x3D; output&lt;File[]&gt;();
 
-  constructor() {
-    globalThis.addEventListener(&#x27;dragenter&#x27;, this.over.bind(this));
-    globalThis.addEventListener(&#x27;dragstart&#x27;, this.over.bind(this));
-    globalThis.addEventListener(&#x27;dragover&#x27;, this.over.bind(this));
+  private dragEnterListener: any;
+  private dragOverListener: any;
+  private dragLeaveListener: any;
+  private dragEndListener: any;
+  private dropListener: any;
 
-    globalThis.addEventListener(&#x27;dragleave&#x27;, this.leave.bind(this));
-    globalThis.addEventListener(&#x27;dragend&#x27;, this.leave.bind(this));
-
-    globalThis.addEventListener(&#x27;drop&#x27;, (event: DragEvent) &#x3D;&gt; {
-      event.preventDefault();
-      event.stopPropagation();
-      this.leave(event);
-      this.drop(event);
-    });
+  ngAfterViewInit() {
+    this.dragEnterListener &#x3D; this.renderer.listen(&#x27;window&#x27;, &#x27;dragenter&#x27;, this.over.bind(this));
+    this.dragOverListener &#x3D; this.renderer.listen(&#x27;window&#x27;, &#x27;dragover&#x27;, this.over.bind(this));
+    this.dragLeaveListener &#x3D; this.renderer.listen(&#x27;window&#x27;, &#x27;dragleave&#x27;, this.leave.bind(this));
+    this.dragEndListener &#x3D; this.renderer.listen(&#x27;window&#x27;, &#x27;dragend&#x27;, this.leave.bind(this));
+    this.dropListener &#x3D; this.renderer.listen(&#x27;window&#x27;, &#x27;drop&#x27;, this.drop.bind(this));
   }
 
-  over(event: any) {
+  ngOnDestroy() {
+    this.dragEnterListener();
+    this.dragOverListener();
+    this.dragLeaveListener();
+    this.dragEndListener();
+    this.dropListener();
+  }
+
+  over(event: DragEvent) {
     event.preventDefault();
     event.stopPropagation();
 
     if (event.dataTransfer?.files) {
-      // Test that the item being dragged is a valid one
       event.dataTransfer.dropEffect &#x3D; &#x27;copy&#x27;;
-      event.preventDefault();
     }
-    this.renderer.setStyle(this.hostElement.nativeElement, &#x27;display&#x27;, &#x27;flex&#x27;);
+    this.renderer.setStyle(this.hostElement.nativeElement, &#x27;visibility&#x27;, &#x27;visible&#x27;);
   }
 
   leave(event: DragEvent) {
     event.preventDefault();
     event.stopPropagation();
-
-    this.renderer.setStyle(this.hostElement.nativeElement, &#x27;display&#x27;, &#x27;none&#x27;);
+    this.renderer.setStyle(this.hostElement.nativeElement, &#x27;visibility&#x27;, &#x27;hidden&#x27;);
   }
 
-  drop(event: any) {
+  drop(event: DragEvent) {
+    event.preventDefault();
+    event.stopPropagation();
+    this.leave(event);
+    if (event.dataTransfer?.files) {
+      this.handleDroppedFiles(event.dataTransfer?.files);
+    }
+  }
+
+  private handleDroppedFiles(droppedFiles: FileList) {
     const files: File[] &#x3D; [];
-    if (event.dataTransfer.files) {
-      for (let index &#x3D; 0; index &lt; event.dataTransfer.files.length; index++) {
-        const file &#x3D; event.dataTransfer.files?.item(index);
-        if (file &amp;&amp; this.allowedTypes().includes(file.type)) {
-          files.push(file);
-        }
+    for (let index &#x3D; 0; index &lt; droppedFiles.length; index++) {
+      const file &#x3D; droppedFiles.item(index);
+      if (file &amp;&amp; this.allowedTypes().includes(file.type)) {
+        files.push(file);
       }
     }
     this.filesDroped.emit(files);
@@ -588,6 +590,26 @@ export class FileDropOverlayComponent {
 </code></pre>
     </div>
 
+    <div class="tab-pane fade " id="styleData">
+                <p class="comment">
+                    <code>./file-drop-overlay.component.scss</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss">:host {
+  visibility: hidden;
+  pointer-events: none;
+  display: flex;
+  position: fixed;
+  box-sizing: border-box;
+  border: 6px dashed var(--theme-accent-500);
+  inset: 0;
+  z-index: 199;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  background-color: rgb(255 255 255 / 20%);
+}
+</code></pre>
+    </div>
 
     <div class="tab-pane fade " id="tree">
         <div id="tree-container"></div>
