@@ -498,21 +498,21 @@ export class ShellComponent {
     [opened]&#x3D;&quot;!isHandset()&quot;
   &gt;
     &lt;mat-toolbar color&#x3D;&quot;primary&quot; style&#x3D;&quot;height: 48px&quot;&gt;
-      &lt;mat-icon aria-label&#x3D;&quot;Side nav toggle icon&quot; svgIcon&#x3D;&quot;radio&quot; style&#x3D;&quot;margin-right: 0.7rem&quot;&gt;&lt;/mat-icon&gt;
+      &lt;mat-icon aria-label&#x3D;&quot;Side nav toggle icon&quot; svgIcon&#x3D;&quot;radio&quot; style&#x3D;&quot;margin-right: 0.7rem&quot; /&gt;
       &lt;span class&#x3D;&quot;title&quot;&gt;{{ titleService.title() }}&lt;/span&gt;
     &lt;/mat-toolbar&gt;
     &lt;mat-nav-list&gt;
       &lt;mat-list-item (click)&#x3D;&quot;navigateTo(&#x27;/player&#x27;)&quot;&gt;
-        &lt;mat-icon matListItemAvatar svgIcon&#x3D;&quot;record-player&quot;&gt;&lt;/mat-icon&gt;&lt;span matListItemTitle&gt; Player&lt;/span&gt;&lt;/mat-list-item
+        &lt;mat-icon matListItemAvatar svgIcon&#x3D;&quot;record-player&quot; /&gt;&lt;span matListItemTitle&gt; Player&lt;/span&gt;&lt;/mat-list-item
       &gt;
       &lt;mat-list-item (click)&#x3D;&quot;navigateTo(&#x27;/player/eq&#x27;)&quot;&gt;
-        &lt;mat-icon matListItemAvatar svgIcon&#x3D;&quot;tune-vertical&quot;&gt;&lt;/mat-icon&gt;&lt;span matListItemTitle&gt; Equalizer&lt;/span&gt;&lt;/mat-list-item
+        &lt;mat-icon matListItemAvatar svgIcon&#x3D;&quot;tune-vertical&quot; /&gt;&lt;span matListItemTitle&gt; Equalizer&lt;/span&gt;&lt;/mat-list-item
       &gt;
       &lt;mat-list-item (click)&#x3D;&quot;navigateTo(&#x27;/player/library&#x27;)&quot;
-        &gt;&lt;mat-icon matListItemAvatar svgIcon&#x3D;&quot;music-box-multiple-outline&quot;&gt;&lt;/mat-icon&gt;&lt;span matListItemTitle&gt; Library&lt;/span&gt;&lt;/mat-list-item
+        &gt;&lt;mat-icon matListItemAvatar svgIcon&#x3D;&quot;music-box-multiple-outline&quot; /&gt;&lt;span matListItemTitle&gt; Library&lt;/span&gt;&lt;/mat-list-item
       &gt;
       &lt;mat-list-item (click)&#x3D;&quot;navigateTo(&#x27;/settings&#x27;)&quot;&gt;
-        &lt;mat-icon matListItemAvatar svgIcon&#x3D;&quot;cog-outline&quot;&gt;&lt;/mat-icon&gt;&lt;span matListItemTitle&gt; Settings&lt;/span&gt;&lt;/mat-list-item
+        &lt;mat-icon matListItemAvatar svgIcon&#x3D;&quot;cog-outline&quot; /&gt;&lt;span matListItemTitle&gt; Settings&lt;/span&gt;&lt;/mat-list-item
       &gt;
     &lt;/mat-nav-list&gt;
   &lt;/mat-sidenav&gt;
@@ -532,7 +532,7 @@ export class ShellComponent {
       }
       &lt;span class&#x3D;&quot;title&quot;&gt;{{ titleService.title() }}&lt;/span&gt;
       @if (loaderService.isLoading()) {
-        &lt;mat-spinner style&#x3D;&quot;margin-left: 1rem&quot; color&#x3D;&quot;accent&quot; diameter&#x3D;&quot;32&quot; strokeWidth&#x3D;&quot;6&quot;&gt;&lt;/mat-spinner&gt;
+        &lt;mat-spinner style&#x3D;&quot;margin-left: 1rem&quot; color&#x3D;&quot;accent&quot; diameter&#x3D;&quot;32&quot; strokeWidth&#x3D;&quot;6&quot; /&gt;
       }
     &lt;/mat-toolbar&gt;
     &lt;div class&#x3D;&quot;router-outlet&quot;&gt;&lt;router-outlet&gt;&lt;/router-outlet&gt;&lt;/div&gt;
@@ -567,7 +567,7 @@ export class ShellComponent {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><mat-sidenav-container class="sidenav-container">  <mat-sidenav    #drawer    class="sidenav"    fixedInViewport    [attr.role]="isHandset() ? \'dialog\' : \'navigation\'"    [mode]="isHandset() ? \'over\' : \'side\'"    [opened]="!isHandset()"  >    <mat-toolbar color="primary" style="height: 48px">      <mat-icon aria-label="Side nav toggle icon" svgIcon="radio" style="margin-right: 0.7rem"></mat-icon>      <span class="title">{{ titleService.title() }}</span>    </mat-toolbar>    <mat-nav-list>      <mat-list-item (click)="navigateTo(\'/player\')">        <mat-icon matListItemAvatar svgIcon="record-player"></mat-icon><span matListItemTitle> Player</span></mat-list-item      >      <mat-list-item (click)="navigateTo(\'/player/eq\')">        <mat-icon matListItemAvatar svgIcon="tune-vertical"></mat-icon><span matListItemTitle> Equalizer</span></mat-list-item      >      <mat-list-item (click)="navigateTo(\'/player/library\')"        ><mat-icon matListItemAvatar svgIcon="music-box-multiple-outline"></mat-icon><span matListItemTitle> Library</span></mat-list-item      >      <mat-list-item (click)="navigateTo(\'/settings\')">        <mat-icon matListItemAvatar svgIcon="cog-outline"></mat-icon><span matListItemTitle> Settings</span></mat-list-item      >    </mat-nav-list>  </mat-sidenav>  <mat-sidenav-content style="overflow: hidden">    <mat-toolbar color="primary" class="mat-elevation-z6">      @if (isHandset()) {        <button          id="sidenav_menu_button"          type="button"          aria-label="Toggle sidenav"          mat-icon-button          (click)="drawer.toggle()"          style="margin-right: 0.7rem; padding: 6px"        >          <mat-icon aria-label="Side nav toggle icon" style="--mdc-icon-button-icon-size: 36px; width: 36px; height: 36px" svgIcon="logo"></mat-icon>        </button>      }      <span class="title">{{ titleService.title() }}</span>      @if (loaderService.isLoading()) {        <mat-spinner style="margin-left: 1rem" color="accent" diameter="32" strokeWidth="6"></mat-spinner>      }    </mat-toolbar>    <div class="router-outlet"><router-outlet></router-outlet></div>  </mat-sidenav-content></mat-sidenav-container></div>'
+        var COMPONENT_TEMPLATE = '<div><mat-sidenav-container class="sidenav-container">  <mat-sidenav    #drawer    class="sidenav"    fixedInViewport    [attr.role]="isHandset() ? \'dialog\' : \'navigation\'"    [mode]="isHandset() ? \'over\' : \'side\'"    [opened]="!isHandset()"  >    <mat-toolbar color="primary" style="height: 48px">      <mat-icon aria-label="Side nav toggle icon" svgIcon="radio" style="margin-right: 0.7rem" />      <span class="title">{{ titleService.title() }}</span>    </mat-toolbar>    <mat-nav-list>      <mat-list-item (click)="navigateTo(\'/player\')">        <mat-icon matListItemAvatar svgIcon="record-player" /><span matListItemTitle> Player</span></mat-list-item      >      <mat-list-item (click)="navigateTo(\'/player/eq\')">        <mat-icon matListItemAvatar svgIcon="tune-vertical" /><span matListItemTitle> Equalizer</span></mat-list-item      >      <mat-list-item (click)="navigateTo(\'/player/library\')"        ><mat-icon matListItemAvatar svgIcon="music-box-multiple-outline" /><span matListItemTitle> Library</span></mat-list-item      >      <mat-list-item (click)="navigateTo(\'/settings\')">        <mat-icon matListItemAvatar svgIcon="cog-outline" /><span matListItemTitle> Settings</span></mat-list-item      >    </mat-nav-list>  </mat-sidenav>  <mat-sidenav-content style="overflow: hidden">    <mat-toolbar color="primary" class="mat-elevation-z6">      @if (isHandset()) {        <button          id="sidenav_menu_button"          type="button"          aria-label="Toggle sidenav"          mat-icon-button          (click)="drawer.toggle()"          style="margin-right: 0.7rem; padding: 6px"        >          <mat-icon aria-label="Side nav toggle icon" style="--mdc-icon-button-icon-size: 36px; width: 36px; height: 36px" svgIcon="logo"></mat-icon>        </button>      }      <span class="title">{{ titleService.title() }}</span>      @if (loaderService.isLoading()) {        <mat-spinner style="margin-left: 1rem" color="accent" diameter="32" strokeWidth="6" />      }    </mat-toolbar>    <div class="router-outlet"><router-outlet></router-outlet></div>  </mat-sidenav-content></mat-sidenav-container></div>'
     var COMPONENTS = [{'name': 'AppComponent', 'selector': 'mtb-root'},{'name': 'CoverDisplayComponent', 'selector': 'mtb-cover-display'},{'name': 'EqualizerComponent', 'selector': 'mtb-equalizer'},{'name': 'FileDropOverlayComponent', 'selector': 'mtb-file-drop-overlay'},{'name': 'HotkeysHelpDialogComponent', 'selector': 'mtb-hotkeys-help-dialog'},{'name': 'LibraryComponent', 'selector': ''},{'name': 'MetadataSettingsComponent', 'selector': 'mtb-metadata-settings'},{'name': 'PlayerComponent', 'selector': 'mtb-player'},{'name': 'PlaylistComponent', 'selector': 'mtb-playlist'},{'name': 'PromptDialogComponent', 'selector': 'mtb-prompt-dialog'},{'name': 'SettingsComponent', 'selector': 'mtb-settings'},{'name': 'ShellComponent', 'selector': 'mtb-shell'},{'name': 'SlidePanelComponent', 'selector': 'mtb-slide-panel'},{'name': 'StorageSettingsComponent', 'selector': 'mtb-storage-settings'},{'name': 'ThemeSettingsComponent', 'selector': 'mtb-theme-settings'},{'name': 'VisualizerComponent', 'selector': 'mtb-visualizer'}];
     var DIRECTIVES = [{'name': 'VisualsDirective', 'selector': '[mtbVisual]'}];
     var ACTUAL_COMPONENT = {'name': 'ShellComponent'};
