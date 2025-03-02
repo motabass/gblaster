@@ -1,12 +1,11 @@
-import { Component, ElementRef, Renderer2, inject, output, input } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, inject, input, OnDestroy, output, Renderer2 } from '@angular/core';
 
 @Component({
   selector: 'mtb-file-drop-overlay',
   templateUrl: './file-drop-overlay.component.html',
-  styleUrl: './file-drop-overlay.component.scss',
-  imports: []
+  styleUrls: ['./file-drop-overlay.component.scss']
 })
-export class FileDropOverlayComponent {
+export class FileDropOverlayComponent implements AfterViewInit, OnDestroy {
   private hostElement = inject(ElementRef);
   private renderer = inject(Renderer2);
 
@@ -14,49 +13,59 @@ export class FileDropOverlayComponent {
 
   readonly filesDroped = output<File[]>();
 
-  constructor() {
-    globalThis.addEventListener('dragenter', this.over.bind(this));
-    globalThis.addEventListener('dragstart', this.over.bind(this));
-    globalThis.addEventListener('dragover', this.over.bind(this));
+  private dragEnterListener: any;
+  private dragOverListener: any;
+  private dragLeaveListener: any;
+  private dragEndListener: any;
+  private dropListener: any;
 
-    globalThis.addEventListener('dragleave', this.leave.bind(this));
-    globalThis.addEventListener('dragend', this.leave.bind(this));
-
-    globalThis.addEventListener('drop', (event: DragEvent) => {
-      event.preventDefault();
-      event.stopPropagation();
-      this.leave(event);
-      this.drop(event);
-    });
+  ngAfterViewInit() {
+    this.dragEnterListener = this.renderer.listen('window', 'dragenter', this.over.bind(this));
+    this.dragOverListener = this.renderer.listen('window', 'dragover', this.over.bind(this));
+    this.dragLeaveListener = this.renderer.listen('window', 'dragleave', this.leave.bind(this));
+    this.dragEndListener = this.renderer.listen('window', 'dragend', this.leave.bind(this));
+    this.dropListener = this.renderer.listen('window', 'drop', this.drop.bind(this));
   }
 
-  over(event: any) {
+  ngOnDestroy() {
+    this.dragEnterListener();
+    this.dragOverListener();
+    this.dragLeaveListener();
+    this.dragEndListener();
+    this.dropListener();
+  }
+
+  over(event: DragEvent) {
     event.preventDefault();
     event.stopPropagation();
 
     if (event.dataTransfer?.files) {
-      // Test that the item being dragged is a valid one
       event.dataTransfer.dropEffect = 'copy';
-      event.preventDefault();
     }
-    this.renderer.setStyle(this.hostElement.nativeElement, 'display', 'flex');
+    this.renderer.setStyle(this.hostElement.nativeElement, 'visibility', 'visible');
   }
 
   leave(event: DragEvent) {
     event.preventDefault();
     event.stopPropagation();
-
-    this.renderer.setStyle(this.hostElement.nativeElement, 'display', 'none');
+    this.renderer.setStyle(this.hostElement.nativeElement, 'visibility', 'hidden');
   }
 
-  drop(event: any) {
+  drop(event: DragEvent) {
+    event.preventDefault();
+    event.stopPropagation();
+    this.leave(event);
+    if (event.dataTransfer?.files) {
+      this.handleDroppedFiles(event.dataTransfer?.files);
+    }
+  }
+
+  private handleDroppedFiles(droppedFiles: FileList) {
     const files: File[] = [];
-    if (event.dataTransfer.files) {
-      for (let index = 0; index < event.dataTransfer.files.length; index++) {
-        const file = event.dataTransfer.files?.item(index);
-        if (file && this.allowedTypes().includes(file.type)) {
-          files.push(file);
-        }
+    for (let index = 0; index < droppedFiles.length; index++) {
+      const file = droppedFiles.item(index);
+      if (file && this.allowedTypes().includes(file.type)) {
+        files.push(file);
       }
     }
     this.filesDroped.emit(files);
