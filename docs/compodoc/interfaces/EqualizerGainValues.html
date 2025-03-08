@@ -1,0 +1,474 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>gblaster</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">gblaster</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content interface">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Interfaces</li>
+  <li class="breadcrumb-item"
+  >
+  EqualizerGainValues</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" 
+                class="nav-link"
+                class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" 
+                class="nav-link"
+                
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>apps/gblaster/src/app/player/audio.service.ts</code>
+        </p>
+
+
+
+
+
+
+            <section data-compodoc="block-indexables">
+    <h3 id="inputs">Indexable</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <code>[band: number]:        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="8" class="link-to-prism">apps/gblaster/src/app/player/audio.service.ts:8</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+</section>
+
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { computed, inject, Injectable, signal } from &#x27;@angular/core&#x27;;
+import { LocalStorageService } from &#x27;ngx-webstorage&#x27;;
+import { FrequencyBand } from &#x27;./player.types&#x27;;
+import { Subject } from &#x27;rxjs&#x27;;
+
+export const FREQUENCY_BANDS: FrequencyBand[] &#x3D; [60, 170, 310, 600, 1000, 3000, 6000, 12_000, 14_000, 16_000];
+
+export interface EqualizerGainValues {
+  [band: number]: number;
+}
+
+@Injectable({ providedIn: &#x27;root&#x27; })
+export class AudioService {
+  private storageService &#x3D; inject(LocalStorageService);
+
+  // Core audio elements
+  private _audioElement: HTMLAudioElement;
+  private _audioContext: AudioContext;
+  private _audioSourceNode: MediaElementAudioSourceNode;
+  private _gainNode: GainNode;
+  private _eqGainNode: GainNode;
+  private _frequencyFilters: { [band: number]: BiquadFilterNode } &#x3D; {};
+
+  // State signals
+  readonly isLoading &#x3D; signal(false);
+  readonly isPlaying &#x3D; signal(false);
+  readonly isPaused &#x3D; signal(true);
+  readonly isStopped &#x3D; signal(true);
+  readonly isLooping &#x3D; signal(false);
+  readonly currentTime &#x3D; signal(0);
+  readonly duration &#x3D; signal(0);
+  readonly volume &#x3D; signal(this.storageService.retrieve(&#x27;volume&#x27;) ?? 0.5);
+  readonly baseGain &#x3D; signal(this.storageService.retrieve(&#x27;baseGain&#x27;) ?? 1);
+  readonly sampleRate &#x3D; signal(44_100);
+
+  readonly equalizerGainValues &#x3D; signal&lt;EqualizerGainValues&gt;(
+    this.storageService.retrieve(&#x27;equalizerGainValues&#x27;) ?? { 60: 0, 170: 0, 310: 0, 600: 0, 1000: 0, 3000: 0, 6000: 0, 12_000: 0, 14_000: 0, 16_000: 0 }
+  );
+
+  private readonly _hasEnded &#x3D; new Subject&lt;boolean&gt;();
+
+  get hasEnded$() {
+    return this._hasEnded.asObservable();
+  }
+
+  constructor() {
+    // create audio element
+    const audioElement &#x3D; new Audio();
+    audioElement.loop &#x3D; false;
+    audioElement.id &#x3D; &#x27;main_audio&#x27;;
+    audioElement.style.display &#x3D; &#x27;none&#x27;;
+    audioElement.autoplay &#x3D; false;
+    audioElement.controls &#x3D; false;
+    audioElement.volume &#x3D; this.volume();
+    audioElement.preload &#x3D; &#x27;auto&#x27;;
+
+    // TODO: only for cypress test!?
+    document.body.append(audioElement);
+
+    // initialize audio context
+    const audioContext &#x3D; new AudioContext({
+      latencyHint: &#x27;playback&#x27;
+    });
+
+    // create audio nodes
+    const audioSource &#x3D; audioContext.createMediaElementSource(audioElement);
+    const gain &#x3D; audioContext.createGain();
+    const eqGain &#x3D; audioContext.createGain();
+    const { eqInput, eqOutput } &#x3D; this.createEqualizer(audioContext);
+
+    // connect audio nodes
+    audioSource.connect(eqGain);
+    eqGain.connect(eqInput);
+    eqOutput.connect(gain);
+    gain.connect(audioContext.destination);
+
+    // set eq settings from localstorage
+    for (const band of FREQUENCY_BANDS) {
+      const filter &#x3D; this._frequencyFilters[band];
+      filter.gain.value &#x3D; this.equalizerGainValues()[band];
+    }
+    eqGain.gain.value &#x3D; this.baseGain();
+
+    gain.gain.value &#x3D; this.volume();
+
+    this._audioElement &#x3D; audioElement;
+    this._audioSourceNode &#x3D; audioSource;
+    this._audioContext &#x3D; audioContext;
+    this._eqGainNode &#x3D; eqGain;
+    this._gainNode &#x3D; gain;
+
+    this._audioElement.addEventListener(&#x27;error&#x27;, (error) &#x3D;&gt; {
+      console.error(error);
+      this.isLoading.set(false);
+    });
+
+    // this._audioElement.addEventListener(&#x27;loadeddata&#x27;, (error) &#x3D;&gt; {
+    //
+    // });
+
+    this._audioElement.addEventListener(&#x27;loadstart&#x27;, () &#x3D;&gt; {
+      this.isLoading.set(true);
+    });
+
+    this._audioElement.addEventListener(&#x27;canplay&#x27;, () &#x3D;&gt; {
+      this.isLoading.set(false);
+    });
+
+    // Add event listeners to update signals
+    this._audioElement.addEventListener(&#x27;timeupdate&#x27;, () &#x3D;&gt; {
+      this.currentTime.set(this._audioElement.currentTime);
+    });
+
+    this._audioElement.addEventListener(&#x27;durationchange&#x27;, () &#x3D;&gt; {
+      this.duration.set(this._audioElement.duration);
+    });
+
+    this._audioElement.addEventListener(&#x27;play&#x27;, () &#x3D;&gt; {
+      this.sampleRate.set(this._audioContext.sampleRate);
+      this.isStopped.set(false);
+      this.isPlaying.set(true);
+      this.isPaused.set(false);
+    });
+
+    this._audioElement.addEventListener(&#x27;pause&#x27;, () &#x3D;&gt; {
+      this.isPlaying.set(false);
+      this.isPaused.set(true);
+    });
+
+    this._audioElement.addEventListener(&#x27;ended&#x27;, () &#x3D;&gt; {
+      this._hasEnded.next(true);
+    });
+  }
+
+  plugInNewAnalyserNode(): AnalyserNode {
+    const analyser &#x3D; this._audioContext.createAnalyser();
+    this._audioSourceNode.connect(analyser);
+    return analyser;
+  }
+
+  setFileAsSource(file: File) {
+    const oldSource &#x3D; this._audioElement.src;
+    this._audioElement.src &#x3D; URL.createObjectURL(file);
+    URL.revokeObjectURL(oldSource);
+  }
+
+  async play() {
+    if (this._audioContext.state &#x3D;&#x3D;&#x3D; &#x27;suspended&#x27;) {
+      await this._audioContext.resume();
+    }
+
+    return this._audioElement.play();
+  }
+
+  pause() {
+    if (this.isPlaying()) {
+      this._audioElement.pause();
+    }
+  }
+
+  stop() {
+    if (this.isPlaying()) {
+      this.pause();
+    }
+    this.seekToPosition(0);
+    this.isStopped.set(true);
+  }
+
+  setLoop(loop: boolean) {
+    this._audioElement.loop &#x3D; loop;
+    this.isLooping.set(loop);
+  }
+
+  seekToPosition(position: number, fastSeek &#x3D; false) {
+    if (&#x27;fastSeek&#x27; in this._audioElement &amp;&amp; fastSeek) {
+      this._audioElement.fastSeek(position);
+    } else {
+      this._audioElement.currentTime &#x3D; position;
+    }
+  }
+
+  getFrequencyBandGainSignal(bandFrequency: FrequencyBand) {
+    return computed(() &#x3D;&gt; this.equalizerGainValues()[bandFrequency]);
+  }
+
+  setFrequencyBandGain(bandFrequency: FrequencyBand, gainValue: number) {
+    this._frequencyFilters[bandFrequency].gain.value &#x3D; gainValue;
+
+    const bandGains &#x3D; this.equalizerGainValues();
+    bandGains[bandFrequency] &#x3D; gainValue;
+    this.equalizerGainValues.set(bandGains);
+  }
+
+  setVolume(value: number) {
+    if (value &gt;&#x3D; 0 &amp;&amp; value &lt;&#x3D; 1) {
+      this._gainNode.gain.value &#x3D; value;
+      this.volume.set(value);
+      this.storageService.store(&#x27;volume&#x27;, value);
+    }
+  }
+
+  setBaseGain(volume: number) {
+    this._eqGainNode.gain.value &#x3D; volume;
+    this.baseGain.set(volume);
+    this.storageService.store(&#x27;baseGain&#x27;, volume);
+  }
+
+  // TODO: refactor
+  private createEqualizer(audioContext: AudioContext): { eqInput: AudioNode; eqOutput: AudioNode } {
+    const input &#x3D; audioContext.createGain();
+    input.gain.value &#x3D; 1;
+
+    let output &#x3D; input;
+    for (const [index, bandFrequency] of FREQUENCY_BANDS.entries()) {
+      const filter &#x3D; audioContext.createBiquadFilter();
+
+      this._frequencyFilters[bandFrequency] &#x3D; filter;
+
+      if (index &#x3D;&#x3D;&#x3D; 0) {
+        // The first filter, includes all lower frequencies
+        filter.type &#x3D; &#x27;lowshelf&#x27;;
+      } else if (index &#x3D;&#x3D;&#x3D; FREQUENCY_BANDS.length - 1) {
+        // The last filter, includes all higher frequencies
+        filter.type &#x3D; &#x27;highshelf&#x27;;
+      } else {
+        filter.type &#x3D; &#x27;peaking&#x27;;
+        filter.Q.value &#x3D; 1;
+      }
+      filter.frequency.value &#x3D; bandFrequency;
+
+      output.connect(filter);
+      output &#x3D; filter;
+    }
+
+    return { eqInput: input, eqOutput: output };
+  }
+}
+</code></pre>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'interface';
+            var COMPODOC_CURRENT_PAGE_URL = 'EqualizerGainValues.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

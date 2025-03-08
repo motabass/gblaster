@@ -294,6 +294,9 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 <a href="interfaces/CoverColorPalette.html" data-type="entity-link" >CoverColorPalette</a>
                             </li>
                             <li class="link">
+                                <a href="interfaces/EqualizerGainValues.html" data-type="entity-link" >EqualizerGainValues</a>
+                            </li>
+                            <li class="link">
                                 <a href="interfaces/FrequencyBarsConfig.html" data-type="entity-link" >FrequencyBarsConfig</a>
                             </li>
                             <li class="link">
