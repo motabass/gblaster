@@ -135,9 +135,47 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#baseGain" >baseGain</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Readonly</span>
                                 <a href="#currentTime" >currentTime</a>
                             </li>
                             <li>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#duration" >duration</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#equalizerGainValues" >equalizerGainValues</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#isLoading" >isLoading</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#isLooping" >isLooping</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#isPaused" >isPaused</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#isPlaying" >isPlaying</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#isStopped" >isStopped</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#sampleRate" >sampleRate</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Readonly</span>
                                 <a href="#volume" >volume</a>
                             </li>
                         </ul>
@@ -153,7 +191,7 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
-                                <a href="#getBandGain" >getBandGain</a>
+                                <a href="#getFrequencyBandGainSignal" >getFrequencyBandGainSignal</a>
                             </li>
                             <li>
                                 <a href="#pause" >pause</a>
@@ -163,7 +201,7 @@
                                 <a href="#play" >play</a>
                             </li>
                             <li>
-                                <a href="#plugAnalyser" >plugAnalyser</a>
+                                <a href="#plugInNewAnalyserNode" >plugInNewAnalyserNode</a>
                             </li>
                             <li>
                                 <a href="#seekToPosition" >seekToPosition</a>
@@ -175,19 +213,16 @@
                                 <a href="#setFileAsSource" >setFileAsSource</a>
                             </li>
                             <li>
-                                <a href="#setGainForFrequency" >setGainForFrequency</a>
+                                <a href="#setFrequencyBandGain" >setFrequencyBandGain</a>
                             </li>
                             <li>
                                 <a href="#setLoop" >setLoop</a>
                             </li>
                             <li>
-                                <a href="#setOnEnded" >setOnEnded</a>
-                            </li>
-                            <li>
-                                <a href="#setSource" >setSource</a>
-                            </li>
-                            <li>
                                 <a href="#setVolume" >setVolume</a>
+                            </li>
+                            <li>
+                                <a href="#stop" >stop</a>
                             </li>
                         </ul>
                     </td>
@@ -206,19 +241,7 @@
                         <td class="col-md-4">
                             <ul class="index-list">
                                 <li>
-                                    <a href="#playing" >playing</a>
-                                </li>
-                                <li>
-                                    <a href="#paused" >paused</a>
-                                </li>
-                                <li>
-                                    <a href="#duration" >duration</a>
-                                </li>
-                                <li>
-                                    <a href="#baseGain" >baseGain</a>
-                                </li>
-                                <li>
-                                    <a href="#sampleRate" >sampleRate</a>
+                                    <a href="#hasEnded$" >hasEnded$</a>
                                 </li>
                             </ul>
                         </td>
@@ -238,7 +261,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="24" class="link-to-prism">apps/gblaster/src/app/player/audio.service.ts:24</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="42" class="link-to-prism">apps/gblaster/src/app/player/audio.service.ts:42</a></div>
                             </td>
                         </tr>
 
@@ -255,24 +278,24 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="getBandGain"></a>
+                    <a name="getFrequencyBandGainSignal"></a>
                     <span class="name">
-                        <span ><b>getBandGain</b></span>
-                        <a href="#getBandGain"><span class="icon ion-ios-link"></span></a>
+                        <span ><b>getFrequencyBandGainSignal</b></span>
+                        <a href="#getFrequencyBandGainSignal"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>getBandGain(bandFrequency: <a href="../undefineds/FrequencyBand.html" target="_self">FrequencyBand</a>)</code>
+<code>getFrequencyBandGainSignal(bandFrequency: <a href="../undefineds/FrequencyBand.html" target="_self">FrequencyBand</a>)</code>
                 </td>
             </tr>
 
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="171"
-                                    class="link-to-prism">apps/gblaster/src/app/player/audio.service.ts:171</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="180"
+                                    class="link-to-prism">apps/gblaster/src/app/player/audio.service.ts:180</a></div>
                         </td>
                     </tr>
 
@@ -308,7 +331,7 @@
                                 </table>
                             </div>
                         <div class="io-description">
-                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
 
                         </div>
                             <div class="io-description">
@@ -338,8 +361,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="139"
-                                    class="link-to-prism">apps/gblaster/src/app/player/audio.service.ts:139</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="153"
+                                    class="link-to-prism">apps/gblaster/src/app/player/audio.service.ts:153</a></div>
                         </td>
                     </tr>
 
@@ -377,8 +400,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="127"
-                                    class="link-to-prism">apps/gblaster/src/app/player/audio.service.ts:127</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="145"
+                                    class="link-to-prism">apps/gblaster/src/app/player/audio.service.ts:145</a></div>
                         </td>
                     </tr>
 
@@ -398,24 +421,24 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="plugAnalyser"></a>
+                    <a name="plugInNewAnalyserNode"></a>
                     <span class="name">
-                        <span ><b>plugAnalyser</b></span>
-                        <a href="#plugAnalyser"><span class="icon ion-ios-link"></span></a>
+                        <span ><b>plugInNewAnalyserNode</b></span>
+                        <a href="#plugInNewAnalyserNode"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>plugAnalyser()</code>
+<code>plugInNewAnalyserNode()</code>
                 </td>
             </tr>
 
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="107"
-                                    class="link-to-prism">apps/gblaster/src/app/player/audio.service.ts:107</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="133"
+                                    class="link-to-prism">apps/gblaster/src/app/player/audio.service.ts:133</a></div>
                         </td>
                     </tr>
 
@@ -451,8 +474,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="163"
-                                    class="link-to-prism">apps/gblaster/src/app/player/audio.service.ts:163</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="172"
+                                    class="link-to-prism">apps/gblaster/src/app/player/audio.service.ts:172</a></div>
                         </td>
                     </tr>
 
@@ -535,8 +558,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="194"
-                                    class="link-to-prism">apps/gblaster/src/app/player/audio.service.ts:194</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="200"
+                                    class="link-to-prism">apps/gblaster/src/app/player/audio.service.ts:200</a></div>
                         </td>
                     </tr>
 
@@ -602,8 +625,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="119"
-                                    class="link-to-prism">apps/gblaster/src/app/player/audio.service.ts:119</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="139"
+                                    class="link-to-prism">apps/gblaster/src/app/player/audio.service.ts:139</a></div>
                         </td>
                     </tr>
 
@@ -653,24 +676,24 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="setGainForFrequency"></a>
+                    <a name="setFrequencyBandGain"></a>
                     <span class="name">
-                        <span ><b>setGainForFrequency</b></span>
-                        <a href="#setGainForFrequency"><span class="icon ion-ios-link"></span></a>
+                        <span ><b>setFrequencyBandGain</b></span>
+                        <a href="#setFrequencyBandGain"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>setGainForFrequency(bandFrequency: <a href="../undefineds/FrequencyBand.html" target="_self">FrequencyBand</a>, gainValue: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+<code>setFrequencyBandGain(bandFrequency: <a href="../undefineds/FrequencyBand.html" target="_self">FrequencyBand</a>, gainValue: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
                 </td>
             </tr>
 
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="175"
-                                    class="link-to-prism">apps/gblaster/src/app/player/audio.service.ts:175</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="184"
+                                    class="link-to-prism">apps/gblaster/src/app/player/audio.service.ts:184</a></div>
                         </td>
                     </tr>
 
@@ -748,8 +771,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="147"
-                                    class="link-to-prism">apps/gblaster/src/app/player/audio.service.ts:147</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="167"
+                                    class="link-to-prism">apps/gblaster/src/app/player/audio.service.ts:167</a></div>
                         </td>
                     </tr>
 
@@ -799,140 +822,6 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="setOnEnded"></a>
-                    <span class="name">
-                        <span ><b>setOnEnded</b></span>
-                        <a href="#setOnEnded"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-<code>setOnEnded(callback: () => void)</code>
-                </td>
-            </tr>
-
-
-                    <tr>
-                        <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="151"
-                                    class="link-to-prism">apps/gblaster/src/app/player/audio.service.ts:151</a></div>
-                        </td>
-                    </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-
-                            <div class="io-description">
-                                <b>Parameters :</b>
-                                
-                                <table class="params">
-                                    <thead>
-                                        <tr>
-                                            <td>Name</td>
-                                                <td>Type</td>
-                                            <td>Optional</td>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                                <td>callback</td>
-                                            <td>
-                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/function" target="_blank" >function</a></code>
-                                            </td>
-
-                                            <td>
-                                                    No
-                                            </td>
-
-
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        <div class="io-description">
-                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
-
-                        </div>
-                            <div class="io-description">
-                                
-                            </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="setSource"></a>
-                    <span class="name">
-                        <span ><b>setSource</b></span>
-                        <a href="#setSource"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-<code>setSource(url: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
-                </td>
-            </tr>
-
-
-                    <tr>
-                        <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="115"
-                                    class="link-to-prism">apps/gblaster/src/app/player/audio.service.ts:115</a></div>
-                        </td>
-                    </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-
-                            <div class="io-description">
-                                <b>Parameters :</b>
-                                
-                                <table class="params">
-                                    <thead>
-                                        <tr>
-                                            <td>Name</td>
-                                                <td>Type</td>
-                                            <td>Optional</td>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                                <td>url</td>
-                                            <td>
-                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
-                                            </td>
-
-                                            <td>
-                                                    No
-                                            </td>
-
-
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        <div class="io-description">
-                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
-
-                        </div>
-                            <div class="io-description">
-                                
-                            </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
                     <a name="setVolume"></a>
                     <span class="name">
                         <span ><b>setVolume</b></span>
@@ -949,8 +838,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="183"
-                                    class="link-to-prism">apps/gblaster/src/app/player/audio.service.ts:183</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="192"
+                                    class="link-to-prism">apps/gblaster/src/app/player/audio.service.ts:192</a></div>
                         </td>
                     </tr>
 
@@ -996,6 +885,43 @@
             </tr>
         </tbody>
     </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="stop"></a>
+                    <span class="name">
+                        <span ><b>stop</b></span>
+                        <a href="#stop"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>stop()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="159"
+                                    class="link-to-prism">apps/gblaster/src/app/player/audio.service.ts:159</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 </section>
             <section data-compodoc="block-properties">
     
@@ -1006,8 +932,35 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
+                    <a name="baseGain"></a>
+                    <span class="name">
+                            <span class="modifier">Readonly</span>
+                        <span ><b>baseGain</b></span>
+                        <a href="#baseGain"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal(this.storageService.retrieve(&#x27;baseGain&#x27;) ?? 1)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">apps/gblaster/src/app/player/audio.service.ts:31</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
                     <a name="currentTime"></a>
                     <span class="name">
+                            <span class="modifier">Readonly</span>
                         <span ><b>currentTime</b></span>
                         <a href="#currentTime"><span class="icon ion-ios-link"></span></a>
                     </span>
@@ -1015,12 +968,222 @@
             </tr>
                 <tr>
                     <td class="col-md-4">
-                        <i>Default value : </i><code>toSignal(interval(100).pipe(map(() &#x3D;&gt; this._audioElement.currentTime)), { initialValue: 0 })</code>
+                        <i>Default value : </i><code>signal(0)</code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="159" class="link-to-prism">apps/gblaster/src/app/player/audio.service.ts:159</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">apps/gblaster/src/app/player/audio.service.ts:28</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="duration"></a>
+                    <span class="name">
+                            <span class="modifier">Readonly</span>
+                        <span ><b>duration</b></span>
+                        <a href="#duration"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal(0)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">apps/gblaster/src/app/player/audio.service.ts:29</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="equalizerGainValues"></a>
+                    <span class="name">
+                            <span class="modifier">Readonly</span>
+                        <span ><b>equalizerGainValues</b></span>
+                        <a href="#equalizerGainValues"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;EqualizerGainValues&gt;(
+    this.storageService.retrieve(&#x27;equalizerGainValues&#x27;) ?? { 60: 0, 170: 0, 310: 0, 600: 0, 1000: 0, 3000: 0, 6000: 0, 12_000: 0, 14_000: 0, 16_000: 0 }
+  )</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="34" class="link-to-prism">apps/gblaster/src/app/player/audio.service.ts:34</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isLoading"></a>
+                    <span class="name">
+                            <span class="modifier">Readonly</span>
+                        <span ><b>isLoading</b></span>
+                        <a href="#isLoading"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal(false)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="23" class="link-to-prism">apps/gblaster/src/app/player/audio.service.ts:23</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isLooping"></a>
+                    <span class="name">
+                            <span class="modifier">Readonly</span>
+                        <span ><b>isLooping</b></span>
+                        <a href="#isLooping"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal(false)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="27" class="link-to-prism">apps/gblaster/src/app/player/audio.service.ts:27</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isPaused"></a>
+                    <span class="name">
+                            <span class="modifier">Readonly</span>
+                        <span ><b>isPaused</b></span>
+                        <a href="#isPaused"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal(true)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">apps/gblaster/src/app/player/audio.service.ts:25</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isPlaying"></a>
+                    <span class="name">
+                            <span class="modifier">Readonly</span>
+                        <span ><b>isPlaying</b></span>
+                        <a href="#isPlaying"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal(false)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="24" class="link-to-prism">apps/gblaster/src/app/player/audio.service.ts:24</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isStopped"></a>
+                    <span class="name">
+                            <span class="modifier">Readonly</span>
+                        <span ><b>isStopped</b></span>
+                        <a href="#isStopped"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal(true)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">apps/gblaster/src/app/player/audio.service.ts:26</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="sampleRate"></a>
+                    <span class="name">
+                            <span class="modifier">Readonly</span>
+                        <span ><b>sampleRate</b></span>
+                        <a href="#sampleRate"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal(44_100)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">apps/gblaster/src/app/player/audio.service.ts:32</a></div>
                         </td>
                     </tr>
 
@@ -1033,6 +1196,7 @@
                 <td class="col-md-4">
                     <a name="volume"></a>
                     <span class="name">
+                            <span class="modifier">Readonly</span>
                         <span ><b>volume</b></span>
                         <a href="#volume"><span class="icon ion-ios-link"></span></a>
                     </span>
@@ -1040,12 +1204,12 @@
             </tr>
                 <tr>
                     <td class="col-md-4">
-                        <i>Default value : </i><code>toSignal(interval(100).pipe(map(() &#x3D;&gt; this._gainNode.gain.value)), { initialValue: 0 })</code>
+                        <i>Default value : </i><code>signal(this.storageService.retrieve(&#x27;volume&#x27;) ?? 0.5)</code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="161" class="link-to-prism">apps/gblaster/src/app/player/audio.service.ts:161</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="30" class="link-to-prism">apps/gblaster/src/app/player/audio.service.ts:30</a></div>
                         </td>
                     </tr>
 
@@ -1062,107 +1226,19 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-                        <a name="playing"></a>
-                        <span class="name"><b>playing</b><a href="#playing"><span class="icon ion-ios-link"></span></a></span>
+                        <a name="hasEnded$"></a>
+                        <span class="name"><b>hasEnded$</b><a href="#hasEnded$"><span class="icon ion-ios-link"></span></a></span>
                     </td>
                 </tr>
 
                 <tr>
                     <td class="col-md-4">
-                        <span class="accessor"><b>get</b><code>playing()</code></span>
+                        <span class="accessor"><b>get</b><code>hasEnded$()</code></span>
                     </td>
                 </tr>
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="135" class="link-to-prism">apps/gblaster/src/app/player/audio.service.ts:135</a></div>
-                                </td>
-                            </tr>
-
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
-                <tr>
-                    <td class="col-md-4">
-                        <a name="paused"></a>
-                        <span class="name"><b>paused</b><a href="#paused"><span class="icon ion-ios-link"></span></a></span>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td class="col-md-4">
-                        <span class="accessor"><b>get</b><code>paused()</code></span>
-                    </td>
-                </tr>
-                            <tr>
-                                <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="143" class="link-to-prism">apps/gblaster/src/app/player/audio.service.ts:143</a></div>
-                                </td>
-                            </tr>
-
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
-                <tr>
-                    <td class="col-md-4">
-                        <a name="duration"></a>
-                        <span class="name"><b>duration</b><a href="#duration"><span class="icon ion-ios-link"></span></a></span>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td class="col-md-4">
-                        <span class="accessor"><b>get</b><code>duration()</code></span>
-                    </td>
-                </tr>
-                            <tr>
-                                <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="155" class="link-to-prism">apps/gblaster/src/app/player/audio.service.ts:155</a></div>
-                                </td>
-                            </tr>
-
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
-                <tr>
-                    <td class="col-md-4">
-                        <a name="baseGain"></a>
-                        <span class="name"><b>baseGain</b><a href="#baseGain"><span class="icon ion-ios-link"></span></a></span>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td class="col-md-4">
-                        <span class="accessor"><b>get</b><code>baseGain()</code></span>
-                    </td>
-                </tr>
-                            <tr>
-                                <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="190" class="link-to-prism">apps/gblaster/src/app/player/audio.service.ts:190</a></div>
-                                </td>
-                            </tr>
-
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
-                <tr>
-                    <td class="col-md-4">
-                        <a name="sampleRate"></a>
-                        <span class="name"><b>sampleRate</b><a href="#sampleRate"><span class="icon ion-ios-link"></span></a></span>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td class="col-md-4">
-                        <span class="accessor"><b>get</b><code>sampleRate()</code></span>
-                    </td>
-                </tr>
-                            <tr>
-                                <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="198" class="link-to-prism">apps/gblaster/src/app/player/audio.service.ts:198</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="40" class="link-to-prism">apps/gblaster/src/app/player/audio.service.ts:40</a></div>
                                 </td>
                             </tr>
 
@@ -1173,19 +1249,20 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable, inject } from &#x27;@angular/core&#x27;;
-import { LocalStorage, LocalStorageService } from &#x27;ngx-webstorage&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { computed, inject, Injectable, signal } from &#x27;@angular/core&#x27;;
+import { LocalStorageService } from &#x27;ngx-webstorage&#x27;;
 import { FrequencyBand } from &#x27;./player.types&#x27;;
-import { interval } from &#x27;rxjs&#x27;;
-import { toSignal } from &#x27;@angular/core/rxjs-interop&#x27;;
-import { map } from &#x27;rxjs/operators&#x27;;
+import { Subject } from &#x27;rxjs&#x27;;
 
-const FREQUENCY_BANDS: FrequencyBand[] &#x3D; [60, 170, 310, 600, 1000, 3000, 6000, 12_000, 14_000, 16_000];
+export const FREQUENCY_BANDS: FrequencyBand[] &#x3D; [60, 170, 310, 600, 1000, 3000, 6000, 12_000, 14_000, 16_000];
+
+export type EqualizerGainValues &#x3D; { [band: number]: number };
 
 @Injectable({ providedIn: &#x27;root&#x27; })
 export class AudioService {
   private storageService &#x3D; inject(LocalStorageService);
 
+  // Core audio elements
   private _audioElement: HTMLAudioElement;
   private _audioContext: AudioContext;
   private _audioSourceNode: MediaElementAudioSourceNode;
@@ -1193,10 +1270,27 @@ export class AudioService {
   private _eqGainNode: GainNode;
   private _frequencyFilters: { [band: number]: BiquadFilterNode } &#x3D; {};
 
-  @LocalStorage(&#x27;equalizerGainValues&#x27;, { 60: 0, 170: 0, 310: 0, 600: 0, 1000: 0, 3000: 0, 6000: 0, 12_000: 0, 14_000: 0, 16_000: 0 })
-  private _equalizerGainValues!: {
-    [band: number]: number;
-  };
+  // State signals
+  readonly isLoading &#x3D; signal(false);
+  readonly isPlaying &#x3D; signal(false);
+  readonly isPaused &#x3D; signal(true);
+  readonly isStopped &#x3D; signal(true);
+  readonly isLooping &#x3D; signal(false);
+  readonly currentTime &#x3D; signal(0);
+  readonly duration &#x3D; signal(0);
+  readonly volume &#x3D; signal(this.storageService.retrieve(&#x27;volume&#x27;) ?? 0.5);
+  readonly baseGain &#x3D; signal(this.storageService.retrieve(&#x27;baseGain&#x27;) ?? 1);
+  readonly sampleRate &#x3D; signal(44_100);
+
+  readonly equalizerGainValues &#x3D; signal&lt;EqualizerGainValues&gt;(
+    this.storageService.retrieve(&#x27;equalizerGainValues&#x27;) ?? { 60: 0, 170: 0, 310: 0, 600: 0, 1000: 0, 3000: 0, 6000: 0, 12_000: 0, 14_000: 0, 16_000: 0 }
+  );
+
+  private readonly _hasEnded &#x3D; new Subject&lt;boolean&gt;();
+
+  get hasEnded$() {
+    return this._hasEnded.asObservable();
+  }
 
   constructor() {
     // create audio element
@@ -1206,12 +1300,8 @@ export class AudioService {
     audioElement.style.display &#x3D; &#x27;none&#x27;;
     audioElement.autoplay &#x3D; false;
     audioElement.controls &#x3D; false;
-    audioElement.volume &#x3D; 0.5;
+    audioElement.volume &#x3D; this.volume();
     audioElement.preload &#x3D; &#x27;auto&#x27;;
-
-    audioElement.addEventListener(&#x27;error&#x27;, (error) &#x3D;&gt; {
-      console.error(error);
-    });
 
     // TODO: only for cypress test!?
     document.body.append(audioElement);
@@ -1234,22 +1324,137 @@ export class AudioService {
     gain.connect(audioContext.destination);
 
     // set eq settings from localstorage
-    for (const frequencyBand of FREQUENCY_BANDS) {
-      const filter &#x3D; this._frequencyFilters[frequencyBand];
-      filter.gain.value &#x3D; this._equalizerGainValues[frequencyBand];
+    for (const band of FREQUENCY_BANDS) {
+      const filter &#x3D; this._frequencyFilters[band];
+      filter.gain.value &#x3D; this.equalizerGainValues()[band];
     }
+    eqGain.gain.value &#x3D; this.baseGain();
 
-    // set volume setting from localstorage
-    const storedVolume &#x3D; this.storageService.retrieve(&#x27;volume&#x27;);
-    gain.gain.value &#x3D; storedVolume ?? 0.5;
+    gain.gain.value &#x3D; this.volume();
 
     this._audioElement &#x3D; audioElement;
     this._audioSourceNode &#x3D; audioSource;
     this._audioContext &#x3D; audioContext;
     this._eqGainNode &#x3D; eqGain;
     this._gainNode &#x3D; gain;
+
+    this._audioElement.addEventListener(&#x27;error&#x27;, (error) &#x3D;&gt; {
+      console.error(error);
+      this.isLoading.set(false);
+    });
+
+    // this._audioElement.addEventListener(&#x27;loadeddata&#x27;, (error) &#x3D;&gt; {
+    //
+    // });
+
+    this._audioElement.addEventListener(&#x27;loadstart&#x27;, () &#x3D;&gt; {
+      this.isLoading.set(true);
+    });
+
+    this._audioElement.addEventListener(&#x27;canplay&#x27;, () &#x3D;&gt; {
+      this.isLoading.set(false);
+    });
+
+    // Add event listeners to update signals
+    this._audioElement.addEventListener(&#x27;timeupdate&#x27;, () &#x3D;&gt; {
+      this.currentTime.set(this._audioElement.currentTime);
+    });
+
+    this._audioElement.addEventListener(&#x27;durationchange&#x27;, () &#x3D;&gt; {
+      this.duration.set(this._audioElement.duration);
+    });
+
+    this._audioElement.addEventListener(&#x27;play&#x27;, () &#x3D;&gt; {
+      this.sampleRate.set(this._audioContext.sampleRate);
+      this.isStopped.set(false);
+      this.isPlaying.set(true);
+      this.isPaused.set(false);
+    });
+
+    this._audioElement.addEventListener(&#x27;pause&#x27;, () &#x3D;&gt; {
+      this.isPlaying.set(false);
+      this.isPaused.set(true);
+    });
+
+    this._audioElement.addEventListener(&#x27;ended&#x27;, () &#x3D;&gt; {
+      this._hasEnded.next(true);
+    });
   }
 
+  plugInNewAnalyserNode(): AnalyserNode {
+    const analyser &#x3D; this._audioContext.createAnalyser();
+    this._audioSourceNode.connect(analyser);
+    return analyser;
+  }
+
+  setFileAsSource(file: File) {
+    const oldSource &#x3D; this._audioElement.src;
+    this._audioElement.src &#x3D; URL.createObjectURL(file);
+    URL.revokeObjectURL(oldSource);
+  }
+
+  async play() {
+    if (this._audioContext.state &#x3D;&#x3D;&#x3D; &#x27;suspended&#x27;) {
+      await this._audioContext.resume();
+    }
+
+    return this._audioElement.play();
+  }
+
+  pause() {
+    if (this.isPlaying()) {
+      this._audioElement.pause();
+    }
+  }
+
+  stop() {
+    if (this.isPlaying()) {
+      this.pause();
+    }
+    this.seekToPosition(0);
+    this.isStopped.set(true);
+  }
+
+  setLoop(loop: boolean) {
+    this._audioElement.loop &#x3D; loop;
+    this.isLooping.set(loop);
+  }
+
+  seekToPosition(position: number, fastSeek &#x3D; false) {
+    if (&#x27;fastSeek&#x27; in this._audioElement &amp;&amp; fastSeek) {
+      this._audioElement.fastSeek(position);
+    } else {
+      this._audioElement.currentTime &#x3D; position;
+    }
+  }
+
+  getFrequencyBandGainSignal(bandFrequency: FrequencyBand) {
+    return computed(() &#x3D;&gt; this.equalizerGainValues()[bandFrequency]);
+  }
+
+  setFrequencyBandGain(bandFrequency: FrequencyBand, gainValue: number) {
+    this._frequencyFilters[bandFrequency].gain.value &#x3D; gainValue;
+
+    const bandGains &#x3D; this.equalizerGainValues();
+    bandGains[bandFrequency] &#x3D; gainValue;
+    this.equalizerGainValues.set(bandGains);
+  }
+
+  setVolume(value: number) {
+    if (value &gt;&#x3D; 0 &amp;&amp; value &lt;&#x3D; 1) {
+      this._gainNode.gain.value &#x3D; value;
+      this.volume.set(value);
+      this.storageService.store(&#x27;volume&#x27;, value);
+    }
+  }
+
+  setBaseGain(volume: number) {
+    this._eqGainNode.gain.value &#x3D; volume;
+    this.baseGain.set(volume);
+    this.storageService.store(&#x27;baseGain&#x27;, volume);
+  }
+
+  // TODO: refactor
   private createEqualizer(audioContext: AudioContext): { eqInput: AudioNode; eqOutput: AudioNode } {
     const input &#x3D; audioContext.createGain();
     input.gain.value &#x3D; 1;
@@ -1277,101 +1482,6 @@ export class AudioService {
     }
 
     return { eqInput: input, eqOutput: output };
-  }
-
-  plugAnalyser(): AnalyserNode {
-    const analyser &#x3D; this._audioContext.createAnalyser();
-    this._audioSourceNode.connect(analyser);
-    return analyser;
-  }
-
-  // AUDIO ELEMENT CONTROL
-
-  setSource(url: string) {
-    this._audioElement.src &#x3D; url;
-  }
-
-  setFileAsSource(file: File) {
-    const oldSource &#x3D; this._audioElement.src;
-
-    this._audioElement.src &#x3D; URL.createObjectURL(file);
-
-    URL.revokeObjectURL(oldSource);
-  }
-
-  async play() {
-    if (this._audioContext.state &#x3D;&#x3D;&#x3D; &#x27;suspended&#x27;) {
-      await this._audioContext.resume();
-    }
-
-    return this._audioElement.play();
-  }
-
-  get playing(): boolean {
-    return !this._audioElement.paused;
-  }
-
-  pause() {
-    this._audioElement.pause();
-  }
-
-  get paused(): boolean {
-    return this._audioElement.paused;
-  }
-
-  setLoop(loop: boolean) {
-    this._audioElement.loop &#x3D; loop;
-  }
-
-  setOnEnded(callback: () &#x3D;&gt; any) {
-    this._audioElement.addEventListener(&#x27;ended&#x27;, callback);
-  }
-
-  get duration(): number {
-    return this._audioElement.duration;
-  }
-
-  currentTime &#x3D; toSignal(interval(100).pipe(map(() &#x3D;&gt; this._audioElement.currentTime)), { initialValue: 0 });
-
-  volume &#x3D; toSignal(interval(100).pipe(map(() &#x3D;&gt; this._gainNode.gain.value)), { initialValue: 0 });
-
-  seekToPosition(position: number, fastSeek &#x3D; false) {
-    if (&#x27;fastSeek&#x27; in this._audioElement &amp;&amp; fastSeek) {
-      this._audioElement.fastSeek(position);
-    } else {
-      this._audioElement.currentTime &#x3D; position;
-    }
-  }
-
-  getBandGain(bandFrequency: FrequencyBand): number {
-    return this._equalizerGainValues[bandFrequency];
-  }
-
-  setGainForFrequency(bandFrequency: FrequencyBand, gainValue: number) {
-    this._frequencyFilters[bandFrequency].gain.value &#x3D; gainValue;
-
-    const bandGains &#x3D; this._equalizerGainValues;
-    bandGains[bandFrequency] &#x3D; gainValue;
-    this._equalizerGainValues &#x3D; bandGains;
-  }
-
-  setVolume(value: number) {
-    if (value &gt;&#x3D; 0 &amp;&amp; value &lt;&#x3D; 1) {
-      this.storageService.store(&#x27;volume&#x27;, value);
-      this._gainNode.gain.value &#x3D; value;
-    }
-  }
-
-  get baseGain() {
-    return this._eqGainNode.gain.value;
-  }
-
-  setBaseGain(volume: number) {
-    this._eqGainNode.gain.value &#x3D; volume;
-  }
-
-  get sampleRate(): number {
-    return this._audioContext.sampleRate;
   }
 }
 </code></pre>

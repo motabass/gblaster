@@ -135,6 +135,7 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
+                                    <span class="modifier">Readonly</span>
                                 <a href="#title" >title</a>
                             </li>
                         </ul>
@@ -249,6 +250,7 @@
                 <td class="col-md-4">
                     <a name="title"></a>
                     <span class="name">
+                            <span class="modifier">Readonly</span>
                         <span ><b>title</b></span>
                         <a href="#title"><span class="icon ion-ios-link"></span></a>
                     </span>
@@ -283,7 +285,7 @@ import { Title } from &#x27;@angular/platform-browser&#x27;;
 export class TitleService {
   private angularTitleService &#x3D; inject(Title);
 
-  title &#x3D; signal&lt;string&gt;(&#x27;&#x27;);
+  readonly title &#x3D; signal&lt;string&gt;(&#x27;&#x27;);
 
   setTitle(title: string) {
     this.angularTitleService.setTitle(title);

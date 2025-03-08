@@ -194,12 +194,15 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
+                                    <span class="modifier">Readonly</span>
                                 <a href="#backgroundColor" >backgroundColor</a>
                             </li>
                             <li>
+                                    <span class="modifier">Readonly</span>
                                 <a href="#coverUrl" >coverUrl</a>
                             </li>
                             <li>
+                                    <span class="modifier">Readonly</span>
                                 <a href="#track" >track</a>
                             </li>
                         </ul>
@@ -290,8 +293,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="32"
-                                    class="link-to-prism">apps/gblaster/src/app/player/cover-display/cover-display.component.ts:32</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="33"
+                                    class="link-to-prism">apps/gblaster/src/app/player/cover-display/cover-display.component.ts:33</a></div>
                         </td>
                     </tr>
 
@@ -349,6 +352,7 @@
                 <td class="col-md-4">
                     <a name="backgroundColor"></a>
                     <span class="name">
+                            <span class="modifier">Readonly</span>
                         <span ><b>backgroundColor</b></span>
                         <a href="#backgroundColor"><span class="icon ion-ios-link"></span></a>
                     </span>
@@ -357,7 +361,7 @@
                 <tr>
                     <td class="col-md-4">
                         <i>Default value : </i><code>computed(() &#x3D;&gt; {
-    const coverBackground &#x3D; this.themeService.darkMode
+    const coverBackground &#x3D; this.themeService.darkMode()
       ? this.track()?.metadata?.coverColors?.darkMuted?.hex
       : this.track()?.metadata?.coverColors?.lightMuted?.hex;
     return coverBackground || &#x27;rgba(0,0,0,0)&#x27;;
@@ -379,6 +383,7 @@
                 <td class="col-md-4">
                     <a name="coverUrl"></a>
                     <span class="name">
+                            <span class="modifier">Readonly</span>
                         <span ><b>coverUrl</b></span>
                         <a href="#coverUrl"><span class="icon ion-ios-link"></span></a>
                     </span>
@@ -404,6 +409,7 @@
                 <td class="col-md-4">
                     <a name="track"></a>
                     <span class="name">
+                            <span class="modifier">Readonly</span>
                         <span ><b>track</b></span>
                         <a href="#track"><span class="icon ion-ios-link"></span></a>
                     </span>
@@ -440,12 +446,12 @@ import { Track } from &#x27;../player.types&#x27;;
 export class CoverDisplayComponent {
   private themeService &#x3D; inject(ThemeService);
 
-  track &#x3D; input&lt;Track&gt;();
+  readonly track &#x3D; input&lt;Track&gt;();
 
-  coverUrl &#x3D; computed(() &#x3D;&gt; this.track()?.metadata?.coverUrl?.original);
+  readonly coverUrl &#x3D; computed(() &#x3D;&gt; this.track()?.metadata?.coverUrl?.original);
 
-  backgroundColor &#x3D; computed(() &#x3D;&gt; {
-    const coverBackground &#x3D; this.themeService.darkMode
+  readonly backgroundColor &#x3D; computed(() &#x3D;&gt; {
+    const coverBackground &#x3D; this.themeService.darkMode()
       ? this.track()?.metadata?.coverColors?.darkMuted?.hex
       : this.track()?.metadata?.coverColors?.lightMuted?.hex;
     return coverBackground || &#x27;rgba(0,0,0,0)&#x27;;
@@ -455,6 +461,7 @@ export class CoverDisplayComponent {
   //   return this.song?.metadata?.coverColors?.vibrant ? this.song.metadata.coverColors.vibrant.textHex : undefined;
   // }
 
+  // TODO: pipe
   getBitrate(bitrate: number | undefined): string {
     if (!bitrate) {
       return &#x27;0&#x27;;

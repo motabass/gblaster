@@ -135,6 +135,7 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
+                                    <span class="modifier">Readonly</span>
                                 <a href="#visualMode" >visualMode</a>
                             </li>
                         </ul>
@@ -164,24 +165,6 @@
     </table>
 </section>
 
-            <section data-compodoc="block-constructor">
-    <h3 id="constructor">Constructor</h3>
-        <table class="table table-sm table-bordered">
-            <tbody>
-                <tr>
-                    <td class="col-md-4">
-<code>constructor()</code>
-                    </td>
-                </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="11" class="link-to-prism">apps/gblaster/src/app/player/visualizer/visuals/visuals.service.ts:11</a></div>
-                            </td>
-                        </tr>
-
-            </tbody>
-        </table>
-</section>
 
             <section data-compodoc="block-methods">
     
@@ -208,8 +191,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="20"
-                                    class="link-to-prism">apps/gblaster/src/app/player/visualizer/visuals/visuals.service.ts:20</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="13"
+                                    class="link-to-prism">apps/gblaster/src/app/player/visualizer/visuals/visuals.service.ts:13</a></div>
                         </td>
                     </tr>
 
@@ -237,6 +220,7 @@
                 <td class="col-md-4">
                     <a name="visualMode"></a>
                     <span class="name">
+                            <span class="modifier">Readonly</span>
                         <span ><b>visualMode</b></span>
                         <a href="#visualMode"><span class="icon ion-ios-link"></span></a>
                     </span>
@@ -244,7 +228,7 @@
             </tr>
                 <tr>
                     <td class="col-md-4">
-                        <i>Default value : </i><code>signal&lt;VisualizerMode&gt;(&#x27;off&#x27;)</code>
+                        <i>Default value : </i><code>signal&lt;VisualizerMode&gt;(this.localStorageService.retrieve(&#x27;visualMode&#x27;) ?? &#x27;off&#x27;)</code>
                     </td>
                 </tr>
                     <tr>
@@ -272,43 +256,34 @@ import type { VisualizerMode } from &#x27;./visuals.types&#x27;;
 export class VisualsService {
   private localStorageService &#x3D; inject(LocalStorageService);
 
-  visualMode &#x3D; signal&lt;VisualizerMode&gt;(&#x27;off&#x27;);
-
-  constructor() {
-    const mode &#x3D; this.localStorageService.retrieve(&#x27;visualMode&#x27;);
-    if (mode) {
-      this.visualMode.set(mode);
-    }
-  }
+  readonly visualMode &#x3D; signal&lt;VisualizerMode&gt;(this.localStorageService.retrieve(&#x27;visualMode&#x27;) ?? &#x27;off&#x27;);
 
   toggleVisualMode() {
+    let nextMode: VisualizerMode;
     switch (this.visualMode()) {
       case &#x27;off&#x27;: {
-        this.visualMode.set(&#x27;bars&#x27;);
-        this.localStorageService.store(&#x27;visualMode&#x27;, &#x27;bars&#x27;);
+        nextMode &#x3D; &#x27;bars&#x27;;
         break;
       }
       case &#x27;bars&#x27;: {
-        this.visualMode.set(&#x27;osc&#x27;);
-        this.localStorageService.store(&#x27;visualMode&#x27;, &#x27;osc&#x27;);
-        break;
-      }
-      case &#x27;osc&#x27;: {
-        this.visualMode.set(&#x27;circular-bars&#x27;);
-        this.localStorageService.store(&#x27;visualMode&#x27;, &#x27;off&#x27;);
+        nextMode &#x3D; &#x27;circular-bars&#x27;;
         break;
       }
       case &#x27;circular-bars&#x27;: {
-        this.visualMode.set(&#x27;circular-osc&#x27;);
-        this.localStorageService.store(&#x27;visualMode&#x27;, &#x27;circular-osc&#x27;);
+        nextMode &#x3D; &#x27;osc&#x27;;
+        break;
+      }
+      case &#x27;osc&#x27;: {
+        nextMode &#x3D; &#x27;circular-osc&#x27;;
         break;
       }
       case &#x27;circular-osc&#x27;: {
-        this.visualMode.set(&#x27;off&#x27;);
-        this.localStorageService.store(&#x27;visualMode&#x27;, &#x27;off&#x27;);
+        nextMode &#x3D; &#x27;off&#x27;;
         break;
       }
     }
+    this.visualMode.set(nextMode);
+    this.localStorageService.store(&#x27;visualMode&#x27;, nextMode);
   }
 }
 </code></pre>

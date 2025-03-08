@@ -279,6 +279,15 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 <a href="interfaces/Color.html" data-type="entity-link" >Color</a>
                             </li>
                             <li class="link">
+                                <a href="interfaces/ColorConfig.html" data-type="entity-link" >ColorConfig</a>
+                            </li>
+                            <li class="link">
+                                <a href="interfaces/CoverArtImage.html" data-type="entity-link" >CoverArtImage</a>
+                            </li>
+                            <li class="link">
+                                <a href="interfaces/CoverArtResponse.html" data-type="entity-link" >CoverArtResponse</a>
+                            </li>
+                            <li class="link">
                                 <a href="interfaces/CoverColor.html" data-type="entity-link" >CoverColor</a>
                             </li>
                             <li class="link">
@@ -306,13 +315,28 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 <a href="interfaces/Id3Tags.html" data-type="entity-link" >Id3Tags</a>
                             </li>
                             <li class="link">
+                                <a href="interfaces/LastfmAlbum.html" data-type="entity-link" >LastfmAlbum</a>
+                            </li>
+                            <li class="link">
+                                <a href="interfaces/LastfmErrorResponse.html" data-type="entity-link" >LastfmErrorResponse</a>
+                            </li>
+                            <li class="link">
+                                <a href="interfaces/LastfmImage.html" data-type="entity-link" >LastfmImage</a>
+                            </li>
+                            <li class="link">
+                                <a href="interfaces/LastfmSuccessResponse.html" data-type="entity-link" >LastfmSuccessResponse</a>
+                            </li>
+                            <li class="link">
+                                <a href="interfaces/MusicbrainzReleaseGroup.html" data-type="entity-link" >MusicbrainzReleaseGroup</a>
+                            </li>
+                            <li class="link">
+                                <a href="interfaces/MusicbrainzResponse.html" data-type="entity-link" >MusicbrainzResponse</a>
+                            </li>
+                            <li class="link">
                                 <a href="interfaces/OsciloscopeConfig.html" data-type="entity-link" >OsciloscopeConfig</a>
                             </li>
                             <li class="link">
                                 <a href="interfaces/OscVisualizerOptions.html" data-type="entity-link" >OscVisualizerOptions</a>
-                            </li>
-                            <li class="link">
-                                <a href="interfaces/PlayState.html" data-type="entity-link" >PlayState</a>
                             </li>
                             <li class="link">
                                 <a href="interfaces/PromptDialogData.html" data-type="entity-link" >PromptDialogData</a>

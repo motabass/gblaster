@@ -98,7 +98,7 @@
   <li class="breadcrumb-item">Interfaces</li>
   <li class="breadcrumb-item"
   >
-  OscVisualizerOptions</li>
+  MusicbrainzReleaseGroup</li>
 </ol>
 
 <ul class="nav nav-tabs" role="tablist">
@@ -122,17 +122,11 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>apps/gblaster/src/app/player/visualizer/visuals/visuals.types.ts</code>
+            <code>apps/gblaster/src/app/player/metadata-service/musicbrainz.service.ts</code>
         </p>
 
 
 
-            <p class="comment">
-                <h3>Extends</h3>
-            </p>
-            <p class="comment">
-                            <code><a href="../interfaces/BaseVisualizerOptions.html" target="_self" >BaseVisualizerOptions</a></code>
-            </p>
 
         <section data-compodoc="block-index">
             <h3 id="index">Index</h3>
@@ -147,15 +141,22 @@
                         <td class="col-md-4">
                             <ul class="index-list">
                                 <li>
-                                        <a href="#mode" 
+                                            <span class="modifier">Optional</span>
+                                        <a href="#first-release-date" 
 >
-                                            mode
+                                            first-release-date
                                         </a>
                                 </li>
                                 <li>
-                                        <a href="#thickness" 
+                                        <a href="#id" 
 >
-                                            thickness
+                                            id
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#title" 
+>
+                                            title
                                         </a>
                                 </li>
                             </ul>
@@ -173,9 +174,9 @@
                         <tbody>
                                 <tr>
                                     <td class="col-md-4">
-                                        <a name="mode"></a>
-                                        <span class="name "><b>mode</b>
-                                            <a href="#mode">
+                                        <a name="first-release-date"></a>
+                                        <span class="name "><b>first-release-date</b>
+                                            <a href="#first-release-date">
                                                 <span class="icon ion-ios-link"></span>
                                             </a>
                                         </span>
@@ -183,7 +184,7 @@
                                 </tr>
                                 <tr>
                                     <td class="col-md-4">
-                                        <code>mode:     <code>&quot;osc&quot; | &quot;circular-osc&quot;</code>
+                                        <code>first-release-date:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
 </code>
                                     </td>
                                 </tr>
@@ -191,7 +192,45 @@
 
                                     <tr>
                                         <td class="col-md-4">
-                                            <i>Type : </i>    <code>&quot;osc&quot; | &quot;circular-osc&quot;</code>
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Optional</i>
+                                        </td>
+                                    </tr>
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="id"></a>
+                                        <span class="name "><b>id</b>
+                                            <a href="#id">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>id:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
 
                                         </td>
                                     </tr>
@@ -206,9 +245,9 @@
                         <tbody>
                                 <tr>
                                     <td class="col-md-4">
-                                        <a name="thickness"></a>
-                                        <span class="name "><b>thickness</b>
-                                            <a href="#thickness">
+                                        <a name="title"></a>
+                                        <span class="name "><b>title</b>
+                                            <a href="#title">
                                                 <span class="icon ion-ios-link"></span>
                                             </a>
                                         </span>
@@ -216,7 +255,7 @@
                                 </tr>
                                 <tr>
                                     <td class="col-md-4">
-                                        <code>thickness:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                        <code>title:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
 </code>
                                     </td>
                                 </tr>
@@ -224,7 +263,7 @@
 
                                     <tr>
                                         <td class="col-md-4">
-                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
 
                                         </td>
                                     </tr>
@@ -240,65 +279,102 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">export type FftSize &#x3D; 32 | 64 | 128 | 256 | 512 | 1024 | 2048 | 4096 | 8192 | 16_384 | 32_768;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { HttpClient } from &#x27;@angular/common/http&#x27;;
+import { inject, Injectable } from &#x27;@angular/core&#x27;;
+import luceneEscapeQuery from &#x27;lucene-escape-query&#x27;;
+import { firstValueFrom } from &#x27;rxjs&#x27;;
+import { Id3Tags } from &#x27;./id3-tags.types&#x27;;
+import { RemoteCoverPicture } from &#x27;./metadata.types&#x27;;
+import { ensureHttps } from &#x27;./metadata.helper&#x27;;
 
-export interface AnalyserConfig {
-  fftSize: FftSize;
-  smoothingTimeConstant: number;
-  minDecibels: number;
-  maxDecibels: number;
+interface MusicbrainzReleaseGroup {
+  id: string;
+  title: string;
+  &#x27;first-release-date&#x27;?: string;
 }
 
-export interface FrequencyBarsConfig {
-  barCount: number;
-  capHeight: number;
-  gap: number;
-  capFalldown: number;
+interface MusicbrainzResponse {
+  &#x27;release-groups&#x27;: MusicbrainzReleaseGroup[];
+  count: number;
 }
 
-export interface OsciloscopeConfig {
-  thickness: number;
+interface CoverArtImage {
+  image: string;
+  front: boolean;
+  thumbnails: {
+    &#x27;500&#x27;: string;
+    large: string;
+    small: string;
+  };
 }
 
-export interface VisualsColorConfig {
-  mainColor?: string;
-  peakColor?: string;
-  alpha?: number;
+interface CoverArtResponse {
+  images: CoverArtImage[];
 }
 
-export interface VisualsWorkerMessage {
-  canvas?: OffscreenCanvas;
-  newSize?: DOMRect;
-  stop?: boolean;
-  visualizerOptions?: VisualizerOptions;
-  analyserData: Uint8Array;
-}
-export interface BaseVisualizerOptions {
-  mode: VisualizerMode;
-  mainColor: string;
-  peakColor: string;
-  alpha: number;
-  bufferLength: number;
-}
+@Injectable({ providedIn: &#x27;root&#x27; })
+export class MusicbrainzService {
+  private http &#x3D; inject(HttpClient);
+  private readonly API_URL &#x3D; &#x27;https://musicbrainz.org/ws/2&#x27;;
+  private readonly COVER_API_URL &#x3D; &#x27;https://coverartarchive.org&#x27;;
 
-export interface BarsVisualizerOptions extends BaseVisualizerOptions {
-  mode: &#x27;bars&#x27; | &#x27;circular-bars&#x27;;
-  barCount: number;
-  gap: number;
-  capHeight: number;
-  capFalldown: number;
-  fftSize: number;
-  sampleRate: number;
+  async getCoverPicture(tags: Id3Tags): Promise&lt;RemoteCoverPicture | undefined&gt; {
+    if (!tags.artist || !tags.album) {
+      return undefined;
+    }
+
+    try {
+      const releaseGroupId &#x3D; await this.findReleaseGroupId(tags.artist, tags.album);
+      if (!releaseGroupId) {
+        return undefined;
+      }
+
+      return await this.fetchCoverArt(releaseGroupId);
+    } catch (error) {
+      console.warn(&#x27;Failed to query MusicBrainz&#x27;, error);
+      return undefined;
+    }
+  }
+
+  private async findReleaseGroupId(artist: string, album: string): Promise&lt;string | undefined&gt; {
+    const query &#x3D; &#x60;release:${luceneEscapeQuery.escape(album)} AND artist:${luceneEscapeQuery.escape(artist)} AND primarytype:Album&#x60;;
+    const url &#x3D; &#x60;${this.API_URL}/release-group?query&#x3D;${query}&amp;limit&#x3D;5&amp;fmt&#x3D;json&#x60;;
+
+    try {
+      const data &#x3D; await firstValueFrom(this.http.get&lt;MusicbrainzResponse&gt;(url));
+
+      if (!data[&#x27;release-groups&#x27;]?.length) {
+        return undefined;
+      }
+
+      return data[&#x27;release-groups&#x27;][0].id;
+    } catch (error) {
+      console.warn(&#x27;Failed to search release groups:&#x27;, error);
+      return undefined;
+    }
+  }
+
+  private async fetchCoverArt(releaseGroupId: string): Promise&lt;RemoteCoverPicture | undefined&gt; {
+    try {
+      const url &#x3D; &#x60;${this.COVER_API_URL}/release-group/${releaseGroupId}&#x60;;
+      const coverData &#x3D; await firstValueFrom(this.http.get&lt;CoverArtResponse&gt;(url));
+
+      const coverImage &#x3D; coverData.images.find((image) &#x3D;&gt; image.front &#x3D;&#x3D;&#x3D; true);
+      if (!coverImage) {
+        return undefined;
+      }
+
+      return {
+        thumb: ensureHttps(coverImage.thumbnails[&#x27;500&#x27;] || coverImage.thumbnails.small),
+        original: ensureHttps(coverImage.thumbnails.large)
+        // original: ensureHttps(coverImage.image)
+      };
+    } catch (error) {
+      console.warn(&#x27;No cover found with this ID&#x27;, error);
+      return undefined;
+    }
+  }
 }
-
-export interface OscVisualizerOptions extends BaseVisualizerOptions {
-  mode: &#x27;osc&#x27; | &#x27;circular-osc&#x27;;
-  thickness: number;
-}
-
-export type VisualizerOptions &#x3D; BarsVisualizerOptions | OscVisualizerOptions;
-
-export type VisualizerMode &#x3D; &#x27;off&#x27; | &#x27;bars&#x27; | &#x27;osc&#x27; | &#x27;circular-bars&#x27; | &#x27;circular-osc&#x27;;
 </code></pre>
     </div>
 </div>
@@ -336,7 +412,7 @@ export type VisualizerMode &#x3D; &#x27;off&#x27; | &#x27;bars&#x27; | &#x27;osc
        <script>
             var COMPODOC_CURRENT_PAGE_DEPTH = 1;
             var COMPODOC_CURRENT_PAGE_CONTEXT = 'interface';
-            var COMPODOC_CURRENT_PAGE_URL = 'OscVisualizerOptions.html';
+            var COMPODOC_CURRENT_PAGE_URL = 'MusicbrainzReleaseGroup.html';
             var MAX_SEARCH_RESULTS = 15;
        </script>
 

@@ -135,9 +135,7 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
-                                <a href="#counter" >counter</a>
-                            </li>
-                            <li>
+                                    <span class="modifier">Readonly</span>
                                 <a href="#isLoading" >isLoading</a>
                             </li>
                         </ul>
@@ -196,8 +194,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="17"
-                                    class="link-to-prism">apps/gblaster/src/app/services/loader/loader.service.ts:17</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="18"
+                                    class="link-to-prism">apps/gblaster/src/app/services/loader/loader.service.ts:18</a></div>
                         </td>
                     </tr>
 
@@ -260,39 +258,9 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="counter"></a>
-                    <span class="name">
-                        <span ><b>counter</b></span>
-                        <a href="#counter"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-                <tr>
-                    <td class="col-md-4">
-                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
-
-                    </td>
-                </tr>
-                <tr>
-                    <td class="col-md-4">
-                        <i>Default value : </i><code>0</code>
-                    </td>
-                </tr>
-                    <tr>
-                        <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="9" class="link-to-prism">apps/gblaster/src/app/services/loader/loader.service.ts:9</a></div>
-                        </td>
-                    </tr>
-
-
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
                     <a name="isLoading"></a>
                     <span class="name">
+                            <span class="modifier">Readonly</span>
                         <span ><b>isLoading</b></span>
                         <a href="#isLoading"><span class="icon ion-ios-link"></span></a>
                     </span>
@@ -324,20 +292,26 @@
   providedIn: &#x27;root&#x27;
 })
 export class LoaderService {
-  isLoading &#x3D; signal&lt;boolean&gt;(false);
+  readonly isLoading &#x3D; signal&lt;boolean&gt;(false);
 
-  counter &#x3D; 0;
+  private loadingCounter &#x3D; 0;
 
   show() {
-    if (this.counter &#x3D;&#x3D;&#x3D; 0) {
+    if (this.loadingCounter &#x3D;&#x3D;&#x3D; 0) {
       this.isLoading.set(true);
     }
-    this.counter +&#x3D; 1;
+    this.loadingCounter +&#x3D; 1;
   }
+
   hide() {
-    this.counter -&#x3D; 1;
-    if (this.counter &#x3D;&#x3D;&#x3D; 0) {
-      this.isLoading.set(false);
+    if (this.loadingCounter &gt; 0) {
+      this.loadingCounter -&#x3D; 1;
+
+      if (this.loadingCounter &#x3D;&#x3D;&#x3D; 0) {
+        this.isLoading.set(false);
+      }
+    } else {
+      console.warn(&#x27;LoaderService: hide called without matching show call&#x27;);
     }
   }
 }

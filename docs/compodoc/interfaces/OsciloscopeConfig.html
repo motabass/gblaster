@@ -237,7 +237,7 @@ export interface BaseVisualizerOptions {
 }
 
 export interface BarsVisualizerOptions extends BaseVisualizerOptions {
-  mode: &#x27;bars&#x27;;
+  mode: &#x27;bars&#x27; | &#x27;circular-bars&#x27;;
   barCount: number;
   gap: number;
   capHeight: number;
@@ -247,7 +247,7 @@ export interface BarsVisualizerOptions extends BaseVisualizerOptions {
 }
 
 export interface OscVisualizerOptions extends BaseVisualizerOptions {
-  mode: &#x27;osc&#x27;;
+  mode: &#x27;osc&#x27; | &#x27;circular-osc&#x27;;
   thickness: number;
 }
 

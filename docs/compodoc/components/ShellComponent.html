@@ -195,6 +195,7 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
+                                    <span class="modifier">Readonly</span>
                                 <a href="#isHandset" >isHandset</a>
                             </li>
                             <li>
@@ -340,6 +341,7 @@
                 <td class="col-md-4">
                     <a name="isHandset"></a>
                     <span class="name">
+                            <span class="modifier">Readonly</span>
                         <span ><b>isHandset</b></span>
                         <a href="#isHandset"><span class="icon ion-ios-link"></span></a>
                     </span>
@@ -475,7 +477,7 @@ export class ShellComponent {
       shareReplay()
     );
 
-  isHandset &#x3D; toSignal(this.isHandset$, { initialValue: false });
+  readonly isHandset &#x3D; toSignal(this.isHandset$, { initialValue: false });
 
   readonly sidenav &#x3D; viewChild&lt;MatSidenav&gt;(&#x27;drawer&#x27;);
 
