@@ -4,3 +4,6 @@ node = 'lts'
 "npm:npx" = "latest"
 "npm:npm-check-updates" = "latest"
 "npm:nx" = "latest"
+
+"npm:eslint" = "latest"
+"npm:eslint-interactive" = "latest"
