@@ -140,6 +140,47 @@ function drawOsc() {
   context.stroke(oscilloscopePath);
 }
 
+function drawCircularOsc() {
+  if (!context) return;
+
+  context.clearRect(0, 0, canvasWidth, canvasHeight);
+  context.globalAlpha = alpha;
+
+  // Slowly rotate the visualization
+  rotation += 0.003;
+
+  const centerX = canvasWidth / 2;
+  const centerY = canvasHeight / 2;
+  const radius = Math.min(centerX, centerY) * 0.5;
+
+  // Draw the waveform as a circular path
+  context.beginPath();
+  const angleStep = (Math.PI * 2) / bufferLength;
+
+  for (let index = 0; index < bufferLength; index++) {
+    // Convert the time domain data (0-255) to radius variation
+    // 128 is the center line for audio data
+    const scaleFactor = 1 + ((analyserData[index] - 128) / 128) * 0.9;
+    const currentRadius = radius * scaleFactor;
+
+    const angle = rotation + index * angleStep;
+    const x = centerX + Math.cos(angle) * currentRadius;
+    const y = centerY + Math.sin(angle) * currentRadius;
+
+    if (index === 0) {
+      context.moveTo(x, y);
+    } else {
+      context.lineTo(x, y);
+    }
+  }
+
+  // Close the path to form a complete circle
+  context.closePath();
+  context.lineWidth = thickness;
+  context.strokeStyle = mainColor;
+  context.stroke();
+}
+
 function drawBars() {
   if (!context) return;
 
@@ -233,63 +274,9 @@ function drawCircularBars() {
   }
 }
 
-function drawCircularOsc() {
-  if (!context) return;
-
-  context.clearRect(0, 0, canvasWidth, canvasHeight);
-  context.globalAlpha = alpha;
-
-  // Slowly rotate the visualization
-  rotation += 0.003;
-
-  const centerX = canvasWidth / 2;
-  const centerY = canvasHeight / 2;
-  const radius = Math.min(centerX, centerY) * 0.5;
-
-  // Draw a reference circle
-  context.beginPath();
-  context.arc(centerX, centerY, radius, 0, Math.PI * 2);
-  context.strokeStyle = mainColor;
-  context.globalAlpha = 0.2 * alpha;
-  context.lineWidth = 1;
-  context.stroke();
-  context.globalAlpha = alpha;
-
-  // Draw the waveform as a circular path
-  context.beginPath();
-  const angleStep = (Math.PI * 2) / bufferLength;
-
-  for (let index = 0; index < bufferLength; index++) {
-    // Convert the time domain data (0-255) to radius variation
-    // 128 is the center line for audio data
-    const scaleFactor = 1 + ((analyserData[index] - 128) / 128) * 0.9;
-    const currentRadius = radius * scaleFactor;
-
-    const angle = rotation + index * angleStep;
-    const x = centerX + Math.cos(angle) * currentRadius;
-    const y = centerY + Math.sin(angle) * currentRadius;
-
-    if (index === 0) {
-      context.moveTo(x, y);
-    } else {
-      context.lineTo(x, y);
-    }
-  }
-
-  // Close the path to form a complete circle
-  context.closePath();
-  context.lineWidth = thickness;
-  context.strokeStyle = peakColor;
-  context.stroke();
-}
-
 function convertToBarkScale(): Float32Array {
   if (!frequencyToBarkMap) {
-    frequencyToBarkMap = new Float32Array(fftSize / 2);
-    for (let index = 0; index < fftSize / 2; index++) {
-      const frequency = (index * sampleRate) / fftSize;
-      frequencyToBarkMap[index] = 13 * Math.atan(0.000_76 * frequency) + 3.5 * Math.atan((frequency / 7500) ** 2);
-    }
+    initBarkScale();
   }
 
   const barkScaleBandSize = (frequencyToBarkMap.at(-1) - frequencyToBarkMap[0]) / meterNumber;
@@ -303,6 +290,14 @@ function convertToBarkScale(): Float32Array {
   }
 
   return barkScaleBandEnergy;
+}
+
+function initBarkScale() {
+  frequencyToBarkMap = new Float32Array(fftSize / 2);
+  for (let index = 0; index < fftSize / 2; index++) {
+    const frequency = (index * sampleRate) / fftSize;
+    frequencyToBarkMap[index] = 13 * Math.atan(0.000_76 * frequency) + 3.5 * Math.atan((frequency / 7500) ** 2);
+  }
 }
 
 function isBarsVisualizerOptions(options: VisualizerOptions): options is BarsVisualizerOptions {
