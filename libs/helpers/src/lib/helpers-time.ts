@@ -4,12 +4,18 @@ export function formatSecondsAsClock(value: number | undefined, leadingMinuteZer
   }
 
   if (value > 0) {
-    const durationSeconds = value;
+    // Round the total seconds first
+    const totalSeconds = Math.round(value);
 
-    const minutes = Math.floor(durationSeconds / 60);
+    // Calculate minutes and seconds properly
+    const minutes = Math.floor(totalSeconds / 60);
+    const seconds = totalSeconds % 60; // Using modulo to ensure 0-59 range
 
-    const seconds = durationSeconds - minutes * 60;
-    return `${minutes > 9 ? minutes : leadingMinuteZero ? '0' + minutes : minutes}:${seconds > 9 ? Math.round(seconds) : '0' + Math.round(seconds)}`;
+    // Format the output string
+    const formattedMinutes = minutes > 9 ? minutes : leadingMinuteZero ? '0' + minutes : minutes;
+    const formattedSeconds = seconds > 9 ? seconds : '0' + seconds;
+
+    return `${formattedMinutes}:${formattedSeconds}`;
   } else {
     return leadingMinuteZero ? '00:00' : '0:00';
   }
