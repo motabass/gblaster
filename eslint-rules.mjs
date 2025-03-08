@@ -48,7 +48,8 @@ const DEFAULT_UNICORN_RULE_OVERRIDES = {
   'unicorn/no-null': 'off',
   'unicorn/prefer-set-has': 'warn',
   'unicorn/better-regex': 'warn',
-  'unicorn/no-negated-condition': 'warn'
+  'unicorn/no-negated-condition': 'warn',
+  'unicorn/no-useless-undefined': 'off'
 };
 
 export const DEFAULT_SONARJS_HTML_RULE_OVERRIDES = {

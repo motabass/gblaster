@@ -1,5 +1,5 @@
 export function formatSecondsAsClock(value: number | undefined, leadingMinuteZero = true): string {
-  if (value === undefined || value === null) {
+  if (value === undefined) {
     return leadingMinuteZero ? '00:00' : '0:00';
   }
 

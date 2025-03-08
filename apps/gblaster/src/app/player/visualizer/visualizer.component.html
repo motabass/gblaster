@@ -4,8 +4,8 @@
   @if (audioService.isPlaying()) {
     <canvas
       mtbVisual
-      [mode]="visualizerMode"
       style="width: 100%; height: 100%"
+      [mode]="visualizerMode"
       [colorConfig]="colorConfig()"
       [barsConfig]="barsConfig()"
       [oscConfig]="oscConfig()"
@@ -52,31 +52,31 @@
           <div>
             <h5 class="slider-label">Smoothing</h5>
             <mat-slider min="0" max="1" step="0.1" discrete
-              ><input matSliderThumb [value]="smoothing()" (input)="setSmoothing(smoothingThumb.value)" #smoothingThumb="matSliderThumb"
+              ><input #smoothingThumb="matSliderThumb" matSliderThumb [value]="smoothing()" (input)="setSmoothing(smoothingThumb.value)"
             /></mat-slider>
           </div>
           <div>
             <h5 class="slider-label">Bars</h5>
             <mat-slider min="8" max="128" step="1" discrete
-              ><input matSliderThumb [value]="barCount()" (input)="setBarCount(barCountThumb.value)" #barCountThumb="matSliderThumb"
+              ><input #barCountThumb="matSliderThumb" matSliderThumb [value]="barCount()" (input)="setBarCount(barCountThumb.value)"
             /></mat-slider>
           </div>
           <div>
             <h5 class="slider-label">Gap</h5>
             <mat-slider min="-1" max="20" step="0.1" discrete
-              ><input matSliderThumb [value]="gap()" (input)="setGap(gapThumb.value)" #gapThumb="matSliderThumb"
+              ><input #gapThumb="matSliderThumb" matSliderThumb [value]="gap()" (input)="setGap(gapThumb.value)"
             /></mat-slider>
           </div>
           <div>
             <h5 class="slider-label">Cap Height</h5>
             <mat-slider min="0" max="6" step="0.1" discrete
-              ><input matSliderThumb [value]="capHeight()" (input)="setCapHeight(capHeightThumb.value)" #capHeightThumb="matSliderThumb"
+              ><input #capHeightThumb="matSliderThumb" matSliderThumb [value]="capHeight()" (input)="setCapHeight(capHeightThumb.value)"
             /></mat-slider>
           </div>
           <div>
             <h5 class="slider-label">Cap Falldown</h5>
             <mat-slider min="0.1" max="2" step="0.1" discrete
-              ><input matSliderThumb [value]="capFalldown()" (input)="setCapFalldown(capFalldownThumb.value)" #capFalldownThumb="matSliderThumb"
+              ><input #capFalldownThumb="matSliderThumb" matSliderThumb [value]="capFalldown()" (input)="setCapFalldown(capFalldownThumb.value)"
             /></mat-slider>
           </div>
         }
@@ -84,7 +84,7 @@
           <div>
             <h5 class="slider-label">Thickness</h5>
             <mat-slider min="1" max="10" step="0.5" discrete
-              ><input matSliderThumb [value]="lineThickness()" (input)="setLineThickness(lineThicknessThumb.value)" #lineThicknessThumb="matSliderThumb"
+              ><input #lineThicknessThumb="matSliderThumb" matSliderThumb [value]="lineThickness()" (input)="setLineThickness(lineThicknessThumb.value)"
             /></mat-slider>
           </div>
         }

@@ -5,7 +5,9 @@ import { Subject } from 'rxjs';
 
 export const FREQUENCY_BANDS: FrequencyBand[] = [60, 170, 310, 600, 1000, 3000, 6000, 12_000, 14_000, 16_000];
 
-export type EqualizerGainValues = { [band: number]: number };
+export interface EqualizerGainValues {
+  [band: number]: number;
+}
 
 @Injectable({ providedIn: 'root' })
 export class AudioService {

@@ -6,7 +6,7 @@
   }
 </mtb-playlist>
 
-<mtb-cover-display [track]="playerService.currentlyLoadedTrack()" class="main">
+<mtb-cover-display class="main" [track]="playerService.currentlyLoadedTrack()">
   <mtb-visualizer class="visualizer" />
 </mtb-cover-display>
 
@@ -35,8 +35,8 @@
   </button>
   <!-- TODO: The 'tickInterval' property no longer exists -->
   @if (playerService.currentlyLoadedTrack()) {
-    <mat-slider class="flex-grow" min="0" [max]="playerService.durationSeconds()" step="1" discrete color="accent" [displayWith]="formatLabel"
-      ><input matSliderThumb [value]="playerService.currentTime()" (valueChange)="onSliderPositionChanged(ngSliderThumb.value)" #ngSliderThumb="matSliderThumb"
+    <mat-slider class="flex-grow" min="0" step="1" discrete color="accent" [max]="playerService.durationSeconds()" [displayWith]="formatLabel"
+      ><input #ngSliderThumb="matSliderThumb" matSliderThumb [value]="playerService.currentTime()" (valueChange)="onSliderPositionChanged(ngSliderThumb.value)"
     /></mat-slider>
   } @else {
     <div class="flex-grow"></div>
@@ -50,7 +50,7 @@
     <mat-icon [matTooltip]="'Volume: ' + (audioService.volume() * 100).toFixed(0)" [svgIcon]="volumeIcon()"></mat-icon>
   </button>
   <button mat-icon-button [ngClass]="{ 'disabled-color': !playerService.shuffle() }" (click)="toggleShuffle()">
-    <mat-icon [matTooltip]="playerService.shuffle() ? 'Shuffle on' : 'Shuffle off'" svgIcon="shuffle-variant"></mat-icon>
+    <mat-icon svgIcon="shuffle-variant" [matTooltip]="playerService.shuffle() ? 'Shuffle on' : 'Shuffle off'"></mat-icon>
   </button>
   <button mat-icon-button [ngClass]="{ 'disabled-color': playerService.repeat() === 'off' }" (click)="toggleRepeat()">
     @switch (playerService.repeat()) {

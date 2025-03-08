@@ -1,11 +1,11 @@
-<mat-list cdkDropList [cdkDropListDisabled]="loaderService.isLoading()" (cdkDropListDropped)="drop($event)" class="playlist">
+<mat-list cdkDropList class="playlist" [cdkDropListDisabled]="loaderService.isLoading()" (cdkDropListDropped)="drop($event)">
   @for (song of songs(); track song.metadata.crc; let index = $index) {
     @defer (on viewport) {
       <mat-list-item
         cdkDrag
         style="height: 72px"
-        [ngClass]="{ selected: this.playerService.selectedTrack()?.metadata?.crc === song.metadata.crc }"
         class="playlist-item"
+        [ngClass]="{ selected: this.playerService.selectedTrack()?.metadata?.crc === song.metadata.crc }"
         (dblclick)="playPauseSong($event, song)"
         (click)="playerService.selectSong(song)"
       >
@@ -14,8 +14,8 @@
           @if (song && song.metadata && song.metadata.coverUrl) {
             <img
               style="position: absolute; top: 0; right: 0; bottom: 0; left: 0; width: 100%; height: 100%"
-              [src]="song.metadata.coverUrl.thumb | safe: 'resourceUrl'"
               loading="lazy"
+              [src]="song.metadata.coverUrl.thumb | safe: 'resourceUrl'"
             />
           }
           @let songPlaying = isPlaying(song)();
