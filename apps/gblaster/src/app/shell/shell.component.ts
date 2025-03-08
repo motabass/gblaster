@@ -32,7 +32,7 @@ export class ShellComponent {
       shareReplay()
     );
 
-  isHandset = toSignal(this.isHandset$, { initialValue: false });
+  readonly isHandset = toSignal(this.isHandset$, { initialValue: false });
 
   readonly sidenav = viewChild<MatSidenav>('drawer');
 

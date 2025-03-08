@@ -1,16 +1,17 @@
-import { Injectable, inject } from '@angular/core';
-import { LocalStorage, LocalStorageService } from 'ngx-webstorage';
+import { computed, inject, Injectable, signal } from '@angular/core';
+import { LocalStorageService } from 'ngx-webstorage';
 import { FrequencyBand } from './player.types';
-import { interval } from 'rxjs';
-import { toSignal } from '@angular/core/rxjs-interop';
-import { map } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
-const FREQUENCY_BANDS: FrequencyBand[] = [60, 170, 310, 600, 1000, 3000, 6000, 12_000, 14_000, 16_000];
+export const FREQUENCY_BANDS: FrequencyBand[] = [60, 170, 310, 600, 1000, 3000, 6000, 12_000, 14_000, 16_000];
+
+export type EqualizerGainValues = { [band: number]: number };
 
 @Injectable({ providedIn: 'root' })
 export class AudioService {
   private storageService = inject(LocalStorageService);
 
+  // Core audio elements
   private _audioElement: HTMLAudioElement;
   private _audioContext: AudioContext;
   private _audioSourceNode: MediaElementAudioSourceNode;
@@ -18,10 +19,26 @@ export class AudioService {
   private _eqGainNode: GainNode;
   private _frequencyFilters: { [band: number]: BiquadFilterNode } = {};
 
-  @LocalStorage('equalizerGainValues', { 60: 0, 170: 0, 310: 0, 600: 0, 1000: 0, 3000: 0, 6000: 0, 12_000: 0, 14_000: 0, 16_000: 0 })
-  private _equalizerGainValues!: {
-    [band: number]: number;
-  };
+  // State signals
+  readonly isLoading = signal(false);
+  readonly isPlaying = signal(false);
+  readonly isPaused = signal(true);
+  readonly isLooping = signal(false);
+  readonly currentTime = signal(0);
+  readonly duration = signal(0);
+  readonly volume = signal(this.storageService.retrieve('volume') ?? 0.5);
+  readonly baseGain = signal(this.storageService.retrieve('baseGain') ?? 1);
+  readonly sampleRate = signal(44_100);
+
+  readonly equalizerGainValues = signal<EqualizerGainValues>(
+    this.storageService.retrieve('equalizerGainValues') ?? { 60: 0, 170: 0, 310: 0, 600: 0, 1000: 0, 3000: 0, 6000: 0, 12_000: 0, 14_000: 0, 16_000: 0 }
+  );
+
+  private readonly _hasEnded = new Subject<boolean>();
+
+  get hasEnded$() {
+    return this._hasEnded.asObservable();
+  }
 
   constructor() {
     // create audio element
@@ -31,12 +48,8 @@ export class AudioService {
     audioElement.style.display = 'none';
     audioElement.autoplay = false;
     audioElement.controls = false;
-    audioElement.volume = 0.5;
+    audioElement.volume = this.volume();
     audioElement.preload = 'auto';
-
-    audioElement.addEventListener('error', (error) => {
-      console.error(error);
-    });
 
     // TODO: only for cypress test!?
     document.body.append(audioElement);
@@ -59,20 +72,60 @@ export class AudioService {
     gain.connect(audioContext.destination);
 
     // set eq settings from localstorage
-    for (const frequencyBand of FREQUENCY_BANDS) {
-      const filter = this._frequencyFilters[frequencyBand];
-      filter.gain.value = this._equalizerGainValues[frequencyBand];
+    for (const band of FREQUENCY_BANDS) {
+      const filter = this._frequencyFilters[band];
+      filter.gain.value = this.equalizerGainValues()[band];
     }
+    eqGain.gain.value = this.baseGain();
 
-    // set volume setting from localstorage
-    const storedVolume = this.storageService.retrieve('volume');
-    gain.gain.value = storedVolume ?? 0.5;
+    gain.gain.value = this.volume();
 
     this._audioElement = audioElement;
     this._audioSourceNode = audioSource;
     this._audioContext = audioContext;
     this._eqGainNode = eqGain;
     this._gainNode = gain;
+
+    this._audioElement.addEventListener('error', (error) => {
+      console.error(error);
+      this.isLoading.set(false);
+    });
+
+    // this._audioElement.addEventListener('loadeddata', (error) => {
+    //
+    // });
+
+    this._audioElement.addEventListener('loadstart', () => {
+      this.isLoading.set(true);
+    });
+
+    this._audioElement.addEventListener('canplay', () => {
+      this.isLoading.set(false);
+    });
+
+    // Add event listeners to update signals
+    this._audioElement.addEventListener('timeupdate', () => {
+      this.currentTime.set(this._audioElement.currentTime);
+    });
+
+    this._audioElement.addEventListener('durationchange', () => {
+      this.duration.set(this._audioElement.duration);
+    });
+
+    this._audioElement.addEventListener('play', () => {
+      this.sampleRate.set(this._audioContext.sampleRate);
+      this.isPlaying.set(true);
+      this.isPaused.set(false);
+    });
+
+    this._audioElement.addEventListener('pause', () => {
+      this.isPlaying.set(false);
+      this.isPaused.set(true);
+    });
+
+    this._audioElement.addEventListener('ended', () => {
+      this._hasEnded.next(true);
+    });
   }
 
   private createEqualizer(audioContext: AudioContext): { eqInput: AudioNode; eqOutput: AudioNode } {
@@ -104,23 +157,15 @@ export class AudioService {
     return { eqInput: input, eqOutput: output };
   }
 
-  plugAnalyser(): AnalyserNode {
+  plugInNewAnalyserNode(): AnalyserNode {
     const analyser = this._audioContext.createAnalyser();
     this._audioSourceNode.connect(analyser);
     return analyser;
   }
 
-  // AUDIO ELEMENT CONTROL
-
-  setSource(url: string) {
-    this._audioElement.src = url;
-  }
-
   setFileAsSource(file: File) {
     const oldSource = this._audioElement.src;
-
     this._audioElement.src = URL.createObjectURL(file);
-
     URL.revokeObjectURL(oldSource);
   }
 
@@ -132,33 +177,14 @@ export class AudioService {
     return this._audioElement.play();
   }
 
-  get playing(): boolean {
-    return !this._audioElement.paused;
-  }
-
   pause() {
     this._audioElement.pause();
   }
 
-  get paused(): boolean {
-    return this._audioElement.paused;
-  }
-
   setLoop(loop: boolean) {
     this._audioElement.loop = loop;
+    this.isLooping.set(loop);
   }
-
-  setOnEnded(callback: () => any) {
-    this._audioElement.addEventListener('ended', callback);
-  }
-
-  get duration(): number {
-    return this._audioElement.duration;
-  }
-
-  currentTime = toSignal(interval(100).pipe(map(() => this._audioElement.currentTime)), { initialValue: 0 });
-
-  volume = toSignal(interval(100).pipe(map(() => this._gainNode.gain.value)), { initialValue: 0 });
 
   seekToPosition(position: number, fastSeek = false) {
     if ('fastSeek' in this._audioElement && fastSeek) {
@@ -168,34 +194,29 @@ export class AudioService {
     }
   }
 
-  getBandGain(bandFrequency: FrequencyBand): number {
-    return this._equalizerGainValues[bandFrequency];
+  getFrequencyBandGainSignal(bandFrequency: FrequencyBand) {
+    return computed(() => this.equalizerGainValues()[bandFrequency]);
   }
 
-  setGainForFrequency(bandFrequency: FrequencyBand, gainValue: number) {
+  setFrequencyBandGain(bandFrequency: FrequencyBand, gainValue: number) {
     this._frequencyFilters[bandFrequency].gain.value = gainValue;
 
-    const bandGains = this._equalizerGainValues;
+    const bandGains = this.equalizerGainValues();
     bandGains[bandFrequency] = gainValue;
-    this._equalizerGainValues = bandGains;
+    this.equalizerGainValues.set(bandGains);
   }
 
   setVolume(value: number) {
     if (value >= 0 && value <= 1) {
-      this.storageService.store('volume', value);
       this._gainNode.gain.value = value;
+      this.volume.set(value);
+      this.storageService.store('volume', value);
     }
-  }
-
-  get baseGain() {
-    return this._eqGainNode.gain.value;
   }
 
   setBaseGain(volume: number) {
     this._eqGainNode.gain.value = volume;
-  }
-
-  get sampleRate(): number {
-    return this._audioContext.sampleRate;
+    this.baseGain.set(volume);
+    this.storageService.store('baseGain', volume);
   }
 }

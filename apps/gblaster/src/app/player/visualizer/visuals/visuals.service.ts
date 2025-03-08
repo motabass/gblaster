@@ -8,42 +8,33 @@ import type { VisualizerMode } from './visuals.types';
 export class VisualsService {
   private localStorageService = inject(LocalStorageService);
 
-  visualMode = signal<VisualizerMode>('off');
-
-  constructor() {
-    const mode = this.localStorageService.retrieve('visualMode');
-    if (mode) {
-      this.visualMode.set(mode);
-    }
-  }
+  readonly visualMode = signal<VisualizerMode>(this.localStorageService.retrieve('visualMode') ?? 'off');
 
   toggleVisualMode() {
+    let nextMode: VisualizerMode;
     switch (this.visualMode()) {
       case 'off': {
-        this.visualMode.set('bars');
-        this.localStorageService.store('visualMode', 'bars');
+        nextMode = 'bars';
         break;
       }
       case 'bars': {
-        this.visualMode.set('osc');
-        this.localStorageService.store('visualMode', 'osc');
-        break;
-      }
-      case 'osc': {
-        this.visualMode.set('circular-bars');
-        this.localStorageService.store('visualMode', 'off');
+        nextMode = 'circular-bars';
         break;
       }
       case 'circular-bars': {
-        this.visualMode.set('circular-osc');
-        this.localStorageService.store('visualMode', 'circular-osc');
+        nextMode = 'osc';
+        break;
+      }
+      case 'osc': {
+        nextMode = 'circular-osc';
         break;
       }
       case 'circular-osc': {
-        this.visualMode.set('off');
-        this.localStorageService.store('visualMode', 'off');
+        nextMode = 'off';
         break;
       }
     }
+    this.visualMode.set(nextMode);
+    this.localStorageService.store('visualMode', nextMode);
   }
 }

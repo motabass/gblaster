@@ -4,48 +4,93 @@ import luceneEscapeQuery from 'lucene-escape-query';
 import { firstValueFrom } from 'rxjs';
 import { Id3Tags } from './id3-tags.types';
 import { RemoteCoverPicture } from './metadata.types';
+import { ensureHttps } from './metadata.helper';
+
+interface MusicbrainzReleaseGroup {
+  id: string;
+  title: string;
+  'first-release-date'?: string;
+}
+
+interface MusicbrainzResponse {
+  'release-groups': MusicbrainzReleaseGroup[];
+  count: number;
+}
+
+interface CoverArtImage {
+  image: string;
+  front: boolean;
+  thumbnails: {
+    '500': string;
+    large: string;
+    small: string;
+  };
+}
+
+interface CoverArtResponse {
+  images: CoverArtImage[];
+}
 
 @Injectable({ providedIn: 'root' })
 export class MusicbrainzService {
   private http = inject(HttpClient);
+  private readonly API_URL = 'https://musicbrainz.org/ws/2';
+  private readonly COVER_API_URL = 'https://coverartarchive.org';
 
   async getCoverPicture(tags: Id3Tags): Promise<RemoteCoverPicture | undefined> {
-    if (tags.artist && tags.album) {
-      const query = `release:${luceneEscapeQuery.escape(tags.album)} AND artist:${luceneEscapeQuery.escape(tags.artist)} AND primarytype:Album`;
-      const url = `https://musicbrainz.org/ws/2/release-group?query=${query}&limit=5&fmt=json`;
-      // TODO: type response
-      try {
-        const data: any = await firstValueFrom(this.http.get(url));
-        if (!data['release-groups']?.length) {
-          return;
-        }
-
-        const id = data['release-groups'][0].id;
-        // const data2: any = await this.http.get(`https://musicbrainz.org/ws/2/release-group/${id}?fmt=json&inc=releases+artists`).toPromise();
-        // // TODO: type response
-        //
-        // if (!data2['cover-art-archive']?.front) {
-        //   console.warn('Kein Cover vorhanden');
-        //   return;
-        // }
-        let coverData: any;
-        try {
-          coverData = await firstValueFrom(this.http.get(`https://coverartarchive.org/release-group/${id}`));
-        } catch {
-          console.warn('Kein Cover mit der ID gefunden');
-          return;
-        }
-
-        const coverImage = coverData.images.find((image: any) => image.front === true);
-        const thumbUrl: string = coverImage.thumbnails['500'];
-        const coverUrl: string = coverImage.image;
-
-        return { thumb: thumbUrl?.replace('http://', 'https://'), original: coverUrl?.replace('http://', 'https://') };
-      } catch (error) {
-        console.warn('Konnte MusicBrainz nicht abfragen', error);
-        return;
-      }
+    if (!tags.artist || !tags.album) {
+      return undefined;
     }
-    return;
+
+    try {
+      const releaseGroupId = await this.findReleaseGroupId(tags.artist, tags.album);
+      if (!releaseGroupId) {
+        return undefined;
+      }
+
+      return await this.fetchCoverArt(releaseGroupId);
+    } catch (error) {
+      console.warn('Failed to query MusicBrainz', error);
+      return undefined;
+    }
+  }
+
+  private async findReleaseGroupId(artist: string, album: string): Promise<string | undefined> {
+    const query = `release:${luceneEscapeQuery.escape(album)} AND artist:${luceneEscapeQuery.escape(artist)} AND primarytype:Album`;
+    const url = `${this.API_URL}/release-group?query=${query}&limit=5&fmt=json`;
+
+    try {
+      const data = await firstValueFrom(this.http.get<MusicbrainzResponse>(url));
+
+      if (!data['release-groups']?.length) {
+        return undefined;
+      }
+
+      return data['release-groups'][0].id;
+    } catch (error) {
+      console.warn('Failed to search release groups:', error);
+      return undefined;
+    }
+  }
+
+  private async fetchCoverArt(releaseGroupId: string): Promise<RemoteCoverPicture | undefined> {
+    try {
+      const url = `${this.COVER_API_URL}/release-group/${releaseGroupId}`;
+      const coverData = await firstValueFrom(this.http.get<CoverArtResponse>(url));
+
+      const coverImage = coverData.images.find((image) => image.front === true);
+      if (!coverImage) {
+        return undefined;
+      }
+
+      return {
+        thumb: ensureHttps(coverImage.thumbnails['500'] || coverImage.thumbnails.small),
+        original: ensureHttps(coverImage.thumbnails.large)
+        // original: ensureHttps(coverImage.image)
+      };
+    } catch (error) {
+      console.warn('No cover found with this ID', error);
+      return undefined;
+    }
   }
 }

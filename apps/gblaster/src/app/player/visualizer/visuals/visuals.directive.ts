@@ -1,5 +1,6 @@
-import { Directive, ElementRef, inject, input, NgZone, numberAttribute, OnChanges, OnDestroy, SimpleChanges } from '@angular/core';
+import { Directive, ElementRef, inject, input, NgZone, OnChanges, OnDestroy, SimpleChanges } from '@angular/core';
 import type { FrequencyBarsConfig, OsciloscopeConfig, VisualizerMode, VisualsColorConfig, VisualsWorkerMessage } from './visuals.types';
+import { AudioService } from '../../audio.service';
 
 const FALLBACK_PRIMARY_COLOR = '#424242';
 const FALLBACK_ACCENT_COLOR = '#bcbcbc';
@@ -9,8 +10,7 @@ const FALLBACK_ACCENT_COLOR = '#bcbcbc';
 })
 export class VisualsDirective implements OnDestroy, OnChanges {
   private zone = inject(NgZone);
-
-  readonly analyser = input.required<AnalyserNode>({ alias: 'mtbVisual' });
+  private audioService = inject(AudioService);
 
   readonly mode = input<VisualizerMode>('bars');
 
@@ -18,15 +18,17 @@ export class VisualsDirective implements OnDestroy, OnChanges {
 
   readonly oscConfig = input<OsciloscopeConfig>({ thickness: 2 });
 
-  readonly colorConfig = input<VisualsColorConfig | null>({});
+  readonly colorConfig = input<VisualsColorConfig>({});
 
-  readonly sampleRate = input.required<number, unknown>({ transform: numberAttribute });
+  readonly analyser = input<AnalyserNode>();
 
-  canvas: HTMLCanvasElement;
+  private _internalAnalyzer: AnalyserNode | undefined;
+
+  private canvas: HTMLCanvasElement;
 
   private animationFrameRef?: number;
 
-  private worker: Worker;
+  private visualizerWorker: Worker;
 
   private analyserData!: Uint8Array;
 
@@ -35,14 +37,25 @@ export class VisualsDirective implements OnDestroy, OnChanges {
 
     this.canvas = elr.nativeElement;
 
-    const offscreenCanvas: OffscreenCanvas = this.canvas.transferControlToOffscreen();
-
-    this.worker = new Worker(new URL('visuals.worker', import.meta.url), { type: 'module' });
+    this.visualizerWorker = new Worker(new URL('visuals.worker', import.meta.url), { type: 'module' });
     // this.worker.onmessage = ({ data }) => {
     //   console.log(`page got message: ${data}`);
     // };
 
-    this.worker.postMessage({ canvas: offscreenCanvas } as VisualsWorkerMessage, [offscreenCanvas]);
+    const offscreenCanvas: OffscreenCanvas = this.canvas.transferControlToOffscreen();
+    this.visualizerWorker.postMessage({ canvas: offscreenCanvas } as VisualsWorkerMessage, [offscreenCanvas]);
+  }
+
+  get analyserNode(): AnalyserNode {
+    const analyserValue = this.analyser();
+    if (analyserValue) {
+      return analyserValue;
+    } else {
+      if (!this._internalAnalyzer) {
+        this._internalAnalyzer = this.audioService.plugInNewAnalyserNode();
+      }
+      return this._internalAnalyzer;
+    }
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -51,7 +64,7 @@ export class VisualsDirective implements OnDestroy, OnChanges {
     // give canvas size for correct dpi
     const rect = this.canvas.getBoundingClientRect();
 
-    this.worker.postMessage({ newSize: rect } as VisualsWorkerMessage);
+    this.visualizerWorker.postMessage({ newSize: rect } as VisualsWorkerMessage);
 
     switch (this.mode()) {
       case 'bars': {
@@ -74,55 +87,55 @@ export class VisualsDirective implements OnDestroy, OnChanges {
   }
 
   visualizeFrequencyBars(circular: boolean) {
-    this.worker.postMessage({
+    const colorConfig = this.colorConfig();
+    this.visualizerWorker.postMessage({
       visualizerOptions: {
         mode: circular ? 'circular-bars' : 'bars',
         barCount: this.barsConfig().barCount,
         gap: this.barsConfig().gap,
         capHeight: this.barsConfig().capHeight,
         capFalldown: this.barsConfig().capFalldown,
-        mainColor: this.colorConfig()?.mainColor || FALLBACK_PRIMARY_COLOR,
-        peakColor: this.colorConfig()?.peakColor || FALLBACK_ACCENT_COLOR,
-        alpha: this.colorConfig()?.alpha ?? 1,
-        bufferLength: this.analyser().frequencyBinCount,
-        fftSize: this.analyser().fftSize,
-        sampleRate: this.sampleRate()
+        mainColor: colorConfig?.mainColor || FALLBACK_PRIMARY_COLOR,
+        peakColor: colorConfig?.peakColor || FALLBACK_ACCENT_COLOR,
+        alpha: colorConfig?.alpha ?? 1,
+        bufferLength: this.analyserNode.frequencyBinCount,
+        fftSize: this.analyserNode.fftSize,
+        sampleRate: this.audioService.sampleRate()
       }
     } as VisualsWorkerMessage);
 
-    this.zone.runOutsideAngular(() => {
-      if (!this.analyserData) {
-        this.analyserData = new Uint8Array(this.analyser().frequencyBinCount);
-      }
-      const draw = () => {
-        this.analyser().getByteFrequencyData(this.analyserData);
-        this.worker.postMessage({ analyserData: this.analyserData } as VisualsWorkerMessage);
-
-        this.animationFrameRef = requestAnimationFrame(draw);
-      };
-      draw();
-    });
+    this.startVisualization('getByteFrequencyData');
   }
 
   visualizeOscilloscope(circular: boolean) {
-    this.worker.postMessage({
+    const colorConfig = this.colorConfig();
+    this.visualizerWorker.postMessage({
       visualizerOptions: {
         mode: circular ? 'circular-osc' : 'osc',
-        mainColor: this.colorConfig()?.mainColor || FALLBACK_PRIMARY_COLOR,
-        peakColor: this.colorConfig()?.peakColor || FALLBACK_ACCENT_COLOR,
-        alpha: this.colorConfig()?.alpha ?? 1,
-        bufferLength: this.analyser().frequencyBinCount,
+        mainColor: colorConfig?.mainColor || FALLBACK_PRIMARY_COLOR,
+        peakColor: colorConfig?.peakColor || FALLBACK_ACCENT_COLOR,
+        alpha: colorConfig?.alpha ?? 1,
+        bufferLength: this.analyserNode.frequencyBinCount,
         thickness: this.oscConfig().thickness
       }
     } as VisualsWorkerMessage);
 
+    this.startVisualization('getByteTimeDomainData');
+  }
+
+  private startVisualization(getDataMethod: 'getByteFrequencyData' | 'getByteTimeDomainData') {
     this.zone.runOutsideAngular(() => {
-      if (!this.analyserData) {
-        this.analyserData = new Uint8Array(this.analyser().frequencyBinCount);
+      if (!this.analyserData || this.analyserData.length !== this.analyserNode.frequencyBinCount) {
+        this.analyserData = new Uint8Array(this.analyserNode.frequencyBinCount);
       }
+
       const draw = () => {
-        this.analyser().getByteTimeDomainData(this.analyserData);
-        this.worker.postMessage({ analyserData: this.analyserData } as VisualsWorkerMessage);
+        this.analyserNode[getDataMethod](this.analyserData);
+        // Use transferable objects to avoid copying large arrays
+        this.visualizerWorker.postMessage({ analyserData: this.analyserData } as VisualsWorkerMessage, [this.analyserData.buffer]);
+        // Create a new array since the previous one was transferred
+        this.analyserData = new Uint8Array(this.analyserNode.frequencyBinCount);
+
         this.animationFrameRef = requestAnimationFrame(draw);
       };
       draw();
@@ -130,7 +143,7 @@ export class VisualsDirective implements OnDestroy, OnChanges {
   }
 
   stopVisualizer() {
-    this.worker.postMessage({ stop: true } as VisualsWorkerMessage);
+    this.visualizerWorker.postMessage({ stop: true } as VisualsWorkerMessage);
     if (this.animationFrameRef !== undefined) {
       cancelAnimationFrame(this.animationFrameRef);
     }
@@ -138,6 +151,6 @@ export class VisualsDirective implements OnDestroy, OnChanges {
 
   ngOnDestroy() {
     this.stopVisualizer();
-    this.worker.terminate();
+    this.visualizerWorker.terminate();
   }
 }

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, inject, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, OnDestroy, OnInit, signal } from '@angular/core';
 import { MatSliderModule } from '@angular/material/slider';
 import { formatSecondsAsClock } from '@motabass/helpers';
 import { ALLOWED_MIMETYPES } from './file-loader-service/file-loader.helpers';
@@ -50,9 +50,7 @@ export default class PlayerComponent implements OnInit, OnDestroy {
   private fileLoaderService = inject(FileLoaderService);
   audioService = inject(AudioService);
 
-  positionUpdateActive = true;
-
-  allowedTypes = ALLOWED_MIMETYPES;
+  readonly ALLOWED_TYPES = ALLOWED_MIMETYPES;
 
   async ngOnInit() {
     this.titleService.setTitle('gBlaster');
@@ -111,18 +109,12 @@ export default class PlayerComponent implements OnInit, OnDestroy {
     return this.fileLoaderService.currentFolderHandle ? this.loadFiles() : this.showPicker();
   }
 
-  isPlaylistEmpty = computed(() => this.playerService.currentPlaylist().length === 0);
+  readonly isPlaylistEmpty = computed(() => this.playerService.currentPlaylist().length === 0);
 
   onSliderPositionChanged(value: number) {
-    this.positionUpdateActive = true;
-
     if (value !== null) {
       this.playerService.setSeekPosition(value);
     }
-  }
-
-  pauseSliderPositionUpdate() {
-    this.positionUpdateActive = false;
   }
 
   seekLeft(value: number) {
@@ -169,28 +161,14 @@ export default class PlayerComponent implements OnInit, OnDestroy {
     void this.playerService.previous();
   }
 
-  volumeIcon = computed(() => {
-    const vol = this.audioService.volume();
-    if (vol === 0) {
-      return 'volume-variant-off';
-    }
-    if (vol > 0 && vol < 0.2) {
-      return 'volume-low';
-    }
-    if (vol >= 0.2 && vol < 0.8) {
-      return 'volume-medium';
-    }
-
+  private getVolumeIconForLevel(vol: number): string {
+    if (vol === 0) return 'volume-variant-off';
+    if (vol > 0 && vol < 0.2) return 'volume-low';
+    if (vol >= 0.2 && vol < 0.8) return 'volume-medium';
     return 'volume-high';
-  });
-
-  get shuffle(): boolean {
-    return this.playerService.shuffle;
   }
 
-  get repeat(): RepeatMode {
-    return this.playerService.repeat;
-  }
+  readonly volumeIcon = computed(() => this.getVolumeIconForLevel(this.audioService.volume()));
 
   toggleRepeat() {
     this.playerService.toggleRepeat();

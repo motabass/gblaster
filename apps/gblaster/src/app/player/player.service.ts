@@ -1,61 +1,70 @@
 import { computed, effect, inject, Injectable, signal } from '@angular/core';
-import { LocalStorage } from 'ngx-webstorage';
+import { LocalStorageService } from 'ngx-webstorage';
 import { FileLoaderService } from './file-loader-service/file-loader.service.abstract';
 import { MetadataService } from './metadata-service/metadata.service';
-import type { FrequencyBand, PlayState, RepeatMode, Track } from './player.types';
+import type { ColorConfig, PlayState, RepeatMode, Track } from './player.types';
 import { ALLOWED_MIMETYPES } from './file-loader-service/file-loader.helpers';
 import { ThemeService } from '../theme/theme.service';
 import { LoaderService } from '../services/loader/loader.service';
 import { WakelockService } from '../services/wakelock.service';
-import { MediaSessionService } from '../services/media-session.service';
+import { MediaSessionService } from '../services/media-session/media-session.service';
 import { AudioService } from './audio.service';
 import { BaseSubscribingClass } from '@motabass/base-components/base-subscribing-component';
-
-export const BAND_FREQUENCIES: FrequencyBand[] = [60, 170, 310, 600, 1000, 3000, 6000, 12_000, 14_000, 16_000];
+import { takeUntil } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'any' })
 export class PlayerService extends BaseSubscribingClass {
   private audioService = inject(AudioService);
+  private localStorageService = inject(LocalStorageService);
   private fileLoaderService = inject(FileLoaderService);
   private metadataService = inject(MetadataService);
   private themeService = inject(ThemeService);
   private loaderService = inject(LoaderService);
   private wakelockService = inject(WakelockService, { optional: true });
-  private mediaSessionService = inject(MediaSessionService);
+  private mediaSessionService = inject(MediaSessionService, { optional: true });
 
-  private loadFinished = true;
+  readonly currentPlaylist = signal<Track[]>([]);
 
-  currentPlaylist = signal<Track[]>([]);
+  readonly playState = signal<PlayState>('stopped');
 
-  selectedTrack = signal<Track | undefined>(undefined);
+  readonly selectedTrack = signal<Track | undefined>(undefined);
 
-  @LocalStorage('repeat', 'off') repeat!: RepeatMode;
+  readonly currentlyLoadedTrack = signal<Track | undefined>(undefined);
 
-  @LocalStorage('shuffle', false) shuffle!: boolean;
-
-  playState = signal<PlayState>({ state: 'stopped' });
-
-  playingTrack = computed(() => {
-    const state = this.playState();
-    if (state.state === 'playing' && !!state.currentTrack) {
-      return state.currentTrack;
+  readonly playingTrack = computed(() => {
+    const track = this.currentlyLoadedTrack();
+    if (track && this.audioService.isPlaying()) {
+      return track;
     }
     return;
   });
 
+  readonly repeat = signal<RepeatMode>(this.localStorageService.retrieve('repeat') || 'off');
+  readonly shuffle = signal<boolean>(this.localStorageService.retrieve('shuffle') ?? false);
+
+  readonly colorConfig = computed<ColorConfig>(() => {
+    const coverColors = this.currentlyLoadedTrack()?.metadata?.coverColors;
+    const mainColor = coverColors?.darkVibrant?.hex;
+    const peakColor = coverColors?.lightVibrant?.hex;
+    return { mainColor: mainColor, peakColor: peakColor };
+  });
+
   constructor() {
     super();
-    this.mediaSessionService.setActionHandler('play', () => this.playPause());
-    this.mediaSessionService.setActionHandler('pause', () => this.playPause());
-    this.mediaSessionService.setActionHandler('stop', () => this.stop());
-    this.mediaSessionService.setActionHandler('nexttrack', () => this.next());
-    this.mediaSessionService.setActionHandler('previoustrack', () => this.previous());
-    this.mediaSessionService.setActionHandler('seekbackward', () => this.seekLeft(10));
-    this.mediaSessionService.setActionHandler('seekforward', () => this.seekRight(10));
-    this.mediaSessionService.setSeekToHandler((details) => this.seekToHandler(details));
+    if (this.mediaSessionService) {
+      this.mediaSessionService.setActionHandler('play', () => this.playPause());
+      this.mediaSessionService.setActionHandler('pause', () => this.playPause());
+      this.mediaSessionService.setActionHandler('stop', () => this.stop());
+      this.mediaSessionService.setActionHandler('nexttrack', () => this.next());
+      this.mediaSessionService.setActionHandler('previoustrack', () => this.previous());
+      this.mediaSessionService.setActionHandler('seekbackward', () => this.seekLeft(10));
+      this.mediaSessionService.setActionHandler('seekforward', () => this.seekRight(10));
+      this.mediaSessionService.setSeekToHandler((details) => this.seekToHandler(details));
+    }
 
+    // TODO: überarbeiten
     if ('launchQueue' in globalThis) {
-      // @ts-expect-error
+      // @ts-expect-error launchQueue is not yet in TS types
       globalThis.launchQueue.setConsumer(async (launchParameters) => {
         console.log('Handling launch params:', launchParameters);
         // Nothing to do when the queue is empty.
@@ -71,25 +80,20 @@ export class PlayerService extends BaseSubscribingClass {
       });
     }
 
-    this.audioService.setOnEnded(() => {
+    this.audioService.hasEnded$.pipe(takeUntil(this.destroy$)).subscribe(() => {
       void this.next();
     });
 
     effect(() => {
-      if (this.playState().state === 'playing' && !Number.isNaN(this.audioService.duration)) {
-        this.mediaSessionService.updateMediaPositionState(this.audioService.duration, this.audioService.currentTime());
-      }
+      this.themeService.setColors(this.colorConfig());
     });
   }
 
   private afterPlayLoaded() {
-    this.loadFinished = true;
-    this.mediaSessionService.setPlaying();
     return this.wakelockService?.activateWakelock();
   }
 
   private afterPausedOrStopped() {
-    this.mediaSessionService.setPaused();
     return this.wakelockService?.releaseWakelock();
   }
 
@@ -97,26 +101,19 @@ export class PlayerService extends BaseSubscribingClass {
     if (!track) {
       return;
     }
+    this.selectSong(track);
     this.audioService.setFileAsSource(track.file);
-
-    if (track.metadata) {
+    if (track.metadata && this.mediaSessionService) {
       this.mediaSessionService.setBrowserMetadata({
         title: track.metadata.title,
         artist: track.metadata.artist,
         album: track.metadata.album,
         artwork: track.metadata.coverUrl?.original ? [{ src: track.metadata.coverUrl.original, sizes: '512x512' }] : undefined
       });
-
-      const primaryColor = track.metadata.coverColors?.darkVibrant?.hex;
-      this.themeService.setPrimaryColor(primaryColor);
-
-      const accentColor = track.metadata.coverColors?.vibrant?.hex;
-      this.themeService.setAccentColor(accentColor);
     }
-
-    this.selectedTrack.set(track);
     await this.audioService.play();
-    this.playState.set({ currentTrack: track, state: 'playing' });
+    this.currentlyLoadedTrack.set(track);
+    this.playState.set('playing');
     await this.afterPlayLoaded();
   }
 
@@ -165,18 +162,15 @@ export class PlayerService extends BaseSubscribingClass {
   setSeekPosition(value: number | undefined, fastSeek = false) {
     if (value !== null && value !== undefined && value >= 0 && value <= this.durationSeconds()) {
       this.audioService.seekToPosition(value, fastSeek);
-      this.mediaSessionService.updateMediaPositionState(this.audioService.duration, this.audioService.currentTime());
     }
   }
 
-  durationSeconds = computed(() => {
-    const value = this.playState();
-    return value.currentTrack && value.state !== 'stopped' ? Math.round(this.audioService.duration) : 0;
+  readonly durationSeconds = computed(() => {
+    return this.currentlyLoadedTrack() && this.playState() !== 'stopped' ? Math.round(this.audioService.duration()) : 0;
   });
 
-  currentTime = computed(() => {
-    const state = this.playState();
-    if (!state.currentTrack || state.state === 'stopped') {
+  readonly currentTime = computed(() => {
+    if (!this.currentlyLoadedTrack() || this.playState() === 'stopped') {
       return 0;
     }
     const pos = this.audioService.currentTime();
@@ -188,87 +182,73 @@ export class PlayerService extends BaseSubscribingClass {
   }
 
   async playPauseTrack(track: Track) {
-    if (!this.loadFinished) {
+    if (this.audioService.isLoading()) {
       return;
     }
 
-    if (this.playState().currentTrack === track) {
+    if (this.currentlyLoadedTrack()?.metadata?.crc === track.metadata?.crc) {
       await this.playPause();
       return;
     }
-
-    // this.stop();
-
-    this.loadFinished = false;
     await this.playTrack(track);
   }
 
   async playPause() {
-    if (!this.playState().currentTrack || !this.loadFinished) {
+    if (this.audioService.isLoading() || !this.currentlyLoadedTrack()) {
       if (this.selectedTrack()) {
-        this.loadFinished = false;
         await this.playTrack(this.selectedTrack());
       }
       return;
     }
-    if (this.audioService.paused) {
-      this.loadFinished = false;
+    if (this.audioService.isPaused()) {
       await this.audioService.play();
-      this.playState.update((playstate) => ({
-        state: 'playing',
-        currentTrack: playstate.currentTrack
-      }));
+      this.playState.set('playing');
     } else {
       this.audioService.pause();
-      this.playState.update((playstate) => ({
-        state: 'paused',
-        currentTrack: playstate.currentTrack
-      }));
+      this.playState.set('paused');
     }
     await this.afterPausedOrStopped();
   }
 
   async stop() {
-    if (!this.playState().currentTrack || !this.loadFinished) {
+    if (this.audioService.isLoading() || !this.currentlyLoadedTrack()) {
       return;
     }
-    if (this.playing()) {
+    if (this.audioService.isPlaying()) {
       this.audioService.pause();
     }
     this.audioService.seekToPosition(0);
-    this.playState.update((state) => ({ state: 'stopped', currentTrack: state.currentTrack }));
+    this.playState.set('stopped');
     await this.afterPausedOrStopped();
   }
 
   async next(): Promise<void> {
-    const state = this.playState();
-    if (!state.currentTrack || !this.loadFinished) {
+    if (this.audioService.isLoading() || !this.currentlyLoadedTrack()) {
       return;
     }
 
-    if (this.shuffle) {
+    if (this.shuffle()) {
       const randomPosition = getRandomInt(0, this.currentPlaylist().length - 1);
       return this.playTrack(this.currentPlaylist()[randomPosition]);
     }
 
-    const currentPosition = state.currentTrack.playlistPosition;
+    const currentPosition = this.currentlyLoadedTrack()?.playlistPosition;
     if (!currentPosition) {
       return;
     }
 
     if (currentPosition < this.currentPlaylist().length) {
       return this.playTrack(this.currentPlaylist()[currentPosition]);
-    } else if (this.repeat === 'all') {
+    } else if (this.repeat() === 'all') {
       return this.playTrack(this.currentPlaylist()[0]);
     }
   }
 
   async previous() {
-    const value = this.playState();
-    if (!value.currentTrack || !this.loadFinished) {
+    if (this.audioService.isLoading() || !this.currentlyLoadedTrack()) {
       return;
     }
-    const currentPo = value.currentTrack.playlistPosition;
+    const currentPo = this.currentlyLoadedTrack()?.playlistPosition;
     if (!currentPo) {
       return;
     }
@@ -323,29 +303,27 @@ export class PlayerService extends BaseSubscribingClass {
     }
   }
 
-  playing = computed(() => !!this.playState().currentTrack && !this.audioService.paused);
-
   toggleRepeat() {
-    switch (this.repeat) {
+    switch (this.repeat()) {
       case 'off': {
-        this.repeat = 'all';
+        this.repeat.set('all');
         break;
       }
       case 'all': {
         this.audioService.setLoop(true);
-        this.repeat = 'one';
+        this.repeat.set('one');
         break;
       }
       case 'one': {
         this.audioService.setLoop(false);
-        this.repeat = 'off';
+        this.repeat.set('off');
         break;
       }
     }
   }
 
   toggleShuffle() {
-    this.shuffle = !this.shuffle;
+    this.shuffle.set(!this.shuffle());
   }
 }
 

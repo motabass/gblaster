@@ -17,6 +17,8 @@ import { HotkeysService } from './services/hotkeys/hotkeys.service';
 import { hotkeysServiceFactory } from './services/hotkeys/hotkeys.service.factory';
 import { WakelockService } from './services/wakelock.service';
 import { wakelockServiceFactory } from './services/wakelock.service.factory';
+import { mediaSessionServiceFactory } from './services/media-session/media-session.service.factory';
+import { MediaSessionService } from './services/media-session/media-session.service';
 
 const databaseConfig: DBConfig = {
   name: 'metadataCache',
@@ -57,6 +59,7 @@ export const appConfig: ApplicationConfig = {
     { provide: GamepadService, useFactory: gamepadServiceFactory },
     { provide: HotkeysService, useFactory: hotkeysServiceFactory },
     { provide: WakelockService, useFactory: wakelockServiceFactory },
+    { provide: MediaSessionService, useFactory: mediaSessionServiceFactory },
     {
       provide: MAT_TOOLTIP_DEFAULT_OPTIONS,
       useValue: { showDelay: 800, position: 'above', disableTooltipInteractivity: true }

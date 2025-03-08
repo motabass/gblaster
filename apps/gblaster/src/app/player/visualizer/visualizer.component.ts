@@ -1,7 +1,6 @@
-import { ChangeDetectionStrategy, Component, inject, input, OnDestroy, OnInit } from '@angular/core';
-import { LocalStorage } from 'ngx-webstorage';
-import { Track } from '../player.types';
-import type { FftSize, FrequencyBarsConfig, OsciloscopeConfig, VisualsColorConfig } from './visuals/visuals.types';
+import { ChangeDetectionStrategy, Component, computed, inject, OnDestroy, OnInit, signal } from '@angular/core';
+import { LocalStorageService } from 'ngx-webstorage';
+import type { FftSize, FrequencyBarsConfig, OsciloscopeConfig } from './visuals/visuals.types';
 import { VisualsService } from './visuals/visuals.service';
 import { GamepadService } from '../../services/gamepad/gamepad.service';
 import { GamepadButtons } from '../../services/gamepad/gamepad.types';
@@ -14,6 +13,7 @@ import { MatOptionModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { SlidePanelComponent } from '@motabass/ui-components/slide-panel';
 import { VisualsDirective } from './visuals/visuals.directive';
+import { PlayerService } from '../player.service';
 
 @Component({
   selector: 'mtb-visualizer',
@@ -23,146 +23,119 @@ import { VisualsDirective } from './visuals/visuals.directive';
   imports: [VisualsDirective, SlidePanelComponent, MatSelectModule, MatOptionModule, MatSliderModule, MatButtonModule, MatIconModule, MatTooltipModule]
 })
 export class VisualizerComponent implements OnInit, OnDestroy {
-  private audioService = inject(AudioService);
+  readonly FFT_OPTIONS: FftSize[] = [32, 64, 128, 256, 512, 1024, 2048, 4096, 8192, 16_384, 32_768];
+
   private gamepadService = inject(GamepadService, { optional: true });
+  audioService = inject(AudioService);
+  playerService = inject(PlayerService);
   visualsService = inject(VisualsService);
+  localStorageService = inject(LocalStorageService);
 
-  @LocalStorage('smoothing', 0.7) smoothing!: number;
+  readonly smoothing = signal<number>(this.localStorageService.retrieve('smoothing') ?? 0.7);
+  readonly minDb = signal<number>(this.localStorageService.retrieve('minDb') ?? -73);
+  readonly alpha = signal<number>(this.localStorageService.retrieve('alpha') ?? 0.75);
+  readonly barCount = signal<number>(this.localStorageService.retrieve('barCount') ?? 24);
+  readonly fftSize = signal<FftSize>(this.localStorageService.retrieve('fftSize') ?? 2048);
+  readonly capHeight = signal<number>(this.localStorageService.retrieve('capHeight') ?? 4);
+  readonly gap = signal<number>(this.localStorageService.retrieve('gap') ?? 0.5);
+  readonly capFalldown = signal<number>(this.localStorageService.retrieve('capFalldown') ?? 2);
+  readonly lineThickness = signal<number>(this.localStorageService.retrieve('lineThickness') ?? 8);
 
-  @LocalStorage('minDb', -73) minDb!: number;
-
-  @LocalStorage('alpha', 0.75) alpha!: number;
-
-  @LocalStorage('barCount', 24) barCount!: number;
-
-  @LocalStorage('fftSize', 2048) fftSize!: FftSize;
-
-  @LocalStorage('capHeight', 4) capHeight!: number;
-
-  @LocalStorage('gap', 0.5) gap!: number;
-
-  @LocalStorage('capFalldown', 2) capFalldown!: number;
-
-  @LocalStorage('lineThickness', 8) lineThickness!: number;
-
-  readonly track = input<Track | null>();
-
-  analyser: AnalyserNode;
+  analyser: AnalyserNode = this.audioService.plugInNewAnalyserNode();
 
   constructor() {
-    const analyser = this.audioService.plugAnalyser();
-    analyser.fftSize = this.fftSize;
-    analyser.smoothingTimeConstant = this.smoothing;
-    analyser.minDecibels = this.minDb;
-    analyser.maxDecibels = 220;
-    this.analyser = analyser;
+    this.analyser.fftSize = this.fftSize();
+    this.analyser.smoothingTimeConstant = this.smoothing();
+    this.analyser.minDecibels = this.minDb();
+    this.analyser.maxDecibels = 220;
   }
 
   ngOnInit(): void {
-    this.gamepadService?.registerButtonAction(GamepadButtons.SELECT_BUTTON, () => this.toggleVisualMode());
-  }
-
-  toggleVisualMode() {
-    this.visualsService.toggleVisualMode();
-  }
-
-  get colorConfig(): VisualsColorConfig {
-    return { mainColor: this.mainColor, peakColor: this.peakColor, alpha: this.alpha };
-  }
-
-  get mainColor(): string | undefined {
-    return this.track()?.metadata?.coverColors?.darkVibrant?.hex;
-  }
-
-  get peakColor(): string | undefined {
-    return this.track()?.metadata?.coverColors?.lightVibrant?.hex;
-  }
-
-  get barsConfig(): FrequencyBarsConfig {
-    return { barCount: this.barCount, capHeight: this.capHeight, gap: this.gap, capFalldown: this.capFalldown };
-  }
-
-  get oscConfig(): OsciloscopeConfig {
-    return { thickness: this.lineThickness };
-  }
-
-  get playing(): boolean {
-    return this.audioService.playing;
-  }
-
-  setFftSize(value: FftSize) {
-    this.fftSize = value;
-    this.analyser.fftSize = value;
-  }
-
-  setSmoothing(value: number | null) {
-    if (value !== null) {
-      this.smoothing = value;
-      this.analyser.smoothingTimeConstant = value;
-    }
-  }
-
-  setMinDb(value: number | null) {
-    if (value !== null) {
-      this.minDb = value;
-      this.analyser.minDecibels = value;
-    }
-  }
-
-  setAlpha(value: number | null) {
-    if (value !== null) {
-      this.alpha = value;
-    }
-  }
-
-  setBarCount(value: number | null) {
-    if (value !== null) {
-      this.barCount = value;
-    }
-  }
-
-  setCapHeight(value: number | null) {
-    if (value !== null) {
-      this.capHeight = value;
-    }
-  }
-
-  setCapFalldown(value: number | null) {
-    if (value !== null) {
-      this.capFalldown = value;
-    }
-  }
-
-  setLineThickness(value: number | null) {
-    if (value !== null) {
-      this.lineThickness = value;
-    }
-  }
-
-  setGap(value: number | null) {
-    if (value !== null) {
-      this.gap = value;
-    }
-  }
-
-  get fftOptions(): number[] {
-    const options: number[] = [];
-    for (let index = 32; index <= 32_768; index *= 2) {
-      options.push(index);
-    }
-    return options;
-  }
-
-  get sampleRate(): number {
-    return this.audioService.sampleRate;
-  }
-
-  get showSlidePanel(): boolean {
-    return this.visualsService.visualMode() !== 'off';
+    this.gamepadService?.registerButtonAction(GamepadButtons.SELECT_BUTTON, () => this.visualsService.toggleVisualMode());
   }
 
   ngOnDestroy(): void {
     this.gamepadService?.deregisterButtonAction(GamepadButtons.SELECT_BUTTON);
     this.analyser.disconnect();
+  }
+
+  readonly showSlidePanel = computed(() => {
+    return this.visualsService.visualMode() !== 'off';
+  });
+
+  readonly colorConfig = computed(() => {
+    return { ...this.playerService.colorConfig(), alpha: this.alpha() };
+  });
+
+  readonly barsConfig = computed<FrequencyBarsConfig>(() => {
+    return { barCount: this.barCount(), capHeight: this.capHeight(), gap: this.gap(), capFalldown: this.capFalldown() };
+  });
+
+  readonly oscConfig = computed<OsciloscopeConfig>(() => {
+    return { thickness: this.lineThickness() };
+  });
+
+  setSmoothing(value: number | null) {
+    if (value !== null) {
+      this.smoothing.set(value);
+      this.analyser.smoothingTimeConstant = value;
+      this.localStorageService.store('smoothing', value);
+    }
+  }
+
+  setMinDb(value: number | null) {
+    if (value !== null) {
+      this.minDb.set(value);
+      this.analyser.minDecibels = value;
+      this.localStorageService.store('minDb', value);
+    }
+  }
+
+  setAlpha(value: number | null) {
+    if (value !== null) {
+      this.alpha.set(value);
+      this.localStorageService.store('alpha', value);
+    }
+  }
+
+  setFftSize(value: FftSize) {
+    this.fftSize.set(value);
+    this.analyser.fftSize = value;
+    this.localStorageService.store('fftSize', value);
+  }
+
+  setBarCount(value: number | null) {
+    if (value !== null) {
+      this.barCount.set(value);
+      this.localStorageService.store('barCount', value);
+    }
+  }
+
+  setCapHeight(value: number | null) {
+    if (value !== null) {
+      this.capHeight.set(value);
+      this.localStorageService.store('capHeight', value);
+    }
+  }
+
+  setCapFalldown(value: number | null) {
+    if (value !== null) {
+      this.capFalldown.set(value);
+      this.localStorageService.store('capFalldown', value);
+    }
+  }
+
+  setLineThickness(value: number | null) {
+    if (value !== null) {
+      this.lineThickness.set(value);
+      this.localStorageService.store('lineThickness', value);
+    }
+  }
+
+  setGap(value: number | null) {
+    if (value !== null) {
+      this.gap.set(value);
+      this.localStorageService.store('gap', value);
+    }
   }
 }

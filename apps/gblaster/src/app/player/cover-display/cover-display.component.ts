@@ -14,11 +14,11 @@ import { Track } from '../player.types';
 export class CoverDisplayComponent {
   private themeService = inject(ThemeService);
 
-  track = input<Track>();
+  readonly track = input<Track>();
 
-  coverUrl = computed(() => this.track()?.metadata?.coverUrl?.original);
+  readonly coverUrl = computed(() => this.track()?.metadata?.coverUrl?.original);
 
-  backgroundColor = computed(() => {
+  readonly backgroundColor = computed(() => {
     const coverBackground = this.themeService.darkMode
       ? this.track()?.metadata?.coverColors?.darkMuted?.hex
       : this.track()?.metadata?.coverColors?.lightMuted?.hex;

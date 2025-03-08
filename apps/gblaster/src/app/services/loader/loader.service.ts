@@ -4,20 +4,26 @@ import { Injectable, signal } from '@angular/core';
   providedIn: 'root'
 })
 export class LoaderService {
-  isLoading = signal<boolean>(false);
+  readonly isLoading = signal<boolean>(false);
 
-  counter = 0;
+  private loadingCounter = 0;
 
   show() {
-    if (this.counter === 0) {
+    if (this.loadingCounter === 0) {
       this.isLoading.set(true);
     }
-    this.counter += 1;
+    this.loadingCounter += 1;
   }
+
   hide() {
-    this.counter -= 1;
-    if (this.counter === 0) {
-      this.isLoading.set(false);
+    if (this.loadingCounter > 0) {
+      this.loadingCounter -= 1;
+
+      if (this.loadingCounter === 0) {
+        this.isLoading.set(false);
+      }
+    } else {
+      console.warn('LoaderService: hide called without matching show call');
     }
   }
 }

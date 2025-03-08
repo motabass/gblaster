@@ -28,7 +28,9 @@ export type FrequencyBand = 60 | 170 | 310 | 600 | 1000 | 3000 | 6000 | 12_000 |
 
 export type RepeatMode = 'off' | 'all' | 'one';
 
-export interface PlayState {
-  state: 'playing' | 'paused' | 'stopped';
-  currentTrack?: Track;
+export type PlayState = 'playing' | 'paused' | 'stopped';
+
+export interface ColorConfig {
+  mainColor?: string;
+  peakColor?: string;
 }

@@ -1,9 +1,10 @@
-import { Injectable, inject } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Meta } from '@angular/platform-browser';
 import { TinyColor } from '@thebespokepixel/es-tinycolor';
 import { LocalStorage } from 'ngx-webstorage';
 import { Color } from './theme.types';
 import { FALLBACK_ACCENT_COLOR, FALLBACK_PRIMARY_COLOR } from './default-colors';
+import { ColorConfig } from '../player/player.types';
 
 @Injectable({
   providedIn: 'root'
@@ -36,12 +37,15 @@ export class ThemeService {
   set darkMode(darkMode: boolean) {
     this._darkMode = darkMode;
     this.setOverlayClass();
-    // this.setPrimaryColor();
-    // this.setAccentColor();
+  }
+
+  setColors(colors: ColorConfig) {
+    this.setPrimaryColor(colors.mainColor);
+    this.setAccentColor(colors.peakColor);
   }
 
   setPrimaryColor(color?: string) {
-    this.primaryColor = color ? color : FALLBACK_PRIMARY_COLOR;
+    this.primaryColor = color || FALLBACK_PRIMARY_COLOR;
     this.primaryColorPalette = this.computeColors(this.primaryColor);
 
     for (const clr of this.primaryColorPalette) {
@@ -58,7 +62,7 @@ export class ThemeService {
   }
 
   setAccentColor(color?: string) {
-    this.accentColor = color ? color : FALLBACK_ACCENT_COLOR;
+    this.accentColor = color || FALLBACK_ACCENT_COLOR;
     this.accentColorPalette = this.computeColors(this.accentColor);
 
     for (const clr of this.accentColorPalette) {

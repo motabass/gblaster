@@ -24,7 +24,10 @@ export default [
           prefix: '',
           style: 'kebab-case'
         }
-      ]
+      ],
+      '@angular-eslint/prefer-signals': 'error',
+      'unicorn/consistent-function-scoping': 'off',
+      'unicorn/no-useless-undefined': 'off'
     }
   },
   {

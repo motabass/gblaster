@@ -1,10 +1,32 @@
-import { Injectable } from '@angular/core';
+import { effect, inject, Injectable } from '@angular/core';
+import { AudioService } from '../../player/audio.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MediaSessionService {
-  constructor() {}
+  private audioService = inject(AudioService);
+
+  constructor() {
+    effect(() => {
+      const playing = this.audioService.isPlaying();
+      if (playing) {
+        this.setPlaybackState('playing');
+      } else if (this.audioService.isPaused()) {
+        this.setPlaybackState('paused');
+      } else {
+        this.setPlaybackState('none');
+      }
+    });
+
+    effect(() => {
+      const duration = this.audioService.duration();
+      if (this.audioService.isPlaying() && !Number.isNaN(duration)) {
+        const currentTime = this.audioService.currentTime();
+        this.updateMediaPositionState(duration, currentTime);
+      }
+    });
+  }
 
   setActionHandler(action: MediaSessionAction, handler: (details: MediaSessionActionDetails) => any) {
     if (navigator.mediaSession) {
@@ -28,7 +50,6 @@ export class MediaSessionService {
     }
   }
 
-  //  TODO: fix position being wrong in notification
   updateMediaPositionState(duration: number, currentTime: number) {
     if (navigator.mediaSession?.setPositionState) {
       navigator.mediaSession.setPositionState({
@@ -42,14 +63,6 @@ export class MediaSessionService {
     if (navigator.mediaSession) {
       navigator.mediaSession.metadata = new MediaMetadata(metadata);
     }
-  }
-
-  setPlaying() {
-    this.setPlaybackState('playing');
-  }
-
-  setPaused() {
-    this.setPlaybackState('paused');
   }
 
   private setPlaybackState(state: MediaSessionPlaybackState) {

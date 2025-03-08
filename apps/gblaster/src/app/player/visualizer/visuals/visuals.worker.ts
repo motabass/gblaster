@@ -1,4 +1,4 @@
-import { isBarsVisualizerOptions, isOscVisualizerOptions, VisualizerMode, VisualizerOptions, VisualsWorkerMessage } from './visuals.types';
+import type { BarsVisualizerOptions, OscVisualizerOptions, VisualizerMode, VisualizerOptions, VisualsWorkerMessage } from './visuals.types';
 
 let mode: VisualizerMode = 'off';
 let canvas: OffscreenCanvas;
@@ -28,33 +28,30 @@ let frequencyToBarkMap: Float32Array;
 let barkScaleBandEnergy: Float32Array;
 let sliceWidthCache: number;
 
-function initBarkScaleMap(sr: number, fft: number) {
-  frequencyToBarkMap = new Float32Array(fft / 2);
-  for (let index = 0; index < fft / 2; index++) {
-    const frequency = (index * sr) / fft;
-    frequencyToBarkMap[index] = 13 * Math.atan(0.000_76 * frequency) + 3.5 * Math.atan((frequency / 7500) ** 2);
-  }
-}
-
 addEventListener('message', (event: MessageEvent<VisualsWorkerMessage>) => {
+  // message for offscreen canvas
   if (event.data.canvas) {
     canvas = event.data.canvas;
     context = canvas.getContext('2d');
   }
 
+  //  message for resizing canvas
   if (event.data.newSize) {
     canvas.width = event.data.newSize.width;
     canvas.height = event.data.newSize.height;
   }
 
+  // message for stopping and clearing the visualizer
   if (event.data.stop && context) {
     context.clearRect(0, 0, context.canvas.width, context.canvas.height);
   }
 
+  // message for setting up the visualizer
   if (event.data.visualizerOptions) {
-    setup(event.data.visualizerOptions);
+    setupVisualsWorkerWithOptions(event.data.visualizerOptions);
   }
 
+  // message for updating the analyser data
   if (event.data.analyserData) {
     analyserData = event.data.analyserData;
 
@@ -79,7 +76,7 @@ addEventListener('message', (event: MessageEvent<VisualsWorkerMessage>) => {
   }
 });
 
-function setup(options: VisualizerOptions) {
+function setupVisualsWorkerWithOptions(options: VisualizerOptions) {
   if (!context) return;
 
   mode = options.mode;
@@ -288,7 +285,11 @@ function drawCircularOsc() {
 
 function convertToBarkScale(): Float32Array {
   if (!frequencyToBarkMap) {
-    initBarkScaleMap(sampleRate, fftSize);
+    frequencyToBarkMap = new Float32Array(fftSize / 2);
+    for (let index = 0; index < fftSize / 2; index++) {
+      const frequency = (index * sampleRate) / fftSize;
+      frequencyToBarkMap[index] = 13 * Math.atan(0.000_76 * frequency) + 3.5 * Math.atan((frequency / 7500) ** 2);
+    }
   }
 
   const barkScaleBandSize = (frequencyToBarkMap.at(-1) - frequencyToBarkMap[0]) / meterNumber;
@@ -302,4 +303,12 @@ function convertToBarkScale(): Float32Array {
   }
 
   return barkScaleBandEnergy;
+}
+
+function isBarsVisualizerOptions(options: VisualizerOptions): options is BarsVisualizerOptions {
+  return options.mode === 'bars' || options.mode === 'circular-bars';
+}
+
+function isOscVisualizerOptions(options: VisualizerOptions): options is OscVisualizerOptions {
+  return options.mode === 'osc' || options.mode === 'circular-osc';
 }

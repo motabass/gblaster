@@ -5,7 +5,11 @@
         <div class="flex row justify-center vertical-slider">
           <div class="vertical-slider-label">{{ band | band }}</div>
           <mat-slider [displayWith]="displayFunction" discrete min="-12" max="12" step="0.01"
-            ><input matSliderThumb [value]="getBandGain(band)" (input)="onGainChange(thumb.value, band)" #thumb="matSliderThumb"
+            ><input
+              matSliderThumb
+              [value]="audioService.getFrequencyBandGainSignal(band)()"
+              (input)="audioService.setFrequencyBandGain(band, thumb.value)"
+              #thumb="matSliderThumb"
           /></mat-slider>
         </div>
       </div>
@@ -15,7 +19,7 @@
       <div class="flex row justify-center vertical-slider">
         <div class="vertical-slider-label">GAIN</div>
         <mat-slider [displayWith]="displayFunction" discrete min="0" max="2" step="0.01"
-          ><input matSliderThumb [value]="getBaseGain()" (input)="onBaseGainChange(gainThumb.value)" #gainThumb="matSliderThumb"
+          ><input matSliderThumb [value]="audioService.baseGain()" (input)="audioService.setBaseGain(gainThumb.value)" #gainThumb="matSliderThumb"
         /></mat-slider>
       </div>
     </div>
