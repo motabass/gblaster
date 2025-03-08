@@ -2,10 +2,10 @@ import { MediaSessionService } from './media-session.service';
 
 export function mediaSessionServiceFactory(): MediaSessionService | null {
   if (isMediaSessionSupported()) {
-    console.log('Gamepad support detected');
+    console.log('Media-Session support detected');
     return new MediaSessionService();
   } else {
-    console.log('Gamepad support not detected');
+    console.log('Media-Session support not detected');
     return null;
   }
 }

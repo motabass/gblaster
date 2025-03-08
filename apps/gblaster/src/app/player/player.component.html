@@ -11,7 +11,7 @@
 </mtb-cover-display>
 
 <mat-toolbar color="primary" class="bar flex row justify-center">
-  <button mat-icon-button (click)="playPause()">
+  <button mat-icon-button (click)="playerService.playPause()">
     @if (audioService.isPlaying()) {
       <mat-icon matTooltip="Pause" svgIcon="pause"></mat-icon>
     } @else {
@@ -19,14 +19,14 @@
     }
   </button>
 
-  <button mat-icon-button (click)="stop()">
+  <button mat-icon-button (click)="playerService.stop()">
     <mat-icon matTooltip="Stop" svgIcon="stop"></mat-icon>
   </button>
 
-  <button class="no-mobile" mat-icon-button (click)="previous()">
+  <button class="no-mobile" mat-icon-button (click)="playerService.previous()">
     <mat-icon matTooltip="Previous" svgIcon="skip-previous"></mat-icon>
   </button>
-  <button class="no-mobile" mat-icon-button (click)="next()">
+  <button class="no-mobile" mat-icon-button (click)="playerService.next()">
     <mat-icon matTooltip="Next" svgIcon="skip-next"></mat-icon>
   </button>
 

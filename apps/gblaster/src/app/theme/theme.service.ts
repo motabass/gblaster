@@ -1,7 +1,7 @@
-import { inject, Injectable } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 import { Meta } from '@angular/platform-browser';
 import { TinyColor } from '@thebespokepixel/es-tinycolor';
-import { LocalStorage } from 'ngx-webstorage';
+import { LocalStorageService } from 'ngx-webstorage';
 import { Color } from './theme.types';
 import { FALLBACK_ACCENT_COLOR, FALLBACK_PRIMARY_COLOR } from './default-colors';
 import { ColorConfig } from '../player/player.types';
@@ -11,31 +11,29 @@ import { ColorConfig } from '../player/player.types';
 })
 export class ThemeService {
   private meta = inject(Meta);
+  private localStorageService = inject(LocalStorageService);
 
-  primaryColor = FALLBACK_PRIMARY_COLOR;
+  private primaryColor = FALLBACK_PRIMARY_COLOR;
 
-  accentColor = FALLBACK_ACCENT_COLOR;
+  private accentColor = FALLBACK_ACCENT_COLOR;
 
-  @LocalStorage('darkMode', true) _darkMode!: boolean;
+  readonly darkMode = signal(this.localStorageService.retrieve('darkMode') ?? true);
 
   primaryColorPalette: Color[] = [];
   accentColorPalette: Color[] = [];
 
   initializeTheme() {
     if (globalThis.matchMedia('(prefers-color-scheme: dark)').matches) {
-      this._darkMode = true;
+      this.darkMode.set(true);
     }
     this.setOverlayClass();
     this.setPrimaryColor(this.primaryColor);
     this.setAccentColor(this.accentColor);
   }
 
-  get darkMode(): boolean {
-    return this._darkMode;
-  }
-
-  set darkMode(darkMode: boolean) {
-    this._darkMode = darkMode;
+  setDarkMode(darkMode: boolean) {
+    this.darkMode.set(darkMode);
+    this.localStorageService.store('darkMode', darkMode);
     this.setOverlayClass();
   }
 
@@ -44,7 +42,7 @@ export class ThemeService {
     this.setAccentColor(colors.peakColor);
   }
 
-  setPrimaryColor(color?: string) {
+  private setPrimaryColor(color?: string) {
     this.primaryColor = color || FALLBACK_PRIMARY_COLOR;
     this.primaryColorPalette = this.computeColors(this.primaryColor);
 
@@ -61,7 +59,7 @@ export class ThemeService {
     this.meta.updateTag({ name: 'theme-color', content: this.primaryColor });
   }
 
-  setAccentColor(color?: string) {
+  private setAccentColor(color?: string) {
     this.accentColor = color || FALLBACK_ACCENT_COLOR;
     this.accentColorPalette = this.computeColors(this.accentColor);
 
@@ -82,7 +80,7 @@ export class ThemeService {
   }
 
   private setOverlayClass() {
-    if (this.darkMode) {
+    if (this.darkMode()) {
       document.body.classList.add('dark-theme');
       document.body.classList.remove('light-theme');
     } else {
@@ -112,7 +110,7 @@ export class ThemeService {
 
   private getColorObject(value: TinyColor, name: string): Color {
     const color = new TinyColor(value);
-    const lightnessLimit = this.darkMode ? 150 : 200;
+    const lightnessLimit = this.darkMode() ? 150 : 200;
     return {
       name: name,
       hex: color.toHexString(false),

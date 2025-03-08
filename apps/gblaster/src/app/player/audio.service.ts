@@ -23,6 +23,7 @@ export class AudioService {
   readonly isLoading = signal(false);
   readonly isPlaying = signal(false);
   readonly isPaused = signal(true);
+  readonly isStopped = signal(true);
   readonly isLooping = signal(false);
   readonly currentTime = signal(0);
   readonly duration = signal(0);
@@ -114,6 +115,7 @@ export class AudioService {
 
     this._audioElement.addEventListener('play', () => {
       this.sampleRate.set(this._audioContext.sampleRate);
+      this.isStopped.set(false);
       this.isPlaying.set(true);
       this.isPaused.set(false);
     });
@@ -126,35 +128,6 @@ export class AudioService {
     this._audioElement.addEventListener('ended', () => {
       this._hasEnded.next(true);
     });
-  }
-
-  private createEqualizer(audioContext: AudioContext): { eqInput: AudioNode; eqOutput: AudioNode } {
-    const input = audioContext.createGain();
-    input.gain.value = 1;
-
-    let output = input;
-    for (const [index, bandFrequency] of FREQUENCY_BANDS.entries()) {
-      const filter = audioContext.createBiquadFilter();
-
-      this._frequencyFilters[bandFrequency] = filter;
-
-      if (index === 0) {
-        // The first filter, includes all lower frequencies
-        filter.type = 'lowshelf';
-      } else if (index === FREQUENCY_BANDS.length - 1) {
-        // The last filter, includes all higher frequencies
-        filter.type = 'highshelf';
-      } else {
-        filter.type = 'peaking';
-        filter.Q.value = 1;
-      }
-      filter.frequency.value = bandFrequency;
-
-      output.connect(filter);
-      output = filter;
-    }
-
-    return { eqInput: input, eqOutput: output };
   }
 
   plugInNewAnalyserNode(): AnalyserNode {
@@ -178,7 +151,17 @@ export class AudioService {
   }
 
   pause() {
-    this._audioElement.pause();
+    if (this.isPlaying()) {
+      this._audioElement.pause();
+    }
+  }
+
+  stop() {
+    if (this.isPlaying()) {
+      this.pause();
+    }
+    this.seekToPosition(0);
+    this.isStopped.set(true);
   }
 
   setLoop(loop: boolean) {
@@ -218,5 +201,35 @@ export class AudioService {
     this._eqGainNode.gain.value = volume;
     this.baseGain.set(volume);
     this.storageService.store('baseGain', volume);
+  }
+
+  // TODO: refactor
+  private createEqualizer(audioContext: AudioContext): { eqInput: AudioNode; eqOutput: AudioNode } {
+    const input = audioContext.createGain();
+    input.gain.value = 1;
+
+    let output = input;
+    for (const [index, bandFrequency] of FREQUENCY_BANDS.entries()) {
+      const filter = audioContext.createBiquadFilter();
+
+      this._frequencyFilters[bandFrequency] = filter;
+
+      if (index === 0) {
+        // The first filter, includes all lower frequencies
+        filter.type = 'lowshelf';
+      } else if (index === FREQUENCY_BANDS.length - 1) {
+        // The last filter, includes all higher frequencies
+        filter.type = 'highshelf';
+      } else {
+        filter.type = 'peaking';
+        filter.Q.value = 1;
+      }
+      filter.frequency.value = bandFrequency;
+
+      output.connect(filter);
+      output = filter;
+    }
+
+    return { eqInput: input, eqOutput: output };
   }
 }

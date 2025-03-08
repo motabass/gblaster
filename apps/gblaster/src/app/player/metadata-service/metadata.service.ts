@@ -102,6 +102,7 @@ export class MetadataService {
   private metadataPrepareForUse(meta: TrackMetadata): TrackMetadata {
     if (meta.embeddedPicture && this.useTagEmbeddedPicture && (!meta.coverUrl || this.preferTagEmbeddedPicture)) {
       // renew local object urls
+      // TODO: Erst kreieren wenn gebraucht!
       const url = URL.createObjectURL(new Blob([meta.embeddedPicture.data], { type: meta.embeddedPicture.format }));
       return {
         ...meta,

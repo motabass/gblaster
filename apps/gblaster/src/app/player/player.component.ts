@@ -1,10 +1,9 @@
-import { ChangeDetectionStrategy, Component, computed, inject, OnDestroy, OnInit, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, OnDestroy, OnInit } from '@angular/core';
 import { MatSliderModule } from '@angular/material/slider';
 import { formatSecondsAsClock } from '@motabass/helpers';
 import { ALLOWED_MIMETYPES } from './file-loader-service/file-loader.helpers';
 import { FileLoaderService } from './file-loader-service/file-loader.service.abstract';
 import { PlayerService } from './player.service';
-import { RepeatMode } from './player.types';
 import { HotkeysService } from '../services/hotkeys/hotkeys.service';
 import { GamepadService } from '../services/gamepad/gamepad.service';
 import { GamepadAxes, GamepadButtons } from '../services/gamepad/gamepad.types';
@@ -58,12 +57,12 @@ export default class PlayerComponent implements OnInit, OnDestroy {
     if (this.hotkeysService) {
       this.hotkeysService.initialize();
 
-      this.hotkeysService.register({ keys: 'shift+p', description: 'Play/Pause', callback: () => this.playPause() });
+      this.hotkeysService.register({ keys: 'shift+p', description: 'Play/Pause', callback: () => this.playerService.playPause() });
     }
 
     if (this.gamepadService) {
-      this.gamepadService.registerButtonAction(GamepadButtons.A_BUTTON, () => this.playPause());
-      this.gamepadService.registerButtonAction(GamepadButtons.B_BUTTON, () => this.stop());
+      this.gamepadService.registerButtonAction(GamepadButtons.A_BUTTON, () => this.playerService.playPause());
+      this.gamepadService.registerButtonAction(GamepadButtons.B_BUTTON, () => this.playerService.stop());
 
       this.gamepadService.registerButtonAction(GamepadButtons.X_BUTTON, () => this.toggleShuffle());
       this.gamepadService.registerButtonAction(GamepadButtons.Y_BUTTON, () => this.toggleRepeat());
@@ -97,8 +96,8 @@ export default class PlayerComponent implements OnInit, OnDestroy {
         'turbo'
       );
 
-      this.gamepadService.registerButtonAction(GamepadButtons.R1_BUTTON, () => this.next(), 'turbo');
-      this.gamepadService.registerButtonAction(GamepadButtons.L1_BUTTON, () => this.previous(), 'turbo');
+      this.gamepadService.registerButtonAction(GamepadButtons.R1_BUTTON, () => this.playerService.next(), 'turbo');
+      this.gamepadService.registerButtonAction(GamepadButtons.L1_BUTTON, () => this.playerService.previous(), 'turbo');
 
       this.gamepadService.registerButtonAction(GamepadButtons.START_BUTTON, () => this.showPicker());
     }
@@ -143,22 +142,6 @@ export default class PlayerComponent implements OnInit, OnDestroy {
 
   async onFilesDropped(files: File[]) {
     return this.playerService.addFilesToPlaylist(...files);
-  }
-
-  playPause() {
-    void this.playerService.playPause();
-  }
-
-  stop() {
-    this.playerService.stop();
-  }
-
-  next() {
-    void this.playerService.next();
-  }
-
-  previous() {
-    void this.playerService.previous();
   }
 
   private getVolumeIconForLevel(vol: number): string {

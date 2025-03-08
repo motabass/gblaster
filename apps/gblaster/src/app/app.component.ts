@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ThemeService } from './theme/theme.service';
@@ -8,7 +8,8 @@ import { ShellComponent } from './shell/shell.component';
 @Component({
   selector: 'mtb-root',
   templateUrl: './app.component.html',
-  imports: [ShellComponent]
+  imports: [ShellComponent],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent {
   constructor() {

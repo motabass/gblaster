@@ -29,24 +29,20 @@ export class MediaSessionService {
   }
 
   setActionHandler(action: MediaSessionAction, handler: (details: MediaSessionActionDetails) => any) {
-    if (navigator.mediaSession) {
-      try {
-        navigator.mediaSession.setActionHandler(action, handler);
-      } catch {
-        console.warn(`The media session action "${action}" is not supported yet.`);
-      }
+    try {
+      navigator.mediaSession.setActionHandler(action, handler);
+    } catch {
+      console.warn(`The media session action "${action}" is not supported yet.`);
     }
   }
 
   setSeekToHandler(action: (details: MediaSessionActionDetails) => any) {
-    if (navigator.mediaSession) {
-      try {
-        navigator.mediaSession.setActionHandler('seekto', (details) => {
-          action(details);
-        });
-      } catch (error) {
-        console.warn(`The media session action "seekto" is not supported yet.`, error);
-      }
+    try {
+      navigator.mediaSession.setActionHandler('seekto', (details) => {
+        action(details);
+      });
+    } catch (error) {
+      console.warn(`The media session action "seekto" is not supported yet.`, error);
     }
   }
 
@@ -60,14 +56,10 @@ export class MediaSessionService {
   }
 
   setBrowserMetadata(metadata: MediaMetadataInit) {
-    if (navigator.mediaSession) {
-      navigator.mediaSession.metadata = new MediaMetadata(metadata);
-    }
+    navigator.mediaSession.metadata = new MediaMetadata(metadata);
   }
 
   private setPlaybackState(state: MediaSessionPlaybackState) {
-    if (navigator.mediaSession) {
-      navigator.mediaSession.playbackState = state;
-    }
+    navigator.mediaSession.playbackState = state;
   }
 }

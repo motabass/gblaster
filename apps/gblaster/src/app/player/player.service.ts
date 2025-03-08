@@ -2,7 +2,7 @@ import { computed, effect, inject, Injectable, signal } from '@angular/core';
 import { LocalStorageService } from 'ngx-webstorage';
 import { FileLoaderService } from './file-loader-service/file-loader.service.abstract';
 import { MetadataService } from './metadata-service/metadata.service';
-import type { ColorConfig, PlayState, RepeatMode, Track } from './player.types';
+import type { ColorConfig, RepeatMode, Track } from './player.types';
 import { ALLOWED_MIMETYPES } from './file-loader-service/file-loader.helpers';
 import { ThemeService } from '../theme/theme.service';
 import { LoaderService } from '../services/loader/loader.service';
@@ -25,19 +25,18 @@ export class PlayerService extends BaseSubscribingClass {
 
   readonly currentPlaylist = signal<Track[]>([]);
 
-  readonly playState = signal<PlayState>('stopped');
-
   readonly selectedTrack = signal<Track | undefined>(undefined);
 
   readonly currentlyLoadedTrack = signal<Track | undefined>(undefined);
 
-  readonly playingTrack = computed(() => {
-    const track = this.currentlyLoadedTrack();
-    if (track && this.audioService.isPlaying()) {
-      return track;
-    }
-    return;
-  });
+  // TODO: Signal mit param track????
+  // readonly playingTrack = computed(() => {
+  //   const track = this.currentlyLoadedTrack();
+  //   if (track && this.audioService.isPlaying()) {
+  //     return track;
+  //   }
+  //   return;
+  // });
 
   readonly repeat = signal<RepeatMode>(this.localStorageService.retrieve('repeat') || 'off');
   readonly shuffle = signal<boolean>(this.localStorageService.retrieve('shuffle') ?? false);
@@ -113,7 +112,6 @@ export class PlayerService extends BaseSubscribingClass {
     }
     await this.audioService.play();
     this.currentlyLoadedTrack.set(track);
-    this.playState.set('playing');
     await this.afterPlayLoaded();
   }
 
@@ -166,11 +164,11 @@ export class PlayerService extends BaseSubscribingClass {
   }
 
   readonly durationSeconds = computed(() => {
-    return this.currentlyLoadedTrack() && this.playState() !== 'stopped' ? Math.round(this.audioService.duration()) : 0;
+    return this.currentlyLoadedTrack() && !this.audioService.isStopped() ? Math.round(this.audioService.duration()) : 0;
   });
 
   readonly currentTime = computed(() => {
-    if (!this.currentlyLoadedTrack() || this.playState() === 'stopped') {
+    if (!this.currentlyLoadedTrack() || this.audioService.isStopped()) {
       return 0;
     }
     const pos = this.audioService.currentTime();
@@ -202,23 +200,19 @@ export class PlayerService extends BaseSubscribingClass {
     }
     if (this.audioService.isPaused()) {
       await this.audioService.play();
-      this.playState.set('playing');
+      await this.afterPlayLoaded();
     } else {
       this.audioService.pause();
-      this.playState.set('paused');
+      await this.afterPausedOrStopped();
     }
-    await this.afterPausedOrStopped();
   }
 
   async stop() {
     if (this.audioService.isLoading() || !this.currentlyLoadedTrack()) {
       return;
     }
-    if (this.audioService.isPlaying()) {
-      this.audioService.pause();
-    }
-    this.audioService.seekToPosition(0);
-    this.playState.set('stopped');
+    this.audioService.stop();
+    this.currentlyLoadedTrack.set(undefined);
     await this.afterPausedOrStopped();
   }
 

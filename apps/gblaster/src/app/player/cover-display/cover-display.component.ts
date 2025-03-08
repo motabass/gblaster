@@ -19,7 +19,7 @@ export class CoverDisplayComponent {
   readonly coverUrl = computed(() => this.track()?.metadata?.coverUrl?.original);
 
   readonly backgroundColor = computed(() => {
-    const coverBackground = this.themeService.darkMode
+    const coverBackground = this.themeService.darkMode()
       ? this.track()?.metadata?.coverColors?.darkMuted?.hex
       : this.track()?.metadata?.coverColors?.lightMuted?.hex;
     return coverBackground || 'rgba(0,0,0,0)';
@@ -29,6 +29,7 @@ export class CoverDisplayComponent {
   //   return this.song?.metadata?.coverColors?.vibrant ? this.song.metadata.coverColors.vibrant.textHex : undefined;
   // }
 
+  // TODO: pipe
   getBitrate(bitrate: number | undefined): string {
     if (!bitrate) {
       return '0';

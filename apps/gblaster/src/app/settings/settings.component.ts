@@ -9,6 +9,4 @@ import { MetadataSettingsComponent } from './metadata-settings/metadata-settings
   styleUrl: './settings.component.scss',
   imports: [MetadataSettingsComponent, ThemeSettingsComponent, StorageSettingsComponent]
 })
-export default class SettingsComponent {
-  constructor() {}
-}
+export default class SettingsComponent {}

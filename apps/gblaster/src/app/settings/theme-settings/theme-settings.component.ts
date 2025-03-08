@@ -12,6 +12,6 @@ export class ThemeSettingsComponent {
   themeService = inject(ThemeService);
 
   changeDarkMode(event: MatCheckboxChange) {
-    this.themeService.darkMode = event.checked;
+    this.themeService.setDarkMode(event.checked);
   }
 }
