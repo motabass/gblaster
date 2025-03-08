@@ -1,6 +1,7 @@
 import nx from '@nx/eslint-plugin';
 import baseConfig from '../../eslint.config.mjs';
 import cypress from 'eslint-plugin-cypress/flat';
+import { ANGULAR_ESLINT_TEMPLATE_RULES, ANGULAR_ESLINT_TS_RULES } from '../../eslint-rules.mjs';
 
 export default [
   ...baseConfig,
@@ -25,9 +26,7 @@ export default [
           style: 'kebab-case'
         }
       ],
-      '@angular-eslint/prefer-signals': 'error',
-      'unicorn/consistent-function-scoping': 'off',
-      'unicorn/no-useless-undefined': 'off'
+      ...ANGULAR_ESLINT_TS_RULES
     }
   },
   {
@@ -42,7 +41,8 @@ export default [
       '@angular-eslint/template/eqeqeq': 'error',
       '@angular-eslint/template/no-negated-async': 'error',
       '@angular-eslint/template/use-track-by-function': 'error',
-      '@angular-eslint/template/prefer-static-string-properties': 'error'
+      '@angular-eslint/template/prefer-static-string-properties': 'error',
+      ...ANGULAR_ESLINT_TEMPLATE_RULES
     }
   },
   {

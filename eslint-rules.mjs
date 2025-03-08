@@ -17,7 +17,8 @@ export const ANGULAR_ESLINT_TS_RULES = {
   '@angular-eslint/prefer-output-readonly': 'error',
   '@angular-eslint/relative-url-prefix': 'error',
   '@angular-eslint/use-lifecycle-interface': 'error',
-  '@angular-eslint/use-pipe-transform-interface': 'error'
+  '@angular-eslint/use-pipe-transform-interface': 'error',
+  '@angular-eslint/prefer-signals': 'error'
 };
 
 export const ANGULAR_ESLINT_TEMPLATE_RULES = {
