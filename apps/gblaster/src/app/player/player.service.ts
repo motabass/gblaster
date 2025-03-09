@@ -132,12 +132,13 @@ export class PlayerService extends BaseSubscribingClass {
         // avoid duplicate playlist entries
         if (!this.currentPlaylist().some((playlistSong) => playlistSong.metadata?.crc === song.metadata?.crc)) {
           this.currentPlaylist.update((playlist) => [...playlist, song]);
+          // tempList.push(song);
         }
 
         // // alle 2sek die Temporäre Liste in die sichtbare Playlist pushen
-        // if (Date.now() - startTime > 2000 || i === files.length - 1) {
-        //   this.currentPlaylist.update((currentList) => [...currentList, ...tempList]);
-        //   if (this.selectedTrack() === undefined && this.currentPlaylist().length > 0) {
+        // if (Date.now() - startTime > 2000 || index === files.length - 1) {
+        //   this.currentPlaylist.update(((currentList) => [...currentList, ...tempList]));
+        //   if (!this.selectedTrack() && this.currentPlaylist().length > 0) {
         //     this.selectSong(this.currentPlaylist()[0]);
         //   }
         //   tempList = [];
@@ -158,7 +159,7 @@ export class PlayerService extends BaseSubscribingClass {
   }
 
   setSeekPosition(value: number | undefined, fastSeek = false) {
-    if (value !== null && value !== undefined && value >= 0 && value <= this.durationSeconds()) {
+    if (value !== undefined && value >= 0 && value <= this.durationSeconds()) {
       this.audioService.seekToPosition(value, fastSeek);
     }
   }
