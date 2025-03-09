@@ -51,24 +51,17 @@
     }
   </div>
 </div>
-@if (track() && coverUrl()) {
-  <div
-    style="
-      position: absolute;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      left: 0;
-      z-index: -1;
-      opacity: 1;
-      background-size: contain;
-      background-position: top center;
-      background-repeat: no-repeat;
-    "
+@let cover = coverUrl();
+@if (track() && cover) {
+  <img
+    style="object-fit: contain"
+    fill
+    priority
+    alt="Album-Cover"
+    [ngSrc]="cover"
     [ngStyle]="{
-      'background-image': 'url(' + coverUrl() + ')',
       'background-color': backgroundColor()
     }"
-  ></div>
+  />
 }
 <ng-content />
