@@ -253,7 +253,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="35" class="link-to-prism">apps/gblaster/src/app/player/visualizer/visuals/visuals.directive.ts:35</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="33" class="link-to-prism">apps/gblaster/src/app/player/visualizer/visuals/visuals.directive.ts:33</a></div>
                             </td>
                         </tr>
 
@@ -307,8 +307,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="192"
-                                    class="link-to-prism">apps/gblaster/src/app/player/visualizer/visuals/visuals.directive.ts:192</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="188"
+                                    class="link-to-prism">apps/gblaster/src/app/player/visualizer/visuals/visuals.directive.ts:188</a></div>
                         </td>
                     </tr>
 
@@ -344,8 +344,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="107"
-                                    class="link-to-prism">apps/gblaster/src/app/player/visualizer/visuals/visuals.directive.ts:107</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="105"
+                                    class="link-to-prism">apps/gblaster/src/app/player/visualizer/visuals/visuals.directive.ts:105</a></div>
                         </td>
                     </tr>
 
@@ -411,8 +411,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="128"
-                                    class="link-to-prism">apps/gblaster/src/app/player/visualizer/visuals/visuals.directive.ts:128</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="126"
+                                    class="link-to-prism">apps/gblaster/src/app/player/visualizer/visuals/visuals.directive.ts:126</a></div>
                         </td>
                     </tr>
 
@@ -611,7 +611,7 @@
                 </tr>
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="95" class="link-to-prism">apps/gblaster/src/app/player/visualizer/visuals/visuals.directive.ts:95</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="93" class="link-to-prism">apps/gblaster/src/app/player/visualizer/visuals/visuals.directive.ts:93</a></div>
                                 </td>
                             </tr>
 
@@ -623,7 +623,7 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Directive, effect, ElementRef, inject, input, NgZone, OnDestroy } from &#x27;@angular/core&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Directive, effect, ElementRef, inject, input, OnDestroy } from &#x27;@angular/core&#x27;;
 import type { FrequencyBarsConfig, OsciloscopeConfig, VisualizerMode, VisualsColorConfig, VisualsWorkerMessage } from &#x27;./visuals.types&#x27;;
 import { AudioService } from &#x27;../../audio.service&#x27;;
 
@@ -634,7 +634,7 @@ const FALLBACK_ACCENT_COLOR &#x3D; &#x27;#bcbcbc&#x27;;
   standalone: true
 })
 export class VisualsDirective implements OnDestroy {
-  private zone &#x3D; inject(NgZone);
+  // private zone &#x3D; inject(NgZone);
   private audioService &#x3D; inject(AudioService);
 
   readonly mode &#x3D; input&lt;VisualizerMode&gt;(&#x27;bars&#x27;);
@@ -654,8 +654,6 @@ export class VisualsDirective implements OnDestroy {
   private animationFrameRef?: number;
 
   private visualizerWorker: Worker;
-
-  private analyserData!: Uint8Array;
 
   private resizeObserver: ResizeObserver;
 
@@ -767,51 +765,49 @@ export class VisualsDirective implements OnDestroy {
   }
 
   private startVisualization(getDataMethod: &#x27;getByteFrequencyData&#x27; | &#x27;getByteTimeDomainData&#x27;) {
-    this.zone.runOutsideAngular(() &#x3D;&gt; {
-      const bufferSize &#x3D; this.analyserNode.frequencyBinCount;
+    const bufferSize &#x3D; this.analyserNode.frequencyBinCount;
 
-      // Create a buffer pool with more buffers for better rotation
-      const bufferPool: Uint8Array[] &#x3D; [];
-      for (let i &#x3D; 0; i &lt; 3; i++) {
-        bufferPool.push(new Uint8Array(bufferSize));
+    // Create a buffer pool with more buffers for better rotation
+    const bufferPool: Uint8Array[] &#x3D; [];
+    for (let i &#x3D; 0; i &lt; 3; i++) {
+      bufferPool.push(new Uint8Array(bufferSize));
+    }
+
+    // Track available buffers
+    const availableBuffers: Uint8Array[] &#x3D; [...bufferPool];
+    let lastUpdateTime &#x3D; 0;
+    const updateInterval &#x3D; 1000 / 60; // Limit to 60fps
+
+    // Handle worker messages
+    this.visualizerWorker.addEventListener(&#x27;message&#x27;, (event) &#x3D;&gt; {
+      if (event.data.bufferReady &amp;&amp; event.data.reusableBuffer) {
+        // Worker finished with the buffer, add it back to available buffers
+        availableBuffers.push(event.data.reusableBuffer);
+      }
+    });
+
+    const draw &#x3D; () &#x3D;&gt; {
+      const now &#x3D; performance.now();
+      const timeSinceLastUpdate &#x3D; now - lastUpdateTime;
+
+      // Only process if we have an available buffer and enough time has passed
+      if (timeSinceLastUpdate &gt;&#x3D; updateInterval &amp;&amp; availableBuffers.length &gt; 0) {
+        // Get a buffer from the available pool
+        const buffer &#x3D; availableBuffers.shift()!;
+
+        // Fill it with data
+        this.analyserNode[getDataMethod](buffer);
+
+        // Send to worker (transfers ownership of the buffer)
+        this.visualizerWorker.postMessage({ analyserData: buffer }, [buffer.buffer]);
+
+        lastUpdateTime &#x3D; now;
       }
 
-      // Track available buffers
-      const availableBuffers: Uint8Array[] &#x3D; [...bufferPool];
-      let lastUpdateTime &#x3D; 0;
-      const updateInterval &#x3D; 1000 / 60; // Limit to 60fps
+      this.animationFrameRef &#x3D; requestAnimationFrame(draw);
+    };
 
-      // Handle worker messages
-      this.visualizerWorker.addEventListener(&#x27;message&#x27;, (event) &#x3D;&gt; {
-        if (event.data.bufferReady &amp;&amp; event.data.reusableBuffer) {
-          // Worker finished with the buffer, add it back to available buffers
-          availableBuffers.push(event.data.reusableBuffer);
-        }
-      });
-
-      const draw &#x3D; () &#x3D;&gt; {
-        const now &#x3D; performance.now();
-        const timeSinceLastUpdate &#x3D; now - lastUpdateTime;
-
-        // Only process if we have an available buffer and enough time has passed
-        if (timeSinceLastUpdate &gt;&#x3D; updateInterval &amp;&amp; availableBuffers.length &gt; 0) {
-          // Get a buffer from the available pool
-          const buffer &#x3D; availableBuffers.shift()!;
-
-          // Fill it with data
-          this.analyserNode[getDataMethod](buffer);
-
-          // Send to worker (transfers ownership of the buffer)
-          this.visualizerWorker.postMessage({ analyserData: buffer }, [buffer.buffer]);
-
-          lastUpdateTime &#x3D; now;
-        }
-
-        this.animationFrameRef &#x3D; requestAnimationFrame(draw);
-      };
-
-      draw();
-    });
+    draw();
   }
 
   stopVisualizer() {
