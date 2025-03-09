@@ -1,4 +1,4 @@
-import { Directive, effect, ElementRef, inject, input, NgZone, OnDestroy } from '@angular/core';
+import { Directive, effect, ElementRef, inject, input, OnDestroy } from '@angular/core';
 import type { FrequencyBarsConfig, OsciloscopeConfig, VisualizerMode, VisualsColorConfig, VisualsWorkerMessage } from './visuals.types';
 import { AudioService } from '../../audio.service';
 
@@ -9,7 +9,7 @@ const FALLBACK_ACCENT_COLOR = '#bcbcbc';
   standalone: true
 })
 export class VisualsDirective implements OnDestroy {
-  private zone = inject(NgZone);
+  // private zone = inject(NgZone);
   private audioService = inject(AudioService);
 
   readonly mode = input<VisualizerMode>('bars');
@@ -29,8 +29,6 @@ export class VisualsDirective implements OnDestroy {
   private animationFrameRef?: number;
 
   private visualizerWorker: Worker;
-
-  private analyserData!: Uint8Array;
 
   private resizeObserver: ResizeObserver;
 
@@ -142,51 +140,49 @@ export class VisualsDirective implements OnDestroy {
   }
 
   private startVisualization(getDataMethod: 'getByteFrequencyData' | 'getByteTimeDomainData') {
-    this.zone.runOutsideAngular(() => {
-      const bufferSize = this.analyserNode.frequencyBinCount;
+    const bufferSize = this.analyserNode.frequencyBinCount;
 
-      // Create a buffer pool with more buffers for better rotation
-      const bufferPool: Uint8Array[] = [];
-      for (let i = 0; i < 3; i++) {
-        bufferPool.push(new Uint8Array(bufferSize));
+    // Create a buffer pool with more buffers for better rotation
+    const bufferPool: Uint8Array[] = [];
+    for (let i = 0; i < 3; i++) {
+      bufferPool.push(new Uint8Array(bufferSize));
+    }
+
+    // Track available buffers
+    const availableBuffers: Uint8Array[] = [...bufferPool];
+    let lastUpdateTime = 0;
+    const updateInterval = 1000 / 60; // Limit to 60fps
+
+    // Handle worker messages
+    this.visualizerWorker.addEventListener('message', (event) => {
+      if (event.data.bufferReady && event.data.reusableBuffer) {
+        // Worker finished with the buffer, add it back to available buffers
+        availableBuffers.push(event.data.reusableBuffer);
+      }
+    });
+
+    const draw = () => {
+      const now = performance.now();
+      const timeSinceLastUpdate = now - lastUpdateTime;
+
+      // Only process if we have an available buffer and enough time has passed
+      if (timeSinceLastUpdate >= updateInterval && availableBuffers.length > 0) {
+        // Get a buffer from the available pool
+        const buffer = availableBuffers.shift()!;
+
+        // Fill it with data
+        this.analyserNode[getDataMethod](buffer);
+
+        // Send to worker (transfers ownership of the buffer)
+        this.visualizerWorker.postMessage({ analyserData: buffer }, [buffer.buffer]);
+
+        lastUpdateTime = now;
       }
 
-      // Track available buffers
-      const availableBuffers: Uint8Array[] = [...bufferPool];
-      let lastUpdateTime = 0;
-      const updateInterval = 1000 / 60; // Limit to 60fps
+      this.animationFrameRef = requestAnimationFrame(draw);
+    };
 
-      // Handle worker messages
-      this.visualizerWorker.addEventListener('message', (event) => {
-        if (event.data.bufferReady && event.data.reusableBuffer) {
-          // Worker finished with the buffer, add it back to available buffers
-          availableBuffers.push(event.data.reusableBuffer);
-        }
-      });
-
-      const draw = () => {
-        const now = performance.now();
-        const timeSinceLastUpdate = now - lastUpdateTime;
-
-        // Only process if we have an available buffer and enough time has passed
-        if (timeSinceLastUpdate >= updateInterval && availableBuffers.length > 0) {
-          // Get a buffer from the available pool
-          const buffer = availableBuffers.shift()!;
-
-          // Fill it with data
-          this.analyserNode[getDataMethod](buffer);
-
-          // Send to worker (transfers ownership of the buffer)
-          this.visualizerWorker.postMessage({ analyserData: buffer }, [buffer.buffer]);
-
-          lastUpdateTime = now;
-        }
-
-        this.animationFrameRef = requestAnimationFrame(draw);
-      };
-
-      draw();
-    });
+    draw();
   }
 
   stopVisualizer() {

@@ -50,7 +50,7 @@
  */
 (globalThis as any).__Zone_disable_requestAnimationFrame = true;
 (globalThis as any).__zone_symbol__UNPATCHED_EVENTS = ['mousemove'];
-import 'zone.js'; // Included with Angular CLI.
+// import 'zone.js'; // Included with Angular CLI.
 
 /** *************************************************************************************************
  * APPLICATION IMPORTS
