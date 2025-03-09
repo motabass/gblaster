@@ -44,12 +44,7 @@ export class ThemeService {
     this.primaryColorPalette = this.computeColors(this.primaryColor);
 
     for (const clr of this.primaryColorPalette) {
-      const key1 = `--theme-primary-${clr.name}`;
-      const value1 = clr.hex;
-      // const key2 = `--theme-primary-contrast-${clr.name}`;
-      // const value2 = clr.darkContrast ? 'rgba(0,0,0, 0.87)' : 'white';
-      document.documentElement.style.setProperty(key1, value1);
-      // document.documentElement.style.setProperty(key2, value2);
+      document.documentElement.style.setProperty(`--theme-primary-${clr.name}`, clr.hex);
     }
 
     this.meta.addTag({ name: 'theme-color', content: this.primaryColor }, true);
@@ -61,18 +56,7 @@ export class ThemeService {
     this.accentColorPalette = this.computeColors(this.accentColor);
 
     for (const clr of this.accentColorPalette) {
-      const key1 = `--theme-accent-${clr.name}`;
-      const value1 = clr.hex;
-      // const key2 = `--theme-accent-contrast-${clr.name}`;
-      // const value2 = clr.darkContrast ? 'rgba(0,0,0, 0.87)' : 'white';
-      document.documentElement.style.setProperty(key1, value1);
-      // document.documentElement.style.setProperty(key2, value2);
-
-      // if (clr.name === '500') {
-      //   const key3 = `--theme-accent-light`;
-      //   const value3 = new TinyColor(clr.hex).setAlpha(0.54).toRgbString();
-      //   document.documentElement.style.setProperty(key3, value3);
-      // }
+      document.documentElement.style.setProperty(`--theme-accent-${clr.name}`, clr.hex);
     }
   }
 
