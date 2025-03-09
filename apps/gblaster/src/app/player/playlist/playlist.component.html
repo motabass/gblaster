@@ -1,49 +1,42 @@
-<mat-list cdkDropList class="playlist" [cdkDropListDisabled]="loaderService.isLoading()" (cdkDropListDropped)="drop($event)">
-  <ng-content />
-  @for (song of songs(); track song.metadata.crc; let index = $index) {
-    @defer (on viewport) {
-      <mat-list-item
-        cdkDrag
-        style="height: 72px"
-        class="playlist-item"
-        [ngClass]="{ selected: this.playerService.selectedTrack()?.metadata?.crc === song.metadata.crc }"
-        (dblclick)="playPauseSong($event, song)"
-        (click)="playerService.selectSong(song)"
-      >
-        <span *cdkDragPreview></span>
-        <div cdkDragHandle matListItemAvatar style="overflow: hidden; border-radius: 4px; position: relative; width: 50px; height: 50px">
-          @if (song && song.metadata && song.metadata.coverUrl) {
-            <img
-              style="position: absolute; top: 0; right: 0; bottom: 0; left: 0; width: 100%; height: 100%"
-              fill
-              [ngSrc]="song.metadata.coverUrl.thumb | safe: 'resourceUrl'"
-            />
-          }
-          @let songPlaying = isPlaying(song)();
-          @if (songPlaying && visualsService.visualMode() !== 'off') {
-            <canvas
-              mtbVisual
-              mode="osc"
-              style="position: absolute; right: 0; bottom: 0; left: 0; width: 100%; height: 100%"
-              [colorConfig]="playerService.colorConfig()"
-              [oscConfig]="{ thickness: 2 }"
-            ></canvas>
-          }
-        </div>
-
-        <h3 matListItemTitle style="font-size: 0.9rem; font-weight: bold">{{ song?.metadata?.title || song.file.name }}</h3>
-        <p matListItemLine style="font-size: 0.8rem">{{ song?.metadata?.artist }}</p>
-
-        @if (isActive(song)()) {
-          <button matListItemMeta mat-icon-button (click)="playPauseSong($event, song)">
-            <mat-icon class="accent-color" [svgIcon]="songPlaying ? 'pause' : 'play-outline'"></mat-icon>
-          </button>
+<ng-content />
+<cdk-virtual-scroll-viewport itemSize="72" class="playlist-viewport" style="height: 100%">
+  <mat-list class="playlist">
+    <mat-list-item
+      *cdkVirtualFor="let song of playerService.currentPlaylist(); trackBy: trackByCrc"
+      style="height: 72px"
+      class="playlist-item"
+      [ngClass]="{ selected: this.playerService.selectedTrack()?.metadata?.crc === song.metadata.crc }"
+      (dblclick)="playPauseSong($event, song)"
+      (click)="playerService.selectSong(song)"
+    >
+      <div matListItemAvatar style="overflow: hidden; border-radius: 4px; position: relative; width: 50px; height: 50px">
+        @if (song && song.metadata && song.metadata.coverUrl) {
+          <img
+            style="position: absolute; top: 0; right: 0; bottom: 0; left: 0; width: 100%; height: 100%"
+            fill
+            [ngSrc]="song.metadata.coverUrl.thumb | safe: 'resourceUrl'"
+          />
         }
-      </mat-list-item>
-    } @placeholder {
-      <div style="height: 72px" class="flex row justify-center align-center">
-        <mat-spinner diameter="30" color="accent"></mat-spinner>
+        @let songPlaying = isPlaying(song)();
+        @if (songPlaying && visualsService.visualMode() !== 'off') {
+          <canvas
+            mtbVisual
+            mode="osc"
+            style="position: absolute; right: 0; bottom: 0; left: 0; width: 100%; height: 100%"
+            [colorConfig]="playerService.colorConfig()"
+            [oscConfig]="{ thickness: 2 }"
+          ></canvas>
+        }
       </div>
-    }
-  }
-</mat-list>
+
+      <h3 matListItemTitle style="font-size: 0.9rem; font-weight: bold">{{ song?.metadata?.title || song.file.name }}</h3>
+      <p matListItemLine style="font-size: 0.8rem">{{ song?.metadata?.artist }}</p>
+
+      @if (isActive(song)()) {
+        <button matListItemMeta mat-icon-button (click)="playPauseSong($event, song)">
+          <mat-icon class="accent-color" [svgIcon]="songPlaying ? 'pause' : 'play-outline'"></mat-icon>
+        </button>
+      }
+    </mat-list-item>
+  </mat-list>
+</cdk-virtual-scroll-viewport>

@@ -2,10 +2,59 @@
 // For more information: https://material.angular.io/guide/theming
 @use '@angular/material' as mat;
 @use 'theme-colors' as tc;
+//$angular-material-3-theme: mat.define-theme(
+//  (
+//    color: (
+//      primary: tc.$primary-palette,
+//      tertiary: tc.$tertiary-palette,
+//      use-system-variables: true
+//    ),
+//    typography: (
+//      plain-family: 'Roboto Condensed',
+//      regular-weight: 400,
+//      medium-weight: 500,
+//      bold-weight: 600,
+//      use-system-variables: true
+//    ),
+//    density: (
+//      scale: 0
+//    )
+//  )
+//);
 
 :root {
-  --mat-sys-background: light-dark(white, #303030);
+  //--mat-sys-background: light-dark(white, #303030);
   --mat-icon-color: var(--theme-accent-50);
+
+  //@include mat.all-component-themes($angular-material-3-theme);
+
+  @include mat.theme(
+    (
+      color: (
+        primary: tc.$primary-palette,
+        tertiary: tc.$tertiary-palette,
+        theme-type: color-scheme,
+        use-system-variables: true
+      ),
+      typography: (
+        plain-family: 'Roboto Condensed',
+        regular-weight: 400,
+        medium-weight: 500,
+        bold-weight: 600,
+        use-system-variables: true
+      ),
+      density: 0
+    )
+  );
+
+  @include mat.theme-overrides(
+    (
+      background: light-dark(white, #303030),
+      surface: var(--theme-primary-50),
+      surface-container-low: var(--theme-primary-50),
+      on-surface: white
+    )
+  );
 
   @include mat.system-level-shape(
     (
@@ -47,38 +96,33 @@
       active-indicator-color: var(--theme-accent-50)
     )
   );
+  //
+  //@include mat.button-overrides(
+  //  (
+  //    icon-color: var(--theme-accent-50)
+  //  )
+  //);
 }
 
 html {
   color-scheme: var(--app-color-scheme, light dark);
 
-  @include mat.theme(
-    (
-      color: (
-        primary: tc.$primary-palette,
-        tertiary: tc.$tertiary-palette
-      ),
-      typography: 'Roboto Condensed',
-      density: 0
-    )
-  );
-}
+  $primary-color: var(--theme-primary-50);
+  $accent-color: var(--theme-accent-50);
 
-$primary-color: var(--theme-primary-50);
-$accent-color: var(--theme-accent-50);
+  .primary-color {
+    color: $primary-color !important;
+    fill: $primary-color !important;
+  }
 
-.primary-color {
-  color: $primary-color !important;
-  fill: $primary-color !important;
-}
+  .accent-color {
+    color: $accent-color !important;
+    fill: $accent-color !important;
+  }
 
-.accent-color {
-  color: $accent-color !important;
-  fill: $accent-color !important;
-}
-
-// TODO: disabled color
-.disabled-color {
-  color: grey !important;
-  fill: grey !important;
+  // TODO: disabled color
+  .disabled-color {
+    color: grey !important;
+    fill: grey !important;
+  }
 }

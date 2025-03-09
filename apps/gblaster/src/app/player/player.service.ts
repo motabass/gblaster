@@ -173,7 +173,7 @@ export class PlayerService extends BaseSubscribingClass {
       return 0;
     }
     const pos = this.audioService.currentTime();
-    return pos !== null && pos !== undefined ? Math.floor(pos) : 0;
+    return Math.floor(pos);
   });
 
   selectSong(song: Track) {
@@ -227,11 +227,13 @@ export class PlayerService extends BaseSubscribingClass {
       return this.playTrack(this.currentPlaylist()[randomPosition]);
     }
 
-    const currentPosition = this.currentlyLoadedTrack()?.playlistPosition;
-    if (!currentPosition) {
-      return;
+    const loadedTrack = this.currentlyLoadedTrack();
+
+    if (!loadedTrack) {
+      return this.playTrack(this.currentPlaylist()[0]);
     }
 
+    const currentPosition = this.currentPlaylist().indexOf(loadedTrack);
     if (currentPosition < this.currentPlaylist().length) {
       return this.playTrack(this.currentPlaylist()[currentPosition]);
     } else if (this.repeat() === 'all') {
@@ -243,40 +245,52 @@ export class PlayerService extends BaseSubscribingClass {
     if (this.audioService.isLoading() || !this.currentlyLoadedTrack()) {
       return;
     }
-    const currentPo = this.currentlyLoadedTrack()?.playlistPosition;
-    if (!currentPo) {
-      return;
+
+    const loadedTrack = this.currentlyLoadedTrack();
+
+    if (!loadedTrack) {
+      return this.playTrack(this.currentPlaylist()[0]);
     }
-    if (currentPo > 1) {
-      return this.playTrack(this.currentPlaylist()[currentPo - 2]);
+
+    const currentPosition = this.currentPlaylist().indexOf(loadedTrack);
+
+    if (currentPosition > 1) {
+      return this.playTrack(this.currentPlaylist()[currentPosition - 2]);
     }
   }
 
-  selectNext() {
+  async selectNext() {
     if (!this.selectedTrack()) {
       return;
     }
-    const currentPo = this.selectedTrack()?.playlistPosition;
-    if (!currentPo) {
-      return;
+
+    const selectedTrack = this.selectedTrack();
+
+    if (!selectedTrack) {
+      return this.playTrack(this.currentPlaylist()[0]);
     }
 
-    if (currentPo < this.currentPlaylist.length) {
-      this.selectedTrack.set(this.currentPlaylist()[currentPo]);
+    const currentPosition = this.currentPlaylist().indexOf(selectedTrack);
+
+    if (currentPosition < this.currentPlaylist.length) {
+      this.selectedTrack.set(this.currentPlaylist()[currentPosition]);
     }
   }
 
-  selectPrevious() {
+  async selectPrevious() {
     if (!this.selectedTrack()) {
       return;
     }
-    const currentPo = this.selectedTrack()?.playlistPosition;
-    if (!currentPo) {
-      return;
+    const selectedTrack = this.selectedTrack();
+
+    if (!selectedTrack) {
+      return this.playTrack(this.currentPlaylist()[0]);
     }
 
-    if (currentPo > 1) {
-      this.selectedTrack.set(this.currentPlaylist()[currentPo - 2]);
+    const currentPosition = this.currentPlaylist().indexOf(selectedTrack);
+
+    if (currentPosition > 1) {
+      this.selectedTrack.set(this.currentPlaylist()[currentPosition - 2]);
     }
   }
 

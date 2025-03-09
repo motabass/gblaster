@@ -51,14 +51,16 @@ export default class PlayerComponent implements OnInit, OnDestroy {
 
   readonly ALLOWED_TYPES = ALLOWED_MIMETYPES;
 
-  async ngOnInit() {
-    this.titleService.setTitle('gBlaster');
-
+  constructor() {
     if (this.hotkeysService) {
       this.hotkeysService.initialize();
 
       this.hotkeysService.register({ keys: 'shift+p', description: 'Play/Pause', callback: () => this.playerService.playPause() });
     }
+  }
+
+  async ngOnInit() {
+    this.titleService.setTitle('gBlaster');
 
     if (this.gamepadService) {
       this.gamepadService.registerButtonAction(GamepadButtons.A_BUTTON, () => this.playerService.playPause());

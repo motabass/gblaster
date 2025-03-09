@@ -56,7 +56,7 @@ export class VisualizerComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.gamepadService?.deregisterButtonAction(GamepadButtons.SELECT_BUTTON);
-    this.analyser.disconnect();
+    this.audioService.disconnectAnalyserNode(this.analyser);
   }
 
   readonly showSlidePanel = computed(() => {

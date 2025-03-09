@@ -5,7 +5,6 @@ import { IFormat } from 'music-metadata';
 export interface Track {
   file: File;
   metadata: TrackMetadata;
-  playlistPosition?: number;
 }
 
 export interface TrackMetadata {

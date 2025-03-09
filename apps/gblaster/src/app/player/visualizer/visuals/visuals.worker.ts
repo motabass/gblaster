@@ -8,7 +8,7 @@ let analyserData: Uint8Array;
 // Pre-calculated values
 let fftSize: number;
 let sampleRate: number;
-let capYPositionArray: Float32Array; // Changed to typed array
+let capYPositionArray: Float32Array;
 let meterNumber: number;
 let gap: number;
 let capHeight: number;
@@ -27,23 +27,47 @@ let gradient: CanvasGradient;
 let frequencyToBarkMap: Float32Array;
 let barkScaleBandEnergy: Float32Array;
 let sliceWidthCache: number;
+let rotation = 0;
 
 addEventListener('message', (event: MessageEvent<VisualsWorkerMessage>) => {
   // message for offscreen canvas
   if (event.data.canvas) {
     canvas = event.data.canvas;
     context = canvas.getContext('2d');
+    canvasWidth = canvas.width;
+    canvasHeight = canvas.height;
   }
 
   //  message for resizing canvas
   if (event.data.newSize) {
-    canvas.width = event.data.newSize.width;
-    canvas.height = event.data.newSize.height;
-  }
+    if (!context) {
+      return;
+    }
+    const newWidth = event.data.newSize.width;
+    const newHeight = event.data.newSize.height;
 
+    if (canvas.width !== newWidth || canvas.height !== newHeight) {
+      canvas.width = newWidth;
+      canvas.height = newHeight;
+
+      // Update any cached dimensions
+      canvasWidth = newWidth;
+      canvasHeight = newHeight;
+
+      barWidth = canvasWidth / meterNumber - gap;
+
+      // Pre-calculate slice width for oscilloscope
+      sliceWidthCache = canvasWidth / bufferLength;
+
+      gradient = context.createLinearGradient(0, 0, 0, canvasHeight);
+      gradient.addColorStop(1, mainColor);
+      gradient.addColorStop(0.7, peakColor);
+      gradient.addColorStop(0, peakColor);
+    }
+  }
   // message for stopping and clearing the visualizer
   if (event.data.stop && context) {
-    context.clearRect(0, 0, context.canvas.width, context.canvas.height);
+    context.clearRect(0, 0, canvasWidth, canvasHeight);
   }
 
   // message for setting up the visualizer
@@ -51,7 +75,7 @@ addEventListener('message', (event: MessageEvent<VisualsWorkerMessage>) => {
     setupVisualsWorkerWithOptions(event.data.visualizerOptions);
   }
 
-  // message for updating the analyser data
+  // Handle analyzer data (optimized for transferable objects)
   if (event.data.analyserData) {
     analyserData = event.data.analyserData;
 
@@ -73,6 +97,9 @@ addEventListener('message', (event: MessageEvent<VisualsWorkerMessage>) => {
         break;
       }
     }
+
+    // Notify main thread we're ready for more data, including the buffer for reuse
+    postMessage({ bufferReady: true, reusableBuffer: analyserData }, [analyserData.buffer]);
   }
 });
 
@@ -100,19 +127,17 @@ function setupVisualsWorkerWithOptions(options: VisualizerOptions) {
   alpha = options.alpha;
   bufferLength = options.bufferLength;
 
-  canvasWidth = context.canvas.width;
-  canvasHeight = context.canvas.height;
   barWidth = canvasWidth / meterNumber - gap;
 
   // Pre-calculate slice width for oscilloscope
   sliceWidthCache = canvasWidth / bufferLength;
 
-  analyserData = new Uint8Array(bufferLength);
-
   gradient = context.createLinearGradient(0, 0, 0, canvasHeight);
   gradient.addColorStop(1, mainColor);
   gradient.addColorStop(0.7, peakColor);
   gradient.addColorStop(0, peakColor);
+
+  analyserData = new Uint8Array(bufferLength);
 }
 
 let oscilloscopePath: Path2D;
@@ -216,8 +241,6 @@ function drawBars() {
 
   capYPositionArray.set(capYPositionArrayCopy);
 }
-
-let rotation = 0;
 
 function drawCircularBars() {
   if (!context) return;

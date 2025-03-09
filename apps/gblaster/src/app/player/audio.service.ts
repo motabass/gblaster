@@ -20,6 +20,7 @@ export class AudioService {
   private _gainNode: GainNode;
   private _eqGainNode: GainNode;
   private _frequencyFilters: { [band: number]: BiquadFilterNode } = {};
+  private _connectedAnalyzers = new Set<AnalyserNode>();
 
   // State signals
   readonly isLoading = signal(false);
@@ -135,7 +136,23 @@ export class AudioService {
   plugInNewAnalyserNode(): AnalyserNode {
     const analyser = this._audioContext.createAnalyser();
     this._audioSourceNode.connect(analyser);
+    this._connectedAnalyzers.add(analyser);
     return analyser;
+  }
+
+  disconnectAnalyserNode(analyser: AnalyserNode): void {
+    if (this._connectedAnalyzers.has(analyser)) {
+      analyser.disconnect();
+      this._connectedAnalyzers.delete(analyser);
+    }
+  }
+
+  // Call on major cleanup events or app exit
+  disconnectAllAnalyzers(): void {
+    this._connectedAnalyzers.forEach((analyser) => {
+      analyser.disconnect();
+    });
+    this._connectedAnalyzers.clear();
   }
 
   setFileAsSource(file: File) {

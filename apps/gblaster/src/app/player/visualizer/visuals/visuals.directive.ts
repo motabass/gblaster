@@ -32,6 +32,8 @@ export class VisualsDirective implements OnDestroy {
 
   private analyserData!: Uint8Array;
 
+  private resizeObserver: ResizeObserver;
+
   constructor() {
     const elr = inject<ElementRef<HTMLCanvasElement>>(ElementRef);
 
@@ -45,6 +47,7 @@ export class VisualsDirective implements OnDestroy {
     const offscreenCanvas: OffscreenCanvas = this.canvas.transferControlToOffscreen();
     this.visualizerWorker.postMessage({ canvas: offscreenCanvas } as VisualsWorkerMessage, [offscreenCanvas]);
 
+    this.resizeObserver = this.setupResizeObserver();
     effect(() => {
       // Access signals to establish dependencies
       const currentMode = this.mode();
@@ -55,9 +58,9 @@ export class VisualsDirective implements OnDestroy {
 
       this.stopVisualizer();
 
-      // give canvas size for correct dpi
-      const rect = this.canvas.getBoundingClientRect();
-      this.visualizerWorker.postMessage({ newSize: rect } as VisualsWorkerMessage);
+      // // give canvas size for correct dpi
+      // const rect = this.canvas.getBoundingClientRect();
+      // this.visualizerWorker.postMessage({ newSize: rect } as VisualsWorkerMessage);
 
       switch (currentMode) {
         case 'bars': {
@@ -78,6 +81,15 @@ export class VisualsDirective implements OnDestroy {
         }
       }
     });
+  }
+
+  private setupResizeObserver() {
+    const observer = new ResizeObserver((entries) => {
+      const rect = entries[0].contentRect;
+      this.visualizerWorker.postMessage({ newSize: rect } as VisualsWorkerMessage);
+    });
+    observer.observe(this.canvas);
+    return observer;
   }
 
   get analyserNode(): AnalyserNode {
@@ -131,19 +143,48 @@ export class VisualsDirective implements OnDestroy {
 
   private startVisualization(getDataMethod: 'getByteFrequencyData' | 'getByteTimeDomainData') {
     this.zone.runOutsideAngular(() => {
-      if (!this.analyserData || this.analyserData.length !== this.analyserNode.frequencyBinCount) {
-        this.analyserData = new Uint8Array(this.analyserNode.frequencyBinCount);
+      const bufferSize = this.analyserNode.frequencyBinCount;
+
+      // Create a buffer pool with more buffers for better rotation
+      const bufferPool: Uint8Array[] = [];
+      for (let i = 0; i < 3; i++) {
+        bufferPool.push(new Uint8Array(bufferSize));
       }
 
+      // Track available buffers
+      const availableBuffers: Uint8Array[] = [...bufferPool];
+      let lastUpdateTime = 0;
+      const updateInterval = 1000 / 60; // Limit to 60fps
+
+      // Handle worker messages
+      this.visualizerWorker.addEventListener('message', (event) => {
+        if (event.data.bufferReady && event.data.reusableBuffer) {
+          // Worker finished with the buffer, add it back to available buffers
+          availableBuffers.push(event.data.reusableBuffer);
+        }
+      });
+
       const draw = () => {
-        this.analyserNode[getDataMethod](this.analyserData);
-        // Use transferable objects to avoid copying large arrays
-        this.visualizerWorker.postMessage({ analyserData: this.analyserData } as VisualsWorkerMessage, [this.analyserData.buffer]);
-        // Create a new array since the previous one was transferred
-        this.analyserData = new Uint8Array(this.analyserNode.frequencyBinCount);
+        const now = performance.now();
+        const timeSinceLastUpdate = now - lastUpdateTime;
+
+        // Only process if we have an available buffer and enough time has passed
+        if (timeSinceLastUpdate >= updateInterval && availableBuffers.length > 0) {
+          // Get a buffer from the available pool
+          const buffer = availableBuffers.shift()!;
+
+          // Fill it with data
+          this.analyserNode[getDataMethod](buffer);
+
+          // Send to worker (transfers ownership of the buffer)
+          this.visualizerWorker.postMessage({ analyserData: buffer }, [buffer.buffer]);
+
+          lastUpdateTime = now;
+        }
 
         this.animationFrameRef = requestAnimationFrame(draw);
       };
+
       draw();
     });
   }
@@ -157,6 +198,13 @@ export class VisualsDirective implements OnDestroy {
 
   ngOnDestroy() {
     this.stopVisualizer();
+    this.resizeObserver.disconnect();
+
+    // Disconnect internal analyzer if it exists
+    if (this._internalAnalyzer) {
+      this.audioService.disconnectAnalyserNode(this._internalAnalyzer);
+    }
+
     this.visualizerWorker.terminate();
   }
 }
