@@ -240,8 +240,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="40"
-                                    class="link-to-prism">apps/gblaster/src/app/theme/theme.service.ts:40</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="37"
+                                    class="link-to-prism">apps/gblaster/src/app/theme/theme.service.ts:37</a></div>
                         </td>
                     </tr>
 
@@ -307,8 +307,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="34"
-                                    class="link-to-prism">apps/gblaster/src/app/theme/theme.service.ts:34</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="31"
+                                    class="link-to-prism">apps/gblaster/src/app/theme/theme.service.ts:31</a></div>
                         </td>
                     </tr>
 
@@ -405,7 +405,7 @@
             </tr>
                 <tr>
                     <td class="col-md-4">
-                        <i>Default value : </i><code>signal(this.localStorageService.retrieve(&#x27;darkMode&#x27;) ?? true)</code>
+                        <i>Default value : </i><code>signal&lt;boolean&gt;(this.localStorageService.retrieve(&#x27;darkMode&#x27;) ?? globalThis.matchMedia(&#x27;(prefers-color-scheme: dark)&#x27;).matches)</code>
                     </td>
                 </tr>
                     <tr>
@@ -473,15 +473,12 @@ export class ThemeService {
 
   private accentColor &#x3D; FALLBACK_ACCENT_COLOR;
 
-  readonly darkMode &#x3D; signal(this.localStorageService.retrieve(&#x27;darkMode&#x27;) ?? true);
+  readonly darkMode &#x3D; signal&lt;boolean&gt;(this.localStorageService.retrieve(&#x27;darkMode&#x27;) ?? globalThis.matchMedia(&#x27;(prefers-color-scheme: dark)&#x27;).matches);
 
   primaryColorPalette: Color[] &#x3D; [];
   accentColorPalette: Color[] &#x3D; [];
 
   initializeTheme() {
-    if (globalThis.matchMedia(&#x27;(prefers-color-scheme: dark)&#x27;).matches) {
-      this.darkMode.set(true);
-    }
     this.setOverlayClass();
     this.setPrimaryColor(this.primaryColor);
     this.setAccentColor(this.accentColor);
@@ -503,12 +500,7 @@ export class ThemeService {
     this.primaryColorPalette &#x3D; this.computeColors(this.primaryColor);
 
     for (const clr of this.primaryColorPalette) {
-      const key1 &#x3D; &#x60;--theme-primary-${clr.name}&#x60;;
-      const value1 &#x3D; clr.hex;
-      const key2 &#x3D; &#x60;--theme-primary-contrast-${clr.name}&#x60;;
-      const value2 &#x3D; clr.darkContrast ? &#x27;rgba(0,0,0, 0.87)&#x27; : &#x27;white&#x27;;
-      document.documentElement.style.setProperty(key1, value1);
-      document.documentElement.style.setProperty(key2, value2);
+      document.documentElement.style.setProperty(&#x60;--theme-primary-${clr.name}&#x60;, clr.hex);
     }
 
     this.meta.addTag({ name: &#x27;theme-color&#x27;, content: this.primaryColor }, true);
@@ -520,47 +512,36 @@ export class ThemeService {
     this.accentColorPalette &#x3D; this.computeColors(this.accentColor);
 
     for (const clr of this.accentColorPalette) {
-      const key1 &#x3D; &#x60;--theme-accent-${clr.name}&#x60;;
-      const value1 &#x3D; clr.hex;
-      const key2 &#x3D; &#x60;--theme-accent-contrast-${clr.name}&#x60;;
-      const value2 &#x3D; clr.darkContrast ? &#x27;rgba(0,0,0, 0.87)&#x27; : &#x27;white&#x27;;
-      document.documentElement.style.setProperty(key1, value1);
-      document.documentElement.style.setProperty(key2, value2);
-
-      if (clr.name &#x3D;&#x3D;&#x3D; &#x27;500&#x27;) {
-        const key3 &#x3D; &#x60;--theme-accent-light&#x60;;
-        const value3 &#x3D; new TinyColor(clr.hex).setAlpha(0.54).toRgbString();
-        document.documentElement.style.setProperty(key3, value3);
-      }
+      document.documentElement.style.setProperty(&#x60;--theme-accent-${clr.name}&#x60;, clr.hex);
     }
   }
 
   private setOverlayClass() {
     if (this.darkMode()) {
-      document.body.classList.add(&#x27;dark-theme&#x27;);
-      document.body.classList.remove(&#x27;light-theme&#x27;);
+      document.documentElement.style.setProperty(&#x27;--app-color-scheme&#x27;, &#x27;dark&#x27;);
     } else {
-      document.body.classList.add(&#x27;light-theme&#x27;);
-      document.body.classList.remove(&#x27;dark-theme&#x27;);
+      document.documentElement.style.setProperty(&#x27;--app-color-scheme&#x27;, &#x27;light&#x27;);
     }
   }
 
   private computeColors(hex: string): Color[] {
     return [
-      this.getColorObject(new TinyColor(hex).lighten(52), &#x27;50&#x27;),
-      this.getColorObject(new TinyColor(hex).lighten(37), &#x27;100&#x27;),
-      this.getColorObject(new TinyColor(hex).lighten(26), &#x27;200&#x27;),
-      this.getColorObject(new TinyColor(hex).lighten(12), &#x27;300&#x27;),
-      this.getColorObject(new TinyColor(hex).lighten(6), &#x27;400&#x27;),
-      this.getColorObject(new TinyColor(hex), &#x27;500&#x27;),
-      this.getColorObject(new TinyColor(hex).darken(6), &#x27;600&#x27;),
-      this.getColorObject(new TinyColor(hex).darken(12), &#x27;700&#x27;),
-      this.getColorObject(new TinyColor(hex).darken(18), &#x27;800&#x27;),
-      this.getColorObject(new TinyColor(hex).darken(24), &#x27;900&#x27;),
-      this.getColorObject(new TinyColor(hex).lighten(50).saturate(30), &#x27;a100&#x27;),
-      this.getColorObject(new TinyColor(hex).lighten(30).saturate(30), &#x27;a200&#x27;),
-      this.getColorObject(new TinyColor(hex).lighten(10).saturate(15), &#x27;a400&#x27;),
-      this.getColorObject(new TinyColor(hex).lighten(5).saturate(5), &#x27;a700&#x27;)
+      this.getColorObject(new TinyColor(hex).lighten(55), &#x27;0&#x27;),
+      this.getColorObject(new TinyColor(hex).lighten(45), &#x27;10&#x27;),
+      this.getColorObject(new TinyColor(hex).lighten(35), &#x27;20&#x27;),
+      this.getColorObject(new TinyColor(hex).lighten(30), &#x27;25&#x27;),
+      this.getColorObject(new TinyColor(hex).lighten(25), &#x27;30&#x27;),
+      this.getColorObject(new TinyColor(hex).lighten(20), &#x27;35&#x27;),
+      this.getColorObject(new TinyColor(hex).lighten(15), &#x27;40&#x27;),
+      this.getColorObject(new TinyColor(hex), &#x27;50&#x27;),
+      this.getColorObject(new TinyColor(hex).darken(5), &#x27;60&#x27;),
+      this.getColorObject(new TinyColor(hex).darken(10), &#x27;70&#x27;),
+      this.getColorObject(new TinyColor(hex).darken(15), &#x27;80&#x27;),
+      this.getColorObject(new TinyColor(hex).darken(18), &#x27;90&#x27;),
+      this.getColorObject(new TinyColor(hex).darken(21), &#x27;95&#x27;),
+      this.getColorObject(new TinyColor(hex).darken(24), &#x27;98&#x27;),
+      this.getColorObject(new TinyColor(hex).darken(27), &#x27;99&#x27;),
+      this.getColorObject(new TinyColor(hex).darken(30), &#x27;100&#x27;)
     ];
   }
 

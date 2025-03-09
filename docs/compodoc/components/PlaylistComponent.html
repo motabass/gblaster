@@ -154,16 +154,16 @@
                 <td class="col-md-3">imports</td>
                 <td class="col-md-9">
                             <code>MatListModule</code>
-                            <code>CdkDropList</code>
-                            <code>CdkDrag</code>
                             <code>NgClass</code>
-                            <code>CdkDragPreview</code>
-                            <code>CdkDragHandle</code>
                                 <code><a href="../directives/VisualsDirective.html" target="_self" >VisualsDirective</a></code>
                             <code>MatButtonModule</code>
                             <code>MatIconModule</code>
                             <code>MatProgressSpinnerModule</code>
                             <code>SafePipe</code>
+                            <code>NgOptimizedImage</code>
+                            <code>CdkVirtualScrollViewport</code>
+                            <code>CdkVirtualForOf</code>
+                            <code>CdkFixedSizeVirtualScroll</code>
                 </td>
             </tr>
 
@@ -206,14 +206,7 @@
                                 <a href="#audioService" >audioService</a>
                             </li>
                             <li>
-                                <a href="#loaderService" >loaderService</a>
-                            </li>
-                            <li>
                                 <a href="#playerService" >playerService</a>
-                            </li>
-                            <li>
-                                    <span class="modifier">Readonly</span>
-                                <a href="#songs" >songs</a>
                             </li>
                             <li>
                                 <a href="#visualsService" >visualsService</a>
@@ -231,9 +224,6 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
-                                <a href="#drop" >drop</a>
-                            </li>
-                            <li>
                                 <a href="#isActive" >isActive</a>
                             </li>
                             <li>
@@ -242,6 +232,9 @@
                             <li>
                                     <span class="modifier">Async</span>
                                 <a href="#playPauseSong" >playPauseSong</a>
+                            </li>
+                            <li>
+                                <a href="#trackByCrc" >trackByCrc</a>
                             </li>
                         </ul>
                     </td>
@@ -269,73 +262,6 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="drop"></a>
-                    <span class="name">
-                        <span ><b>drop</b></span>
-                        <a href="#drop"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-<code>drop(event: <a href="../interfaces/Track.html" target="_self">CdkDragDrop&lt;Track&gt;</a>)</code>
-                </td>
-            </tr>
-
-
-                    <tr>
-                        <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="66"
-                                    class="link-to-prism">apps/gblaster/src/app/player/playlist/playlist.component.ts:66</a></div>
-                        </td>
-                    </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-
-                            <div class="io-description">
-                                <b>Parameters :</b>
-                                
-                                <table class="params">
-                                    <thead>
-                                        <tr>
-                                            <td>Name</td>
-                                                <td>Type</td>
-                                            <td>Optional</td>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                                <td>event</td>
-                                            <td>
-                                                            <code><a href="../interfaces/Track.html" target="_self" >CdkDragDrop&lt;Track&gt;</a></code>
-                                            </td>
-
-                                            <td>
-                                                    No
-                                            </td>
-
-
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        <div class="io-description">
-                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
-
-                        </div>
-                            <div class="io-description">
-                                
-                            </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
                     <a name="isActive"></a>
                     <span class="name">
                         <span ><b>isActive</b></span>
@@ -352,8 +278,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="49"
-                                    class="link-to-prism">apps/gblaster/src/app/player/playlist/playlist.component.ts:49</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="39"
+                                    class="link-to-prism">apps/gblaster/src/app/player/playlist/playlist.component.ts:39</a></div>
                         </td>
                     </tr>
 
@@ -419,8 +345,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="55"
-                                    class="link-to-prism">apps/gblaster/src/app/player/playlist/playlist.component.ts:55</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="45"
+                                    class="link-to-prism">apps/gblaster/src/app/player/playlist/playlist.component.ts:45</a></div>
                         </td>
                     </tr>
 
@@ -488,8 +414,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="61"
-                                    class="link-to-prism">apps/gblaster/src/app/player/playlist/playlist.component.ts:61</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="51"
+                                    class="link-to-prism">apps/gblaster/src/app/player/playlist/playlist.component.ts:51</a></div>
                         </td>
                     </tr>
 
@@ -547,6 +473,85 @@
             </tr>
         </tbody>
     </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="trackByCrc"></a>
+                    <span class="name">
+                        <span ><b>trackByCrc</b></span>
+                        <a href="#trackByCrc"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>trackByCrc(index: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, song: <a href="../interfaces/Track.html" target="_self">Track</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="56"
+                                    class="link-to-prism">apps/gblaster/src/app/player/playlist/playlist.component.ts:56</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>index</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>song</td>
+                                            <td>
+                                                            <code><a href="../interfaces/Track.html" target="_self" >Track</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 </section>
     <section data-compodoc="block-properties">
     
@@ -571,32 +576,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="37" class="link-to-prism">apps/gblaster/src/app/player/playlist/playlist.component.ts:37</a></div>
-                        </td>
-                    </tr>
-
-
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="loaderService"></a>
-                    <span class="name">
-                        <span ><b>loaderService</b></span>
-                        <a href="#loaderService"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-                <tr>
-                    <td class="col-md-4">
-                        <i>Default value : </i><code>inject(LoaderService)</code>
-                    </td>
-                </tr>
-                    <tr>
-                        <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="39" class="link-to-prism">apps/gblaster/src/app/player/playlist/playlist.component.ts:39</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="36" class="link-to-prism">apps/gblaster/src/app/player/playlist/playlist.component.ts:36</a></div>
                         </td>
                     </tr>
 
@@ -621,39 +601,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="36" class="link-to-prism">apps/gblaster/src/app/player/playlist/playlist.component.ts:36</a></div>
-                        </td>
-                    </tr>
-
-
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="songs"></a>
-                    <span class="name">
-                            <span class="modifier">Readonly</span>
-                        <span ><b>songs</b></span>
-                        <a href="#songs"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-                <tr>
-                    <td class="col-md-4">
-                        <i>Default value : </i><code>computed(() &#x3D;&gt; {
-    for (const [index, v] of this.playerService.currentPlaylist().entries()) {
-      v.playlistPosition &#x3D; index + 1;
-    }
-
-    return this.playerService.currentPlaylist().map((track, index) &#x3D;&gt; ({ ...track, playlistPosition: index + 1 }));
-  })</code>
-                    </td>
-                </tr>
-                    <tr>
-                        <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="41" class="link-to-prism">apps/gblaster/src/app/player/playlist/playlist.component.ts:41</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="35" class="link-to-prism">apps/gblaster/src/app/player/playlist/playlist.component.ts:35</a></div>
                         </td>
                     </tr>
 
@@ -678,7 +626,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="38" class="link-to-prism">apps/gblaster/src/app/player/playlist/playlist.component.ts:38</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="37" class="link-to-prism">apps/gblaster/src/app/player/playlist/playlist.component.ts:37</a></div>
                         </td>
                     </tr>
 
@@ -691,20 +639,19 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { CdkDrag, CdkDragDrop, CdkDragHandle, CdkDragPreview, CdkDropList, moveItemInArray } from &#x27;@angular/cdk/drag-drop&#x27;;
-import { ChangeDetectionStrategy, Component, computed, inject, Signal } from &#x27;@angular/core&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ChangeDetectionStrategy, Component, computed, inject, Signal } from &#x27;@angular/core&#x27;;
 import { PlayerService } from &#x27;../player.service&#x27;;
 import { Track } from &#x27;../player.types&#x27;;
 import { VisualsService } from &#x27;../visualizer/visuals/visuals.service&#x27;;
-import { LoaderService } from &#x27;../../services/loader/loader.service&#x27;;
 import { AudioService } from &#x27;../audio.service&#x27;;
 import { MatIconModule } from &#x27;@angular/material/icon&#x27;;
 import { MatButtonModule } from &#x27;@angular/material/button&#x27;;
 import { VisualsDirective } from &#x27;../visualizer/visuals/visuals.directive&#x27;;
-import { NgClass } from &#x27;@angular/common&#x27;;
+import { NgClass, NgOptimizedImage } from &#x27;@angular/common&#x27;;
 import { MatListModule } from &#x27;@angular/material/list&#x27;;
 import { MatProgressSpinnerModule } from &#x27;@angular/material/progress-spinner&#x27;;
 import { SafePipe } from &#x27;safe-pipe&#x27;;
+import { CdkFixedSizeVirtualScroll, CdkVirtualForOf, CdkVirtualScrollViewport } from &#x27;@angular/cdk/scrolling&#x27;;
 
 @Component({
   selector: &#x27;mtb-playlist&#x27;,
@@ -713,31 +660,22 @@ import { SafePipe } from &#x27;safe-pipe&#x27;;
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     MatListModule,
-    CdkDropList,
-    CdkDrag,
     NgClass,
-    CdkDragPreview,
-    CdkDragHandle,
     VisualsDirective,
     MatButtonModule,
     MatIconModule,
     MatProgressSpinnerModule,
-    SafePipe
+    SafePipe,
+    NgOptimizedImage,
+    CdkVirtualScrollViewport,
+    CdkVirtualForOf,
+    CdkFixedSizeVirtualScroll
   ]
 })
 export class PlaylistComponent {
   playerService &#x3D; inject(PlayerService);
   audioService &#x3D; inject(AudioService);
   visualsService &#x3D; inject(VisualsService);
-  loaderService &#x3D; inject(LoaderService);
-
-  readonly songs &#x3D; computed(() &#x3D;&gt; {
-    for (const [index, v] of this.playerService.currentPlaylist().entries()) {
-      v.playlistPosition &#x3D; index + 1;
-    }
-
-    return this.playerService.currentPlaylist().map((track, index) &#x3D;&gt; ({ ...track, playlistPosition: index + 1 }));
-  });
 
   isActive(song: Track): Signal&lt;boolean&gt; {
     return computed(() &#x3D;&gt; {
@@ -756,67 +694,56 @@ export class PlaylistComponent {
     return this.playerService.playPauseTrack(song);
   }
 
-  drop(event: CdkDragDrop&lt;Track&gt;) {
-    moveItemInArray(this.songs(), event.previousIndex, event.currentIndex);
+  trackByCrc(index: number, song: Track): string {
+    return song.metadata.crc;
   }
 }
 </code></pre>
     </div>
 
     <div class="tab-pane fade " id="templateData">
-        <pre class="line-numbers"><code class="language-html">&lt;mat-list cdkDropList class&#x3D;&quot;playlist&quot; [cdkDropListDisabled]&#x3D;&quot;loaderService.isLoading()&quot; (cdkDropListDropped)&#x3D;&quot;drop($event)&quot;&gt;
-  @for (song of songs(); track song.metadata.crc; let index &#x3D; $index) {
-    @defer (on viewport) {
-      &lt;mat-list-item
-        cdkDrag
-        style&#x3D;&quot;height: 72px&quot;
-        class&#x3D;&quot;playlist-item&quot;
-        [ngClass]&#x3D;&quot;{ selected: this.playerService.selectedTrack()?.metadata?.crc &#x3D;&#x3D;&#x3D; song.metadata.crc }&quot;
-        (dblclick)&#x3D;&quot;playPauseSong($event, song)&quot;
-        (click)&#x3D;&quot;playerService.selectSong(song)&quot;
-      &gt;
-        &lt;span *cdkDragPreview&gt;&lt;/span&gt;
-        &lt;div cdkDragHandle matListItemAvatar style&#x3D;&quot;overflow: hidden; border-radius: 4px; position: relative; width: 50px; height: 50px&quot;&gt;
-          @if (song &amp;&amp; song.metadata &amp;&amp; song.metadata.coverUrl) {
-            &lt;img
-              style&#x3D;&quot;position: absolute; top: 0; right: 0; bottom: 0; left: 0; width: 100%; height: 100%&quot;
-              loading&#x3D;&quot;lazy&quot;
-              [src]&#x3D;&quot;song.metadata.coverUrl.thumb | safe: &#x27;resourceUrl&#x27;&quot;
-            /&gt;
-          }
-          @let songPlaying &#x3D; isPlaying(song)();
-          @if (songPlaying &amp;&amp; visualsService.visualMode() !&#x3D;&#x3D; &#x27;off&#x27;) {
-            &lt;canvas
-              mtbVisual
-              mode&#x3D;&quot;osc&quot;
-              style&#x3D;&quot;position: absolute; right: 0; bottom: 0; left: 0; width: 100%; height: 100%&quot;
-              [colorConfig]&#x3D;&quot;playerService.colorConfig()&quot;
-              [oscConfig]&#x3D;&quot;{ thickness: 2 }&quot;
-            &gt;&lt;/canvas&gt;
-          }
-        &lt;/div&gt;
-
-        &lt;h3 matListItemTitle style&#x3D;&quot;font-size: 0.9rem; font-weight: bold&quot;&gt;{{ song?.metadata?.title || song.file.name }}&lt;/h3&gt;
-        &lt;p matListItemLine style&#x3D;&quot;font-size: 0.8rem&quot;&gt;{{ song?.metadata?.artist }}&lt;/p&gt;
-
-        @if (isActive(song)()) {
-          &lt;button matListItemMeta mat-icon-button (click)&#x3D;&quot;playPauseSong($event, song)&quot;&gt;
-            @if (songPlaying) {
-              &lt;mat-icon class&#x3D;&quot;accent-color&quot; svgIcon&#x3D;&quot;pause&quot;&gt;&lt;/mat-icon&gt;
-            } @else {
-              &lt;mat-icon class&#x3D;&quot;accent-color&quot; svgIcon&#x3D;&quot;play-outline&quot;&gt;&lt;/mat-icon&gt;
-            }
-          &lt;/button&gt;
+        <pre class="line-numbers"><code class="language-html">&lt;ng-content /&gt;
+&lt;cdk-virtual-scroll-viewport itemSize&#x3D;&quot;72&quot; class&#x3D;&quot;playlist-viewport&quot; style&#x3D;&quot;height: 100%&quot;&gt;
+  &lt;mat-list class&#x3D;&quot;playlist&quot;&gt;
+    &lt;mat-list-item
+      *cdkVirtualFor&#x3D;&quot;let song of playerService.currentPlaylist(); trackBy: trackByCrc&quot;
+      style&#x3D;&quot;height: 72px&quot;
+      class&#x3D;&quot;playlist-item&quot;
+      [ngClass]&#x3D;&quot;{ selected: this.playerService.selectedTrack()?.metadata?.crc &#x3D;&#x3D;&#x3D; song.metadata.crc }&quot;
+      (dblclick)&#x3D;&quot;playPauseSong($event, song)&quot;
+      (click)&#x3D;&quot;playerService.selectSong(song)&quot;
+    &gt;
+      &lt;div matListItemAvatar style&#x3D;&quot;overflow: hidden; border-radius: 4px; position: relative; width: 50px; height: 50px&quot;&gt;
+        @if (song &amp;&amp; song.metadata &amp;&amp; song.metadata.coverUrl) {
+          &lt;img
+            style&#x3D;&quot;position: absolute; top: 0; right: 0; bottom: 0; left: 0; width: 100%; height: 100%&quot;
+            fill
+            [ngSrc]&#x3D;&quot;song.metadata.coverUrl.thumb | safe: &#x27;resourceUrl&#x27;&quot;
+          /&gt;
         }
-      &lt;/mat-list-item&gt;
-    } @placeholder {
-      &lt;div style&#x3D;&quot;height: 72px&quot; class&#x3D;&quot;flex row justify-center align-center&quot;&gt;
-        &lt;mat-spinner diameter&#x3D;&quot;30&quot; color&#x3D;&quot;accent&quot;&gt;&lt;/mat-spinner&gt;
+        @let songPlaying &#x3D; isPlaying(song)();
+        @if (songPlaying &amp;&amp; visualsService.visualMode() !&#x3D;&#x3D; &#x27;off&#x27;) {
+          &lt;canvas
+            mtbVisual
+            mode&#x3D;&quot;osc&quot;
+            style&#x3D;&quot;position: absolute; right: 0; bottom: 0; left: 0; width: 100%; height: 100%&quot;
+            [colorConfig]&#x3D;&quot;playerService.colorConfig()&quot;
+            [oscConfig]&#x3D;&quot;{ thickness: 2 }&quot;
+          &gt;&lt;/canvas&gt;
+        }
       &lt;/div&gt;
-    }
-  }
-  &lt;ng-content /&gt;
-&lt;/mat-list&gt;
+
+      &lt;h3 matListItemTitle style&#x3D;&quot;font-size: 0.9rem; font-weight: bold&quot;&gt;{{ song?.metadata?.title || song.file.name }}&lt;/h3&gt;
+      &lt;p matListItemLine style&#x3D;&quot;font-size: 0.8rem&quot;&gt;{{ song?.metadata?.artist }}&lt;/p&gt;
+
+      @if (isActive(song)()) {
+        &lt;button matListItemMeta mat-icon-button (click)&#x3D;&quot;playPauseSong($event, song)&quot;&gt;
+          &lt;mat-icon class&#x3D;&quot;accent-color&quot; [svgIcon]&#x3D;&quot;songPlaying ? &#x27;pause&#x27; : &#x27;play-outline&#x27;&quot;&gt;&lt;/mat-icon&gt;
+        &lt;/button&gt;
+      }
+    &lt;/mat-list-item&gt;
+  &lt;/mat-list&gt;
+&lt;/cdk-virtual-scroll-viewport&gt;
 </code></pre>
     </div>
 
@@ -846,7 +773,7 @@ export class PlaylistComponent {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><mat-list cdkDropList class="playlist" [cdkDropListDisabled]="loaderService.isLoading()" (cdkDropListDropped)="drop($event)">  @for (song of songs(); track song.metadata.crc; let index = $index) {    @defer (on viewport) {      <mat-list-item        cdkDrag        style="height: 72px"        class="playlist-item"        [ngClass]="{ selected: this.playerService.selectedTrack()?.metadata?.crc === song.metadata.crc }"        (dblclick)="playPauseSong($event, song)"        (click)="playerService.selectSong(song)"      >        <span *cdkDragPreview></span>        <div cdkDragHandle matListItemAvatar style="overflow: hidden; border-radius: 4px; position: relative; width: 50px; height: 50px">          @if (song && song.metadata && song.metadata.coverUrl) {            <img              style="position: absolute; top: 0; right: 0; bottom: 0; left: 0; width: 100%; height: 100%"              loading="lazy"              [src]="song.metadata.coverUrl.thumb | safe: \'resourceUrl\'"            />          }          @let songPlaying = isPlaying(song)();          @if (songPlaying && visualsService.visualMode() !== \'off\') {            <canvas              mtbVisual              mode="osc"              style="position: absolute; right: 0; bottom: 0; left: 0; width: 100%; height: 100%"              [colorConfig]="playerService.colorConfig()"              [oscConfig]="{ thickness: 2 }"            ></canvas>          }        </div>        <h3 matListItemTitle style="font-size: 0.9rem; font-weight: bold">{{ song?.metadata?.title || song.file.name }}</h3>        <p matListItemLine style="font-size: 0.8rem">{{ song?.metadata?.artist }}</p>        @if (isActive(song)()) {          <button matListItemMeta mat-icon-button (click)="playPauseSong($event, song)">            @if (songPlaying) {              <mat-icon class="accent-color" svgIcon="pause"></mat-icon>            } @else {              <mat-icon class="accent-color" svgIcon="play-outline"></mat-icon>            }          </button>        }      </mat-list-item>    } @placeholder {      <div style="height: 72px" class="flex row justify-center align-center">        <mat-spinner diameter="30" color="accent"></mat-spinner>      </div>    }  }  <ng-content /></mat-list></div>'
+        var COMPONENT_TEMPLATE = '<div><ng-content /><cdk-virtual-scroll-viewport itemSize="72" class="playlist-viewport" style="height: 100%">  <mat-list class="playlist">    <mat-list-item      *cdkVirtualFor="let song of playerService.currentPlaylist(); trackBy: trackByCrc"      style="height: 72px"      class="playlist-item"      [ngClass]="{ selected: this.playerService.selectedTrack()?.metadata?.crc === song.metadata.crc }"      (dblclick)="playPauseSong($event, song)"      (click)="playerService.selectSong(song)"    >      <div matListItemAvatar style="overflow: hidden; border-radius: 4px; position: relative; width: 50px; height: 50px">        @if (song && song.metadata && song.metadata.coverUrl) {          <img            style="position: absolute; top: 0; right: 0; bottom: 0; left: 0; width: 100%; height: 100%"            fill            [ngSrc]="song.metadata.coverUrl.thumb | safe: \'resourceUrl\'"          />        }        @let songPlaying = isPlaying(song)();        @if (songPlaying && visualsService.visualMode() !== \'off\') {          <canvas            mtbVisual            mode="osc"            style="position: absolute; right: 0; bottom: 0; left: 0; width: 100%; height: 100%"            [colorConfig]="playerService.colorConfig()"            [oscConfig]="{ thickness: 2 }"          ></canvas>        }      </div>      <h3 matListItemTitle style="font-size: 0.9rem; font-weight: bold">{{ song?.metadata?.title || song.file.name }}</h3>      <p matListItemLine style="font-size: 0.8rem">{{ song?.metadata?.artist }}</p>      @if (isActive(song)()) {        <button matListItemMeta mat-icon-button (click)="playPauseSong($event, song)">          <mat-icon class="accent-color" [svgIcon]="songPlaying ? \'pause\' : \'play-outline\'"></mat-icon>        </button>      }    </mat-list-item>  </mat-list></cdk-virtual-scroll-viewport></div>'
     var COMPONENTS = [{'name': 'AppComponent', 'selector': 'mtb-root'},{'name': 'CoverDisplayComponent', 'selector': 'mtb-cover-display'},{'name': 'EqualizerComponent', 'selector': 'mtb-equalizer'},{'name': 'FileDropOverlayComponent', 'selector': 'mtb-file-drop-overlay'},{'name': 'HotkeysHelpDialogComponent', 'selector': 'mtb-hotkeys-help-dialog'},{'name': 'LibraryComponent', 'selector': ''},{'name': 'MetadataSettingsComponent', 'selector': 'mtb-metadata-settings'},{'name': 'PlayerComponent', 'selector': 'mtb-player'},{'name': 'PlaylistComponent', 'selector': 'mtb-playlist'},{'name': 'PromptDialogComponent', 'selector': 'mtb-prompt-dialog'},{'name': 'SettingsComponent', 'selector': 'mtb-settings'},{'name': 'ShellComponent', 'selector': 'mtb-shell'},{'name': 'SlidePanelComponent', 'selector': 'mtb-slide-panel'},{'name': 'StorageSettingsComponent', 'selector': 'mtb-storage-settings'},{'name': 'ThemeSettingsComponent', 'selector': 'mtb-theme-settings'},{'name': 'VisualizerComponent', 'selector': 'mtb-visualizer'}];
     var DIRECTIVES = [{'name': 'VisualsDirective', 'selector': '[mtbVisual]'}];
     var ACTUAL_COMPONENT = {'name': 'PlaylistComponent'};
