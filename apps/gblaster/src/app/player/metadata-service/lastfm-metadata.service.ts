@@ -33,7 +33,7 @@ export class LastfmMetadataService {
   private readonly LASTFM_API_KEY = '3a67934408152a2fc3f7216c022ec1df';
   private readonly API_URL = 'https://ws.audioscrobbler.com/2.0/';
 
-  async getCoverPicture(tags: Id3Tags): Promise<RemoteCoverPicture | undefined> {
+  async getCoverPictureUrls(tags: Id3Tags): Promise<RemoteCoverPicture | undefined> {
     if (!tags.artist || !tags.album) {
       return undefined;
     }

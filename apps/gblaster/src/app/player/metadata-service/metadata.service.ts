@@ -1,7 +1,7 @@
 import { crc32 } from '@allex/crc32';
-import { inject, Injectable } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 import { NgxIndexedDBService } from 'ngx-indexed-db';
-import { LocalStorage } from 'ngx-webstorage';
+import { LocalStorageService } from 'ngx-webstorage';
 import { firstValueFrom } from 'rxjs';
 import { TrackMetadata } from '../player.types';
 import { Id3TagsService } from './id3-tags.service';
@@ -18,24 +18,25 @@ export class MetadataService {
   private lastfmMetadataService = inject(LastfmMetadataService);
   private musicbrainzService = inject(MusicbrainzService);
   private indexedDBService = inject(NgxIndexedDBService);
+  private localStorageService = inject(LocalStorageService);
 
   private readonly PLACEHOLDER_URL = 'assets/icons/record.svg';
 
-  @LocalStorage('useWebMetainfos', true) useWebMetainfos!: boolean;
-  @LocalStorage('useTagsCache', true) useTagsCache!: boolean;
-  @LocalStorage('useTagEmbeddedPicture', true) useTagEmbeddedPicture!: boolean;
-  @LocalStorage('preferTagEmbeddedPicture', true) preferTagEmbeddedPicture!: boolean;
+  readonly useWebMetainfos = signal(this.localStorageService.retrieve('useWebMetainfos') ?? true);
+  readonly useTagsCache = signal(this.localStorageService.retrieve('useTagsCache') ?? true);
+  readonly useTagEmbeddedPicture = signal(this.localStorageService.retrieve('useTagEmbeddedPicture') ?? true);
+  readonly preferTagEmbeddedPicture = signal(this.localStorageService.retrieve('preferTagEmbeddedPicture') ?? true);
 
-  async getMetadata(file: File): Promise<TrackMetadata> {
+  async getMetadata(file: File): Promise<TrackMetadata | undefined> {
     // console.time('hash');
     const crc = generateFileHash(file);
     // console.timeEnd('hash');
 
-    if (this.useTagsCache) {
+    if (this.useTagsCache()) {
       const metadataCache: TrackMetadata = await firstValueFrom(this.indexedDBService.getByKey<TrackMetadata>('metatags', crc));
 
       if (metadataCache) {
-        if (metadataCache.embeddedPicture && this.useTagEmbeddedPicture && (!metadataCache.coverUrl || this.preferTagEmbeddedPicture)) {
+        if (metadataCache.embeddedPicture && this.useTagEmbeddedPicture() && (!metadataCache.coverUrl || this.preferTagEmbeddedPicture())) {
           // renew local object urls
           const url = URL.createObjectURL(new Blob([metadataCache.embeddedPicture.data], { type: metadataCache.embeddedPicture.format }));
           return {
@@ -43,7 +44,7 @@ export class MetadataService {
             coverUrl: { thumb: url, original: url } // overwrite remote url with objectUrl for tag cover art
           };
         } else {
-          return this.metadataPrepareForUse(metadataCache);
+          return this.createObjectUrlForEmbeddedPicture(metadataCache);
         }
       }
     }
@@ -52,17 +53,17 @@ export class MetadataService {
     // console.timeEnd('id3tags');
     if (!tags) {
       // if no tags
-      return { crc: crc };
+      return undefined;
     }
 
-    let coverUrl: RemoteCoverPicture | undefined;
+    let coverUrls: RemoteCoverPicture | undefined;
 
-    if (this.useWebMetainfos) {
+    if (this.useWebMetainfos()) {
       if (tags.artist && tags.album) {
         // console.time('webcover');
-        coverUrl = await this.lastfmMetadataService.getCoverPicture(tags);
-        if (!coverUrl) {
-          coverUrl = await this.musicbrainzService.getCoverPicture(tags);
+        coverUrls = await this.lastfmMetadataService.getCoverPictureUrls(tags);
+        if (!coverUrls) {
+          coverUrls = await this.musicbrainzService.getCoverPictureUrls(tags);
         }
         // console.timeEnd('webcover');
       } else {
@@ -71,36 +72,41 @@ export class MetadataService {
     }
 
     let palette: CoverColorPalette | undefined;
-    if (coverUrl) {
+
+    if (coverUrls?.original) {
       // console.time('vibrant');
-      palette = await extractColorsWithNodeVibrant(coverUrl.original);
+      palette = await extractColorsWithNodeVibrant(coverUrls.original);
       // console.timeEnd('vibrant');
-      // console.time('wasm');
-      // palette = await extractColorsWithVibrantWasm(coverUrl.original);
-      // console.timeEnd('wasm');
     }
+    // else if (tags.picture) {
+    //   // console.time('vibrant');
+    //   const objectUrl = URL.createObjectURL(new Blob([tags.picture.data], { type: tags.picture.format }));
+    //   palette = await extractColorsWithNodeVibrant(objectUrl);
+    //   URL.revokeObjectURL(objectUrl);
+    //   // console.timeEnd('vibrant');
+    // }
 
     const metadata: TrackMetadata = {
       crc: crc,
-      coverUrl: coverUrl ?? { thumb: this.PLACEHOLDER_URL, original: this.PLACEHOLDER_URL },
+      coverUrl: coverUrls ?? { thumb: this.PLACEHOLDER_URL, original: this.PLACEHOLDER_URL },
       embeddedPicture: tags.picture,
-      coverColors: palette,
-      artist: tags?.artist,
-      title: tags?.title,
-      track: tags?.track?.no?.toString(),
-      album: tags?.album,
-      year: tags?.year,
-      format: tags?.format
+      coverColors: palette || {},
+      artist: tags.artist,
+      title: tags.title,
+      track: tags.track?.no?.toString(),
+      album: tags.album,
+      year: tags.year,
+      format: tags.format
     };
 
-    if (this.useTagsCache) {
+    if (this.useTagsCache()) {
       await this.indexedDBService.add('metatags', metadata).toPromise();
     }
-    return this.metadataPrepareForUse(metadata);
+    return this.createObjectUrlForEmbeddedPicture(metadata);
   }
 
-  private metadataPrepareForUse(meta: TrackMetadata): TrackMetadata {
-    if (meta.embeddedPicture && this.useTagEmbeddedPicture && (!meta.coverUrl || this.preferTagEmbeddedPicture)) {
+  private createObjectUrlForEmbeddedPicture(meta: TrackMetadata): TrackMetadata {
+    if (meta.embeddedPicture && this.useTagEmbeddedPicture() && (!meta.coverUrl || this.preferTagEmbeddedPicture())) {
       // renew local object urls
       // TODO: Erst kreieren wenn gebraucht!
       const url = URL.createObjectURL(new Blob([meta.embeddedPicture.data], { type: meta.embeddedPicture.format }));

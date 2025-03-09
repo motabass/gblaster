@@ -3,21 +3,23 @@
     <mat-card-title>Metadata-Settings</mat-card-title>
   </mat-card-header>
   <mat-card-content class="flex column gap-1" style="min-height: 48px; padding-top: 16px">
-    <mat-slide-toggle labelPosition="before" [checked]="useWebTags" (change)="onUseWebTagsChange($event)"
+    <mat-slide-toggle labelPosition="before" [checked]="metadataService.useWebMetainfos()" (change)="onUseWebTagsChange($event)"
       >Download Metadata from Last.FM and Musicbrainz</mat-slide-toggle
     >
-    <mat-slide-toggle #useTagPicsToggle labelPosition="before" [checked]="useTagEmbeddedPics" (change)="onUseTagEmbeddedPicsChange($event)"
+    <mat-slide-toggle #useTagPicsToggle labelPosition="before" [checked]="metadataService.useTagEmbeddedPicture()" (change)="onUseTagEmbeddedPicsChange($event)"
       >Use coverart from file-tags</mat-slide-toggle
     >
     <mat-slide-toggle
       labelPosition="before"
       [disabled]="!useTagPicsToggle.checked"
-      [checked]="preferTagEmbeddedPics"
+      [checked]="metadataService.preferTagEmbeddedPicture()"
       (change)="onPreferTagEmbeddedPicsChange($event)"
       >Prioritize coverart from file-Tags</mat-slide-toggle
     >
     <div class="flex row gap-1">
-      <mat-slide-toggle labelPosition="before" [checked]="useTagsCache" (change)="onUseTagsCacheChange($event)">Cache Tags in Indexed-DB</mat-slide-toggle>
+      <mat-slide-toggle labelPosition="before" [checked]="metadataService.useTagsCache()" (change)="onUseTagsCacheChange($event)"
+        >Cache Tags in Indexed-DB</mat-slide-toggle
+      >
       <button mat-flat-button style="height: 28px; padding: 0 4px; line-height: normal" color="accent" (click)="clearMetadataCache()">Clear Tags-DB</button>
     </div>
   </mat-card-content>

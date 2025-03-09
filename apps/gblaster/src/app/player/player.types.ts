@@ -14,11 +14,10 @@ export interface TrackMetadata {
   track?: string;
   album?: string;
   year?: string;
-  duration?: number;
-  format?: IFormat;
-  coverUrl?: RemoteCoverPicture;
+  format: IFormat;
+  coverUrl: RemoteCoverPicture;
   embeddedPicture?: Id3CoverPicture;
-  coverColors?: CoverColorPalette;
+  coverColors: CoverColorPalette;
 }
 
 // EQ

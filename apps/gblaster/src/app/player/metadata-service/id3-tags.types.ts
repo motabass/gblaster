@@ -7,10 +7,10 @@ export interface Id3Tags {
   album?: string;
   track?: { no?: number | null; of?: number | null };
   year?: string;
-  format?: IFormat;
+  format: IFormat;
 }
 
 export interface Id3CoverPicture {
   data: Uint8Array;
-  format?: string;
+  format: string;
 }

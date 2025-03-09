@@ -129,6 +129,11 @@ export class PlayerService extends BaseSubscribingClass {
         this.loaderService.show();
         const song = await this.createTrackFromFile(file);
         this.loaderService.hide();
+
+        if (!song) {
+          continue;
+        }
+
         // avoid duplicate playlist entries
         if (!this.currentPlaylist().some((playlistSong) => playlistSong.metadata?.crc === song.metadata?.crc)) {
           this.currentPlaylist.update((playlist) => [...playlist, song]);
@@ -148,10 +153,14 @@ export class PlayerService extends BaseSubscribingClass {
     }
   }
 
-  private async createTrackFromFile(file: File): Promise<Track> {
+  private async createTrackFromFile(file: File): Promise<Track | undefined> {
     // console.time('full-metadata');
     const metadata = await this.metadataService.getMetadata(file);
     // console.timeEnd('full-metadata');
+
+    if (!metadata) {
+      return undefined;
+    }
     return {
       file: file,
       metadata: metadata
@@ -218,26 +227,23 @@ export class PlayerService extends BaseSubscribingClass {
   }
 
   async next(): Promise<void> {
-    if (this.audioService.isLoading() || !this.currentlyLoadedTrack()) {
+    const loadedTrack = this.currentlyLoadedTrack();
+    if (this.audioService.isLoading() || !loadedTrack) {
       return;
     }
 
+    const playlist = this.currentPlaylist();
+
     if (this.shuffle()) {
-      const randomPosition = getRandomInt(0, this.currentPlaylist().length - 1);
-      return this.playTrack(this.currentPlaylist()[randomPosition]);
+      const randomPosition = getRandomInt(0, playlist.length - 1);
+      return this.playTrack(playlist[randomPosition]);
     }
 
-    const loadedTrack = this.currentlyLoadedTrack();
-
-    if (!loadedTrack) {
-      return this.playTrack(this.currentPlaylist()[0]);
-    }
-
-    const currentPosition = this.currentPlaylist().indexOf(loadedTrack);
-    if (currentPosition < this.currentPlaylist().length) {
-      return this.playTrack(this.currentPlaylist()[currentPosition]);
+    const currentPosition = playlist.indexOf(loadedTrack);
+    if (currentPosition < playlist.length - 1) {
+      return this.playTrack(playlist[currentPosition + 1]);
     } else if (this.repeat() === 'all') {
-      return this.playTrack(this.currentPlaylist()[0]);
+      return this.playTrack(playlist[0]);
     }
   }
 
@@ -254,8 +260,8 @@ export class PlayerService extends BaseSubscribingClass {
 
     const currentPosition = this.currentPlaylist().indexOf(loadedTrack);
 
-    if (currentPosition > 1) {
-      return this.playTrack(this.currentPlaylist()[currentPosition - 2]);
+    if (currentPosition > 0) {
+      return this.playTrack(this.currentPlaylist()[currentPosition - 1]);
     }
   }
 

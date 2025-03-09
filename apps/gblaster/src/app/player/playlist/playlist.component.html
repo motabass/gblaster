@@ -1,5 +1,5 @@
 <ng-content />
-<cdk-virtual-scroll-viewport itemSize="72" class="playlist-viewport" style="height: 100%">
+<cdk-virtual-scroll-viewport #scrollViewport itemSize="72" class="playlist-viewport" style="height: 100%">
   <mat-list class="playlist">
     <mat-list-item
       *cdkVirtualFor="let song of playerService.currentPlaylist(); trackBy: trackByCrc"

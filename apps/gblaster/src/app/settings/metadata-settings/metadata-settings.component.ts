@@ -11,42 +11,26 @@ import { MatCardModule } from '@angular/material/card';
   imports: [MatCardModule, MatSlideToggleModule, MatButtonModule]
 })
 export class MetadataSettingsComponent {
-  private metadataService = inject(MetadataService);
+  metadataService = inject(MetadataService);
   private indexedDBService = inject(NgxIndexedDBService);
 
-  get useWebTags() {
-    return this.metadataService.useWebMetainfos;
-  }
-
-  get useTagsCache() {
-    return this.metadataService.useTagsCache;
-  }
-
   onUseWebTagsChange(event: MatSlideToggleChange) {
-    this.metadataService.useWebMetainfos = event.checked;
+    this.metadataService.useWebMetainfos.set(event.checked);
   }
 
   onUseTagsCacheChange(event: MatSlideToggleChange) {
-    this.metadataService.useTagsCache = event.checked;
+    this.metadataService.useTagsCache.set(event.checked);
+  }
+
+  onUseTagEmbeddedPicsChange(event: MatSlideToggleChange) {
+    this.metadataService.useTagEmbeddedPicture.set(event.checked);
+  }
+
+  onPreferTagEmbeddedPicsChange(event: MatSlideToggleChange) {
+    this.metadataService.preferTagEmbeddedPicture.set(event.checked);
   }
 
   async clearMetadataCache() {
     await this.indexedDBService.clear('metatags').toPromise();
-  }
-
-  get useTagEmbeddedPics(): boolean {
-    return this.metadataService.useTagEmbeddedPicture;
-  }
-
-  onUseTagEmbeddedPicsChange(event: MatSlideToggleChange) {
-    this.metadataService.useTagEmbeddedPicture = event.checked;
-  }
-
-  get preferTagEmbeddedPics(): boolean {
-    return this.metadataService.preferTagEmbeddedPicture;
-  }
-
-  onPreferTagEmbeddedPicsChange(event: MatSlideToggleChange) {
-    this.metadataService.preferTagEmbeddedPicture = event.checked;
   }
 }

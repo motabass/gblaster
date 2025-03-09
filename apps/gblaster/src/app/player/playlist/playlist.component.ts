@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, inject, Signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, effect, inject, signal, Signal, viewChild } from '@angular/core';
 import { PlayerService } from '../player.service';
 import { Track } from '../player.types';
 import { VisualsService } from '../visualizer/visuals/visuals.service';
@@ -11,6 +11,8 @@ import { MatListModule } from '@angular/material/list';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { SafePipe } from 'safe-pipe';
 import { CdkFixedSizeVirtualScroll, CdkVirtualForOf, CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
+import { takeUntil } from 'rxjs/operators';
+import { BaseSubscribingClass } from '@motabass/base-components/base-subscribing-component';
 
 @Component({
   selector: 'mtb-playlist',
@@ -31,10 +33,59 @@ import { CdkFixedSizeVirtualScroll, CdkVirtualForOf, CdkVirtualScrollViewport } 
     CdkFixedSizeVirtualScroll
   ]
 })
-export class PlaylistComponent {
+export class PlaylistComponent extends BaseSubscribingClass {
   playerService = inject(PlayerService);
   audioService = inject(AudioService);
   visualsService = inject(VisualsService);
+
+  readonly scrollViewport = viewChild<CdkVirtualScrollViewport>('scrollViewport');
+
+  private readonly isAutoScrollEnabled = signal(false);
+
+  constructor() {
+    super();
+    effect(() => {
+      const playlist = this.playerService.currentPlaylist();
+
+      // Wait for change detection to complete
+      setTimeout(() => {
+        if (playlist && playlist.length > 0 && this.isAutoScrollEnabled()) {
+          this.scrollToBottom();
+        }
+      });
+    });
+
+    effect(() => {
+      const viewport = this.scrollViewport();
+      if (viewport) {
+        viewport
+          .elementScrolled()
+          .pipe(takeUntil(this.destroy$))
+          .subscribe(() => {
+            const scrollPosition = viewport.measureScrollOffset('bottom');
+            const measureOffset = 30;
+            // If user scrolled to bottom (or very close to it - within 10px)
+            if (scrollPosition < measureOffset) {
+              this.isAutoScrollEnabled.set(true);
+            }
+            // If user scrolled up
+            else if (scrollPosition > measureOffset && this.isAutoScrollEnabled) {
+              this.isAutoScrollEnabled.set(false);
+            }
+          });
+      }
+    });
+  }
+
+  scrollToBottom() {
+    const viewport = this.scrollViewport();
+    if (viewport) {
+      const playlist = this.playerService.currentPlaylist();
+      if (playlist && playlist.length > 0) {
+        viewport.scrollToIndex(playlist.length - 1, 'smooth');
+      }
+    }
+  }
 
   isActive(song: Track): Signal<boolean> {
     return computed(() => {
