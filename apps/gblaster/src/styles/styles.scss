@@ -16,7 +16,7 @@ body {
 
 // Selection
 ::selection {
-  background-color: var(--theme-accent-500);
+  background-color: var(--theme-accent-50);
   color: black;
 }
 
@@ -32,7 +32,7 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--theme-accent-500);
+  background: var(--theme-accent-50);
   border: 0 none #000;
   border-radius: 50px;
 }
@@ -47,7 +47,7 @@ body {
 }
 
 ::-webkit-scrollbar-thumb:active {
-  background: var(--theme-accent-500);
+  background: var(--theme-accent-50);
 }
 
 ::-webkit-scrollbar-track:hover {

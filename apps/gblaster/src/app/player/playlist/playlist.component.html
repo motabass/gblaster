@@ -1,4 +1,5 @@
 <mat-list cdkDropList class="playlist" [cdkDropListDisabled]="loaderService.isLoading()" (cdkDropListDropped)="drop($event)">
+  <ng-content />
   @for (song of songs(); track song.metadata.crc; let index = $index) {
     @defer (on viewport) {
       <mat-list-item
@@ -35,11 +36,7 @@
 
         @if (isActive(song)()) {
           <button matListItemMeta mat-icon-button (click)="playPauseSong($event, song)">
-            @if (songPlaying) {
-              <mat-icon class="accent-color" svgIcon="pause"></mat-icon>
-            } @else {
-              <mat-icon class="accent-color" svgIcon="play-outline"></mat-icon>
-            }
+            <mat-icon class="accent-color" [svgIcon]="songPlaying ? 'pause' : 'play-outline'"></mat-icon>
           </button>
         }
       </mat-list-item>
@@ -49,5 +46,4 @@
       </div>
     }
   }
-  <ng-content />
 </mat-list>

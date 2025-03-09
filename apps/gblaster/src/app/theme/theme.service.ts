@@ -17,15 +17,12 @@ export class ThemeService {
 
   private accentColor = FALLBACK_ACCENT_COLOR;
 
-  readonly darkMode = signal(this.localStorageService.retrieve('darkMode') ?? true);
+  readonly darkMode = signal<boolean>(this.localStorageService.retrieve('darkMode') ?? globalThis.matchMedia('(prefers-color-scheme: dark)').matches);
 
   primaryColorPalette: Color[] = [];
   accentColorPalette: Color[] = [];
 
   initializeTheme() {
-    if (globalThis.matchMedia('(prefers-color-scheme: dark)').matches) {
-      this.darkMode.set(true);
-    }
     this.setOverlayClass();
     this.setPrimaryColor(this.primaryColor);
     this.setAccentColor(this.accentColor);
@@ -49,10 +46,10 @@ export class ThemeService {
     for (const clr of this.primaryColorPalette) {
       const key1 = `--theme-primary-${clr.name}`;
       const value1 = clr.hex;
-      const key2 = `--theme-primary-contrast-${clr.name}`;
-      const value2 = clr.darkContrast ? 'rgba(0,0,0, 0.87)' : 'white';
+      // const key2 = `--theme-primary-contrast-${clr.name}`;
+      // const value2 = clr.darkContrast ? 'rgba(0,0,0, 0.87)' : 'white';
       document.documentElement.style.setProperty(key1, value1);
-      document.documentElement.style.setProperty(key2, value2);
+      // document.documentElement.style.setProperty(key2, value2);
     }
 
     this.meta.addTag({ name: 'theme-color', content: this.primaryColor }, true);
@@ -66,45 +63,45 @@ export class ThemeService {
     for (const clr of this.accentColorPalette) {
       const key1 = `--theme-accent-${clr.name}`;
       const value1 = clr.hex;
-      const key2 = `--theme-accent-contrast-${clr.name}`;
-      const value2 = clr.darkContrast ? 'rgba(0,0,0, 0.87)' : 'white';
+      // const key2 = `--theme-accent-contrast-${clr.name}`;
+      // const value2 = clr.darkContrast ? 'rgba(0,0,0, 0.87)' : 'white';
       document.documentElement.style.setProperty(key1, value1);
-      document.documentElement.style.setProperty(key2, value2);
+      // document.documentElement.style.setProperty(key2, value2);
 
-      if (clr.name === '500') {
-        const key3 = `--theme-accent-light`;
-        const value3 = new TinyColor(clr.hex).setAlpha(0.54).toRgbString();
-        document.documentElement.style.setProperty(key3, value3);
-      }
+      // if (clr.name === '500') {
+      //   const key3 = `--theme-accent-light`;
+      //   const value3 = new TinyColor(clr.hex).setAlpha(0.54).toRgbString();
+      //   document.documentElement.style.setProperty(key3, value3);
+      // }
     }
   }
 
   private setOverlayClass() {
     if (this.darkMode()) {
-      document.body.classList.add('dark-theme');
-      document.body.classList.remove('light-theme');
+      document.documentElement.style.setProperty('--app-color-scheme', 'dark');
     } else {
-      document.body.classList.add('light-theme');
-      document.body.classList.remove('dark-theme');
+      document.documentElement.style.setProperty('--app-color-scheme', 'light');
     }
   }
 
   private computeColors(hex: string): Color[] {
     return [
-      this.getColorObject(new TinyColor(hex).lighten(52), '50'),
-      this.getColorObject(new TinyColor(hex).lighten(37), '100'),
-      this.getColorObject(new TinyColor(hex).lighten(26), '200'),
-      this.getColorObject(new TinyColor(hex).lighten(12), '300'),
-      this.getColorObject(new TinyColor(hex).lighten(6), '400'),
-      this.getColorObject(new TinyColor(hex), '500'),
-      this.getColorObject(new TinyColor(hex).darken(6), '600'),
-      this.getColorObject(new TinyColor(hex).darken(12), '700'),
-      this.getColorObject(new TinyColor(hex).darken(18), '800'),
-      this.getColorObject(new TinyColor(hex).darken(24), '900'),
-      this.getColorObject(new TinyColor(hex).lighten(50).saturate(30), 'a100'),
-      this.getColorObject(new TinyColor(hex).lighten(30).saturate(30), 'a200'),
-      this.getColorObject(new TinyColor(hex).lighten(10).saturate(15), 'a400'),
-      this.getColorObject(new TinyColor(hex).lighten(5).saturate(5), 'a700')
+      this.getColorObject(new TinyColor(hex).lighten(55), '0'),
+      this.getColorObject(new TinyColor(hex).lighten(45), '10'),
+      this.getColorObject(new TinyColor(hex).lighten(35), '20'),
+      this.getColorObject(new TinyColor(hex).lighten(30), '25'),
+      this.getColorObject(new TinyColor(hex).lighten(25), '30'),
+      this.getColorObject(new TinyColor(hex).lighten(20), '35'),
+      this.getColorObject(new TinyColor(hex).lighten(15), '40'),
+      this.getColorObject(new TinyColor(hex), '50'),
+      this.getColorObject(new TinyColor(hex).darken(5), '60'),
+      this.getColorObject(new TinyColor(hex).darken(10), '70'),
+      this.getColorObject(new TinyColor(hex).darken(15), '80'),
+      this.getColorObject(new TinyColor(hex).darken(18), '90'),
+      this.getColorObject(new TinyColor(hex).darken(21), '95'),
+      this.getColorObject(new TinyColor(hex).darken(24), '98'),
+      this.getColorObject(new TinyColor(hex).darken(27), '99'),
+      this.getColorObject(new TinyColor(hex).darken(30), '100')
     ];
   }
 

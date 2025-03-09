@@ -123,7 +123,7 @@ function drawOsc() {
   context.clearRect(0, 0, canvasWidth, canvasHeight);
   context.globalAlpha = alpha;
   context.lineWidth = thickness;
-  context.strokeStyle = mainColor;
+  context.strokeStyle = peakColor;
 
   const halfCanvasHeight = canvasHeight / 2;
   const scaleFactor = halfCanvasHeight / 128;
@@ -177,7 +177,7 @@ function drawCircularOsc() {
   // Close the path to form a complete circle
   context.closePath();
   context.lineWidth = thickness;
-  context.strokeStyle = mainColor;
+  context.strokeStyle = peakColor;
   context.stroke();
 }
 

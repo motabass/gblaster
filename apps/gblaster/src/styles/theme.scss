@@ -1,130 +1,71 @@
 // Custom Theming for Angular Material
 // For more information: https://material.angular.io/guide/theming
 @use '@angular/material' as mat;
+@use 'theme-colors' as tc;
 
-// Plus imports for other components in your app.
+:root {
+  --mat-sys-background: light-dark(white, #303030);
+  --mat-icon-color: var(--theme-accent-50);
 
-// Include the common styles for Angular Material. We include this here so that you only
-// have to load a single css file for Angular Material in your app.
-// Be sure that you only ever include this mixin once!
-// TODO(v15): As of v15 mat.legacy-core no longer includes default typography styles.
-//  The following line adds:
-//    1. Default typography styles for all components
-//    2. Styles for typography hierarchy classes (e.g. .mat-headline-1)
-//  If you specify typography styles for the components you use elsewhere, you should delete this line.
-//  If you don't need the default component typographies but still want the hierarchy styles,
-//  you can delete this line and instead use:
-//    `@include mat.legacy-typography-hierarchy(mat.define-typography-config());`
-@include mat.all-component-typographies;
-@include mat.elevation-classes;
-@include mat.app-background;
-
-// Palettes
-$dynamic-primary-palette: (
-  50: var(--theme-primary-50),
-  100: var(--theme-primary-100),
-  200: var(--theme-primary-200),
-  300: var(--theme-primary-300),
-  400: var(--theme-primary-400),
-  500: var(--theme-primary-500),
-  600: var(--theme-primary-600),
-  700: var(--theme-primary-700),
-  800: var(--theme-primary-800),
-  900: var(--theme-primary-900),
-  A100: var(--theme-primary-a100),
-  A200: var(--theme-primary-a200),
-  A400: var(--theme-primary-a400),
-  A700: var(--theme-primary-a700),
-  contrast: (
-    50: var(--theme-primary-contrast-50),
-    100: var(--theme-primary-contrast-100),
-    200: var(--theme-primary-contrast-200),
-    300: var(--theme-primary-contrast-300),
-    400: var(--theme-primary-contrast-400),
-    500: var(--theme-primary-contrast-500),
-    600: var(--theme-primary-contrast-600),
-    700: var(--theme-primary-contrast-700),
-    800: var(--theme-primary-contrast-800),
-    900: var(--theme-primary-contrast-900),
-    A100: var(--theme-primary-contrast-a100),
-    A200: var(--theme-primary-contrast-a200),
-    A400: var(--theme-primary-contrast-a400),
-    A700: var(--theme-primary-contrast-a700)
-  )
-);
-$dynamic-accent-palette: (
-  50: var(--theme-accent-50),
-  100: var(--theme-accent-100),
-  200: var(--theme-accent-200),
-  300: var(--theme-accent-300),
-  400: var(--theme-accent-400),
-  500: var(--theme-accent-500),
-  600: var(--theme-accent-600),
-  700: var(--theme-accent-700),
-  800: var(--theme-accent-800),
-  900: var(--theme-accent-900),
-  A100: var(--theme-accent-a100),
-  A200: var(--theme-accent-a200),
-  A400: var(--theme-accent-a400),
-  A700: var(--theme-accent-a700),
-  contrast: (
-    50: var(--theme-accent-contrast-50),
-    100: var(--theme-accent-contrast-100),
-    200: var(--theme-accent-contrast-200),
-    300: var(--theme-accent-contrast-300),
-    400: var(--theme-accent-contrast-400),
-    500: var(--theme-accent-contrast-500),
-    600: var(--theme-accent-contrast-600),
-    700: var(--theme-accent-contrast-700),
-    800: var(--theme-accent-contrast-800),
-    900: var(--theme-accent-contrast-900),
-    A100: var(--theme-accent-contrast-a100),
-    A200: var(--theme-accent-contrast-a200),
-    A400: var(--theme-accent-contrast-a400),
-    A700: var(--theme-accent-contrast-a700)
-  )
-);
-
-// Define Themes
-$dynamic-primary: mat.m2-define-palette($dynamic-primary-palette);
-$dynamic-accent: mat.m2-define-palette($dynamic-accent-palette);
-$warn: mat.m2-define-palette(mat.$m2-red-palette);
-$dynamic-light-theme: mat.m2-define-light-theme(
-  (
-    color: (
-      primary: $dynamic-primary,
-      accent: $dynamic-accent,
-      warn: $warn
+  @include mat.system-level-shape(
+    (
+      'corner-extra-small': 2px,
+      'corner-small': 3px,
+      'corner-medium': 4px,
+      'corner-large': 8px,
+      'corner-extra-large': 16px,
+      'corner-full': 28px
     )
-  )
-);
-$dynamic-dark-theme: mat.m2-define-dark-theme(
-  (
-    color: (
-      primary: $dynamic-primary,
-      accent: $dynamic-accent,
-      warn: $warn
-    )
-  )
-);
+  );
 
-// Include all theme styles for the components.
+  @include mat.card-overrides(
+    (
+      outlined-container-elevation: 12
+    )
+  );
+
+  @include mat.toolbar-overrides(
+    (
+      container-background-color: var(--theme-primary-50),
+      container-text-color: white
+    )
+  );
+
+  @include mat.slider-overrides(
+    (
+      handle-color: var(--theme-accent-50),
+      focus-handle-color: var(--theme-accent-50),
+      active-track-color: var(--theme-accent-40),
+      inactive-track-color: var(--theme-primary-0),
+      label-container-color: var(--theme-primary-70),
+      label-label-text-color: var(--theme-accent-50)
+    )
+  );
+
+  @include mat.progress-spinner-overrides(
+    (
+      active-indicator-color: var(--theme-accent-50)
+    )
+  );
+}
+
 html {
-  @include mat.all-component-bases($dynamic-light-theme);
-  @include mat.all-component-densities($dynamic-light-theme);
-  @include mat.all-component-typographies($dynamic-light-theme);
+  color-scheme: var(--app-color-scheme, light dark);
+
+  @include mat.theme(
+    (
+      color: (
+        primary: tc.$primary-palette,
+        tertiary: tc.$tertiary-palette
+      ),
+      typography: 'Roboto Condensed',
+      density: 0
+    )
+  );
 }
 
-.light-theme {
-  @include mat.all-component-colors($dynamic-light-theme);
-}
-
-.dark-theme {
-  @include mat.all-component-colors($dynamic-dark-theme);
-}
-
-$primary-color: var(--theme-primary-500);
-$accent-color: var(--theme-accent-500);
+$primary-color: var(--theme-primary-50);
+$accent-color: var(--theme-accent-50);
 
 .primary-color {
   color: $primary-color !important;

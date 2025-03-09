@@ -12,17 +12,15 @@
       <span class="title">{{ titleService.title() }}</span>
     </mat-toolbar>
     <mat-nav-list>
-      <mat-list-item (click)="navigateTo('/player')">
-        <mat-icon matListItemAvatar svgIcon="record-player" /><span matListItemTitle> Player</span></mat-list-item
-      >
+      <mat-list-item (click)="navigateTo('/player')"> <mat-icon matListItemIcon svgIcon="record-player" /><span matListItemTitle> Player</span></mat-list-item>
       <mat-list-item (click)="navigateTo('/player/eq')">
-        <mat-icon matListItemAvatar svgIcon="tune-vertical" /><span matListItemTitle> Equalizer</span></mat-list-item
+        <mat-icon matListItemIcon svgIcon="tune-vertical" /><span matListItemTitle> Equalizer</span></mat-list-item
       >
       <mat-list-item (click)="navigateTo('/player/library')"
-        ><mat-icon matListItemAvatar svgIcon="music-box-multiple-outline" /><span matListItemTitle> Library</span></mat-list-item
+        ><mat-icon matListItemIcon svgIcon="music-box-multiple-outline" /><span matListItemTitle> Library</span></mat-list-item
       >
       <mat-list-item (click)="navigateTo('/settings')">
-        <mat-icon matListItemAvatar svgIcon="cog-outline" /><span matListItemTitle> Settings</span></mat-list-item
+        <mat-icon matListItemIcon svgIcon="cog-outline" /><span matListItemTitle> Settings</span></mat-list-item
       >
     </mat-nav-list>
   </mat-sidenav>

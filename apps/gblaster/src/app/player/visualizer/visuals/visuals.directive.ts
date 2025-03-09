@@ -1,4 +1,4 @@
-import { Directive, ElementRef, inject, input, NgZone, OnChanges, OnDestroy, SimpleChanges } from '@angular/core';
+import { Directive, effect, ElementRef, inject, input, NgZone, OnDestroy } from '@angular/core';
 import type { FrequencyBarsConfig, OsciloscopeConfig, VisualizerMode, VisualsColorConfig, VisualsWorkerMessage } from './visuals.types';
 import { AudioService } from '../../audio.service';
 
@@ -8,7 +8,7 @@ const FALLBACK_ACCENT_COLOR = '#bcbcbc';
   selector: '[mtbVisual]',
   standalone: true
 })
-export class VisualsDirective implements OnDestroy, OnChanges {
+export class VisualsDirective implements OnDestroy {
   private zone = inject(NgZone);
   private audioService = inject(AudioService);
 
@@ -44,6 +44,40 @@ export class VisualsDirective implements OnDestroy, OnChanges {
 
     const offscreenCanvas: OffscreenCanvas = this.canvas.transferControlToOffscreen();
     this.visualizerWorker.postMessage({ canvas: offscreenCanvas } as VisualsWorkerMessage, [offscreenCanvas]);
+
+    effect(() => {
+      // Access signals to establish dependencies
+      const currentMode = this.mode();
+      // const currentBarsConfig = this.barsConfig();
+      // const currentOscConfig = this.oscConfig();
+      // const currentColorConfig = this.colorConfig();
+      // const currentAnalyser = this.analyser();
+
+      this.stopVisualizer();
+
+      // give canvas size for correct dpi
+      const rect = this.canvas.getBoundingClientRect();
+      this.visualizerWorker.postMessage({ newSize: rect } as VisualsWorkerMessage);
+
+      switch (currentMode) {
+        case 'bars': {
+          this.visualizeFrequencyBars(false);
+          break;
+        }
+        case 'osc': {
+          this.visualizeOscilloscope(false);
+          break;
+        }
+        case 'circular-osc': {
+          this.visualizeOscilloscope(true);
+          break;
+        }
+        case 'circular-bars': {
+          this.visualizeFrequencyBars(true);
+          break;
+        }
+      }
+    });
   }
 
   get analyserNode(): AnalyserNode {
@@ -55,34 +89,6 @@ export class VisualsDirective implements OnDestroy, OnChanges {
         this._internalAnalyzer = this.audioService.plugInNewAnalyserNode();
       }
       return this._internalAnalyzer;
-    }
-  }
-
-  ngOnChanges(changes: SimpleChanges) {
-    this.stopVisualizer();
-
-    // give canvas size for correct dpi
-    const rect = this.canvas.getBoundingClientRect();
-
-    this.visualizerWorker.postMessage({ newSize: rect } as VisualsWorkerMessage);
-
-    switch (this.mode()) {
-      case 'bars': {
-        this.visualizeFrequencyBars(false);
-        break;
-      }
-      case 'osc': {
-        this.visualizeOscilloscope(false);
-        break;
-      }
-      case 'circular-osc': {
-        this.visualizeOscilloscope(true);
-        break;
-      }
-      case 'circular-bars': {
-        this.visualizeFrequencyBars(true);
-        break;
-      }
     }
   }
 
