@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, effect, inject, signal, Signal, viewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, DestroyRef, effect, inject, signal, Signal, viewChild } from '@angular/core';
 import { PlayerService } from '../player.service';
 import { Track } from '../player.types';
 import { VisualsService } from '../visualizer/visuals/visuals.service';
@@ -11,8 +11,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { SafePipe } from 'safe-pipe';
 import { CdkFixedSizeVirtualScroll, CdkVirtualForOf, CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
-import { takeUntil } from 'rxjs/operators';
-import { BaseSubscribingClass } from '@motabass/base-components/base-subscribing-component';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'mtb-playlist',
@@ -33,17 +32,17 @@ import { BaseSubscribingClass } from '@motabass/base-components/base-subscribing
     CdkFixedSizeVirtualScroll
   ]
 })
-export class PlaylistComponent extends BaseSubscribingClass {
+export class PlaylistComponent {
   playerService = inject(PlayerService);
   audioService = inject(AudioService);
   visualsService = inject(VisualsService);
+  private destroRef = inject(DestroyRef);
 
   readonly scrollViewport = viewChild<CdkVirtualScrollViewport>('scrollViewport');
 
   private readonly isAutoScrollEnabled = signal(false);
 
   constructor() {
-    super();
     effect(() => {
       const playlist = this.playerService.currentPlaylist();
 
@@ -60,7 +59,7 @@ export class PlaylistComponent extends BaseSubscribingClass {
       if (viewport) {
         viewport
           .elementScrolled()
-          .pipe(takeUntil(this.destroy$))
+          .pipe(takeUntilDestroyed(this.destroRef))
           .subscribe(() => {
             const scrollPosition = viewport.measureScrollOffset('bottom');
             const measureOffset = 30;

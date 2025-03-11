@@ -17,7 +17,6 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@motabass/base-components/base-subscribing-component": ["libs/base-components/base-subscribing-component/src/index.ts"],
       "@motabass/helpers": ["libs/helpers/src/index.ts"],
       "@motabass/material-helpers/mat-icon-size": ["libs/material-helpers/mat-icon-size/src/index.ts"],
       "@motabass/ui-components/dialogs": ["libs/ui-components/dialogs/src/index.ts"],

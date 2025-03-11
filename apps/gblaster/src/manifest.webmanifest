@@ -6,8 +6,8 @@
   "lang": "en",
   "theme_color": "#383838",
   "background_color": "#383838",
-  "display": "standalone",
   "display_override": ["window-controls-overlay"],
+  "display": "standalone",
   "scope": "/",
   "start_url": "/player",
   "icons": [

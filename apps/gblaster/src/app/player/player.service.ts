@@ -1,4 +1,4 @@
-import { computed, effect, inject, Injectable, signal } from '@angular/core';
+import { computed, DestroyRef, effect, inject, Injectable, signal } from '@angular/core';
 import { LocalStorageService } from 'ngx-webstorage';
 import { FileLoaderService } from './file-loader-service/file-loader.service.abstract';
 import { MetadataService } from './metadata-service/metadata.service';
@@ -9,11 +9,10 @@ import { LoaderService } from '../services/loader/loader.service';
 import { WakelockService } from '../services/wakelock.service';
 import { MediaSessionService } from '../services/media-session/media-session.service';
 import { AudioService } from './audio.service';
-import { BaseSubscribingClass } from '@motabass/base-components/base-subscribing-component';
-import { takeUntil } from 'rxjs/operators';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Injectable({ providedIn: 'any' })
-export class PlayerService extends BaseSubscribingClass {
+export class PlayerService {
   private audioService = inject(AudioService);
   private localStorageService = inject(LocalStorageService);
   private fileLoaderService = inject(FileLoaderService);
@@ -23,20 +22,13 @@ export class PlayerService extends BaseSubscribingClass {
   private wakelockService = inject(WakelockService, { optional: true });
   private mediaSessionService = inject(MediaSessionService, { optional: true });
 
+  private destroRef = inject(DestroyRef);
+
   readonly currentPlaylist = signal<Track[]>([]);
 
   readonly selectedTrack = signal<Track | undefined>(undefined);
 
   readonly currentlyLoadedTrack = signal<Track | undefined>(undefined);
-
-  // TODO: Signal mit param track????
-  // readonly playingTrack = computed(() => {
-  //   const track = this.currentlyLoadedTrack();
-  //   if (track && this.audioService.isPlaying()) {
-  //     return track;
-  //   }
-  //   return;
-  // });
 
   readonly repeat = signal<RepeatMode>(this.localStorageService.retrieve('repeat') || 'off');
   readonly shuffle = signal<boolean>(this.localStorageService.retrieve('shuffle') ?? false);
@@ -49,7 +41,6 @@ export class PlayerService extends BaseSubscribingClass {
   });
 
   constructor() {
-    super();
     if (this.mediaSessionService) {
       this.mediaSessionService.setActionHandler('play', () => this.playPause());
       this.mediaSessionService.setActionHandler('pause', () => this.playPause());
@@ -79,7 +70,7 @@ export class PlayerService extends BaseSubscribingClass {
       });
     }
 
-    this.audioService.hasEnded$.pipe(takeUntil(this.destroy$)).subscribe(() => {
+    this.audioService.hasEnded$.pipe(takeUntilDestroyed(this.destroRef)).subscribe(() => {
       void this.next();
     });
 
@@ -122,10 +113,7 @@ export class PlayerService extends BaseSubscribingClass {
 
   async addFilesToPlaylist(...files: File[]) {
     if (files?.length) {
-      // let tempList: Track[] = [];
-      // let startTime = Date.now();
-
-      for (const [index, file] of files.entries()) {
+      for (const file of files.values()) {
         this.loaderService.show();
         const song = await this.createTrackFromFile(file);
         this.loaderService.hide();
@@ -133,22 +121,10 @@ export class PlayerService extends BaseSubscribingClass {
         if (!song) {
           continue;
         }
-
         // avoid duplicate playlist entries
         if (!this.currentPlaylist().some((playlistSong) => playlistSong.metadata?.crc === song.metadata?.crc)) {
           this.currentPlaylist.update((playlist) => [...playlist, song]);
-          // tempList.push(song);
         }
-
-        // // alle 2sek die Temporäre Liste in die sichtbare Playlist pushen
-        // if (Date.now() - startTime > 2000 || index === files.length - 1) {
-        //   this.currentPlaylist.update(((currentList) => [...currentList, ...tempList]));
-        //   if (!this.selectedTrack() && this.currentPlaylist().length > 0) {
-        //     this.selectSong(this.currentPlaylist()[0]);
-        //   }
-        //   tempList = [];
-        //   startTime = Date.now();
-        // }
       }
     }
   }

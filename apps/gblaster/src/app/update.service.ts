@@ -1,24 +1,23 @@
-import { Injectable, inject } from '@angular/core';
+import { DestroyRef, inject, Injectable } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { SwUpdate } from '@angular/service-worker';
 import { PromptDialogComponent, PromptDialogData } from '@motabass/ui-components/dialogs';
 import { firstValueFrom } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
-import { BaseSubscribingClass } from '@motabass/base-components/base-subscribing-component';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Injectable({
   providedIn: 'root'
 })
-export class UpdateService extends BaseSubscribingClass {
+export class UpdateService {
   private swUpdate = inject(SwUpdate);
   private dialog = inject(MatDialog);
+  private destroRef = inject(DestroyRef);
 
   constructor() {
-    super();
     const swUpdate = this.swUpdate;
 
     if (swUpdate.isEnabled) {
-      swUpdate.versionUpdates.pipe(takeUntil(this.destroy$)).subscribe((event) => {
+      swUpdate.versionUpdates.pipe(takeUntilDestroyed(this.destroRef)).subscribe((event) => {
         switch (event.type) {
           case 'VERSION_DETECTED': {
             console.log(`Downloading new app version: ${event.version.hash}`);
