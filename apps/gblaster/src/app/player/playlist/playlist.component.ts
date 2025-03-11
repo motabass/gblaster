@@ -101,9 +101,10 @@ export class PlaylistComponent {
     effect(() => {
       const isPlaying = this.audioService.isPlaying();
       const currentTrack = this.playerService.currentlyLoadedTrack();
+      const searchTerm = this.searchTerm();
 
       // Only scroll when a track is playing
-      if (isPlaying && currentTrack) {
+      if (isPlaying && currentTrack && !searchTerm) {
         // Small delay to ensure UI has updated
         setTimeout(() => this.scrollToCurrentTrack());
       }
@@ -126,15 +127,22 @@ export class PlaylistComponent {
     if (!viewport || !currentTrack) return;
 
     const playlist = this.filteredPlaylist();
-    const index = playlist.findIndex((track) => track.metadata?.crc === currentTrack.metadata?.crc);
+    const targetIndex = playlist.findIndex((track) => track.metadata?.crc === currentTrack.metadata?.crc);
 
-    if (index !== -1) {
+    if (targetIndex !== -1) {
       // Get the visible range
       const visibleRange = viewport.getRenderedRange();
 
       // Only scroll if the track is outside the visible range
-      if (index - 3 < visibleRange.start || index + 3 >= visibleRange.end) {
-        viewport.scrollToIndex(index, 'smooth');
+      if (targetIndex - 3 < visibleRange.start || targetIndex + 3 > visibleRange.end) {
+        // Calculate distance to determine scroll behavior
+        const currentIndex = Math.floor((visibleRange.start + visibleRange.end) / 2);
+        const distance = Math.abs(targetIndex - currentIndex);
+
+        // Use smooth scrolling for nearby items, instant for far away items
+        const scollBehavior = distance > 20 ? 'auto' : 'smooth';
+
+        viewport.scrollToIndex(targetIndex, scollBehavior);
       }
     }
   }

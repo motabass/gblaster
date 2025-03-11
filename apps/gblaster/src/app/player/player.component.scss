@@ -38,6 +38,7 @@
 ::ng-deep .volume-menu {
   min-width: unset !important;
   background-color: var(--theme-accent-50) !important;
+
   @include mat.slider-overrides(
     (
       handle-color: initial,

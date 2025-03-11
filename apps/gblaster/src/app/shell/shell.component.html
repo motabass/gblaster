@@ -25,7 +25,7 @@
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content style="overflow: hidden">
-    <mat-toolbar color="primary">
+    <mat-toolbar>
       @if (isHandset()) {
         <button
           id="sidenav_menu_button"
@@ -35,7 +35,7 @@
           style="margin-right: 0.7rem; padding: 6px"
           (click)="drawer.toggle()"
         >
-          <mat-icon aria-label="Side nav toggle icon" style="--mdc-icon-button-icon-size: 36px; width: 36px; height: 36px" svgIcon="logo"></mat-icon>
+          <mat-icon aria-label="Side nav toggle icon" style="--mdc-icon-button-icon-size: 28px; width: 28px; height: 28px" svgIcon="logo"></mat-icon>
         </button>
       }
       <span class="title">{{ titleService.title() }}</span>

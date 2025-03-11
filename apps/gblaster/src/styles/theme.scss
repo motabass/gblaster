@@ -4,8 +4,6 @@
 @use 'theme-colors' as tc;
 
 :root {
-  --mat-icon-color: var(--theme-accent-50);
-
   @include mat.theme(
     (
       color: (
