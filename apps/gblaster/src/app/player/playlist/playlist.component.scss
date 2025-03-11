@@ -5,9 +5,22 @@
 
 ::ng-deep .playlist-item {
   box-sizing: border-box;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: var(--theme-accent-90);
+  }
 
   &.selected {
-    border-left: solid 4px var(--theme-accent-50);
+    background-color: var(--theme-accent-100);
+    border-left: solid 4px var(--theme-primary-50);
+  }
+
+  .mat-mdc-list-item-meta {
+    margin-top: 16px;
+    .mat-icon {
+      vertical-align: top;
+    }
   }
 }
 
