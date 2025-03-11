@@ -426,7 +426,9 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">export interface CoverColorPalette {
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Id3Tags } from &#x27;./id3-tags.types&#x27;;
+
+export interface CoverColorPalette {
   vibrant?: CoverColor;
   muted?: CoverColor;
   darkVibrant?: CoverColor;
@@ -443,6 +445,17 @@ export interface CoverColor {
 export interface RemoteCoverPicture {
   thumb: string;
   original: string;
+}
+
+export interface TagsWorkerRequest {
+  id: string;
+  file: File;
+}
+
+export interface TagsWorkerResponse {
+  id: string;
+  tags?: Id3Tags;
+  error?: string;
 }
 </code></pre>
     </div>

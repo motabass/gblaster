@@ -69,9 +69,6 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                         </div>
                         <ul class="links collapse " ${ isNormalMode ? 'id="additional-pages"' : 'id="xs-additional-pages"' }>
                                     <li class="link ">
-                                        <a href="additional-documentation/base-components-base-subscribing-component.html" data-type="entity-link" data-context-id="additional">base-components-base-subscribing-component</a>
-                                    </li>
-                                    <li class="link ">
                                         <a href="additional-documentation/ui-components-file-drop-overlay.html" data-type="entity-link" data-context-id="additional">ui-components-file-drop-overlay</a>
                                     </li>
                                     <li class="link ">
@@ -179,9 +176,6 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                             <ul class="links collapse " ${ isNormalMode ? 'id="injectables-links"' : 'id="xs-injectables-links"' }>
                                 <li class="link">
                                     <a href="injectables/AudioService.html" data-type="entity-link" >AudioService</a>
-                                </li>
-                                <li class="link">
-                                    <a href="injectables/BaseSubscribingClass.html" data-type="entity-link" >BaseSubscribingClass</a>
                                 </li>
                                 <li class="link">
                                     <a href="injectables/GamepadService.html" data-type="entity-link" >GamepadService</a>
@@ -348,6 +342,12 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 <a href="interfaces/RemoteCoverPicture.html" data-type="entity-link" >RemoteCoverPicture</a>
                             </li>
                             <li class="link">
+                                <a href="interfaces/TagsWorkerRequest.html" data-type="entity-link" >TagsWorkerRequest</a>
+                            </li>
+                            <li class="link">
+                                <a href="interfaces/TagsWorkerResponse.html" data-type="entity-link" >TagsWorkerResponse</a>
+                            </li>
+                            <li class="link">
                                 <a href="interfaces/Track.html" data-type="entity-link" >Track</a>
                             </li>
                             <li class="link">
@@ -371,6 +371,9 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                             <ul class="links collapse " ${ isNormalMode ? 'id="pipes-links"' : 'id="xs-pipes-links"' }>
                                 <li class="link">
                                     <a href="pipes/BandPipe.html" data-type="entity-link" >BandPipe</a>
+                                </li>
+                                <li class="link">
+                                    <a href="pipes/BitratePipe.html" data-type="entity-link" >BitratePipe</a>
                                 </li>
                                 <li class="link">
                                     <a href="pipes/TimePipe.html" data-type="entity-link" >TimePipe</a>

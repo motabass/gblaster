@@ -889,7 +889,7 @@
     provideNgxWebstorage(withNgxWebstorageConfig({ separator: &#x27;|&#x27;, caseSensitive: true, prefix: &#x27;gblaster&#x27; }), withLocalStorage()),
     provideAnimations(),
     provideHttpClient(withInterceptorsFromDi(), withFetch()),
-    provideRouter(routes, withEnabledBlockingInitialNavigation()),
+    provideRouter(routes, withEnabledBlockingInitialNavigation(), withViewTransitions()),
     {
       provide: FileLoaderService,
       useFactory: FileLoaderServiceFactory,

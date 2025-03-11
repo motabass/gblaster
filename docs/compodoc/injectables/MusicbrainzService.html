@@ -137,7 +137,7 @@
                         <ul class="index-list">
                             <li>
                                     <span class="modifier">Async</span>
-                                <a href="#getCoverPicture" >getCoverPicture</a>
+                                <a href="#getCoverPictureUrls" >getCoverPictureUrls</a>
                             </li>
                         </ul>
                     </td>
@@ -161,18 +161,18 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="getCoverPicture"></a>
+                    <a name="getCoverPictureUrls"></a>
                     <span class="name">
                             <span class="modifier">Async</span>
-                        <span ><b>getCoverPicture</b></span>
-                        <a href="#getCoverPicture"><span class="icon ion-ios-link"></span></a>
+                        <span ><b>getCoverPictureUrls</b></span>
+                        <a href="#getCoverPictureUrls"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
                         <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>getCoverPicture(tags: <a href="../interfaces/Id3Tags.html" target="_self">Id3Tags</a>)</code>
+                    <code>getCoverPictureUrls(tags: <a href="../interfaces/Id3Tags.html" target="_self">Id3Tags</a>)</code>
                 </td>
             </tr>
 
@@ -271,7 +271,7 @@ export class MusicbrainzService {
   private readonly API_URL &#x3D; &#x27;https://musicbrainz.org/ws/2&#x27;;
   private readonly COVER_API_URL &#x3D; &#x27;https://coverartarchive.org&#x27;;
 
-  async getCoverPicture(tags: Id3Tags): Promise&lt;RemoteCoverPicture | undefined&gt; {
+  async getCoverPictureUrls(tags: Id3Tags): Promise&lt;RemoteCoverPicture | undefined&gt; {
     if (!tags.artist || !tags.album) {
       return undefined;
     }

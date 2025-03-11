@@ -147,7 +147,6 @@
                                         </a>
                                 </li>
                                 <li>
-                                            <span class="modifier">Optional</span>
                                         <a href="#format" 
 >
                                             format
@@ -224,11 +223,6 @@
                                         </td>
                                     </tr>
 
-                                    <tr>
-                                        <td class="col-md-4">
-                                            <i>Optional</i>
-                                        </td>
-                                    </tr>
 
 
 
@@ -249,12 +243,12 @@ export interface Id3Tags {
   album?: string;
   track?: { no?: number | null; of?: number | null };
   year?: string;
-  format?: IFormat;
+  format: IFormat;
 }
 
 export interface Id3CoverPicture {
   data: Uint8Array;
-  format?: string;
+  format: string;
 }
 </code></pre>
     </div>

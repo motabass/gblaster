@@ -164,6 +164,9 @@
                             <code>CdkVirtualScrollViewport</code>
                             <code>CdkVirtualForOf</code>
                             <code>CdkFixedSizeVirtualScroll</code>
+                            <code>MatFormFieldModule</code>
+                            <code>MatInput</code>
+                            <code>FormsModule</code>
                 </td>
             </tr>
 
@@ -206,7 +209,19 @@
                                 <a href="#audioService" >audioService</a>
                             </li>
                             <li>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#filteredPlaylist" >filteredPlaylist</a>
+                            </li>
+                            <li>
                                 <a href="#playerService" >playerService</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#scrollViewport" >scrollViewport</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#searchTerm" >searchTerm</a>
                             </li>
                             <li>
                                 <a href="#visualsService" >visualsService</a>
@@ -248,6 +263,24 @@
     </table>
 </section>
 
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor()</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="63" class="link-to-prism">apps/gblaster/src/app/player/playlist/playlist.component.ts:63</a></div>
+                            </td>
+                        </tr>
+
+            </tbody>
+        </table>
+</section>
 
 
 
@@ -278,8 +311,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="39"
-                                    class="link-to-prism">apps/gblaster/src/app/player/playlist/playlist.component.ts:39</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="158"
+                                    class="link-to-prism">apps/gblaster/src/app/player/playlist/playlist.component.ts:158</a></div>
                         </td>
                     </tr>
 
@@ -345,8 +378,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="45"
-                                    class="link-to-prism">apps/gblaster/src/app/player/playlist/playlist.component.ts:45</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="164"
+                                    class="link-to-prism">apps/gblaster/src/app/player/playlist/playlist.component.ts:164</a></div>
                         </td>
                     </tr>
 
@@ -414,8 +447,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="51"
-                                    class="link-to-prism">apps/gblaster/src/app/player/playlist/playlist.component.ts:51</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="170"
+                                    class="link-to-prism">apps/gblaster/src/app/player/playlist/playlist.component.ts:170</a></div>
                         </td>
                     </tr>
 
@@ -493,8 +526,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="56"
-                                    class="link-to-prism">apps/gblaster/src/app/player/playlist/playlist.component.ts:56</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="175"
+                                    class="link-to-prism">apps/gblaster/src/app/player/playlist/playlist.component.ts:175</a></div>
                         </td>
                     </tr>
 
@@ -576,7 +609,43 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="36" class="link-to-prism">apps/gblaster/src/app/player/playlist/playlist.component.ts:36</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="43" class="link-to-prism">apps/gblaster/src/app/player/playlist/playlist.component.ts:43</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="filteredPlaylist"></a>
+                    <span class="name">
+                            <span class="modifier">Readonly</span>
+                        <span ><b>filteredPlaylist</b></span>
+                        <a href="#filteredPlaylist"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; {
+    const term &#x3D; this.searchTerm().toLowerCase();
+    if (!term) return this.playerService.currentPlaylist();
+
+    return (
+      this.playerService
+        .currentPlaylist()
+        // search in title, artist and file name
+        .filter((song) &#x3D;&gt; (song.metadata?.title || song.file.name).toLowerCase().includes(term) || (song.metadata?.artist || &#x27;&#x27;).toLowerCase().includes(term))
+    );
+  })</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="49" class="link-to-prism">apps/gblaster/src/app/player/playlist/playlist.component.ts:49</a></div>
                         </td>
                     </tr>
 
@@ -601,7 +670,59 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="35" class="link-to-prism">apps/gblaster/src/app/player/playlist/playlist.component.ts:35</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="42" class="link-to-prism">apps/gblaster/src/app/player/playlist/playlist.component.ts:42</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="scrollViewport"></a>
+                    <span class="name">
+                            <span class="modifier">Readonly</span>
+                        <span ><b>scrollViewport</b></span>
+                        <a href="#scrollViewport"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>viewChild&lt;CdkVirtualScrollViewport&gt;(&#x27;scrollViewport&#x27;)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="61" class="link-to-prism">apps/gblaster/src/app/player/playlist/playlist.component.ts:61</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="searchTerm"></a>
+                    <span class="name">
+                            <span class="modifier">Readonly</span>
+                        <span ><b>searchTerm</b></span>
+                        <a href="#searchTerm"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal(&#x27;&#x27;)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="47" class="link-to-prism">apps/gblaster/src/app/player/playlist/playlist.component.ts:47</a></div>
                         </td>
                     </tr>
 
@@ -626,7 +747,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="37" class="link-to-prism">apps/gblaster/src/app/player/playlist/playlist.component.ts:37</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="44" class="link-to-prism">apps/gblaster/src/app/player/playlist/playlist.component.ts:44</a></div>
                         </td>
                     </tr>
 
@@ -639,7 +760,7 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ChangeDetectionStrategy, Component, computed, inject, Signal } from &#x27;@angular/core&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ChangeDetectionStrategy, Component, computed, DestroyRef, effect, inject, model, signal, Signal, viewChild } from &#x27;@angular/core&#x27;;
 import { PlayerService } from &#x27;../player.service&#x27;;
 import { Track } from &#x27;../player.types&#x27;;
 import { VisualsService } from &#x27;../visualizer/visuals/visuals.service&#x27;;
@@ -652,6 +773,10 @@ import { MatListModule } from &#x27;@angular/material/list&#x27;;
 import { MatProgressSpinnerModule } from &#x27;@angular/material/progress-spinner&#x27;;
 import { SafePipe } from &#x27;safe-pipe&#x27;;
 import { CdkFixedSizeVirtualScroll, CdkVirtualForOf, CdkVirtualScrollViewport } from &#x27;@angular/cdk/scrolling&#x27;;
+import { takeUntilDestroyed } from &#x27;@angular/core/rxjs-interop&#x27;;
+import { MatInput } from &#x27;@angular/material/input&#x27;;
+import { FormsModule } from &#x27;@angular/forms&#x27;;
+import { MatFormFieldModule } from &#x27;@angular/material/form-field&#x27;;
 
 @Component({
   selector: &#x27;mtb-playlist&#x27;,
@@ -669,13 +794,128 @@ import { CdkFixedSizeVirtualScroll, CdkVirtualForOf, CdkVirtualScrollViewport } 
     NgOptimizedImage,
     CdkVirtualScrollViewport,
     CdkVirtualForOf,
-    CdkFixedSizeVirtualScroll
+    CdkFixedSizeVirtualScroll,
+    MatFormFieldModule,
+    MatInput,
+    FormsModule
   ]
 })
 export class PlaylistComponent {
   playerService &#x3D; inject(PlayerService);
   audioService &#x3D; inject(AudioService);
   visualsService &#x3D; inject(VisualsService);
+  private destroRef &#x3D; inject(DestroyRef);
+
+  readonly searchTerm &#x3D; signal(&#x27;&#x27;);
+
+  readonly filteredPlaylist &#x3D; computed(() &#x3D;&gt; {
+    const term &#x3D; this.searchTerm().toLowerCase();
+    if (!term) return this.playerService.currentPlaylist();
+
+    return (
+      this.playerService
+        .currentPlaylist()
+        // search in title, artist and file name
+        .filter((song) &#x3D;&gt; (song.metadata?.title || song.file.name).toLowerCase().includes(term) || (song.metadata?.artist || &#x27;&#x27;).toLowerCase().includes(term))
+    );
+  });
+
+  readonly scrollViewport &#x3D; viewChild&lt;CdkVirtualScrollViewport&gt;(&#x27;scrollViewport&#x27;);
+
+  private readonly isAutoScrollEnabled &#x3D; signal(false);
+
+  constructor() {
+    // Enable auto scroll when user scrolls to bottom
+    effect(() &#x3D;&gt; {
+      const viewport &#x3D; this.scrollViewport();
+      if (viewport) {
+        viewport
+          .elementScrolled()
+          .pipe(takeUntilDestroyed(this.destroRef))
+          .subscribe(() &#x3D;&gt; {
+            const scrollPosition &#x3D; viewport.measureScrollOffset(&#x27;bottom&#x27;);
+            const measureOffset &#x3D; 60;
+            // If user scrolled to bottom (or very close to it)
+            if (scrollPosition &lt; measureOffset) {
+              this.isAutoScrollEnabled.set(true);
+            }
+            // If user scrolled up
+            else if (scrollPosition &gt; measureOffset &amp;&amp; this.isAutoScrollEnabled) {
+              this.isAutoScrollEnabled.set(false);
+            }
+          });
+      }
+    });
+
+    // Scroll to bottom when playlist changes and autoscroll is enabled
+    effect(() &#x3D;&gt; {
+      const playlist &#x3D; this.filteredPlaylist();
+
+      // Wait for change detection to complete
+      setTimeout(() &#x3D;&gt; {
+        if (playlist &amp;&amp; playlist.length &gt; 0 &amp;&amp; this.isAutoScrollEnabled()) {
+          this.scrollToBottom();
+        }
+      });
+    });
+
+    // Scroll to current track when it changes
+    effect(() &#x3D;&gt; {
+      const isPlaying &#x3D; this.audioService.isPlaying();
+      const currentTrack &#x3D; this.playerService.currentlyLoadedTrack();
+      const searchTerm &#x3D; this.searchTerm();
+
+      // Only scroll when a track is playing
+      if (isPlaying &amp;&amp; currentTrack &amp;&amp; !searchTerm) {
+        // Small delay to ensure UI has updated
+        setTimeout(() &#x3D;&gt; this.scrollToCurrentTrack());
+      }
+    });
+  }
+
+  private scrollToBottom() {
+    const viewport &#x3D; this.scrollViewport();
+    if (viewport) {
+      const playlist &#x3D; this.filteredPlaylist();
+      if (playlist &amp;&amp; playlist.length &gt; 0) {
+        viewport.scrollToIndex(playlist.length - 1, &#x27;smooth&#x27;);
+      }
+    }
+  }
+
+  private scrollToCurrentTrack(): void {
+    const viewport &#x3D; this.scrollViewport();
+    const currentTrack &#x3D; this.playerService.currentlyLoadedTrack();
+    if (!viewport || !currentTrack) return;
+
+    const playlist &#x3D; this.filteredPlaylist();
+    const targetIndex &#x3D; playlist.findIndex((track) &#x3D;&gt; track.metadata?.crc &#x3D;&#x3D;&#x3D; currentTrack.metadata?.crc);
+
+    if (targetIndex !&#x3D;&#x3D; -1) {
+      // Get the visible range
+      const visibleRange &#x3D; viewport.getRenderedRange();
+
+      // Only scroll if the track is outside the visible range
+      if (targetIndex - 3 &lt; visibleRange.start || targetIndex + 3 &gt; visibleRange.end) {
+        // Calculate distance to determine scroll behavior
+        const currentIndex &#x3D; Math.floor((visibleRange.start + visibleRange.end) / 2);
+        const distance &#x3D; Math.abs(targetIndex - currentIndex);
+
+        // Use smooth scrolling for nearby items, instant for far away items
+        const scrollBehavior &#x3D; distance &gt; 20 ? &#x27;instant&#x27; : &#x27;smooth&#x27;;
+
+        // For instant scrolling, center the item in the viewport
+        const viewportHeight &#x3D; viewport.getViewportSize();
+
+        const itemSize &#x3D; 72; // Height of each item in the list
+
+        // Calculate offset to center the item in the viewport
+        const offset &#x3D; Math.max(0, targetIndex * itemSize - viewportHeight / 2 + itemSize / 2);
+
+        viewport.scrollToOffset(offset, scrollBehavior);
+      }
+    }
+  }
 
   isActive(song: Track): Signal&lt;boolean&gt; {
     return computed(() &#x3D;&gt; {
@@ -702,11 +942,23 @@ export class PlaylistComponent {
     </div>
 
     <div class="tab-pane fade " id="templateData">
-        <pre class="line-numbers"><code class="language-html">&lt;ng-content /&gt;
-&lt;cdk-virtual-scroll-viewport itemSize&#x3D;&quot;72&quot; class&#x3D;&quot;playlist-viewport&quot; style&#x3D;&quot;height: 100%&quot;&gt;
+        <pre class="line-numbers"><code class="language-html">&lt;mat-form-field appearance&#x3D;&quot;outline&quot; style&#x3D;&quot;width: 100%&quot;&gt;
+  &lt;mat-icon matPrefix svgIcon&#x3D;&quot;search&quot;&gt;&lt;/mat-icon&gt;
+  &lt;input matInput [ngModel]&#x3D;&quot;searchTerm()&quot; (ngModelChange)&#x3D;&quot;searchTerm.set($event)&quot; /&gt;
+  @if (searchTerm()) {
+    &lt;button matSuffix mat-icon-button (click)&#x3D;&quot;searchTerm.set(&#x27;&#x27;)&quot;&gt;
+      &lt;mat-icon svgIcon&#x3D;&quot;close-thick&quot;&gt;&lt;/mat-icon&gt;
+    &lt;/button&gt;
+  }
+  &lt;mat-hint&gt;{{ filteredPlaylist().length }} entries&lt;/mat-hint&gt;
+&lt;/mat-form-field&gt;
+
+&lt;ng-content /&gt;
+
+&lt;cdk-virtual-scroll-viewport #scrollViewport itemSize&#x3D;&quot;72&quot; class&#x3D;&quot;playlist-viewport&quot; style&#x3D;&quot;height: 100%&quot;&gt;
   &lt;mat-list class&#x3D;&quot;playlist&quot;&gt;
     &lt;mat-list-item
-      *cdkVirtualFor&#x3D;&quot;let song of playerService.currentPlaylist(); trackBy: trackByCrc&quot;
+      *cdkVirtualFor&#x3D;&quot;let song of filteredPlaylist(); trackBy: trackByCrc&quot;
       style&#x3D;&quot;height: 72px&quot;
       class&#x3D;&quot;playlist-item&quot;
       [ngClass]&#x3D;&quot;{ selected: this.playerService.selectedTrack()?.metadata?.crc &#x3D;&#x3D;&#x3D; song.metadata.crc }&quot;
@@ -773,7 +1025,7 @@ export class PlaylistComponent {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><ng-content /><cdk-virtual-scroll-viewport itemSize="72" class="playlist-viewport" style="height: 100%">  <mat-list class="playlist">    <mat-list-item      *cdkVirtualFor="let song of playerService.currentPlaylist(); trackBy: trackByCrc"      style="height: 72px"      class="playlist-item"      [ngClass]="{ selected: this.playerService.selectedTrack()?.metadata?.crc === song.metadata.crc }"      (dblclick)="playPauseSong($event, song)"      (click)="playerService.selectSong(song)"    >      <div matListItemAvatar style="overflow: hidden; border-radius: 4px; position: relative; width: 50px; height: 50px">        @if (song && song.metadata && song.metadata.coverUrl) {          <img            style="position: absolute; top: 0; right: 0; bottom: 0; left: 0; width: 100%; height: 100%"            fill            [ngSrc]="song.metadata.coverUrl.thumb | safe: \'resourceUrl\'"          />        }        @let songPlaying = isPlaying(song)();        @if (songPlaying && visualsService.visualMode() !== \'off\') {          <canvas            mtbVisual            mode="osc"            style="position: absolute; right: 0; bottom: 0; left: 0; width: 100%; height: 100%"            [colorConfig]="playerService.colorConfig()"            [oscConfig]="{ thickness: 2 }"          ></canvas>        }      </div>      <h3 matListItemTitle style="font-size: 0.9rem; font-weight: bold">{{ song?.metadata?.title || song.file.name }}</h3>      <p matListItemLine style="font-size: 0.8rem">{{ song?.metadata?.artist }}</p>      @if (isActive(song)()) {        <button matListItemMeta mat-icon-button (click)="playPauseSong($event, song)">          <mat-icon class="accent-color" [svgIcon]="songPlaying ? \'pause\' : \'play-outline\'"></mat-icon>        </button>      }    </mat-list-item>  </mat-list></cdk-virtual-scroll-viewport></div>'
+        var COMPONENT_TEMPLATE = '<div><mat-form-field appearance="outline" style="width: 100%">  <mat-icon matPrefix svgIcon="search"></mat-icon>  <input matInput [ngModel]="searchTerm()" (ngModelChange)="searchTerm.set($event)" />  @if (searchTerm()) {    <button matSuffix mat-icon-button (click)="searchTerm.set(\'\')">      <mat-icon svgIcon="close-thick"></mat-icon>    </button>  }  <mat-hint>{{ filteredPlaylist().length }} entries</mat-hint></mat-form-field><ng-content /><cdk-virtual-scroll-viewport #scrollViewport itemSize="72" class="playlist-viewport" style="height: 100%">  <mat-list class="playlist">    <mat-list-item      *cdkVirtualFor="let song of filteredPlaylist(); trackBy: trackByCrc"      style="height: 72px"      class="playlist-item"      [ngClass]="{ selected: this.playerService.selectedTrack()?.metadata?.crc === song.metadata.crc }"      (dblclick)="playPauseSong($event, song)"      (click)="playerService.selectSong(song)"    >      <div matListItemAvatar style="overflow: hidden; border-radius: 4px; position: relative; width: 50px; height: 50px">        @if (song && song.metadata && song.metadata.coverUrl) {          <img            style="position: absolute; top: 0; right: 0; bottom: 0; left: 0; width: 100%; height: 100%"            fill            [ngSrc]="song.metadata.coverUrl.thumb | safe: \'resourceUrl\'"          />        }        @let songPlaying = isPlaying(song)();        @if (songPlaying && visualsService.visualMode() !== \'off\') {          <canvas            mtbVisual            mode="osc"            style="position: absolute; right: 0; bottom: 0; left: 0; width: 100%; height: 100%"            [colorConfig]="playerService.colorConfig()"            [oscConfig]="{ thickness: 2 }"          ></canvas>        }      </div>      <h3 matListItemTitle style="font-size: 0.9rem; font-weight: bold">{{ song?.metadata?.title || song.file.name }}</h3>      <p matListItemLine style="font-size: 0.8rem">{{ song?.metadata?.artist }}</p>      @if (isActive(song)()) {        <button matListItemMeta mat-icon-button (click)="playPauseSong($event, song)">          <mat-icon class="accent-color" [svgIcon]="songPlaying ? \'pause\' : \'play-outline\'"></mat-icon>        </button>      }    </mat-list-item>  </mat-list></cdk-virtual-scroll-viewport></div>'
     var COMPONENTS = [{'name': 'AppComponent', 'selector': 'mtb-root'},{'name': 'CoverDisplayComponent', 'selector': 'mtb-cover-display'},{'name': 'EqualizerComponent', 'selector': 'mtb-equalizer'},{'name': 'FileDropOverlayComponent', 'selector': 'mtb-file-drop-overlay'},{'name': 'HotkeysHelpDialogComponent', 'selector': 'mtb-hotkeys-help-dialog'},{'name': 'LibraryComponent', 'selector': ''},{'name': 'MetadataSettingsComponent', 'selector': 'mtb-metadata-settings'},{'name': 'PlayerComponent', 'selector': 'mtb-player'},{'name': 'PlaylistComponent', 'selector': 'mtb-playlist'},{'name': 'PromptDialogComponent', 'selector': 'mtb-prompt-dialog'},{'name': 'SettingsComponent', 'selector': 'mtb-settings'},{'name': 'ShellComponent', 'selector': 'mtb-shell'},{'name': 'SlidePanelComponent', 'selector': 'mtb-slide-panel'},{'name': 'StorageSettingsComponent', 'selector': 'mtb-storage-settings'},{'name': 'ThemeSettingsComponent', 'selector': 'mtb-theme-settings'},{'name': 'VisualizerComponent', 'selector': 'mtb-visualizer'}];
     var DIRECTIVES = [{'name': 'VisualsDirective', 'selector': '[mtbVisual]'}];
     var ACTUAL_COMPONENT = {'name': 'PlaylistComponent'};

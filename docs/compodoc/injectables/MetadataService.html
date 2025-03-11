@@ -135,19 +135,19 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
-                                    <span class="modifier"></span>
+                                    <span class="modifier">Readonly</span>
                                 <a href="#preferTagEmbeddedPicture" >preferTagEmbeddedPicture</a>
                             </li>
                             <li>
-                                    <span class="modifier"></span>
+                                    <span class="modifier">Readonly</span>
                                 <a href="#useTagEmbeddedPicture" >useTagEmbeddedPicture</a>
                             </li>
                             <li>
-                                    <span class="modifier"></span>
+                                    <span class="modifier">Readonly</span>
                                 <a href="#useTagsCache" >useTagsCache</a>
                             </li>
                             <li>
-                                    <span class="modifier"></span>
+                                    <span class="modifier">Readonly</span>
                                 <a href="#useWebMetainfos" >useWebMetainfos</a>
                             </li>
                         </ul>
@@ -206,8 +206,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="29"
-                                    class="link-to-prism">apps/gblaster/src/app/player/metadata-service/metadata.service.ts:29</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="30"
+                                    class="link-to-prism">apps/gblaster/src/app/player/metadata-service/metadata.service.ts:30</a></div>
                         </td>
                     </tr>
 
@@ -243,7 +243,7 @@
                                 </table>
                             </div>
                         <div class="io-description">
-                            <b>Returns : </b>    <code>Promise&lt;TrackMetadata&gt;</code>
+                            <b>Returns : </b>    <code>Promise&lt;TrackMetadata | undefined&gt;</code>
 
                         </div>
                             <div class="io-description">
@@ -265,7 +265,7 @@
                 <td class="col-md-4">
                     <a name="preferTagEmbeddedPicture"></a>
                     <span class="name">
-                            <span class="modifier"></span>
+                            <span class="modifier">Readonly</span>
                         <span ><b>preferTagEmbeddedPicture</b></span>
                         <a href="#preferTagEmbeddedPicture"><span class="icon ion-ios-link"></span></a>
                     </span>
@@ -273,17 +273,33 @@
             </tr>
                 <tr>
                     <td class="col-md-4">
-                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
-
+                        <i>Default value : </i><code>signal(this.localStorageService.retrieve(&#x27;preferTagEmbeddedPicture&#x27;) ?? true)</code>
                     </td>
                 </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">apps/gblaster/src/app/player/metadata-service/metadata.service.ts:28</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="useTagEmbeddedPicture"></a>
+                    <span class="name">
+                            <span class="modifier">Readonly</span>
+                        <span ><b>useTagEmbeddedPicture</b></span>
+                        <a href="#useTagEmbeddedPicture"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
                 <tr>
                     <td class="col-md-4">
-                        <b>Decorators : </b>
-                        <br />
-                        <code>
-                            @LocalStorage(&#x27;preferTagEmbeddedPicture&#x27;, undefined)<br />
-                        </code>
+                        <i>Default value : </i><code>signal(this.localStorageService.retrieve(&#x27;useTagEmbeddedPicture&#x27;) ?? true)</code>
                     </td>
                 </tr>
                     <tr>
@@ -299,27 +315,17 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="useTagEmbeddedPicture"></a>
+                    <a name="useTagsCache"></a>
                     <span class="name">
-                            <span class="modifier"></span>
-                        <span ><b>useTagEmbeddedPicture</b></span>
-                        <a href="#useTagEmbeddedPicture"><span class="icon ion-ios-link"></span></a>
+                            <span class="modifier">Readonly</span>
+                        <span ><b>useTagsCache</b></span>
+                        <a href="#useTagsCache"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
                 <tr>
                     <td class="col-md-4">
-                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
-
-                    </td>
-                </tr>
-                <tr>
-                    <td class="col-md-4">
-                        <b>Decorators : </b>
-                        <br />
-                        <code>
-                            @LocalStorage(&#x27;useTagEmbeddedPicture&#x27;, undefined)<br />
-                        </code>
+                        <i>Default value : </i><code>signal(this.localStorageService.retrieve(&#x27;useTagsCache&#x27;) ?? true)</code>
                     </td>
                 </tr>
                     <tr>
@@ -335,45 +341,9 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="useTagsCache"></a>
-                    <span class="name">
-                            <span class="modifier"></span>
-                        <span ><b>useTagsCache</b></span>
-                        <a href="#useTagsCache"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-                <tr>
-                    <td class="col-md-4">
-                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
-
-                    </td>
-                </tr>
-                <tr>
-                    <td class="col-md-4">
-                        <b>Decorators : </b>
-                        <br />
-                        <code>
-                            @LocalStorage(&#x27;useTagsCache&#x27;, undefined)<br />
-                        </code>
-                    </td>
-                </tr>
-                    <tr>
-                        <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">apps/gblaster/src/app/player/metadata-service/metadata.service.ts:25</a></div>
-                        </td>
-                    </tr>
-
-
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
                     <a name="useWebMetainfos"></a>
                     <span class="name">
-                            <span class="modifier"></span>
+                            <span class="modifier">Readonly</span>
                         <span ><b>useWebMetainfos</b></span>
                         <a href="#useWebMetainfos"><span class="icon ion-ios-link"></span></a>
                     </span>
@@ -381,22 +351,12 @@
             </tr>
                 <tr>
                     <td class="col-md-4">
-                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
-
-                    </td>
-                </tr>
-                <tr>
-                    <td class="col-md-4">
-                        <b>Decorators : </b>
-                        <br />
-                        <code>
-                            @LocalStorage(&#x27;useWebMetainfos&#x27;, undefined)<br />
-                        </code>
+                        <i>Default value : </i><code>signal(this.localStorageService.retrieve(&#x27;useWebMetainfos&#x27;) ?? true)</code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="24" class="link-to-prism">apps/gblaster/src/app/player/metadata-service/metadata.service.ts:24</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">apps/gblaster/src/app/player/metadata-service/metadata.service.ts:25</a></div>
                         </td>
                     </tr>
 
@@ -410,9 +370,9 @@
 
     <div class="tab-pane fade  tab-source-code" id="source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { crc32 } from &#x27;@allex/crc32&#x27;;
-import { inject, Injectable } from &#x27;@angular/core&#x27;;
+import { inject, Injectable, signal } from &#x27;@angular/core&#x27;;
 import { NgxIndexedDBService } from &#x27;ngx-indexed-db&#x27;;
-import { LocalStorage } from &#x27;ngx-webstorage&#x27;;
+import { LocalStorageService } from &#x27;ngx-webstorage&#x27;;
 import { firstValueFrom } from &#x27;rxjs&#x27;;
 import { TrackMetadata } from &#x27;../player.types&#x27;;
 import { Id3TagsService } from &#x27;./id3-tags.service&#x27;;
@@ -429,24 +389,25 @@ export class MetadataService {
   private lastfmMetadataService &#x3D; inject(LastfmMetadataService);
   private musicbrainzService &#x3D; inject(MusicbrainzService);
   private indexedDBService &#x3D; inject(NgxIndexedDBService);
+  private localStorageService &#x3D; inject(LocalStorageService);
 
   private readonly PLACEHOLDER_URL &#x3D; &#x27;assets/icons/record.svg&#x27;;
 
-  @LocalStorage(&#x27;useWebMetainfos&#x27;, true) useWebMetainfos!: boolean;
-  @LocalStorage(&#x27;useTagsCache&#x27;, true) useTagsCache!: boolean;
-  @LocalStorage(&#x27;useTagEmbeddedPicture&#x27;, true) useTagEmbeddedPicture!: boolean;
-  @LocalStorage(&#x27;preferTagEmbeddedPicture&#x27;, true) preferTagEmbeddedPicture!: boolean;
+  readonly useWebMetainfos &#x3D; signal(this.localStorageService.retrieve(&#x27;useWebMetainfos&#x27;) ?? true);
+  readonly useTagsCache &#x3D; signal(this.localStorageService.retrieve(&#x27;useTagsCache&#x27;) ?? true);
+  readonly useTagEmbeddedPicture &#x3D; signal(this.localStorageService.retrieve(&#x27;useTagEmbeddedPicture&#x27;) ?? true);
+  readonly preferTagEmbeddedPicture &#x3D; signal(this.localStorageService.retrieve(&#x27;preferTagEmbeddedPicture&#x27;) ?? true);
 
-  async getMetadata(file: File): Promise&lt;TrackMetadata&gt; {
+  async getMetadata(file: File): Promise&lt;TrackMetadata | undefined&gt; {
     // console.time(&#x27;hash&#x27;);
     const crc &#x3D; generateFileHash(file);
     // console.timeEnd(&#x27;hash&#x27;);
 
-    if (this.useTagsCache) {
+    if (this.useTagsCache()) {
       const metadataCache: TrackMetadata &#x3D; await firstValueFrom(this.indexedDBService.getByKey&lt;TrackMetadata&gt;(&#x27;metatags&#x27;, crc));
 
       if (metadataCache) {
-        if (metadataCache.embeddedPicture &amp;&amp; this.useTagEmbeddedPicture &amp;&amp; (!metadataCache.coverUrl || this.preferTagEmbeddedPicture)) {
+        if (metadataCache.embeddedPicture &amp;&amp; this.useTagEmbeddedPicture() &amp;&amp; (!metadataCache.coverUrl || this.preferTagEmbeddedPicture())) {
           // renew local object urls
           const url &#x3D; URL.createObjectURL(new Blob([metadataCache.embeddedPicture.data], { type: metadataCache.embeddedPicture.format }));
           return {
@@ -454,7 +415,7 @@ export class MetadataService {
             coverUrl: { thumb: url, original: url } // overwrite remote url with objectUrl for tag cover art
           };
         } else {
-          return this.metadataPrepareForUse(metadataCache);
+          return this.createObjectUrlForEmbeddedPicture(metadataCache);
         }
       }
     }
@@ -463,17 +424,17 @@ export class MetadataService {
     // console.timeEnd(&#x27;id3tags&#x27;);
     if (!tags) {
       // if no tags
-      return { crc: crc };
+      return undefined;
     }
 
-    let coverUrl: RemoteCoverPicture | undefined;
+    let coverUrls: RemoteCoverPicture | undefined;
 
-    if (this.useWebMetainfos) {
+    if (this.useWebMetainfos()) {
       if (tags.artist &amp;&amp; tags.album) {
         // console.time(&#x27;webcover&#x27;);
-        coverUrl &#x3D; await this.lastfmMetadataService.getCoverPicture(tags);
-        if (!coverUrl) {
-          coverUrl &#x3D; await this.musicbrainzService.getCoverPicture(tags);
+        coverUrls &#x3D; await this.lastfmMetadataService.getCoverPictureUrls(tags);
+        if (!coverUrls) {
+          coverUrls &#x3D; await this.musicbrainzService.getCoverPictureUrls(tags);
         }
         // console.timeEnd(&#x27;webcover&#x27;);
       } else {
@@ -482,36 +443,41 @@ export class MetadataService {
     }
 
     let palette: CoverColorPalette | undefined;
-    if (coverUrl) {
+
+    if (coverUrls?.original) {
       // console.time(&#x27;vibrant&#x27;);
-      palette &#x3D; await extractColorsWithNodeVibrant(coverUrl.original);
+      palette &#x3D; await extractColorsWithNodeVibrant(coverUrls.original);
       // console.timeEnd(&#x27;vibrant&#x27;);
-      // console.time(&#x27;wasm&#x27;);
-      // palette &#x3D; await extractColorsWithVibrantWasm(coverUrl.original);
-      // console.timeEnd(&#x27;wasm&#x27;);
     }
+    // else if (tags.picture) {
+    //   // console.time(&#x27;vibrant&#x27;);
+    //   const objectUrl &#x3D; URL.createObjectURL(new Blob([tags.picture.data], { type: tags.picture.format }));
+    //   palette &#x3D; await extractColorsWithNodeVibrant(objectUrl);
+    //   URL.revokeObjectURL(objectUrl);
+    //   // console.timeEnd(&#x27;vibrant&#x27;);
+    // }
 
     const metadata: TrackMetadata &#x3D; {
       crc: crc,
-      coverUrl: coverUrl ?? { thumb: this.PLACEHOLDER_URL, original: this.PLACEHOLDER_URL },
+      coverUrl: coverUrls ?? { thumb: this.PLACEHOLDER_URL, original: this.PLACEHOLDER_URL },
       embeddedPicture: tags.picture,
-      coverColors: palette,
-      artist: tags?.artist,
-      title: tags?.title,
-      track: tags?.track?.no?.toString(),
-      album: tags?.album,
-      year: tags?.year,
-      format: tags?.format
+      coverColors: palette || {},
+      artist: tags.artist,
+      title: tags.title,
+      track: tags.track?.no?.toString(),
+      album: tags.album,
+      year: tags.year,
+      format: tags.format
     };
 
-    if (this.useTagsCache) {
+    if (this.useTagsCache()) {
       await this.indexedDBService.add(&#x27;metatags&#x27;, metadata).toPromise();
     }
-    return this.metadataPrepareForUse(metadata);
+    return this.createObjectUrlForEmbeddedPicture(metadata);
   }
 
-  private metadataPrepareForUse(meta: TrackMetadata): TrackMetadata {
-    if (meta.embeddedPicture &amp;&amp; this.useTagEmbeddedPicture &amp;&amp; (!meta.coverUrl || this.preferTagEmbeddedPicture)) {
+  private createObjectUrlForEmbeddedPicture(meta: TrackMetadata): TrackMetadata {
+    if (meta.embeddedPicture &amp;&amp; this.useTagEmbeddedPicture() &amp;&amp; (!meta.coverUrl || this.preferTagEmbeddedPicture())) {
       // renew local object urls
       // TODO: Erst kreieren wenn gebraucht!
       const url &#x3D; URL.createObjectURL(new Blob([meta.embeddedPicture.data], { type: meta.embeddedPicture.format }));

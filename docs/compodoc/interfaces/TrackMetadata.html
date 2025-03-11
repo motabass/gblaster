@@ -155,14 +155,12 @@
                                         </a>
                                 </li>
                                 <li>
-                                            <span class="modifier">Optional</span>
                                         <a href="#coverColors" 
 >
                                             coverColors
                                         </a>
                                 </li>
                                 <li>
-                                            <span class="modifier">Optional</span>
                                         <a href="#coverUrl" 
 >
                                             coverUrl
@@ -176,20 +174,12 @@
                                 </li>
                                 <li>
                                             <span class="modifier">Optional</span>
-                                        <a href="#duration" 
->
-                                            duration
-                                        </a>
-                                </li>
-                                <li>
-                                            <span class="modifier">Optional</span>
                                         <a href="#embeddedPicture" 
 >
                                             embeddedPicture
                                         </a>
                                 </li>
                                 <li>
-                                            <span class="modifier">Optional</span>
                                         <a href="#format" 
 >
                                             format
@@ -330,11 +320,6 @@
                                         </td>
                                     </tr>
 
-                                    <tr>
-                                        <td class="col-md-4">
-                                            <i>Optional</i>
-                                        </td>
-                                    </tr>
 
 
 
@@ -368,11 +353,6 @@
                                         </td>
                                     </tr>
 
-                                    <tr>
-                                        <td class="col-md-4">
-                                            <i>Optional</i>
-                                        </td>
-                                    </tr>
 
 
 
@@ -406,44 +386,6 @@
                                         </td>
                                     </tr>
 
-
-
-
-
-                        </tbody>
-                    </table>
-                    <table class="table table-sm table-bordered">
-                        <tbody>
-                                <tr>
-                                    <td class="col-md-4">
-                                        <a name="duration"></a>
-                                        <span class="name "><b>duration</b>
-                                            <a href="#duration">
-                                                <span class="icon ion-ios-link"></span>
-                                            </a>
-                                        </span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="col-md-4">
-                                        <code>duration:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
-</code>
-                                    </td>
-                                </tr>
-
-
-                                    <tr>
-                                        <td class="col-md-4">
-                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
-
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td class="col-md-4">
-                                            <i>Optional</i>
-                                        </td>
-                                    </tr>
 
 
 
@@ -515,11 +457,6 @@
                                         </td>
                                     </tr>
 
-                                    <tr>
-                                        <td class="col-md-4">
-                                            <i>Optional</i>
-                                        </td>
-                                    </tr>
 
 
 
@@ -661,11 +598,10 @@ export interface TrackMetadata {
   track?: string;
   album?: string;
   year?: string;
-  duration?: number;
-  format?: IFormat;
-  coverUrl?: RemoteCoverPicture;
+  format: IFormat;
+  coverUrl: RemoteCoverPicture;
   embeddedPicture?: Id3CoverPicture;
-  coverColors?: CoverColorPalette;
+  coverColors: CoverColorPalette;
 }
 
 // EQ

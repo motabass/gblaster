@@ -156,6 +156,7 @@
                             <code>NgStyle</code>
                             <code>TimePipe</code>
                             <code>NgOptimizedImage</code>
+                            <code>BitratePipe</code>
                 </td>
             </tr>
 
@@ -210,35 +211,7 @@
                     </td>
                 </tr>
 
-                <tr>
-                    <td class="col-md-4">
-                        <h6><b>Methods</b></h6>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="col-md-4">
-                        <ul class="index-list">
-                            <li>
-                                <a href="#getBitrate" >getBitrate</a>
-                            </li>
-                        </ul>
-                    </td>
-                </tr>
 
-                <tr>
-                    <td class="col-md-4">
-                        <h6><b>Inputs</b></h6>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="col-md-4">
-                        <ul class="index-list">
-                            <li>
-                                <a href="#track" >track</a>
-                            </li>
-                        </ul>
-                    </td>
-                </tr>
 
 
 
@@ -248,100 +221,11 @@
 </section>
 
 
-    <section data-compodoc="block-inputs">
-    <h3 id="inputs">Inputs</h3>
-        <table class="table table-sm table-bordered">
-            <tbody>
-                <tr>
-                    <td class="col-md-4">
-                        <a name="track"></a>
-                        <b>track</b>
-                    </td>
-                </tr>
-                        <tr>
-                            <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">apps/gblaster/src/app/player/cover-display/cover-display.component.ts:17</a></div>
-                            </td>
-                        </tr>
-            </tbody>
-        </table>
-</section>
 
 
 
-    <section data-compodoc="block-methods">
-    
-    <h3 id="methods">
-        Methods
-    </h3>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="getBitrate"></a>
-                    <span class="name">
-                        <span ><b>getBitrate</b></span>
-                        <a href="#getBitrate"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-<code>getBitrate(bitrate: number | undefined)</code>
-                </td>
-            </tr>
 
 
-                    <tr>
-                        <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="33"
-                                    class="link-to-prism">apps/gblaster/src/app/player/cover-display/cover-display.component.ts:33</a></div>
-                        </td>
-                    </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-
-                            <div class="io-description">
-                                <b>Parameters :</b>
-                                
-                                <table class="params">
-                                    <thead>
-                                        <tr>
-                                            <td>Name</td>
-                                                <td>Type</td>
-                                            <td>Optional</td>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                                <td>bitrate</td>
-                                            <td>
-                                                        <code>number | undefined</code>
-                                            </td>
-
-                                            <td>
-                                                    No
-                                            </td>
-
-
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        <div class="io-description">
-                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
-
-                        </div>
-                            <div class="io-description">
-                                
-                            </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-</section>
     <section data-compodoc="block-properties">
     
     <h3 id="inputs">
@@ -371,7 +255,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="21" class="link-to-prism">apps/gblaster/src/app/player/cover-display/cover-display.component.ts:21</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="22" class="link-to-prism">apps/gblaster/src/app/player/cover-display/cover-display.component.ts:22</a></div>
                         </td>
                     </tr>
 
@@ -397,7 +281,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">apps/gblaster/src/app/player/cover-display/cover-display.component.ts:19</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="20" class="link-to-prism">apps/gblaster/src/app/player/cover-display/cover-display.component.ts:20</a></div>
                         </td>
                     </tr>
 
@@ -416,9 +300,14 @@
                     </span>
                 </td>
             </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>input.required&lt;Track | undefined&gt;()</code>
+                    </td>
+                </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">apps/gblaster/src/app/player/cover-display/cover-display.component.ts:17</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">apps/gblaster/src/app/player/cover-display/cover-display.component.ts:18</a></div>
                         </td>
                     </tr>
 
@@ -436,18 +325,19 @@ import { ThemeService } from &#x27;../../theme/theme.service&#x27;;
 import { TimePipe } from &#x27;../time.pipe&#x27;;
 import { NgOptimizedImage, NgStyle } from &#x27;@angular/common&#x27;;
 import { Track } from &#x27;../player.types&#x27;;
+import { BitratePipe } from &#x27;./bitrate.pipe&#x27;;
 
 @Component({
   selector: &#x27;mtb-cover-display&#x27;,
   templateUrl: &#x27;./cover-display.component.html&#x27;,
   styleUrl: &#x27;./cover-display.component.scss&#x27;,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [NgStyle, TimePipe, NgOptimizedImage]
+  imports: [NgStyle, TimePipe, NgOptimizedImage, BitratePipe]
 })
 export class CoverDisplayComponent {
   private themeService &#x3D; inject(ThemeService);
 
-  readonly track &#x3D; input&lt;Track&gt;();
+  readonly track &#x3D; input.required&lt;Track | undefined&gt;();
 
   readonly coverUrl &#x3D; computed(() &#x3D;&gt; this.track()?.metadata?.coverUrl?.original);
 
@@ -457,18 +347,6 @@ export class CoverDisplayComponent {
       : this.track()?.metadata?.coverColors?.lightMuted?.hex;
     return coverBackground || &#x27;rgba(0,0,0,0)&#x27;;
   });
-
-  // get fontColor(): string | undefined {
-  //   return this.song?.metadata?.coverColors?.vibrant ? this.song.metadata.coverColors.vibrant.textHex : undefined;
-  // }
-
-  // TODO: pipe
-  getBitrate(bitrate: number | undefined): string {
-    if (!bitrate) {
-      return &#x27;0&#x27;;
-    }
-    return Math.round(bitrate / 1000).toString();
-  }
 }
 </code></pre>
     </div>
@@ -519,7 +397,7 @@ export class CoverDisplayComponent {
     }
     @if (currentTrack?.metadata?.format?.bitrate) {
       &lt;span&gt;
-        Bitrate: &lt;strong&gt;{{ getBitrate(currentTrack?.metadata?.format?.bitrate) }} kb/s&lt;/strong&gt;
+        Bitrate: &lt;strong&gt;{{ currentTrack?.metadata?.format?.bitrate | bitrate }}&lt;/strong&gt;
       &lt;/span&gt;
     }
     @if (currentTrack?.metadata?.format?.sampleRate) {
@@ -531,7 +409,7 @@ export class CoverDisplayComponent {
 &lt;/div&gt;
 @if (currentTrack &amp;&amp; cover) {
   &lt;img
-    style&#x3D;&quot;object-fit: contain&quot;
+    style&#x3D;&quot;object-fit: contain; transition: background-color 0.3s ease&quot;
     fill
     priority
     alt&#x3D;&quot;Album-Cover&quot;
@@ -571,7 +449,7 @@ export class CoverDisplayComponent {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div>@let currentTrack = track();@let cover = coverUrl();<div  style="    position: absolute;    top: 0;    right: 0;    bottom: 0;    left: 0;    z-index: 5;    overflow-x: auto;    padding: 1rem;    user-select: text;    text-shadow: -1px 1px 6px black;  "  class="mat-typography">  <h1 style="font-size: 3rem; font-weight: bold; line-height: 3.3rem; margin-bottom: 4px; opacity: 0.9">    {{ currentTrack?.metadata?.title || currentTrack?.file?.name }}  </h1>  <p style="font-size: 1.5rem; margin-bottom: 8px; opacity: 0.8">{{ currentTrack?.metadata?.artist }}</p>  <div class="flex column" style="margin-top: 16px; opacity: 0.9">    @if (currentTrack?.metadata?.album) {      <span>        Album: <strong>{{ currentTrack?.metadata?.album }}</strong>      </span>    }    @if (currentTrack?.metadata?.year) {      <span>        Year: <strong>{{ currentTrack?.metadata?.year }}</strong>      </span>    }    <span>&nbsp;</span>    @if (currentTrack?.metadata?.format?.duration) {      <span>        Duration: <strong>{{ currentTrack?.metadata?.format?.duration | time }}</strong>      </span>    }    @if (currentTrack?.metadata?.format?.container && currentTrack?.metadata?.format?.codec) {      <span>        Format: <strong>{{ currentTrack?.metadata?.format?.container }} ({{ currentTrack?.metadata?.format?.codec }})</strong>      </span>    }    @if (currentTrack?.metadata?.format?.bitrate) {      <span>        Bitrate: <strong>{{ getBitrate(currentTrack?.metadata?.format?.bitrate) }} kb/s</strong>      </span>    }    @if (currentTrack?.metadata?.format?.sampleRate) {      <span>        Sample-Rate: <strong>{{ currentTrack?.metadata?.format?.sampleRate }}</strong>      </span>    }  </div></div>@if (currentTrack && cover) {  <img    style="object-fit: contain"    fill    priority    alt="Album-Cover"    [ngSrc]="cover"    [ngStyle]="{      \'background-color\': backgroundColor()    }"  />}<ng-content /></div>'
+        var COMPONENT_TEMPLATE = '<div>@let currentTrack = track();@let cover = coverUrl();<div  style="    position: absolute;    top: 0;    right: 0;    bottom: 0;    left: 0;    z-index: 5;    overflow-x: auto;    padding: 1rem;    user-select: text;    text-shadow: -1px 1px 6px black;  "  class="mat-typography">  <h1 style="font-size: 3rem; font-weight: bold; line-height: 3.3rem; margin-bottom: 4px; opacity: 0.9">    {{ currentTrack?.metadata?.title || currentTrack?.file?.name }}  </h1>  <p style="font-size: 1.5rem; margin-bottom: 8px; opacity: 0.8">{{ currentTrack?.metadata?.artist }}</p>  <div class="flex column" style="margin-top: 16px; opacity: 0.9">    @if (currentTrack?.metadata?.album) {      <span>        Album: <strong>{{ currentTrack?.metadata?.album }}</strong>      </span>    }    @if (currentTrack?.metadata?.year) {      <span>        Year: <strong>{{ currentTrack?.metadata?.year }}</strong>      </span>    }    <span>&nbsp;</span>    @if (currentTrack?.metadata?.format?.duration) {      <span>        Duration: <strong>{{ currentTrack?.metadata?.format?.duration | time }}</strong>      </span>    }    @if (currentTrack?.metadata?.format?.container && currentTrack?.metadata?.format?.codec) {      <span>        Format: <strong>{{ currentTrack?.metadata?.format?.container }} ({{ currentTrack?.metadata?.format?.codec }})</strong>      </span>    }    @if (currentTrack?.metadata?.format?.bitrate) {      <span>        Bitrate: <strong>{{ currentTrack?.metadata?.format?.bitrate | bitrate }}</strong>      </span>    }    @if (currentTrack?.metadata?.format?.sampleRate) {      <span>        Sample-Rate: <strong>{{ currentTrack?.metadata?.format?.sampleRate }}</strong>      </span>    }  </div></div>@if (currentTrack && cover) {  <img    style="object-fit: contain; transition: background-color 0.3s ease"    fill    priority    alt="Album-Cover"    [ngSrc]="cover"    [ngStyle]="{      \'background-color\': backgroundColor()    }"  />}<ng-content /></div>'
     var COMPONENTS = [{'name': 'AppComponent', 'selector': 'mtb-root'},{'name': 'CoverDisplayComponent', 'selector': 'mtb-cover-display'},{'name': 'EqualizerComponent', 'selector': 'mtb-equalizer'},{'name': 'FileDropOverlayComponent', 'selector': 'mtb-file-drop-overlay'},{'name': 'HotkeysHelpDialogComponent', 'selector': 'mtb-hotkeys-help-dialog'},{'name': 'LibraryComponent', 'selector': ''},{'name': 'MetadataSettingsComponent', 'selector': 'mtb-metadata-settings'},{'name': 'PlayerComponent', 'selector': 'mtb-player'},{'name': 'PlaylistComponent', 'selector': 'mtb-playlist'},{'name': 'PromptDialogComponent', 'selector': 'mtb-prompt-dialog'},{'name': 'SettingsComponent', 'selector': 'mtb-settings'},{'name': 'ShellComponent', 'selector': 'mtb-shell'},{'name': 'SlidePanelComponent', 'selector': 'mtb-slide-panel'},{'name': 'StorageSettingsComponent', 'selector': 'mtb-storage-settings'},{'name': 'ThemeSettingsComponent', 'selector': 'mtb-theme-settings'},{'name': 'VisualizerComponent', 'selector': 'mtb-visualizer'}];
     var DIRECTIVES = [{'name': 'VisualsDirective', 'selector': '[mtbVisual]'}];
     var ACTUAL_COMPONENT = {'name': 'CoverDisplayComponent'};

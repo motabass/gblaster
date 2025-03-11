@@ -79,7 +79,7 @@
                    <compodoc-menu mode="normal"></compodoc-menu>
                </div>
                <!-- START CONTENT -->
-               <div class="content interface">
+               <div class="content pipe">
                    <div class="content-data">
 
 
@@ -92,13 +92,9 @@
 
 
 
-
-
 <ol class="breadcrumb">
-  <li class="breadcrumb-item">Interfaces</li>
-  <li class="breadcrumb-item"
-  >
-  LastfmSuccessResponse</li>
+  <li class="breadcrumb-item">Pipes</li>
+  <li class="breadcrumb-item" >BitratePipe</li>
 </ol>
 
 <ul class="nav nav-tabs" role="tablist">
@@ -118,171 +114,132 @@
 
 <div class="tab-content">
     <div class="tab-pane fade active in" id="info">
+
         <p class="comment">
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>apps/gblaster/src/app/player/metadata-service/lastfm-metadata.service.ts</code>
+            <code>apps/gblaster/src/app/player/cover-display/bitrate.pipe.ts</code>
         </p>
 
 
 
 
-        <section data-compodoc="block-index">
-            <h3 id="index">Index</h3>
-            <table class="table table-sm table-bordered index-table">
+        <section data-compodoc="block-metadata">
+            <h3>Metadata</h3>
+            <table class="table table-sm table-hover metadata">
                 <tbody>
                     <tr>
-                        <td class="col-md-4">
-                            <h6><b>Properties</b></h6>
-                        </td>
+                        <td class="col-md-3">Name</td>
+                        <td class="col-md-9">bitrate</td>
                     </tr>
                     <tr>
-                        <td class="col-md-4">
-                            <ul class="index-list">
-                                <li>
-                                        <a href="#album" 
->
-                                            album
-                                        </a>
-                                </li>
-                            </ul>
-                        </td>
+                        <td class="col-md-3">Standalone</td>
+                        <td class="col-md-9"><code>true</code></td>
                     </tr>
                 </tbody>
             </table>
         </section>
 
+            <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="transform"></a>
+                    <span class="name">
+                        <span ><b>transform</b></span>
+                        <a href="#transform"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>transform(value: number | undefined)</code>
+                </td>
+            </tr>
 
 
-            <section data-compodoc="block-properties">
-                <h3 id="inputs">Properties</h3>
-                    <table class="table table-sm table-bordered">
-                        <tbody>
-                                <tr>
-                                    <td class="col-md-4">
-                                        <a name="album"></a>
-                                        <span class="name "><b>album</b>
-                                            <a href="#album">
-                                                <span class="icon ion-ios-link"></span>
-                                            </a>
-                                        </span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="col-md-4">
-                                        <code>album:         <code><a href="../interfaces/LastfmAlbum.html" target="_self" >LastfmAlbum</a></code>
-</code>
-                                    </td>
-                                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="8"
+                                    class="link-to-prism">apps/gblaster/src/app/player/cover-display/bitrate.pipe.ts:8</a></div>
+                        </td>
+                    </tr>
 
 
-                                    <tr>
-                                        <td class="col-md-4">
-                                            <i>Type : </i>        <code><a href="../interfaces/LastfmAlbum.html" target="_self" >LastfmAlbum</a></code>
+            <tr>
+                <td class="col-md-4">
 
-                                        </td>
-                                    </tr>
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>value</td>
+                                            <td>
+                                                        <code>number | undefined</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
 
 
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
 
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
 
-
-                        </tbody>
-                    </table>
-            </section>
     </div>
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { HttpClient } from &#x27;@angular/common/http&#x27;;
-import { inject, Injectable } from &#x27;@angular/core&#x27;;
-import { firstValueFrom } from &#x27;rxjs&#x27;;
-import { Id3Tags } from &#x27;./id3-tags.types&#x27;;
-import { RemoteCoverPicture } from &#x27;./metadata.types&#x27;;
-import { ensureHttps } from &#x27;./metadata.helper&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Pipe, PipeTransform } from &#x27;@angular/core&#x27;;
 
-interface LastfmImage {
-  &#x27;#text&#x27;: string;
-  size: string;
-}
-
-interface LastfmAlbum {
-  name: string;
-  artist: string;
-  image: LastfmImage[];
-}
-
-interface LastfmSuccessResponse {
-  album: LastfmAlbum;
-}
-
-interface LastfmErrorResponse {
-  error: number;
-  message: string;
-}
-
-type LastfmResponse &#x3D; LastfmSuccessResponse | LastfmErrorResponse;
-
-@Injectable({ providedIn: &#x27;root&#x27; })
-export class LastfmMetadataService {
-  private http &#x3D; inject(HttpClient);
-  private readonly LASTFM_API_KEY &#x3D; &#x27;3a67934408152a2fc3f7216c022ec1df&#x27;;
-  private readonly API_URL &#x3D; &#x27;https://ws.audioscrobbler.com/2.0/&#x27;;
-
-  async getCoverPictureUrls(tags: Id3Tags): Promise&lt;RemoteCoverPicture | undefined&gt; {
-    if (!tags.artist || !tags.album) {
-      return undefined;
+@Pipe({
+  name: &#x27;bitrate&#x27;,
+  standalone: true
+})
+export class BitratePipe implements PipeTransform {
+  transform(value: number | undefined): string {
+    if (!value) {
+      return &#x27;0&#x27;;
     }
-
-    try {
-      const data &#x3D; await this.fetchAlbumInfo(tags.artist, tags.album);
-      return this.extractCoverUrls(data);
-    } catch (error) {
-      console.warn(&#x27;Failed to query Last.fm&#x27;, error);
-      return undefined;
-    }
-  }
-
-  private async fetchAlbumInfo(artist: string, album: string): Promise&lt;LastfmResponse&gt; {
-    const url &#x3D; this.buildApiUrl(&#x27;album.getinfo&#x27;, {
-      artist: encodeURIComponent(artist),
-      album: encodeURIComponent(album)
-    });
-
-    return firstValueFrom(this.http.get&lt;LastfmResponse&gt;(url));
-  }
-
-  private buildApiUrl(method: string, params: Record&lt;string, string&gt;): string {
-    const queryParams &#x3D; new URLSearchParams({
-      method,
-      api_key: this.LASTFM_API_KEY,
-      format: &#x27;json&#x27;,
-      ...params
-    });
-
-    return &#x60;${this.API_URL}?${queryParams.toString()}&#x60;;
-  }
-
-  private extractCoverUrls(data: LastfmResponse): RemoteCoverPicture | undefined {
-    if (&#x27;error&#x27; in data || !(&#x27;album&#x27; in data)) {
-      return undefined;
-    }
-
-    const images &#x3D; data.album.image;
-    if (!images || !images[5]?.[&#x27;#text&#x27;]) {
-      return undefined;
-    }
-
-    return {
-      thumb: ensureHttps(images[1][&#x27;#text&#x27;]),
-      original: ensureHttps(images[5][&#x27;#text&#x27;])
-    };
+    const bitrate &#x3D; Math.round(value / 1000);
+    return &#x60;${bitrate} kb/s&#x60;;
   }
 }
 </code></pre>
     </div>
+
 </div>
+
+
 
 
 
@@ -316,8 +273,8 @@ export class LastfmMetadataService {
 
        <script>
             var COMPODOC_CURRENT_PAGE_DEPTH = 1;
-            var COMPODOC_CURRENT_PAGE_CONTEXT = 'interface';
-            var COMPODOC_CURRENT_PAGE_URL = 'LastfmSuccessResponse.html';
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'pipe';
+            var COMPODOC_CURRENT_PAGE_URL = 'BitratePipe.html';
             var MAX_SEARCH_RESULTS = 15;
        </script>
 

@@ -273,7 +273,7 @@ export class MusicbrainzService {
   private readonly API_URL &#x3D; &#x27;https://musicbrainz.org/ws/2&#x27;;
   private readonly COVER_API_URL &#x3D; &#x27;https://coverartarchive.org&#x27;;
 
-  async getCoverPicture(tags: Id3Tags): Promise&lt;RemoteCoverPicture | undefined&gt; {
+  async getCoverPictureUrls(tags: Id3Tags): Promise&lt;RemoteCoverPicture | undefined&gt; {
     if (!tags.artist || !tags.album) {
       return undefined;
     }
