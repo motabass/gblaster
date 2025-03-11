@@ -1,8 +1,20 @@
+<mat-form-field appearance="outline" style="width: 100%">
+  <mat-icon matPrefix svgIcon="search"></mat-icon>
+  <input matInput [ngModel]="searchTerm()" (ngModelChange)="searchTerm.set($event)" />
+  @if (searchTerm()) {
+    <button matSuffix mat-icon-button (click)="searchTerm.set('')">
+      <mat-icon svgIcon="close-thick"></mat-icon>
+    </button>
+  }
+  <mat-hint>Showing {{ filteredPlaylist().length }} entries</mat-hint>
+</mat-form-field>
+
 <ng-content />
+
 <cdk-virtual-scroll-viewport #scrollViewport itemSize="72" class="playlist-viewport" style="height: 100%">
   <mat-list class="playlist">
     <mat-list-item
-      *cdkVirtualFor="let song of playerService.currentPlaylist(); trackBy: trackByCrc"
+      *cdkVirtualFor="let song of filteredPlaylist(); trackBy: trackByCrc"
       style="height: 72px"
       class="playlist-item"
       [ngClass]="{ selected: this.playerService.selectedTrack()?.metadata?.crc === song.metadata.crc }"

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, DestroyRef, effect, inject, signal, Signal, viewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, DestroyRef, effect, inject, model, signal, Signal, viewChild } from '@angular/core';
 import { PlayerService } from '../player.service';
 import { Track } from '../player.types';
 import { VisualsService } from '../visualizer/visuals/visuals.service';
@@ -12,6 +12,9 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { SafePipe } from 'safe-pipe';
 import { CdkFixedSizeVirtualScroll, CdkVirtualForOf, CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { MatInput } from '@angular/material/input';
+import { FormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 @Component({
   selector: 'mtb-playlist',
@@ -29,7 +32,10 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
     NgOptimizedImage,
     CdkVirtualScrollViewport,
     CdkVirtualForOf,
-    CdkFixedSizeVirtualScroll
+    CdkFixedSizeVirtualScroll,
+    MatFormFieldModule,
+    MatInput,
+    FormsModule
   ]
 })
 export class PlaylistComponent {
@@ -38,13 +44,24 @@ export class PlaylistComponent {
   visualsService = inject(VisualsService);
   private destroRef = inject(DestroyRef);
 
+  readonly searchTerm = signal('');
+
+  readonly filteredPlaylist = computed(() => {
+    const term = this.searchTerm().toLowerCase();
+    if (!term) return this.playerService.currentPlaylist();
+
+    return this.playerService
+      .currentPlaylist()
+      .filter((song) => (song.metadata?.title || song.file.name).toLowerCase().includes(term) || (song.metadata?.artist || '').toLowerCase().includes(term));
+  });
+
   readonly scrollViewport = viewChild<CdkVirtualScrollViewport>('scrollViewport');
 
   private readonly isAutoScrollEnabled = signal(false);
 
   constructor() {
     effect(() => {
-      const playlist = this.playerService.currentPlaylist();
+      const playlist = this.filteredPlaylist();
 
       // Wait for change detection to complete
       setTimeout(() => {
@@ -79,7 +96,7 @@ export class PlaylistComponent {
   private scrollToBottom() {
     const viewport = this.scrollViewport();
     if (viewport) {
-      const playlist = this.playerService.currentPlaylist();
+      const playlist = this.filteredPlaylist();
       if (playlist && playlist.length > 0) {
         viewport.scrollToIndex(playlist.length - 1, 'smooth');
       }
