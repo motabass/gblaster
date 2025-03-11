@@ -21,7 +21,7 @@
           "browser": ""
         },
         "index": "apps/gblaster/src/index.html",
-        "polyfills": ["apps/gblaster/src/polyfills.ts"],
+        "polyfills": [],
         "tsConfig": "apps/gblaster/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
         "assets": ["apps/gblaster/src/favicon.ico", "apps/gblaster/src/assets", "apps/gblaster/src/manifest.webmanifest"],
