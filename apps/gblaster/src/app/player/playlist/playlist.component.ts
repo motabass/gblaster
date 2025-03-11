@@ -50,9 +50,12 @@ export class PlaylistComponent {
     const term = this.searchTerm().toLowerCase();
     if (!term) return this.playerService.currentPlaylist();
 
-    return this.playerService
-      .currentPlaylist()
-      .filter((song) => (song.metadata?.title || song.file.name).toLowerCase().includes(term) || (song.metadata?.artist || '').toLowerCase().includes(term));
+    return (
+      this.playerService
+        .currentPlaylist()
+        // search in title, artist and file name
+        .filter((song) => (song.metadata?.title || song.file.name).toLowerCase().includes(term) || (song.metadata?.artist || '').toLowerCase().includes(term))
+    );
   });
 
   readonly scrollViewport = viewChild<CdkVirtualScrollViewport>('scrollViewport');
@@ -60,17 +63,7 @@ export class PlaylistComponent {
   private readonly isAutoScrollEnabled = signal(false);
 
   constructor() {
-    effect(() => {
-      const playlist = this.filteredPlaylist();
-
-      // Wait for change detection to complete
-      setTimeout(() => {
-        if (playlist && playlist.length > 0 && this.isAutoScrollEnabled()) {
-          this.scrollToBottom();
-        }
-      });
-    });
-
+    // Enable auto scroll when user scrolls to bottom
     effect(() => {
       const viewport = this.scrollViewport();
       if (viewport) {
@@ -91,6 +84,30 @@ export class PlaylistComponent {
           });
       }
     });
+
+    // Scroll to bottom when playlist changes and autoscroll is enabled
+    effect(() => {
+      const playlist = this.filteredPlaylist();
+
+      // Wait for change detection to complete
+      setTimeout(() => {
+        if (playlist && playlist.length > 0 && this.isAutoScrollEnabled()) {
+          this.scrollToBottom();
+        }
+      });
+    });
+
+    // Scroll to current track when it changes
+    effect(() => {
+      const isPlaying = this.audioService.isPlaying();
+      const currentTrack = this.playerService.currentlyLoadedTrack();
+
+      // Only scroll when a track is playing
+      if (isPlaying && currentTrack) {
+        // Small delay to ensure UI has updated
+        setTimeout(() => this.scrollToCurrentTrack());
+      }
+    });
   }
 
   private scrollToBottom() {
@@ -99,6 +116,25 @@ export class PlaylistComponent {
       const playlist = this.filteredPlaylist();
       if (playlist && playlist.length > 0) {
         viewport.scrollToIndex(playlist.length - 1, 'smooth');
+      }
+    }
+  }
+
+  private scrollToCurrentTrack(): void {
+    const viewport = this.scrollViewport();
+    const currentTrack = this.playerService.currentlyLoadedTrack();
+    if (!viewport || !currentTrack) return;
+
+    const playlist = this.filteredPlaylist();
+    const index = playlist.findIndex((track) => track.metadata?.crc === currentTrack.metadata?.crc);
+
+    if (index !== -1) {
+      // Get the visible range
+      const visibleRange = viewport.getRenderedRange();
+
+      // Only scroll if the track is outside the visible range
+      if (index - 3 < visibleRange.start || index + 3 >= visibleRange.end) {
+        viewport.scrollToIndex(index, 'smooth');
       }
     }
   }
