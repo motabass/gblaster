@@ -140,9 +140,17 @@ export class PlaylistComponent {
         const distance = Math.abs(targetIndex - currentIndex);
 
         // Use smooth scrolling for nearby items, instant for far away items
-        const scollBehavior = distance > 20 ? 'auto' : 'smooth';
+        const scrollBehavior = distance > 20 ? 'instant' : 'smooth';
 
-        viewport.scrollToIndex(targetIndex, scollBehavior);
+        // For instant scrolling, center the item in the viewport
+        const viewportHeight = viewport.getViewportSize();
+
+        const itemSize = 72; // Height of each item in the list
+
+        // Calculate offset to center the item in the viewport
+        const offset = Math.max(0, targetIndex * itemSize - viewportHeight / 2 + itemSize / 2);
+
+        viewport.scrollToOffset(offset, scrollBehavior);
       }
     }
   }
