@@ -3,7 +3,7 @@ import { provideServiceWorker } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { provideNgxWebstorage, withLocalStorage, withNgxWebstorageConfig } from 'ngx-webstorage';
 import { DBConfig, NgxIndexedDBService, provideIndexedDb } from 'ngx-indexed-db';
-import { provideRouter, withEnabledBlockingInitialNavigation } from '@angular/router';
+import { provideRouter, withEnabledBlockingInitialNavigation, withViewTransitions } from '@angular/router';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { HTTP_INTERCEPTORS, provideHttpClient, withFetch, withInterceptorsFromDi } from '@angular/common/http';
 import { LoaderInterceptor } from './services/loader/loader.interceptor';
@@ -50,7 +50,7 @@ export const appConfig: ApplicationConfig = {
     provideNgxWebstorage(withNgxWebstorageConfig({ separator: '|', caseSensitive: true, prefix: 'gblaster' }), withLocalStorage()),
     provideAnimations(),
     provideHttpClient(withInterceptorsFromDi(), withFetch()),
-    provideRouter(routes, withEnabledBlockingInitialNavigation()),
+    provideRouter(routes, withEnabledBlockingInitialNavigation(), withViewTransitions()),
     {
       provide: FileLoaderService,
       useFactory: FileLoaderServiceFactory,
