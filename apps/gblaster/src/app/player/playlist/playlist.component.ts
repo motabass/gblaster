@@ -62,8 +62,8 @@ export class PlaylistComponent {
           .pipe(takeUntilDestroyed(this.destroRef))
           .subscribe(() => {
             const scrollPosition = viewport.measureScrollOffset('bottom');
-            const measureOffset = 30;
-            // If user scrolled to bottom (or very close to it - within 10px)
+            const measureOffset = 60;
+            // If user scrolled to bottom (or very close to it)
             if (scrollPosition < measureOffset) {
               this.isAutoScrollEnabled.set(true);
             }
@@ -76,7 +76,7 @@ export class PlaylistComponent {
     });
   }
 
-  scrollToBottom() {
+  private scrollToBottom() {
     const viewport = this.scrollViewport();
     if (viewport) {
       const playlist = this.playerService.currentPlaylist();

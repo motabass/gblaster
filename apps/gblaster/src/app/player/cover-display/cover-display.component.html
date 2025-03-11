@@ -43,7 +43,7 @@
     }
     @if (currentTrack?.metadata?.format?.bitrate) {
       <span>
-        Bitrate: <strong>{{ getBitrate(currentTrack?.metadata?.format?.bitrate) }} kb/s</strong>
+        Bitrate: <strong>{{ currentTrack?.metadata?.format?.bitrate | bitrate }}</strong>
       </span>
     }
     @if (currentTrack?.metadata?.format?.sampleRate) {
