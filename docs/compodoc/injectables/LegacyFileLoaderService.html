@@ -287,7 +287,7 @@
                 <td class="col-md-4">
 
                         <div class="io-description">
-                            <b>Returns : </b>    <code>Promise&lt;File[]&gt;</code>
+                            <b>Returns : </b>        <code><a href="../interfaces/FileData.html" target="_self" >Promise&lt;FileData[]&gt;</a></code>
 
                         </div>
                 </td>
@@ -386,7 +386,7 @@
 
     <div class="tab-pane fade  tab-source-code" id="source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable } from &#x27;@angular/core&#x27;;
-import { ALLOWED_MIMETYPES } from &#x27;./file-loader.helpers&#x27;;
+import { ALLOWED_MIMETYPES, FileData } from &#x27;./file-loader.helpers&#x27;;
 import { FileLoaderService } from &#x27;./file-loader.service.abstract&#x27;;
 
 @Injectable({
@@ -413,8 +413,8 @@ export class LegacyFileLoaderService extends FileLoaderService {
 
   async init() {}
 
-  async openFiles(): Promise&lt;File[]&gt; {
-    return this.files;
+  async openFiles(): Promise&lt;FileData[]&gt; {
+    return this.files.map((file) &#x3D;&gt; ({ file }));
   }
 
   private getFiles(): File[] {

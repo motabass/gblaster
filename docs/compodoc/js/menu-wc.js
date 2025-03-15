@@ -252,6 +252,9 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 <a href="interfaces/ActionCache.html" data-type="entity-link" >ActionCache</a>
                             </li>
                             <li class="link">
+                                <a href="interfaces/Album.html" data-type="entity-link" >Album</a>
+                            </li>
+                            <li class="link">
                                 <a href="interfaces/AnalyserConfig.html" data-type="entity-link" >AnalyserConfig</a>
                             </li>
                             <li class="link">
@@ -288,7 +291,13 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 <a href="interfaces/CoverColorPalette.html" data-type="entity-link" >CoverColorPalette</a>
                             </li>
                             <li class="link">
+                                <a href="interfaces/DirHandleEntry.html" data-type="entity-link" >DirHandleEntry</a>
+                            </li>
+                            <li class="link">
                                 <a href="interfaces/EqualizerGainValues.html" data-type="entity-link" >EqualizerGainValues</a>
+                            </li>
+                            <li class="link">
+                                <a href="interfaces/FileData.html" data-type="entity-link" >FileData</a>
                             </li>
                             <li class="link">
                                 <a href="interfaces/FrequencyBarsConfig.html" data-type="entity-link" >FrequencyBarsConfig</a>
@@ -310,6 +319,9 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                             </li>
                             <li class="link">
                                 <a href="interfaces/Id3Tags.html" data-type="entity-link" >Id3Tags</a>
+                            </li>
+                            <li class="link">
+                                <a href="interfaces/IndexedDbTrackMetadata.html" data-type="entity-link" >IndexedDbTrackMetadata</a>
                             </li>
                             <li class="link">
                                 <a href="interfaces/LastfmAlbum.html" data-type="entity-link" >LastfmAlbum</a>

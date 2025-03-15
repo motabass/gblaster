@@ -98,7 +98,7 @@
   <li class="breadcrumb-item">Interfaces</li>
   <li class="breadcrumb-item"
   >
-  Track</li>
+  FileData</li>
 </ol>
 
 <ul class="nav nav-tabs" role="tablist">
@@ -122,7 +122,7 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>apps/gblaster/src/app/player/player.types.ts</code>
+            <code>apps/gblaster/src/app/player/file-loader-service/file-loader.helpers.ts</code>
         </p>
 
 
@@ -151,12 +151,6 @@
                                         <a href="#fileHandle" 
 >
                                             fileHandle
-                                        </a>
-                                </li>
-                                <li>
-                                        <a href="#metadata" 
->
-                                            metadata
                                         </a>
                                 </li>
                             </ul>
@@ -241,80 +235,29 @@
 
                         </tbody>
                     </table>
-                    <table class="table table-sm table-bordered">
-                        <tbody>
-                                <tr>
-                                    <td class="col-md-4">
-                                        <a name="metadata"></a>
-                                        <span class="name "><b>metadata</b>
-                                            <a href="#metadata">
-                                                <span class="icon ion-ios-link"></span>
-                                            </a>
-                                        </span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="col-md-4">
-                                        <code>metadata:         <code><a href="../interfaces/TrackMetadata.html" target="_self" >TrackMetadata</a></code>
-</code>
-                                    </td>
-                                </tr>
-
-
-                                    <tr>
-                                        <td class="col-md-4">
-                                            <i>Type : </i>        <code><a href="../interfaces/TrackMetadata.html" target="_self" >TrackMetadata</a></code>
-
-                                        </td>
-                                    </tr>
-
-
-
-
-
-                        </tbody>
-                    </table>
             </section>
     </div>
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Id3CoverPicture } from &#x27;./metadata-service/id3-tags.types&#x27;;
-import { CoverColorPalette, RemoteCoverPicture } from &#x27;./metadata-service/metadata.types&#x27;;
-import { IFormat } from &#x27;music-metadata&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">export const ALLOWED_MIMETYPES &#x3D; [
+  &#x27;audio/mp3&#x27;,
+  &#x27;audio/mpeg&#x27;,
+  &#x27;audio/x-aiff&#x27;,
+  &#x27;audio/ogg&#x27;,
+  &#x27;audio/vorbis&#x27;,
+  &#x27;audio/vnd.wav&#x27;,
+  &#x27;audio/flac&#x27;,
+  &#x27;audio/wav&#x27;,
+  &#x27;audio/mp4&#x27;,
+  &#x27;audio/opus&#x27;
+];
 
-export interface Track {
+export const ALLOWED_EXTENSIONS &#x3D; [&#x27;mp3&#x27;, &#x27;flac&#x27;, &#x27;ogg&#x27;, &#x27;wav&#x27;, &#x27;aiff&#x27;, &#x27;opus&#x27;, &#x27;mp4&#x27;];
+
+export interface FileData {
   file: File;
   fileHandle?: FileSystemFileHandle;
-  metadata: TrackMetadata;
-}
-
-export interface TrackMetadata {
-  crc: string;
-  artist?: string;
-  title?: string;
-  track?: string;
-  album?: string;
-  year?: string;
-  format: IFormat;
-  coverUrl: RemoteCoverPicture;
-  embeddedPicture?: Id3CoverPicture;
-  coverColors: CoverColorPalette;
-}
-
-export interface IndexedDbTrackMetadata extends TrackMetadata {
-  fileHandle?: FileSystemFileHandle;
-}
-
-// EQ
-
-export type FrequencyBand &#x3D; 60 | 170 | 310 | 600 | 1000 | 3000 | 6000 | 12_000 | 14_000 | 16_000;
-
-export type RepeatMode &#x3D; &#x27;off&#x27; | &#x27;all&#x27; | &#x27;one&#x27;;
-
-export interface ColorConfig {
-  mainColor?: string;
-  peakColor?: string;
 }
 </code></pre>
     </div>
@@ -353,7 +296,7 @@ export interface ColorConfig {
        <script>
             var COMPODOC_CURRENT_PAGE_DEPTH = 1;
             var COMPODOC_CURRENT_PAGE_CONTEXT = 'interface';
-            var COMPODOC_CURRENT_PAGE_URL = 'Track.html';
+            var COMPODOC_CURRENT_PAGE_URL = 'FileData.html';
             var MAX_SEARCH_RESULTS = 15;
        </script>
 

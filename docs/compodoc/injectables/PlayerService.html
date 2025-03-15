@@ -183,6 +183,9 @@
                                 <a href="#addFilesToPlaylist" >addFilesToPlaylist</a>
                             </li>
                             <li>
+                                <a href="#addTrackToPlaylist" >addTrackToPlaylist</a>
+                            </li>
+                            <li>
                                     <span class="modifier">Async</span>
                                 <a href="#loadFiles" >loadFiles</a>
                             </li>
@@ -283,7 +286,74 @@
             <tr>
                 <td class="col-md-4">
                         <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>addFilesToPlaylist(...files: File[])</code>
+                    <code>addFilesToPlaylist(fileDatas: <a href="../interfaces/FileData.html" target="_self">FileData[]</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="120"
+                                    class="link-to-prism">apps/gblaster/src/app/player/player.service.ts:120</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>fileDatas</td>
+                                            <td>
+                                                            <code><a href="../interfaces/FileData.html" target="_self" >FileData[]</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="addTrackToPlaylist"></a>
+                    <span class="name">
+                        <span ><b>addTrackToPlaylist</b></span>
+                        <a href="#addTrackToPlaylist"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>addTrackToPlaylist(song: <a href="../interfaces/Track.html" target="_self">Track</a>)</code>
                 </td>
             </tr>
 
@@ -312,9 +382,9 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                                <td>files</td>
+                                                <td>song</td>
                                             <td>
-                                                        <code>File[]</code>
+                                                            <code><a href="../interfaces/Track.html" target="_self" >Track</a></code>
                                             </td>
 
                                             <td>
@@ -327,7 +397,7 @@
                                 </table>
                             </div>
                         <div class="io-description">
-                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
 
                         </div>
                             <div class="io-description">
@@ -398,8 +468,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="205"
-                                    class="link-to-prism">apps/gblaster/src/app/player/player.service.ts:205</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="212"
+                                    class="link-to-prism">apps/gblaster/src/app/player/player.service.ts:212</a></div>
                         </td>
                     </tr>
 
@@ -437,8 +507,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="180"
-                                    class="link-to-prism">apps/gblaster/src/app/player/player.service.ts:180</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="187"
+                                    class="link-to-prism">apps/gblaster/src/app/player/player.service.ts:187</a></div>
                         </td>
                     </tr>
 
@@ -476,8 +546,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="168"
-                                    class="link-to-prism">apps/gblaster/src/app/player/player.service.ts:168</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="175"
+                                    class="link-to-prism">apps/gblaster/src/app/player/player.service.ts:175</a></div>
                         </td>
                     </tr>
 
@@ -545,8 +615,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="226"
-                                    class="link-to-prism">apps/gblaster/src/app/player/player.service.ts:226</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="233"
+                                    class="link-to-prism">apps/gblaster/src/app/player/player.service.ts:233</a></div>
                         </td>
                     </tr>
 
@@ -582,8 +652,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="279"
-                                    class="link-to-prism">apps/gblaster/src/app/player/player.service.ts:279</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="286"
+                                    class="link-to-prism">apps/gblaster/src/app/player/player.service.ts:286</a></div>
                         </td>
                     </tr>
 
@@ -649,8 +719,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="283"
-                                    class="link-to-prism">apps/gblaster/src/app/player/player.service.ts:283</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="290"
+                                    class="link-to-prism">apps/gblaster/src/app/player/player.service.ts:290</a></div>
                         </td>
                     </tr>
 
@@ -718,8 +788,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="244"
-                                    class="link-to-prism">apps/gblaster/src/app/player/player.service.ts:244</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="251"
+                                    class="link-to-prism">apps/gblaster/src/app/player/player.service.ts:251</a></div>
                         </td>
                     </tr>
 
@@ -757,8 +827,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="262"
-                                    class="link-to-prism">apps/gblaster/src/app/player/player.service.ts:262</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="269"
+                                    class="link-to-prism">apps/gblaster/src/app/player/player.service.ts:269</a></div>
                         </td>
                     </tr>
 
@@ -794,8 +864,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="164"
-                                    class="link-to-prism">apps/gblaster/src/app/player/player.service.ts:164</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="171"
+                                    class="link-to-prism">apps/gblaster/src/app/player/player.service.ts:171</a></div>
                         </td>
                     </tr>
 
@@ -861,8 +931,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="146"
-                                    class="link-to-prism">apps/gblaster/src/app/player/player.service.ts:146</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="153"
+                                    class="link-to-prism">apps/gblaster/src/app/player/player.service.ts:153</a></div>
                         </td>
                     </tr>
 
@@ -947,8 +1017,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="196"
-                                    class="link-to-prism">apps/gblaster/src/app/player/player.service.ts:196</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="203"
+                                    class="link-to-prism">apps/gblaster/src/app/player/player.service.ts:203</a></div>
                         </td>
                     </tr>
 
@@ -984,8 +1054,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="297"
-                                    class="link-to-prism">apps/gblaster/src/app/player/player.service.ts:297</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="304"
+                                    class="link-to-prism">apps/gblaster/src/app/player/player.service.ts:304</a></div>
                         </td>
                     </tr>
 
@@ -1021,8 +1091,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="316"
-                                    class="link-to-prism">apps/gblaster/src/app/player/player.service.ts:316</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="323"
+                                    class="link-to-prism">apps/gblaster/src/app/player/player.service.ts:323</a></div>
                         </td>
                     </tr>
 
@@ -1152,7 +1222,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="156" class="link-to-prism">apps/gblaster/src/app/player/player.service.ts:156</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="163" class="link-to-prism">apps/gblaster/src/app/player/player.service.ts:163</a></div>
                         </td>
                     </tr>
 
@@ -1180,7 +1250,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="152" class="link-to-prism">apps/gblaster/src/app/player/player.service.ts:152</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="159" class="link-to-prism">apps/gblaster/src/app/player/player.service.ts:159</a></div>
                         </td>
                     </tr>
 
@@ -1276,7 +1346,7 @@ import { LocalStorageService } from &#x27;ngx-webstorage&#x27;;
 import { FileLoaderService } from &#x27;./file-loader-service/file-loader.service.abstract&#x27;;
 import { MetadataService } from &#x27;./metadata-service/metadata.service&#x27;;
 import type { ColorConfig, RepeatMode, Track } from &#x27;./player.types&#x27;;
-import { ALLOWED_MIMETYPES } from &#x27;./file-loader-service/file-loader.helpers&#x27;;
+import { ALLOWED_MIMETYPES, FileData } from &#x27;./file-loader-service/file-loader.helpers&#x27;;
 import { ThemeService } from &#x27;../theme/theme.service&#x27;;
 import { LoaderService } from &#x27;../services/loader/loader.service&#x27;;
 import { WakelockService } from &#x27;../services/wakelock.service&#x27;;
@@ -1284,7 +1354,7 @@ import { MediaSessionService } from &#x27;../services/media-session/media-sessio
 import { AudioService } from &#x27;./audio.service&#x27;;
 import { takeUntilDestroyed } from &#x27;@angular/core/rxjs-interop&#x27;;
 
-@Injectable({ providedIn: &#x27;any&#x27; })
+@Injectable({ providedIn: &#x27;root&#x27; })
 export class PlayerService {
   private audioService &#x3D; inject(AudioService);
   private localStorageService &#x3D; inject(LocalStorageService);
@@ -1380,15 +1450,21 @@ export class PlayerService {
   }
 
   async loadFiles(): Promise&lt;void&gt; {
-    const files: File[] &#x3D; await this.fileLoaderService.openFiles();
-    return this.addFilesToPlaylist(...files);
+    const fileDatas: FileData[] &#x3D; await this.fileLoaderService.openFiles();
+    return this.addFilesToPlaylist(...fileDatas);
   }
 
-  async addFilesToPlaylist(...files: File[]) {
-    if (files?.length) {
-      for (const file of files.values()) {
+  addTrackToPlaylist(song: Track) {
+    if (!this.currentPlaylist().some((playlistSong) &#x3D;&gt; playlistSong.metadata?.crc &#x3D;&#x3D;&#x3D; song.metadata?.crc)) {
+      this.currentPlaylist.update((playlist) &#x3D;&gt; [...playlist, song]);
+    }
+  }
+
+  async addFilesToPlaylist(...fileDatas: FileData[]) {
+    if (fileDatas?.length) {
+      for (const fileData of fileDatas.values()) {
         this.loaderService.show();
-        const song &#x3D; await this.createTrackFromFile(file);
+        const song &#x3D; await this.createTrackFromFile(fileData);
         this.loaderService.hide();
 
         if (!song) {
@@ -1402,16 +1478,17 @@ export class PlayerService {
     }
   }
 
-  private async createTrackFromFile(file: File): Promise&lt;Track | undefined&gt; {
+  private async createTrackFromFile(fileData: FileData): Promise&lt;Track | undefined&gt; {
     // console.time(&#x27;full-metadata&#x27;);
-    const metadata &#x3D; await this.metadataService.getMetadata(file);
+    const metadata &#x3D; await this.metadataService.getMetadata(fileData);
     // console.timeEnd(&#x27;full-metadata&#x27;);
 
     if (!metadata) {
       return undefined;
     }
     return {
-      file: file,
+      file: fileData.file,
+      fileHandle: fileData.fileHandle,
       metadata: metadata
     };
   }
@@ -1594,6 +1671,7 @@ export class PlayerService {
 function getRandomInt(min: number, max: number) {
   min &#x3D; Math.ceil(min);
   max &#x3D; Math.floor(max);
+  // eslint-disable-next-line sonarjs/pseudo-random
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 </code></pre>

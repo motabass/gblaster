@@ -199,15 +199,15 @@
             <tr>
                 <td class="col-md-4">
                         <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>getMetadata(file: File)</code>
+                    <code>getMetadata(fileData: <a href="../interfaces/FileData.html" target="_self">FileData</a>)</code>
                 </td>
             </tr>
 
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="30"
-                                    class="link-to-prism">apps/gblaster/src/app/player/metadata-service/metadata.service.ts:30</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="31"
+                                    class="link-to-prism">apps/gblaster/src/app/player/metadata-service/metadata.service.ts:31</a></div>
                         </td>
                     </tr>
 
@@ -228,9 +228,9 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                                <td>file</td>
+                                                <td>fileData</td>
                                             <td>
-                                                        <code>File</code>
+                                                            <code><a href="../interfaces/FileData.html" target="_self" >FileData</a></code>
                                             </td>
 
                                             <td>
@@ -278,7 +278,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">apps/gblaster/src/app/player/metadata-service/metadata.service.ts:28</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">apps/gblaster/src/app/player/metadata-service/metadata.service.ts:29</a></div>
                         </td>
                     </tr>
 
@@ -304,7 +304,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="27" class="link-to-prism">apps/gblaster/src/app/player/metadata-service/metadata.service.ts:27</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">apps/gblaster/src/app/player/metadata-service/metadata.service.ts:28</a></div>
                         </td>
                     </tr>
 
@@ -330,7 +330,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">apps/gblaster/src/app/player/metadata-service/metadata.service.ts:26</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="27" class="link-to-prism">apps/gblaster/src/app/player/metadata-service/metadata.service.ts:27</a></div>
                         </td>
                     </tr>
 
@@ -356,7 +356,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">apps/gblaster/src/app/player/metadata-service/metadata.service.ts:25</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">apps/gblaster/src/app/player/metadata-service/metadata.service.ts:26</a></div>
                         </td>
                     </tr>
 
@@ -374,12 +374,13 @@ import { inject, Injectable, signal } from &#x27;@angular/core&#x27;;
 import { NgxIndexedDBService } from &#x27;ngx-indexed-db&#x27;;
 import { LocalStorageService } from &#x27;ngx-webstorage&#x27;;
 import { firstValueFrom } from &#x27;rxjs&#x27;;
-import { TrackMetadata } from &#x27;../player.types&#x27;;
+import { IndexedDbTrackMetadata, TrackMetadata } from &#x27;../player.types&#x27;;
 import { Id3TagsService } from &#x27;./id3-tags.service&#x27;;
 import { LastfmMetadataService } from &#x27;./lastfm-metadata.service&#x27;;
 import { CoverColorPalette, RemoteCoverPicture } from &#x27;./metadata.types&#x27;;
 import { MusicbrainzService } from &#x27;./musicbrainz.service&#x27;;
 import { Vibrant } from &#x27;node-vibrant/browser&#x27;;
+import { FileData } from &#x27;../file-loader-service/file-loader.helpers&#x27;;
 
 // import * as SparkMD5 from &#x27;spark-md5&#x27;;
 
@@ -398,13 +399,13 @@ export class MetadataService {
   readonly useTagEmbeddedPicture &#x3D; signal(this.localStorageService.retrieve(&#x27;useTagEmbeddedPicture&#x27;) ?? true);
   readonly preferTagEmbeddedPicture &#x3D; signal(this.localStorageService.retrieve(&#x27;preferTagEmbeddedPicture&#x27;) ?? true);
 
-  async getMetadata(file: File): Promise&lt;TrackMetadata | undefined&gt; {
+  async getMetadata(fileData: FileData): Promise&lt;TrackMetadata | undefined&gt; {
     // console.time(&#x27;hash&#x27;);
-    const crc &#x3D; generateFileHash(file);
+    const crc &#x3D; generateFileHash(fileData.file);
     // console.timeEnd(&#x27;hash&#x27;);
 
     if (this.useTagsCache()) {
-      const metadataCache: TrackMetadata &#x3D; await firstValueFrom(this.indexedDBService.getByKey&lt;TrackMetadata&gt;(&#x27;metatags&#x27;, crc));
+      const metadataCache: TrackMetadata &#x3D; await firstValueFrom(this.indexedDBService.getByKey&lt;IndexedDbTrackMetadata&gt;(&#x27;metatags&#x27;, crc));
 
       if (metadataCache) {
         if (metadataCache.embeddedPicture &amp;&amp; this.useTagEmbeddedPicture() &amp;&amp; (!metadataCache.coverUrl || this.preferTagEmbeddedPicture())) {
@@ -420,7 +421,7 @@ export class MetadataService {
       }
     }
     // console.time(&#x27;id3tags&#x27;);
-    const tags &#x3D; await this.id3TagsService.extractTags(file);
+    const tags &#x3D; await this.id3TagsService.extractTags(fileData.file);
     // console.timeEnd(&#x27;id3tags&#x27;);
     if (!tags) {
       // if no tags
@@ -457,8 +458,9 @@ export class MetadataService {
     //   // console.timeEnd(&#x27;vibrant&#x27;);
     // }
 
-    const metadata: TrackMetadata &#x3D; {
+    const metadata: IndexedDbTrackMetadata &#x3D; {
       crc: crc,
+      fileHandle: fileData.fileHandle,
       coverUrl: coverUrls ?? { thumb: this.PLACEHOLDER_URL, original: this.PLACEHOLDER_URL },
       embeddedPicture: tags.picture,
       coverColors: palette || {},

@@ -153,6 +153,17 @@
                 <td class="col-md-9">
                             <code>MatListModule</code>
                             <code>NgArrayPipesModule</code>
+                            <code>MatMenu</code>
+                            <code>MatMenuContent</code>
+                            <code>MatMenuItem</code>
+                            <code>MatMenuTrigger</code>
+                            <code>MatIcon</code>
+                            <code>MatIconButton</code>
+                            <code>CdkFixedSizeVirtualScroll</code>
+                            <code>CdkVirtualScrollViewport</code>
+                            <code>CdkVirtualForOf</code>
+                            <code>NgOptimizedImage</code>
+                            <code>SafePipe</code>
                 </td>
             </tr>
 
@@ -192,13 +203,28 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
-                                <a href="#albums" >albums</a>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#selectedAlbum" >selectedAlbum</a>
                             </li>
                             <li>
-                                <a href="#artists" >artists</a>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#selectedArtist" >selectedArtist</a>
                             </li>
                             <li>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#selectedTrack" >selectedTrack</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Readonly</span>
                                 <a href="#tracks" >tracks</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#uniqueAlbums" >uniqueAlbums</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#uniqueArtists" >uniqueArtists</a>
                             </li>
                         </ul>
                     </td>
@@ -213,6 +239,22 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#addAlbumToPlaylist" >addAlbumToPlaylist</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#addTracksToPlaylist" >addTracksToPlaylist</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#addTrackToPlaylist" >addTrackToPlaylist</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#playTrack" >playTrack</a>
+                            </li>
+                            <li>
                                 <a href="#selectAlbum" >selectAlbum</a>
                             </li>
                             <li>
@@ -220,9 +262,6 @@
                             </li>
                             <li>
                                 <a href="#selectTrack" >selectTrack</a>
-                            </li>
-                            <li>
-                                <a href="#split" >split</a>
                             </li>
                         </ul>
                     </td>
@@ -250,6 +289,282 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
+                    <a name="addAlbumToPlaylist"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>addAlbumToPlaylist</b></span>
+                        <a href="#addAlbumToPlaylist"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>addAlbumToPlaylist(album: <a href="../interfaces/Album.html" target="_self">Album</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="156"
+                                    class="link-to-prism">apps/gblaster/src/app/player/library/library.component.ts:156</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>album</td>
+                                            <td>
+                                                            <code><a href="../interfaces/Album.html" target="_self" >Album</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="addTracksToPlaylist"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>addTracksToPlaylist</b></span>
+                        <a href="#addTracksToPlaylist"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>addTracksToPlaylist(...dbTracks: IndexedDbTrackMetadata[])</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="165"
+                                    class="link-to-prism">apps/gblaster/src/app/player/library/library.component.ts:165</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>dbTracks</td>
+                                            <td>
+                                                        <code>IndexedDbTrackMetadata[]</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="addTrackToPlaylist"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>addTrackToPlaylist</b></span>
+                        <a href="#addTrackToPlaylist"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>addTrackToPlaylist(track: <a href="../interfaces/IndexedDbTrackMetadata.html" target="_self">IndexedDbTrackMetadata</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="161"
+                                    class="link-to-prism">apps/gblaster/src/app/player/library/library.component.ts:161</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>track</td>
+                                            <td>
+                                                            <code><a href="../interfaces/IndexedDbTrackMetadata.html" target="_self" >IndexedDbTrackMetadata</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="playTrack"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>playTrack</b></span>
+                        <a href="#playTrack"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>playTrack(track: IndexedDbTrackMetadata | undefined)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="149"
+                                    class="link-to-prism">apps/gblaster/src/app/player/library/library.component.ts:149</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>track</td>
+                                            <td>
+                                                        <code>IndexedDbTrackMetadata | undefined</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
                     <a name="selectAlbum"></a>
                     <span class="name">
                         <span ><b>selectAlbum</b></span>
@@ -266,8 +581,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="45"
-                                    class="link-to-prism">apps/gblaster/src/app/player/library/library.component.ts:45</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="138"
+                                    class="link-to-prism">apps/gblaster/src/app/player/library/library.component.ts:138</a></div>
                         </td>
                     </tr>
 
@@ -333,8 +648,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="39"
-                                    class="link-to-prism">apps/gblaster/src/app/player/library/library.component.ts:39</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="132"
+                                    class="link-to-prism">apps/gblaster/src/app/player/library/library.component.ts:132</a></div>
                         </td>
                     </tr>
 
@@ -393,15 +708,15 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>selectTrack(track: string | undefined)</code>
+<code>selectTrack(track: IndexedDbTrackMetadata | undefined)</code>
                 </td>
             </tr>
 
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="51"
-                                    class="link-to-prism">apps/gblaster/src/app/player/library/library.component.ts:51</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="143"
+                                    class="link-to-prism">apps/gblaster/src/app/player/library/library.component.ts:143</a></div>
                         </td>
                     </tr>
 
@@ -424,7 +739,7 @@
                                         <tr>
                                                 <td>track</td>
                                             <td>
-                                                        <code>string | undefined</code>
+                                                        <code>IndexedDbTrackMetadata | undefined</code>
                                             </td>
 
                                             <td>
@@ -447,43 +762,6 @@
             </tr>
         </tbody>
     </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="split"></a>
-                    <span class="name">
-                        <span ><b>split</b></span>
-                        <a href="#split"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-<code>split()</code>
-                </td>
-            </tr>
-
-
-                    <tr>
-                        <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="30"
-                                    class="link-to-prism">apps/gblaster/src/app/player/library/library.component.ts:30</a></div>
-                        </td>
-                    </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-
-                        <div class="io-description">
-                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
-
-                        </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
 </section>
     <section data-compodoc="block-properties">
     
@@ -494,27 +772,22 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="albums"></a>
+                    <a name="selectedAlbum"></a>
                     <span class="name">
-                        <span ><b>albums</b></span>
-                        <a href="#albums"><span class="icon ion-ios-link"></span></a>
+                            <span class="modifier">Readonly</span>
+                        <span ><b>selectedAlbum</b></span>
+                        <a href="#selectedAlbum"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
                 <tr>
                     <td class="col-md-4">
-                        <i>Type : </i>    <code>string[]</code>
-
-                    </td>
-                </tr>
-                <tr>
-                    <td class="col-md-4">
-                        <i>Default value : </i><code>[]</code>
+                        <i>Default value : </i><code>signal&lt;string | undefined&gt;(undefined)</code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">apps/gblaster/src/app/player/library/library.component.ts:16</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="49" class="link-to-prism">apps/gblaster/src/app/player/library/library.component.ts:49</a></div>
                         </td>
                     </tr>
 
@@ -525,27 +798,48 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="artists"></a>
+                    <a name="selectedArtist"></a>
                     <span class="name">
-                        <span ><b>artists</b></span>
-                        <a href="#artists"><span class="icon ion-ios-link"></span></a>
+                            <span class="modifier">Readonly</span>
+                        <span ><b>selectedArtist</b></span>
+                        <a href="#selectedArtist"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
                 <tr>
                     <td class="col-md-4">
-                        <i>Type : </i>    <code>string[]</code>
-
-                    </td>
-                </tr>
-                <tr>
-                    <td class="col-md-4">
-                        <i>Default value : </i><code>[]</code>
+                        <i>Default value : </i><code>signal&lt;string | undefined&gt;(undefined)</code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">apps/gblaster/src/app/player/library/library.component.ts:15</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="48" class="link-to-prism">apps/gblaster/src/app/player/library/library.component.ts:48</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="selectedTrack"></a>
+                    <span class="name">
+                            <span class="modifier">Readonly</span>
+                        <span ><b>selectedTrack</b></span>
+                        <a href="#selectedTrack"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;IndexedDbTrackMetadata | undefined&gt;(undefined)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="50" class="link-to-prism">apps/gblaster/src/app/player/library/library.component.ts:50</a></div>
                         </td>
                     </tr>
 
@@ -558,6 +852,7 @@
                 <td class="col-md-4">
                     <a name="tracks"></a>
                     <span class="name">
+                            <span class="modifier">Readonly</span>
                         <span ><b>tracks</b></span>
                         <a href="#tracks"><span class="icon ion-ios-link"></span></a>
                     </span>
@@ -565,18 +860,129 @@
             </tr>
                 <tr>
                     <td class="col-md-4">
-                        <i>Type : </i>    <code>string[]</code>
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; {
+    let filtered &#x3D; this.data();
+    const artist &#x3D; this.selectedArtist();
+    const album &#x3D; this.selectedAlbum();
 
-                    </td>
-                </tr>
-                <tr>
-                    <td class="col-md-4">
-                        <i>Default value : </i><code>[]</code>
+    if (artist) {
+      filtered &#x3D; filtered.filter((item) &#x3D;&gt; item.artist &#x3D;&#x3D;&#x3D; artist);
+    }
+
+    if (album) {
+      filtered &#x3D; filtered.filter((item) &#x3D;&gt; item.album &#x3D;&#x3D;&#x3D; album);
+    }
+
+    // Sort tracks by artist, then album, then track number (if available), then title
+    return filtered.sort((a, b) &#x3D;&gt; {
+      // Compare artists first
+      const artistCompare &#x3D; (a.artist || &#x27;&#x27;).localeCompare(b.artist || &#x27;&#x27;);
+      if (artistCompare !&#x3D;&#x3D; 0) return artistCompare;
+
+      // Then compare albums
+      const albumCompare &#x3D; (a.album || &#x27;&#x27;).localeCompare(b.album || &#x27;&#x27;);
+      if (albumCompare !&#x3D;&#x3D; 0) return albumCompare;
+
+      // Then use track number if available
+      const aTrack &#x3D; a.track !&#x3D;&#x3D; undefined ? Number(a.track) : NaN;
+      const bTrack &#x3D; b.track !&#x3D;&#x3D; undefined ? Number(b.track) : NaN;
+
+      // If both tracks have track numbers, compare them
+      if (!isNaN(aTrack) &amp;&amp; !isNaN(bTrack)) {
+        return aTrack - bTrack;
+      }
+
+      // Otherwise, fall back to title comparison
+      return (a.title || &#x27;&#x27;).localeCompare(b.title || &#x27;&#x27;);
+    });
+  })</code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">apps/gblaster/src/app/player/library/library.component.ts:17</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="86" class="link-to-prism">apps/gblaster/src/app/player/library/library.component.ts:86</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="uniqueAlbums"></a>
+                    <span class="name">
+                            <span class="modifier">Readonly</span>
+                        <span ><b>uniqueAlbums</b></span>
+                        <a href="#uniqueAlbums"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; {
+    let filtered &#x3D; this.data();
+    const artist &#x3D; this.selectedArtist();
+
+    if (artist) {
+      filtered &#x3D; filtered.filter((item) &#x3D;&gt; item.artist &#x3D;&#x3D;&#x3D; artist &amp;&amp; !!item.album);
+    } else {
+      filtered &#x3D; filtered.filter((item) &#x3D;&gt; !!item.album);
+    }
+
+    // Map to store unique albums by name
+    const albumMap &#x3D; new Map&lt;string, Album&gt;();
+
+    for (const tag of filtered) {
+      const albumName &#x3D; tag.album || &#x27;&#x27;;
+      if (!albumMap.has(albumName)) {
+        albumMap.set(albumName, {
+          name: albumName,
+          coverUrl: tag.coverUrl
+        });
+      }
+    }
+
+    return [...albumMap.values()].sort((a, b) &#x3D;&gt; a.name.localeCompare(b.name));
+  })</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="60" class="link-to-prism">apps/gblaster/src/app/player/library/library.component.ts:60</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="uniqueArtists"></a>
+                    <span class="name">
+                            <span class="modifier">Readonly</span>
+                        <span ><b>uniqueArtists</b></span>
+                        <a href="#uniqueArtists"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; {
+    const filtered &#x3D; this.data()
+      .map((tag) &#x3D;&gt; tag.artist)
+      .filter((artist): artist is string &#x3D;&gt; !!artist);
+
+    return [...new Set(filtered)];
+  })</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="52" class="link-to-prism">apps/gblaster/src/app/player/library/library.component.ts:52</a></div>
                         </td>
                     </tr>
 
@@ -589,59 +995,184 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit, inject } from &#x27;@angular/core&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, computed, inject, OnInit, signal } from &#x27;@angular/core&#x27;;
 import { NgxIndexedDBService } from &#x27;ngx-indexed-db&#x27;;
-import { TrackMetadata } from &#x27;../player.types&#x27;;
+import { IndexedDbTrackMetadata, Track } from &#x27;../player.types&#x27;;
 import { NgArrayPipesModule } from &#x27;ngx-pipes&#x27;;
 import { MatListModule } from &#x27;@angular/material/list&#x27;;
+import { firstValueFrom } from &#x27;rxjs&#x27;;
+import { MatMenu, MatMenuContent, MatMenuItem, MatMenuTrigger } from &#x27;@angular/material/menu&#x27;;
+import { PlayerService } from &#x27;../player.service&#x27;;
+import { MatIcon } from &#x27;@angular/material/icon&#x27;;
+import { MatIconButton } from &#x27;@angular/material/button&#x27;;
+import { CdkFixedSizeVirtualScroll, CdkVirtualForOf, CdkVirtualScrollViewport } from &#x27;@angular/cdk/scrolling&#x27;;
+import { NgOptimizedImage } from &#x27;@angular/common&#x27;;
+import { SafePipe } from &#x27;safe-pipe&#x27;;
+import { Router } from &#x27;@angular/router&#x27;;
+import { RemoteCoverPicture } from &#x27;../metadata-service/metadata.types&#x27;;
+
+export interface Album {
+  name: string;
+  coverUrl: RemoteCoverPicture;
+}
 
 @Component({
   templateUrl: &#x27;./library.component.html&#x27;,
   styleUrl: &#x27;./library.component.scss&#x27;,
-  imports: [MatListModule, NgArrayPipesModule]
+  imports: [
+    MatListModule,
+    NgArrayPipesModule,
+    MatMenu,
+    MatMenuContent,
+    MatMenuItem,
+    MatMenuTrigger,
+    MatIcon,
+    MatIconButton,
+    CdkFixedSizeVirtualScroll,
+    CdkVirtualScrollViewport,
+    CdkVirtualForOf,
+    NgOptimizedImage,
+    SafePipe
+  ]
 })
 export default class LibraryComponent implements OnInit {
   private indexedDbService &#x3D; inject(NgxIndexedDBService);
+  private playerService &#x3D; inject(PlayerService);
+  private router &#x3D; inject(Router);
 
-  artists: string[] &#x3D; [];
-  albums: string[] &#x3D; [];
-  tracks: string[] &#x3D; [];
+  private readonly data &#x3D; signal&lt;IndexedDbTrackMetadata[]&gt;([]);
 
-  private selectedArtist!: string;
-  private selectedAlbum!: string;
-  private selectedTrack!: string;
+  readonly selectedArtist &#x3D; signal&lt;string | undefined&gt;(undefined);
+  readonly selectedAlbum &#x3D; signal&lt;string | undefined&gt;(undefined);
+  readonly selectedTrack &#x3D; signal&lt;IndexedDbTrackMetadata | undefined&gt;(undefined);
 
-  private data?: TrackMetadata[];
+  readonly uniqueArtists &#x3D; computed(() &#x3D;&gt; {
+    const filtered &#x3D; this.data()
+      .map((tag) &#x3D;&gt; tag.artist)
+      .filter((artist): artist is string &#x3D;&gt; !!artist);
+
+    return [...new Set(filtered)];
+  });
+
+  readonly uniqueAlbums &#x3D; computed(() &#x3D;&gt; {
+    let filtered &#x3D; this.data();
+    const artist &#x3D; this.selectedArtist();
+
+    if (artist) {
+      filtered &#x3D; filtered.filter((item) &#x3D;&gt; item.artist &#x3D;&#x3D;&#x3D; artist &amp;&amp; !!item.album);
+    } else {
+      filtered &#x3D; filtered.filter((item) &#x3D;&gt; !!item.album);
+    }
+
+    // Map to store unique albums by name
+    const albumMap &#x3D; new Map&lt;string, Album&gt;();
+
+    for (const tag of filtered) {
+      const albumName &#x3D; tag.album || &#x27;&#x27;;
+      if (!albumMap.has(albumName)) {
+        albumMap.set(albumName, {
+          name: albumName,
+          coverUrl: tag.coverUrl
+        });
+      }
+    }
+
+    return [...albumMap.values()].sort((a, b) &#x3D;&gt; a.name.localeCompare(b.name));
+  });
+
+  readonly tracks &#x3D; computed(() &#x3D;&gt; {
+    let filtered &#x3D; this.data();
+    const artist &#x3D; this.selectedArtist();
+    const album &#x3D; this.selectedAlbum();
+
+    if (artist) {
+      filtered &#x3D; filtered.filter((item) &#x3D;&gt; item.artist &#x3D;&#x3D;&#x3D; artist);
+    }
+
+    if (album) {
+      filtered &#x3D; filtered.filter((item) &#x3D;&gt; item.album &#x3D;&#x3D;&#x3D; album);
+    }
+
+    // Sort tracks by artist, then album, then track number (if available), then title
+    return filtered.sort((a, b) &#x3D;&gt; {
+      // Compare artists first
+      const artistCompare &#x3D; (a.artist || &#x27;&#x27;).localeCompare(b.artist || &#x27;&#x27;);
+      if (artistCompare !&#x3D;&#x3D; 0) return artistCompare;
+
+      // Then compare albums
+      const albumCompare &#x3D; (a.album || &#x27;&#x27;).localeCompare(b.album || &#x27;&#x27;);
+      if (albumCompare !&#x3D;&#x3D; 0) return albumCompare;
+
+      // Then use track number if available
+      const aTrack &#x3D; a.track !&#x3D;&#x3D; undefined ? Number(a.track) : NaN;
+      const bTrack &#x3D; b.track !&#x3D;&#x3D; undefined ? Number(b.track) : NaN;
+
+      // If both tracks have track numbers, compare them
+      if (!isNaN(aTrack) &amp;&amp; !isNaN(bTrack)) {
+        return aTrack - bTrack;
+      }
+
+      // Otherwise, fall back to title comparison
+      return (a.title || &#x27;&#x27;).localeCompare(b.title || &#x27;&#x27;);
+    });
+  });
 
   async ngOnInit() {
-    this.data &#x3D; await this.indexedDbService.getAll&lt;TrackMetadata&gt;(&#x27;metatags&#x27;).toPromise();
-    this.split();
-  }
-
-  split() {
-    // @ts-expect-error
-    this.artists &#x3D; this.data.map((tag) &#x3D;&gt; tag.artist).filter((artist) &#x3D;&gt; !!artist);
-    // @ts-expect-error
-    this.albums &#x3D; this.data.map((tag) &#x3D;&gt; tag.album).filter((album) &#x3D;&gt; !!album);
-    // @ts-expect-error
-    this.tracks &#x3D; this.data.map((tag) &#x3D;&gt; tag.title).filter((title) &#x3D;&gt; !!title);
+    try {
+      const result &#x3D; await firstValueFrom(this.indexedDbService.getAll&lt;IndexedDbTrackMetadata&gt;(&#x27;metatags&#x27;));
+      this.data.set(result || []);
+    } catch (error) {
+      console.error(&#x27;Error loading library data:&#x27;, error);
+    }
   }
 
   selectArtist(artist: string | undefined) {
-    if (artist) {
-      this.selectedArtist &#x3D; artist;
-    }
+    this.selectedArtist.set(artist);
+    this.selectedAlbum.set(undefined);
+    this.selectedTrack.set(undefined);
   }
 
   selectAlbum(album: string | undefined) {
-    if (album) {
-      this.selectedAlbum &#x3D; album;
+    this.selectedAlbum.set(album);
+    this.selectedTrack.set(undefined);
+  }
+
+  selectTrack(track: IndexedDbTrackMetadata | undefined) {
+    if (track) {
+      this.selectedTrack.set(track);
     }
   }
 
-  selectTrack(track: string | undefined) {
+  async playTrack(track: IndexedDbTrackMetadata | undefined) {
     if (track) {
-      this.selectedTrack &#x3D; track;
+      await this.addTrackToPlaylist(track);
+      void this.router.navigate([&#x27;/player&#x27;]);
+    }
+  }
+
+  async addAlbumToPlaylist(album: Album) {
+    const tracks &#x3D; this.data().filter((track) &#x3D;&gt; track.album &#x3D;&#x3D;&#x3D; album.name);
+    await this.addTracksToPlaylist(...tracks);
+  }
+
+  async addTrackToPlaylist(track: IndexedDbTrackMetadata) {
+    await this.addTracksToPlaylist(track);
+  }
+
+  async addTracksToPlaylist(...dbTracks: IndexedDbTrackMetadata[]) {
+    for (const dbTrack of dbTracks) {
+      const file &#x3D; await dbTrack.fileHandle?.getFile();
+      if (file) {
+        const track: Track &#x3D; {
+          file: file,
+          fileHandle: dbTrack.fileHandle,
+          metadata: dbTrack
+        };
+
+        this.playerService.addTrackToPlaylist(track);
+      } else {
+        console.error(&#x27;File not found for track:&#x27;, dbTracks);
+      }
     }
   }
 }
@@ -650,27 +1181,77 @@ export default class LibraryComponent implements OnInit {
 
     <div class="tab-pane fade " id="templateData">
         <pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;library-layout&quot;&gt;
-  &lt;div class&#x3D;&quot;artists saerchbox&quot;&gt;
-    &lt;mat-action-list dense&gt;
-      @for (artist of artists | unique; track artist) {
-        &lt;button mat-list-item (click)&#x3D;&quot;selectArtist(artist)&quot;&gt;{{ artist }}&lt;/button&gt;
-      }
-    &lt;/mat-action-list&gt;
+  &lt;div class&#x3D;&quot;artists searchbox&quot;&gt;
+    &lt;cdk-virtual-scroll-viewport class&#x3D;&quot;virtual-scroll-viewport&quot; itemSize&#x3D;&quot;48&quot;&gt;
+      &lt;mat-nav-list&gt;
+        &lt;mat-list-item (click)&#x3D;&quot;selectArtist(undefined)&quot;&gt;(All)&lt;/mat-list-item&gt;
+        &lt;mat-list-item *cdkVirtualFor&#x3D;&quot;let artist of uniqueArtists(); let i &#x3D; index&quot; (click)&#x3D;&quot;selectArtist(artist)&quot;&gt;
+          {{ artist }}
+        &lt;/mat-list-item&gt;
+      &lt;/mat-nav-list&gt;
+    &lt;/cdk-virtual-scroll-viewport&gt;
   &lt;/div&gt;
 
-  &lt;div class&#x3D;&quot;albums saerchbox&quot;&gt;
-    &lt;mat-action-list dense&gt;
-      @for (album of albums | unique; track album) {
-        &lt;button mat-list-item (click)&#x3D;&quot;selectAlbum(album)&quot;&gt;{{ album }}&lt;/button&gt;
-      }
-    &lt;/mat-action-list&gt;
+  &lt;div class&#x3D;&quot;albums searchbox&quot;&gt;
+    &lt;cdk-virtual-scroll-viewport class&#x3D;&quot;virtual-scroll-viewport&quot; itemSize&#x3D;&quot;48&quot;&gt;
+      &lt;mat-nav-list&gt;
+        &lt;mat-list-item (click)&#x3D;&quot;selectAlbum(undefined)&quot;&gt;(All)&lt;/mat-list-item&gt;
+        &lt;mat-list-item *cdkVirtualFor&#x3D;&quot;let album of uniqueAlbums(); let i &#x3D; index&quot; (click)&#x3D;&quot;selectAlbum(album.name)&quot;&gt;
+          &lt;div matListItemAvatar style&#x3D;&quot;overflow: hidden; border-radius: 4px; position: relative; width: 42px; height: 42px&quot;&gt;
+            @if (album &amp;&amp; album.coverUrl) {
+              &lt;img
+                style&#x3D;&quot;position: absolute; top: 0; right: 0; bottom: 0; left: 0; width: 100%; height: 100%&quot;
+                fill
+                [ngSrc]&#x3D;&quot;album.coverUrl.thumb | safe: &#x27;resourceUrl&#x27;&quot;
+              /&gt;
+            }
+          &lt;/div&gt;
+          &lt;span matListItemTitle&gt;{{ album.name }}&lt;/span&gt;
+          &lt;span matListItemMeta&gt;
+            &lt;button mat-icon-button&gt;
+              &lt;mat-icon svgIcon&#x3D;&quot;dots-vertical&quot; [matMenuTriggerFor]&#x3D;&quot;albumContextMenu&quot; [matMenuTriggerData]&#x3D;&quot;{ album: album }&quot;&gt;&lt;/mat-icon&gt;
+            &lt;/button&gt;
+          &lt;/span&gt;
+        &lt;/mat-list-item&gt;
+      &lt;/mat-nav-list&gt;
+    &lt;/cdk-virtual-scroll-viewport&gt;
+    &lt;!-- Album Context Menu --&gt;
+    &lt;mat-menu #albumContextMenu&#x3D;&quot;matMenu&quot;&gt;
+      &lt;ng-template let-album&#x3D;&quot;album&quot; matMenuContent&gt;
+        &lt;button mat-menu-item (click)&#x3D;&quot;addAlbumToPlaylist(album)&quot;&gt;Add to Playlist&lt;/button&gt;
+      &lt;/ng-template&gt;
+    &lt;/mat-menu&gt;
   &lt;/div&gt;
-  &lt;div class&#x3D;&quot;tracks saerchbox&quot;&gt;
-    &lt;mat-action-list dense&gt;
-      @for (track of tracks | unique; track track) {
-        &lt;button mat-list-item (click)&#x3D;&quot;selectTrack(track)&quot;&gt;{{ track }}&lt;/button&gt;
-      }
-    &lt;/mat-action-list&gt;
+
+  &lt;div class&#x3D;&quot;tracks searchbox&quot;&gt;
+    &lt;cdk-virtual-scroll-viewport class&#x3D;&quot;virtual-scroll-viewport&quot; itemSize&#x3D;&quot;48&quot;&gt;
+      &lt;mat-nav-list&gt;
+        &lt;mat-list-item *cdkVirtualFor&#x3D;&quot;let track of tracks(); let i &#x3D; index&quot; (click)&#x3D;&quot;selectTrack(track)&quot; (dblclick)&#x3D;&quot;playTrack(track)&quot;&gt;
+          &lt;div matListItemAvatar style&#x3D;&quot;overflow: hidden; border-radius: 4px; position: relative; width: 42px; height: 42px&quot;&gt;
+            @if (track &amp;&amp; track.coverUrl) {
+              &lt;img
+                style&#x3D;&quot;position: absolute; top: 0; right: 0; bottom: 0; left: 0; width: 100%; height: 100%&quot;
+                fill
+                [ngSrc]&#x3D;&quot;track.coverUrl.thumb | safe: &#x27;resourceUrl&#x27;&quot;
+              /&gt;
+            }
+          &lt;/div&gt;
+          &lt;!--          &lt;span matListItemTitle&gt;{{ track.track }} {{ track.title }}&lt;/span&gt;--&gt;
+          &lt;span matListItemTitle&gt;{{ track.title }}&lt;/span&gt;
+          &lt;span matListItemMeta&gt;
+            &lt;button mat-icon-button&gt;
+              &lt;mat-icon svgIcon&#x3D;&quot;dots-vertical&quot; [matMenuTriggerFor]&#x3D;&quot;trackContextMenu&quot; [matMenuTriggerData]&#x3D;&quot;{ track: track }&quot;&gt;&lt;/mat-icon&gt;
+            &lt;/button&gt;
+          &lt;/span&gt;
+        &lt;/mat-list-item&gt;
+      &lt;/mat-nav-list&gt;
+    &lt;/cdk-virtual-scroll-viewport&gt;
+    &lt;!--Track Context Menu --&gt;
+    &lt;mat-menu #trackContextMenu&#x3D;&quot;matMenu&quot;&gt;
+      &lt;ng-template let-track&#x3D;&quot;track&quot; matMenuContent&gt;
+        &lt;button mat-menu-item (click)&#x3D;&quot;addTrackToPlaylist(track)&quot;&gt;Add to Playlist&lt;/button&gt;
+      &lt;/ng-template&gt;
+    &lt;/mat-menu&gt;
   &lt;/div&gt;
 &lt;/div&gt;
 </code></pre>
@@ -702,7 +1283,7 @@ export default class LibraryComponent implements OnInit {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><div class="library-layout">  <div class="artists saerchbox">    <mat-action-list dense>      @for (artist of artists | unique; track artist) {        <button mat-list-item (click)="selectArtist(artist)">{{ artist }}</button>      }    </mat-action-list>  </div>  <div class="albums saerchbox">    <mat-action-list dense>      @for (album of albums | unique; track album) {        <button mat-list-item (click)="selectAlbum(album)">{{ album }}</button>      }    </mat-action-list>  </div>  <div class="tracks saerchbox">    <mat-action-list dense>      @for (track of tracks | unique; track track) {        <button mat-list-item (click)="selectTrack(track)">{{ track }}</button>      }    </mat-action-list>  </div></div></div>'
+        var COMPONENT_TEMPLATE = '<div><div class="library-layout">  <div class="artists searchbox">    <cdk-virtual-scroll-viewport class="virtual-scroll-viewport" itemSize="48">      <mat-nav-list>        <mat-list-item (click)="selectArtist(undefined)">(All)</mat-list-item>        <mat-list-item *cdkVirtualFor="let artist of uniqueArtists(); let i = index" (click)="selectArtist(artist)">          {{ artist }}        </mat-list-item>      </mat-nav-list>    </cdk-virtual-scroll-viewport>  </div>  <div class="albums searchbox">    <cdk-virtual-scroll-viewport class="virtual-scroll-viewport" itemSize="48">      <mat-nav-list>        <mat-list-item (click)="selectAlbum(undefined)">(All)</mat-list-item>        <mat-list-item *cdkVirtualFor="let album of uniqueAlbums(); let i = index" (click)="selectAlbum(album.name)">          <div matListItemAvatar style="overflow: hidden; border-radius: 4px; position: relative; width: 42px; height: 42px">            @if (album && album.coverUrl) {              <img                style="position: absolute; top: 0; right: 0; bottom: 0; left: 0; width: 100%; height: 100%"                fill                [ngSrc]="album.coverUrl.thumb | safe: \'resourceUrl\'"              />            }          </div>          <span matListItemTitle>{{ album.name }}</span>          <span matListItemMeta>            <button mat-icon-button>              <mat-icon svgIcon="dots-vertical" [matMenuTriggerFor]="albumContextMenu" [matMenuTriggerData]="{ album: album }"></mat-icon>            </button>          </span>        </mat-list-item>      </mat-nav-list>    </cdk-virtual-scroll-viewport>    <!-- Album Context Menu -->    <mat-menu #albumContextMenu="matMenu">      <ng-template let-album="album" matMenuContent>        <button mat-menu-item (click)="addAlbumToPlaylist(album)">Add to Playlist</button>      </ng-template>    </mat-menu>  </div>  <div class="tracks searchbox">    <cdk-virtual-scroll-viewport class="virtual-scroll-viewport" itemSize="48">      <mat-nav-list>        <mat-list-item *cdkVirtualFor="let track of tracks(); let i = index" (click)="selectTrack(track)" (dblclick)="playTrack(track)">          <div matListItemAvatar style="overflow: hidden; border-radius: 4px; position: relative; width: 42px; height: 42px">            @if (track && track.coverUrl) {              <img                style="position: absolute; top: 0; right: 0; bottom: 0; left: 0; width: 100%; height: 100%"                fill                [ngSrc]="track.coverUrl.thumb | safe: \'resourceUrl\'"              />            }          </div>          <!--          <span matListItemTitle>{{ track.track }} {{ track.title }}</span>-->          <span matListItemTitle>{{ track.title }}</span>          <span matListItemMeta>            <button mat-icon-button>              <mat-icon svgIcon="dots-vertical" [matMenuTriggerFor]="trackContextMenu" [matMenuTriggerData]="{ track: track }"></mat-icon>            </button>          </span>        </mat-list-item>      </mat-nav-list>    </cdk-virtual-scroll-viewport>    <!--Track Context Menu -->    <mat-menu #trackContextMenu="matMenu">      <ng-template let-track="track" matMenuContent>        <button mat-menu-item (click)="addTrackToPlaylist(track)">Add to Playlist</button>      </ng-template>    </mat-menu>  </div></div></div>'
     var COMPONENTS = [{'name': 'AppComponent', 'selector': 'mtb-root'},{'name': 'CoverDisplayComponent', 'selector': 'mtb-cover-display'},{'name': 'EqualizerComponent', 'selector': 'mtb-equalizer'},{'name': 'FileDropOverlayComponent', 'selector': 'mtb-file-drop-overlay'},{'name': 'HotkeysHelpDialogComponent', 'selector': 'mtb-hotkeys-help-dialog'},{'name': 'LibraryComponent', 'selector': ''},{'name': 'MetadataSettingsComponent', 'selector': 'mtb-metadata-settings'},{'name': 'PlayerComponent', 'selector': 'mtb-player'},{'name': 'PlaylistComponent', 'selector': 'mtb-playlist'},{'name': 'PromptDialogComponent', 'selector': 'mtb-prompt-dialog'},{'name': 'SettingsComponent', 'selector': 'mtb-settings'},{'name': 'ShellComponent', 'selector': 'mtb-shell'},{'name': 'SlidePanelComponent', 'selector': 'mtb-slide-panel'},{'name': 'StorageSettingsComponent', 'selector': 'mtb-storage-settings'},{'name': 'ThemeSettingsComponent', 'selector': 'mtb-theme-settings'},{'name': 'VisualizerComponent', 'selector': 'mtb-visualizer'}];
     var DIRECTIVES = [{'name': 'VisualsDirective', 'selector': '[mtbVisual]'}];
     var ACTUAL_COMPONENT = {'name': 'LibraryComponent'};
