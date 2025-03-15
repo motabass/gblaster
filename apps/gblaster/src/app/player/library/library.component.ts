@@ -12,6 +12,12 @@ import { CdkFixedSizeVirtualScroll, CdkVirtualForOf, CdkVirtualScrollViewport } 
 import { NgOptimizedImage } from '@angular/common';
 import { SafePipe } from 'safe-pipe';
 import { Router } from '@angular/router';
+import { RemoteCoverPicture } from '../metadata-service/metadata.types';
+
+export interface Album {
+  name: string;
+  coverUrl: RemoteCoverPicture;
+}
 
 @Component({
   templateUrl: './library.component.html',
@@ -44,9 +50,11 @@ export default class LibraryComponent implements OnInit {
   readonly selectedTrack = signal<IndexedDbTrackMetadata | undefined>(undefined);
 
   readonly uniqueArtists = computed(() => {
-    return this.data()
+    const filtered = this.data()
       .map((tag) => tag.artist)
       .filter((artist): artist is string => !!artist);
+
+    return [...new Set(filtered)];
   });
 
   readonly uniqueAlbums = computed(() => {
@@ -54,10 +62,25 @@ export default class LibraryComponent implements OnInit {
     const artist = this.selectedArtist();
 
     if (artist) {
-      filtered = filtered.filter((item) => item.artist === artist);
+      filtered = filtered.filter((item) => item.artist === artist && !!item.album);
+    } else {
+      filtered = filtered.filter((item) => !!item.album);
     }
-    const mapped = filtered.map((tag) => tag.album).filter((album): album is string => !!album);
-    return [...new Set(mapped)];
+
+    // Map to store unique albums by name
+    const albumMap = new Map<string, Album>();
+
+    for (const tag of filtered) {
+      const albumName = tag.album || '';
+      if (!albumMap.has(albumName)) {
+        albumMap.set(albumName, {
+          name: albumName,
+          coverUrl: tag.coverUrl
+        });
+      }
+    }
+
+    return [...albumMap.values()].sort((a, b) => a.name.localeCompare(b.name));
   });
 
   readonly tracks = computed(() => {
@@ -73,7 +96,28 @@ export default class LibraryComponent implements OnInit {
       filtered = filtered.filter((item) => item.album === album);
     }
 
-    return [...new Set(filtered)];
+    // Sort tracks by artist, then album, then track number (if available), then title
+    return filtered.sort((a, b) => {
+      // Compare artists first
+      const artistCompare = (a.artist || '').localeCompare(b.artist || '');
+      if (artistCompare !== 0) return artistCompare;
+
+      // Then compare albums
+      const albumCompare = (a.album || '').localeCompare(b.album || '');
+      if (albumCompare !== 0) return albumCompare;
+
+      // Then use track number if available
+      const aTrack = a.track !== undefined ? Number(a.track) : NaN;
+      const bTrack = b.track !== undefined ? Number(b.track) : NaN;
+
+      // If both tracks have track numbers, compare them
+      if (!isNaN(aTrack) && !isNaN(bTrack)) {
+        return aTrack - bTrack;
+      }
+
+      // Otherwise, fall back to title comparison
+      return (a.title || '').localeCompare(b.title || '');
+    });
   });
 
   async ngOnInit() {
@@ -109,17 +153,13 @@ export default class LibraryComponent implements OnInit {
     }
   }
 
-  async addAlbumToPlaylist(album: string) {
-    if (album) {
-      const tracks = this.data().filter((track) => track.album === album);
-      await this.addTracksToPlaylist(...tracks);
-    }
+  async addAlbumToPlaylist(album: Album) {
+    const tracks = this.data().filter((track) => track.album === album.name);
+    await this.addTracksToPlaylist(...tracks);
   }
 
   async addTrackToPlaylist(track: IndexedDbTrackMetadata) {
-    if (track) {
-      await this.addTracksToPlaylist(track);
-    }
+    await this.addTracksToPlaylist(track);
   }
 
   async addTracksToPlaylist(...dbTracks: IndexedDbTrackMetadata[]) {

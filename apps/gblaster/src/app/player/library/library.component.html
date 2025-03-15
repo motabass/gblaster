@@ -14,8 +14,17 @@
     <cdk-virtual-scroll-viewport class="virtual-scroll-viewport" itemSize="48">
       <mat-nav-list>
         <mat-list-item (click)="selectAlbum(undefined)">(All)</mat-list-item>
-        <mat-list-item *cdkVirtualFor="let album of uniqueAlbums(); let i = index" (click)="selectAlbum(album)">
-          <span matListItemTitle>{{ album }}</span>
+        <mat-list-item *cdkVirtualFor="let album of uniqueAlbums(); let i = index" (click)="selectAlbum(album.name)">
+          <div matListItemAvatar style="overflow: hidden; border-radius: 4px; position: relative; width: 42px; height: 42px">
+            @if (album && album.coverUrl) {
+              <img
+                style="position: absolute; top: 0; right: 0; bottom: 0; left: 0; width: 100%; height: 100%"
+                fill
+                [ngSrc]="album.coverUrl.thumb | safe: 'resourceUrl'"
+              />
+            }
+          </div>
+          <span matListItemTitle>{{ album.name }}</span>
           <span matListItemMeta>
             <button mat-icon-button>
               <mat-icon svgIcon="dots-vertical" [matMenuTriggerFor]="albumContextMenu" [matMenuTriggerData]="{ album: album }"></mat-icon>
@@ -36,7 +45,7 @@
     <cdk-virtual-scroll-viewport class="virtual-scroll-viewport" itemSize="48">
       <mat-nav-list>
         <mat-list-item *cdkVirtualFor="let track of tracks(); let i = index" (click)="selectTrack(track)" (dblclick)="playTrack(track)">
-          <div matListItemAvatar style="overflow: hidden; border-radius: 4px; position: relative; width: 50px; height: 50px">
+          <div matListItemAvatar style="overflow: hidden; border-radius: 4px; position: relative; width: 42px; height: 42px">
             @if (track && track.coverUrl) {
               <img
                 style="position: absolute; top: 0; right: 0; bottom: 0; left: 0; width: 100%; height: 100%"
@@ -45,6 +54,7 @@
               />
             }
           </div>
+          <!--          <span matListItemTitle>{{ track.track }} {{ track.title }}</span>-->
           <span matListItemTitle>{{ track.title }}</span>
           <span matListItemMeta>
             <button mat-icon-button>
