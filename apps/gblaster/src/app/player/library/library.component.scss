@@ -9,7 +9,7 @@
     'tracks tracks';
 }
 
-.saerchbox {
+.searchbox {
   overflow-y: auto;
   border: 1px solid lightgrey;
 }
@@ -24,4 +24,8 @@
 
 .tracks {
   grid-area: tracks;
+}
+
+.virtual-scroll-viewport {
+  height: 100%;
 }

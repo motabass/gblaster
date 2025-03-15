@@ -1,4 +1,4 @@
-import { Component, computed, inject, OnInit, signal, ViewChild } from '@angular/core';
+import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { NgxIndexedDBService } from 'ngx-indexed-db';
 import { IndexedDbTrackMetadata, Track } from '../player.types';
 import { NgArrayPipesModule } from 'ngx-pipes';
@@ -6,40 +6,58 @@ import { MatListModule } from '@angular/material/list';
 import { firstValueFrom } from 'rxjs';
 import { MatMenu, MatMenuContent, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
 import { PlayerService } from '../player.service';
+import { MatIcon } from '@angular/material/icon';
+import { MatIconButton } from '@angular/material/button';
+import { CdkFixedSizeVirtualScroll, CdkVirtualForOf, CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
+import { NgOptimizedImage } from '@angular/common';
+import { SafePipe } from 'safe-pipe';
+import { Router } from '@angular/router';
 
 @Component({
   templateUrl: './library.component.html',
   styleUrl: './library.component.scss',
-  imports: [MatListModule, NgArrayPipesModule, MatMenu, MatMenuContent, MatMenuItem, MatMenuTrigger]
+  imports: [
+    MatListModule,
+    NgArrayPipesModule,
+    MatMenu,
+    MatMenuContent,
+    MatMenuItem,
+    MatMenuTrigger,
+    MatIcon,
+    MatIconButton,
+    CdkFixedSizeVirtualScroll,
+    CdkVirtualScrollViewport,
+    CdkVirtualForOf,
+    NgOptimizedImage,
+    SafePipe
+  ]
 })
 export default class LibraryComponent implements OnInit {
   private indexedDbService = inject(NgxIndexedDBService);
   private playerService = inject(PlayerService);
-
-  @ViewChild(MatMenuTrigger) contextMenu!: MatMenuTrigger;
-  contextMenuPosition = { x: '0px', y: '0px' };
+  private router = inject(Router);
 
   private readonly data = signal<IndexedDbTrackMetadata[]>([]);
 
-  readonly selectedArtist = signal<string | null>(null);
-  readonly selectedAlbum = signal<string | null>(null);
-  readonly selectedTrack = signal<IndexedDbTrackMetadata | null>(null);
+  readonly selectedArtist = signal<string | undefined>(undefined);
+  readonly selectedAlbum = signal<string | undefined>(undefined);
+  readonly selectedTrack = signal<IndexedDbTrackMetadata | undefined>(undefined);
 
-  readonly artists = computed(() => {
+  readonly uniqueArtists = computed(() => {
     return this.data()
       .map((tag) => tag.artist)
       .filter((artist): artist is string => !!artist);
   });
 
-  readonly albums = computed(() => {
+  readonly uniqueAlbums = computed(() => {
     let filtered = this.data();
     const artist = this.selectedArtist();
 
     if (artist) {
       filtered = filtered.filter((item) => item.artist === artist);
     }
-
-    return filtered.map((tag) => tag.album).filter((album): album is string => !!album);
+    const mapped = filtered.map((tag) => tag.album).filter((album): album is string => !!album);
+    return [...new Set(mapped)];
   });
 
   readonly tracks = computed(() => {
@@ -55,7 +73,7 @@ export default class LibraryComponent implements OnInit {
       filtered = filtered.filter((item) => item.album === album);
     }
 
-    return filtered;
+    return [...new Set(filtered)];
   });
 
   async ngOnInit() {
@@ -68,18 +86,14 @@ export default class LibraryComponent implements OnInit {
   }
 
   selectArtist(artist: string | undefined) {
-    if (artist) {
-      this.selectedArtist.set(artist);
-      this.selectedAlbum.set(null);
-      this.selectedTrack.set(null);
-    }
+    this.selectedArtist.set(artist);
+    this.selectedAlbum.set(undefined);
+    this.selectedTrack.set(undefined);
   }
 
   selectAlbum(album: string | undefined) {
-    if (album) {
-      this.selectedAlbum.set(album);
-      this.selectedTrack.set(null);
-    }
+    this.selectedAlbum.set(album);
+    this.selectedTrack.set(undefined);
   }
 
   selectTrack(track: IndexedDbTrackMetadata | undefined) {
@@ -88,27 +102,40 @@ export default class LibraryComponent implements OnInit {
     }
   }
 
-  onContextMenu(event: MouseEvent, track: IndexedDbTrackMetadata): boolean {
-    event.preventDefault();
-    this.contextMenuPosition.x = event.clientX + 'px';
-    this.contextMenuPosition.y = event.clientY + 'px';
-    this.contextMenu.menuData = { track };
-    this.contextMenu.openMenu();
-    return false;
+  async playTrack(track: IndexedDbTrackMetadata | undefined) {
+    if (track) {
+      await this.addTrackToPlaylist(track);
+      void this.router.navigate(['/player']);
+    }
   }
 
-  async addToPlaylist(dbTrack: IndexedDbTrackMetadata) {
-    const file = await dbTrack.fileHandle?.getFile();
-    if (file) {
-      const track: Track = {
-        file: file,
-        fileHandle: dbTrack.fileHandle,
-        metadata: dbTrack
-      };
+  async addAlbumToPlaylist(album: string) {
+    if (album) {
+      const tracks = this.data().filter((track) => track.album === album);
+      await this.addTracksToPlaylist(...tracks);
+    }
+  }
 
-      this.playerService.addTrackToPlaylist(track);
-    } else {
-      console.error('File not found for track:', dbTrack);
+  async addTrackToPlaylist(track: IndexedDbTrackMetadata) {
+    if (track) {
+      await this.addTracksToPlaylist(track);
+    }
+  }
+
+  async addTracksToPlaylist(...dbTracks: IndexedDbTrackMetadata[]) {
+    for (const dbTrack of dbTracks) {
+      const file = await dbTrack.fileHandle?.getFile();
+      if (file) {
+        const track: Track = {
+          file: file,
+          fileHandle: dbTrack.fileHandle,
+          metadata: dbTrack
+        };
+
+        this.playerService.addTrackToPlaylist(track);
+      } else {
+        console.error('File not found for track:', dbTracks);
+      }
     }
   }
 }
