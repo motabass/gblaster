@@ -12,3 +12,8 @@ export const ALLOWED_MIMETYPES = [
 ];
 
 export const ALLOWED_EXTENSIONS = ['mp3', 'flac', 'ogg', 'wav', 'aiff', 'opus', 'mp4'];
+
+export interface FileData {
+  file: File;
+  fileHandle?: FileSystemFileHandle;
+}

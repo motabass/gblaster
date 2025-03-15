@@ -1,7 +1,7 @@
 <div class="library-layout">
   <div class="artists saerchbox">
     <mat-action-list dense>
-      @for (artist of artists | unique; track artist) {
+      @for (artist of artists() | unique; track artist) {
         <button mat-list-item (click)="selectArtist(artist)">{{ artist }}</button>
       }
     </mat-action-list>
@@ -9,16 +9,29 @@
 
   <div class="albums saerchbox">
     <mat-action-list dense>
-      @for (album of albums | unique; track album) {
+      @for (album of albums() | unique; track album) {
         <button mat-list-item (click)="selectAlbum(album)">{{ album }}</button>
       }
     </mat-action-list>
   </div>
   <div class="tracks saerchbox">
     <mat-action-list dense>
-      @for (track of tracks | unique; track track) {
-        <button mat-list-item (click)="selectTrack(track)">{{ track }}</button>
+      @for (track of tracks(); track track) {
+        <button mat-list-item (click)="selectTrack(track)" (contextmenu)="onContextMenu($event, track)">{{ track.title }}</button>
       }
     </mat-action-list>
   </div>
 </div>
+
+<!-- Context Menu -->
+<div
+  style="visibility: hidden; position: fixed"
+  [style.left]="contextMenuPosition.x"
+  [style.top]="contextMenuPosition.y"
+  [matMenuTriggerFor]="contextMenu"
+></div>
+<mat-menu #contextMenu="matMenu">
+  <ng-template let-track="track" matMenuContent>
+    <button mat-menu-item (click)="addToPlaylist(track)">Add to Playlist</button>
+  </ng-template>
+</mat-menu>

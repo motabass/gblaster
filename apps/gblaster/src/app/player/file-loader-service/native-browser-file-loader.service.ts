@@ -1,8 +1,13 @@
-import { Injectable, inject } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { NgxIndexedDBService } from 'ngx-indexed-db';
 import { firstValueFrom } from 'rxjs';
-import { ALLOWED_MIMETYPES } from './file-loader.helpers';
+import { ALLOWED_MIMETYPES, FileData } from './file-loader.helpers';
 import { FileLoaderService } from './file-loader.service.abstract';
+
+interface DirHandleEntry {
+  id: number;
+  handle: FileSystemDirectoryHandle;
+}
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +18,7 @@ export class NativeBrowserFileLoaderService extends FileLoaderService {
   currentFolderHandle?: FileSystemDirectoryHandle;
 
   async init() {
-    const entry = await firstValueFrom(this.indexedDbService.getByID<any>('dirHandle', 1));
+    const entry = await firstValueFrom(this.indexedDbService.getByID<DirHandleEntry>('dirHandle', 1));
     if (entry) {
       const granted = await verifyPermission(entry.handle);
       if (granted) {
@@ -26,39 +31,35 @@ export class NativeBrowserFileLoaderService extends FileLoaderService {
     try {
       const handle = await showDirectoryPicker();
       this.currentFolderHandle = handle;
-      await this.indexedDbService.update('dirHandle', { id: 1, handle: handle }).toPromise();
+      await this.indexedDbService.update('dirHandle', { id: 1, handle: handle } as DirHandleEntry).toPromise();
     } catch (error) {
       console.log('No files:', error);
     }
   }
 
-  async openFiles(): Promise<File[]> {
+  async openFiles(): Promise<FileData[]> {
     if (this.currentFolderHandle) {
-      return this.readHandle(this.currentFolderHandle);
+      return getAudioFilesFromDirHandle(this.currentFolderHandle);
     }
     return [];
   }
-
-  private async readHandle(handle: FileSystemDirectoryHandle): Promise<File[]> {
-    return await getAudioFilesFromDirHandle(handle);
-  }
 }
 
-async function getAudioFilesFromDirHandle(dirHandle: FileSystemDirectoryHandle): Promise<File[]> {
-  const files: File[] = [];
+async function getAudioFilesFromDirHandle(dirHandle: FileSystemDirectoryHandle): Promise<FileData[]> {
+  const fileData: FileData[] = [];
   for await (const entry of dirHandle.values()) {
     if (entry.kind === 'file') {
       const file = await entry.getFile();
       if (ALLOWED_MIMETYPES.includes(file.type)) {
         // TODO: remove double check when accepts works for directories in API
-        files.push(file);
+        fileData.push({ file, fileHandle: entry });
       }
     } else {
       const subFiles = await getAudioFilesFromDirHandle(entry);
-      files.push(...subFiles);
+      fileData.push(...subFiles);
     }
   }
-  return files;
+  return fileData;
 }
 
 async function verifyPermission(handle: FileSystemDirectoryHandle) {

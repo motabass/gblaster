@@ -3,12 +3,13 @@ import { inject, Injectable, signal } from '@angular/core';
 import { NgxIndexedDBService } from 'ngx-indexed-db';
 import { LocalStorageService } from 'ngx-webstorage';
 import { firstValueFrom } from 'rxjs';
-import { TrackMetadata } from '../player.types';
+import { IndexedDbTrackMetadata, TrackMetadata } from '../player.types';
 import { Id3TagsService } from './id3-tags.service';
 import { LastfmMetadataService } from './lastfm-metadata.service';
 import { CoverColorPalette, RemoteCoverPicture } from './metadata.types';
 import { MusicbrainzService } from './musicbrainz.service';
 import { Vibrant } from 'node-vibrant/browser';
+import { FileData } from '../file-loader-service/file-loader.helpers';
 
 // import * as SparkMD5 from 'spark-md5';
 
@@ -27,13 +28,13 @@ export class MetadataService {
   readonly useTagEmbeddedPicture = signal(this.localStorageService.retrieve('useTagEmbeddedPicture') ?? true);
   readonly preferTagEmbeddedPicture = signal(this.localStorageService.retrieve('preferTagEmbeddedPicture') ?? true);
 
-  async getMetadata(file: File): Promise<TrackMetadata | undefined> {
+  async getMetadata(fileData: FileData): Promise<TrackMetadata | undefined> {
     // console.time('hash');
-    const crc = generateFileHash(file);
+    const crc = generateFileHash(fileData.file);
     // console.timeEnd('hash');
 
     if (this.useTagsCache()) {
-      const metadataCache: TrackMetadata = await firstValueFrom(this.indexedDBService.getByKey<TrackMetadata>('metatags', crc));
+      const metadataCache: TrackMetadata = await firstValueFrom(this.indexedDBService.getByKey<IndexedDbTrackMetadata>('metatags', crc));
 
       if (metadataCache) {
         if (metadataCache.embeddedPicture && this.useTagEmbeddedPicture() && (!metadataCache.coverUrl || this.preferTagEmbeddedPicture())) {
@@ -49,7 +50,7 @@ export class MetadataService {
       }
     }
     // console.time('id3tags');
-    const tags = await this.id3TagsService.extractTags(file);
+    const tags = await this.id3TagsService.extractTags(fileData.file);
     // console.timeEnd('id3tags');
     if (!tags) {
       // if no tags
@@ -86,8 +87,9 @@ export class MetadataService {
     //   // console.timeEnd('vibrant');
     // }
 
-    const metadata: TrackMetadata = {
+    const metadata: IndexedDbTrackMetadata = {
       crc: crc,
+      fileHandle: fileData.fileHandle,
       coverUrl: coverUrls ?? { thumb: this.PLACEHOLDER_URL, original: this.PLACEHOLDER_URL },
       embeddedPicture: tags.picture,
       coverColors: palette || {},

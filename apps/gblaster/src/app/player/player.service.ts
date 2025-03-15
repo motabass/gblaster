@@ -3,7 +3,7 @@ import { LocalStorageService } from 'ngx-webstorage';
 import { FileLoaderService } from './file-loader-service/file-loader.service.abstract';
 import { MetadataService } from './metadata-service/metadata.service';
 import type { ColorConfig, RepeatMode, Track } from './player.types';
-import { ALLOWED_MIMETYPES } from './file-loader-service/file-loader.helpers';
+import { ALLOWED_MIMETYPES, FileData } from './file-loader-service/file-loader.helpers';
 import { ThemeService } from '../theme/theme.service';
 import { LoaderService } from '../services/loader/loader.service';
 import { WakelockService } from '../services/wakelock.service';
@@ -11,7 +11,7 @@ import { MediaSessionService } from '../services/media-session/media-session.ser
 import { AudioService } from './audio.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
-@Injectable({ providedIn: 'any' })
+@Injectable({ providedIn: 'root' })
 export class PlayerService {
   private audioService = inject(AudioService);
   private localStorageService = inject(LocalStorageService);
@@ -107,15 +107,21 @@ export class PlayerService {
   }
 
   async loadFiles(): Promise<void> {
-    const files: File[] = await this.fileLoaderService.openFiles();
-    return this.addFilesToPlaylist(...files);
+    const fileDatas: FileData[] = await this.fileLoaderService.openFiles();
+    return this.addFilesToPlaylist(...fileDatas);
   }
 
-  async addFilesToPlaylist(...files: File[]) {
-    if (files?.length) {
-      for (const file of files.values()) {
+  addTrackToPlaylist(song: Track) {
+    if (!this.currentPlaylist().some((playlistSong) => playlistSong.metadata?.crc === song.metadata?.crc)) {
+      this.currentPlaylist.update((playlist) => [...playlist, song]);
+    }
+  }
+
+  async addFilesToPlaylist(...fileDatas: FileData[]) {
+    if (fileDatas?.length) {
+      for (const fileData of fileDatas.values()) {
         this.loaderService.show();
-        const song = await this.createTrackFromFile(file);
+        const song = await this.createTrackFromFile(fileData);
         this.loaderService.hide();
 
         if (!song) {
@@ -129,16 +135,17 @@ export class PlayerService {
     }
   }
 
-  private async createTrackFromFile(file: File): Promise<Track | undefined> {
+  private async createTrackFromFile(fileData: FileData): Promise<Track | undefined> {
     // console.time('full-metadata');
-    const metadata = await this.metadataService.getMetadata(file);
+    const metadata = await this.metadataService.getMetadata(fileData);
     // console.timeEnd('full-metadata');
 
     if (!metadata) {
       return undefined;
     }
     return {
-      file: file,
+      file: fileData.file,
+      fileHandle: fileData.fileHandle,
       metadata: metadata
     };
   }
@@ -321,5 +328,6 @@ export class PlayerService {
 function getRandomInt(min: number, max: number) {
   min = Math.ceil(min);
   max = Math.floor(max);
+  // eslint-disable-next-line sonarjs/pseudo-random
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }

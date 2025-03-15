@@ -4,6 +4,7 @@ import { IFormat } from 'music-metadata';
 
 export interface Track {
   file: File;
+  fileHandle?: FileSystemFileHandle;
   metadata: TrackMetadata;
 }
 
@@ -18,6 +19,10 @@ export interface TrackMetadata {
   coverUrl: RemoteCoverPicture;
   embeddedPicture?: Id3CoverPicture;
   coverColors: CoverColorPalette;
+}
+
+export interface IndexedDbTrackMetadata extends TrackMetadata {
+  fileHandle?: FileSystemFileHandle;
 }
 
 // EQ

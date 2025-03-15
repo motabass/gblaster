@@ -143,7 +143,7 @@ export default class PlayerComponent implements OnInit, OnDestroy {
   }
 
   async onFilesDropped(files: File[]) {
-    return this.playerService.addFilesToPlaylist(...files);
+    return this.playerService.addFilesToPlaylist(...files.map((file) => ({ file })));
   }
 
   private getVolumeIconForLevel(vol: number): string {

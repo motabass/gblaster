@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ALLOWED_MIMETYPES } from './file-loader.helpers';
+import { ALLOWED_MIMETYPES, FileData } from './file-loader.helpers';
 import { FileLoaderService } from './file-loader.service.abstract';
 
 @Injectable({
@@ -26,8 +26,8 @@ export class LegacyFileLoaderService extends FileLoaderService {
 
   async init() {}
 
-  async openFiles(): Promise<File[]> {
-    return this.files;
+  async openFiles(): Promise<FileData[]> {
+    return this.files.map((file) => ({ file }));
   }
 
   private getFiles(): File[] {
