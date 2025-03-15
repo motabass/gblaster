@@ -83,7 +83,6 @@
   "parallel": 1,
   "defaultBase": "main",
   "neverConnectToCloud": true,
-  "nxCloudAccessToken": "NmE3ZDg0NTEtMTE0Zi00YjRiLTg2OWEtMGIyY2IyMGY2YjQ4fHJlYWQtd3JpdGU=",
   "plugins": [
     {
       "plugin": "@nx/eslint/plugin",
