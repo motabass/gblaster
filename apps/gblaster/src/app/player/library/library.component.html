@@ -1,5 +1,5 @@
-@if (playerService.processionPercent() < 100) {
-  <mat-progress-bar mode="determinate" [value]="playerService.processionPercent()"></mat-progress-bar>
+@if (metadataService.processionPercent() < 100) {
+  <mat-progress-bar mode="determinate" [value]="metadataService.processionPercent()"></mat-progress-bar>
 }
 
 <div class="library-layout">
@@ -13,7 +13,7 @@
               <mat-icon svgIcon="dots-vertical" [matMenuTriggerFor]="artistContextMenu" [matMenuTriggerData]="{ artist: undefined }"></mat-icon>
             </button> </span
         ></mat-list-item>
-        <mat-list-item *cdkVirtualFor="let artist of uniqueArtists(); let i = index" (click)="selectArtist(artist)">
+        <mat-list-item *cdkVirtualFor="let artist of uniqueArtists(); trackBy: trackByArtist" (click)="selectArtist(artist)">
           <span matListItemTitle>{{ artist }}</span>
           <span matListItemMeta>
             <button mat-icon-button>
@@ -35,13 +35,13 @@
     <cdk-virtual-scroll-viewport class="virtual-scroll-viewport" itemSize="48">
       <mat-nav-list>
         <mat-list-item (click)="selectAlbum(undefined)">(All)</mat-list-item>
-        <mat-list-item *cdkVirtualFor="let album of uniqueAlbums(); let i = index" (click)="selectAlbum(album.name)">
+        <mat-list-item *cdkVirtualFor="let album of uniqueAlbums(); trackBy: trackByAlbum" (click)="selectAlbum(album.name)">
           <div matListItemAvatar style="overflow: hidden; border-radius: 4px; position: relative; width: 42px; height: 42px">
             @if (album && album.coverUrl) {
               <img
                 style="position: absolute; top: 0; right: 0; bottom: 0; left: 0; width: 100%; height: 100%"
                 fill
-                [ngSrc]="album.coverUrl.thumb | safe: 'resourceUrl'"
+                [src]="album.coverUrl.thumb | safe: 'resourceUrl'"
               />
             }
           </div>
@@ -66,13 +66,13 @@
   <div class="tracks searchbox">
     <cdk-virtual-scroll-viewport class="virtual-scroll-viewport" itemSize="48">
       <mat-nav-list>
-        <mat-list-item *cdkVirtualFor="let track of tracks(); let i = index" (click)="selectTrack(track)" (dblclick)="playTrack(track)">
+        <mat-list-item *cdkVirtualFor="let track of tracks(); trackBy: trackByCrc" (click)="selectTrack(track)" (dblclick)="playTrack(track)">
           <div matListItemAvatar style="overflow: hidden; border-radius: 4px; position: relative; width: 42px; height: 42px">
             @if (track && track.coverUrl) {
               <img
                 style="position: absolute; top: 0; right: 0; bottom: 0; left: 0; width: 100%; height: 100%"
                 fill
-                [ngSrc]="track.coverUrl.thumb | safe: 'resourceUrl'"
+                [src]="track.coverUrl.thumb | safe: 'resourceUrl'"
               />
             }
           </div>

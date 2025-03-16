@@ -9,11 +9,11 @@ import { PlayerService } from '../player.service';
 import { MatIcon } from '@angular/material/icon';
 import { MatIconButton } from '@angular/material/button';
 import { CdkFixedSizeVirtualScroll, CdkVirtualForOf, CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
-import { NgOptimizedImage } from '@angular/common';
 import { SafePipe } from 'safe-pipe';
 import { Router } from '@angular/router';
 import { RemoteCoverPicture } from '../metadata-service/metadata.types';
 import { MatProgressBar } from '@angular/material/progress-bar';
+import { MetadataService } from '../metadata-service/metadata.service';
 
 export interface Album {
   name: string;
@@ -36,7 +36,6 @@ export interface Album {
     CdkFixedSizeVirtualScroll,
     CdkVirtualScrollViewport,
     CdkVirtualForOf,
-    NgOptimizedImage,
     SafePipe,
     MatProgressBar
   ]
@@ -44,6 +43,7 @@ export interface Album {
 export default class LibraryComponent implements OnInit {
   private indexedDbService = inject(NgxIndexedDBService);
   private router = inject(Router);
+  metadataService = inject(MetadataService);
   playerService = inject(PlayerService);
 
   private readonly indexedDbTracks = signal<IndexedDbTrackMetadata[]>([]);
@@ -127,7 +127,11 @@ export default class LibraryComponent implements OnInit {
   async ngOnInit() {
     try {
       const result = await firstValueFrom(this.indexedDbService.getAll<IndexedDbTrackMetadata>('metatags'));
-      this.indexedDbTracks.set(result || []);
+      const tagsWithOptionalBlobUrls = result.map((tag) => {
+        return this.metadataService.createObjectUrlForEmbeddedPicture(tag);
+      });
+
+      this.indexedDbTracks.set(tagsWithOptionalBlobUrls || []);
     } catch (error) {
       console.error('Error loading library data:', error);
     }
@@ -190,5 +194,17 @@ export default class LibraryComponent implements OnInit {
         console.error('File not found for track:', dbTracks);
       }
     }
+  }
+
+  trackByArtist(index: number, artist: string): string {
+    return artist;
+  }
+
+  trackByAlbum(index: number, album: Album): string {
+    return album.name;
+  }
+
+  trackByCrc(index: number, track: IndexedDbTrackMetadata): string {
+    return track.crc;
   }
 }

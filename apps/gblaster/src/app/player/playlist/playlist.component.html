@@ -53,6 +53,6 @@
     </mat-list-item>
   </mat-list>
 </cdk-virtual-scroll-viewport>
-@if (playerService.processionPercent() < 100) {
-  <mat-progress-bar mode="determinate" [value]="playerService.processionPercent()"></mat-progress-bar>
+@if (metadataService.processionPercent() < 100) {
+  <mat-progress-bar mode="determinate" [value]="metadataService.processionPercent()"></mat-progress-bar>
 }

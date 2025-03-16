@@ -16,6 +16,7 @@ import { MatInput } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatProgressBar } from '@angular/material/progress-bar';
+import { MetadataService } from '../metadata-service/metadata.service';
 
 @Component({
   selector: 'mtb-playlist',
@@ -43,6 +44,7 @@ export class PlaylistComponent {
   playerService = inject(PlayerService);
   audioService = inject(AudioService);
   visualsService = inject(VisualsService);
+  metadataService = inject(MetadataService);
   private destroRef = inject(DestroyRef);
 
   readonly searchTerm = signal('');

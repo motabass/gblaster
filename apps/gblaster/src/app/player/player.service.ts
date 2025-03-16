@@ -38,12 +38,6 @@ export class PlayerService {
     return { mainColor: mainColor, peakColor: peakColor };
   });
 
-  private readonly totalFilesToProcess = signal(0);
-  private readonly filesToProcess = signal(0);
-  readonly processionPercent = computed(() => {
-    return 100 - (this.filesToProcess() / this.totalFilesToProcess()) * 100;
-  });
-
   constructor() {
     if (this.mediaSessionService) {
       this.mediaSessionService.setActionHandler('play', () => this.playPause());
@@ -122,37 +116,9 @@ export class PlayerService {
   }
 
   async addFilesToPlaylist(...fileDatas: FileData[]) {
-    if (fileDatas?.length) {
-      this.totalFilesToProcess.set(fileDatas.length);
-      this.filesToProcess.set(fileDatas.length);
-      for (const fileData of fileDatas.values()) {
-        const song = await this.createTrackFromFile(fileData);
-        this.filesToProcess.update((files) => files - 1);
-        if (!song) {
-          continue;
-        }
-        // avoid duplicate playlist entries
-        if (!this.currentPlaylist().some((playlistSong) => playlistSong.metadata?.crc === song.metadata?.crc)) {
-          this.currentPlaylist.update((playlist) => [...playlist, song]);
-        }
-      }
-      this.totalFilesToProcess.set(0);
+    for await (const track of this.metadataService.addFilesToLibrary(...fileDatas)) {
+      this.addTrackToPlaylist(track);
     }
-  }
-
-  private async createTrackFromFile(fileData: FileData): Promise<Track | undefined> {
-    // console.time('full-metadata');
-    const metadata = await this.metadataService.getMetadata(fileData);
-    // console.timeEnd('full-metadata');
-
-    if (!metadata) {
-      return undefined;
-    }
-    return {
-      file: fileData.file,
-      fileHandle: fileData.fileHandle,
-      metadata: metadata
-    };
   }
 
   setSeekPosition(value: number | undefined, fastSeek = false) {

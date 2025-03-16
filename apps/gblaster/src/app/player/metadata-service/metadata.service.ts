@@ -1,9 +1,9 @@
 import { crc32 } from '@allex/crc32';
-import { inject, Injectable, signal } from '@angular/core';
+import { computed, inject, Injectable, signal } from '@angular/core';
 import { NgxIndexedDBService } from 'ngx-indexed-db';
 import { LocalStorageService } from 'ngx-webstorage';
 import { firstValueFrom } from 'rxjs';
-import { IndexedDbTrackMetadata, TrackMetadata } from '../player.types';
+import { IndexedDbTrackMetadata, type Track, TrackMetadata } from '../player.types';
 import { Id3TagsService } from './id3-tags.service';
 import { LastfmMetadataService } from './lastfm-metadata.service';
 import { CoverColorPalette, RemoteCoverPicture } from './metadata.types';
@@ -27,6 +27,42 @@ export class MetadataService {
   readonly useTagsCache = signal(this.localStorageService.retrieve('useTagsCache') ?? true);
   readonly useTagEmbeddedPicture = signal(this.localStorageService.retrieve('useTagEmbeddedPicture') ?? true);
   readonly preferTagEmbeddedPicture = signal(this.localStorageService.retrieve('preferTagEmbeddedPicture') ?? true);
+
+  private readonly totalFilesToProcess = signal(0);
+  private readonly filesToProcess = signal(0);
+  readonly processionPercent = computed(() => {
+    return 100 - (this.filesToProcess() / this.totalFilesToProcess()) * 100;
+  });
+
+  async *addFilesToLibrary(...fileDatas: FileData[]): AsyncGenerator<Track> {
+    if (fileDatas?.length) {
+      this.totalFilesToProcess.set(fileDatas.length);
+      this.filesToProcess.set(fileDatas.length);
+      for (const fileData of fileDatas.values()) {
+        const track = await this.createTrackFromFile(fileData);
+        if (track) {
+          yield track; // Yield each track as soon as it's ready
+        }
+        this.filesToProcess.update((files) => files - 1);
+      }
+      this.totalFilesToProcess.set(0);
+    }
+  }
+
+  async createTrackFromFile(fileData: FileData): Promise<Track | undefined> {
+    // console.time('full-metadata');
+    const metadata = await this.getMetadata(fileData);
+    // console.timeEnd('full-metadata');
+
+    if (!metadata) {
+      return undefined;
+    }
+    return {
+      file: fileData.file,
+      fileHandle: fileData.fileHandle,
+      metadata: metadata
+    };
+  }
 
   async getMetadata(fileData: FileData): Promise<TrackMetadata | undefined> {
     // console.time('hash');
@@ -111,9 +147,15 @@ export class MetadataService {
     return this.createObjectUrlForEmbeddedPicture(metadata);
   }
 
-  private createObjectUrlForEmbeddedPicture(meta: TrackMetadata): TrackMetadata {
-    if (meta.embeddedPicture && this.useTagEmbeddedPicture() && (!meta.coverUrl || this.preferTagEmbeddedPicture())) {
+  createObjectUrlForEmbeddedPicture(meta: TrackMetadata): TrackMetadata {
+    if (meta.embeddedPicture && this.useTagEmbeddedPicture() && (meta.coverUrl.original === this.PLACEHOLDER_URL || this.preferTagEmbeddedPicture())) {
       // renew local object urls
+      if (meta.coverUrl.original.startsWith('blob:')) {
+        URL.revokeObjectURL(meta.coverUrl.original);
+      }
+      if (meta.coverUrl.thumb.startsWith('blob:')) {
+        URL.revokeObjectURL(meta.coverUrl.thumb);
+      }
       // TODO: Erst kreieren wenn gebraucht!
       const url = URL.createObjectURL(new Blob([meta.embeddedPicture.data], { type: meta.embeddedPicture.format }));
       return {
