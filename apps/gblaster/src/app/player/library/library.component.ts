@@ -13,9 +13,11 @@ import { NgOptimizedImage } from '@angular/common';
 import { SafePipe } from 'safe-pipe';
 import { Router } from '@angular/router';
 import { RemoteCoverPicture } from '../metadata-service/metadata.types';
+import { MatProgressBar } from '@angular/material/progress-bar';
 
 export interface Album {
   name: string;
+  year: string;
   coverUrl: RemoteCoverPicture;
 }
 
@@ -35,22 +37,23 @@ export interface Album {
     CdkVirtualScrollViewport,
     CdkVirtualForOf,
     NgOptimizedImage,
-    SafePipe
+    SafePipe,
+    MatProgressBar
   ]
 })
 export default class LibraryComponent implements OnInit {
   private indexedDbService = inject(NgxIndexedDBService);
-  private playerService = inject(PlayerService);
   private router = inject(Router);
+  playerService = inject(PlayerService);
 
-  private readonly data = signal<IndexedDbTrackMetadata[]>([]);
+  private readonly indexedDbTracks = signal<IndexedDbTrackMetadata[]>([]);
 
   readonly selectedArtist = signal<string | undefined>(undefined);
   readonly selectedAlbum = signal<string | undefined>(undefined);
   readonly selectedTrack = signal<IndexedDbTrackMetadata | undefined>(undefined);
 
   readonly uniqueArtists = computed(() => {
-    const filtered = this.data()
+    const filtered = this.indexedDbTracks()
       .map((tag) => tag.artist)
       .filter((artist): artist is string => !!artist);
 
@@ -58,7 +61,7 @@ export default class LibraryComponent implements OnInit {
   });
 
   readonly uniqueAlbums = computed(() => {
-    let filtered = this.data();
+    let filtered = this.indexedDbTracks();
     const artist = this.selectedArtist();
 
     if (artist) {
@@ -75,16 +78,17 @@ export default class LibraryComponent implements OnInit {
       if (!albumMap.has(albumName)) {
         albumMap.set(albumName, {
           name: albumName,
+          year: tag.year || '',
           coverUrl: tag.coverUrl
         });
       }
     }
 
-    return [...albumMap.values()].sort((a, b) => a.name.localeCompare(b.name));
+    return [...albumMap.values()].sort((a, b) => a.year.localeCompare(b.year));
   });
 
   readonly tracks = computed(() => {
-    let filtered = this.data();
+    let filtered = this.indexedDbTracks();
     const artist = this.selectedArtist();
     const album = this.selectedAlbum();
 
@@ -123,7 +127,7 @@ export default class LibraryComponent implements OnInit {
   async ngOnInit() {
     try {
       const result = await firstValueFrom(this.indexedDbService.getAll<IndexedDbTrackMetadata>('metatags'));
-      this.data.set(result || []);
+      this.indexedDbTracks.set(result || []);
     } catch (error) {
       console.error('Error loading library data:', error);
     }
@@ -153,8 +157,17 @@ export default class LibraryComponent implements OnInit {
     }
   }
 
+  async addArtistToPlaylist(artist: string) {
+    if (artist) {
+      const tracks = this.indexedDbTracks().filter((track) => track.artist === artist);
+      await this.addTracksToPlaylist(...tracks);
+    } else {
+      await this.addTracksToPlaylist(...this.indexedDbTracks());
+    }
+  }
+
   async addAlbumToPlaylist(album: Album) {
-    const tracks = this.data().filter((track) => track.album === album.name);
+    const tracks = this.indexedDbTracks().filter((track) => track.album === album.name);
     await this.addTracksToPlaylist(...tracks);
   }
 

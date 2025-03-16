@@ -10,6 +10,7 @@ export interface Track {
 
 export interface TrackMetadata {
   crc: string;
+  fileName: string;
   artist?: string;
   title?: string;
   track?: string;

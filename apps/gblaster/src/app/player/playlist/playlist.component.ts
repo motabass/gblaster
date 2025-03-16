@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, DestroyRef, effect, inject, model, signal, Signal, viewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, DestroyRef, effect, inject, signal, Signal, viewChild } from '@angular/core';
 import { PlayerService } from '../player.service';
 import { Track } from '../player.types';
 import { VisualsService } from '../visualizer/visuals/visuals.service';
@@ -15,6 +15,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatInput } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatProgressBar } from '@angular/material/progress-bar';
 
 @Component({
   selector: 'mtb-playlist',
@@ -35,7 +36,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     CdkFixedSizeVirtualScroll,
     MatFormFieldModule,
     MatInput,
-    FormsModule
+    FormsModule,
+    MatProgressBar
   ]
 })
 export class PlaylistComponent {
@@ -72,7 +74,7 @@ export class PlaylistComponent {
           .pipe(takeUntilDestroyed(this.destroRef))
           .subscribe(() => {
             const scrollPosition = viewport.measureScrollOffset('bottom');
-            const measureOffset = 60;
+            const measureOffset = 140;
             // If user scrolled to bottom (or very close to it)
             if (scrollPosition < measureOffset) {
               this.isAutoScrollEnabled.set(true);

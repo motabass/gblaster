@@ -68,7 +68,7 @@ export class MetadataService {
         }
         // console.timeEnd('webcover');
       } else {
-        console.warn('Missing tags for lookup');
+        // console.warn('Missing tags for lookup');
       }
     }
 
@@ -89,6 +89,7 @@ export class MetadataService {
 
     const metadata: IndexedDbTrackMetadata = {
       crc: crc,
+      fileName: fileData.file.name,
       fileHandle: fileData.fileHandle,
       coverUrl: coverUrls ?? { thumb: this.PLACEHOLDER_URL, original: this.PLACEHOLDER_URL },
       embeddedPicture: tags.picture,

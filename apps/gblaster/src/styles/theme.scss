@@ -73,6 +73,13 @@
       active-indicator-color: var(--theme-accent-50)
     )
   );
+
+  @include mat.progress-bar-overrides(
+    (
+      active-indicator-color: var(--theme-accent-50),
+      track-color: var(--theme-primary-70)
+    )
+  );
 }
 
 html {

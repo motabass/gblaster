@@ -5,7 +5,6 @@ import { MetadataService } from './metadata-service/metadata.service';
 import type { ColorConfig, RepeatMode, Track } from './player.types';
 import { ALLOWED_MIMETYPES, FileData } from './file-loader-service/file-loader.helpers';
 import { ThemeService } from '../theme/theme.service';
-import { LoaderService } from '../services/loader/loader.service';
 import { WakelockService } from '../services/wakelock.service';
 import { MediaSessionService } from '../services/media-session/media-session.service';
 import { AudioService } from './audio.service';
@@ -18,7 +17,6 @@ export class PlayerService {
   private fileLoaderService = inject(FileLoaderService);
   private metadataService = inject(MetadataService);
   private themeService = inject(ThemeService);
-  private loaderService = inject(LoaderService);
   private wakelockService = inject(WakelockService, { optional: true });
   private mediaSessionService = inject(MediaSessionService, { optional: true });
 
@@ -38,6 +36,12 @@ export class PlayerService {
     const mainColor = coverColors?.darkVibrant?.hex;
     const peakColor = coverColors?.lightVibrant?.hex;
     return { mainColor: mainColor, peakColor: peakColor };
+  });
+
+  private readonly totalFilesToProcess = signal(0);
+  private readonly filesToProcess = signal(0);
+  readonly processionPercent = computed(() => {
+    return 100 - (this.filesToProcess() / this.totalFilesToProcess()) * 100;
   });
 
   constructor() {
@@ -119,11 +123,11 @@ export class PlayerService {
 
   async addFilesToPlaylist(...fileDatas: FileData[]) {
     if (fileDatas?.length) {
+      this.totalFilesToProcess.set(fileDatas.length);
+      this.filesToProcess.set(fileDatas.length);
       for (const fileData of fileDatas.values()) {
-        this.loaderService.show();
         const song = await this.createTrackFromFile(fileData);
-        this.loaderService.hide();
-
+        this.filesToProcess.update((files) => files - 1);
         if (!song) {
           continue;
         }
@@ -132,6 +136,7 @@ export class PlayerService {
           this.currentPlaylist.update((playlist) => [...playlist, song]);
         }
       }
+      this.totalFilesToProcess.set(0);
     }
   }
 

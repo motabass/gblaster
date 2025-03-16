@@ -1,13 +1,34 @@
+@if (playerService.processionPercent() < 100) {
+  <mat-progress-bar mode="determinate" [value]="playerService.processionPercent()"></mat-progress-bar>
+}
+
 <div class="library-layout">
   <div class="artists searchbox">
     <cdk-virtual-scroll-viewport class="virtual-scroll-viewport" itemSize="48">
       <mat-nav-list>
-        <mat-list-item (click)="selectArtist(undefined)">(All)</mat-list-item>
+        <mat-list-item (click)="selectArtist(undefined)">
+          <span matListItemTitle>(All)</span>
+          <span matListItemMeta>
+            <button mat-icon-button>
+              <mat-icon svgIcon="dots-vertical" [matMenuTriggerFor]="artistContextMenu" [matMenuTriggerData]="{ artist: undefined }"></mat-icon>
+            </button> </span
+        ></mat-list-item>
         <mat-list-item *cdkVirtualFor="let artist of uniqueArtists(); let i = index" (click)="selectArtist(artist)">
-          {{ artist }}
+          <span matListItemTitle>{{ artist }}</span>
+          <span matListItemMeta>
+            <button mat-icon-button>
+              <mat-icon svgIcon="dots-vertical" [matMenuTriggerFor]="artistContextMenu" [matMenuTriggerData]="{ artist: artist }"></mat-icon>
+            </button>
+          </span>
         </mat-list-item>
       </mat-nav-list>
     </cdk-virtual-scroll-viewport>
+    <!-- Artist Context Menu -->
+    <mat-menu #artistContextMenu="matMenu">
+      <ng-template let-artist="artist" matMenuContent>
+        <button mat-menu-item (click)="addArtistToPlaylist(artist)">Add to Playlist</button>
+      </ng-template>
+    </mat-menu>
   </div>
 
   <div class="albums searchbox">
@@ -25,6 +46,7 @@
             }
           </div>
           <span matListItemTitle>{{ album.name }}</span>
+          <span matListItemLine>{{ album.year }}</span>
           <span matListItemMeta>
             <button mat-icon-button>
               <mat-icon svgIcon="dots-vertical" [matMenuTriggerFor]="albumContextMenu" [matMenuTriggerData]="{ album: album }"></mat-icon>
@@ -54,8 +76,11 @@
               />
             }
           </div>
-          <!--          <span matListItemTitle>{{ track.track }} {{ track.title }}</span>-->
-          <span matListItemTitle>{{ track.title }}</span>
+          @if (selectedAlbum()) {
+            <span matListItemTitle>{{ track.track ? track.track + '. ' : '' }}{{ track.title || track.fileName }}</span>
+          } @else {
+            <span matListItemTitle>{{ track.title || track.fileName }}</span>
+          }
           <span matListItemMeta>
             <button mat-icon-button>
               <mat-icon svgIcon="dots-vertical" [matMenuTriggerFor]="trackContextMenu" [matMenuTriggerData]="{ track: track }"></mat-icon>
