@@ -54,15 +54,6 @@
   </div>
 </div>
 @if (currentTrack && cover) {
-  <img
-    style="object-fit: contain; transition: background-color 0.3s ease"
-    fill
-    priority
-    alt="Album-Cover"
-    [ngSrc]="cover"
-    [ngStyle]="{
-      'background-color': backgroundColor()
-    }"
-  />
+  <div class="cover-img" [style.background-image]="'url(' + cover + ')'" [style.background-color]="backgroundColor()"></div>
 }
 <ng-content />
