@@ -6,7 +6,7 @@ import { AudioService } from '../audio.service';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { VisualsDirective } from '../visualizer/visuals/visuals.directive';
-import { NgClass, NgOptimizedImage } from '@angular/common';
+import { NgClass } from '@angular/common';
 import { MatListModule } from '@angular/material/list';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { SafePipe } from 'safe-pipe';
@@ -30,7 +30,6 @@ import { MatProgressBar } from '@angular/material/progress-bar';
     MatIconModule,
     MatProgressSpinnerModule,
     SafePipe,
-    NgOptimizedImage,
     CdkVirtualScrollViewport,
     CdkVirtualForOf,
     CdkFixedSizeVirtualScroll,

@@ -37,7 +37,11 @@ export class MetadataService {
       const metadataCache: TrackMetadata = await firstValueFrom(this.indexedDBService.getByKey<IndexedDbTrackMetadata>('metatags', crc));
 
       if (metadataCache) {
-        if (metadataCache.embeddedPicture && this.useTagEmbeddedPicture() && (!metadataCache.coverUrl || this.preferTagEmbeddedPicture())) {
+        if (
+          metadataCache.embeddedPicture &&
+          this.useTagEmbeddedPicture() &&
+          (metadataCache.coverUrl.thumb === this.PLACEHOLDER_URL || this.preferTagEmbeddedPicture())
+        ) {
           // renew local object urls
           const url = URL.createObjectURL(new Blob([metadataCache.embeddedPicture.data], { type: metadataCache.embeddedPicture.format }));
           return {
@@ -78,14 +82,13 @@ export class MetadataService {
       // console.time('vibrant');
       palette = await extractColorsWithNodeVibrant(coverUrls.original);
       // console.timeEnd('vibrant');
+    } else if (tags.picture) {
+      // console.time('vibrant');
+      const objectUrl = URL.createObjectURL(new Blob([tags.picture.data], { type: tags.picture.format }));
+      palette = await extractColorsWithNodeVibrant(objectUrl);
+      URL.revokeObjectURL(objectUrl);
+      // console.timeEnd('vibrant');
     }
-    // else if (tags.picture) {
-    //   // console.time('vibrant');
-    //   const objectUrl = URL.createObjectURL(new Blob([tags.picture.data], { type: tags.picture.format }));
-    //   palette = await extractColorsWithNodeVibrant(objectUrl);
-    //   URL.revokeObjectURL(objectUrl);
-    //   // console.timeEnd('vibrant');
-    // }
 
     const metadata: IndexedDbTrackMetadata = {
       crc: crc,
