@@ -140,6 +140,10 @@
                             </li>
                             <li>
                                     <span class="modifier">Readonly</span>
+                                <a href="#processionPercent" >processionPercent</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Readonly</span>
                                 <a href="#useTagEmbeddedPicture" >useTagEmbeddedPicture</a>
                             </li>
                             <li>
@@ -162,6 +166,17 @@
                 <tr>
                     <td class="col-md-4">
                         <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#addFilesToLibrary" >addFilesToLibrary</a>
+                            </li>
+                            <li>
+                                <a href="#createObjectUrlForEmbeddedPicture" >createObjectUrlForEmbeddedPicture</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#createTrackFromFile" >createTrackFromFile</a>
+                            </li>
                             <li>
                                     <span class="modifier">Async</span>
                                 <a href="#getMetadata" >getMetadata</a>
@@ -188,6 +203,211 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
+                    <a name="addFilesToLibrary"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>addFilesToLibrary</b></span>
+                        <a href="#addFilesToLibrary"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>addFilesToLibrary(fileDatas: <a href="../interfaces/FileData.html" target="_self">FileData[]</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="37"
+                                    class="link-to-prism">apps/gblaster/src/app/player/metadata-service/metadata.service.ts:37</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>fileDatas</td>
+                                            <td>
+                                                            <code><a href="../interfaces/FileData.html" target="_self" >FileData[]</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="../interfaces/Track.html" target="_self" >AsyncGenerator&lt;Track&gt;</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="createObjectUrlForEmbeddedPicture"></a>
+                    <span class="name">
+                        <span ><b>createObjectUrlForEmbeddedPicture</b></span>
+                        <a href="#createObjectUrlForEmbeddedPicture"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>createObjectUrlForEmbeddedPicture(meta: <a href="../interfaces/TrackMetadata.html" target="_self">TrackMetadata</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="150"
+                                    class="link-to-prism">apps/gblaster/src/app/player/metadata-service/metadata.service.ts:150</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>meta</td>
+                                            <td>
+                                                            <code><a href="../interfaces/TrackMetadata.html" target="_self" >TrackMetadata</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="../interfaces/TrackMetadata.html" target="_self" >TrackMetadata</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="createTrackFromFile"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>createTrackFromFile</b></span>
+                        <a href="#createTrackFromFile"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>createTrackFromFile(fileData: <a href="../interfaces/FileData.html" target="_self">FileData</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="52"
+                                    class="link-to-prism">apps/gblaster/src/app/player/metadata-service/metadata.service.ts:52</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>fileData</td>
+                                            <td>
+                                                            <code><a href="../interfaces/FileData.html" target="_self" >FileData</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="../interfaces/Track.html" target="_self" >Promise&lt;Track | undefined&gt;</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
                     <a name="getMetadata"></a>
                     <span class="name">
                             <span class="modifier">Async</span>
@@ -206,8 +426,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="31"
-                                    class="link-to-prism">apps/gblaster/src/app/player/metadata-service/metadata.service.ts:31</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="67"
+                                    class="link-to-prism">apps/gblaster/src/app/player/metadata-service/metadata.service.ts:67</a></div>
                         </td>
                     </tr>
 
@@ -279,6 +499,34 @@
                     <tr>
                         <td class="col-md-4">
                                 <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">apps/gblaster/src/app/player/metadata-service/metadata.service.ts:29</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="processionPercent"></a>
+                    <span class="name">
+                            <span class="modifier">Readonly</span>
+                        <span ><b>processionPercent</b></span>
+                        <a href="#processionPercent"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; {
+    return 100 - (this.filesToProcess() / this.totalFilesToProcess()) * 100;
+  })</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="33" class="link-to-prism">apps/gblaster/src/app/player/metadata-service/metadata.service.ts:33</a></div>
                         </td>
                     </tr>
 
@@ -370,11 +618,11 @@
 
     <div class="tab-pane fade  tab-source-code" id="source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { crc32 } from &#x27;@allex/crc32&#x27;;
-import { inject, Injectable, signal } from &#x27;@angular/core&#x27;;
+import { computed, inject, Injectable, signal } from &#x27;@angular/core&#x27;;
 import { NgxIndexedDBService } from &#x27;ngx-indexed-db&#x27;;
 import { LocalStorageService } from &#x27;ngx-webstorage&#x27;;
 import { firstValueFrom } from &#x27;rxjs&#x27;;
-import { IndexedDbTrackMetadata, TrackMetadata } from &#x27;../player.types&#x27;;
+import { IndexedDbTrackMetadata, type Track, TrackMetadata } from &#x27;../player.types&#x27;;
 import { Id3TagsService } from &#x27;./id3-tags.service&#x27;;
 import { LastfmMetadataService } from &#x27;./lastfm-metadata.service&#x27;;
 import { CoverColorPalette, RemoteCoverPicture } from &#x27;./metadata.types&#x27;;
@@ -399,6 +647,42 @@ export class MetadataService {
   readonly useTagEmbeddedPicture &#x3D; signal(this.localStorageService.retrieve(&#x27;useTagEmbeddedPicture&#x27;) ?? true);
   readonly preferTagEmbeddedPicture &#x3D; signal(this.localStorageService.retrieve(&#x27;preferTagEmbeddedPicture&#x27;) ?? true);
 
+  private readonly totalFilesToProcess &#x3D; signal(0);
+  private readonly filesToProcess &#x3D; signal(0);
+  readonly processionPercent &#x3D; computed(() &#x3D;&gt; {
+    return 100 - (this.filesToProcess() / this.totalFilesToProcess()) * 100;
+  });
+
+  async *addFilesToLibrary(...fileDatas: FileData[]): AsyncGenerator&lt;Track&gt; {
+    if (fileDatas?.length) {
+      this.totalFilesToProcess.set(fileDatas.length);
+      this.filesToProcess.set(fileDatas.length);
+      for (const fileData of fileDatas.values()) {
+        const track &#x3D; await this.createTrackFromFile(fileData);
+        if (track) {
+          yield track; // Yield each track as soon as it&#x27;s ready
+        }
+        this.filesToProcess.update((files) &#x3D;&gt; files - 1);
+      }
+      this.totalFilesToProcess.set(0);
+    }
+  }
+
+  async createTrackFromFile(fileData: FileData): Promise&lt;Track | undefined&gt; {
+    // console.time(&#x27;full-metadata&#x27;);
+    const metadata &#x3D; await this.getMetadata(fileData);
+    // console.timeEnd(&#x27;full-metadata&#x27;);
+
+    if (!metadata) {
+      return undefined;
+    }
+    return {
+      file: fileData.file,
+      fileHandle: fileData.fileHandle,
+      metadata: metadata
+    };
+  }
+
   async getMetadata(fileData: FileData): Promise&lt;TrackMetadata | undefined&gt; {
     // console.time(&#x27;hash&#x27;);
     const crc &#x3D; generateFileHash(fileData.file);
@@ -408,7 +692,11 @@ export class MetadataService {
       const metadataCache: TrackMetadata &#x3D; await firstValueFrom(this.indexedDBService.getByKey&lt;IndexedDbTrackMetadata&gt;(&#x27;metatags&#x27;, crc));
 
       if (metadataCache) {
-        if (metadataCache.embeddedPicture &amp;&amp; this.useTagEmbeddedPicture() &amp;&amp; (!metadataCache.coverUrl || this.preferTagEmbeddedPicture())) {
+        if (
+          metadataCache.embeddedPicture &amp;&amp;
+          this.useTagEmbeddedPicture() &amp;&amp;
+          (metadataCache.coverUrl.thumb &#x3D;&#x3D;&#x3D; this.PLACEHOLDER_URL || this.preferTagEmbeddedPicture())
+        ) {
           // renew local object urls
           const url &#x3D; URL.createObjectURL(new Blob([metadataCache.embeddedPicture.data], { type: metadataCache.embeddedPicture.format }));
           return {
@@ -439,7 +727,7 @@ export class MetadataService {
         }
         // console.timeEnd(&#x27;webcover&#x27;);
       } else {
-        console.warn(&#x27;Missing tags for lookup&#x27;);
+        // console.warn(&#x27;Missing tags for lookup&#x27;);
       }
     }
 
@@ -449,17 +737,17 @@ export class MetadataService {
       // console.time(&#x27;vibrant&#x27;);
       palette &#x3D; await extractColorsWithNodeVibrant(coverUrls.original);
       // console.timeEnd(&#x27;vibrant&#x27;);
+    } else if (tags.picture) {
+      // console.time(&#x27;vibrant&#x27;);
+      const objectUrl &#x3D; URL.createObjectURL(new Blob([tags.picture.data], { type: tags.picture.format }));
+      palette &#x3D; await extractColorsWithNodeVibrant(objectUrl);
+      URL.revokeObjectURL(objectUrl);
+      // console.timeEnd(&#x27;vibrant&#x27;);
     }
-    // else if (tags.picture) {
-    //   // console.time(&#x27;vibrant&#x27;);
-    //   const objectUrl &#x3D; URL.createObjectURL(new Blob([tags.picture.data], { type: tags.picture.format }));
-    //   palette &#x3D; await extractColorsWithNodeVibrant(objectUrl);
-    //   URL.revokeObjectURL(objectUrl);
-    //   // console.timeEnd(&#x27;vibrant&#x27;);
-    // }
 
     const metadata: IndexedDbTrackMetadata &#x3D; {
       crc: crc,
+      fileName: fileData.file.name,
       fileHandle: fileData.fileHandle,
       coverUrl: coverUrls ?? { thumb: this.PLACEHOLDER_URL, original: this.PLACEHOLDER_URL },
       embeddedPicture: tags.picture,
@@ -478,9 +766,15 @@ export class MetadataService {
     return this.createObjectUrlForEmbeddedPicture(metadata);
   }
 
-  private createObjectUrlForEmbeddedPicture(meta: TrackMetadata): TrackMetadata {
-    if (meta.embeddedPicture &amp;&amp; this.useTagEmbeddedPicture() &amp;&amp; (!meta.coverUrl || this.preferTagEmbeddedPicture())) {
+  createObjectUrlForEmbeddedPicture(meta: TrackMetadata): TrackMetadata {
+    if (meta.embeddedPicture &amp;&amp; this.useTagEmbeddedPicture() &amp;&amp; (meta.coverUrl.original &#x3D;&#x3D;&#x3D; this.PLACEHOLDER_URL || this.preferTagEmbeddedPicture())) {
       // renew local object urls
+      if (meta.coverUrl.original.startsWith(&#x27;blob:&#x27;)) {
+        URL.revokeObjectURL(meta.coverUrl.original);
+      }
+      if (meta.coverUrl.thumb.startsWith(&#x27;blob:&#x27;)) {
+        URL.revokeObjectURL(meta.coverUrl.thumb);
+      }
       // TODO: Erst kreieren wenn gebraucht!
       const url &#x3D; URL.createObjectURL(new Blob([meta.embeddedPicture.data], { type: meta.embeddedPicture.format }));
       return {
