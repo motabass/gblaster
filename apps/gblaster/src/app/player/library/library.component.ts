@@ -181,7 +181,7 @@ export default class LibraryComponent implements OnInit {
   async playTrack(track: IndexedDbTrackMetadata | undefined) {
     if (track) {
       await this.addTrackToPlaylist(track);
-      await this.playerService.playLastTrackInPlaylist();
+      await this.playerService.playTrackByCrc(track.crc);
       void this.router.navigate(['/player']);
     }
   }

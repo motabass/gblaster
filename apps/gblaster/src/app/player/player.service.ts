@@ -219,10 +219,12 @@ export class PlayerService {
     }
   }
 
-  async playLastTrackInPlaylist() {
+  async playTrackByCrc(crc: string) {
     const playlist = this.currentPlaylist();
-    if (playlist.length > 0) {
-      return this.playTrack(playlist.at(-1));
+
+    const track = playlist.find((playlistTrack) => playlistTrack.metadata?.crc === crc);
+    if (track) {
+      await this.playTrack(track);
     }
   }
 
