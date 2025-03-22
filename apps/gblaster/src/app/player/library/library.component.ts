@@ -181,26 +181,44 @@ export default class LibraryComponent implements OnInit {
   async playTrack(track: IndexedDbTrackMetadata | undefined) {
     if (track) {
       await this.addTrackToPlaylist(track);
+      await this.playerService.playLastTrackInPlaylist();
       void this.router.navigate(['/player']);
     }
   }
 
   async addArtistToPlaylist(artist: string) {
     if (artist) {
-      const tracks = this.indexedDbTracks().filter((track) => track.artist === artist);
+      const tracks = this.filteredBySerchterm().filter((track) => track.artist === artist);
       await this.addTracksToPlaylist(...tracks);
     } else {
-      await this.addTracksToPlaylist(...this.indexedDbTracks());
+      await this.addTracksToPlaylist(...this.filteredBySerchterm());
     }
   }
 
   async addAlbumToPlaylist(album: Album) {
-    const tracks = this.indexedDbTracks().filter((track) => track.album === album.name);
-    await this.addTracksToPlaylist(...tracks);
+    if (album) {
+      const tracks = this.filteredBySerchterm().filter((track) => track.album === album.name);
+      await this.addTracksToPlaylist(...tracks);
+    } else {
+      // filter by all unique albums
+      const albums = this.uniqueAlbums();
+
+      const tracks: IndexedDbTrackMetadata[] = [];
+      for (const currentAlbum of albums) {
+        const albumTracks = this.filteredBySerchterm().filter((track) => track.album === currentAlbum.name);
+        tracks.push(...albumTracks);
+      }
+      await this.addTracksToPlaylist(...tracks);
+    }
   }
 
   async addTrackToPlaylist(track: IndexedDbTrackMetadata) {
-    await this.addTracksToPlaylist(track);
+    if (track) {
+      await this.addTracksToPlaylist(track);
+    } else {
+      const tracks = this.filteredBySerchterm();
+      await this.addTracksToPlaylist(...tracks);
+    }
   }
 
   async addTracksToPlaylist(...dbTracks: IndexedDbTrackMetadata[]) {

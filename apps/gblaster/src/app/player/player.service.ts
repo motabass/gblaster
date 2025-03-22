@@ -219,6 +219,13 @@ export class PlayerService {
     }
   }
 
+  async playLastTrackInPlaylist() {
+    const playlist = this.currentPlaylist();
+    if (playlist.length > 0) {
+      return this.playTrack(playlist.at(-1));
+    }
+  }
+
   async selectNext() {
     if (!this.selectedTrack()) {
       return;

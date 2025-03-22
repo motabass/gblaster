@@ -4,13 +4,12 @@
   <mat-list class="playlist">
     <mat-list-item
       *cdkVirtualFor="let song of playerService.currentPlaylist(); trackBy: trackByCrc"
-      style="height: 72px"
       class="playlist-item"
       [ngClass]="{ selected: this.playerService.selectedTrack()?.metadata?.crc === song.metadata.crc }"
       (dblclick)="playPauseSong($event, song)"
       (click)="playerService.selectSong(song)"
     >
-      <div matListItemAvatar style="overflow: hidden; border-radius: 4px; position: relative; width: 50px; height: 50px">
+      <div matListItemAvatar style="overflow: hidden; border-radius: 4px; position: relative">
         @if (song && song.metadata && song.metadata.coverUrl) {
           <!--suppress AngularNgOptimizedImage -->
           <img

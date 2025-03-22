@@ -45,7 +45,13 @@
   <div class="albums searchbox">
     <cdk-virtual-scroll-viewport class="virtual-scroll-viewport" appendOnly itemSize="32">
       <mat-nav-list>
-        <mat-list-item (click)="selectAlbum(undefined)">(All)</mat-list-item>
+        <mat-list-item (click)="selectAlbum(undefined)">
+          <span matListItemTitle>(All)</span>
+          <span matListItemMeta>
+            <button mat-icon-button>
+              <mat-icon svgIcon="dots-vertical" [matMenuTriggerFor]="artistContextMenu" [matMenuTriggerData]="{ album: undefined }"></mat-icon>
+            </button> </span
+        ></mat-list-item>
         <mat-list-item *cdkVirtualFor="let album of uniqueAlbums(); trackBy: trackByAlbum" (click)="selectAlbum(album.name)">
           <div matListItemAvatar style="overflow: hidden; border-radius: 2px; position: relative; width: 28px; height: 28px">
             @if (album && album.coverUrl) {
@@ -76,6 +82,14 @@
   <div class="tracks searchbox">
     <cdk-virtual-scroll-viewport class="virtual-scroll-viewport" itemSize="32">
       <mat-nav-list>
+        <mat-list-item (click)="selectTrack(undefined)">
+          <span matListItemTitle>(All)</span>
+          <span matListItemMeta>
+            <button mat-icon-button>
+              <mat-icon svgIcon="dots-vertical" [matMenuTriggerFor]="artistContextMenu" [matMenuTriggerData]="{ track: undefined }"></mat-icon>
+            </button>
+          </span>
+        </mat-list-item>
         <mat-list-item *cdkVirtualFor="let track of tracks(); trackBy: trackByCrc" (click)="selectTrack(track)" (dblclick)="playTrack(track)">
           <div matListItemAvatar style="overflow: hidden; border-radius: 2px; position: relative; width: 28px; height: 28px">
             @if (track && track.coverUrl) {
