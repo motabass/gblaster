@@ -115,6 +115,9 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 <a href="components/PlayerComponent.html" data-type="entity-link" >PlayerComponent</a>
                             </li>
                             <li class="link">
+                                <a href="components/PlayerToolbarComponent.html" data-type="entity-link" >PlayerToolbarComponent</a>
+                            </li>
+                            <li class="link">
                                 <a href="components/PlaylistComponent.html" data-type="entity-link" >PlaylistComponent</a>
                             </li>
                             <li class="link">

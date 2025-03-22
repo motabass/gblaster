@@ -289,6 +289,8 @@ import { Router } from &#x27;@angular/router&#x27;;
 import { RemoteCoverPicture } from &#x27;../metadata-service/metadata.types&#x27;;
 import { MatProgressBar } from &#x27;@angular/material/progress-bar&#x27;;
 import { MetadataService } from &#x27;../metadata-service/metadata.service&#x27;;
+import { FormsModule } from &#x27;@angular/forms&#x27;;
+import { MatFormField, MatHint, MatInput, MatPrefix, MatSuffix } from &#x27;@angular/material/input&#x27;;
 
 export interface Album {
   name: string;
@@ -312,7 +314,13 @@ export interface Album {
     CdkVirtualScrollViewport,
     CdkVirtualForOf,
     SafePipe,
-    MatProgressBar
+    MatHint,
+    MatProgressBar,
+    FormsModule,
+    MatFormField,
+    MatInput,
+    MatPrefix,
+    MatSuffix
   ]
 })
 export default class LibraryComponent implements OnInit {
@@ -321,14 +329,29 @@ export default class LibraryComponent implements OnInit {
   metadataService &#x3D; inject(MetadataService);
   playerService &#x3D; inject(PlayerService);
 
+  readonly searchTerm &#x3D; signal(&#x27;&#x27;);
+
   private readonly indexedDbTracks &#x3D; signal&lt;IndexedDbTrackMetadata[]&gt;([]);
+
+  readonly filteredBySerchterm &#x3D; computed(() &#x3D;&gt; {
+    const searchTerm &#x3D; this.searchTerm();
+    const lowerSearchTerm &#x3D; searchTerm.toLowerCase();
+    return this.indexedDbTracks().filter((tag) &#x3D;&gt; {
+      return (
+        tag.title?.toLowerCase().includes(lowerSearchTerm) ||
+        tag.artist?.toLowerCase().includes(lowerSearchTerm) ||
+        tag.fileName?.toLowerCase().includes(lowerSearchTerm) ||
+        tag.album?.toLowerCase().includes(lowerSearchTerm)
+      );
+    });
+  });
 
   readonly selectedArtist &#x3D; signal&lt;string | undefined&gt;(undefined);
   readonly selectedAlbum &#x3D; signal&lt;string | undefined&gt;(undefined);
   readonly selectedTrack &#x3D; signal&lt;IndexedDbTrackMetadata | undefined&gt;(undefined);
 
   readonly uniqueArtists &#x3D; computed(() &#x3D;&gt; {
-    const filtered &#x3D; this.indexedDbTracks()
+    let filtered &#x3D; this.filteredBySerchterm()
       .map((tag) &#x3D;&gt; tag.artist)
       .filter((artist): artist is string &#x3D;&gt; !!artist);
 
@@ -336,7 +359,7 @@ export default class LibraryComponent implements OnInit {
   });
 
   readonly uniqueAlbums &#x3D; computed(() &#x3D;&gt; {
-    let filtered &#x3D; this.indexedDbTracks();
+    let filtered &#x3D; this.filteredBySerchterm();
     const artist &#x3D; this.selectedArtist();
 
     if (artist) {
@@ -363,9 +386,10 @@ export default class LibraryComponent implements OnInit {
   });
 
   readonly tracks &#x3D; computed(() &#x3D;&gt; {
-    let filtered &#x3D; this.indexedDbTracks();
+    let filtered &#x3D; this.filteredBySerchterm();
     const artist &#x3D; this.selectedArtist();
     const album &#x3D; this.selectedAlbum();
+    const searchTerm &#x3D; this.searchTerm();
 
     if (artist) {
       filtered &#x3D; filtered.filter((item) &#x3D;&gt; item.artist &#x3D;&#x3D;&#x3D; artist);
@@ -432,26 +456,44 @@ export default class LibraryComponent implements OnInit {
   async playTrack(track: IndexedDbTrackMetadata | undefined) {
     if (track) {
       await this.addTrackToPlaylist(track);
-      void this.router.navigate([&#x27;/player&#x27;]);
+      await this.playerService.playTrackByCrc(track.crc);
+      // void this.router.navigate([&#x27;/player&#x27;]);
     }
   }
 
   async addArtistToPlaylist(artist: string) {
     if (artist) {
-      const tracks &#x3D; this.indexedDbTracks().filter((track) &#x3D;&gt; track.artist &#x3D;&#x3D;&#x3D; artist);
+      const tracks &#x3D; this.filteredBySerchterm().filter((track) &#x3D;&gt; track.artist &#x3D;&#x3D;&#x3D; artist);
       await this.addTracksToPlaylist(...tracks);
     } else {
-      await this.addTracksToPlaylist(...this.indexedDbTracks());
+      await this.addTracksToPlaylist(...this.filteredBySerchterm());
     }
   }
 
   async addAlbumToPlaylist(album: Album) {
-    const tracks &#x3D; this.indexedDbTracks().filter((track) &#x3D;&gt; track.album &#x3D;&#x3D;&#x3D; album.name);
-    await this.addTracksToPlaylist(...tracks);
+    if (album) {
+      const tracks &#x3D; this.filteredBySerchterm().filter((track) &#x3D;&gt; track.album &#x3D;&#x3D;&#x3D; album.name);
+      await this.addTracksToPlaylist(...tracks);
+    } else {
+      // filter by all unique albums
+      const albums &#x3D; this.uniqueAlbums();
+
+      const tracks: IndexedDbTrackMetadata[] &#x3D; [];
+      for (const currentAlbum of albums) {
+        const albumTracks &#x3D; this.filteredBySerchterm().filter((track) &#x3D;&gt; track.album &#x3D;&#x3D;&#x3D; currentAlbum.name);
+        tracks.push(...albumTracks);
+      }
+      await this.addTracksToPlaylist(...tracks);
+    }
   }
 
   async addTrackToPlaylist(track: IndexedDbTrackMetadata) {
-    await this.addTracksToPlaylist(track);
+    if (track) {
+      await this.addTracksToPlaylist(track);
+    } else {
+      const tracks &#x3D; this.filteredBySerchterm();
+      await this.addTracksToPlaylist(...tracks);
+    }
   }
 
   async addTracksToPlaylist(...dbTracks: IndexedDbTrackMetadata[]) {
