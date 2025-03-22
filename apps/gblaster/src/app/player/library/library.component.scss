@@ -1,26 +1,27 @@
 @use '@angular/material' as mat;
 
 :host {
+  height: 100%;
+  background-color: var(--theme-primary-50);
+  display: grid;
+  gap: 2px;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto 1fr 1fr;
+  grid-template-areas:
+    'searchinput searchinput'
+    'artists tracks'
+    'albums tracks';
+
   @include mat.list-overrides(
     (
       list-item-one-line-container-height: 32px
     )
   );
-
-  height: 100%;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: auto 1fr 1fr;
-  gap: 0;
-  grid-template-areas:
-    'searchinput searchinput'
-    'artists tracks'
-    'albums tracks';
 }
 
 .searchbox {
+  background-color: var(--mat-sys-background);
   overflow-y: auto;
-  border: 1px solid lightgrey;
 }
 
 .searchinput {
