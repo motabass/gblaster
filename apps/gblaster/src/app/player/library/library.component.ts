@@ -182,7 +182,7 @@ export default class LibraryComponent implements OnInit {
     if (track) {
       await this.addTrackToPlaylist(track);
       await this.playerService.playTrackByCrc(track.crc);
-      void this.router.navigate(['/player']);
+      // void this.router.navigate(['/player']);
     }
   }
 

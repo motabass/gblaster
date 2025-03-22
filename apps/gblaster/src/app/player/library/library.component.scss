@@ -6,15 +6,14 @@
       list-item-one-line-container-height: 32px
     )
   );
-}
 
-.library-layout {
   height: 100%;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
+  grid-template-rows: auto 1fr 1fr;
   gap: 0;
   grid-template-areas:
+    'searchinput searchinput'
     'artists tracks'
     'albums tracks';
 }
@@ -22,6 +21,10 @@
 .searchbox {
   overflow-y: auto;
   border: 1px solid lightgrey;
+}
+
+.searchinput {
+  grid-area: searchinput;
 }
 
 .artists {

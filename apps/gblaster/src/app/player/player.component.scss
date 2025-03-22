@@ -5,18 +5,15 @@
   height: 100%;
   display: grid;
   grid-template-columns: minmax(300px, 3fr) 5fr;
-  grid-template-rows: calc(100% - 77px) 60px;
-  grid-template-areas:
-    'playlist main'
-    'bar bar';
+  grid-template-rows: minmax(0, 1fr); // This restricts the row's growth
+  grid-template-areas: 'playlist cover';
 
   @media (width <= 599px) {
     grid-template-columns: 100%;
-    grid-template-rows: 45% calc(55% - 56px) 56px;
+    grid-template-rows: 45% auto;
     grid-template-areas:
-      'main'
-      'playlist'
-      'bar';
+      'cover'
+      'playlist';
   }
 }
 
@@ -24,13 +21,7 @@
   grid-area: playlist;
 }
 
-.main {
-  grid-area: main;
+.cover {
+  grid-area: cover;
   position: relative;
-}
-
-.bar {
-  grid-area: bar;
-
-  @include mat.elevation(12);
 }

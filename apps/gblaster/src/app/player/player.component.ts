@@ -12,7 +12,6 @@ import { CoverDisplayComponent } from './cover-display/cover-display.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { PlaylistComponent } from './playlist/playlist.component';
-import { PlayerToolbarComponent } from './player-toolbar/player-toolbar.component';
 
 @Component({
   selector: 'mtb-player',
@@ -28,8 +27,7 @@ import { PlayerToolbarComponent } from './player-toolbar/player-toolbar.componen
     MatToolbarModule,
     MatTooltipModule,
     MatSliderModule,
-    MatMenuModule,
-    PlayerToolbarComponent
+    MatMenuModule
   ]
 })
 export default class PlayerComponent implements OnInit {

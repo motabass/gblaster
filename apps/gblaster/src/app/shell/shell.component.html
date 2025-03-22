@@ -7,7 +7,7 @@
     [mode]="isHandset() ? 'over' : 'side'"
     [opened]="!isHandset()"
   >
-    <mat-toolbar color="primary" style="height: 48px">
+    <mat-toolbar color="primary">
       <mat-icon aria-label="Side nav toggle icon" svgIcon="radio" style="margin-right: 0.7rem" />
       <span class="title">{{ titleService.title() }}</span>
     </mat-toolbar>
@@ -24,8 +24,8 @@
       >
     </mat-nav-list>
   </mat-sidenav>
-  <mat-sidenav-content style="overflow: hidden">
-    <mat-toolbar>
+  <mat-sidenav-content style="overflow: hidden" class="sidenav-content">
+    <mat-toolbar class="header">
       @if (isHandset()) {
         <button
           id="sidenav_menu_button"
@@ -43,7 +43,10 @@
         <mat-spinner style="margin-left: 1rem" color="accent" diameter="32" strokeWidth="6" />
       }
     </mat-toolbar>
-    <div class="router-outlet"><router-outlet></router-outlet></div>
+
+    <div class="router-outlet main"><router-outlet></router-outlet></div>
+
+    <player-toolbar class="toolbar" />
 
     <mtb-file-drop-overlay [allowedTypes]="ALLOWED_TYPES" (filesDroped)="onFilesDropped($event)" />
   </mat-sidenav-content>

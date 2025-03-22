@@ -15,12 +15,23 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { FileDropOverlayComponent } from '@motabass/ui-components/file-drop-overlay';
 import { PlayerService } from '../player/player.service';
 import { ALLOWED_MIMETYPES } from '../player/file-loader-service/file-loader.helpers';
+import { PlayerToolbarComponent } from '../player/player-toolbar/player-toolbar.component';
 
 @Component({
   selector: 'mtb-shell',
   templateUrl: './shell.component.html',
   styleUrl: './shell.component.scss',
-  imports: [MatSidenavModule, MatToolbarModule, MatIconModule, MatListModule, MatButtonModule, MatProgressSpinnerModule, RouterOutlet, FileDropOverlayComponent]
+  imports: [
+    MatSidenavModule,
+    MatToolbarModule,
+    MatIconModule,
+    MatListModule,
+    MatButtonModule,
+    MatProgressSpinnerModule,
+    RouterOutlet,
+    FileDropOverlayComponent,
+    PlayerToolbarComponent
+  ]
 })
 export class ShellComponent {
   private breakpointObserver = inject(BreakpointObserver);
