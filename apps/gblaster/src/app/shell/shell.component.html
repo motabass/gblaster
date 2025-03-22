@@ -44,5 +44,7 @@
       }
     </mat-toolbar>
     <div class="router-outlet"><router-outlet></router-outlet></div>
+
+    <mtb-file-drop-overlay [allowedTypes]="ALLOWED_TYPES" (filesDroped)="onFilesDropped($event)" />
   </mat-sidenav-content>
 </mat-sidenav-container>

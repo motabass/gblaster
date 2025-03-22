@@ -34,29 +34,3 @@
 
   @include mat.elevation(12);
 }
-
-::ng-deep .volume-menu {
-  min-width: unset !important;
-  background-color: var(--theme-accent-50) !important;
-
-  @include mat.slider-overrides(
-    (
-      handle-color: initial,
-      focus-handle-color: initial,
-      active-track-color: initial,
-      inactive-track-color: initial,
-      label-container-color: initial,
-      label-label-text-color: initial
-    )
-  );
-}
-
-.vertical-slider-container {
-  min-height: 12rem;
-  width: 64px;
-
-  .vertical-slider {
-    transform: rotate(270deg);
-    transform-origin: 96px 87px;
-  }
-}

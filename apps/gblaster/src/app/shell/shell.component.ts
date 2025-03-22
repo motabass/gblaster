@@ -12,18 +12,24 @@ import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { toSignal } from '@angular/core/rxjs-interop';
+import { FileDropOverlayComponent } from '@motabass/ui-components/file-drop-overlay';
+import { PlayerService } from '../player/player.service';
+import { ALLOWED_MIMETYPES } from '../player/file-loader-service/file-loader.helpers';
 
 @Component({
   selector: 'mtb-shell',
   templateUrl: './shell.component.html',
   styleUrl: './shell.component.scss',
-  imports: [MatSidenavModule, MatToolbarModule, MatIconModule, MatListModule, MatButtonModule, MatProgressSpinnerModule, RouterOutlet]
+  imports: [MatSidenavModule, MatToolbarModule, MatIconModule, MatListModule, MatButtonModule, MatProgressSpinnerModule, RouterOutlet, FileDropOverlayComponent]
 })
 export class ShellComponent {
   private breakpointObserver = inject(BreakpointObserver);
+  private playerService = inject(PlayerService);
+  private router = inject(Router);
   titleService = inject(TitleService);
   loaderService = inject(LoaderService);
-  private router = inject(Router);
+
+  readonly ALLOWED_TYPES = ALLOWED_MIMETYPES;
 
   private isHandset$: Observable<boolean> = this.breakpointObserver
     .observe([Breakpoints.XSmall, Breakpoints.Small, Breakpoints.Medium, Breakpoints.Large, Breakpoints.XLarge])
@@ -39,5 +45,9 @@ export class ShellComponent {
   navigateTo(route: string, skipLocationChange = false) {
     this.sidenav()?.close();
     this.router.navigate([route], { skipLocationChange: skipLocationChange });
+  }
+
+  async onFilesDropped(files: File[]) {
+    return this.playerService.addFilesToPlaylist(...files.map((file) => ({ file })));
   }
 }
