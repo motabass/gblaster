@@ -10,11 +10,11 @@
   transition: background-color 0.3s ease;
 
   &:hover {
-    background-color: var(--theme-accent-90);
+    background-color: var(--theme-accent-100);
   }
 
   &.selected {
-    background-color: var(--theme-accent-100);
+    background-color: var(--theme-accent-90);
     border-left: solid 4px var(--theme-primary-50);
   }
 

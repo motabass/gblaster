@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed, DestroyRef, effect, inject, signal, Signal, viewChild } from '@angular/core';
 import { PlayerService } from '../player.service';
 import { Track } from '../player.types';
-import { VisualsService } from '../visualizer/visuals/visuals.service';
 import { AudioService } from '../audio.service';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -12,7 +11,6 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { SafePipe } from 'safe-pipe';
 import { CdkFixedSizeVirtualScroll, CdkVirtualForOf, CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { MatInput } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatProgressBar } from '@angular/material/progress-bar';
@@ -35,7 +33,6 @@ import { MetadataService } from '../metadata-service/metadata.service';
     CdkVirtualForOf,
     CdkFixedSizeVirtualScroll,
     MatFormFieldModule,
-    MatInput,
     FormsModule,
     MatProgressBar
   ]
@@ -43,23 +40,8 @@ import { MetadataService } from '../metadata-service/metadata.service';
 export class PlaylistComponent {
   playerService = inject(PlayerService);
   audioService = inject(AudioService);
-  visualsService = inject(VisualsService);
   metadataService = inject(MetadataService);
   private destroRef = inject(DestroyRef);
-
-  readonly searchTerm = signal('');
-
-  readonly filteredPlaylist = computed(() => {
-    const term = this.searchTerm().toLowerCase();
-    if (!term) return this.playerService.currentPlaylist();
-
-    return (
-      this.playerService
-        .currentPlaylist()
-        // search in title, artist and file name
-        .filter((song) => (song.metadata?.title || song.file.name).toLowerCase().includes(term) || (song.metadata?.artist || '').toLowerCase().includes(term))
-    );
-  });
 
   readonly scrollViewport = viewChild<CdkVirtualScrollViewport>('scrollViewport');
 
@@ -90,7 +72,7 @@ export class PlaylistComponent {
 
     // Scroll to bottom when playlist changes and autoscroll is enabled
     effect(() => {
-      const playlist = this.filteredPlaylist();
+      const playlist = this.playerService.currentPlaylist();
 
       // Wait for change detection to complete
       setTimeout(() => {
@@ -104,10 +86,9 @@ export class PlaylistComponent {
     effect(() => {
       const isPlaying = this.audioService.isPlaying();
       const currentTrack = this.playerService.currentlyLoadedTrack();
-      const searchTerm = this.searchTerm();
 
       // Only scroll when a track is playing
-      if (isPlaying && currentTrack && !searchTerm) {
+      if (isPlaying && currentTrack) {
         // Small delay to ensure UI has updated
         setTimeout(() => this.scrollToCurrentTrack());
       }
@@ -117,7 +98,7 @@ export class PlaylistComponent {
   private scrollToBottom() {
     const viewport = this.scrollViewport();
     if (viewport) {
-      const playlist = this.filteredPlaylist();
+      const playlist = this.playerService.currentPlaylist();
       if (playlist && playlist.length > 0) {
         viewport.scrollToIndex(playlist.length - 1, 'smooth');
       }
@@ -129,7 +110,7 @@ export class PlaylistComponent {
     const currentTrack = this.playerService.currentlyLoadedTrack();
     if (!viewport || !currentTrack) return;
 
-    const playlist = this.filteredPlaylist();
+    const playlist = this.playerService.currentPlaylist();
     const targetIndex = playlist.findIndex((track) => track.metadata?.crc === currentTrack.metadata?.crc);
 
     if (targetIndex !== -1) {

@@ -1,3 +1,13 @@
+@use '@angular/material' as mat;
+
+:host {
+  @include mat.list-overrides(
+    (
+      list-item-one-line-container-height: 32px
+    )
+  );
+}
+
 .library-layout {
   height: 100%;
   display: grid;
@@ -5,8 +15,8 @@
   grid-template-rows: 1fr 1fr;
   gap: 0;
   grid-template-areas:
-    'artists albums'
-    'tracks tracks';
+    'artists tracks'
+    'albums tracks';
 }
 
 .searchbox {

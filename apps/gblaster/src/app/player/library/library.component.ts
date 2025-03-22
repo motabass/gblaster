@@ -14,6 +14,8 @@ import { Router } from '@angular/router';
 import { RemoteCoverPicture } from '../metadata-service/metadata.types';
 import { MatProgressBar } from '@angular/material/progress-bar';
 import { MetadataService } from '../metadata-service/metadata.service';
+import { FormsModule } from '@angular/forms';
+import { MatFormField, MatHint, MatInput, MatPrefix, MatSuffix } from '@angular/material/input';
 
 export interface Album {
   name: string;
@@ -37,7 +39,13 @@ export interface Album {
     CdkVirtualScrollViewport,
     CdkVirtualForOf,
     SafePipe,
-    MatProgressBar
+    MatHint,
+    MatProgressBar,
+    FormsModule,
+    MatFormField,
+    MatInput,
+    MatPrefix,
+    MatSuffix
   ]
 })
 export default class LibraryComponent implements OnInit {
@@ -46,14 +54,29 @@ export default class LibraryComponent implements OnInit {
   metadataService = inject(MetadataService);
   playerService = inject(PlayerService);
 
+  readonly searchTerm = signal('');
+
   private readonly indexedDbTracks = signal<IndexedDbTrackMetadata[]>([]);
+
+  readonly filteredBySerchterm = computed(() => {
+    const searchTerm = this.searchTerm();
+    const lowerSearchTerm = searchTerm.toLowerCase();
+    return this.indexedDbTracks().filter((tag) => {
+      return (
+        tag.title?.toLowerCase().includes(lowerSearchTerm) ||
+        tag.artist?.toLowerCase().includes(lowerSearchTerm) ||
+        tag.fileName?.toLowerCase().includes(lowerSearchTerm) ||
+        tag.album?.toLowerCase().includes(lowerSearchTerm)
+      );
+    });
+  });
 
   readonly selectedArtist = signal<string | undefined>(undefined);
   readonly selectedAlbum = signal<string | undefined>(undefined);
   readonly selectedTrack = signal<IndexedDbTrackMetadata | undefined>(undefined);
 
   readonly uniqueArtists = computed(() => {
-    const filtered = this.indexedDbTracks()
+    let filtered = this.filteredBySerchterm()
       .map((tag) => tag.artist)
       .filter((artist): artist is string => !!artist);
 
@@ -61,7 +84,7 @@ export default class LibraryComponent implements OnInit {
   });
 
   readonly uniqueAlbums = computed(() => {
-    let filtered = this.indexedDbTracks();
+    let filtered = this.filteredBySerchterm();
     const artist = this.selectedArtist();
 
     if (artist) {
@@ -88,9 +111,10 @@ export default class LibraryComponent implements OnInit {
   });
 
   readonly tracks = computed(() => {
-    let filtered = this.indexedDbTracks();
+    let filtered = this.filteredBySerchterm();
     const artist = this.selectedArtist();
     const album = this.selectedAlbum();
+    const searchTerm = this.searchTerm();
 
     if (artist) {
       filtered = filtered.filter((item) => item.artist === artist);
