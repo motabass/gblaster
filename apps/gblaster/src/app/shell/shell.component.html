@@ -48,6 +48,6 @@
 
     <player-toolbar class="toolbar" />
 
-    <mtb-file-drop-overlay [allowedTypes]="ALLOWED_TYPES" (filesDroped)="onFilesDropped($event)" />
+    <mtb-file-drop-overlay [allowedTypes]="ALLOWED_TYPES" (filesDroped)="onFilesDropped($event)" (fileHandlesDropped)="onFileHandlesDropped($event)" />
   </mat-sidenav-content>
 </mat-sidenav-container>

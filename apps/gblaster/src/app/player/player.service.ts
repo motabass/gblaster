@@ -62,7 +62,8 @@ export class PlayerService {
         for (const fileHandle of launchParameters.files) {
           const file = await fileHandle.getFile();
           if (ALLOWED_MIMETYPES.includes(file.type)) {
-            await this.addFilesToPlaylist(file);
+            const fileData: FileData = { file, fileHandle };
+            await this.addFilesToPlaylist(fileData);
           }
         }
       });

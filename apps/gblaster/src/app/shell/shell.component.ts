@@ -14,7 +14,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { FileDropOverlayComponent } from '@motabass/ui-components/file-drop-overlay';
 import { PlayerService } from '../player/player.service';
-import { ALLOWED_MIMETYPES } from '../player/file-loader-service/file-loader.helpers';
+import { ALLOWED_MIMETYPES, FileData } from '../player/file-loader-service/file-loader.helpers';
 import { PlayerToolbarComponent } from '../player/player-toolbar/player-toolbar.component';
 
 @Component({
@@ -60,5 +60,15 @@ export class ShellComponent {
 
   async onFilesDropped(files: File[]) {
     return this.playerService.addFilesToPlaylist(...files.map((file) => ({ file })));
+  }
+
+  async onFileHandlesDropped(files: FileSystemFileHandle[]) {
+    const fileData: FileData[] = [];
+    for (const fileHandle of files) {
+      const file = await fileHandle.getFile();
+      fileData.push({ file, fileHandle });
+    }
+
+    return this.playerService.addFilesToPlaylist(...fileData);
   }
 }
