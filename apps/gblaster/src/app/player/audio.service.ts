@@ -222,7 +222,6 @@ export class AudioService {
     this.storageService.store('baseGain', volume);
   }
 
-  // TODO: refactor
   private createEqualizer(audioContext: AudioContext): { eqInput: AudioNode; eqOutput: AudioNode } {
     const input = audioContext.createGain();
     input.gain.value = 1;
@@ -236,12 +235,24 @@ export class AudioService {
       if (index === 0) {
         // The first filter, includes all lower frequencies
         filter.type = 'lowshelf';
+        // Add a gentle slope for low shelf
+        filter.Q.value = 0.7;
       } else if (index === FREQUENCY_BANDS.length - 1) {
         // The last filter, includes all higher frequencies
         filter.type = 'highshelf';
+        // Add a gentle slope for high shelf
+        filter.Q.value = 0.7;
       } else {
         filter.type = 'peaking';
-        filter.Q.value = 1;
+
+        // Use different Q values based on frequency ranges
+        if (bandFrequency < 250) {
+          filter.Q.value = 0.8; // Wider for low frequencies
+        } else if (bandFrequency < 2000) {
+          filter.Q.value = 0.7; // Medium for mid frequencies
+        } else {
+          filter.Q.value = 0.6; // Narrower for high frequencies
+        }
       }
       filter.frequency.value = bandFrequency;
 
