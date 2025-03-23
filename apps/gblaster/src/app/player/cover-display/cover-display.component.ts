@@ -1,9 +1,9 @@
-import { ChangeDetectionStrategy, Component, computed, inject, input } from '@angular/core';
-import { ThemeService } from '../../theme/theme.service';
-import { TimePipe } from '../time.pipe';
-import { Track } from '../player.types';
 import { BitratePipe } from './bitrate.pipe';
 import { VisualizerComponent } from '../visualizer/visualizer.component';
+import { PlayerService } from '../player.service';
+import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
+import { ThemeService } from '../../theme/theme.service';
+import { TimePipe } from '../time.pipe';
 
 @Component({
   selector: 'mtb-cover-display',
@@ -14,15 +14,14 @@ import { VisualizerComponent } from '../visualizer/visualizer.component';
 })
 export class CoverDisplayComponent {
   private themeService = inject(ThemeService);
+  playerService = inject(PlayerService);
 
-  readonly track = input.required<Track | undefined>();
-
-  readonly coverUrl = computed(() => this.track()?.metadata?.coverUrl?.original);
+  readonly coverUrl = computed(() => this.playerService.currentlyLoadedTrack()?.metadata?.coverUrl?.original);
 
   readonly backgroundColor = computed(() => {
     const coverBackground = this.themeService.darkMode()
-      ? this.track()?.metadata?.coverColors?.darkMuted?.hex
-      : this.track()?.metadata?.coverColors?.lightMuted?.hex;
+      ? this.playerService.currentlyLoadedTrack()?.metadata?.coverColors?.darkMuted?.hex
+      : this.playerService.currentlyLoadedTrack()?.metadata?.coverColors?.lightMuted?.hex;
     return coverBackground || 'rgba(0,0,0,0)';
   });
 }

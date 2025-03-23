@@ -38,10 +38,10 @@ import { MetadataService } from '../player/metadata-service/metadata.service';
 })
 export class ShellComponent {
   private breakpointObserver = inject(BreakpointObserver);
-  private playerService = inject(PlayerService);
   private router = inject(Router);
   titleService = inject(TitleService);
   loaderService = inject(LoaderService);
+  playerService = inject(PlayerService);
   metadataService = inject(MetadataService);
 
   readonly ALLOWED_TYPES = ALLOWED_MIMETYPES;
