@@ -55,16 +55,33 @@ export class PlayerService {
       // @ts-expect-error launchQueue is not yet in TS types
       globalThis.launchQueue.setConsumer(async (launchParameters) => {
         console.log('Handling launch params:', launchParameters);
+        // Focus the window first to ensure we're the active window
+        window.focus();
         // Nothing to do when the queue is empty.
         if (launchParameters.files.length === 0) {
           return;
         }
+
+        const validFiles: FileData[] = [];
+
         for (const fileHandle of launchParameters.files) {
-          const file = await fileHandle.getFile();
-          if (ALLOWED_MIMETYPES.includes(file.type)) {
-            const fileData: FileData = { file, fileHandle };
-            await this.addFilesToPlaylist(fileData);
+          try {
+            const file = await fileHandle.getFile();
+            if (ALLOWED_MIMETYPES.includes(file.type)) {
+              validFiles.push({ file, fileHandle });
+            }
+          } catch (error) {
+            console.error('Error processing file:', error);
           }
+        }
+
+        if (validFiles.length) {
+          await this.addFilesToPlaylist(...validFiles);
+          // If you want to play the first file immediately
+          // if (validFiles.length && this.currentPlaylist().length) {
+          //   const newTrack = this.currentPlaylist()[this.currentPlaylist().length - validFiles.length];
+          //   await this.playTrack(newTrack);
+          // }
         }
       });
     }
