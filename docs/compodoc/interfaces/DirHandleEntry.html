@@ -234,7 +234,7 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { inject, Injectable } from &#x27;@angular/core&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { inject, Injectable, signal } from &#x27;@angular/core&#x27;;
 import { NgxIndexedDBService } from &#x27;ngx-indexed-db&#x27;;
 import { firstValueFrom } from &#x27;rxjs&#x27;;
 import { ALLOWED_MIMETYPES, FileData } from &#x27;./file-loader.helpers&#x27;;
@@ -248,25 +248,27 @@ interface DirHandleEntry {
 @Injectable({
   providedIn: &#x27;root&#x27;
 })
-export class NativeBrowserFileLoaderService extends FileLoaderService {
+export class NativeBrowserFileLoaderService implements FileLoaderService {
   private indexedDbService &#x3D; inject(NgxIndexedDBService);
 
-  currentFolderHandle?: FileSystemDirectoryHandle;
+  readonly currentFolderHandle &#x3D; signal&lt;FileSystemDirectoryHandle | undefined&gt;(undefined);
 
-  async init() {
-    const entry &#x3D; await firstValueFrom(this.indexedDbService.getByID&lt;DirHandleEntry&gt;(&#x27;dirHandle&#x27;, 1));
-    if (entry) {
-      const granted &#x3D; await verifyPermission(entry.handle);
-      if (granted) {
-        this.currentFolderHandle &#x3D; entry.handle;
+  constructor() {
+    firstValueFrom(this.indexedDbService.getByID&lt;DirHandleEntry&gt;(&#x27;dirHandle&#x27;, 1)).then((entry) &#x3D;&gt; {
+      if (entry) {
+        verifyPermission(entry.handle).then((granted) &#x3D;&gt; {
+          if (granted) {
+            this.currentFolderHandle.set(entry.handle);
+          }
+        });
       }
-    }
+    });
   }
 
   async showPicker(): Promise&lt;void&gt; {
     try {
       const handle &#x3D; await showDirectoryPicker();
-      this.currentFolderHandle &#x3D; handle;
+      this.currentFolderHandle.set(handle);
       await this.indexedDbService.update(&#x27;dirHandle&#x27;, { id: 1, handle: handle } as DirHandleEntry).toPromise();
     } catch (error) {
       console.log(&#x27;No files:&#x27;, error);
@@ -274,8 +276,9 @@ export class NativeBrowserFileLoaderService extends FileLoaderService {
   }
 
   async openFiles(): Promise&lt;FileData[]&gt; {
-    if (this.currentFolderHandle) {
-      return getAudioFilesFromDirHandle(this.currentFolderHandle);
+    const handle &#x3D; this.currentFolderHandle();
+    if (handle) {
+      return getAudioFilesFromDirHandle(handle);
     }
     return [];
   }

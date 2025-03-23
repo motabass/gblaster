@@ -199,6 +199,10 @@
                             </li>
                             <li>
                                     <span class="modifier">Readonly</span>
+                                <a href="#fileHandlesDropped" >fileHandlesDropped</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Readonly</span>
                                 <a href="#filesDroped" >filesDroped</a>
                             </li>
                         </ul>
@@ -264,8 +268,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="54"
-                                    class="link-to-prism">libs/ui-components/file-drop-overlay/src/lib/file-drop-overlay/file-drop-overlay.component.ts:54</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="55"
+                                    class="link-to-prism">libs/ui-components/file-drop-overlay/src/lib/file-drop-overlay/file-drop-overlay.component.ts:55</a></div>
                         </td>
                     </tr>
 
@@ -331,8 +335,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="48"
-                                    class="link-to-prism">libs/ui-components/file-drop-overlay/src/lib/file-drop-overlay/file-drop-overlay.component.ts:48</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="49"
+                                    class="link-to-prism">libs/ui-components/file-drop-overlay/src/lib/file-drop-overlay/file-drop-overlay.component.ts:49</a></div>
                         </td>
                     </tr>
 
@@ -398,8 +402,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="38"
-                                    class="link-to-prism">libs/ui-components/file-drop-overlay/src/lib/file-drop-overlay/file-drop-overlay.component.ts:38</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="39"
+                                    class="link-to-prism">libs/ui-components/file-drop-overlay/src/lib/file-drop-overlay/file-drop-overlay.component.ts:39</a></div>
                         </td>
                     </tr>
 
@@ -481,6 +485,32 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
+                    <a name="fileHandlesDropped"></a>
+                    <span class="name">
+                            <span class="modifier">Readonly</span>
+                        <span ><b>fileHandlesDropped</b></span>
+                        <a href="#fileHandlesDropped"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>output&lt;FileSystemFileHandle[]&gt;()</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">libs/ui-components/file-drop-overlay/src/lib/file-drop-overlay/file-drop-overlay.component.ts:15</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
                     <a name="filesDroped"></a>
                     <span class="name">
                             <span class="modifier">Readonly</span>
@@ -523,6 +553,7 @@ export class FileDropOverlayComponent implements AfterViewInit, OnDestroy {
   readonly allowedTypes &#x3D; input&lt;string[]&gt;([&#x27;*/*&#x27;]);
 
   readonly filesDroped &#x3D; output&lt;File[]&gt;();
+  readonly fileHandlesDropped &#x3D; output&lt;FileSystemFileHandle[]&gt;();
 
   private dragEnterListener: any;
   private dragOverListener: any;
@@ -566,15 +597,57 @@ export class FileDropOverlayComponent implements AfterViewInit, OnDestroy {
     event.preventDefault();
     event.stopPropagation();
     this.leave(event);
+
+    // Try to get file handles first
+    if (event.dataTransfer?.items &amp;&amp; &#x27;getAsFileSystemHandle&#x27; in event.dataTransfer.items[0]) {
+      try {
+        const fileHandles: FileSystemFileHandle[] &#x3D; [];
+        const promises: Promise&lt;void&gt;[] &#x3D; [];
+
+        for (const item of Array.from(event.dataTransfer.items)) {
+          const promise &#x3D; (item as any).getAsFileSystemHandle().then((handle: any) &#x3D;&gt; {
+            if (handle &amp;&amp; handle.kind &#x3D;&#x3D;&#x3D; &#x27;file&#x27;) {
+              fileHandles.push(handle);
+            }
+          });
+          promises.push(promise);
+        }
+
+        // When all promises are resolved, emit the file handles
+        Promise.all(promises)
+          .then(() &#x3D;&gt; {
+            if (fileHandles.length &gt; 0) {
+              this.fileHandlesDropped.emit(fileHandles);
+            } else {
+              // Fall back to regular files if no file handles were obtained
+              this.handleFileFallback(event);
+            }
+          })
+          .catch(() &#x3D;&gt; {
+            // Fall back to regular files on error
+            this.handleFileFallback(event);
+          });
+
+        return; // Exit early - we&#x27;re handling with file handles
+      } catch (error) {
+        // Fall through to file fallback
+        console.warn(&#x27;File System Access API failed:&#x27;, error);
+      }
+    }
+
+    // Fallback to regular files
+    this.handleFileFallback(event);
+  }
+
+  private handleFileFallback(event: DragEvent) {
     if (event.dataTransfer?.files) {
-      this.handleDroppedFiles(event.dataTransfer?.files);
+      this.handleDroppedFiles(event.dataTransfer.files);
     }
   }
 
   private handleDroppedFiles(droppedFiles: FileList) {
     const files: File[] &#x3D; [];
-    for (let index &#x3D; 0; index &lt; droppedFiles.length; index++) {
-      const file &#x3D; droppedFiles.item(index);
+    for (const file of Array.from(droppedFiles)) {
       if (file &amp;&amp; this.allowedTypes().includes(file.type)) {
         files.push(file);
       }

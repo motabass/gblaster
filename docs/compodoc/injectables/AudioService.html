@@ -1496,14 +1496,14 @@ export class AudioService {
 
   plugInNewAnalyserNode(): AnalyserNode {
     const analyser &#x3D; this._audioContext.createAnalyser();
-    this._audioSourceNode.connect(analyser);
+    this._eqGainNode.connect(analyser);
     this._connectedAnalyzers.add(analyser);
     return analyser;
   }
 
   disconnectAnalyserNode(analyser: AnalyserNode): void {
     if (this._connectedAnalyzers.has(analyser)) {
-      analyser.disconnect();
+      this._eqGainNode.disconnect(analyser);
       this._connectedAnalyzers.delete(analyser);
     }
   }
@@ -1511,7 +1511,7 @@ export class AudioService {
   // Call on major cleanup events or app exit
   disconnectAllAnalyzers(): void {
     this._connectedAnalyzers.forEach((analyser) &#x3D;&gt; {
-      analyser.disconnect();
+      this._eqGainNode.disconnect(analyser);
     });
     this._connectedAnalyzers.clear();
   }
@@ -1583,7 +1583,6 @@ export class AudioService {
     this.storageService.store(&#x27;baseGain&#x27;, volume);
   }
 
-  // TODO: refactor
   private createEqualizer(audioContext: AudioContext): { eqInput: AudioNode; eqOutput: AudioNode } {
     const input &#x3D; audioContext.createGain();
     input.gain.value &#x3D; 1;
@@ -1597,12 +1596,24 @@ export class AudioService {
       if (index &#x3D;&#x3D;&#x3D; 0) {
         // The first filter, includes all lower frequencies
         filter.type &#x3D; &#x27;lowshelf&#x27;;
+        // Add a gentle slope for low shelf
+        filter.Q.value &#x3D; 0.7;
       } else if (index &#x3D;&#x3D;&#x3D; FREQUENCY_BANDS.length - 1) {
         // The last filter, includes all higher frequencies
         filter.type &#x3D; &#x27;highshelf&#x27;;
+        // Add a gentle slope for high shelf
+        filter.Q.value &#x3D; 0.7;
       } else {
         filter.type &#x3D; &#x27;peaking&#x27;;
-        filter.Q.value &#x3D; 1;
+
+        // Use different Q values based on frequency ranges
+        if (bandFrequency &lt; 250) {
+          filter.Q.value &#x3D; 0.8; // Wider for low frequencies
+        } else if (bandFrequency &lt; 2000) {
+          filter.Q.value &#x3D; 0.7; // Medium for mid frequencies
+        } else {
+          filter.Q.value &#x3D; 0.6; // Narrower for high frequencies
+        }
       }
       filter.frequency.value &#x3D; bandFrequency;
 

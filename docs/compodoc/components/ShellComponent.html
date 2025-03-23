@@ -158,6 +158,7 @@
                             <code>RouterOutlet</code>
                                 <code><a href="../components/FileDropOverlayComponent.html" target="_self" >FileDropOverlayComponent</a></code>
                                 <code><a href="../components/PlayerToolbarComponent.html" target="_self" >PlayerToolbarComponent</a></code>
+                            <code>MatProgressBar</code>
                 </td>
             </tr>
 
@@ -208,6 +209,12 @@
                                 <a href="#loaderService" >loaderService</a>
                             </li>
                             <li>
+                                <a href="#metadataService" >metadataService</a>
+                            </li>
+                            <li>
+                                <a href="#playerService" >playerService</a>
+                            </li>
+                            <li>
                                     <span class="modifier">Readonly</span>
                                 <a href="#sidenav" >sidenav</a>
                             </li>
@@ -228,6 +235,10 @@
                         <ul class="index-list">
                             <li>
                                 <a href="#navigateTo" >navigateTo</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#onFileHandlesDropped" >onFileHandlesDropped</a>
                             </li>
                             <li>
                                     <span class="modifier">Async</span>
@@ -275,8 +286,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="56"
-                                    class="link-to-prism">apps/gblaster/src/app/shell/shell.component.ts:56</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="60"
+                                    class="link-to-prism">apps/gblaster/src/app/shell/shell.component.ts:60</a></div>
                         </td>
                     </tr>
 
@@ -343,6 +354,75 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
+                    <a name="onFileHandlesDropped"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>onFileHandlesDropped</b></span>
+                        <a href="#onFileHandlesDropped"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>onFileHandlesDropped(files: FileSystemFileHandle[])</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="69"
+                                    class="link-to-prism">apps/gblaster/src/app/shell/shell.component.ts:69</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>files</td>
+                                            <td>
+                                                        <code>FileSystemFileHandle[]</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>unknown</code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
                     <a name="onFilesDropped"></a>
                     <span class="name">
                             <span class="modifier">Async</span>
@@ -361,8 +441,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="61"
-                                    class="link-to-prism">apps/gblaster/src/app/shell/shell.component.ts:61</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="65"
+                                    class="link-to-prism">apps/gblaster/src/app/shell/shell.component.ts:65</a></div>
                         </td>
                     </tr>
 
@@ -433,7 +513,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="43" class="link-to-prism">apps/gblaster/src/app/shell/shell.component.ts:43</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="47" class="link-to-prism">apps/gblaster/src/app/shell/shell.component.ts:47</a></div>
                         </td>
                     </tr>
 
@@ -459,7 +539,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="52" class="link-to-prism">apps/gblaster/src/app/shell/shell.component.ts:52</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="56" class="link-to-prism">apps/gblaster/src/app/shell/shell.component.ts:56</a></div>
                         </td>
                     </tr>
 
@@ -484,7 +564,57 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="41" class="link-to-prism">apps/gblaster/src/app/shell/shell.component.ts:41</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="43" class="link-to-prism">apps/gblaster/src/app/shell/shell.component.ts:43</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="metadataService"></a>
+                    <span class="name">
+                        <span ><b>metadataService</b></span>
+                        <a href="#metadataService"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>inject(MetadataService)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="45" class="link-to-prism">apps/gblaster/src/app/shell/shell.component.ts:45</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="playerService"></a>
+                    <span class="name">
+                        <span ><b>playerService</b></span>
+                        <a href="#playerService"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>inject(PlayerService)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="44" class="link-to-prism">apps/gblaster/src/app/shell/shell.component.ts:44</a></div>
                         </td>
                     </tr>
 
@@ -510,7 +640,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="54" class="link-to-prism">apps/gblaster/src/app/shell/shell.component.ts:54</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="58" class="link-to-prism">apps/gblaster/src/app/shell/shell.component.ts:58</a></div>
                         </td>
                     </tr>
 
@@ -535,7 +665,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="40" class="link-to-prism">apps/gblaster/src/app/shell/shell.component.ts:40</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="42" class="link-to-prism">apps/gblaster/src/app/shell/shell.component.ts:42</a></div>
                         </td>
                     </tr>
 
@@ -564,8 +694,10 @@ import { MatToolbarModule } from &#x27;@angular/material/toolbar&#x27;;
 import { toSignal } from &#x27;@angular/core/rxjs-interop&#x27;;
 import { FileDropOverlayComponent } from &#x27;@motabass/ui-components/file-drop-overlay&#x27;;
 import { PlayerService } from &#x27;../player/player.service&#x27;;
-import { ALLOWED_MIMETYPES } from &#x27;../player/file-loader-service/file-loader.helpers&#x27;;
+import { ALLOWED_MIMETYPES, FileData } from &#x27;../player/file-loader-service/file-loader.helpers&#x27;;
 import { PlayerToolbarComponent } from &#x27;../player/player-toolbar/player-toolbar.component&#x27;;
+import { MatProgressBar } from &#x27;@angular/material/progress-bar&#x27;;
+import { MetadataService } from &#x27;../player/metadata-service/metadata.service&#x27;;
 
 @Component({
   selector: &#x27;mtb-shell&#x27;,
@@ -580,15 +712,17 @@ import { PlayerToolbarComponent } from &#x27;../player/player-toolbar/player-too
     MatProgressSpinnerModule,
     RouterOutlet,
     FileDropOverlayComponent,
-    PlayerToolbarComponent
+    PlayerToolbarComponent,
+    MatProgressBar
   ]
 })
 export class ShellComponent {
   private breakpointObserver &#x3D; inject(BreakpointObserver);
-  private playerService &#x3D; inject(PlayerService);
   private router &#x3D; inject(Router);
   titleService &#x3D; inject(TitleService);
   loaderService &#x3D; inject(LoaderService);
+  playerService &#x3D; inject(PlayerService);
+  metadataService &#x3D; inject(MetadataService);
 
   readonly ALLOWED_TYPES &#x3D; ALLOWED_MIMETYPES;
 
@@ -610,6 +744,16 @@ export class ShellComponent {
 
   async onFilesDropped(files: File[]) {
     return this.playerService.addFilesToPlaylist(...files.map((file) &#x3D;&gt; ({ file })));
+  }
+
+  async onFileHandlesDropped(files: FileSystemFileHandle[]) {
+    const fileData: FileData[] &#x3D; [];
+    for (const fileHandle of files) {
+      const file &#x3D; await fileHandle.getFile();
+      fileData.push({ file, fileHandle });
+    }
+
+    return this.playerService.addFilesToPlaylist(...fileData);
   }
 }
 </code></pre>
@@ -657,16 +801,27 @@ export class ShellComponent {
         &lt;/button&gt;
       }
       &lt;span class&#x3D;&quot;title&quot;&gt;{{ titleService.title() }}&lt;/span&gt;
+
       @if (loaderService.isLoading()) {
         &lt;mat-spinner style&#x3D;&quot;margin-left: 1rem&quot; color&#x3D;&quot;accent&quot; diameter&#x3D;&quot;32&quot; strokeWidth&#x3D;&quot;6&quot; /&gt;
       }
+
+      &lt;div style&#x3D;&quot;flex: 1&quot;&gt;&lt;/div&gt;
+
+      @let currentTrack &#x3D; playerService.currentlyLoadedTrack();
+      &lt;span class&#x3D;&quot;standard-font&quot; style&#x3D;&quot;font-size: 1rem; font-weight: 500; margin-right: 1rem&quot;
+        &gt;{{ currentTrack?.metadata?.artist ? currentTrack?.metadata?.artist + &#x27; - &#x27; : &#x27;&#x27; }}{{ currentTrack?.metadata?.title || currentTrack?.file?.name }}&lt;/span
+      &gt;
     &lt;/mat-toolbar&gt;
 
+    @if (metadataService.processionPercent() &lt; 100) {
+      &lt;mat-progress-bar class&#x3D;&quot;progress&quot; mode&#x3D;&quot;determinate&quot; [value]&#x3D;&quot;metadataService.processionPercent()&quot; /&gt;
+    }
     &lt;div class&#x3D;&quot;router-outlet main&quot;&gt;&lt;router-outlet&gt;&lt;/router-outlet&gt;&lt;/div&gt;
 
     &lt;player-toolbar class&#x3D;&quot;toolbar&quot; /&gt;
 
-    &lt;mtb-file-drop-overlay [allowedTypes]&#x3D;&quot;ALLOWED_TYPES&quot; (filesDroped)&#x3D;&quot;onFilesDropped($event)&quot; /&gt;
+    &lt;mtb-file-drop-overlay [allowedTypes]&#x3D;&quot;ALLOWED_TYPES&quot; (filesDroped)&#x3D;&quot;onFilesDropped($event)&quot; (fileHandlesDropped)&#x3D;&quot;onFileHandlesDropped($event)&quot; /&gt;
   &lt;/mat-sidenav-content&gt;
 &lt;/mat-sidenav-container&gt;
 </code></pre>
@@ -698,7 +853,7 @@ export class ShellComponent {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><mat-sidenav-container class="sidenav-container">  <mat-sidenav    #drawer    class="sidenav"    fixedInViewport    [attr.role]="isHandset() ? \'dialog\' : \'navigation\'"    [mode]="isHandset() ? \'over\' : \'side\'"    [opened]="!isHandset()"  >    <mat-toolbar color="primary">      <mat-icon aria-label="Side nav toggle icon" svgIcon="radio" style="margin-right: 0.7rem" />      <span class="title">{{ titleService.title() }}</span>    </mat-toolbar>    <mat-nav-list>      <mat-list-item (click)="navigateTo(\'/player\')"> <mat-icon matListItemIcon svgIcon="record-player" /><span matListItemTitle> Player</span></mat-list-item>      <mat-list-item (click)="navigateTo(\'/player/eq\')">        <mat-icon matListItemIcon svgIcon="tune-vertical" /><span matListItemTitle> Equalizer</span></mat-list-item      >      <mat-list-item (click)="navigateTo(\'/player/library\')"        ><mat-icon matListItemIcon svgIcon="music-box-multiple-outline" /><span matListItemTitle> Library</span></mat-list-item      >      <mat-list-item (click)="navigateTo(\'/settings\')">        <mat-icon matListItemIcon svgIcon="cog-outline" /><span matListItemTitle> Settings</span></mat-list-item      >    </mat-nav-list>  </mat-sidenav>  <mat-sidenav-content style="overflow: hidden" class="sidenav-content">    <mat-toolbar class="header">      @if (isHandset()) {        <button          id="sidenav_menu_button"          type="button"          aria-label="Toggle sidenav"          mat-icon-button          style="margin-right: 0.7rem; padding: 6px"          (click)="drawer.toggle()"        >          <mat-icon aria-label="Side nav toggle icon" style="--mdc-icon-button-icon-size: 28px; width: 28px; height: 28px" svgIcon="logo"></mat-icon>        </button>      }      <span class="title">{{ titleService.title() }}</span>      @if (loaderService.isLoading()) {        <mat-spinner style="margin-left: 1rem" color="accent" diameter="32" strokeWidth="6" />      }    </mat-toolbar>    <div class="router-outlet main"><router-outlet></router-outlet></div>    <player-toolbar class="toolbar" />    <mtb-file-drop-overlay [allowedTypes]="ALLOWED_TYPES" (filesDroped)="onFilesDropped($event)" />  </mat-sidenav-content></mat-sidenav-container></div>'
+        var COMPONENT_TEMPLATE = '<div><mat-sidenav-container class="sidenav-container">  <mat-sidenav    #drawer    class="sidenav"    fixedInViewport    [attr.role]="isHandset() ? \'dialog\' : \'navigation\'"    [mode]="isHandset() ? \'over\' : \'side\'"    [opened]="!isHandset()"  >    <mat-toolbar color="primary">      <mat-icon aria-label="Side nav toggle icon" svgIcon="radio" style="margin-right: 0.7rem" />      <span class="title">{{ titleService.title() }}</span>    </mat-toolbar>    <mat-nav-list>      <mat-list-item (click)="navigateTo(\'/player\')"> <mat-icon matListItemIcon svgIcon="record-player" /><span matListItemTitle> Player</span></mat-list-item>      <mat-list-item (click)="navigateTo(\'/player/eq\')">        <mat-icon matListItemIcon svgIcon="tune-vertical" /><span matListItemTitle> Equalizer</span></mat-list-item      >      <mat-list-item (click)="navigateTo(\'/player/library\')"        ><mat-icon matListItemIcon svgIcon="music-box-multiple-outline" /><span matListItemTitle> Library</span></mat-list-item      >      <mat-list-item (click)="navigateTo(\'/settings\')">        <mat-icon matListItemIcon svgIcon="cog-outline" /><span matListItemTitle> Settings</span></mat-list-item      >    </mat-nav-list>  </mat-sidenav>  <mat-sidenav-content style="overflow: hidden" class="sidenav-content">    <mat-toolbar class="header">      @if (isHandset()) {        <button          id="sidenav_menu_button"          type="button"          aria-label="Toggle sidenav"          mat-icon-button          style="margin-right: 0.7rem; padding: 6px"          (click)="drawer.toggle()"        >          <mat-icon aria-label="Side nav toggle icon" style="--mdc-icon-button-icon-size: 28px; width: 28px; height: 28px" svgIcon="logo"></mat-icon>        </button>      }      <span class="title">{{ titleService.title() }}</span>      @if (loaderService.isLoading()) {        <mat-spinner style="margin-left: 1rem" color="accent" diameter="32" strokeWidth="6" />      }      <div style="flex: 1"></div>      @let currentTrack = playerService.currentlyLoadedTrack();      <span class="standard-font" style="font-size: 1rem; font-weight: 500; margin-right: 1rem"        >{{ currentTrack?.metadata?.artist ? currentTrack?.metadata?.artist + \' - \' : \'\' }}{{ currentTrack?.metadata?.title || currentTrack?.file?.name }}</span      >    </mat-toolbar>    @if (metadataService.processionPercent() < 100) {      <mat-progress-bar class="progress" mode="determinate" [value]="metadataService.processionPercent()" />    }    <div class="router-outlet main"><router-outlet></router-outlet></div>    <player-toolbar class="toolbar" />    <mtb-file-drop-overlay [allowedTypes]="ALLOWED_TYPES" (filesDroped)="onFilesDropped($event)" (fileHandlesDropped)="onFileHandlesDropped($event)" />  </mat-sidenav-content></mat-sidenav-container></div>'
     var COMPONENTS = [{'name': 'AppComponent', 'selector': 'mtb-root'},{'name': 'CoverDisplayComponent', 'selector': 'mtb-cover-display'},{'name': 'EqualizerComponent', 'selector': 'mtb-equalizer'},{'name': 'FileDropOverlayComponent', 'selector': 'mtb-file-drop-overlay'},{'name': 'HotkeysHelpDialogComponent', 'selector': 'mtb-hotkeys-help-dialog'},{'name': 'LibraryComponent', 'selector': ''},{'name': 'MetadataSettingsComponent', 'selector': 'mtb-metadata-settings'},{'name': 'PlayerComponent', 'selector': 'mtb-player'},{'name': 'PlayerToolbarComponent', 'selector': 'player-toolbar'},{'name': 'PlaylistComponent', 'selector': 'mtb-playlist'},{'name': 'PromptDialogComponent', 'selector': 'mtb-prompt-dialog'},{'name': 'SettingsComponent', 'selector': 'mtb-settings'},{'name': 'ShellComponent', 'selector': 'mtb-shell'},{'name': 'SlidePanelComponent', 'selector': 'mtb-slide-panel'},{'name': 'StorageSettingsComponent', 'selector': 'mtb-storage-settings'},{'name': 'ThemeSettingsComponent', 'selector': 'mtb-theme-settings'},{'name': 'VisualizerComponent', 'selector': 'mtb-visualizer'}];
     var DIRECTIVES = [{'name': 'VisualsDirective', 'selector': '[mtbVisual]'}];
     var ACTUAL_COMPONENT = {'name': 'ShellComponent'};

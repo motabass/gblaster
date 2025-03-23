@@ -155,6 +155,7 @@
                 <td class="col-md-9">
                             <code>TimePipe</code>
                             <code>BitratePipe</code>
+                                <code><a href="../components/VisualizerComponent.html" target="_self" >VisualizerComponent</a></code>
                 </td>
             </tr>
 
@@ -202,8 +203,7 @@
                                 <a href="#coverUrl" >coverUrl</a>
                             </li>
                             <li>
-                                    <span class="modifier">Readonly</span>
-                                <a href="#track" >track</a>
+                                <a href="#playerService" >playerService</a>
                             </li>
                         </ul>
                     </td>
@@ -245,8 +245,8 @@
                     <td class="col-md-4">
                         <i>Default value : </i><code>computed(() &#x3D;&gt; {
     const coverBackground &#x3D; this.themeService.darkMode()
-      ? this.track()?.metadata?.coverColors?.darkMuted?.hex
-      : this.track()?.metadata?.coverColors?.lightMuted?.hex;
+      ? this.playerService.currentlyLoadedTrack()?.metadata?.coverColors?.darkMuted?.hex
+      : this.playerService.currentlyLoadedTrack()?.metadata?.coverColors?.lightMuted?.hex;
     return coverBackground || &#x27;rgba(0,0,0,0)&#x27;;
   })</code>
                     </td>
@@ -274,7 +274,7 @@
             </tr>
                 <tr>
                     <td class="col-md-4">
-                        <i>Default value : </i><code>computed(() &#x3D;&gt; this.track()?.metadata?.coverUrl?.original)</code>
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; this.playerService.currentlyLoadedTrack()?.metadata?.coverUrl?.original)</code>
                     </td>
                 </tr>
                     <tr>
@@ -290,17 +290,16 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="track"></a>
+                    <a name="playerService"></a>
                     <span class="name">
-                            <span class="modifier">Readonly</span>
-                        <span ><b>track</b></span>
-                        <a href="#track"><span class="icon ion-ios-link"></span></a>
+                        <span ><b>playerService</b></span>
+                        <a href="#playerService"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
                 <tr>
                     <td class="col-md-4">
-                        <i>Default value : </i><code>input.required&lt;Track | undefined&gt;()</code>
+                        <i>Default value : </i><code>inject(PlayerService)</code>
                     </td>
                 </tr>
                     <tr>
@@ -318,30 +317,30 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ChangeDetectionStrategy, Component, computed, inject, input } from &#x27;@angular/core&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { BitratePipe } from &#x27;./bitrate.pipe&#x27;;
+import { VisualizerComponent } from &#x27;../visualizer/visualizer.component&#x27;;
+import { PlayerService } from &#x27;../player.service&#x27;;
+import { ChangeDetectionStrategy, Component, computed, inject } from &#x27;@angular/core&#x27;;
 import { ThemeService } from &#x27;../../theme/theme.service&#x27;;
 import { TimePipe } from &#x27;../time.pipe&#x27;;
-import { Track } from &#x27;../player.types&#x27;;
-import { BitratePipe } from &#x27;./bitrate.pipe&#x27;;
 
 @Component({
   selector: &#x27;mtb-cover-display&#x27;,
   templateUrl: &#x27;./cover-display.component.html&#x27;,
   styleUrl: &#x27;./cover-display.component.scss&#x27;,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [TimePipe, BitratePipe]
+  imports: [TimePipe, BitratePipe, VisualizerComponent]
 })
 export class CoverDisplayComponent {
   private themeService &#x3D; inject(ThemeService);
+  playerService &#x3D; inject(PlayerService);
 
-  readonly track &#x3D; input.required&lt;Track | undefined&gt;();
-
-  readonly coverUrl &#x3D; computed(() &#x3D;&gt; this.track()?.metadata?.coverUrl?.original);
+  readonly coverUrl &#x3D; computed(() &#x3D;&gt; this.playerService.currentlyLoadedTrack()?.metadata?.coverUrl?.original);
 
   readonly backgroundColor &#x3D; computed(() &#x3D;&gt; {
     const coverBackground &#x3D; this.themeService.darkMode()
-      ? this.track()?.metadata?.coverColors?.darkMuted?.hex
-      : this.track()?.metadata?.coverColors?.lightMuted?.hex;
+      ? this.playerService.currentlyLoadedTrack()?.metadata?.coverColors?.darkMuted?.hex
+      : this.playerService.currentlyLoadedTrack()?.metadata?.coverColors?.lightMuted?.hex;
     return coverBackground || &#x27;rgba(0,0,0,0)&#x27;;
   });
 }
@@ -349,7 +348,7 @@ export class CoverDisplayComponent {
     </div>
 
     <div class="tab-pane fade " id="templateData">
-        <pre class="line-numbers"><code class="language-html">@let currentTrack &#x3D; track();
+        <pre class="line-numbers"><code class="language-html">@let currentTrack &#x3D; playerService.currentlyLoadedTrack();
 @let cover &#x3D; coverUrl();
 &lt;div
   style&#x3D;&quot;
@@ -407,7 +406,7 @@ export class CoverDisplayComponent {
 @if (currentTrack &amp;&amp; cover) {
   &lt;div class&#x3D;&quot;cover-img&quot; [style.background-image]&#x3D;&quot;&#x27;url(&#x27; + cover + &#x27;)&#x27;&quot; [style.background-color]&#x3D;&quot;backgroundColor()&quot;&gt;&lt;/div&gt;
 }
-&lt;ng-content /&gt;
+&lt;mtb-visualizer class&#x3D;&quot;visualizer&quot; /&gt;
 </code></pre>
     </div>
 
@@ -437,7 +436,7 @@ export class CoverDisplayComponent {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div>@let currentTrack = track();@let cover = coverUrl();<div  style="    position: absolute;    top: 0;    right: 0;    bottom: 0;    left: 0;    z-index: 5;    overflow-x: auto;    padding: 1rem;    user-select: text;    text-shadow: -1px 1px 6px black;  "  class="mat-typography">  <h1 style="font-size: 3rem; font-weight: bold; line-height: 3.3rem; margin-bottom: 4px; opacity: 0.9">    {{ currentTrack?.metadata?.title || currentTrack?.file?.name }}  </h1>  <p style="font-size: 1.5rem; margin-bottom: 8px; opacity: 0.8">{{ currentTrack?.metadata?.artist }}</p>  <div class="flex column" style="margin-top: 16px; opacity: 0.9">    @if (currentTrack?.metadata?.album) {      <span>        Album: <strong>{{ currentTrack?.metadata?.album }}</strong>      </span>    }    @if (currentTrack?.metadata?.year) {      <span>        Year: <strong>{{ currentTrack?.metadata?.year }}</strong>      </span>    }    <span>&nbsp;</span>    @if (currentTrack?.metadata?.format?.duration) {      <span>        Duration: <strong>{{ currentTrack?.metadata?.format?.duration | time }}</strong>      </span>    }    @if (currentTrack?.metadata?.format?.container && currentTrack?.metadata?.format?.codec) {      <span>        Format: <strong>{{ currentTrack?.metadata?.format?.container }} ({{ currentTrack?.metadata?.format?.codec }})</strong>      </span>    }    @if (currentTrack?.metadata?.format?.bitrate) {      <span>        Bitrate: <strong>{{ currentTrack?.metadata?.format?.bitrate | bitrate }}</strong>      </span>    }    @if (currentTrack?.metadata?.format?.sampleRate) {      <span>        Sample-Rate: <strong>{{ currentTrack?.metadata?.format?.sampleRate }}</strong>      </span>    }  </div></div>@if (currentTrack && cover) {  <div class="cover-img" [style.background-image]="\'url(\' + cover + \')\'" [style.background-color]="backgroundColor()"></div>}<ng-content /></div>'
+        var COMPONENT_TEMPLATE = '<div>@let currentTrack = playerService.currentlyLoadedTrack();@let cover = coverUrl();<div  style="    position: absolute;    top: 0;    right: 0;    bottom: 0;    left: 0;    z-index: 5;    overflow-x: auto;    padding: 1rem;    user-select: text;    text-shadow: -1px 1px 6px black;  "  class="mat-typography">  <h1 style="font-size: 3rem; font-weight: bold; line-height: 3.3rem; margin-bottom: 4px; opacity: 0.9">    {{ currentTrack?.metadata?.title || currentTrack?.file?.name }}  </h1>  <p style="font-size: 1.5rem; margin-bottom: 8px; opacity: 0.8">{{ currentTrack?.metadata?.artist }}</p>  <div class="flex column" style="margin-top: 16px; opacity: 0.9">    @if (currentTrack?.metadata?.album) {      <span>        Album: <strong>{{ currentTrack?.metadata?.album }}</strong>      </span>    }    @if (currentTrack?.metadata?.year) {      <span>        Year: <strong>{{ currentTrack?.metadata?.year }}</strong>      </span>    }    <span>&nbsp;</span>    @if (currentTrack?.metadata?.format?.duration) {      <span>        Duration: <strong>{{ currentTrack?.metadata?.format?.duration | time }}</strong>      </span>    }    @if (currentTrack?.metadata?.format?.container && currentTrack?.metadata?.format?.codec) {      <span>        Format: <strong>{{ currentTrack?.metadata?.format?.container }} ({{ currentTrack?.metadata?.format?.codec }})</strong>      </span>    }    @if (currentTrack?.metadata?.format?.bitrate) {      <span>        Bitrate: <strong>{{ currentTrack?.metadata?.format?.bitrate | bitrate }}</strong>      </span>    }    @if (currentTrack?.metadata?.format?.sampleRate) {      <span>        Sample-Rate: <strong>{{ currentTrack?.metadata?.format?.sampleRate }}</strong>      </span>    }  </div></div>@if (currentTrack && cover) {  <div class="cover-img" [style.background-image]="\'url(\' + cover + \')\'" [style.background-color]="backgroundColor()"></div>}<mtb-visualizer class="visualizer" /></div>'
     var COMPONENTS = [{'name': 'AppComponent', 'selector': 'mtb-root'},{'name': 'CoverDisplayComponent', 'selector': 'mtb-cover-display'},{'name': 'EqualizerComponent', 'selector': 'mtb-equalizer'},{'name': 'FileDropOverlayComponent', 'selector': 'mtb-file-drop-overlay'},{'name': 'HotkeysHelpDialogComponent', 'selector': 'mtb-hotkeys-help-dialog'},{'name': 'LibraryComponent', 'selector': ''},{'name': 'MetadataSettingsComponent', 'selector': 'mtb-metadata-settings'},{'name': 'PlayerComponent', 'selector': 'mtb-player'},{'name': 'PlayerToolbarComponent', 'selector': 'player-toolbar'},{'name': 'PlaylistComponent', 'selector': 'mtb-playlist'},{'name': 'PromptDialogComponent', 'selector': 'mtb-prompt-dialog'},{'name': 'SettingsComponent', 'selector': 'mtb-settings'},{'name': 'ShellComponent', 'selector': 'mtb-shell'},{'name': 'SlidePanelComponent', 'selector': 'mtb-slide-panel'},{'name': 'StorageSettingsComponent', 'selector': 'mtb-storage-settings'},{'name': 'ThemeSettingsComponent', 'selector': 'mtb-theme-settings'},{'name': 'VisualizerComponent', 'selector': 'mtb-visualizer'}];
     var DIRECTIVES = [{'name': 'VisualsDirective', 'selector': '[mtbVisual]'}];
     var ACTUAL_COMPONENT = {'name': 'CoverDisplayComponent'};

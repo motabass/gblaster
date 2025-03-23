@@ -165,7 +165,7 @@
                             <code>CdkFixedSizeVirtualScroll</code>
                             <code>MatFormFieldModule</code>
                             <code>FormsModule</code>
-                            <code>MatProgressBar</code>
+                            <code>MatMenuModule</code>
                 </td>
             </tr>
 
@@ -208,7 +208,8 @@
                                 <a href="#audioService" >audioService</a>
                             </li>
                             <li>
-                                <a href="#metadataService" >metadataService</a>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#menuTrigger" >menuTrigger</a>
                             </li>
                             <li>
                                 <a href="#playerService" >playerService</a>
@@ -234,6 +235,9 @@
                             </li>
                             <li>
                                 <a href="#isPlaying" >isPlaying</a>
+                            </li>
+                            <li>
+                                <a href="#onContextMenu" >onContextMenu</a>
                             </li>
                             <li>
                                     <span class="modifier">Async</span>
@@ -407,6 +411,85 @@
                             </div>
                         <div class="io-description">
                             <b>Returns : </b>    <code>Signal&lt;boolean&gt;</code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onContextMenu"></a>
+                    <span class="name">
+                        <span ><b>onContextMenu</b></span>
+                        <a href="#onContextMenu"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onContextMenu(event: MouseEvent, song: <a href="../interfaces/Track.html" target="_self">Track</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="163"
+                                    class="link-to-prism">apps/gblaster/src/app/player/playlist/playlist.component.ts:163</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>event</td>
+                                            <td>
+                                                        <code>MouseEvent</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>song</td>
+                                            <td>
+                                                            <code><a href="../interfaces/Track.html" target="_self" >Track</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
 
                         </div>
                             <div class="io-description">
@@ -600,7 +683,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="42" class="link-to-prism">apps/gblaster/src/app/player/playlist/playlist.component.ts:42</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="41" class="link-to-prism">apps/gblaster/src/app/player/playlist/playlist.component.ts:41</a></div>
                         </td>
                     </tr>
 
@@ -611,21 +694,22 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="metadataService"></a>
+                    <a name="menuTrigger"></a>
                     <span class="name">
-                        <span ><b>metadataService</b></span>
-                        <a href="#metadataService"><span class="icon ion-ios-link"></span></a>
+                            <span class="modifier">Readonly</span>
+                        <span ><b>menuTrigger</b></span>
+                        <a href="#menuTrigger"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
                 <tr>
                     <td class="col-md-4">
-                        <i>Default value : </i><code>inject(MetadataService)</code>
+                        <i>Default value : </i><code>viewChild&lt;MatMenuTrigger&gt;(&#x27;menuTrigger&#x27;)</code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="43" class="link-to-prism">apps/gblaster/src/app/player/playlist/playlist.component.ts:43</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="44" class="link-to-prism">apps/gblaster/src/app/player/playlist/playlist.component.ts:44</a></div>
                         </td>
                     </tr>
 
@@ -650,7 +734,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="41" class="link-to-prism">apps/gblaster/src/app/player/playlist/playlist.component.ts:41</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="40" class="link-to-prism">apps/gblaster/src/app/player/playlist/playlist.component.ts:40</a></div>
                         </td>
                     </tr>
 
@@ -704,8 +788,7 @@ import { CdkFixedSizeVirtualScroll, CdkVirtualForOf, CdkVirtualScrollViewport } 
 import { takeUntilDestroyed } from &#x27;@angular/core/rxjs-interop&#x27;;
 import { FormsModule } from &#x27;@angular/forms&#x27;;
 import { MatFormFieldModule } from &#x27;@angular/material/form-field&#x27;;
-import { MatProgressBar } from &#x27;@angular/material/progress-bar&#x27;;
-import { MetadataService } from &#x27;../metadata-service/metadata.service&#x27;;
+import { MatMenuModule, MatMenuTrigger } from &#x27;@angular/material/menu&#x27;;
 
 @Component({
   selector: &#x27;mtb-playlist&#x27;,
@@ -725,14 +808,15 @@ import { MetadataService } from &#x27;../metadata-service/metadata.service&#x27;
     CdkFixedSizeVirtualScroll,
     MatFormFieldModule,
     FormsModule,
-    MatProgressBar
+    MatMenuModule
   ]
 })
 export class PlaylistComponent {
   playerService &#x3D; inject(PlayerService);
   audioService &#x3D; inject(AudioService);
-  metadataService &#x3D; inject(MetadataService);
   private destroRef &#x3D; inject(DestroyRef);
+
+  readonly menuTrigger &#x3D; viewChild&lt;MatMenuTrigger&gt;(&#x27;menuTrigger&#x27;);
 
   readonly scrollViewport &#x3D; viewChild&lt;CdkVirtualScrollViewport&gt;(&#x27;scrollViewport&#x27;);
 
@@ -850,14 +934,35 @@ export class PlaylistComponent {
   trackByCrc(index: number, song: Track): string {
     return song.metadata.crc;
   }
+
+  onContextMenu(event: MouseEvent, song: Track): void {
+    event.preventDefault();
+    const trigger &#x3D; this.menuTrigger();
+    if (!trigger) return;
+    trigger.menuData &#x3D; { song: song };
+
+    // Open with position
+    trigger.openMenu();
+
+    // set position
+    if (trigger.menu) {
+      // Forcefully reset the menu position after it&#x27;s opened
+      setTimeout(() &#x3D;&gt; {
+        const overlayRef &#x3D; document.querySelector(&#x27;.cdk-overlay-pane:last-child&#x27;) as HTMLElement;
+        if (overlayRef) {
+          overlayRef.style.position &#x3D; &#x27;absolute&#x27;;
+          overlayRef.style.left &#x3D; &#x60;${event.clientX}px&#x60;;
+          overlayRef.style.top &#x3D; &#x60;${event.clientY}px&#x60;;
+        }
+      });
+    }
+  }
 }
 </code></pre>
     </div>
 
     <div class="tab-pane fade " id="templateData">
-        <pre class="line-numbers"><code class="language-html">&lt;ng-content /&gt;
-
-&lt;cdk-virtual-scroll-viewport #scrollViewport itemSize&#x3D;&quot;72&quot; class&#x3D;&quot;playlist-viewport&quot; style&#x3D;&quot;height: 100%&quot;&gt;
+        <pre class="line-numbers"><code class="language-html">&lt;cdk-virtual-scroll-viewport #scrollViewport itemSize&#x3D;&quot;72&quot; class&#x3D;&quot;playlist-viewport&quot; style&#x3D;&quot;height: 100%&quot;&gt;
   &lt;mat-list class&#x3D;&quot;playlist&quot;&gt;
     &lt;mat-list-item
       *cdkVirtualFor&#x3D;&quot;let song of playerService.currentPlaylist(); trackBy: trackByCrc&quot;
@@ -865,10 +970,10 @@ export class PlaylistComponent {
       [ngClass]&#x3D;&quot;{ selected: this.playerService.selectedTrack()?.metadata?.crc &#x3D;&#x3D;&#x3D; song.metadata.crc }&quot;
       (dblclick)&#x3D;&quot;playPauseSong($event, song)&quot;
       (click)&#x3D;&quot;playerService.selectSong(song)&quot;
+      (contextmenu)&#x3D;&quot;onContextMenu($event, song)&quot;
     &gt;
       &lt;div matListItemAvatar style&#x3D;&quot;overflow: hidden; border-radius: 4px; position: relative&quot;&gt;
         @if (song &amp;&amp; song.metadata &amp;&amp; song.metadata.coverUrl) {
-          &lt;!--suppress AngularNgOptimizedImage --&gt;
           &lt;img
             style&#x3D;&quot;position: absolute; top: 0; right: 0; bottom: 0; left: 0; width: 100%; height: 100%&quot;
             fill
@@ -898,9 +1003,21 @@ export class PlaylistComponent {
     &lt;/mat-list-item&gt;
   &lt;/mat-list&gt;
 &lt;/cdk-virtual-scroll-viewport&gt;
-@if (metadataService.processionPercent() &lt; 100) {
-  &lt;mat-progress-bar mode&#x3D;&quot;determinate&quot; [value]&#x3D;&quot;metadataService.processionPercent()&quot;&gt;&lt;/mat-progress-bar&gt;
-}
+
+&lt;!-- Context menu trigger--&gt;
+&lt;div style&#x3D;&quot;display: none&quot;&gt;
+  &lt;span #menuTrigger&#x3D;&quot;matMenuTrigger&quot; [matMenuTriggerFor]&#x3D;&quot;songMenu&quot;&gt;&lt;/span&gt;
+&lt;/div&gt;
+
+&lt;!-- Context Menu --&gt;
+&lt;mat-menu #songMenu&#x3D;&quot;matMenu&quot;&gt;
+  &lt;ng-template matMenuContent let-song&#x3D;&quot;song&quot;&gt;
+    &lt;button mat-menu-item (click)&#x3D;&quot;playerService.removeTrackFromPlaylist(song)&quot;&gt;
+      &lt;mat-icon svgIcon&#x3D;&quot;close-thick&quot;&gt;&lt;/mat-icon&gt;
+      &lt;span&gt;Remove from playlist&lt;/span&gt;
+    &lt;/button&gt;
+  &lt;/ng-template&gt;
+&lt;/mat-menu&gt;
 </code></pre>
     </div>
 
@@ -930,7 +1047,7 @@ export class PlaylistComponent {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><ng-content /><cdk-virtual-scroll-viewport #scrollViewport itemSize="72" class="playlist-viewport" style="height: 100%">  <mat-list class="playlist">    <mat-list-item      *cdkVirtualFor="let song of playerService.currentPlaylist(); trackBy: trackByCrc"      class="playlist-item"      [ngClass]="{ selected: this.playerService.selectedTrack()?.metadata?.crc === song.metadata.crc }"      (dblclick)="playPauseSong($event, song)"      (click)="playerService.selectSong(song)"    >      <div matListItemAvatar style="overflow: hidden; border-radius: 4px; position: relative">        @if (song && song.metadata && song.metadata.coverUrl) {          <!--suppress AngularNgOptimizedImage -->          <img            style="position: absolute; top: 0; right: 0; bottom: 0; left: 0; width: 100%; height: 100%"            fill            [src]="song.metadata.coverUrl.thumb | safe: \'resourceUrl\'"          />        }        @let songPlaying = isPlaying(song)();        @if (songPlaying) {          <canvas            mtbVisual            mode="osc"            style="position: absolute; right: 0; bottom: 0; left: 0; width: 100%; height: 100%"            [colorConfig]="playerService.colorConfig()"            [oscConfig]="{ thickness: 2 }"          ></canvas>        }      </div>      <h3 matListItemTitle style="font-size: 0.9rem; font-weight: bold">{{ song?.metadata?.title || song.file.name }}</h3>      <p matListItemLine style="font-size: 0.8rem">{{ song?.metadata?.artist }}</p>      @if (isActive(song)()) {        <button matListItemMeta mat-icon-button (click)="playPauseSong($event, song)">          <mat-icon class="accent-color" [svgIcon]="songPlaying ? \'pause\' : \'play-outline\'"></mat-icon>        </button>      }    </mat-list-item>  </mat-list></cdk-virtual-scroll-viewport>@if (metadataService.processionPercent() < 100) {  <mat-progress-bar mode="determinate" [value]="metadataService.processionPercent()"></mat-progress-bar>}</div>'
+        var COMPONENT_TEMPLATE = '<div><cdk-virtual-scroll-viewport #scrollViewport itemSize="72" class="playlist-viewport" style="height: 100%">  <mat-list class="playlist">    <mat-list-item      *cdkVirtualFor="let song of playerService.currentPlaylist(); trackBy: trackByCrc"      class="playlist-item"      [ngClass]="{ selected: this.playerService.selectedTrack()?.metadata?.crc === song.metadata.crc }"      (dblclick)="playPauseSong($event, song)"      (click)="playerService.selectSong(song)"      (contextmenu)="onContextMenu($event, song)"    >      <div matListItemAvatar style="overflow: hidden; border-radius: 4px; position: relative">        @if (song && song.metadata && song.metadata.coverUrl) {          <img            style="position: absolute; top: 0; right: 0; bottom: 0; left: 0; width: 100%; height: 100%"            fill            [src]="song.metadata.coverUrl.thumb | safe: \'resourceUrl\'"          />        }        @let songPlaying = isPlaying(song)();        @if (songPlaying) {          <canvas            mtbVisual            mode="osc"            style="position: absolute; right: 0; bottom: 0; left: 0; width: 100%; height: 100%"            [colorConfig]="playerService.colorConfig()"            [oscConfig]="{ thickness: 2 }"          ></canvas>        }      </div>      <h3 matListItemTitle style="font-size: 0.9rem; font-weight: bold">{{ song?.metadata?.title || song.file.name }}</h3>      <p matListItemLine style="font-size: 0.8rem">{{ song?.metadata?.artist }}</p>      @if (isActive(song)()) {        <button matListItemMeta mat-icon-button (click)="playPauseSong($event, song)">          <mat-icon class="accent-color" [svgIcon]="songPlaying ? \'pause\' : \'play-outline\'"></mat-icon>        </button>      }    </mat-list-item>  </mat-list></cdk-virtual-scroll-viewport><!-- Context menu trigger--><div style="display: none">  <span #menuTrigger="matMenuTrigger" [matMenuTriggerFor]="songMenu"></span></div><!-- Context Menu --><mat-menu #songMenu="matMenu">  <ng-template matMenuContent let-song="song">    <button mat-menu-item (click)="playerService.removeTrackFromPlaylist(song)">      <mat-icon svgIcon="close-thick"></mat-icon>      <span>Remove from playlist</span>    </button>  </ng-template></mat-menu></div>'
     var COMPONENTS = [{'name': 'AppComponent', 'selector': 'mtb-root'},{'name': 'CoverDisplayComponent', 'selector': 'mtb-cover-display'},{'name': 'EqualizerComponent', 'selector': 'mtb-equalizer'},{'name': 'FileDropOverlayComponent', 'selector': 'mtb-file-drop-overlay'},{'name': 'HotkeysHelpDialogComponent', 'selector': 'mtb-hotkeys-help-dialog'},{'name': 'LibraryComponent', 'selector': ''},{'name': 'MetadataSettingsComponent', 'selector': 'mtb-metadata-settings'},{'name': 'PlayerComponent', 'selector': 'mtb-player'},{'name': 'PlayerToolbarComponent', 'selector': 'player-toolbar'},{'name': 'PlaylistComponent', 'selector': 'mtb-playlist'},{'name': 'PromptDialogComponent', 'selector': 'mtb-prompt-dialog'},{'name': 'SettingsComponent', 'selector': 'mtb-settings'},{'name': 'ShellComponent', 'selector': 'mtb-shell'},{'name': 'SlidePanelComponent', 'selector': 'mtb-slide-panel'},{'name': 'StorageSettingsComponent', 'selector': 'mtb-storage-settings'},{'name': 'ThemeSettingsComponent', 'selector': 'mtb-theme-settings'},{'name': 'VisualizerComponent', 'selector': 'mtb-visualizer'}];
     var DIRECTIVES = [{'name': 'VisualsDirective', 'selector': '[mtbVisual]'}];
     var ACTUAL_COMPONENT = {'name': 'PlaylistComponent'};
