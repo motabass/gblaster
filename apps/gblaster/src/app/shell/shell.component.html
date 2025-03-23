@@ -44,7 +44,7 @@
       }
     </mat-toolbar>
     @if (metadataService.processionPercent() < 100) {
-      <mat-progress-bar class="progress" mode="determinate" [value]="metadataService.processionPercent()"></mat-progress-bar>
+      <mat-progress-bar class="progress" mode="determinate" [value]="metadataService.processionPercent()" />
     }
     <div class="router-outlet main"><router-outlet></router-outlet></div>
 

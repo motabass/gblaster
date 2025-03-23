@@ -1,5 +1,5 @@
 <mat-form-field appearance="fill" style="width: 100%" class="searchinput">
-  <mat-icon matPrefix svgIcon="search"></mat-icon>
+  <mat-icon matPrefix svgIcon="search" />
   <input matInput [ngModel]="searchTerm()" (ngModelChange)="searchTerm.set($event)" />
   @if (searchTerm()) {
     <button matSuffix mat-icon-button (click)="searchTerm.set('')">
