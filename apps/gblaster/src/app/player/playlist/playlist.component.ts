@@ -45,18 +45,6 @@ export class PlaylistComponent {
 
   private readonly isAutoScrollEnabled = signal(false);
 
-  readonly isPlaylistEmpty = computed(() => this.playerService.currentPlaylist().length === 0);
-
-  async onReload() {
-    await this.fileLoaderService.init();
-    return this.fileLoaderService.currentFolderHandle ? this.playerService.loadFiles() : this.showFilePicker();
-  }
-
-  async showFilePicker() {
-    await this.fileLoaderService.showPicker();
-    return this.playerService.loadFiles();
-  }
-
   constructor() {
     // Enable auto scroll when user scrolls to bottom
     effect(() => {

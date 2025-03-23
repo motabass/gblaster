@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed, inject, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatMenu, MatMenuTrigger } from '@angular/material/menu';
+import { MatMenu, MatMenuModule, MatMenuTrigger } from '@angular/material/menu';
 import { MatSlider, MatSliderThumb } from '@angular/material/slider';
 import { MatToolbar } from '@angular/material/toolbar';
 import { TimePipe } from '../time.pipe';
@@ -17,7 +17,7 @@ import { FileLoaderService } from '../file-loader-service/file-loader.service.ab
 
 @Component({
   selector: 'player-toolbar',
-  imports: [CommonModule, MatIcon, MatIconButton, MatMenu, MatSlider, MatSliderThumb, MatToolbar, MatTooltip, TimePipe, MatMenuTrigger],
+  imports: [CommonModule, MatIcon, MatIconButton, MatMenu, MatSlider, MatSliderThumb, MatToolbar, MatTooltip, TimePipe, MatMenuTrigger, MatMenuModule],
   templateUrl: './player-toolbar.component.html',
   styleUrl: './player-toolbar.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -78,7 +78,7 @@ export class PlayerToolbarComponent implements OnInit, OnDestroy {
       this.gamepadService.registerButtonAction(GamepadButtons.R1_BUTTON, () => this.playerService.next(), 'turbo');
       this.gamepadService.registerButtonAction(GamepadButtons.L1_BUTTON, () => this.playerService.previous(), 'turbo');
 
-      this.gamepadService.registerButtonAction(GamepadButtons.START_BUTTON, () => this.showPicker());
+      this.gamepadService.registerButtonAction(GamepadButtons.START_BUTTON, () => this.showFilePickerAndLoadFiles());
     }
   }
 
@@ -131,9 +131,14 @@ export class PlayerToolbarComponent implements OnInit, OnDestroy {
     this.playerService.toggleShuffle();
   }
 
-  async showPicker() {
+  async showFilePickerAndLoadFiles() {
     await this.fileLoaderService.showPicker();
     return this.playerService.loadFiles();
+  }
+
+  async reloadLastDirectory() {
+    await this.fileLoaderService.init();
+    return this.fileLoaderService.currentFolderHandle ? this.playerService.loadFiles() : this.showFilePickerAndLoadFiles();
   }
 
   seekLeft(value: number) {

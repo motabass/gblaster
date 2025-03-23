@@ -18,9 +18,20 @@
     <mat-icon matTooltip="Next" svgIcon="skip-next"></mat-icon>
   </button>
 
-  <button mat-icon-button id="load_files" (click)="showPicker()">
+  <button mat-icon-button id="load_files" [matMenuTriggerFor]="fileMenu">
     <mat-icon matTooltip="Load folder/files..." svgIcon="folder-music-outline"></mat-icon>
   </button>
+  <mat-menu #fileMenu="matMenu">
+    <button mat-menu-item (click)="showFilePickerAndLoadFiles()">
+      <mat-icon svgIcon="folder-music-outline"></mat-icon>
+      <span>Load folder/files...</span>
+    </button>
+    <button mat-menu-item (click)="reloadLastDirectory()">
+      <mat-icon svgIcon="reload"></mat-icon>
+      <span>Reload last directory</span>
+    </button>
+  </mat-menu>
+
   <!-- TODO: The 'tickInterval' property no longer exists -->
   @if (playerService.currentlyLoadedTrack()) {
     <mat-slider class="flex-grow" min="0" step="1" discrete color="accent" [max]="playerService.durationSeconds()" [displayWith]="formatLabel"
