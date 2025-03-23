@@ -11,7 +11,7 @@ export interface EqualizerGainValues {
 
 @Injectable({ providedIn: 'root' })
 export class AudioService {
-  private storageService = inject(LocalStorageService);
+  private localStorageService = inject(LocalStorageService);
 
   // Core audio elements
   private _audioElement: HTMLAudioElement;
@@ -30,12 +30,12 @@ export class AudioService {
   readonly isLooping = signal(false);
   readonly currentTime = signal(0);
   readonly duration = signal(0);
-  readonly volume = signal(this.storageService.retrieve('volume') ?? 0.5);
-  readonly baseGain = signal(this.storageService.retrieve('baseGain') ?? 1);
+  readonly volume = signal(this.localStorageService.retrieve('volume') ?? 0.5);
+  readonly baseGain = signal(this.localStorageService.retrieve('baseGain') ?? 1);
   readonly sampleRate = signal(44_100);
 
   readonly equalizerGainValues = signal<EqualizerGainValues>(
-    this.storageService.retrieve('equalizerGainValues') ?? { 60: 0, 170: 0, 310: 0, 600: 0, 1000: 0, 3000: 0, 6000: 0, 12_000: 0, 14_000: 0, 16_000: 0 }
+    this.localStorageService.retrieve('equalizerGainValues') ?? { 60: 0, 170: 0, 310: 0, 600: 0, 1000: 0, 3000: 0, 6000: 0, 12_000: 0, 14_000: 0, 16_000: 0 }
   );
 
   private readonly _hasEnded = new Subject<boolean>();
@@ -203,8 +203,10 @@ export class AudioService {
   setFrequencyBandGain(bandFrequency: FrequencyBand, gainValue: number) {
     this._frequencyFilters[bandFrequency].gain.value = gainValue;
 
-    const bandGains = this.equalizerGainValues();
+    const bandGains = structuredClone(this.equalizerGainValues());
     bandGains[bandFrequency] = gainValue;
+
+    this.localStorageService.store('equalizerGainValues', bandGains);
     this.equalizerGainValues.set(bandGains);
   }
 
@@ -212,14 +214,14 @@ export class AudioService {
     if (value >= 0 && value <= 1) {
       this._gainNode.gain.value = value;
       this.volume.set(value);
-      this.storageService.store('volume', value);
+      this.localStorageService.store('volume', value);
     }
   }
 
   setBaseGain(volume: number) {
     this._eqGainNode.gain.value = volume;
     this.baseGain.set(volume);
-    this.storageService.store('baseGain', volume);
+    this.localStorageService.store('baseGain', volume);
   }
 
   private createEqualizer(audioContext: AudioContext): { eqInput: AudioNode; eqOutput: AudioNode } {

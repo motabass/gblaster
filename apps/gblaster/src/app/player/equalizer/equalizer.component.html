@@ -1,4 +1,8 @@
 <div style="padding-bottom: 1rem; height: 100%; box-sizing: border-box">
+  <div class="eq-visualization">
+    <canvas #eqCanvas width="800" height="200"></canvas>
+  </div>
+
   <div class="flex row" style="overflow-x: scroll; padding: 24px; height: 40%">
     @for (band of BANDS; track band; let i = $index) {
       <div class="vertical-slider-container">
