@@ -1,14 +1,3 @@
-<mat-form-field appearance="fill" style="width: 100%" class="searchinput">
-  <mat-icon matPrefix svgIcon="search" />
-  <input matInput [ngModel]="searchTerm()" (ngModelChange)="searchTerm.set($event)" />
-  @if (searchTerm()) {
-    <button matSuffix mat-icon-button (click)="searchTerm.set('')">
-      <mat-icon svgIcon="close-thick"></mat-icon>
-    </button>
-  }
-  <mat-hint>{{ tracks().length }} entries</mat-hint>
-</mat-form-field>
-
 <div class="artists searchbox">
   <cdk-virtual-scroll-viewport class="virtual-scroll-viewport" appendOnly itemSize="32">
     <mat-nav-list>
@@ -115,3 +104,14 @@
     </ng-template>
   </mat-menu>
 </div>
+
+<mat-form-field appearance="fill" style="width: 100%" class="searchinput">
+  <mat-icon matPrefix svgIcon="search" />
+  <input matInput [ngModel]="searchTerm()" (ngModelChange)="searchTerm.set($event)" />
+  @if (searchTerm()) {
+    <button matSuffix mat-icon-button (click)="searchTerm.set('')">
+      <mat-icon svgIcon="close-thick"></mat-icon>
+    </button>
+  }
+  <mat-hint>{{ tracks().length }} entries</mat-hint>
+</mat-form-field>
