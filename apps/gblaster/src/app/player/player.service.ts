@@ -38,6 +38,18 @@ export class PlayerService {
     return { mainColor: mainColor, peakColor: peakColor };
   });
 
+  readonly durationSeconds = computed(() => {
+    return this.currentlyLoadedTrack() && !this.audioService.isStopped() ? Math.round(this.audioService.duration()) : 0;
+  });
+
+  readonly currentTime = computed(() => {
+    if (!this.currentlyLoadedTrack() || this.audioService.isStopped()) {
+      return 0;
+    }
+    const pos = this.audioService.currentTime();
+    return Math.floor(pos);
+  });
+
   constructor() {
     if (this.mediaSessionService) {
       this.mediaSessionService.setActionHandler('play', () => this.playPause());
@@ -144,18 +156,6 @@ export class PlayerService {
       this.audioService.seekToPosition(value, fastSeek);
     }
   }
-
-  readonly durationSeconds = computed(() => {
-    return this.currentlyLoadedTrack() && !this.audioService.isStopped() ? Math.round(this.audioService.duration()) : 0;
-  });
-
-  readonly currentTime = computed(() => {
-    if (!this.currentlyLoadedTrack() || this.audioService.isStopped()) {
-      return 0;
-    }
-    const pos = this.audioService.currentTime();
-    return Math.floor(pos);
-  });
 
   selectSong(song: Track) {
     this.selectedTrack.set(song);

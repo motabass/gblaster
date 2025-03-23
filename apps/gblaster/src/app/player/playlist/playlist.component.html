@@ -1,4 +1,8 @@
-<ng-content />
+@if (isPlaylistEmpty()) {
+  <button style="width: 100%; text-transform: uppercase; margin: 12px 6px" mat-flat-button color="accent" (click)="onReload()">
+    <mat-icon svgIcon="reload"></mat-icon> Reload last directory
+  </button>
+}
 
 <cdk-virtual-scroll-viewport #scrollViewport itemSize="72" class="playlist-viewport" style="height: 100%">
   <mat-list class="playlist">

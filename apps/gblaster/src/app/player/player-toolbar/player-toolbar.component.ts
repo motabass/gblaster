@@ -133,10 +133,6 @@ export class PlayerToolbarComponent implements OnInit, OnDestroy {
 
   async showPicker() {
     await this.fileLoaderService.showPicker();
-    return this.loadFiles();
-  }
-
-  async loadFiles() {
     return this.playerService.loadFiles();
   }
 

@@ -13,7 +13,7 @@ import { CdkFixedSizeVirtualScroll, CdkVirtualForOf, CdkVirtualScrollViewport } 
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MetadataService } from '../metadata-service/metadata.service';
+import { FileLoaderService } from '../file-loader-service/file-loader.service.abstract';
 
 @Component({
   selector: 'mtb-playlist',
@@ -38,12 +38,24 @@ import { MetadataService } from '../metadata-service/metadata.service';
 export class PlaylistComponent {
   playerService = inject(PlayerService);
   audioService = inject(AudioService);
-  metadataService = inject(MetadataService);
+  private fileLoaderService = inject(FileLoaderService);
   private destroRef = inject(DestroyRef);
 
   readonly scrollViewport = viewChild<CdkVirtualScrollViewport>('scrollViewport');
 
   private readonly isAutoScrollEnabled = signal(false);
+
+  readonly isPlaylistEmpty = computed(() => this.playerService.currentPlaylist().length === 0);
+
+  async onReload() {
+    await this.fileLoaderService.init();
+    return this.fileLoaderService.currentFolderHandle ? this.playerService.loadFiles() : this.showFilePicker();
+  }
+
+  async showFilePicker() {
+    await this.fileLoaderService.showPicker();
+    return this.playerService.loadFiles();
+  }
 
   constructor() {
     // Enable auto scroll when user scrolls to bottom

@@ -135,14 +135,14 @@ export class AudioService {
 
   plugInNewAnalyserNode(): AnalyserNode {
     const analyser = this._audioContext.createAnalyser();
-    this._audioSourceNode.connect(analyser);
+    this._eqGainNode.connect(analyser);
     this._connectedAnalyzers.add(analyser);
     return analyser;
   }
 
   disconnectAnalyserNode(analyser: AnalyserNode): void {
     if (this._connectedAnalyzers.has(analyser)) {
-      analyser.disconnect();
+      this._eqGainNode.disconnect(analyser);
       this._connectedAnalyzers.delete(analyser);
     }
   }
@@ -150,7 +150,7 @@ export class AudioService {
   // Call on major cleanup events or app exit
   disconnectAllAnalyzers(): void {
     this._connectedAnalyzers.forEach((analyser) => {
-      analyser.disconnect();
+      this._eqGainNode.disconnect(analyser);
     });
     this._connectedAnalyzers.clear();
   }

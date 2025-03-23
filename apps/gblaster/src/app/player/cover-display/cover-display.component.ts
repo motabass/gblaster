@@ -3,13 +3,14 @@ import { ThemeService } from '../../theme/theme.service';
 import { TimePipe } from '../time.pipe';
 import { Track } from '../player.types';
 import { BitratePipe } from './bitrate.pipe';
+import { VisualizerComponent } from '../visualizer/visualizer.component';
 
 @Component({
   selector: 'mtb-cover-display',
   templateUrl: './cover-display.component.html',
   styleUrl: './cover-display.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [TimePipe, BitratePipe]
+  imports: [TimePipe, BitratePipe, VisualizerComponent]
 })
 export class CoverDisplayComponent {
   private themeService = inject(ThemeService);
