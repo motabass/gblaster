@@ -13,7 +13,7 @@ import { CdkFixedSizeVirtualScroll, CdkVirtualForOf, CdkVirtualScrollViewport } 
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { FileLoaderService } from '../file-loader-service/file-loader.service.abstract';
+import { MatMenuModule, MatMenuTrigger } from '@angular/material/menu';
 
 @Component({
   selector: 'mtb-playlist',
@@ -32,14 +32,16 @@ import { FileLoaderService } from '../file-loader-service/file-loader.service.ab
     CdkVirtualForOf,
     CdkFixedSizeVirtualScroll,
     MatFormFieldModule,
-    FormsModule
+    FormsModule,
+    MatMenuModule
   ]
 })
 export class PlaylistComponent {
   playerService = inject(PlayerService);
   audioService = inject(AudioService);
-  private fileLoaderService = inject(FileLoaderService);
   private destroRef = inject(DestroyRef);
+
+  readonly menuTrigger = viewChild<MatMenuTrigger>('menuTrigger');
 
   readonly scrollViewport = viewChild<CdkVirtualScrollViewport>('scrollViewport');
 
@@ -156,5 +158,28 @@ export class PlaylistComponent {
 
   trackByCrc(index: number, song: Track): string {
     return song.metadata.crc;
+  }
+
+  onContextMenu(event: MouseEvent, song: Track): void {
+    event.preventDefault();
+    const trigger = this.menuTrigger();
+    if (!trigger) return;
+    trigger.menuData = { song: song };
+
+    // Open with position
+    trigger.openMenu();
+
+    // set position
+    if (trigger.menu) {
+      // Forcefully reset the menu position after it's opened
+      setTimeout(() => {
+        const overlayRef = document.querySelector('.cdk-overlay-pane:last-child') as HTMLElement;
+        if (overlayRef) {
+          overlayRef.style.position = 'absolute';
+          overlayRef.style.left = `${event.clientX}px`;
+          overlayRef.style.top = `${event.clientY}px`;
+        }
+      });
+    }
   }
 }

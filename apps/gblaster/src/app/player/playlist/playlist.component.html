@@ -6,10 +6,10 @@
       [ngClass]="{ selected: this.playerService.selectedTrack()?.metadata?.crc === song.metadata.crc }"
       (dblclick)="playPauseSong($event, song)"
       (click)="playerService.selectSong(song)"
+      (contextmenu)="onContextMenu($event, song)"
     >
       <div matListItemAvatar style="overflow: hidden; border-radius: 4px; position: relative">
         @if (song && song.metadata && song.metadata.coverUrl) {
-          <!--suppress AngularNgOptimizedImage -->
           <img
             style="position: absolute; top: 0; right: 0; bottom: 0; left: 0; width: 100%; height: 100%"
             fill
@@ -39,3 +39,18 @@
     </mat-list-item>
   </mat-list>
 </cdk-virtual-scroll-viewport>
+
+<!-- Context menu trigger-->
+<div style="display: none">
+  <span #menuTrigger="matMenuTrigger" [matMenuTriggerFor]="songMenu"></span>
+</div>
+
+<!-- Context Menu -->
+<mat-menu #songMenu="matMenu">
+  <ng-template matMenuContent let-song="song">
+    <button mat-menu-item (click)="playerService.removeTrackFromPlaylist(song)">
+      <mat-icon svgIcon="close-thick"></mat-icon>
+      <span>Remove from playlist</span>
+    </button>
+  </ng-template>
+</mat-menu>

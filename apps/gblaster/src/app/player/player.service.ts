@@ -145,6 +145,20 @@ export class PlayerService {
     }
   }
 
+  removeTrackFromPlaylist(track: Track) {
+    // If the removed track is currently loaded, stop playback
+    if (this.currentlyLoadedTrack() === track) {
+      void this.stop();
+    }
+
+    // If the removed track is currently selected, deselect it
+    if (this.selectedTrack() === track) {
+      this.selectedTrack.set(undefined);
+    }
+    // Update the playlist by filtering out the specified track
+    this.currentPlaylist.update((playlist) => playlist.filter((t) => t !== track));
+  }
+
   async addFilesToPlaylist(...fileDatas: FileData[]) {
     for await (const track of this.metadataService.addFilesToLibrary(...fileDatas)) {
       this.addTrackToPlaylist(track);
