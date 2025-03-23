@@ -1,19 +1,16 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { ALLOWED_MIMETYPES, FileData } from './file-loader.helpers';
 import { FileLoaderService } from './file-loader.service.abstract';
 
 @Injectable({
   providedIn: 'root'
 })
-export class LegacyFileLoaderService extends FileLoaderService {
+export class LegacyFileLoaderService implements FileLoaderService {
   private fileInput!: HTMLInputElement;
-
-  currentFolderHandle?: FileSystemDirectoryHandle;
 
   private files: File[] = [];
 
   constructor() {
-    super();
     this.fileInput = document.createElement('input');
     this.fileInput.type = 'file';
     this.fileInput.id = 'hidden_file_input';
@@ -24,7 +21,7 @@ export class LegacyFileLoaderService extends FileLoaderService {
     document.body.append(this.fileInput);
   }
 
-  async init() {}
+  readonly currentFolderHandle = signal(undefined);
 
   async openFiles(): Promise<FileData[]> {
     return this.files.map((file) => ({ file }));

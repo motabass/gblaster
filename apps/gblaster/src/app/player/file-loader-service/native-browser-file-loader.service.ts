@@ -1,4 +1,4 @@
-import { inject, Injectable } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 import { NgxIndexedDBService } from 'ngx-indexed-db';
 import { firstValueFrom } from 'rxjs';
 import { ALLOWED_MIMETYPES, FileData } from './file-loader.helpers';
@@ -12,25 +12,27 @@ interface DirHandleEntry {
 @Injectable({
   providedIn: 'root'
 })
-export class NativeBrowserFileLoaderService extends FileLoaderService {
+export class NativeBrowserFileLoaderService implements FileLoaderService {
   private indexedDbService = inject(NgxIndexedDBService);
 
-  currentFolderHandle?: FileSystemDirectoryHandle;
+  readonly currentFolderHandle = signal<FileSystemDirectoryHandle | undefined>(undefined);
 
-  async init() {
-    const entry = await firstValueFrom(this.indexedDbService.getByID<DirHandleEntry>('dirHandle', 1));
-    if (entry) {
-      const granted = await verifyPermission(entry.handle);
-      if (granted) {
-        this.currentFolderHandle = entry.handle;
+  constructor() {
+    firstValueFrom(this.indexedDbService.getByID<DirHandleEntry>('dirHandle', 1)).then((entry) => {
+      if (entry) {
+        verifyPermission(entry.handle).then((granted) => {
+          if (granted) {
+            this.currentFolderHandle.set(entry.handle);
+          }
+        });
       }
-    }
+    });
   }
 
   async showPicker(): Promise<void> {
     try {
       const handle = await showDirectoryPicker();
-      this.currentFolderHandle = handle;
+      this.currentFolderHandle.set(handle);
       await this.indexedDbService.update('dirHandle', { id: 1, handle: handle } as DirHandleEntry).toPromise();
     } catch (error) {
       console.log('No files:', error);
@@ -38,8 +40,9 @@ export class NativeBrowserFileLoaderService extends FileLoaderService {
   }
 
   async openFiles(): Promise<FileData[]> {
-    if (this.currentFolderHandle) {
-      return getAudioFilesFromDirHandle(this.currentFolderHandle);
+    const handle = this.currentFolderHandle();
+    if (handle) {
+      return getAudioFilesFromDirHandle(handle);
     }
     return [];
   }

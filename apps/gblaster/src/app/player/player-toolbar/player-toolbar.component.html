@@ -26,10 +26,12 @@
       <mat-icon svgIcon="folder-music-outline"></mat-icon>
       <span>Load folder/files...</span>
     </button>
-    <button mat-menu-item (click)="reloadLastDirectory()">
-      <mat-icon svgIcon="reload"></mat-icon>
-      <span>Reload last directory</span>
-    </button>
+    @if (fileLoaderService.currentFolderHandle()) {
+      <button mat-menu-item (click)="loadLastDirectory()">
+        <mat-icon svgIcon="folder-music-outline"></mat-icon>
+        <span>Load last directory</span>
+      </button>
+    }
   </mat-menu>
 
   <!-- TODO: The 'tickInterval' property no longer exists -->

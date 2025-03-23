@@ -25,8 +25,7 @@ import { FileLoaderService } from '../file-loader-service/file-loader.service.ab
 export class PlayerToolbarComponent implements OnInit, OnDestroy {
   private gamepadService = inject(GamepadService, { optional: true });
   private hotkeysService = inject(HotkeysService, { optional: true });
-  private fileLoaderService = inject(FileLoaderService);
-
+  fileLoaderService = inject(FileLoaderService);
   playerService = inject(PlayerService);
   audioService = inject(AudioService);
 
@@ -136,9 +135,8 @@ export class PlayerToolbarComponent implements OnInit, OnDestroy {
     return this.playerService.loadFiles();
   }
 
-  async reloadLastDirectory() {
-    await this.fileLoaderService.init();
-    return this.fileLoaderService.currentFolderHandle ? this.playerService.loadFiles() : this.showFilePickerAndLoadFiles();
+  async loadLastDirectory() {
+    return this.fileLoaderService.currentFolderHandle() ? this.playerService.loadFiles() : this.showFilePickerAndLoadFiles();
   }
 
   seekLeft(value: number) {
