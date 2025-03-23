@@ -1,13 +1,11 @@
 import { computed, inject, Injectable, signal } from '@angular/core';
 import { LocalStorageService } from 'ngx-webstorage';
-import { FrequencyBand } from './player.types';
+import { FREQUENCY_BANDS, FrequencyBand } from './player.types';
 import { Subject } from 'rxjs';
 
-export const FREQUENCY_BANDS: FrequencyBand[] = [60, 170, 310, 600, 1000, 3000, 6000, 12_000, 14_000, 16_000];
-
-export interface EqualizerGainValues {
-  [band: number]: number;
-}
+export type EqualizerGainValues = {
+  [Band in FrequencyBand]: number;
+};
 
 @Injectable({ providedIn: 'root' })
 export class AudioService {
@@ -35,7 +33,8 @@ export class AudioService {
   readonly sampleRate = signal(44_100);
 
   readonly equalizerGainValues = signal<EqualizerGainValues>(
-    this.localStorageService.retrieve('equalizerGainValues') ?? { 60: 0, 170: 0, 310: 0, 600: 0, 1000: 0, 3000: 0, 6000: 0, 12_000: 0, 14_000: 0, 16_000: 0 }
+    this.localStorageService.retrieve('equalizerGainValues') ??
+      ({ 31: 0, 63: 0, 125: 0, 250: 0, 500: 0, 1000: 0, 2000: 0, 4000: 0, 8000: 0, 16_000: 0 } as EqualizerGainValues)
   );
 
   private readonly _hasEnded = new Subject<boolean>();
@@ -208,6 +207,10 @@ export class AudioService {
 
     this.localStorageService.store('equalizerGainValues', bandGains);
     this.equalizerGainValues.set(bandGains);
+  }
+
+  resetFrequencyBandGain(bandFrequency: FrequencyBand) {
+    this.setFrequencyBandGain(bandFrequency, 0);
   }
 
   setVolume(value: number) {

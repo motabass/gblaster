@@ -27,8 +27,10 @@ export interface IndexedDbTrackMetadata extends TrackMetadata {
 }
 
 // EQ
+export const FREQUENCY_BANDS = [31, 63, 125, 250, 500, 1000, 2000, 4000, 8000, 16_000] as const;
 
-export type FrequencyBand = 60 | 170 | 310 | 600 | 1000 | 3000 | 6000 | 12_000 | 14_000 | 16_000;
+// Derive FrequencyBand type from the array
+export type FrequencyBand = (typeof FREQUENCY_BANDS)[number];
 
 export type RepeatMode = 'off' | 'all' | 'one';
 

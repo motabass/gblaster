@@ -13,9 +13,9 @@ export class ThemeService {
   private meta = inject(Meta);
   private localStorageService = inject(LocalStorageService);
 
-  private primaryColor = FALLBACK_PRIMARY_COLOR;
+  primaryColor = FALLBACK_PRIMARY_COLOR;
 
-  private accentColor = FALLBACK_ACCENT_COLOR;
+  accentColor = FALLBACK_ACCENT_COLOR;
 
   readonly darkMode = signal<boolean>(this.localStorageService.retrieve('darkMode') ?? globalThis.matchMedia('(prefers-color-scheme: dark)').matches);
 

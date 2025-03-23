@@ -1,25 +1,28 @@
 import { ChangeDetectionStrategy, Component, effect, ElementRef, inject, viewChild } from '@angular/core';
-import { AudioService, FREQUENCY_BANDS } from '../audio.service';
-import { BandPipe } from './band.pipe';
+import { AudioService } from '../audio.service';
 import { MatSliderModule } from '@angular/material/slider';
+import { FREQUENCY_BANDS } from '../player.types';
+import { ThemeService } from '../../theme/theme.service';
 
 @Component({
   selector: 'mtb-equalizer',
   templateUrl: './equalizer.component.html',
   styleUrl: './equalizer.component.scss',
-  imports: [MatSliderModule, BandPipe],
+  imports: [MatSliderModule],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export default class EqualizerComponent {
+  audioService = inject(AudioService);
+  themeService = inject(ThemeService);
   readonly canvasRef = viewChild<ElementRef<HTMLCanvasElement>>('eqCanvas');
 
-  audioService = inject(AudioService);
   BANDS = FREQUENCY_BANDS;
 
   constructor() {
     // React to changes in equalizer values
     effect(() => {
-      const data = this.audioService.equalizerGainValues(); // Track the signal
+      this.audioService.equalizerGainValues(); // Track the signal
+      this.audioService.baseGain(); // Track gain changes
       this.drawEqualizerResponse();
     });
   }
@@ -42,13 +45,9 @@ export default class EqualizerComponent {
     // Clear canvas
     ctx.clearRect(0, 0, width, height);
 
-    // Draw background
-    ctx.fillStyle = '#f5f5f5';
-    ctx.fillRect(0, 0, width, height);
-
     // Draw grid lines
     ctx.strokeStyle = '#dddddd';
-    ctx.lineWidth = 1;
+    ctx.lineWidth = 0.2;
 
     // Horizontal grid lines (every 3dB)
     for (let db = -12; db <= 12; db += 3) {
@@ -61,47 +60,47 @@ export default class EqualizerComponent {
 
     // Draw center line (0dB)
     ctx.strokeStyle = '#bbbbbb';
-    ctx.lineWidth = 2;
+    ctx.lineWidth = 1;
     ctx.beginPath();
     ctx.moveTo(0, height / 2);
     ctx.lineTo(width, height / 2);
     ctx.stroke();
 
-    // Get current equalizer values
+    // Get current equalizer values and gain
     const eqValues = this.audioService.equalizerGainValues();
-
-    // Draw frequency response curve
-    ctx.strokeStyle = '#2196f3';
-    ctx.lineWidth = 3;
-    ctx.beginPath();
+    const gainValue = this.audioService.baseGain();
 
     // Calculate logarithmic x-position for each frequency
     const minFreq = 20;
-    const maxFreq = 20000;
+    const maxFreq = 20_000;
     const getXPos = (freq: number) => {
       return ((Math.log10(freq) - Math.log10(minFreq)) / (Math.log10(maxFreq) - Math.log10(minFreq))) * width;
     };
 
-    // Draw smooth curve between points
+    // Draw frequency response curve with gain applied
+    ctx.strokeStyle = this.themeService.primaryColor;
+    ctx.lineWidth = 3;
+
     const freqPoints: { x: number; y: number }[] = [];
 
     // Start with the lowest frequency
     freqPoints.push({
       x: 0,
-      y: height / 2 - (eqValues[this.BANDS[0]] * height) / 24
+      y: height / 2 - ((eqValues[this.BANDS[0]] + (gainValue - 1) * 12) * height) / 24
     });
 
-    // Draw points for each frequency band
+    // Draw points for each frequency band with gain applied
     for (const freq of this.BANDS) {
       const x = getXPos(freq);
-      const y = height / 2 - (eqValues[freq] * height) / 24;
+      // Apply gain influence to the curve
+      const y = height / 2 - ((eqValues[freq] + (gainValue - 1) * 12) * height) / 24;
       freqPoints.push({ x, y });
     }
 
     // End with the highest frequency
     freqPoints.push({
       x: width,
-      y: height / 2 - (eqValues[this.BANDS.at(-1)!] * height) / 24
+      y: height / 2 - ((eqValues[this.BANDS.at(-1)!] + (gainValue - 1) * 12) * height) / 24
     });
 
     // Draw curve through points
@@ -123,11 +122,17 @@ export default class EqualizerComponent {
     ctx.font = '10px Arial';
     ctx.textAlign = 'center';
 
-    const labelFreqs = [30, 100, 300, 1000, 3000, 10000, 20000];
+    const labelFreqs = this.BANDS.filter((freq) => freq >= minFreq && freq <= maxFreq);
     for (const freq of labelFreqs) {
       const x = getXPos(freq);
       const label = freq >= 1000 ? `${freq / 1000}k` : `${freq}`;
       ctx.fillText(label, x, height - 5);
     }
+
+    // Display gain value
+    ctx.fillStyle = this.themeService.accentColor;
+    ctx.font = 'bold 12px Arial';
+    ctx.textAlign = 'right';
+    ctx.fillText(`Gain: ${gainValue.toFixed(1)}x`, width - 10, 20);
   }
 }
