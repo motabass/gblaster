@@ -9,10 +9,6 @@
   <mat-hint>{{ tracks().length }} entries</mat-hint>
 </mat-form-field>
 
-@if (metadataService.processionPercent() < 100) {
-  <mat-progress-bar mode="determinate" [value]="metadataService.processionPercent()"></mat-progress-bar>
-}
-
 <div class="artists searchbox">
   <cdk-virtual-scroll-viewport class="virtual-scroll-viewport" appendOnly itemSize="32">
     <mat-nav-list>

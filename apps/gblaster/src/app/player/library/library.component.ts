@@ -12,7 +12,6 @@ import { CdkFixedSizeVirtualScroll, CdkVirtualForOf, CdkVirtualScrollViewport } 
 import { SafePipe } from 'safe-pipe';
 import { Router } from '@angular/router';
 import { RemoteCoverPicture } from '../metadata-service/metadata.types';
-import { MatProgressBar } from '@angular/material/progress-bar';
 import { MetadataService } from '../metadata-service/metadata.service';
 import { FormsModule } from '@angular/forms';
 import { MatFormField, MatHint, MatInput, MatPrefix, MatSuffix } from '@angular/material/input';
@@ -40,7 +39,6 @@ export interface Album {
     CdkVirtualForOf,
     SafePipe,
     MatHint,
-    MatProgressBar,
     FormsModule,
     MatFormField,
     MatInput,

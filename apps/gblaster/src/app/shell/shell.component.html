@@ -43,7 +43,9 @@
         <mat-spinner style="margin-left: 1rem" color="accent" diameter="32" strokeWidth="6" />
       }
     </mat-toolbar>
-
+    @if (metadataService.processionPercent() < 100) {
+      <mat-progress-bar class="progress" mode="determinate" [value]="metadataService.processionPercent()"></mat-progress-bar>
+    }
     <div class="router-outlet main"><router-outlet></router-outlet></div>
 
     <player-toolbar class="toolbar" />

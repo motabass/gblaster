@@ -13,7 +13,6 @@ import { CdkFixedSizeVirtualScroll, CdkVirtualForOf, CdkVirtualScrollViewport } 
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatProgressBar } from '@angular/material/progress-bar';
 import { MetadataService } from '../metadata-service/metadata.service';
 
 @Component({
@@ -33,8 +32,7 @@ import { MetadataService } from '../metadata-service/metadata.service';
     CdkVirtualForOf,
     CdkFixedSizeVirtualScroll,
     MatFormFieldModule,
-    FormsModule,
-    MatProgressBar
+    FormsModule
   ]
 })
 export class PlaylistComponent {

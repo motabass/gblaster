@@ -16,6 +16,8 @@ import { FileDropOverlayComponent } from '@motabass/ui-components/file-drop-over
 import { PlayerService } from '../player/player.service';
 import { ALLOWED_MIMETYPES, FileData } from '../player/file-loader-service/file-loader.helpers';
 import { PlayerToolbarComponent } from '../player/player-toolbar/player-toolbar.component';
+import { MatProgressBar } from '@angular/material/progress-bar';
+import { MetadataService } from '../player/metadata-service/metadata.service';
 
 @Component({
   selector: 'mtb-shell',
@@ -30,7 +32,8 @@ import { PlayerToolbarComponent } from '../player/player-toolbar/player-toolbar.
     MatProgressSpinnerModule,
     RouterOutlet,
     FileDropOverlayComponent,
-    PlayerToolbarComponent
+    PlayerToolbarComponent,
+    MatProgressBar
   ]
 })
 export class ShellComponent {
@@ -39,6 +42,7 @@ export class ShellComponent {
   private router = inject(Router);
   titleService = inject(TitleService);
   loaderService = inject(LoaderService);
+  metadataService = inject(MetadataService);
 
   readonly ALLOWED_TYPES = ALLOWED_MIMETYPES;
 
