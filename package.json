@@ -101,7 +101,7 @@
     "@nx/workspace": "20.6.2",
     "@schematics/angular": "19.2.4",
     "@swc-node/register": "1.10.10",
-    "@swc/core": "1.11.11",
+    "@swc/core": "1.11.13",
     "@swc/helpers": "0.5.15",
     "@trumbitta/nx-plugin-unused-deps": "^1.12.1",
     "@twittwer/compodoc": "^1.13.0",
