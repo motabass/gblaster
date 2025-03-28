@@ -210,14 +210,19 @@ async function generateFileHash(file: File): Promise<string> {
   return spark.end();
 }
 
-async function extractColorsWithNodeVibrant(url: string): Promise<CoverColorPalette> {
-  const palette = await Vibrant.from(url).getPalette();
-  return {
-    vibrant: { hex: palette.Vibrant?.hex, textHex: palette.Vibrant?.titleTextColor },
-    darkVibrant: { hex: palette.DarkVibrant?.hex, textHex: palette.DarkVibrant?.titleTextColor },
-    lightVibrant: { hex: palette.LightVibrant?.hex, textHex: palette.LightVibrant?.titleTextColor },
-    muted: { hex: palette.Muted?.hex, textHex: palette.Muted?.titleTextColor },
-    darkMuted: { hex: palette.DarkMuted?.hex, textHex: palette.DarkMuted?.titleTextColor },
-    lightMuted: { hex: palette.LightMuted?.hex, textHex: palette.LightMuted?.titleTextColor }
-  };
+async function extractColorsWithNodeVibrant(url: string): Promise<CoverColorPalette | undefined> {
+  try {
+    const palette = await Vibrant.from(url).getPalette();
+    return {
+      vibrant: { hex: palette.Vibrant?.hex, textHex: palette.Vibrant?.titleTextColor },
+      darkVibrant: { hex: palette.DarkVibrant?.hex, textHex: palette.DarkVibrant?.titleTextColor },
+      lightVibrant: { hex: palette.LightVibrant?.hex, textHex: palette.LightVibrant?.titleTextColor },
+      muted: { hex: palette.Muted?.hex, textHex: palette.Muted?.titleTextColor },
+      darkMuted: { hex: palette.DarkMuted?.hex, textHex: palette.DarkMuted?.titleTextColor },
+      lightMuted: { hex: palette.LightMuted?.hex, textHex: palette.LightMuted?.titleTextColor }
+    };
+  } catch (error) {
+    console.error('Error extracting colors with Vibrant:', error);
+    return undefined;
+  }
 }
