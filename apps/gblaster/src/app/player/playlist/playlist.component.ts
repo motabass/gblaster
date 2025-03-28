@@ -111,7 +111,7 @@ export class PlaylistComponent {
     if (!viewport || !currentTrack) return;
 
     const playlist = this.playerService.currentPlaylist();
-    const targetIndex = playlist.findIndex((track) => track.metadata?.crc === currentTrack.metadata?.crc);
+    const targetIndex = playlist.findIndex((track) => track.metadata?.hash === currentTrack.metadata?.hash);
 
     if (targetIndex !== -1) {
       // Get the visible range
@@ -141,13 +141,15 @@ export class PlaylistComponent {
 
   isActive(song: Track): Signal<boolean> {
     return computed(() => {
-      return (this.audioService.isPlaying() || this.audioService.isPaused()) && this.playerService.currentlyLoadedTrack()?.metadata?.crc === song.metadata?.crc;
+      return (
+        (this.audioService.isPlaying() || this.audioService.isPaused()) && this.playerService.currentlyLoadedTrack()?.metadata?.hash === song.metadata?.hash
+      );
     });
   }
 
   isPlaying(song: Track): Signal<boolean> {
     return computed(() => {
-      return this.audioService.isPlaying() && this.playerService.currentlyLoadedTrack()?.metadata?.crc === song.metadata?.crc;
+      return this.audioService.isPlaying() && this.playerService.currentlyLoadedTrack()?.metadata?.hash === song.metadata?.hash;
     });
   }
 
@@ -156,8 +158,8 @@ export class PlaylistComponent {
     return this.playerService.playPauseTrack(song);
   }
 
-  trackByCrc(index: number, song: Track): string {
-    return song.metadata.crc;
+  trackByHash(index: number, song: Track): string {
+    return song.metadata.hash;
   }
 
   onContextMenu(event: MouseEvent, song: Track): void {

@@ -73,13 +73,27 @@ export class LastfmMetadataService {
     }
 
     const images = data.album.image;
-    if (!images || !images[5]?.['#text']) {
+    if (!images || images.length === 0) {
+      return undefined;
+    }
+
+    // Find images by size
+    const smallImage = images.find((img) => img.size === 'small')?.['#text'] || images.find((img) => img.size === 'medium')?.['#text'] || images[0]?.['#text'];
+
+    const largeImage =
+      images.find((img) => img.size === 'mega')?.['#text'] ||
+      images.find((img) => img.size === 'extralarge')?.['#text'] ||
+      images.find((img) => img.size === 'large')?.['#text'] ||
+      images[images.length - 1]?.['#text'] ||
+      smallImage;
+
+    if (!smallImage || !largeImage) {
       return undefined;
     }
 
     return {
-      thumb: ensureHttps(images[1]['#text']),
-      original: ensureHttps(images[5]['#text'])
+      thumb: ensureHttps(smallImage),
+      original: ensureHttps(largeImage)
     };
   }
 }

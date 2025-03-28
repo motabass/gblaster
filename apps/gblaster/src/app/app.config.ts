@@ -2,9 +2,8 @@ import { ApplicationConfig, provideExperimentalZonelessChangeDetection } from '@
 import { provideServiceWorker } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { provideNgxWebstorage, withLocalStorage, withNgxWebstorageConfig } from 'ngx-webstorage';
-import { DBConfig, NgxIndexedDBService, provideIndexedDb } from 'ngx-indexed-db';
+import { NgxIndexedDBService, provideIndexedDb } from 'ngx-indexed-db';
 import { provideRouter, withEnabledBlockingInitialNavigation, withViewTransitions } from '@angular/router';
-import { provideAnimations } from '@angular/platform-browser/animations';
 import { HTTP_INTERCEPTORS, provideHttpClient, withFetch, withInterceptorsFromDi } from '@angular/common/http';
 import { LoaderInterceptor } from './services/loader/loader.interceptor';
 import { FileLoaderService } from './player/file-loader-service/file-loader.service.abstract';
@@ -19,28 +18,7 @@ import { WakelockService } from './services/wakelock.service';
 import { wakelockServiceFactory } from './services/wakelock.service.factory';
 import { mediaSessionServiceFactory } from './services/media-session/media-session.service.factory';
 import { MediaSessionService } from './services/media-session/media-session.service';
-
-const databaseConfig: DBConfig = {
-  name: 'metadataCache',
-  version: 2,
-  objectStoresMeta: [
-    {
-      store: 'metatags',
-      storeConfig: { keyPath: 'crc', autoIncrement: false },
-      storeSchema: [
-        { name: 'crc', keypath: 'crc', options: { unique: true } },
-        { name: 'artist', keypath: 'artist', options: { unique: false } },
-        { name: 'title', keypath: 'title', options: { unique: false } },
-        { name: 'album', keypath: 'album', options: { unique: false } }
-      ]
-    },
-    {
-      store: 'dirHandle',
-      storeConfig: { keyPath: 'id', autoIncrement: true },
-      storeSchema: [{ name: 'handle', keypath: 'handle', options: { unique: false } }]
-    }
-  ]
-};
+import { databaseConfig } from './idexed-db-config';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -48,7 +26,6 @@ export const appConfig: ApplicationConfig = {
     provideIndexedDb(databaseConfig),
     provideServiceWorker('ngsw-worker.js', { enabled: environment.production, registrationStrategy: 'registerImmediately' }),
     provideNgxWebstorage(withNgxWebstorageConfig({ separator: '|', caseSensitive: true, prefix: 'gblaster' }), withLocalStorage()),
-    provideAnimations(),
     provideHttpClient(withInterceptorsFromDi(), withFetch()),
     provideRouter(routes, withEnabledBlockingInitialNavigation(), withViewTransitions()),
     {

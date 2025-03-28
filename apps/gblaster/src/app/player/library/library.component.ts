@@ -148,7 +148,7 @@ export default class LibraryComponent implements OnInit {
 
   async ngOnInit() {
     try {
-      const result = await firstValueFrom(this.indexedDbService.getAll<IndexedDbTrackMetadata>('metatags'));
+      const result = await firstValueFrom(this.indexedDbService.getAll<IndexedDbTrackMetadata>('library'));
       const tagsWithOptionalBlobUrls = result.map((tag) => {
         return this.metadataService.createObjectUrlForEmbeddedPicture(tag);
       });
@@ -179,7 +179,7 @@ export default class LibraryComponent implements OnInit {
   async playTrack(track: IndexedDbTrackMetadata | undefined) {
     if (track) {
       await this.addTrackToPlaylist(track);
-      await this.playerService.playTrackByCrc(track.crc);
+      await this.playerService.playTrackByHash(track.hash);
       // void this.router.navigate(['/player']);
     }
   }
@@ -244,7 +244,7 @@ export default class LibraryComponent implements OnInit {
     return album.name;
   }
 
-  trackByCrc(index: number, track: IndexedDbTrackMetadata): string {
-    return track.crc;
+  trackByHash(index: number, track: IndexedDbTrackMetadata): string {
+    return track.hash;
   }
 }

@@ -1,9 +1,9 @@
 <cdk-virtual-scroll-viewport #scrollViewport itemSize="72" class="playlist-viewport" style="height: 100%">
   <mat-list class="playlist">
     <mat-list-item
-      *cdkVirtualFor="let song of playerService.currentPlaylist(); trackBy: trackByCrc"
+      *cdkVirtualFor="let song of playerService.currentPlaylist(); trackBy: trackByHash"
       class="playlist-item"
-      [ngClass]="{ selected: this.playerService.selectedTrack()?.metadata?.crc === song.metadata.crc }"
+      [ngClass]="{ selected: this.playerService.selectedTrack()?.metadata?.hash === song.metadata.hash }"
       (dblclick)="playPauseSong($event, song)"
       (click)="playerService.selectSong(song)"
       (contextmenu)="onContextMenu($event, song)"

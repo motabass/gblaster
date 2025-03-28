@@ -140,7 +140,7 @@ export class PlayerService {
   }
 
   addTrackToPlaylist(song: Track) {
-    if (!this.currentPlaylist().some((playlistSong) => playlistSong.metadata?.crc === song.metadata?.crc)) {
+    if (!this.currentPlaylist().some((playlistSong) => playlistSong.metadata?.hash === song.metadata?.hash)) {
       this.currentPlaylist.update((playlist) => [...playlist, song]);
     }
   }
@@ -180,7 +180,7 @@ export class PlayerService {
       return;
     }
 
-    if (this.currentlyLoadedTrack()?.metadata?.crc === track.metadata?.crc) {
+    if (this.currentlyLoadedTrack()?.metadata?.hash === track.metadata?.hash) {
       await this.playPause();
       return;
     }
@@ -251,10 +251,10 @@ export class PlayerService {
     }
   }
 
-  async playTrackByCrc(crc: string) {
+  async playTrackByHash(hash: string) {
     const playlist = this.currentPlaylist();
 
-    const track = playlist.find((playlistTrack) => playlistTrack.metadata?.crc === crc);
+    const track = playlist.find((playlistTrack) => playlistTrack.metadata?.hash === hash);
     if (track) {
       await this.playTrack(track);
     }

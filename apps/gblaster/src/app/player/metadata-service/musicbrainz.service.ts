@@ -78,16 +78,29 @@ export class MusicbrainzService {
       const url = `${this.COVER_API_URL}/release-group/${releaseGroupId}`;
       const coverData = await firstValueFrom(this.http.get<CoverArtResponse>(url));
 
-      const coverImage = coverData.images.find((image) => image.front === true);
+      if (!coverData.images?.length) {
+        return undefined;
+      }
+
+      // First try to find a front cover
+      let coverImage = coverData.images.find((image) => image.front);
+
+      // If no front cover is available, use any image
+      if (!coverImage && coverData.images.length > 0) {
+        coverImage = coverData.images[0];
+      }
+
       if (!coverImage) {
         return undefined;
       }
 
-      return {
-        thumb: ensureHttps(coverImage.thumbnails['500'] || coverImage.thumbnails.small),
-        original: ensureHttps(coverImage.thumbnails.large)
-        // original: ensureHttps(coverImage.image)
-      };
+      // Create a fallback chain for thumbnails
+      const thumb = ensureHttps(coverImage.thumbnails['500'] || coverImage.thumbnails.large || coverImage.thumbnails.small || coverImage.image);
+
+      // Use large thumbnail or fall back to the full image
+      const original = ensureHttps(coverImage.thumbnails.large || coverImage.image);
+
+      return { thumb, original };
     } catch (error) {
       // console.warn('No cover found with this ID', error);
       return undefined;

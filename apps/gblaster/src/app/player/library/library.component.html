@@ -74,7 +74,7 @@
           </button>
         </span>
       </mat-list-item>
-      <mat-list-item *cdkVirtualFor="let track of tracks(); trackBy: trackByCrc" (click)="selectTrack(track)" (dblclick)="playTrack(track)">
+      <mat-list-item *cdkVirtualFor="let track of tracks(); trackBy: trackByHash" (click)="selectTrack(track)" (dblclick)="playTrack(track)">
         <div matListItemAvatar style="overflow: hidden; border-radius: 2px; position: relative; width: 28px; height: 28px">
           @if (track && track.coverUrl) {
             <img

@@ -1,4 +1,3 @@
-import { crc32 } from '@allex/crc32';
 import { computed, inject, Injectable, signal } from '@angular/core';
 import { NgxIndexedDBService } from 'ngx-indexed-db';
 import { LocalStorageService } from 'ngx-webstorage';
@@ -10,8 +9,7 @@ import { CoverColorPalette, RemoteCoverPicture } from './metadata.types';
 import { MusicbrainzService } from './musicbrainz.service';
 import { Vibrant } from 'node-vibrant/browser';
 import { FileData } from '../file-loader-service/file-loader.helpers';
-
-// import * as SparkMD5 from 'spark-md5';
+import SparkMD5 from 'spark-md5';
 
 @Injectable({ providedIn: 'root' })
 export class MetadataService {
@@ -66,11 +64,11 @@ export class MetadataService {
 
   async getMetadata(fileData: FileData): Promise<TrackMetadata | undefined> {
     // console.time('hash');
-    const crc = generateFileHash(fileData.file);
+    const hash = await generateFileHash(fileData.file);
     // console.timeEnd('hash');
 
     if (this.useTagsCache()) {
-      const metadataCache: TrackMetadata = await firstValueFrom(this.indexedDBService.getByKey<IndexedDbTrackMetadata>('metatags', crc));
+      const metadataCache: TrackMetadata = await firstValueFrom(this.indexedDBService.getByKey<IndexedDbTrackMetadata>('library', hash));
 
       if (metadataCache) {
         if (
@@ -127,7 +125,7 @@ export class MetadataService {
     }
 
     const metadata: IndexedDbTrackMetadata = {
-      crc: crc,
+      hash: hash,
       fileName: fileData.file.name,
       fileHandle: fileData.fileHandle,
       coverUrl: coverUrls ?? { thumb: this.PLACEHOLDER_URL, original: this.PLACEHOLDER_URL },
@@ -142,7 +140,7 @@ export class MetadataService {
     };
 
     if (this.useTagsCache()) {
-      await this.indexedDBService.add('metatags', metadata).toPromise();
+      await this.indexedDBService.add('library', metadata).toPromise();
     }
     return this.createObjectUrlForEmbeddedPicture(metadata);
   }
@@ -168,15 +166,49 @@ export class MetadataService {
   }
 }
 
-function generateFileHash(file: File): string {
-  // TODO: replace with real file hashing? https://stackoverflow.com/questions/20917710/fast-file-hashing-of-large-files
-  const hashString: string = file.name + file.type + file.size + file.lastModified;
-  return crc32(hashString, 'hex') as string;
+async function generateFileHash(file: File): Promise<string> {
+  const spark = new SparkMD5.ArrayBuffer();
+  const fileSize = file.size;
+
+  // For very small files, hash the entire content
+  if (fileSize <= 256 * 1024) {
+    // 256KB or less
+    const buffer = await file.arrayBuffer();
+    spark.append(buffer);
+    return spark.end();
+  }
+
+  // Choose smaller chunk size based on file size
+  const chunkSize = fileSize < 5 * 1024 * 1024 ? 64 * 1024 : 128 * 1024; // 64KB or 128KB
+
+  // First chunk - contains headers in audio files
+  const firstChunk = await file.slice(0, chunkSize).arrayBuffer();
+  spark.append(firstChunk);
+
+  // For files larger than 1MB, sample the middle
+  if (fileSize > 1 * 1024 * 1024) {
+    const middlePos = Math.floor(fileSize / 2) - Math.floor(chunkSize / 2);
+    const middleChunk = await file.slice(middlePos, middlePos + chunkSize).arrayBuffer();
+    spark.append(middleChunk);
+  }
+
+  // For files larger than 8MB, add quarter and three-quarter samples
+  if (fileSize > 8 * 1024 * 1024) {
+    const quarterPos = Math.floor(fileSize * 0.25);
+    const quarterChunk = await file.slice(quarterPos, quarterPos + chunkSize).arrayBuffer();
+    spark.append(quarterChunk);
+
+    const threeQuarterPos = Math.floor(fileSize * 0.75);
+    const threeQuarterChunk = await file.slice(threeQuarterPos, threeQuarterPos + chunkSize).arrayBuffer();
+    spark.append(threeQuarterChunk);
+  }
+
+  // Last chunk - often contains important metadata in audio files
+  const endChunk = await file.slice(Math.max(0, fileSize - chunkSize), fileSize).arrayBuffer();
+  spark.append(endChunk);
+
+  return spark.end();
 }
-//
-// async function generateFileHashMD5(file: File): Promise<string> {
-//   return SparkMD5.ArrayBuffer.hash(await file.arrayBuffer());
-// }
 
 async function extractColorsWithNodeVibrant(url: string): Promise<CoverColorPalette> {
   const palette = await Vibrant.from(url).getPalette();

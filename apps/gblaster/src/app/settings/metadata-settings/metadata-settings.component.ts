@@ -37,6 +37,6 @@ export class MetadataSettingsComponent {
   }
 
   async clearMetadataCache() {
-    await this.indexedDBService.clear('metatags').toPromise();
+    await this.indexedDBService.clear('library').toPromise();
   }
 }
