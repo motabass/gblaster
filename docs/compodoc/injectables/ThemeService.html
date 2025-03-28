@@ -135,11 +135,17 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
+                                <a href="#accentColor" >accentColor</a>
+                            </li>
+                            <li>
                                 <a href="#accentColorPalette" >accentColorPalette</a>
                             </li>
                             <li>
                                     <span class="modifier">Readonly</span>
                                 <a href="#darkMode" >darkMode</a>
+                            </li>
+                            <li>
+                                <a href="#primaryColor" >primaryColor</a>
                             </li>
                             <li>
                                 <a href="#primaryColorPalette" >primaryColorPalette</a>
@@ -364,6 +370,31 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
+                    <a name="accentColor"></a>
+                    <span class="name">
+                        <span ><b>accentColor</b></span>
+                        <a href="#accentColor"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>FALLBACK_ACCENT_COLOR</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">apps/gblaster/src/app/theme/theme.service.ts:18</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
                     <a name="accentColorPalette"></a>
                     <span class="name">
                         <span ><b>accentColorPalette</b></span>
@@ -411,6 +442,31 @@
                     <tr>
                         <td class="col-md-4">
                                 <div class="io-line">Defined in <a href="" data-line="20" class="link-to-prism">apps/gblaster/src/app/theme/theme.service.ts:20</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="primaryColor"></a>
+                    <span class="name">
+                        <span ><b>primaryColor</b></span>
+                        <a href="#primaryColor"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>FALLBACK_PRIMARY_COLOR</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">apps/gblaster/src/app/theme/theme.service.ts:16</a></div>
                         </td>
                     </tr>
 
@@ -469,9 +525,9 @@ export class ThemeService {
   private meta &#x3D; inject(Meta);
   private localStorageService &#x3D; inject(LocalStorageService);
 
-  private primaryColor &#x3D; FALLBACK_PRIMARY_COLOR;
+  primaryColor &#x3D; FALLBACK_PRIMARY_COLOR;
 
-  private accentColor &#x3D; FALLBACK_ACCENT_COLOR;
+  accentColor &#x3D; FALLBACK_ACCENT_COLOR;
 
   readonly darkMode &#x3D; signal&lt;boolean&gt;(this.localStorageService.retrieve(&#x27;darkMode&#x27;) ?? globalThis.matchMedia(&#x27;(prefers-color-scheme: dark)&#x27;).matches);
 

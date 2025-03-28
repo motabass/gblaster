@@ -297,9 +297,6 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 <a href="interfaces/DirHandleEntry.html" data-type="entity-link" >DirHandleEntry</a>
                             </li>
                             <li class="link">
-                                <a href="interfaces/EqualizerGainValues.html" data-type="entity-link" >EqualizerGainValues</a>
-                            </li>
-                            <li class="link">
                                 <a href="interfaces/FileData.html" data-type="entity-link" >FileData</a>
                             </li>
                             <li class="link">

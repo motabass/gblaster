@@ -348,13 +348,27 @@ export class LastfmMetadataService {
     }
 
     const images &#x3D; data.album.image;
-    if (!images || !images[5]?.[&#x27;#text&#x27;]) {
+    if (!images || images.length &#x3D;&#x3D;&#x3D; 0) {
+      return undefined;
+    }
+
+    // Find images by size
+    const smallImage &#x3D; images.find((img) &#x3D;&gt; img.size &#x3D;&#x3D;&#x3D; &#x27;small&#x27;)?.[&#x27;#text&#x27;] || images.find((img) &#x3D;&gt; img.size &#x3D;&#x3D;&#x3D; &#x27;medium&#x27;)?.[&#x27;#text&#x27;] || images[0]?.[&#x27;#text&#x27;];
+
+    const largeImage &#x3D;
+      images.find((img) &#x3D;&gt; img.size &#x3D;&#x3D;&#x3D; &#x27;mega&#x27;)?.[&#x27;#text&#x27;] ||
+      images.find((img) &#x3D;&gt; img.size &#x3D;&#x3D;&#x3D; &#x27;extralarge&#x27;)?.[&#x27;#text&#x27;] ||
+      images.find((img) &#x3D;&gt; img.size &#x3D;&#x3D;&#x3D; &#x27;large&#x27;)?.[&#x27;#text&#x27;] ||
+      images[images.length - 1]?.[&#x27;#text&#x27;] ||
+      smallImage;
+
+    if (!smallImage || !largeImage) {
       return undefined;
     }
 
     return {
-      thumb: ensureHttps(images[1][&#x27;#text&#x27;]),
-      original: ensureHttps(images[5][&#x27;#text&#x27;])
+      thumb: ensureHttps(smallImage),
+      original: ensureHttps(largeImage)
     };
   }
 }

@@ -244,7 +244,7 @@
                                 <a href="#playPauseSong" >playPauseSong</a>
                             </li>
                             <li>
-                                <a href="#trackByCrc" >trackByCrc</a>
+                                <a href="#trackByHash" >trackByHash</a>
                             </li>
                         </ul>
                     </td>
@@ -373,8 +373,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="148"
-                                    class="link-to-prism">apps/gblaster/src/app/player/playlist/playlist.component.ts:148</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="150"
+                                    class="link-to-prism">apps/gblaster/src/app/player/playlist/playlist.component.ts:150</a></div>
                         </td>
                     </tr>
 
@@ -440,8 +440,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="163"
-                                    class="link-to-prism">apps/gblaster/src/app/player/playlist/playlist.component.ts:163</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="165"
+                                    class="link-to-prism">apps/gblaster/src/app/player/playlist/playlist.component.ts:165</a></div>
                         </td>
                     </tr>
 
@@ -521,8 +521,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="154"
-                                    class="link-to-prism">apps/gblaster/src/app/player/playlist/playlist.component.ts:154</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="156"
+                                    class="link-to-prism">apps/gblaster/src/app/player/playlist/playlist.component.ts:156</a></div>
                         </td>
                     </tr>
 
@@ -584,24 +584,24 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="trackByCrc"></a>
+                    <a name="trackByHash"></a>
                     <span class="name">
-                        <span ><b>trackByCrc</b></span>
-                        <a href="#trackByCrc"><span class="icon ion-ios-link"></span></a>
+                        <span ><b>trackByHash</b></span>
+                        <a href="#trackByHash"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>trackByCrc(index: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, song: <a href="../interfaces/Track.html" target="_self">Track</a>)</code>
+<code>trackByHash(index: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, song: <a href="../interfaces/Track.html" target="_self">Track</a>)</code>
                 </td>
             </tr>
 
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="159"
-                                    class="link-to-prism">apps/gblaster/src/app/player/playlist/playlist.component.ts:159</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="161"
+                                    class="link-to-prism">apps/gblaster/src/app/player/playlist/playlist.component.ts:161</a></div>
                         </td>
                     </tr>
 
@@ -886,7 +886,7 @@ export class PlaylistComponent {
     if (!viewport || !currentTrack) return;
 
     const playlist &#x3D; this.playerService.currentPlaylist();
-    const targetIndex &#x3D; playlist.findIndex((track) &#x3D;&gt; track.metadata?.crc &#x3D;&#x3D;&#x3D; currentTrack.metadata?.crc);
+    const targetIndex &#x3D; playlist.findIndex((track) &#x3D;&gt; track.metadata?.hash &#x3D;&#x3D;&#x3D; currentTrack.metadata?.hash);
 
     if (targetIndex !&#x3D;&#x3D; -1) {
       // Get the visible range
@@ -916,13 +916,15 @@ export class PlaylistComponent {
 
   isActive(song: Track): Signal&lt;boolean&gt; {
     return computed(() &#x3D;&gt; {
-      return (this.audioService.isPlaying() || this.audioService.isPaused()) &amp;&amp; this.playerService.currentlyLoadedTrack()?.metadata?.crc &#x3D;&#x3D;&#x3D; song.metadata?.crc;
+      return (
+        (this.audioService.isPlaying() || this.audioService.isPaused()) &amp;&amp; this.playerService.currentlyLoadedTrack()?.metadata?.hash &#x3D;&#x3D;&#x3D; song.metadata?.hash
+      );
     });
   }
 
   isPlaying(song: Track): Signal&lt;boolean&gt; {
     return computed(() &#x3D;&gt; {
-      return this.audioService.isPlaying() &amp;&amp; this.playerService.currentlyLoadedTrack()?.metadata?.crc &#x3D;&#x3D;&#x3D; song.metadata?.crc;
+      return this.audioService.isPlaying() &amp;&amp; this.playerService.currentlyLoadedTrack()?.metadata?.hash &#x3D;&#x3D;&#x3D; song.metadata?.hash;
     });
   }
 
@@ -931,8 +933,8 @@ export class PlaylistComponent {
     return this.playerService.playPauseTrack(song);
   }
 
-  trackByCrc(index: number, song: Track): string {
-    return song.metadata.crc;
+  trackByHash(index: number, song: Track): string {
+    return song.metadata.hash;
   }
 
   onContextMenu(event: MouseEvent, song: Track): void {
@@ -965,9 +967,9 @@ export class PlaylistComponent {
         <pre class="line-numbers"><code class="language-html">&lt;cdk-virtual-scroll-viewport #scrollViewport itemSize&#x3D;&quot;72&quot; class&#x3D;&quot;playlist-viewport&quot; style&#x3D;&quot;height: 100%&quot;&gt;
   &lt;mat-list class&#x3D;&quot;playlist&quot;&gt;
     &lt;mat-list-item
-      *cdkVirtualFor&#x3D;&quot;let song of playerService.currentPlaylist(); trackBy: trackByCrc&quot;
+      *cdkVirtualFor&#x3D;&quot;let song of playerService.currentPlaylist(); trackBy: trackByHash&quot;
       class&#x3D;&quot;playlist-item&quot;
-      [ngClass]&#x3D;&quot;{ selected: this.playerService.selectedTrack()?.metadata?.crc &#x3D;&#x3D;&#x3D; song.metadata.crc }&quot;
+      [ngClass]&#x3D;&quot;{ selected: this.playerService.selectedTrack()?.metadata?.hash &#x3D;&#x3D;&#x3D; song.metadata.hash }&quot;
       (dblclick)&#x3D;&quot;playPauseSong($event, song)&quot;
       (click)&#x3D;&quot;playerService.selectSong(song)&quot;
       (contextmenu)&#x3D;&quot;onContextMenu($event, song)&quot;
@@ -1047,7 +1049,7 @@ export class PlaylistComponent {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><cdk-virtual-scroll-viewport #scrollViewport itemSize="72" class="playlist-viewport" style="height: 100%">  <mat-list class="playlist">    <mat-list-item      *cdkVirtualFor="let song of playerService.currentPlaylist(); trackBy: trackByCrc"      class="playlist-item"      [ngClass]="{ selected: this.playerService.selectedTrack()?.metadata?.crc === song.metadata.crc }"      (dblclick)="playPauseSong($event, song)"      (click)="playerService.selectSong(song)"      (contextmenu)="onContextMenu($event, song)"    >      <div matListItemAvatar style="overflow: hidden; border-radius: 4px; position: relative">        @if (song && song.metadata && song.metadata.coverUrl) {          <img            style="position: absolute; top: 0; right: 0; bottom: 0; left: 0; width: 100%; height: 100%"            fill            [src]="song.metadata.coverUrl.thumb | safe: \'resourceUrl\'"          />        }        @let songPlaying = isPlaying(song)();        @if (songPlaying) {          <canvas            mtbVisual            mode="osc"            style="position: absolute; right: 0; bottom: 0; left: 0; width: 100%; height: 100%"            [colorConfig]="playerService.colorConfig()"            [oscConfig]="{ thickness: 2 }"          ></canvas>        }      </div>      <h3 matListItemTitle style="font-size: 0.9rem; font-weight: bold">{{ song?.metadata?.title || song.file.name }}</h3>      <p matListItemLine style="font-size: 0.8rem">{{ song?.metadata?.artist }}</p>      @if (isActive(song)()) {        <button matListItemMeta mat-icon-button (click)="playPauseSong($event, song)">          <mat-icon class="accent-color" [svgIcon]="songPlaying ? \'pause\' : \'play-outline\'"></mat-icon>        </button>      }    </mat-list-item>  </mat-list></cdk-virtual-scroll-viewport><!-- Context menu trigger--><div style="display: none">  <span #menuTrigger="matMenuTrigger" [matMenuTriggerFor]="songMenu"></span></div><!-- Context Menu --><mat-menu #songMenu="matMenu">  <ng-template matMenuContent let-song="song">    <button mat-menu-item (click)="playerService.removeTrackFromPlaylist(song)">      <mat-icon svgIcon="close-thick"></mat-icon>      <span>Remove from playlist</span>    </button>  </ng-template></mat-menu></div>'
+        var COMPONENT_TEMPLATE = '<div><cdk-virtual-scroll-viewport #scrollViewport itemSize="72" class="playlist-viewport" style="height: 100%">  <mat-list class="playlist">    <mat-list-item      *cdkVirtualFor="let song of playerService.currentPlaylist(); trackBy: trackByHash"      class="playlist-item"      [ngClass]="{ selected: this.playerService.selectedTrack()?.metadata?.hash === song.metadata.hash }"      (dblclick)="playPauseSong($event, song)"      (click)="playerService.selectSong(song)"      (contextmenu)="onContextMenu($event, song)"    >      <div matListItemAvatar style="overflow: hidden; border-radius: 4px; position: relative">        @if (song && song.metadata && song.metadata.coverUrl) {          <img            style="position: absolute; top: 0; right: 0; bottom: 0; left: 0; width: 100%; height: 100%"            fill            [src]="song.metadata.coverUrl.thumb | safe: \'resourceUrl\'"          />        }        @let songPlaying = isPlaying(song)();        @if (songPlaying) {          <canvas            mtbVisual            mode="osc"            style="position: absolute; right: 0; bottom: 0; left: 0; width: 100%; height: 100%"            [colorConfig]="playerService.colorConfig()"            [oscConfig]="{ thickness: 2 }"          ></canvas>        }      </div>      <h3 matListItemTitle style="font-size: 0.9rem; font-weight: bold">{{ song?.metadata?.title || song.file.name }}</h3>      <p matListItemLine style="font-size: 0.8rem">{{ song?.metadata?.artist }}</p>      @if (isActive(song)()) {        <button matListItemMeta mat-icon-button (click)="playPauseSong($event, song)">          <mat-icon class="accent-color" [svgIcon]="songPlaying ? \'pause\' : \'play-outline\'"></mat-icon>        </button>      }    </mat-list-item>  </mat-list></cdk-virtual-scroll-viewport><!-- Context menu trigger--><div style="display: none">  <span #menuTrigger="matMenuTrigger" [matMenuTriggerFor]="songMenu"></span></div><!-- Context Menu --><mat-menu #songMenu="matMenu">  <ng-template matMenuContent let-song="song">    <button mat-menu-item (click)="playerService.removeTrackFromPlaylist(song)">      <mat-icon svgIcon="close-thick"></mat-icon>      <span>Remove from playlist</span>    </button>  </ng-template></mat-menu></div>'
     var COMPONENTS = [{'name': 'AppComponent', 'selector': 'mtb-root'},{'name': 'CoverDisplayComponent', 'selector': 'mtb-cover-display'},{'name': 'EqualizerComponent', 'selector': 'mtb-equalizer'},{'name': 'FileDropOverlayComponent', 'selector': 'mtb-file-drop-overlay'},{'name': 'HotkeysHelpDialogComponent', 'selector': 'mtb-hotkeys-help-dialog'},{'name': 'LibraryComponent', 'selector': ''},{'name': 'MetadataSettingsComponent', 'selector': 'mtb-metadata-settings'},{'name': 'PlayerComponent', 'selector': 'mtb-player'},{'name': 'PlayerToolbarComponent', 'selector': 'player-toolbar'},{'name': 'PlaylistComponent', 'selector': 'mtb-playlist'},{'name': 'PromptDialogComponent', 'selector': 'mtb-prompt-dialog'},{'name': 'SettingsComponent', 'selector': 'mtb-settings'},{'name': 'ShellComponent', 'selector': 'mtb-shell'},{'name': 'SlidePanelComponent', 'selector': 'mtb-slide-panel'},{'name': 'StorageSettingsComponent', 'selector': 'mtb-storage-settings'},{'name': 'ThemeSettingsComponent', 'selector': 'mtb-theme-settings'},{'name': 'VisualizerComponent', 'selector': 'mtb-visualizer'}];
     var DIRECTIVES = [{'name': 'VisualsDirective', 'selector': '[mtbVisual]'}];
     var ACTUAL_COMPONENT = {'name': 'PlaylistComponent'};

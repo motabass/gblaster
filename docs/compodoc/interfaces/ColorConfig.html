@@ -257,7 +257,7 @@ export interface Track {
 }
 
 export interface TrackMetadata {
-  crc: string;
+  hash: string;
   fileName: string;
   artist?: string;
   title?: string;
@@ -275,8 +275,10 @@ export interface IndexedDbTrackMetadata extends TrackMetadata {
 }
 
 // EQ
+export const FREQUENCY_BANDS &#x3D; [31, 63, 125, 250, 500, 1000, 2000, 4000, 8000, 16_000] as const;
 
-export type FrequencyBand &#x3D; 60 | 170 | 310 | 600 | 1000 | 3000 | 6000 | 12_000 | 14_000 | 16_000;
+// Derive FrequencyBand type from the array
+export type FrequencyBand &#x3D; (typeof FREQUENCY_BANDS)[number];
 
 export type RepeatMode &#x3D; &#x27;off&#x27; | &#x27;all&#x27; | &#x27;one&#x27;;
 

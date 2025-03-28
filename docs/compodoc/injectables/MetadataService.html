@@ -221,8 +221,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="37"
-                                    class="link-to-prism">apps/gblaster/src/app/player/metadata-service/metadata.service.ts:37</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="35"
+                                    class="link-to-prism">apps/gblaster/src/app/player/metadata-service/metadata.service.ts:35</a></div>
                         </td>
                     </tr>
 
@@ -288,8 +288,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="150"
-                                    class="link-to-prism">apps/gblaster/src/app/player/metadata-service/metadata.service.ts:150</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="148"
+                                    class="link-to-prism">apps/gblaster/src/app/player/metadata-service/metadata.service.ts:148</a></div>
                         </td>
                     </tr>
 
@@ -357,8 +357,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="52"
-                                    class="link-to-prism">apps/gblaster/src/app/player/metadata-service/metadata.service.ts:52</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="50"
+                                    class="link-to-prism">apps/gblaster/src/app/player/metadata-service/metadata.service.ts:50</a></div>
                         </td>
                     </tr>
 
@@ -426,8 +426,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="67"
-                                    class="link-to-prism">apps/gblaster/src/app/player/metadata-service/metadata.service.ts:67</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="65"
+                                    class="link-to-prism">apps/gblaster/src/app/player/metadata-service/metadata.service.ts:65</a></div>
                         </td>
                     </tr>
 
@@ -498,7 +498,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">apps/gblaster/src/app/player/metadata-service/metadata.service.ts:29</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="27" class="link-to-prism">apps/gblaster/src/app/player/metadata-service/metadata.service.ts:27</a></div>
                         </td>
                     </tr>
 
@@ -526,7 +526,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="33" class="link-to-prism">apps/gblaster/src/app/player/metadata-service/metadata.service.ts:33</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">apps/gblaster/src/app/player/metadata-service/metadata.service.ts:31</a></div>
                         </td>
                     </tr>
 
@@ -552,7 +552,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">apps/gblaster/src/app/player/metadata-service/metadata.service.ts:28</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">apps/gblaster/src/app/player/metadata-service/metadata.service.ts:26</a></div>
                         </td>
                     </tr>
 
@@ -578,7 +578,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="27" class="link-to-prism">apps/gblaster/src/app/player/metadata-service/metadata.service.ts:27</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">apps/gblaster/src/app/player/metadata-service/metadata.service.ts:25</a></div>
                         </td>
                     </tr>
 
@@ -604,7 +604,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">apps/gblaster/src/app/player/metadata-service/metadata.service.ts:26</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="24" class="link-to-prism">apps/gblaster/src/app/player/metadata-service/metadata.service.ts:24</a></div>
                         </td>
                     </tr>
 
@@ -617,8 +617,7 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { crc32 } from &#x27;@allex/crc32&#x27;;
-import { computed, inject, Injectable, signal } from &#x27;@angular/core&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { computed, inject, Injectable, signal } from &#x27;@angular/core&#x27;;
 import { NgxIndexedDBService } from &#x27;ngx-indexed-db&#x27;;
 import { LocalStorageService } from &#x27;ngx-webstorage&#x27;;
 import { firstValueFrom } from &#x27;rxjs&#x27;;
@@ -629,8 +628,7 @@ import { CoverColorPalette, RemoteCoverPicture } from &#x27;./metadata.types&#x2
 import { MusicbrainzService } from &#x27;./musicbrainz.service&#x27;;
 import { Vibrant } from &#x27;node-vibrant/browser&#x27;;
 import { FileData } from &#x27;../file-loader-service/file-loader.helpers&#x27;;
-
-// import * as SparkMD5 from &#x27;spark-md5&#x27;;
+import SparkMD5 from &#x27;spark-md5&#x27;;
 
 @Injectable({ providedIn: &#x27;root&#x27; })
 export class MetadataService {
@@ -685,11 +683,11 @@ export class MetadataService {
 
   async getMetadata(fileData: FileData): Promise&lt;TrackMetadata | undefined&gt; {
     // console.time(&#x27;hash&#x27;);
-    const crc &#x3D; generateFileHash(fileData.file);
+    const hash &#x3D; await generateFileHash(fileData.file);
     // console.timeEnd(&#x27;hash&#x27;);
 
     if (this.useTagsCache()) {
-      const metadataCache: TrackMetadata &#x3D; await firstValueFrom(this.indexedDBService.getByKey&lt;IndexedDbTrackMetadata&gt;(&#x27;metatags&#x27;, crc));
+      const metadataCache: TrackMetadata &#x3D; await firstValueFrom(this.indexedDBService.getByKey&lt;IndexedDbTrackMetadata&gt;(&#x27;library&#x27;, hash));
 
       if (metadataCache) {
         if (
@@ -746,7 +744,7 @@ export class MetadataService {
     }
 
     const metadata: IndexedDbTrackMetadata &#x3D; {
-      crc: crc,
+      hash: hash,
       fileName: fileData.file.name,
       fileHandle: fileData.fileHandle,
       coverUrl: coverUrls ?? { thumb: this.PLACEHOLDER_URL, original: this.PLACEHOLDER_URL },
@@ -761,7 +759,7 @@ export class MetadataService {
     };
 
     if (this.useTagsCache()) {
-      await this.indexedDBService.add(&#x27;metatags&#x27;, metadata).toPromise();
+      await this.indexedDBService.add(&#x27;library&#x27;, metadata).toPromise();
     }
     return this.createObjectUrlForEmbeddedPicture(metadata);
   }
@@ -787,15 +785,49 @@ export class MetadataService {
   }
 }
 
-function generateFileHash(file: File): string {
-  // TODO: replace with real file hashing? https://stackoverflow.com/questions/20917710/fast-file-hashing-of-large-files
-  const hashString: string &#x3D; file.name + file.type + file.size + file.lastModified;
-  return crc32(hashString, &#x27;hex&#x27;) as string;
+async function generateFileHash(file: File): Promise&lt;string&gt; {
+  const spark &#x3D; new SparkMD5.ArrayBuffer();
+  const fileSize &#x3D; file.size;
+
+  // For very small files, hash the entire content
+  if (fileSize &lt;&#x3D; 256 * 1024) {
+    // 256KB or less
+    const buffer &#x3D; await file.arrayBuffer();
+    spark.append(buffer);
+    return spark.end();
+  }
+
+  // Choose smaller chunk size based on file size
+  const chunkSize &#x3D; fileSize &lt; 5 * 1024 * 1024 ? 64 * 1024 : 128 * 1024; // 64KB or 128KB
+
+  // First chunk - contains headers in audio files
+  const firstChunk &#x3D; await file.slice(0, chunkSize).arrayBuffer();
+  spark.append(firstChunk);
+
+  // For files larger than 1MB, sample the middle
+  if (fileSize &gt; 1 * 1024 * 1024) {
+    const middlePos &#x3D; Math.floor(fileSize / 2) - Math.floor(chunkSize / 2);
+    const middleChunk &#x3D; await file.slice(middlePos, middlePos + chunkSize).arrayBuffer();
+    spark.append(middleChunk);
+  }
+
+  // For files larger than 8MB, add quarter and three-quarter samples
+  if (fileSize &gt; 8 * 1024 * 1024) {
+    const quarterPos &#x3D; Math.floor(fileSize * 0.25);
+    const quarterChunk &#x3D; await file.slice(quarterPos, quarterPos + chunkSize).arrayBuffer();
+    spark.append(quarterChunk);
+
+    const threeQuarterPos &#x3D; Math.floor(fileSize * 0.75);
+    const threeQuarterChunk &#x3D; await file.slice(threeQuarterPos, threeQuarterPos + chunkSize).arrayBuffer();
+    spark.append(threeQuarterChunk);
+  }
+
+  // Last chunk - often contains important metadata in audio files
+  const endChunk &#x3D; await file.slice(Math.max(0, fileSize - chunkSize), fileSize).arrayBuffer();
+  spark.append(endChunk);
+
+  return spark.end();
 }
-//
-// async function generateFileHashMD5(file: File): Promise&lt;string&gt; {
-//   return SparkMD5.ArrayBuffer.hash(await file.arrayBuffer());
-// }
 
 async function extractColorsWithNodeVibrant(url: string): Promise&lt;CoverColorPalette&gt; {
   const palette &#x3D; await Vibrant.from(url).getPalette();

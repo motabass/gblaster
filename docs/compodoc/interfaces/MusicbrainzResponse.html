@@ -314,16 +314,29 @@ export class MusicbrainzService {
       const url &#x3D; &#x60;${this.COVER_API_URL}/release-group/${releaseGroupId}&#x60;;
       const coverData &#x3D; await firstValueFrom(this.http.get&lt;CoverArtResponse&gt;(url));
 
-      const coverImage &#x3D; coverData.images.find((image) &#x3D;&gt; image.front &#x3D;&#x3D;&#x3D; true);
+      if (!coverData.images?.length) {
+        return undefined;
+      }
+
+      // First try to find a front cover
+      let coverImage &#x3D; coverData.images.find((image) &#x3D;&gt; image.front);
+
+      // If no front cover is available, use any image
+      if (!coverImage &amp;&amp; coverData.images.length &gt; 0) {
+        coverImage &#x3D; coverData.images[0];
+      }
+
       if (!coverImage) {
         return undefined;
       }
 
-      return {
-        thumb: ensureHttps(coverImage.thumbnails[&#x27;500&#x27;] || coverImage.thumbnails.small),
-        original: ensureHttps(coverImage.thumbnails.large)
-        // original: ensureHttps(coverImage.image)
-      };
+      // Create a fallback chain for thumbnails
+      const thumb &#x3D; ensureHttps(coverImage.thumbnails[&#x27;500&#x27;] || coverImage.thumbnails.large || coverImage.thumbnails.small || coverImage.image);
+
+      // Use large thumbnail or fall back to the full image
+      const original &#x3D; ensureHttps(coverImage.thumbnails.large || coverImage.image);
+
+      return { thumb, original };
     } catch (error) {
       // console.warn(&#x27;No cover found with this ID&#x27;, error);
       return undefined;
