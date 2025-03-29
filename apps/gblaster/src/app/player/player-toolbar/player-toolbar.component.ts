@@ -14,6 +14,7 @@ import { GamepadAxes, GamepadButtons } from '../../services/gamepad/gamepad.type
 import { GamepadService } from '../../services/gamepad/gamepad.service';
 import { HotkeysService } from '../../services/hotkeys/hotkeys.service';
 import { FileLoaderService } from '../file-loader-service/file-loader.service.abstract';
+import { MetadataService } from '../metadata-service/metadata.service';
 
 @Component({
   selector: 'player-toolbar',
@@ -28,6 +29,7 @@ export class PlayerToolbarComponent implements OnInit, OnDestroy {
   fileLoaderService = inject(FileLoaderService);
   playerService = inject(PlayerService);
   audioService = inject(AudioService);
+  metadataService = inject(MetadataService);
 
   readonly volumeIcon = computed(() => this.getVolumeIconForLevel(this.audioService.volume()));
 

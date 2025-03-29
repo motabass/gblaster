@@ -32,6 +32,10 @@ export class MetadataService {
     return 100 - (this.filesToProcess() / this.totalFilesToProcess()) * 100;
   });
 
+  readonly processing = computed(() => {
+    return this.filesToProcess() > 0;
+  });
+
   async *addFilesToLibrary(...fileDatas: FileData[]): AsyncGenerator<Track> {
     if (fileDatas?.length) {
       this.totalFilesToProcess.set(fileDatas.length);

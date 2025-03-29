@@ -20,6 +20,7 @@
 
   &:hover {
     background-color: var(--theme-accent-100);
+    cursor: pointer;
   }
 
   &.selected {

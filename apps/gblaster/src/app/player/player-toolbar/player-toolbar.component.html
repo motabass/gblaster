@@ -18,7 +18,7 @@
     <mat-icon matTooltip="Next" svgIcon="skip-next"></mat-icon>
   </button>
 
-  <button mat-icon-button id="load_files" [matMenuTriggerFor]="fileMenu">
+  <button mat-icon-button id="load_files" [matMenuTriggerFor]="fileMenu" [disabled]="metadataService.processing()">
     <mat-icon matTooltip="Load folder/files..." svgIcon="folder-music-outline"></mat-icon>
   </button>
   <mat-menu #fileMenu="matMenu">
