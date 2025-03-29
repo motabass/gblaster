@@ -42,7 +42,7 @@ async function extractTags(file: File): Promise<Id3Tags | undefined> {
       title: tags.common.title,
       track: tags.common.track,
       album: tags.common.album,
-      year: tags.common.year?.toString(),
+      year: tags.common.year && !Number.isNaN(Number(tags.common.year)) ? tags.common.year.toString() : undefined,
       format: tags.format
     };
   } catch (error) {
