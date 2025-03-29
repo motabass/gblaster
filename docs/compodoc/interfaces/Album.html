@@ -349,11 +349,11 @@ export default class LibraryComponent implements OnInit {
   readonly selectedTrack &#x3D; signal&lt;IndexedDbTrackMetadata | undefined&gt;(undefined);
 
   readonly uniqueArtists &#x3D; computed(() &#x3D;&gt; {
-    let filtered &#x3D; this.filteredBySerchterm()
+    const filtered &#x3D; this.filteredBySerchterm()
       .map((tag) &#x3D;&gt; tag.artist)
       .filter((artist): artist is string &#x3D;&gt; !!artist);
 
-    return [...new Set(filtered)];
+    return [...new Set(filtered.toSorted((a, b) &#x3D;&gt; a.localeCompare(b)))];
   });
 
   readonly uniqueAlbums &#x3D; computed(() &#x3D;&gt; {
@@ -380,14 +380,15 @@ export default class LibraryComponent implements OnInit {
       }
     }
 
-    return [...albumMap.values()].sort((a, b) &#x3D;&gt; a.year.localeCompare(b.year));
+    return [...albumMap.values()].sort((a, b) &#x3D;&gt; a.name.localeCompare(b.name));
   });
 
   readonly tracks &#x3D; computed(() &#x3D;&gt; {
+    this.searchTerm();
+
     let filtered &#x3D; this.filteredBySerchterm();
     const artist &#x3D; this.selectedArtist();
     const album &#x3D; this.selectedAlbum();
-    const searchTerm &#x3D; this.searchTerm();
 
     if (artist) {
       filtered &#x3D; filtered.filter((item) &#x3D;&gt; item.artist &#x3D;&#x3D;&#x3D; artist);
@@ -408,11 +409,11 @@ export default class LibraryComponent implements OnInit {
       if (albumCompare !&#x3D;&#x3D; 0) return albumCompare;
 
       // Then use track number if available
-      const aTrack &#x3D; a.track !&#x3D;&#x3D; undefined ? Number(a.track) : NaN;
-      const bTrack &#x3D; b.track !&#x3D;&#x3D; undefined ? Number(b.track) : NaN;
+      const aTrack &#x3D; a.track !&#x3D;&#x3D; undefined ? Number(a.track) : Number.NaN;
+      const bTrack &#x3D; b.track !&#x3D;&#x3D; undefined ? Number(b.track) : Number.NaN;
 
       // If both tracks have track numbers, compare them
-      if (!isNaN(aTrack) &amp;&amp; !isNaN(bTrack)) {
+      if (!Number.isNaN(aTrack) &amp;&amp; !Number.isNaN(bTrack)) {
         return aTrack - bTrack;
       }
 
