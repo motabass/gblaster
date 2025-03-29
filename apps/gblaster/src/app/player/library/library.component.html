@@ -2,7 +2,7 @@
   <cdk-virtual-scroll-viewport class="virtual-scroll-viewport" appendOnly itemSize="32">
     <mat-nav-list>
       <mat-list-item (click)="selectArtist(undefined)">
-        <span matListItemTitle>(All)</span>
+        <span matListItemTitle>ALL ({{ uniqueArtists().length }})</span>
         <span matListItemMeta>
           <button mat-icon-button>
             <mat-icon svgIcon="dots-vertical" [matMenuTriggerFor]="artistContextMenu" [matMenuTriggerData]="{ artist: undefined }"></mat-icon>
@@ -30,7 +30,7 @@
   <cdk-virtual-scroll-viewport class="virtual-scroll-viewport" itemSize="32">
     <mat-nav-list>
       <mat-list-item (click)="selectAlbum(undefined)">
-        <span matListItemTitle>(All)</span>
+        <span matListItemTitle>ALL ({{ uniqueAlbums().length }})</span>
         <span matListItemMeta>
           <button mat-icon-button>
             <mat-icon svgIcon="dots-vertical" [matMenuTriggerFor]="artistContextMenu" [matMenuTriggerData]="{ album: undefined }"></mat-icon>
@@ -67,7 +67,7 @@
   <cdk-virtual-scroll-viewport class="virtual-scroll-viewport" itemSize="32">
     <mat-nav-list>
       <mat-list-item (click)="selectTrack(undefined)">
-        <span matListItemTitle>(All)</span>
+        <span matListItemTitle>ALL ({{ tracks().length }})</span>
         <span matListItemMeta>
           <button mat-icon-button>
             <mat-icon svgIcon="dots-vertical" [matMenuTriggerFor]="artistContextMenu" [matMenuTriggerData]="{ track: undefined }"></mat-icon>

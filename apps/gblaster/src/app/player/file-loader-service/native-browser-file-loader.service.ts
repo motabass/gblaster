@@ -33,7 +33,7 @@ export class NativeBrowserFileLoaderService implements FileLoaderService {
     try {
       const handle = await showDirectoryPicker();
       this.currentFolderHandle.set(handle);
-      await this.indexedDbService.update('dirHandle', { id: 1, handle: handle } as DirHandleEntry).toPromise();
+      await this.indexedDbService.update('directoryHandles', { id: 1, handle: handle } as DirHandleEntry).toPromise();
     } catch (error) {
       console.log('No files:', error);
     }

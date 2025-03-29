@@ -74,11 +74,11 @@ export default class LibraryComponent implements OnInit {
   readonly selectedTrack = signal<IndexedDbTrackMetadata | undefined>(undefined);
 
   readonly uniqueArtists = computed(() => {
-    let filtered = this.filteredBySerchterm()
+    const filtered = this.filteredBySerchterm()
       .map((tag) => tag.artist)
       .filter((artist): artist is string => !!artist);
 
-    return [...new Set(filtered)];
+    return [...new Set(filtered.toSorted((a, b) => a.localeCompare(b)))];
   });
 
   readonly uniqueAlbums = computed(() => {
@@ -105,14 +105,15 @@ export default class LibraryComponent implements OnInit {
       }
     }
 
-    return [...albumMap.values()].sort((a, b) => a.year.localeCompare(b.year));
+    return [...albumMap.values()].sort((a, b) => a.name.localeCompare(b.name));
   });
 
   readonly tracks = computed(() => {
+    this.searchTerm();
+
     let filtered = this.filteredBySerchterm();
     const artist = this.selectedArtist();
     const album = this.selectedAlbum();
-    const searchTerm = this.searchTerm();
 
     if (artist) {
       filtered = filtered.filter((item) => item.artist === artist);
@@ -133,11 +134,11 @@ export default class LibraryComponent implements OnInit {
       if (albumCompare !== 0) return albumCompare;
 
       // Then use track number if available
-      const aTrack = a.track !== undefined ? Number(a.track) : NaN;
-      const bTrack = b.track !== undefined ? Number(b.track) : NaN;
+      const aTrack = a.track !== undefined ? Number(a.track) : Number.NaN;
+      const bTrack = b.track !== undefined ? Number(b.track) : Number.NaN;
 
       // If both tracks have track numbers, compare them
-      if (!isNaN(aTrack) && !isNaN(bTrack)) {
+      if (!Number.isNaN(aTrack) && !Number.isNaN(bTrack)) {
         return aTrack - bTrack;
       }
 
