@@ -36,11 +36,21 @@ export class MetadataService {
     return this.filesToProcess() > 0;
   });
 
+  readonly processingFile = signal('');
+
+  readonly statusText = computed(() => {
+    const totalFilesToProcess = this.totalFilesToProcess();
+    let text = `Processing (${totalFilesToProcess - this.filesToProcess()} / ${totalFilesToProcess}): `;
+    text += this.processing() ? this.processingFile() : 'Finished';
+    return text;
+  });
+
   async *addFilesToLibrary(...fileDatas: FileData[]): AsyncGenerator<Track> {
     if (fileDatas?.length) {
       this.totalFilesToProcess.set(fileDatas.length);
       this.filesToProcess.set(fileDatas.length);
       for (const fileData of fileDatas.values()) {
+        this.processingFile.set(fileData.file.name);
         const track = await this.createTrackFromFile(fileData);
         if (track) {
           yield track; // Yield each track as soon as it's ready
@@ -67,9 +77,8 @@ export class MetadataService {
   }
 
   async getMetadata(fileData: FileData): Promise<TrackMetadata | undefined> {
-    // console.time('hash');
+    this.processingFile.set(fileData.file.name + ' - Generating hash...');
     const hash = await generateFileHash(fileData.file);
-    // console.timeEnd('hash');
 
     if (this.useTagsCache()) {
       const metadataCache: TrackMetadata = await firstValueFrom(this.indexedDBService.getByKey<IndexedDbTrackMetadata>('library', hash));
@@ -91,9 +100,9 @@ export class MetadataService {
         }
       }
     }
-    // console.time('id3tags');
+    this.processingFile.set(fileData.file.name + ' - Reading tags...');
     const tags = await this.id3TagsService.extractTags(fileData.file);
-    // console.timeEnd('id3tags');
+
     if (!tags) {
       // if no tags
       return undefined;
@@ -103,29 +112,22 @@ export class MetadataService {
 
     if (this.useWebMetainfos()) {
       if (tags.artist && tags.album) {
-        // console.time('webcover');
+        this.processingFile.set(fileData.file.name + ' - Getting cover pictures...');
         coverUrls = await this.lastfmMetadataService.getCoverPictureUrls(tags);
         if (!coverUrls) {
           coverUrls = await this.musicbrainzService.getCoverPictureUrls(tags);
         }
-        // console.timeEnd('webcover');
-      } else {
-        // console.warn('Missing tags for lookup');
       }
     }
 
     let palette: CoverColorPalette | undefined;
-
+    this.processingFile.set(fileData.file.name + ' - Reading colors...');
     if (coverUrls?.original) {
-      // console.time('vibrant');
       palette = await extractColorsWithNodeVibrant(coverUrls.original);
-      // console.timeEnd('vibrant');
     } else if (tags.picture) {
-      // console.time('vibrant');
       const objectUrl = URL.createObjectURL(new Blob([tags.picture.data], { type: tags.picture.format }));
       palette = await extractColorsWithNodeVibrant(objectUrl);
       URL.revokeObjectURL(objectUrl);
-      // console.timeEnd('vibrant');
     }
 
     const metadata: IndexedDbTrackMetadata = {
