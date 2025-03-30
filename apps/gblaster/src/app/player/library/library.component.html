@@ -12,6 +12,9 @@
             <mat-icon svgIcon="dots-vertical" [matMenuTriggerFor]="artistContextMenu" [matMenuTriggerData]="{ artist: undefined }"></mat-icon>
           </button> </span
       ></mat-list-item>
+      @if (isLoading()) {
+        <mat-spinner style="margin-left: 1rem" color="accent" diameter="32" strokeWidth="6" />
+      }
       <mat-list-item *cdkVirtualFor="let artist of uniqueArtists(); trackBy: trackByArtist" (click)="selectArtist(artist)">
         <span matListItemTitle>{{ artist }}</span>
         <span matListItemMeta>
@@ -40,6 +43,9 @@
             <mat-icon svgIcon="dots-vertical" [matMenuTriggerFor]="artistContextMenu" [matMenuTriggerData]="{ album: undefined }"></mat-icon>
           </button> </span
       ></mat-list-item>
+      @if (isLoading()) {
+        <mat-spinner style="margin-left: 1rem" color="accent" diameter="32" strokeWidth="6" />
+      }
       <mat-list-item *cdkVirtualFor="let album of uniqueAlbums(); trackBy: trackByAlbum" (click)="selectAlbum(album.name)">
         <div matListItemAvatar style="overflow: hidden; border-radius: 2px; position: relative; width: 28px; height: 28px">
           @if (album && album.coverUrl) {
@@ -78,6 +84,9 @@
           </button>
         </span>
       </mat-list-item>
+      @if (isLoading()) {
+        <mat-spinner style="margin-left: 1rem" color="accent" diameter="32" strokeWidth="6" />
+      }
       <mat-list-item *cdkVirtualFor="let track of tracks(); trackBy: trackByHash" (click)="selectTrack(track)" (dblclick)="playTrack(track)">
         <div matListItemAvatar style="overflow: hidden; border-radius: 2px; position: relative; width: 28px; height: 28px">
           @if (track && track.coverUrl) {

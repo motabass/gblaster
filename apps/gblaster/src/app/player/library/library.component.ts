@@ -14,6 +14,7 @@ import { RemoteCoverPicture } from '../metadata-service/metadata.types';
 import { MetadataService } from '../metadata-service/metadata.service';
 import { FormsModule } from '@angular/forms';
 import { MatFormField, MatHint, MatInput, MatPrefix, MatSuffix } from '@angular/material/input';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
 
 export interface Album {
   name: string;
@@ -42,7 +43,8 @@ export interface Album {
     MatFormField,
     MatInput,
     MatPrefix,
-    MatSuffix
+    MatSuffix,
+    MatProgressSpinner
   ]
 })
 export default class LibraryComponent implements OnInit {
@@ -51,6 +53,8 @@ export default class LibraryComponent implements OnInit {
   playerService = inject(PlayerService);
 
   readonly searchTerm = signal('');
+
+  readonly isLoading = signal(false);
 
   private readonly indexedDbTracks = signal<IndexedDbTrackMetadata[]>([]);
 
@@ -147,12 +151,14 @@ export default class LibraryComponent implements OnInit {
 
   async ngOnInit() {
     try {
+      this.isLoading.set(true);
       const result = await firstValueFrom(this.indexedDbService.getAll<IndexedDbTrackMetadata>('library'));
       const tagsWithOptionalBlobUrls = result.map((tag) => {
         return this.metadataService.createObjectUrlForEmbeddedPicture(tag);
       });
 
       this.indexedDbTracks.set(tagsWithOptionalBlobUrls || []);
+      this.isLoading.set(false);
     } catch (error) {
       console.error('Error loading library data:', error);
     }
