@@ -12,7 +12,7 @@
             <mat-icon svgIcon="dots-vertical" [matMenuTriggerFor]="artistContextMenu" [matMenuTriggerData]="{ artist: undefined }"></mat-icon>
           </button> </span
       ></mat-list-item>
-      @if (isLoading()) {
+      @if (libraryService.isLoading()) {
         <mat-spinner style="margin-left: 1rem" color="accent" diameter="32" strokeWidth="6" />
       }
       <mat-list-item *cdkVirtualFor="let artist of uniqueArtists(); trackBy: trackByArtist" (click)="selectArtist(artist)">
@@ -43,7 +43,7 @@
             <mat-icon svgIcon="dots-vertical" [matMenuTriggerFor]="artistContextMenu" [matMenuTriggerData]="{ album: undefined }"></mat-icon>
           </button> </span
       ></mat-list-item>
-      @if (isLoading()) {
+      @if (libraryService.isLoading()) {
         <mat-spinner style="margin-left: 1rem" color="accent" diameter="32" strokeWidth="6" />
       }
       <mat-list-item *cdkVirtualFor="let album of uniqueAlbums(); trackBy: trackByAlbum" (click)="selectAlbum(album.name)">
@@ -84,7 +84,7 @@
           </button>
         </span>
       </mat-list-item>
-      @if (isLoading()) {
+      @if (libraryService.isLoading()) {
         <mat-spinner style="margin-left: 1rem" color="accent" diameter="32" strokeWidth="6" />
       }
       <mat-list-item *cdkVirtualFor="let track of tracks(); trackBy: trackByHash" (click)="selectTrack(track)" (dblclick)="playTrack(track)">

@@ -1,9 +1,7 @@
 import { Component, computed, inject, OnInit, signal } from '@angular/core';
-import { NgxIndexedDBService } from 'ngx-indexed-db';
 import { IndexedDbTrackMetadata, Track } from '../player.types';
 import { NgArrayPipesModule } from 'ngx-pipes';
 import { MatListModule } from '@angular/material/list';
-import { firstValueFrom } from 'rxjs';
 import { MatMenu, MatMenuContent, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
 import { PlayerService } from '../player.service';
 import { MatIcon } from '@angular/material/icon';
@@ -15,6 +13,7 @@ import { MetadataService } from '../metadata-service/metadata.service';
 import { FormsModule } from '@angular/forms';
 import { MatFormField, MatHint, MatInput, MatPrefix, MatSuffix } from '@angular/material/input';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { LibraryService } from './library.service';
 
 export interface Album {
   name: string;
@@ -48,20 +47,16 @@ export interface Album {
   ]
 })
 export default class LibraryComponent implements OnInit {
-  private indexedDbService = inject(NgxIndexedDBService);
   metadataService = inject(MetadataService);
   playerService = inject(PlayerService);
+  libraryService = inject(LibraryService);
 
   readonly searchTerm = signal('');
-
-  readonly isLoading = signal(false);
-
-  private readonly indexedDbTracks = signal<IndexedDbTrackMetadata[]>([]);
 
   readonly filteredBySerchterm = computed(() => {
     const searchTerm = this.searchTerm();
     const lowerSearchTerm = searchTerm.toLowerCase();
-    return this.indexedDbTracks().filter((tag) => {
+    return this.libraryService.indexedDbTracks().filter((tag) => {
       return (
         tag.title?.toLowerCase().includes(lowerSearchTerm) ||
         tag.artist?.toLowerCase().includes(lowerSearchTerm) ||
@@ -149,19 +144,8 @@ export default class LibraryComponent implements OnInit {
     });
   });
 
-  async ngOnInit() {
-    try {
-      this.isLoading.set(true);
-      const result = await firstValueFrom(this.indexedDbService.getAll<IndexedDbTrackMetadata>('library'));
-      const tagsWithOptionalBlobUrls = result.map((tag) => {
-        return this.metadataService.createObjectUrlForEmbeddedPicture(tag);
-      });
-
-      this.indexedDbTracks.set(tagsWithOptionalBlobUrls || []);
-      this.isLoading.set(false);
-    } catch (error) {
-      console.error('Error loading library data:', error);
-    }
+  ngOnInit() {
+    this.libraryService.reload();
   }
 
   selectArtist(artist: string | undefined) {
