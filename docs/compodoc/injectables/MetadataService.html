@@ -140,7 +140,19 @@
                             </li>
                             <li>
                                     <span class="modifier">Readonly</span>
+                                <a href="#processing" >processing</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#processingFile" >processingFile</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Readonly</span>
                                 <a href="#processionPercent" >processionPercent</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#statusText" >statusText</a>
                             </li>
                             <li>
                                     <span class="modifier">Readonly</span>
@@ -221,8 +233,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="35"
-                                    class="link-to-prism">apps/gblaster/src/app/player/metadata-service/metadata.service.ts:35</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="48"
+                                    class="link-to-prism">apps/gblaster/src/app/player/metadata-service/metadata.service.ts:48</a></div>
                         </td>
                     </tr>
 
@@ -288,8 +300,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="148"
-                                    class="link-to-prism">apps/gblaster/src/app/player/metadata-service/metadata.service.ts:148</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="154"
+                                    class="link-to-prism">apps/gblaster/src/app/player/metadata-service/metadata.service.ts:154</a></div>
                         </td>
                     </tr>
 
@@ -357,8 +369,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="50"
-                                    class="link-to-prism">apps/gblaster/src/app/player/metadata-service/metadata.service.ts:50</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="64"
+                                    class="link-to-prism">apps/gblaster/src/app/player/metadata-service/metadata.service.ts:64</a></div>
                         </td>
                     </tr>
 
@@ -426,8 +438,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="65"
-                                    class="link-to-prism">apps/gblaster/src/app/player/metadata-service/metadata.service.ts:65</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="79"
+                                    class="link-to-prism">apps/gblaster/src/app/player/metadata-service/metadata.service.ts:79</a></div>
                         </td>
                     </tr>
 
@@ -509,6 +521,60 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
+                    <a name="processing"></a>
+                    <span class="name">
+                            <span class="modifier">Readonly</span>
+                        <span ><b>processing</b></span>
+                        <a href="#processing"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; {
+    return this.filesToProcess() &gt; 0;
+  })</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="35" class="link-to-prism">apps/gblaster/src/app/player/metadata-service/metadata.service.ts:35</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="processingFile"></a>
+                    <span class="name">
+                            <span class="modifier">Readonly</span>
+                        <span ><b>processingFile</b></span>
+                        <a href="#processingFile"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal(&#x27;&#x27;)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="39" class="link-to-prism">apps/gblaster/src/app/player/metadata-service/metadata.service.ts:39</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
                     <a name="processionPercent"></a>
                     <span class="name">
                             <span class="modifier">Readonly</span>
@@ -527,6 +593,37 @@
                     <tr>
                         <td class="col-md-4">
                                 <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">apps/gblaster/src/app/player/metadata-service/metadata.service.ts:31</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="statusText"></a>
+                    <span class="name">
+                            <span class="modifier">Readonly</span>
+                        <span ><b>statusText</b></span>
+                        <a href="#statusText"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; {
+    const totalFilesToProcess &#x3D; this.totalFilesToProcess();
+    let text &#x3D; &#x60;Processing (${totalFilesToProcess - this.filesToProcess()} / ${totalFilesToProcess}): &#x60;;
+    text +&#x3D; this.processing() ? this.processingFile() : &#x27;Finished&#x27;;
+    return text;
+  })</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="41" class="link-to-prism">apps/gblaster/src/app/player/metadata-service/metadata.service.ts:41</a></div>
                         </td>
                     </tr>
 
@@ -651,11 +748,25 @@ export class MetadataService {
     return 100 - (this.filesToProcess() / this.totalFilesToProcess()) * 100;
   });
 
+  readonly processing &#x3D; computed(() &#x3D;&gt; {
+    return this.filesToProcess() &gt; 0;
+  });
+
+  readonly processingFile &#x3D; signal(&#x27;&#x27;);
+
+  readonly statusText &#x3D; computed(() &#x3D;&gt; {
+    const totalFilesToProcess &#x3D; this.totalFilesToProcess();
+    let text &#x3D; &#x60;Processing (${totalFilesToProcess - this.filesToProcess()} / ${totalFilesToProcess}): &#x60;;
+    text +&#x3D; this.processing() ? this.processingFile() : &#x27;Finished&#x27;;
+    return text;
+  });
+
   async *addFilesToLibrary(...fileDatas: FileData[]): AsyncGenerator&lt;Track&gt; {
     if (fileDatas?.length) {
       this.totalFilesToProcess.set(fileDatas.length);
       this.filesToProcess.set(fileDatas.length);
       for (const fileData of fileDatas.values()) {
+        this.processingFile.set(fileData.file.name);
         const track &#x3D; await this.createTrackFromFile(fileData);
         if (track) {
           yield track; // Yield each track as soon as it&#x27;s ready
@@ -682,9 +793,8 @@ export class MetadataService {
   }
 
   async getMetadata(fileData: FileData): Promise&lt;TrackMetadata | undefined&gt; {
-    // console.time(&#x27;hash&#x27;);
+    this.processingFile.set(fileData.file.name + &#x27; - Generating hash...&#x27;);
     const hash &#x3D; await generateFileHash(fileData.file);
-    // console.timeEnd(&#x27;hash&#x27;);
 
     if (this.useTagsCache()) {
       const metadataCache: TrackMetadata &#x3D; await firstValueFrom(this.indexedDBService.getByKey&lt;IndexedDbTrackMetadata&gt;(&#x27;library&#x27;, hash));
@@ -706,9 +816,9 @@ export class MetadataService {
         }
       }
     }
-    // console.time(&#x27;id3tags&#x27;);
+    this.processingFile.set(fileData.file.name + &#x27; - Reading tags...&#x27;);
     const tags &#x3D; await this.id3TagsService.extractTags(fileData.file);
-    // console.timeEnd(&#x27;id3tags&#x27;);
+
     if (!tags) {
       // if no tags
       return undefined;
@@ -718,29 +828,22 @@ export class MetadataService {
 
     if (this.useWebMetainfos()) {
       if (tags.artist &amp;&amp; tags.album) {
-        // console.time(&#x27;webcover&#x27;);
+        this.processingFile.set(fileData.file.name + &#x27; - Getting cover pictures...&#x27;);
         coverUrls &#x3D; await this.lastfmMetadataService.getCoverPictureUrls(tags);
         if (!coverUrls) {
           coverUrls &#x3D; await this.musicbrainzService.getCoverPictureUrls(tags);
         }
-        // console.timeEnd(&#x27;webcover&#x27;);
-      } else {
-        // console.warn(&#x27;Missing tags for lookup&#x27;);
       }
     }
 
     let palette: CoverColorPalette | undefined;
-
+    this.processingFile.set(fileData.file.name + &#x27; - Reading colors...&#x27;);
     if (coverUrls?.original) {
-      // console.time(&#x27;vibrant&#x27;);
       palette &#x3D; await extractColorsWithNodeVibrant(coverUrls.original);
-      // console.timeEnd(&#x27;vibrant&#x27;);
     } else if (tags.picture) {
-      // console.time(&#x27;vibrant&#x27;);
       const objectUrl &#x3D; URL.createObjectURL(new Blob([tags.picture.data], { type: tags.picture.format }));
       palette &#x3D; await extractColorsWithNodeVibrant(objectUrl);
       URL.revokeObjectURL(objectUrl);
-      // console.timeEnd(&#x27;vibrant&#x27;);
     }
 
     const metadata: IndexedDbTrackMetadata &#x3D; {

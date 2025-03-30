@@ -285,7 +285,6 @@ import { MatIcon } from &#x27;@angular/material/icon&#x27;;
 import { MatIconButton } from &#x27;@angular/material/button&#x27;;
 import { CdkFixedSizeVirtualScroll, CdkVirtualForOf, CdkVirtualScrollViewport } from &#x27;@angular/cdk/scrolling&#x27;;
 import { SafePipe } from &#x27;safe-pipe&#x27;;
-import { Router } from &#x27;@angular/router&#x27;;
 import { RemoteCoverPicture } from &#x27;../metadata-service/metadata.types&#x27;;
 import { MetadataService } from &#x27;../metadata-service/metadata.service&#x27;;
 import { FormsModule } from &#x27;@angular/forms&#x27;;
@@ -323,7 +322,6 @@ export interface Album {
 })
 export default class LibraryComponent implements OnInit {
   private indexedDbService &#x3D; inject(NgxIndexedDBService);
-  private router &#x3D; inject(Router);
   metadataService &#x3D; inject(MetadataService);
   playerService &#x3D; inject(PlayerService);
 
