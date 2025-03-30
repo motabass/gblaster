@@ -22,7 +22,7 @@
     <mat-icon matTooltip="Load folder/files..." svgIcon="folder-music-outline"></mat-icon>
   </button>
   <mat-menu #fileMenu="matMenu">
-    <button mat-menu-item (click)="showFilePickerAndLoadFiles()">
+    <button id="load_files_menu" mat-menu-item (click)="showFilePickerAndLoadFiles()">
       <mat-icon svgIcon="folder-music-outline"></mat-icon>
       <span>Load folder/files...</span>
     </button>

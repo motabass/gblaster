@@ -1,5 +1,5 @@
 import 'cypress-file-upload';
-import { getLoadFilesButton } from './player.po';
+import { getLoadFilesButton, getLoadFilesMenuEntry } from './player.po';
 
 // ***********************************************
 // This example commands.js shows you how to
@@ -21,6 +21,9 @@ declare namespace Cypress {
 Cypress.Commands.add('loadFiles', () => {
   cy.log('Loading files...');
   getLoadFilesButton().click();
+  cy.wait(300);
+  getLoadFilesMenuEntry().click();
+
   cy.get('#hidden_file_input').attachFile([
     { filePath: 'tek.mp3', encoding: 'base64' },
     { filePath: '440Hz-5sec.mp3', encoding: 'base64' }
