@@ -106,7 +106,7 @@
     "@types/jest": "29.5.14",
     "@types/node": "^22.13.14",
     "@types/spark-md5": "^3.0.5",
-    "@types/wicg-file-system-access": "2023.10.5",
+    "@types/wicg-file-system-access": "2023.10.6",
     "@typescript-eslint/parser": "^8.28.0",
     "@typescript-eslint/utils": "8.28.0",
     "angular-eslint": "19.3.0",
