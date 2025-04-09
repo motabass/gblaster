@@ -196,6 +196,9 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                     <a href="injectables/LegacyFileLoaderService.html" data-type="entity-link" >LegacyFileLoaderService</a>
                                 </li>
                                 <li class="link">
+                                    <a href="injectables/LibraryService.html" data-type="entity-link" >LibraryService</a>
+                                </li>
+                                <li class="link">
                                     <a href="injectables/LoaderService.html" data-type="entity-link" >LoaderService</a>
                                 </li>
                                 <li class="link">
