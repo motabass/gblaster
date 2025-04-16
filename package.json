@@ -68,7 +68,7 @@
     "@thebespokepixel/es-tinycolor": "^3.1.0",
     "date-fns": "^4.1.0",
     "lucene-escape-query": "^1.0.1",
-    "music-metadata": "11.2.0",
+    "music-metadata": "11.2.1",
     "musicbrainz-api": "^0.22.0",
     "ngx-date-fns": "12.0.0",
     "ngx-indexed-db": "20.0.0",
