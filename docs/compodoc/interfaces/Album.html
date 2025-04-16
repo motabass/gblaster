@@ -183,7 +183,7 @@
                                 </tr>
                                 <tr>
                                     <td class="col-md-4">
-                                        <code>coverUrl:         <code><a href="../interfaces/RemoteCoverPicture.html" target="_self" >RemoteCoverPicture</a></code>
+                                        <code>coverUrl:         <code><a href="../interfaces/RemoteCoverArtUrls.html" target="_self" >RemoteCoverArtUrls</a></code>
 </code>
                                     </td>
                                 </tr>
@@ -191,7 +191,7 @@
 
                                     <tr>
                                         <td class="col-md-4">
-                                            <i>Type : </i>        <code><a href="../interfaces/RemoteCoverPicture.html" target="_self" >RemoteCoverPicture</a></code>
+                                            <i>Type : </i>        <code><a href="../interfaces/RemoteCoverArtUrls.html" target="_self" >RemoteCoverArtUrls</a></code>
 
                                         </td>
                                     </tr>
@@ -283,7 +283,7 @@ import { MatIcon } from &#x27;@angular/material/icon&#x27;;
 import { MatIconButton } from &#x27;@angular/material/button&#x27;;
 import { CdkFixedSizeVirtualScroll, CdkVirtualForOf, CdkVirtualScrollViewport } from &#x27;@angular/cdk/scrolling&#x27;;
 import { SafePipe } from &#x27;safe-pipe&#x27;;
-import { RemoteCoverPicture } from &#x27;../metadata-service/metadata.types&#x27;;
+import { RemoteCoverArtUrls } from &#x27;../metadata-service/metadata.types&#x27;;
 import { MetadataService } from &#x27;../metadata-service/metadata.service&#x27;;
 import { FormsModule } from &#x27;@angular/forms&#x27;;
 import { MatFormField, MatHint, MatInput, MatPrefix, MatSuffix } from &#x27;@angular/material/input&#x27;;
@@ -293,7 +293,7 @@ import { LibraryService } from &#x27;./library.service&#x27;;
 export interface Album {
   name: string;
   year: string;
-  coverUrl: RemoteCoverPicture;
+  coverUrl: RemoteCoverArtUrls;
 }
 
 @Component({

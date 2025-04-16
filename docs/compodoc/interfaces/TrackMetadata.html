@@ -346,7 +346,7 @@
                                 </tr>
                                 <tr>
                                     <td class="col-md-4">
-                                        <code>coverUrl:         <code><a href="../interfaces/RemoteCoverPicture.html" target="_self" >RemoteCoverPicture</a></code>
+                                        <code>coverUrl:         <code><a href="../interfaces/RemoteCoverArtUrls.html" target="_self" >RemoteCoverArtUrls</a></code>
 </code>
                                     </td>
                                 </tr>
@@ -354,7 +354,7 @@
 
                                     <tr>
                                         <td class="col-md-4">
-                                            <i>Type : </i>        <code><a href="../interfaces/RemoteCoverPicture.html" target="_self" >RemoteCoverPicture</a></code>
+                                            <i>Type : </i>        <code><a href="../interfaces/RemoteCoverArtUrls.html" target="_self" >RemoteCoverArtUrls</a></code>
 
                                         </td>
                                     </tr>
@@ -622,7 +622,7 @@
 
     <div class="tab-pane fade  tab-source-code" id="source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Id3CoverPicture } from &#x27;./metadata-service/id3-tags.types&#x27;;
-import { CoverColorPalette, RemoteCoverPicture } from &#x27;./metadata-service/metadata.types&#x27;;
+import { CoverColorPalette, RemoteCoverArtUrls } from &#x27;./metadata-service/metadata.types&#x27;;
 import { IFormat } from &#x27;music-metadata&#x27;;
 
 export interface Track {
@@ -640,7 +640,7 @@ export interface TrackMetadata {
   album?: string;
   year?: string;
   format: IFormat;
-  coverUrl: RemoteCoverPicture;
+  coverUrl: RemoteCoverArtUrls;
   embeddedPicture?: Id3CoverPicture;
   coverColors: CoverColorPalette;
 }

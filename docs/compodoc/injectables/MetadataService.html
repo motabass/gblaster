@@ -721,7 +721,7 @@ import { firstValueFrom } from &#x27;rxjs&#x27;;
 import { IndexedDbTrackMetadata, type Track, TrackMetadata } from &#x27;../player.types&#x27;;
 import { Id3TagsService } from &#x27;./id3-tags.service&#x27;;
 import { LastfmMetadataService } from &#x27;./lastfm-metadata.service&#x27;;
-import { CoverColorPalette, RemoteCoverPicture } from &#x27;./metadata.types&#x27;;
+import { CoverColorPalette, RemoteCoverArtUrls } from &#x27;./metadata.types&#x27;;
 import { MusicbrainzService } from &#x27;./musicbrainz.service&#x27;;
 import { Vibrant } from &#x27;node-vibrant/browser&#x27;;
 import { FileData } from &#x27;../file-loader-service/file-loader.helpers&#x27;;
@@ -803,13 +803,13 @@ export class MetadataService {
         if (
           metadataCache.embeddedPicture &amp;&amp;
           this.useTagEmbeddedPicture() &amp;&amp;
-          (metadataCache.coverUrl.thumb &#x3D;&#x3D;&#x3D; this.PLACEHOLDER_URL || this.preferTagEmbeddedPicture())
+          (metadataCache.coverUrl.thumbUrl &#x3D;&#x3D;&#x3D; this.PLACEHOLDER_URL || this.preferTagEmbeddedPicture())
         ) {
           // renew local object urls
           const url &#x3D; URL.createObjectURL(new Blob([metadataCache.embeddedPicture.data], { type: metadataCache.embeddedPicture.format }));
           return {
             ...metadataCache,
-            coverUrl: { thumb: url, original: url } // overwrite remote url with objectUrl for tag cover art
+            coverUrl: { thumbUrl: url, originalUrl: url } // overwrite remote url with objectUrl for tag cover art
           };
         } else {
           return this.createObjectUrlForEmbeddedPicture(metadataCache);
@@ -824,7 +824,7 @@ export class MetadataService {
       return undefined;
     }
 
-    let coverUrls: RemoteCoverPicture | undefined;
+    let coverUrls: RemoteCoverArtUrls | undefined;
 
     if (this.useWebMetainfos()) {
       if (tags.artist &amp;&amp; tags.album) {
@@ -838,8 +838,8 @@ export class MetadataService {
 
     let palette: CoverColorPalette | undefined;
     this.processingFile.set(fileData.file.name + &#x27; - Reading colors...&#x27;);
-    if (coverUrls?.original) {
-      palette &#x3D; await extractColorsWithNodeVibrant(coverUrls.original);
+    if (coverUrls?.originalUrl) {
+      palette &#x3D; await extractColorsWithNodeVibrant(coverUrls.originalUrl);
     } else if (tags.picture) {
       const objectUrl &#x3D; URL.createObjectURL(new Blob([tags.picture.data], { type: tags.picture.format }));
       palette &#x3D; await extractColorsWithNodeVibrant(objectUrl);
@@ -850,7 +850,7 @@ export class MetadataService {
       hash: hash,
       fileName: fileData.file.name,
       fileHandle: fileData.fileHandle,
-      coverUrl: coverUrls ?? { thumb: this.PLACEHOLDER_URL, original: this.PLACEHOLDER_URL },
+      coverUrl: coverUrls ?? { thumbUrl: this.PLACEHOLDER_URL, originalUrl: this.PLACEHOLDER_URL },
       embeddedPicture: tags.picture,
       coverColors: palette || {},
       artist: tags.artist,
@@ -868,19 +868,19 @@ export class MetadataService {
   }
 
   createObjectUrlForEmbeddedPicture(meta: TrackMetadata): TrackMetadata {
-    if (meta.embeddedPicture &amp;&amp; this.useTagEmbeddedPicture() &amp;&amp; (meta.coverUrl.original &#x3D;&#x3D;&#x3D; this.PLACEHOLDER_URL || this.preferTagEmbeddedPicture())) {
+    if (meta.embeddedPicture &amp;&amp; this.useTagEmbeddedPicture() &amp;&amp; (meta.coverUrl.originalUrl &#x3D;&#x3D;&#x3D; this.PLACEHOLDER_URL || this.preferTagEmbeddedPicture())) {
       // renew local object urls
-      if (meta.coverUrl.original.startsWith(&#x27;blob:&#x27;)) {
-        URL.revokeObjectURL(meta.coverUrl.original);
+      if (meta.coverUrl.originalUrl.startsWith(&#x27;blob:&#x27;)) {
+        URL.revokeObjectURL(meta.coverUrl.originalUrl);
       }
-      if (meta.coverUrl.thumb.startsWith(&#x27;blob:&#x27;)) {
-        URL.revokeObjectURL(meta.coverUrl.thumb);
+      if (meta.coverUrl.thumbUrl.startsWith(&#x27;blob:&#x27;)) {
+        URL.revokeObjectURL(meta.coverUrl.thumbUrl);
       }
       // TODO: Erst kreieren wenn gebraucht!
       const url &#x3D; URL.createObjectURL(new Blob([meta.embeddedPicture.data], { type: meta.embeddedPicture.format }));
       return {
         ...meta,
-        coverUrl: { thumb: url, original: url } // overwrite remote url with objectUrl for tag cover art
+        coverUrl: { thumbUrl: url, originalUrl: url } // overwrite remote url with objectUrl for tag cover art
       };
     } else {
       return meta;

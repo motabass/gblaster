@@ -285,12 +285,6 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 <a href="interfaces/ColorConfig.html" data-type="entity-link" >ColorConfig</a>
                             </li>
                             <li class="link">
-                                <a href="interfaces/CoverArtImage.html" data-type="entity-link" >CoverArtImage</a>
-                            </li>
-                            <li class="link">
-                                <a href="interfaces/CoverArtResponse.html" data-type="entity-link" >CoverArtResponse</a>
-                            </li>
-                            <li class="link">
                                 <a href="interfaces/CoverColor.html" data-type="entity-link" >CoverColor</a>
                             </li>
                             <li class="link">
@@ -339,12 +333,6 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 <a href="interfaces/LastfmSuccessResponse.html" data-type="entity-link" >LastfmSuccessResponse</a>
                             </li>
                             <li class="link">
-                                <a href="interfaces/MusicbrainzReleaseGroup.html" data-type="entity-link" >MusicbrainzReleaseGroup</a>
-                            </li>
-                            <li class="link">
-                                <a href="interfaces/MusicbrainzResponse.html" data-type="entity-link" >MusicbrainzResponse</a>
-                            </li>
-                            <li class="link">
                                 <a href="interfaces/OsciloscopeConfig.html" data-type="entity-link" >OsciloscopeConfig</a>
                             </li>
                             <li class="link">
@@ -354,7 +342,7 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 <a href="interfaces/PromptDialogData.html" data-type="entity-link" >PromptDialogData</a>
                             </li>
                             <li class="link">
-                                <a href="interfaces/RemoteCoverPicture.html" data-type="entity-link" >RemoteCoverPicture</a>
+                                <a href="interfaces/RemoteCoverArtUrls.html" data-type="entity-link" >RemoteCoverArtUrls</a>
                             </li>
                             <li class="link">
                                 <a href="interfaces/TagsWorkerRequest.html" data-type="entity-link" >TagsWorkerRequest</a>

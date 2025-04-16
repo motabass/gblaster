@@ -98,7 +98,7 @@
   <li class="breadcrumb-item">Interfaces</li>
   <li class="breadcrumb-item"
   >
-  LastfmImage</li>
+  RemoteCoverArtUrls</li>
 </ol>
 
 <ul class="nav nav-tabs" role="tablist">
@@ -122,7 +122,7 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>apps/gblaster/src/app/player/metadata-service/lastfm-metadata.service.ts</code>
+            <code>apps/gblaster/src/app/player/metadata-service/metadata.types.ts</code>
         </p>
 
 
@@ -141,15 +141,15 @@
                         <td class="col-md-4">
                             <ul class="index-list">
                                 <li>
-                                        <a href="##text" 
+                                        <a href="#originalUrl" 
 >
-                                            #text
+                                            originalUrl
                                         </a>
                                 </li>
                                 <li>
-                                        <a href="#size" 
+                                        <a href="#thumbUrl" 
 >
-                                            size
+                                            thumbUrl
                                         </a>
                                 </li>
                             </ul>
@@ -167,9 +167,9 @@
                         <tbody>
                                 <tr>
                                     <td class="col-md-4">
-                                        <a name="#text"></a>
-                                        <span class="name "><b>#text</b>
-                                            <a href="##text">
+                                        <a name="originalUrl"></a>
+                                        <span class="name "><b>originalUrl</b>
+                                            <a href="#originalUrl">
                                                 <span class="icon ion-ios-link"></span>
                                             </a>
                                         </span>
@@ -177,7 +177,7 @@
                                 </tr>
                                 <tr>
                                     <td class="col-md-4">
-                                        <code>#text:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                        <code>originalUrl:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
 </code>
                                     </td>
                                 </tr>
@@ -200,9 +200,9 @@
                         <tbody>
                                 <tr>
                                     <td class="col-md-4">
-                                        <a name="size"></a>
-                                        <span class="name "><b>size</b>
-                                            <a href="#size">
+                                        <a name="thumbUrl"></a>
+                                        <span class="name "><b>thumbUrl</b>
+                                            <a href="#thumbUrl">
                                                 <span class="icon ion-ios-link"></span>
                                             </a>
                                         </span>
@@ -210,7 +210,7 @@
                                 </tr>
                                 <tr>
                                     <td class="col-md-4">
-                                        <code>size:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                        <code>thumbUrl:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
 </code>
                                     </td>
                                 </tr>
@@ -234,104 +234,36 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { HttpClient } from &#x27;@angular/common/http&#x27;;
-import { inject, Injectable } from &#x27;@angular/core&#x27;;
-import { firstValueFrom } from &#x27;rxjs&#x27;;
-import { Id3Tags } from &#x27;./id3-tags.types&#x27;;
-import { RemoteCoverArtUrls } from &#x27;./metadata.types&#x27;;
-import { ensureHttps } from &#x27;./metadata.helper&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Id3Tags } from &#x27;./id3-tags.types&#x27;;
 
-interface LastfmImage {
-  &#x27;#text&#x27;: string;
-  size: string;
+export interface CoverColorPalette {
+  vibrant?: CoverColor;
+  muted?: CoverColor;
+  darkVibrant?: CoverColor;
+  darkMuted?: CoverColor;
+  lightVibrant?: CoverColor;
+  lightMuted?: CoverColor;
 }
 
-interface LastfmAlbum {
-  name: string;
-  artist: string;
-  image: LastfmImage[];
+export interface CoverColor {
+  hex?: string;
+  textHex?: string;
 }
 
-interface LastfmSuccessResponse {
-  album: LastfmAlbum;
+export interface RemoteCoverArtUrls {
+  thumbUrl: string;
+  originalUrl: string;
 }
 
-interface LastfmErrorResponse {
-  error: number;
-  message: string;
+export interface TagsWorkerRequest {
+  id: string;
+  file: File;
 }
 
-type LastfmResponse &#x3D; LastfmSuccessResponse | LastfmErrorResponse;
-
-@Injectable({ providedIn: &#x27;root&#x27; })
-export class LastfmMetadataService {
-  private http &#x3D; inject(HttpClient);
-  private readonly LASTFM_API_KEY &#x3D; &#x27;3a67934408152a2fc3f7216c022ec1df&#x27;;
-  private readonly API_URL &#x3D; &#x27;https://ws.audioscrobbler.com/2.0/&#x27;;
-
-  async getCoverPictureUrls(tags: Id3Tags): Promise&lt;RemoteCoverArtUrls | undefined&gt; {
-    if (!tags.artist || !tags.album) {
-      return undefined;
-    }
-
-    try {
-      const data &#x3D; await this.fetchAlbumInfo(tags.artist, tags.album);
-      return this.extractCoverUrls(data);
-    } catch (error) {
-      // console.warn(&#x27;Failed to query Last.fm&#x27;, error);
-      return undefined;
-    }
-  }
-
-  private async fetchAlbumInfo(artist: string, album: string): Promise&lt;LastfmResponse&gt; {
-    const url &#x3D; this.buildApiUrl(&#x27;album.getinfo&#x27;, {
-      artist: encodeURIComponent(artist),
-      album: encodeURIComponent(album)
-    });
-
-    return firstValueFrom(this.http.get&lt;LastfmResponse&gt;(url));
-  }
-
-  private buildApiUrl(method: string, params: Record&lt;string, string&gt;): string {
-    const queryParams &#x3D; new URLSearchParams({
-      method,
-      api_key: this.LASTFM_API_KEY,
-      format: &#x27;json&#x27;,
-      ...params
-    });
-
-    return &#x60;${this.API_URL}?${queryParams.toString()}&#x60;;
-  }
-
-  private extractCoverUrls(data: LastfmResponse): RemoteCoverArtUrls | undefined {
-    if (&#x27;error&#x27; in data || !(&#x27;album&#x27; in data)) {
-      return undefined;
-    }
-
-    const images &#x3D; data.album.image;
-    if (!images || images.length &#x3D;&#x3D;&#x3D; 0) {
-      return undefined;
-    }
-
-    // Find images by size
-    const smallImage &#x3D; images.find((img) &#x3D;&gt; img.size &#x3D;&#x3D;&#x3D; &#x27;small&#x27;)?.[&#x27;#text&#x27;] || images.find((img) &#x3D;&gt; img.size &#x3D;&#x3D;&#x3D; &#x27;medium&#x27;)?.[&#x27;#text&#x27;] || images[0]?.[&#x27;#text&#x27;];
-
-    const largeImage &#x3D;
-      images.find((img) &#x3D;&gt; img.size &#x3D;&#x3D;&#x3D; &#x27;mega&#x27;)?.[&#x27;#text&#x27;] ||
-      images.find((img) &#x3D;&gt; img.size &#x3D;&#x3D;&#x3D; &#x27;extralarge&#x27;)?.[&#x27;#text&#x27;] ||
-      images.find((img) &#x3D;&gt; img.size &#x3D;&#x3D;&#x3D; &#x27;large&#x27;)?.[&#x27;#text&#x27;] ||
-      images[images.length - 1]?.[&#x27;#text&#x27;] ||
-      smallImage;
-
-    if (!smallImage || !largeImage) {
-      return undefined;
-    }
-
-    return {
-      thumbUrl: ensureHttps(smallImage),
-      originalUrl: ensureHttps(largeImage)
-    };
-  }
+export interface TagsWorkerResponse {
+  id: string;
+  tags?: Id3Tags;
+  error?: string;
 }
 </code></pre>
     </div>
@@ -370,7 +302,7 @@ export class LastfmMetadataService {
        <script>
             var COMPODOC_CURRENT_PAGE_DEPTH = 1;
             var COMPODOC_CURRENT_PAGE_CONTEXT = 'interface';
-            var COMPODOC_CURRENT_PAGE_URL = 'LastfmImage.html';
+            var COMPODOC_CURRENT_PAGE_URL = 'RemoteCoverArtUrls.html';
             var MAX_SEARCH_RESULTS = 15;
        </script>
 
