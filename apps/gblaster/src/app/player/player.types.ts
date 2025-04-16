@@ -1,5 +1,5 @@
 import { Id3CoverPicture } from './metadata-service/id3-tags.types';
-import { CoverColorPalette, RemoteCoverPicture } from './metadata-service/metadata.types';
+import { CoverColorPalette, RemoteCoverArtUrls } from './metadata-service/metadata.types';
 import { IFormat } from 'music-metadata';
 
 export interface Track {
@@ -17,7 +17,7 @@ export interface TrackMetadata {
   album?: string;
   year?: string;
   format: IFormat;
-  coverUrl: RemoteCoverPicture;
+  coverUrl: RemoteCoverArtUrls;
   embeddedPicture?: Id3CoverPicture;
   coverColors: CoverColorPalette;
 }

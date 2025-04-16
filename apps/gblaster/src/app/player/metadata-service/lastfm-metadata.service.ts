@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
 import { Id3Tags } from './id3-tags.types';
-import { RemoteCoverPicture } from './metadata.types';
+import { RemoteCoverArtUrls } from './metadata.types';
 import { ensureHttps } from './metadata.helper';
 
 interface LastfmImage {
@@ -33,7 +33,7 @@ export class LastfmMetadataService {
   private readonly LASTFM_API_KEY = '3a67934408152a2fc3f7216c022ec1df';
   private readonly API_URL = 'https://ws.audioscrobbler.com/2.0/';
 
-  async getCoverPictureUrls(tags: Id3Tags): Promise<RemoteCoverPicture | undefined> {
+  async getCoverPictureUrls(tags: Id3Tags): Promise<RemoteCoverArtUrls | undefined> {
     if (!tags.artist || !tags.album) {
       return undefined;
     }
@@ -67,7 +67,7 @@ export class LastfmMetadataService {
     return `${this.API_URL}?${queryParams.toString()}`;
   }
 
-  private extractCoverUrls(data: LastfmResponse): RemoteCoverPicture | undefined {
+  private extractCoverUrls(data: LastfmResponse): RemoteCoverArtUrls | undefined {
     if ('error' in data || !('album' in data)) {
       return undefined;
     }
@@ -92,8 +92,8 @@ export class LastfmMetadataService {
     }
 
     return {
-      thumb: ensureHttps(smallImage),
-      original: ensureHttps(largeImage)
+      thumbUrl: ensureHttps(smallImage),
+      originalUrl: ensureHttps(largeImage)
     };
   }
 }

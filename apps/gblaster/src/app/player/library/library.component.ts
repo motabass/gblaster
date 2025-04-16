@@ -8,7 +8,7 @@ import { MatIcon } from '@angular/material/icon';
 import { MatIconButton } from '@angular/material/button';
 import { CdkFixedSizeVirtualScroll, CdkVirtualForOf, CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 import { SafePipe } from 'safe-pipe';
-import { RemoteCoverPicture } from '../metadata-service/metadata.types';
+import { RemoteCoverArtUrls } from '../metadata-service/metadata.types';
 import { MetadataService } from '../metadata-service/metadata.service';
 import { FormsModule } from '@angular/forms';
 import { MatFormField, MatHint, MatInput, MatPrefix, MatSuffix } from '@angular/material/input';
@@ -18,7 +18,7 @@ import { LibraryService } from './library.service';
 export interface Album {
   name: string;
   year: string;
-  coverUrl: RemoteCoverPicture;
+  coverUrl: RemoteCoverArtUrls;
 }
 
 @Component({

@@ -1,43 +1,20 @@
-import { HttpClient } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import luceneEscapeQuery from 'lucene-escape-query';
-import { firstValueFrom } from 'rxjs';
 import { Id3Tags } from './id3-tags.types';
-import { RemoteCoverPicture } from './metadata.types';
-import { ensureHttps } from './metadata.helper';
-
-interface MusicbrainzReleaseGroup {
-  id: string;
-  title: string;
-  'first-release-date'?: string;
-}
-
-interface MusicbrainzResponse {
-  'release-groups': MusicbrainzReleaseGroup[];
-  count: number;
-}
-
-interface CoverArtImage {
-  image: string;
-  front: boolean;
-  thumbnails: {
-    '500': string;
-    large: string;
-    small: string;
-  };
-}
-
-interface CoverArtResponse {
-  images: CoverArtImage[];
-}
+import { RemoteCoverArtUrls } from './metadata.types';
+import { CoverArtArchiveApi, MusicBrainzApi } from 'musicbrainz-api';
 
 @Injectable({ providedIn: 'root' })
 export class MusicbrainzService {
-  private http = inject(HttpClient);
-  private readonly API_URL = 'https://musicbrainz.org/ws/2';
-  private readonly COVER_API_URL = 'https://coverartarchive.org';
+  private readonly mbApi = new MusicBrainzApi({
+    appName: 'gblaster',
+    appVersion: '1.0.0',
+    appContactInfo: 'markus.mohoritsch@gmx.at'
+  });
 
-  async getCoverPictureUrls(tags: Id3Tags): Promise<RemoteCoverPicture | undefined> {
+  private readonly caApi = new CoverArtArchiveApi();
+
+  async getCoverPictureUrls(tags: Id3Tags): Promise<RemoteCoverArtUrls | undefined> {
     if (!tags.artist || !tags.album) {
       return undefined;
     }
@@ -57,11 +34,9 @@ export class MusicbrainzService {
 
   private async findReleaseGroupId(artist: string, album: string): Promise<string | undefined> {
     const query = `release:${luceneEscapeQuery.escape(album)} AND artist:${luceneEscapeQuery.escape(artist)} AND primarytype:Album`;
-    const url = `${this.API_URL}/release-group?query=${query}&limit=5&fmt=json`;
 
     try {
-      const data = await firstValueFrom(this.http.get<MusicbrainzResponse>(url));
-
+      const data = await this.mbApi.search('release-group', { query });
       if (!data['release-groups']?.length) {
         return undefined;
       }
@@ -73,10 +48,11 @@ export class MusicbrainzService {
     }
   }
 
-  private async fetchCoverArt(releaseGroupId: string): Promise<RemoteCoverPicture | undefined> {
+  private async fetchCoverArt(releaseGroupId: string): Promise<RemoteCoverArtUrls | undefined> {
     try {
-      const url = `${this.COVER_API_URL}/release-group/${releaseGroupId}`;
-      const coverData = await firstValueFrom(this.http.get<CoverArtResponse>(url));
+      // const url = `${this.COVER_API_URL}/release-group/${releaseGroupId}`;
+      // const coverData = await firstValueFrom(this.http.get<CoverArtResponse>(url));
+      const coverData = await this.caApi.getReleaseGroupCovers(releaseGroupId);
 
       if (!coverData.images?.length) {
         return undefined;
@@ -95,12 +71,12 @@ export class MusicbrainzService {
       }
 
       // Create a fallback chain for thumbnails
-      const thumb = ensureHttps(coverImage.thumbnails['500'] || coverImage.thumbnails.large || coverImage.thumbnails.small || coverImage.image);
+      const thumb = coverImage.thumbnails['500'] || coverImage.thumbnails.large || coverImage.thumbnails.small || coverImage.image;
 
       // Use large thumbnail or fall back to the full image
-      const original = ensureHttps(coverImage.thumbnails.large || coverImage.image);
+      const original = coverImage.thumbnails.large || coverImage.image;
 
-      return { thumb, original };
+      return { thumbUrl: thumb, originalUrl: original };
     } catch (error) {
       // console.warn('No cover found with this ID', error);
       return undefined;

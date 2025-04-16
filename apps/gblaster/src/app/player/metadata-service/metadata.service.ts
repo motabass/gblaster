@@ -5,7 +5,7 @@ import { firstValueFrom } from 'rxjs';
 import { IndexedDbTrackMetadata, type Track, TrackMetadata } from '../player.types';
 import { Id3TagsService } from './id3-tags.service';
 import { LastfmMetadataService } from './lastfm-metadata.service';
-import { CoverColorPalette, RemoteCoverPicture } from './metadata.types';
+import { CoverColorPalette, RemoteCoverArtUrls } from './metadata.types';
 import { MusicbrainzService } from './musicbrainz.service';
 import { Vibrant } from 'node-vibrant/browser';
 import { FileData } from '../file-loader-service/file-loader.helpers';
@@ -87,13 +87,13 @@ export class MetadataService {
         if (
           metadataCache.embeddedPicture &&
           this.useTagEmbeddedPicture() &&
-          (metadataCache.coverUrl.thumb === this.PLACEHOLDER_URL || this.preferTagEmbeddedPicture())
+          (metadataCache.coverUrl.thumbUrl === this.PLACEHOLDER_URL || this.preferTagEmbeddedPicture())
         ) {
           // renew local object urls
           const url = URL.createObjectURL(new Blob([metadataCache.embeddedPicture.data], { type: metadataCache.embeddedPicture.format }));
           return {
             ...metadataCache,
-            coverUrl: { thumb: url, original: url } // overwrite remote url with objectUrl for tag cover art
+            coverUrl: { thumbUrl: url, originalUrl: url } // overwrite remote url with objectUrl for tag cover art
           };
         } else {
           return this.createObjectUrlForEmbeddedPicture(metadataCache);
@@ -108,7 +108,7 @@ export class MetadataService {
       return undefined;
     }
 
-    let coverUrls: RemoteCoverPicture | undefined;
+    let coverUrls: RemoteCoverArtUrls | undefined;
 
     if (this.useWebMetainfos()) {
       if (tags.artist && tags.album) {
@@ -122,8 +122,8 @@ export class MetadataService {
 
     let palette: CoverColorPalette | undefined;
     this.processingFile.set(fileData.file.name + ' - Reading colors...');
-    if (coverUrls?.original) {
-      palette = await extractColorsWithNodeVibrant(coverUrls.original);
+    if (coverUrls?.originalUrl) {
+      palette = await extractColorsWithNodeVibrant(coverUrls.originalUrl);
     } else if (tags.picture) {
       const objectUrl = URL.createObjectURL(new Blob([tags.picture.data], { type: tags.picture.format }));
       palette = await extractColorsWithNodeVibrant(objectUrl);
@@ -134,7 +134,7 @@ export class MetadataService {
       hash: hash,
       fileName: fileData.file.name,
       fileHandle: fileData.fileHandle,
-      coverUrl: coverUrls ?? { thumb: this.PLACEHOLDER_URL, original: this.PLACEHOLDER_URL },
+      coverUrl: coverUrls ?? { thumbUrl: this.PLACEHOLDER_URL, originalUrl: this.PLACEHOLDER_URL },
       embeddedPicture: tags.picture,
       coverColors: palette || {},
       artist: tags.artist,
@@ -152,19 +152,19 @@ export class MetadataService {
   }
 
   createObjectUrlForEmbeddedPicture(meta: TrackMetadata): TrackMetadata {
-    if (meta.embeddedPicture && this.useTagEmbeddedPicture() && (meta.coverUrl.original === this.PLACEHOLDER_URL || this.preferTagEmbeddedPicture())) {
+    if (meta.embeddedPicture && this.useTagEmbeddedPicture() && (meta.coverUrl.originalUrl === this.PLACEHOLDER_URL || this.preferTagEmbeddedPicture())) {
       // renew local object urls
-      if (meta.coverUrl.original.startsWith('blob:')) {
-        URL.revokeObjectURL(meta.coverUrl.original);
+      if (meta.coverUrl.originalUrl.startsWith('blob:')) {
+        URL.revokeObjectURL(meta.coverUrl.originalUrl);
       }
-      if (meta.coverUrl.thumb.startsWith('blob:')) {
-        URL.revokeObjectURL(meta.coverUrl.thumb);
+      if (meta.coverUrl.thumbUrl.startsWith('blob:')) {
+        URL.revokeObjectURL(meta.coverUrl.thumbUrl);
       }
       // TODO: Erst kreieren wenn gebraucht!
       const url = URL.createObjectURL(new Blob([meta.embeddedPicture.data], { type: meta.embeddedPicture.format }));
       return {
         ...meta,
-        coverUrl: { thumb: url, original: url } // overwrite remote url with objectUrl for tag cover art
+        coverUrl: { thumbUrl: url, originalUrl: url } // overwrite remote url with objectUrl for tag cover art
       };
     } else {
       return meta;

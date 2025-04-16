@@ -126,7 +126,7 @@ export class PlayerService {
         title: track.metadata.title,
         artist: track.metadata.artist,
         album: track.metadata.album,
-        artwork: track.metadata.coverUrl?.original ? [{ src: track.metadata.coverUrl.original, sizes: '512x512' }] : undefined
+        artwork: track.metadata.coverUrl?.originalUrl ? [{ src: track.metadata.coverUrl.originalUrl, sizes: '512x512' }] : undefined
       });
     }
     await this.audioService.play();

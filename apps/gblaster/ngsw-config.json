@@ -21,14 +21,24 @@
   ],
   "dataGroups": [
     {
-      "name": "metadata",
-      "version": 1,
+      "name": "metadata-apis",
+      "version": 2,
       "cacheConfig": {
-        "maxAge": "24h",
+        "maxAge": "1h",
         "maxSize": 1000,
         "strategy": "performance"
       },
-      "urls": ["https://ws.audioscrobbler.com/**", "https://musicbrainz.org/**", "https://coverartarchive.org/**"]
+      "urls": ["**/audioscrobbler.com/**", "**//musicbrainz.org/**"]
+    },
+    {
+      "name": "coverart-apis",
+      "version": 1,
+      "cacheConfig": {
+        "maxAge": "7d",
+        "maxSize": 300,
+        "strategy": "performance"
+      },
+      "urls": ["**/coverartarchive.org/**", "**/archive.org/**", "**/*.jpg", "**/*.jpeg", "**/*.png"]
     }
   ]
 }
