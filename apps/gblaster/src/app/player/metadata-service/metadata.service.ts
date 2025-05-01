@@ -154,10 +154,10 @@ export class MetadataService {
   createObjectUrlForEmbeddedPicture(meta: TrackMetadata): TrackMetadata {
     if (meta.embeddedPicture && this.useTagEmbeddedPicture() && (meta.coverUrl.originalUrl === this.PLACEHOLDER_URL || this.preferTagEmbeddedPicture())) {
       // renew local object urls
-      if (meta.coverUrl.originalUrl.startsWith('blob:')) {
+      if (meta.coverUrl?.originalUrl?.startsWith('blob:')) {
         URL.revokeObjectURL(meta.coverUrl.originalUrl);
       }
-      if (meta.coverUrl.thumbUrl.startsWith('blob:')) {
+      if (meta.coverUrl?.thumbUrl?.startsWith('blob:')) {
         URL.revokeObjectURL(meta.coverUrl.thumbUrl);
       }
       // TODO: Erst kreieren wenn gebraucht!
