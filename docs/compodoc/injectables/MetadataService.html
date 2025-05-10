@@ -870,10 +870,10 @@ export class MetadataService {
   createObjectUrlForEmbeddedPicture(meta: TrackMetadata): TrackMetadata {
     if (meta.embeddedPicture &amp;&amp; this.useTagEmbeddedPicture() &amp;&amp; (meta.coverUrl.originalUrl &#x3D;&#x3D;&#x3D; this.PLACEHOLDER_URL || this.preferTagEmbeddedPicture())) {
       // renew local object urls
-      if (meta.coverUrl.originalUrl.startsWith(&#x27;blob:&#x27;)) {
+      if (meta.coverUrl?.originalUrl?.startsWith(&#x27;blob:&#x27;)) {
         URL.revokeObjectURL(meta.coverUrl.originalUrl);
       }
-      if (meta.coverUrl.thumbUrl.startsWith(&#x27;blob:&#x27;)) {
+      if (meta.coverUrl?.thumbUrl?.startsWith(&#x27;blob:&#x27;)) {
         URL.revokeObjectURL(meta.coverUrl.thumbUrl);
       }
       // TODO: Erst kreieren wenn gebraucht!
@@ -908,7 +908,7 @@ async function generateFileHash(file: File): Promise&lt;string&gt; {
   spark.append(firstChunk);
 
   // For files larger than 1MB, sample the middle
-  if (fileSize &gt; 1 * 1024 * 1024) {
+  if (fileSize &gt; 1024 * 1024) {
     const middlePos &#x3D; Math.floor(fileSize / 2) - Math.floor(chunkSize / 2);
     const middleChunk &#x3D; await file.slice(middlePos, middlePos + chunkSize).arrayBuffer();
     spark.append(middleChunk);
