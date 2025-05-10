@@ -82,7 +82,7 @@
   },
   "parallel": 1,
   "defaultBase": "main",
-  "neverConnectToCloud": true,
+  "neverConnectToCloud": false,
   "plugins": [
     {
       "plugin": "@nx/eslint/plugin",

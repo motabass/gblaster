@@ -192,7 +192,7 @@ async function generateFileHash(file: File): Promise<string> {
   spark.append(firstChunk);
 
   // For files larger than 1MB, sample the middle
-  if (fileSize > 1 * 1024 * 1024) {
+  if (fileSize > 1024 * 1024) {
     const middlePos = Math.floor(fileSize / 2) - Math.floor(chunkSize / 2);
     const middleChunk = await file.slice(middlePos, middlePos + chunkSize).arrayBuffer();
     spark.append(middleChunk);

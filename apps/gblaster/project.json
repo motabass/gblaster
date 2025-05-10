@@ -72,7 +72,8 @@
           "buildTarget": "gblaster:build:development"
         }
       },
-      "defaultConfiguration": "development"
+      "defaultConfiguration": "development",
+      "continuous": true
     },
     "serve-static": {
       "executor": "@nx/web:file-server",
