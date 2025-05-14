@@ -70,7 +70,7 @@
     "lucene-escape-query": "^1.0.1",
     "music-metadata": "11.2.1",
     "musicbrainz-api": "^0.25.0",
-    "ngx-date-fns": "12.0.0",
+    "ngx-date-fns": "12.0.1",
     "ngx-indexed-db": "20.0.0",
     "ngx-pipes": "3.2.2",
     "ngx-webstorage": "19.0.1",
