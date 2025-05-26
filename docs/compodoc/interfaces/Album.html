@@ -357,11 +357,7 @@ export default class LibraryComponent implements OnInit {
     let filtered &#x3D; this.filteredBySerchterm();
     const artist &#x3D; this.selectedArtist();
 
-    if (artist) {
-      filtered &#x3D; filtered.filter((item) &#x3D;&gt; item.artist &#x3D;&#x3D;&#x3D; artist &amp;&amp; !!item.album);
-    } else {
-      filtered &#x3D; filtered.filter((item) &#x3D;&gt; !!item.album);
-    }
+    filtered &#x3D; artist ? filtered.filter((item) &#x3D;&gt; item.artist &#x3D;&#x3D;&#x3D; artist &amp;&amp; !!item.album) : filtered.filter((item) &#x3D;&gt; !!item.album);
 
     // Map to store unique albums by name
     const albumMap &#x3D; new Map&lt;string, Album&gt;();

@@ -110,13 +110,11 @@ export class MetadataService {
 
     let coverUrls: RemoteCoverArtUrls | undefined;
 
-    if (this.useWebMetainfos()) {
-      if (tags.artist && tags.album) {
-        this.processingFile.set(fileData.file.name + ' - Getting cover pictures...');
-        coverUrls = await this.lastfmMetadataService.getCoverPictureUrls(tags);
-        if (!coverUrls) {
-          coverUrls = await this.musicbrainzService.getCoverPictureUrls(tags);
-        }
+    if (this.useWebMetainfos() && tags.artist && tags.album) {
+      this.processingFile.set(fileData.file.name + ' - Getting cover pictures...');
+      coverUrls = await this.lastfmMetadataService.getCoverPictureUrls(tags);
+      if (!coverUrls) {
+        coverUrls = await this.musicbrainzService.getCoverPictureUrls(tags);
       }
     }
 

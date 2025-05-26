@@ -300,8 +300,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="154"
-                                    class="link-to-prism">apps/gblaster/src/app/player/metadata-service/metadata.service.ts:154</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="152"
+                                    class="link-to-prism">apps/gblaster/src/app/player/metadata-service/metadata.service.ts:152</a></div>
                         </td>
                     </tr>
 
@@ -826,15 +826,13 @@ export class MetadataService {
 
     let coverUrls: RemoteCoverArtUrls | undefined;
 
-    if (this.useWebMetainfos()) {
-      if (tags.artist &amp;&amp; tags.album) {
+    if (this.useWebMetainfos() &amp;&amp; tags.artist &amp;&amp; tags.album) {
         this.processingFile.set(fileData.file.name + &#x27; - Getting cover pictures...&#x27;);
         coverUrls &#x3D; await this.lastfmMetadataService.getCoverPictureUrls(tags);
         if (!coverUrls) {
           coverUrls &#x3D; await this.musicbrainzService.getCoverPictureUrls(tags);
         }
       }
-    }
 
     let palette: CoverColorPalette | undefined;
     this.processingFile.set(fileData.file.name + &#x27; - Reading colors...&#x27;);

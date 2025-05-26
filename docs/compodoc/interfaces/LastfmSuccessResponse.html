@@ -281,7 +281,7 @@ export class LastfmMetadataService {
       images.find((img) &#x3D;&gt; img.size &#x3D;&#x3D;&#x3D; &#x27;mega&#x27;)?.[&#x27;#text&#x27;] ||
       images.find((img) &#x3D;&gt; img.size &#x3D;&#x3D;&#x3D; &#x27;extralarge&#x27;)?.[&#x27;#text&#x27;] ||
       images.find((img) &#x3D;&gt; img.size &#x3D;&#x3D;&#x3D; &#x27;large&#x27;)?.[&#x27;#text&#x27;] ||
-      images[images.length - 1]?.[&#x27;#text&#x27;] ||
+      images.at(-1)?.[&#x27;#text&#x27;] ||
       smallImage;
 
     if (!smallImage || !largeImage) {

@@ -84,7 +84,7 @@ export class LastfmMetadataService {
       images.find((img) => img.size === 'mega')?.['#text'] ||
       images.find((img) => img.size === 'extralarge')?.['#text'] ||
       images.find((img) => img.size === 'large')?.['#text'] ||
-      images[images.length - 1]?.['#text'] ||
+      images.at(-1)?.['#text'] ||
       smallImage;
 
     if (!smallImage || !largeImage) {
