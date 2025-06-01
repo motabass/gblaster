@@ -827,12 +827,12 @@ export class MetadataService {
     let coverUrls: RemoteCoverArtUrls | undefined;
 
     if (this.useWebMetainfos() &amp;&amp; tags.artist &amp;&amp; tags.album) {
-        this.processingFile.set(fileData.file.name + &#x27; - Getting cover pictures...&#x27;);
-        coverUrls &#x3D; await this.lastfmMetadataService.getCoverPictureUrls(tags);
-        if (!coverUrls) {
-          coverUrls &#x3D; await this.musicbrainzService.getCoverPictureUrls(tags);
-        }
+      this.processingFile.set(fileData.file.name + &#x27; - Getting cover pictures...&#x27;);
+      coverUrls &#x3D; await this.lastfmMetadataService.getCoverPictureUrls(tags);
+      if (!coverUrls) {
+        coverUrls &#x3D; await this.musicbrainzService.getCoverPictureUrls(tags);
       }
+    }
 
     let palette: CoverColorPalette | undefined;
     this.processingFile.set(fileData.file.name + &#x27; - Reading colors...&#x27;);
