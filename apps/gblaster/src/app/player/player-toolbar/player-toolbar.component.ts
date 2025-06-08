@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, computed, inject, OnDestroy, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { MatMenu, MatMenuModule, MatMenuTrigger } from '@angular/material/menu';
 import { MatSlider, MatSliderThumb } from '@angular/material/slider';
 import { MatToolbar } from '@angular/material/toolbar';
@@ -18,7 +18,7 @@ import { MetadataService } from '../metadata-service/metadata.service';
 
 @Component({
   selector: 'player-toolbar',
-  imports: [CommonModule, MatIcon, MatIconButton, MatMenu, MatSlider, MatSliderThumb, MatToolbar, MatTooltip, TimePipe, MatMenuTrigger, MatMenuModule],
+  imports: [MatIcon, MatIconButton, MatMenu, MatSlider, MatSliderThumb, MatToolbar, MatTooltip, TimePipe, MatMenuTrigger, MatMenuModule],
   templateUrl: './player-toolbar.component.html',
   styleUrl: './player-toolbar.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush

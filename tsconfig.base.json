@@ -29,7 +29,8 @@
     "extendedDiagnostics": true,
     "strictInjectionParameters": true,
     "strictTemplates": true,
-    "strictStandalone": true
+    "strictStandalone": true,
+    "typeCheckHostBindings": true
   },
   "exclude": ["node_modules", "tmp"]
 }
