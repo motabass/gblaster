@@ -18,7 +18,9 @@ export const ANGULAR_ESLINT_TS_RULES = {
   '@angular-eslint/relative-url-prefix': 'error',
   '@angular-eslint/use-lifecycle-interface': 'error',
   '@angular-eslint/use-pipe-transform-interface': 'error',
-  '@angular-eslint/prefer-signals': 'error'
+  '@angular-eslint/prefer-signals': 'error',
+  '@angular-eslint/no-uncalled-signals': 'error',
+  '@angular-eslint/sort-keys-in-type-decorator': 'error'
 };
 
 export const ANGULAR_ESLINT_TEMPLATE_RULES = {
@@ -29,11 +31,16 @@ export const ANGULAR_ESLINT_TEMPLATE_RULES = {
   '@angular-eslint/template/conditional-complexity': 'warn',
   '@angular-eslint/template/cyclomatic-complexity': 'warn',
   '@angular-eslint/template/no-any': 'error',
-  '@angular-eslint/template/no-interpolation-in-attributes': 'warn',
   '@angular-eslint/template/no-positive-tabindex': 'error',
-  '@angular-eslint/template/attributes-order': 'warn',
+  '@angular-eslint/template/attributes-order': 'error',
   '@angular-eslint/template/alt-text': 'warn',
-  '@angular-eslint/template/click-events-have-key-events': 'off',
+  '@angular-eslint/template/no-interpolation-in-attributes': 'error',
+  '@angular-eslint/template/click-events-have-key-events': 'error',
+  '@angular-eslint/template/no-nested-tags': 'error',
+  '@angular-eslint/template/prefer-self-closing-tags': 'error',
+  '@angular-eslint/template/prefer-at-empty': 'error',
+  '@angular-eslint/template/prefer-template-literal': 'error',
+  '@angular-eslint/template/prefer-contextual-for-variables': 'error',
   'unicorn/no-empty-file': 'off'
 };
 
