@@ -41,7 +41,7 @@ export class LastfmMetadataService {
     try {
       const data = await this.fetchAlbumInfo(tags.artist, tags.album);
       return this.extractCoverUrls(data);
-    } catch (error) {
+    } catch {
       // console.warn('Failed to query Last.fm', error);
       return undefined;
     }

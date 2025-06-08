@@ -33,7 +33,7 @@
 
       @if (isActive(song)()) {
         <button matListItemMeta mat-icon-button (click)="playPauseSong($event, song)">
-          <mat-icon class="accent-color" [svgIcon]="songPlaying ? 'pause' : 'play-outline'"></mat-icon>
+          <mat-icon class="accent-color" [svgIcon]="songPlaying ? 'pause' : 'play-outline'" />
         </button>
       }
     </mat-list-item>
@@ -47,9 +47,9 @@
 
 <!-- Context Menu -->
 <mat-menu #songMenu="matMenu">
-  <ng-template matMenuContent let-song="song">
+  <ng-template let-song="song" matMenuContent>
     <button mat-menu-item (click)="playerService.removeTrackFromPlaylist(song)">
-      <mat-icon svgIcon="close-thick"></mat-icon>
+      <mat-icon svgIcon="close-thick" />
       <span>Remove from playlist</span>
     </button>
   </ng-template>

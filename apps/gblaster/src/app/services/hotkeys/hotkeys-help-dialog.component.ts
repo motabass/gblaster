@@ -11,9 +11,9 @@ export interface HotkeysData {
 
 @Component({
   selector: 'mtb-hotkeys-help-dialog',
-  styleUrl: './hotkeys-help-dialog.component.scss',
+  imports: [MatDialogModule, MatButtonModule, MatIconModule, MatListModule],
   templateUrl: './hotkeys-help-dialog.component.html',
-  imports: [MatDialogModule, MatButtonModule, MatIconModule, MatListModule]
+  styleUrl: './hotkeys-help-dialog.component.scss'
 })
 export class HotkeysHelpDialogComponent {
   dialogRef = inject<MatDialogRef<HotkeysHelpDialogComponent>>(MatDialogRef);

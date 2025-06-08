@@ -7,10 +7,10 @@ import { TimePipe } from '../time.pipe';
 
 @Component({
   selector: 'mtb-cover-display',
+  imports: [TimePipe, BitratePipe, VisualizerComponent],
   templateUrl: './cover-display.component.html',
   styleUrl: './cover-display.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [TimePipe, BitratePipe, VisualizerComponent]
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CoverDisplayComponent {
   private themeService = inject(ThemeService);

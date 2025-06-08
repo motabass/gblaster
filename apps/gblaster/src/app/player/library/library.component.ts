@@ -22,8 +22,6 @@ export interface Album {
 }
 
 @Component({
-  templateUrl: './library.component.html',
-  styleUrl: './library.component.scss',
   imports: [
     MatListModule,
     NgArrayPipesModule,
@@ -44,7 +42,9 @@ export interface Album {
     MatPrefix,
     MatSuffix,
     MatProgressSpinner
-  ]
+  ],
+  templateUrl: './library.component.html',
+  styleUrl: './library.component.scss'
 })
 export default class LibraryComponent implements OnInit {
   metadataService = inject(MetadataService);
@@ -127,8 +127,8 @@ export default class LibraryComponent implements OnInit {
       if (albumCompare !== 0) return albumCompare;
 
       // Then use track number if available
-      const aTrack = a.track !== undefined ? Number(a.track) : Number.NaN;
-      const bTrack = b.track !== undefined ? Number(b.track) : Number.NaN;
+      const aTrack = a.track === undefined ? Number.NaN : Number(a.track);
+      const bTrack = b.track === undefined ? Number.NaN : Number(b.track);
 
       // If both tracks have track numbers, compare them
       if (!Number.isNaN(aTrack) && !Number.isNaN(bTrack)) {

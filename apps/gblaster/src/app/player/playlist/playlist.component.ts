@@ -17,9 +17,6 @@ import { MatMenuModule, MatMenuTrigger } from '@angular/material/menu';
 
 @Component({
   selector: 'mtb-playlist',
-  templateUrl: './playlist.component.html',
-  styleUrl: './playlist.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     MatListModule,
     NgClass,
@@ -34,7 +31,10 @@ import { MatMenuModule, MatMenuTrigger } from '@angular/material/menu';
     MatFormFieldModule,
     FormsModule,
     MatMenuModule
-  ]
+  ],
+  templateUrl: './playlist.component.html',
+  styleUrl: './playlist.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PlaylistComponent {
   playerService = inject(PlayerService);

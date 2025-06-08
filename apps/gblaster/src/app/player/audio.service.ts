@@ -148,9 +148,9 @@ export class AudioService {
 
   // Call on major cleanup events or app exit
   disconnectAllAnalyzers(): void {
-    this._connectedAnalyzers.forEach((analyser) => {
+    for (const analyser of this._connectedAnalyzers) {
       this._eqGainNode.disconnect(analyser);
-    });
+    }
     this._connectedAnalyzers.clear();
   }
 

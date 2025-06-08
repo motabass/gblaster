@@ -2,7 +2,7 @@
   <div class="eq-visualization">
     <canvas #eqCanvas width="800" height="200"></canvas>
   </div>
-  @for (band of BANDS; track band; let i = $index) {
+  @for (band of BANDS; track band) {
     <div class="vertical-slider-container">
       <div class="flex row justify-center vertical-slider">
         <!--        <div class="vertical-slider-label">{{ band | band }}</div>-->

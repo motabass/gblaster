@@ -5,8 +5,8 @@ import { MatCardModule } from '@angular/material/card';
 
 @Component({
   selector: 'mtb-storage-settings',
-  templateUrl: './storage-settings.component.html',
-  imports: [MatCardModule, MatButtonModule]
+  imports: [MatCardModule, MatButtonModule],
+  templateUrl: './storage-settings.component.html'
 })
 export class StorageSettingsComponent {
   private localStorage = inject(LocalStorageService);

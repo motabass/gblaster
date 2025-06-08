@@ -1,34 +1,34 @@
 <mat-toolbar color="primary" class="bar flex row justify-center">
   <button mat-icon-button (click)="playerService.playPause()">
     @if (audioService.isPlaying()) {
-      <mat-icon matTooltip="Pause" svgIcon="pause"></mat-icon>
+      <mat-icon matTooltip="Pause" svgIcon="pause" />
     } @else {
-      <mat-icon matTooltip="Play" svgIcon="play"></mat-icon>
+      <mat-icon matTooltip="Play" svgIcon="play" />
     }
   </button>
 
   <button mat-icon-button (click)="playerService.stop()">
-    <mat-icon matTooltip="Stop" svgIcon="stop"></mat-icon>
+    <mat-icon matTooltip="Stop" svgIcon="stop" />
   </button>
 
   <button class="no-mobile" mat-icon-button (click)="playerService.previous()">
-    <mat-icon matTooltip="Previous" svgIcon="skip-previous"></mat-icon>
+    <mat-icon matTooltip="Previous" svgIcon="skip-previous" />
   </button>
   <button class="no-mobile" mat-icon-button (click)="playerService.next()">
-    <mat-icon matTooltip="Next" svgIcon="skip-next"></mat-icon>
+    <mat-icon matTooltip="Next" svgIcon="skip-next" />
   </button>
 
   <button mat-icon-button id="load_files" [matMenuTriggerFor]="fileMenu" [disabled]="metadataService.processing()">
-    <mat-icon matTooltip="Load folder/files..." svgIcon="folder-music-outline"></mat-icon>
+    <mat-icon matTooltip="Load folder/files..." svgIcon="folder-music-outline" />
   </button>
   <mat-menu #fileMenu="matMenu">
     <button id="load_files_menu" mat-menu-item (click)="showFilePickerAndLoadFiles()">
-      <mat-icon svgIcon="folder-music-outline"></mat-icon>
+      <mat-icon svgIcon="folder-music-outline" />
       <span>Load folder/files...</span>
     </button>
     @if (fileLoaderService.currentFolderHandle()) {
       <button mat-menu-item (click)="loadLastDirectory()">
-        <mat-icon svgIcon="folder-music-outline"></mat-icon>
+        <mat-icon svgIcon="folder-music-outline" />
         <span>Load last directory</span>
       </button>
     }
@@ -48,21 +48,21 @@
   </div>
 
   <button mat-icon-button id="volume_button" [matMenuTriggerFor]="volumeMenu">
-    <mat-icon [matTooltip]="'Volume: ' + (audioService.volume() * 100).toFixed(0)" [svgIcon]="volumeIcon()"></mat-icon>
+    <mat-icon [matTooltip]="`Volume: ${(audioService.volume() * 100).toFixed(0)}`" [svgIcon]="volumeIcon()" />
   </button>
   <button mat-icon-button [class.disabled-color]="!playerService.shuffle()" (click)="toggleShuffle()">
-    <mat-icon svgIcon="shuffle-variant" [matTooltip]="playerService.shuffle() ? 'Shuffle on' : 'Shuffle off'"></mat-icon>
+    <mat-icon svgIcon="shuffle-variant" [matTooltip]="playerService.shuffle() ? 'Shuffle on' : 'Shuffle off'" />
   </button>
   <button mat-icon-button [class.disabled-color]="playerService.repeat() === 'off'" (click)="toggleRepeat()">
     @switch (playerService.repeat()) {
       @case ('off') {
-        <mat-icon matTooltip="Repeat off" svgIcon="repeat-off"></mat-icon>
+        <mat-icon matTooltip="Repeat off" svgIcon="repeat-off" />
       }
       @case ('all') {
-        <mat-icon matTooltip="Repeat all" svgIcon="repeat"></mat-icon>
+        <mat-icon matTooltip="Repeat all" svgIcon="repeat" />
       }
       @case ('one') {
-        <mat-icon matTooltip="Repeat one" svgIcon="repeat-once"></mat-icon>
+        <mat-icon matTooltip="Repeat one" svgIcon="repeat-once" />
       }
     }
   </button>

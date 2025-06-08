@@ -21,8 +21,6 @@ import { MetadataService } from '../player/metadata-service/metadata.service';
 
 @Component({
   selector: 'mtb-shell',
-  templateUrl: './shell.component.html',
-  styleUrl: './shell.component.scss',
   imports: [
     MatSidenavModule,
     MatToolbarModule,
@@ -34,7 +32,9 @@ import { MetadataService } from '../player/metadata-service/metadata.service';
     FileDropOverlayComponent,
     PlayerToolbarComponent,
     MatProgressBar
-  ]
+  ],
+  templateUrl: './shell.component.html',
+  styleUrl: './shell.component.scss'
 })
 export class ShellComponent {
   private breakpointObserver = inject(BreakpointObserver);

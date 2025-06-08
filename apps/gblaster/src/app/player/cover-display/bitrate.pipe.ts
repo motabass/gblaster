@@ -1,8 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'bitrate',
-  standalone: true
+  name: 'bitrate'
 })
 export class BitratePipe implements PipeTransform {
   transform(value: number | undefined): string {

@@ -7,8 +7,8 @@ import { ShellComponent } from './shell/shell.component';
 
 @Component({
   selector: 'mtb-root',
-  templateUrl: './app.component.html',
   imports: [ShellComponent],
+  templateUrl: './app.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent {
@@ -18,7 +18,7 @@ export class AppComponent {
     const sanitizer = inject(DomSanitizer);
     const themeService = inject(ThemeService);
 
-    updateService.init();
+    void updateService.init();
 
     themeService.initializeTheme();
 

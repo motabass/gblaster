@@ -26,7 +26,7 @@ export class MusicbrainzService {
       }
 
       return await this.fetchCoverArt(releaseGroupId);
-    } catch (error) {
+    } catch {
       // console.warn('Failed to query MusicBrainz', error);
       return undefined;
     }
@@ -42,7 +42,7 @@ export class MusicbrainzService {
       }
 
       return data['release-groups'][0].id;
-    } catch (error) {
+    } catch {
       // console.warn('Failed to search release groups:', error);
       return undefined;
     }
@@ -77,7 +77,7 @@ export class MusicbrainzService {
       const original = coverImage.thumbnails.large || coverImage.image;
 
       return { thumbUrl: thumb, originalUrl: original };
-    } catch (error) {
+    } catch {
       // console.warn('No cover found with this ID', error);
       return undefined;
     }

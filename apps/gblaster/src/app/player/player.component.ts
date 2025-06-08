@@ -14,10 +14,10 @@ import { PlaylistComponent } from './playlist/playlist.component';
 
 @Component({
   selector: 'mtb-player',
+  imports: [PlaylistComponent, MatButtonModule, MatIconModule, CoverDisplayComponent, MatToolbarModule, MatTooltipModule, MatSliderModule, MatMenuModule],
   templateUrl: './player.component.html',
   styleUrl: './player.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [PlaylistComponent, MatButtonModule, MatIconModule, CoverDisplayComponent, MatToolbarModule, MatTooltipModule, MatSliderModule, MatMenuModule]
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export default class PlayerComponent implements OnInit {
   private titleService = inject(TitleService);

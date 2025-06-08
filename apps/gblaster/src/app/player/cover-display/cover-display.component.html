@@ -54,6 +54,6 @@
   </div>
 </div>
 @if (currentTrack && cover) {
-  <div class="cover-img" [style.background-image]="'url(' + cover + ')'" [style.background-color]="backgroundColor()"></div>
+  <div class="cover-img" [style.background-image]="`url(${cover})`" [style.background-color]="backgroundColor()"></div>
 }
 <mtb-visualizer class="visualizer" />

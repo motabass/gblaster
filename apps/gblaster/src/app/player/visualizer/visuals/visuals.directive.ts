@@ -5,8 +5,7 @@ import { AudioService } from '../../audio.service';
 const FALLBACK_PRIMARY_COLOR = '#424242';
 const FALLBACK_ACCENT_COLOR = '#bcbcbc';
 @Directive({
-  selector: '[mtbVisual]',
-  standalone: true
+  selector: '[mtbVisual]'
 })
 export class VisualsDirective implements OnDestroy {
   // private zone = inject(NgZone);

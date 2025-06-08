@@ -14,14 +14,14 @@
         <span matListItemTitle>ALL ({{ uniqueArtists().length }}) </span>
         <span matListItemMeta>
           <button mat-icon-button>
-            <mat-icon svgIcon="dots-vertical" [matMenuTriggerFor]="artistContextMenu" [matMenuTriggerData]="{ artist: undefined }"></mat-icon>
+            <mat-icon svgIcon="dots-vertical" [matMenuTriggerFor]="artistContextMenu" [matMenuTriggerData]="{ artist: undefined }" />
           </button> </span
       ></mat-list-item>
       <mat-list-item *cdkVirtualFor="let artist of uniqueArtists(); trackBy: trackByArtist" (click)="selectArtist(artist)">
         <span matListItemTitle>{{ artist }}</span>
         <span matListItemMeta>
           <button mat-icon-button>
-            <mat-icon svgIcon="dots-vertical" [matMenuTriggerFor]="artistContextMenu" [matMenuTriggerData]="{ artist: artist }"></mat-icon>
+            <mat-icon svgIcon="dots-vertical" [matMenuTriggerFor]="artistContextMenu" [matMenuTriggerData]="{ artist: artist }" />
           </button>
         </span>
       </mat-list-item>
@@ -47,7 +47,7 @@
         <span matListItemTitle>ALL ({{ uniqueAlbums().length }})</span>
         <span matListItemMeta>
           <button mat-icon-button>
-            <mat-icon svgIcon="dots-vertical" [matMenuTriggerFor]="artistContextMenu" [matMenuTriggerData]="{ album: undefined }"></mat-icon>
+            <mat-icon svgIcon="dots-vertical" [matMenuTriggerFor]="artistContextMenu" [matMenuTriggerData]="{ album: undefined }" />
           </button> </span
       ></mat-list-item>
       <mat-list-item *cdkVirtualFor="let album of uniqueAlbums(); trackBy: trackByAlbum" (click)="selectAlbum(album.name)">
@@ -60,10 +60,10 @@
             />
           }
         </div>
-        <span matListItemTitle>{{ album.name }}{{ album.year ? ' | ' + album.year : '' }}</span>
+        <span matListItemTitle>{{ album.name }}{{ album.year ? ` | ${album.year}` : '' }}</span>
         <span matListItemMeta>
           <button mat-icon-button>
-            <mat-icon svgIcon="dots-vertical" [matMenuTriggerFor]="albumContextMenu" [matMenuTriggerData]="{ album: album }"></mat-icon>
+            <mat-icon svgIcon="dots-vertical" [matMenuTriggerFor]="albumContextMenu" [matMenuTriggerData]="{ album: album }" />
           </button>
         </span>
       </mat-list-item>
@@ -89,7 +89,7 @@
         <span matListItemTitle>ALL ({{ tracks().length }})</span>
         <span matListItemMeta>
           <button mat-icon-button>
-            <mat-icon svgIcon="dots-vertical" [matMenuTriggerFor]="artistContextMenu" [matMenuTriggerData]="{ track: undefined }"></mat-icon>
+            <mat-icon svgIcon="dots-vertical" [matMenuTriggerFor]="artistContextMenu" [matMenuTriggerData]="{ track: undefined }" />
           </button>
         </span>
       </mat-list-item>
@@ -104,13 +104,13 @@
           }
         </div>
         @if (selectedAlbum()) {
-          <span matListItemTitle>{{ track.track ? track.track + '. ' : '' }}{{ track.title || track.fileName }}</span>
+          <span matListItemTitle>{{ track.track ? `${track.track}. ` : '' }}{{ track.title || track.fileName }}</span>
         } @else {
           <span matListItemTitle>{{ track.title || track.fileName }}</span>
         }
         <span matListItemMeta>
           <button mat-icon-button>
-            <mat-icon svgIcon="dots-vertical" [matMenuTriggerFor]="trackContextMenu" [matMenuTriggerData]="{ track: track }"></mat-icon>
+            <mat-icon svgIcon="dots-vertical" [matMenuTriggerFor]="trackContextMenu" [matMenuTriggerData]="{ track: track }" />
           </button>
         </span>
       </mat-list-item>
@@ -129,7 +129,7 @@
   <input matInput [ngModel]="searchTerm()" (ngModelChange)="searchTerm.set($event)" />
   @if (searchTerm()) {
     <button matSuffix mat-icon-button (click)="searchTerm.set('')">
-      <mat-icon svgIcon="close-thick"></mat-icon>
+      <mat-icon svgIcon="close-thick" />
     </button>
   }
   <mat-hint>{{ tracks().length }} entries</mat-hint>

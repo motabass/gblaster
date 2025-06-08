@@ -95,19 +95,19 @@
   <button mat-icon-button style="position: absolute; top: 0.5rem; right: 0.5rem; z-index: 10" (click)="visualsService.toggleVisualMode()">
     @switch (visualizerMode) {
       @case ('bars') {
-        <mat-icon matTooltip="Frequency-Bands" svgIcon="equalizer"></mat-icon>
+        <mat-icon matTooltip="Frequency-Bands" svgIcon="equalizer" />
       }
       @case ('osc') {
-        <mat-icon matTooltip="Oscilloscope" svgIcon="current-ac"></mat-icon>
+        <mat-icon matTooltip="Oscilloscope" svgIcon="current-ac" />
       }
       @case ('circular-bars') {
-        <mat-icon matTooltip="Circular Frequency-Bands" svgIcon="equalizer"></mat-icon>
+        <mat-icon matTooltip="Circular Frequency-Bands" svgIcon="equalizer" />
       }
       @case ('circular-osc') {
-        <mat-icon matTooltip="Circular Oscilloscope" svgIcon="current-ac"></mat-icon>
+        <mat-icon matTooltip="Circular Oscilloscope" svgIcon="current-ac" />
       }
       @case ('off') {
-        <mat-icon matTooltip="Visualizer off" svgIcon="eye-off-outline"></mat-icon>
+        <mat-icon matTooltip="Visualizer off" svgIcon="eye-off-outline" />
       }
     }
   </button>

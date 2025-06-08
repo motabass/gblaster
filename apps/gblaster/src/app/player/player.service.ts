@@ -87,7 +87,7 @@ export class PlayerService {
           }
         }
 
-        if (validFiles.length) {
+        if (validFiles.length > 0) {
           await this.addFilesToPlaylist(...validFiles);
           // If you want to play the first file immediately
           // if (validFiles.length && this.currentPlaylist().length) {

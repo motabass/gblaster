@@ -17,10 +17,10 @@ import { PlayerService } from '../player.service';
 
 @Component({
   selector: 'mtb-visualizer',
+  imports: [VisualsDirective, SlidePanelComponent, MatSelectModule, MatOptionModule, MatSliderModule, MatButtonModule, MatIconModule, MatTooltipModule],
   templateUrl: './visualizer.component.html',
   styleUrl: './visualizer.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [VisualsDirective, SlidePanelComponent, MatSelectModule, MatOptionModule, MatSliderModule, MatButtonModule, MatIconModule, MatTooltipModule]
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class VisualizerComponent implements OnInit, OnDestroy {
   readonly FFT_OPTIONS: FftSize[] = [32, 64, 128, 256, 512, 1024, 2048, 4096, 8192, 16_384, 32_768];

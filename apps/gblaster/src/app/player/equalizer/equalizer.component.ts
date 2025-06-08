@@ -6,9 +6,9 @@ import { ThemeService } from '../../theme/theme.service';
 
 @Component({
   selector: 'mtb-equalizer',
+  imports: [MatSliderModule],
   templateUrl: './equalizer.component.html',
   styleUrl: './equalizer.component.scss',
-  imports: [MatSliderModule],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export default class EqualizerComponent {
