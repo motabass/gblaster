@@ -160,7 +160,6 @@
             <tr>
                 <td class="col-md-3">imports</td>
                 <td class="col-md-9">
-                            <code>CommonModule</code>
                             <code>MatIcon</code>
                             <code>MatIconButton</code>
                             <code>MatMenu</code>
@@ -1094,7 +1093,7 @@
 
     <div class="tab-pane fade  tab-source-code" id="source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ChangeDetectionStrategy, Component, computed, inject, OnDestroy, OnInit } from &#x27;@angular/core&#x27;;
-import { CommonModule } from &#x27;@angular/common&#x27;;
+
 import { MatMenu, MatMenuModule, MatMenuTrigger } from &#x27;@angular/material/menu&#x27;;
 import { MatSlider, MatSliderThumb } from &#x27;@angular/material/slider&#x27;;
 import { MatToolbar } from &#x27;@angular/material/toolbar&#x27;;
@@ -1113,7 +1112,7 @@ import { MetadataService } from &#x27;../metadata-service/metadata.service&#x27;
 
 @Component({
   selector: &#x27;player-toolbar&#x27;,
-  imports: [CommonModule, MatIcon, MatIconButton, MatMenu, MatSlider, MatSliderThumb, MatToolbar, MatTooltip, TimePipe, MatMenuTrigger, MatMenuModule],
+  imports: [MatIcon, MatIconButton, MatMenu, MatSlider, MatSliderThumb, MatToolbar, MatTooltip, TimePipe, MatMenuTrigger, MatMenuModule],
   templateUrl: &#x27;./player-toolbar.component.html&#x27;,
   styleUrl: &#x27;./player-toolbar.component.scss&#x27;,
   changeDetection: ChangeDetectionStrategy.OnPush

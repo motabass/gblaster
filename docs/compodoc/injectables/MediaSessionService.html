@@ -519,7 +519,7 @@ export class MediaSessionService {
     }
   }
 
-  setSeekToHandler(action: (details: MediaSessionActionDetails) &#x3D;&gt; never) {
+  setSeekToHandler(action: (details: MediaSessionActionDetails) &#x3D;&gt; void) {
     try {
       navigator.mediaSession.setActionHandler(&#x27;seekto&#x27;, (details) &#x3D;&gt; {
         action(details);

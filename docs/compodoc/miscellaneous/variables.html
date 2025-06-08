@@ -886,7 +886,8 @@
                     <td class="col-md-4">
                         <i>Default value : </i><code>{
   providers: [
-    provideExperimentalZonelessChangeDetection(),
+    provideZonelessChangeDetection(),
+    provideBrowserGlobalErrorListeners(),
     provideIndexedDb(databaseConfig),
     provideServiceWorker(&#x27;ngsw-worker.js&#x27;, { enabled: environment.production, registrationStrategy: &#x27;registerImmediately&#x27; }),
     provideNgxWebstorage(withNgxWebstorageConfig({ separator: &#x27;|&#x27;, caseSensitive: true, prefix: &#x27;gblaster&#x27; }), withLocalStorage()),

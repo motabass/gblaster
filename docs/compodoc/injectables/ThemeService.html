@@ -601,7 +601,7 @@ export class ThemeService {
     ];
   }
 
-  private getColorObject(value: TinyColor, name: string): Color {
+  private getColorObject(value: any, name: string): Color {
     const color &#x3D; new TinyColor(value);
     const lightnessLimit &#x3D; this.darkMode() ? 150 : 200;
     return {
