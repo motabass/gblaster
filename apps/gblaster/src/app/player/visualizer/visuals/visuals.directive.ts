@@ -8,7 +8,6 @@ const FALLBACK_ACCENT_COLOR = '#bcbcbc';
   selector: '[mtbVisual]'
 })
 export class VisualsDirective implements OnDestroy {
-  // private zone = inject(NgZone);
   private audioService = inject(AudioService);
 
   readonly mode = input<VisualizerMode>('bars');
