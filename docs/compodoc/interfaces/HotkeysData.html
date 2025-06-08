@@ -208,9 +208,9 @@ export interface HotkeysData {
 
 @Component({
   selector: &#x27;mtb-hotkeys-help-dialog&#x27;,
-  styleUrl: &#x27;./hotkeys-help-dialog.component.scss&#x27;,
+  imports: [MatDialogModule, MatButtonModule, MatIconModule, MatListModule],
   templateUrl: &#x27;./hotkeys-help-dialog.component.html&#x27;,
-  imports: [MatDialogModule, MatButtonModule, MatIconModule, MatListModule]
+  styleUrl: &#x27;./hotkeys-help-dialog.component.scss&#x27;
 })
 export class HotkeysHelpDialogComponent {
   dialogRef &#x3D; inject&lt;MatDialogRef&lt;HotkeysHelpDialogComponent&gt;&gt;(MatDialogRef);

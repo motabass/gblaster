@@ -593,8 +593,8 @@ import { LocalStorageService } from &#x27;ngx-webstorage&#x27;;
 
 @Component({
   selector: &#x27;mtb-metadata-settings&#x27;,
-  templateUrl: &#x27;./metadata-settings.component.html&#x27;,
-  imports: [MatCardModule, MatSlideToggleModule, MatButtonModule]
+  imports: [MatCardModule, MatSlideToggleModule, MatButtonModule],
+  templateUrl: &#x27;./metadata-settings.component.html&#x27;
 })
 export class MetadataSettingsComponent {
   metadataService &#x3D; inject(MetadataService);

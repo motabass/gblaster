@@ -1573,7 +1573,7 @@ export class PlayerService {
           }
         }
 
-        if (validFiles.length) {
+        if (validFiles.length &gt; 0) {
           await this.addFilesToPlaylist(...validFiles);
           // If you want to play the first file immediately
           // if (validFiles.length &amp;&amp; this.currentPlaylist().length) {

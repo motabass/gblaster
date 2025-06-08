@@ -133,10 +133,6 @@
                         <td class="col-md-3">Name</td>
                         <td class="col-md-9">bitrate</td>
                     </tr>
-                    <tr>
-                        <td class="col-md-3">Standalone</td>
-                        <td class="col-md-9"><code>true</code></td>
-                    </tr>
                 </tbody>
             </table>
         </section>
@@ -166,8 +162,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="8"
-                                    class="link-to-prism">apps/gblaster/src/app/player/cover-display/bitrate.pipe.ts:8</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="7"
+                                    class="link-to-prism">apps/gblaster/src/app/player/cover-display/bitrate.pipe.ts:7</a></div>
                         </td>
                     </tr>
 
@@ -222,8 +218,7 @@
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Pipe, PipeTransform } from &#x27;@angular/core&#x27;;
 
 @Pipe({
-  name: &#x27;bitrate&#x27;,
-  standalone: true
+  name: &#x27;bitrate&#x27;
 })
 export class BitratePipe implements PipeTransform {
   transform(value: number | undefined): string {

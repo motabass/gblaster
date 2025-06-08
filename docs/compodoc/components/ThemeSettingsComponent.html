@@ -336,8 +336,8 @@ import { MatCardModule } from &#x27;@angular/material/card&#x27;;
 
 @Component({
   selector: &#x27;mtb-theme-settings&#x27;,
-  templateUrl: &#x27;./theme-settings.component.html&#x27;,
-  imports: [MatCardModule, MatCheckboxModule]
+  imports: [MatCardModule, MatCheckboxModule],
+  templateUrl: &#x27;./theme-settings.component.html&#x27;
 })
 export class ThemeSettingsComponent {
   themeService &#x3D; inject(ThemeService);

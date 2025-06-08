@@ -792,9 +792,6 @@ import { MatMenuModule, MatMenuTrigger } from &#x27;@angular/material/menu&#x27;
 
 @Component({
   selector: &#x27;mtb-playlist&#x27;,
-  templateUrl: &#x27;./playlist.component.html&#x27;,
-  styleUrl: &#x27;./playlist.component.scss&#x27;,
-  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     MatListModule,
     NgClass,
@@ -809,7 +806,10 @@ import { MatMenuModule, MatMenuTrigger } from &#x27;@angular/material/menu&#x27;
     MatFormFieldModule,
     FormsModule,
     MatMenuModule
-  ]
+  ],
+  templateUrl: &#x27;./playlist.component.html&#x27;,
+  styleUrl: &#x27;./playlist.component.scss&#x27;,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PlaylistComponent {
   playerService &#x3D; inject(PlayerService);
@@ -999,7 +999,7 @@ export class PlaylistComponent {
 
       @if (isActive(song)()) {
         &lt;button matListItemMeta mat-icon-button (click)&#x3D;&quot;playPauseSong($event, song)&quot;&gt;
-          &lt;mat-icon class&#x3D;&quot;accent-color&quot; [svgIcon]&#x3D;&quot;songPlaying ? &#x27;pause&#x27; : &#x27;play-outline&#x27;&quot;&gt;&lt;/mat-icon&gt;
+          &lt;mat-icon class&#x3D;&quot;accent-color&quot; [svgIcon]&#x3D;&quot;songPlaying ? &#x27;pause&#x27; : &#x27;play-outline&#x27;&quot; /&gt;
         &lt;/button&gt;
       }
     &lt;/mat-list-item&gt;
@@ -1013,9 +1013,9 @@ export class PlaylistComponent {
 
 &lt;!-- Context Menu --&gt;
 &lt;mat-menu #songMenu&#x3D;&quot;matMenu&quot;&gt;
-  &lt;ng-template matMenuContent let-song&#x3D;&quot;song&quot;&gt;
+  &lt;ng-template let-song&#x3D;&quot;song&quot; matMenuContent&gt;
     &lt;button mat-menu-item (click)&#x3D;&quot;playerService.removeTrackFromPlaylist(song)&quot;&gt;
-      &lt;mat-icon svgIcon&#x3D;&quot;close-thick&quot;&gt;&lt;/mat-icon&gt;
+      &lt;mat-icon svgIcon&#x3D;&quot;close-thick&quot; /&gt;
       &lt;span&gt;Remove from playlist&lt;/span&gt;
     &lt;/button&gt;
   &lt;/ng-template&gt;
@@ -1049,7 +1049,7 @@ export class PlaylistComponent {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><cdk-virtual-scroll-viewport #scrollViewport itemSize="72" class="playlist-viewport" style="height: 100%">  <mat-list class="playlist">    <mat-list-item      *cdkVirtualFor="let song of playerService.currentPlaylist(); trackBy: trackByHash"      class="playlist-item"      [ngClass]="{ selected: this.playerService.selectedTrack()?.metadata?.hash === song.metadata.hash }"      (dblclick)="playPauseSong($event, song)"      (click)="playerService.selectSong(song)"      (contextmenu)="onContextMenu($event, song)"    >      <div matListItemAvatar style="overflow: hidden; border-radius: 4px; position: relative">        @if (song && song.metadata && song.metadata.coverUrl) {          <img            style="position: absolute; top: 0; right: 0; bottom: 0; left: 0; width: 100%; height: 100%"            fill            [src]="song.metadata.coverUrl.thumbUrl | safe: \'resourceUrl\'"          />        }        @let songPlaying = isPlaying(song)();        @if (songPlaying) {          <canvas            mtbVisual            mode="osc"            style="position: absolute; right: 0; bottom: 0; left: 0; width: 100%; height: 100%"            [colorConfig]="playerService.colorConfig()"            [oscConfig]="{ thickness: 2 }"          ></canvas>        }      </div>      <h3 matListItemTitle style="font-size: 0.9rem; font-weight: bold">{{ song?.metadata?.title || song.file.name }}</h3>      <p matListItemLine style="font-size: 0.8rem">{{ song?.metadata?.artist }}</p>      @if (isActive(song)()) {        <button matListItemMeta mat-icon-button (click)="playPauseSong($event, song)">          <mat-icon class="accent-color" [svgIcon]="songPlaying ? \'pause\' : \'play-outline\'"></mat-icon>        </button>      }    </mat-list-item>  </mat-list></cdk-virtual-scroll-viewport><!-- Context menu trigger--><div style="display: none">  <span #menuTrigger="matMenuTrigger" [matMenuTriggerFor]="songMenu"></span></div><!-- Context Menu --><mat-menu #songMenu="matMenu">  <ng-template matMenuContent let-song="song">    <button mat-menu-item (click)="playerService.removeTrackFromPlaylist(song)">      <mat-icon svgIcon="close-thick"></mat-icon>      <span>Remove from playlist</span>    </button>  </ng-template></mat-menu></div>'
+        var COMPONENT_TEMPLATE = '<div><cdk-virtual-scroll-viewport #scrollViewport itemSize="72" class="playlist-viewport" style="height: 100%">  <mat-list class="playlist">    <mat-list-item      *cdkVirtualFor="let song of playerService.currentPlaylist(); trackBy: trackByHash"      class="playlist-item"      [ngClass]="{ selected: this.playerService.selectedTrack()?.metadata?.hash === song.metadata.hash }"      (dblclick)="playPauseSong($event, song)"      (click)="playerService.selectSong(song)"      (contextmenu)="onContextMenu($event, song)"    >      <div matListItemAvatar style="overflow: hidden; border-radius: 4px; position: relative">        @if (song && song.metadata && song.metadata.coverUrl) {          <img            style="position: absolute; top: 0; right: 0; bottom: 0; left: 0; width: 100%; height: 100%"            fill            [src]="song.metadata.coverUrl.thumbUrl | safe: \'resourceUrl\'"          />        }        @let songPlaying = isPlaying(song)();        @if (songPlaying) {          <canvas            mtbVisual            mode="osc"            style="position: absolute; right: 0; bottom: 0; left: 0; width: 100%; height: 100%"            [colorConfig]="playerService.colorConfig()"            [oscConfig]="{ thickness: 2 }"          ></canvas>        }      </div>      <h3 matListItemTitle style="font-size: 0.9rem; font-weight: bold">{{ song?.metadata?.title || song.file.name }}</h3>      <p matListItemLine style="font-size: 0.8rem">{{ song?.metadata?.artist }}</p>      @if (isActive(song)()) {        <button matListItemMeta mat-icon-button (click)="playPauseSong($event, song)">          <mat-icon class="accent-color" [svgIcon]="songPlaying ? \'pause\' : \'play-outline\'" />        </button>      }    </mat-list-item>  </mat-list></cdk-virtual-scroll-viewport><!-- Context menu trigger--><div style="display: none">  <span #menuTrigger="matMenuTrigger" [matMenuTriggerFor]="songMenu"></span></div><!-- Context Menu --><mat-menu #songMenu="matMenu">  <ng-template let-song="song" matMenuContent>    <button mat-menu-item (click)="playerService.removeTrackFromPlaylist(song)">      <mat-icon svgIcon="close-thick" />      <span>Remove from playlist</span>    </button>  </ng-template></mat-menu></div>'
     var COMPONENTS = [{'name': 'AppComponent', 'selector': 'mtb-root'},{'name': 'CoverDisplayComponent', 'selector': 'mtb-cover-display'},{'name': 'EqualizerComponent', 'selector': 'mtb-equalizer'},{'name': 'FileDropOverlayComponent', 'selector': 'mtb-file-drop-overlay'},{'name': 'HotkeysHelpDialogComponent', 'selector': 'mtb-hotkeys-help-dialog'},{'name': 'LibraryComponent', 'selector': ''},{'name': 'MetadataSettingsComponent', 'selector': 'mtb-metadata-settings'},{'name': 'PlayerComponent', 'selector': 'mtb-player'},{'name': 'PlayerToolbarComponent', 'selector': 'player-toolbar'},{'name': 'PlaylistComponent', 'selector': 'mtb-playlist'},{'name': 'PromptDialogComponent', 'selector': 'mtb-prompt-dialog'},{'name': 'SettingsComponent', 'selector': 'mtb-settings'},{'name': 'ShellComponent', 'selector': 'mtb-shell'},{'name': 'SlidePanelComponent', 'selector': 'mtb-slide-panel'},{'name': 'StorageSettingsComponent', 'selector': 'mtb-storage-settings'},{'name': 'ThemeSettingsComponent', 'selector': 'mtb-theme-settings'},{'name': 'VisualizerComponent', 'selector': 'mtb-visualizer'}];
     var DIRECTIVES = [{'name': 'VisualsDirective', 'selector': '[mtbVisual]'}];
     var ACTUAL_COMPONENT = {'name': 'PlaylistComponent'};

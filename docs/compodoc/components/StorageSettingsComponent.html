@@ -261,8 +261,8 @@ import { MatCardModule } from &#x27;@angular/material/card&#x27;;
 
 @Component({
   selector: &#x27;mtb-storage-settings&#x27;,
-  templateUrl: &#x27;./storage-settings.component.html&#x27;,
-  imports: [MatCardModule, MatButtonModule]
+  imports: [MatCardModule, MatButtonModule],
+  templateUrl: &#x27;./storage-settings.component.html&#x27;
 })
 export class StorageSettingsComponent {
   private localStorage &#x3D; inject(LocalStorageService);

@@ -197,9 +197,9 @@ import { MetadataSettingsComponent } from &#x27;./metadata-settings/metadata-set
 
 @Component({
   selector: &#x27;mtb-settings&#x27;,
+  imports: [MetadataSettingsComponent, ThemeSettingsComponent, StorageSettingsComponent],
   templateUrl: &#x27;./settings.component.html&#x27;,
-  styleUrl: &#x27;./settings.component.scss&#x27;,
-  imports: [MetadataSettingsComponent, ThemeSettingsComponent, StorageSettingsComponent]
+  styleUrl: &#x27;./settings.component.scss&#x27;
 })
 export default class SettingsComponent {}
 </code></pre>

@@ -307,10 +307,10 @@ import { PlaylistComponent } from &#x27;./playlist/playlist.component&#x27;;
 
 @Component({
   selector: &#x27;mtb-player&#x27;,
+  imports: [PlaylistComponent, MatButtonModule, MatIconModule, CoverDisplayComponent, MatToolbarModule, MatTooltipModule, MatSliderModule, MatMenuModule],
   templateUrl: &#x27;./player.component.html&#x27;,
   styleUrl: &#x27;./player.component.scss&#x27;,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [PlaylistComponent, MatButtonModule, MatIconModule, CoverDisplayComponent, MatToolbarModule, MatTooltipModule, MatSliderModule, MatMenuModule]
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export default class PlayerComponent implements OnInit {
   private titleService &#x3D; inject(TitleService);
