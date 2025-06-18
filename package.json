@@ -109,7 +109,7 @@
     "@typescript-eslint/parser": "^8.34.0",
     "@typescript-eslint/utils": "8.34.0",
     "angular-eslint": "20.0.0",
-    "cypress": "14.4.1",
+    "cypress": "14.5.0",
     "cypress-file-upload": "5.0.8",
     "dotenv": "16.5.0",
     "dotenv-cli": "8.0.0",
