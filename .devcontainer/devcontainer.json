@@ -2,7 +2,7 @@
   "image": "mcr.microsoft.com/devcontainers/universal:3",
   "features": {
     "ghcr.io/devcontainers/features/node:1": {
-      "version": "22"
+      "version": "24"
     },
     "ghcr.io/devcontainers/features/sshd:1": {
       "version": "latest"
