@@ -1,8 +1,2 @@
 [tools]
 node = '24'
-
-"npm:npm-check-updates" = "latest"
-"npm:nx" = "latest"
-
-"npm:eslint" = "latest"
-"npm:eslint-interactive" = "latest"
