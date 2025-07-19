@@ -8,29 +8,29 @@ import { MetadataService } from '../metadata-service/metadata.service';
   providedIn: 'root'
 })
 export class LibraryService {
-  private indexedDbService = inject(NgxIndexedDBService);
-  private metadataService = inject(MetadataService);
+  private readonly indexedDbService = inject(NgxIndexedDBService);
+  private readonly metadataService = inject(MetadataService);
 
   readonly isLoading = signal<boolean>(false);
-
   readonly indexedDbTracks = signal<IndexedDbTrackMetadata[]>([]);
 
-  async loadLibraryFromDb() {
-    return this.loadFromDb();
-  }
-
-  private async loadFromDb() {
+  async loadLibraryFromDb(): Promise<IndexedDbTrackMetadata[]> {
     try {
       this.isLoading.set(true);
-      const result = await firstValueFrom(this.indexedDbService.getAll<IndexedDbTrackMetadata>('library'));
-      const tagsWithOptionalBlobUrls = result.map((tag) => {
-        return this.metadataService.createObjectUrlForEmbeddedPicture(tag);
-      });
 
-      this.indexedDbTracks.set(tagsWithOptionalBlobUrls || []);
-      this.isLoading.set(false);
+      const result = await firstValueFrom(this.indexedDbService.getAll<IndexedDbTrackMetadata>('library'));
+
+      // Parallele Verarbeitung für bessere Performance
+      const tracksWithBlobUrls = await Promise.all(result.map((track) => this.metadataService.createObjectUrlForEmbeddedPicture(track)));
+
+      this.indexedDbTracks.set(tracksWithBlobUrls);
+      return tracksWithBlobUrls;
     } catch (error) {
       console.error('Error loading library data:', error);
+      this.indexedDbTracks.set([]);
+      throw error; // Re-throw für Caller
+    } finally {
+      this.isLoading.set(false);
     }
   }
 }
