@@ -1,4 +1,4 @@
-export interface Color {
+export interface ThemeColor {
   name: string;
   hex: string;
   darkContrast: boolean;

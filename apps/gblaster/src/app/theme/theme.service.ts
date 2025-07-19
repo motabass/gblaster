@@ -2,7 +2,7 @@ import { inject, Injectable, signal } from '@angular/core';
 import { Meta } from '@angular/platform-browser';
 import { Colord, colord } from 'colord';
 import { LocalStorageService } from 'ngx-webstorage';
-import { Color } from './theme.types';
+import { ThemeColor } from './theme.types';
 import { FALLBACK_ACCENT_COLOR, FALLBACK_PRIMARY_COLOR } from './default-colors';
 import { ColorConfig } from '../player/player.types';
 
@@ -19,8 +19,8 @@ export class ThemeService {
 
   readonly darkMode = signal<boolean>(this.localStorageService.retrieve('darkMode') ?? globalThis.matchMedia('(prefers-color-scheme: dark)').matches);
 
-  primaryColorPalette: Color[] = [];
-  accentColorPalette: Color[] = [];
+  primaryColorPalette: ThemeColor[] = [];
+  accentColorPalette: ThemeColor[] = [];
 
   initializeTheme() {
     this.setOverlayClass();
@@ -68,7 +68,7 @@ export class ThemeService {
     }
   }
 
-  private computeColors(hex: string): Color[] {
+  private computeColors(hex: string): ThemeColor[] {
     const color = colord(hex);
     return [
       this.getColorObject(color.lighten(0.55), '0'),
@@ -90,7 +90,7 @@ export class ThemeService {
     ];
   }
 
-  private getColorObject(color: Colord, name: string): Color {
+  private getColorObject(color: Colord, name: string): ThemeColor {
     const lightnessLimit = this.darkMode() ? 150 : 200;
     return {
       name: name,
