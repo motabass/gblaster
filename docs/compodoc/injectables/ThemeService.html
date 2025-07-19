@@ -404,7 +404,7 @@
             </tr>
                 <tr>
                     <td class="col-md-4">
-                        <i>Type : </i>        <code><a href="../interfaces/Color.html" target="_self" >Color[]</a></code>
+                        <i>Type : </i>        <code><a href="../interfaces/ThemeColor.html" target="_self" >ThemeColor[]</a></code>
 
                     </td>
                 </tr>
@@ -486,7 +486,7 @@
             </tr>
                 <tr>
                     <td class="col-md-4">
-                        <i>Type : </i>        <code><a href="../interfaces/Color.html" target="_self" >Color[]</a></code>
+                        <i>Type : </i>        <code><a href="../interfaces/ThemeColor.html" target="_self" >ThemeColor[]</a></code>
 
                     </td>
                 </tr>
@@ -512,9 +512,9 @@
     <div class="tab-pane fade  tab-source-code" id="source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { inject, Injectable, signal } from &#x27;@angular/core&#x27;;
 import { Meta } from &#x27;@angular/platform-browser&#x27;;
-import { TinyColor } from &#x27;@thebespokepixel/es-tinycolor&#x27;;
+import { Colord, colord } from &#x27;colord&#x27;;
 import { LocalStorageService } from &#x27;ngx-webstorage&#x27;;
-import { Color } from &#x27;./theme.types&#x27;;
+import { ThemeColor } from &#x27;./theme.types&#x27;;
 import { FALLBACK_ACCENT_COLOR, FALLBACK_PRIMARY_COLOR } from &#x27;./default-colors&#x27;;
 import { ColorConfig } from &#x27;../player/player.types&#x27;;
 
@@ -531,8 +531,8 @@ export class ThemeService {
 
   readonly darkMode &#x3D; signal&lt;boolean&gt;(this.localStorageService.retrieve(&#x27;darkMode&#x27;) ?? globalThis.matchMedia(&#x27;(prefers-color-scheme: dark)&#x27;).matches);
 
-  primaryColorPalette: Color[] &#x3D; [];
-  accentColorPalette: Color[] &#x3D; [];
+  primaryColorPalette: ThemeColor[] &#x3D; [];
+  accentColorPalette: ThemeColor[] &#x3D; [];
 
   initializeTheme() {
     this.setOverlayClass();
@@ -580,34 +580,34 @@ export class ThemeService {
     }
   }
 
-  private computeColors(hex: string): Color[] {
+  private computeColors(hex: string): ThemeColor[] {
+    const color &#x3D; colord(hex);
     return [
-      this.getColorObject(new TinyColor(hex).lighten(55), &#x27;0&#x27;),
-      this.getColorObject(new TinyColor(hex).lighten(45), &#x27;10&#x27;),
-      this.getColorObject(new TinyColor(hex).lighten(35), &#x27;20&#x27;),
-      this.getColorObject(new TinyColor(hex).lighten(30), &#x27;25&#x27;),
-      this.getColorObject(new TinyColor(hex).lighten(25), &#x27;30&#x27;),
-      this.getColorObject(new TinyColor(hex).lighten(20), &#x27;35&#x27;),
-      this.getColorObject(new TinyColor(hex).lighten(15), &#x27;40&#x27;),
-      this.getColorObject(new TinyColor(hex), &#x27;50&#x27;),
-      this.getColorObject(new TinyColor(hex).darken(5), &#x27;60&#x27;),
-      this.getColorObject(new TinyColor(hex).darken(10), &#x27;70&#x27;),
-      this.getColorObject(new TinyColor(hex).darken(15), &#x27;80&#x27;),
-      this.getColorObject(new TinyColor(hex).darken(18), &#x27;90&#x27;),
-      this.getColorObject(new TinyColor(hex).darken(21), &#x27;95&#x27;),
-      this.getColorObject(new TinyColor(hex).darken(24), &#x27;98&#x27;),
-      this.getColorObject(new TinyColor(hex).darken(27), &#x27;99&#x27;),
-      this.getColorObject(new TinyColor(hex).darken(30), &#x27;100&#x27;)
+      this.getColorObject(color.lighten(0.55), &#x27;0&#x27;),
+      this.getColorObject(color.lighten(0.45), &#x27;10&#x27;),
+      this.getColorObject(color.lighten(0.35), &#x27;20&#x27;),
+      this.getColorObject(color.lighten(0.3), &#x27;25&#x27;),
+      this.getColorObject(color.lighten(0.25), &#x27;30&#x27;),
+      this.getColorObject(color.lighten(0.2), &#x27;35&#x27;),
+      this.getColorObject(color.lighten(0.15), &#x27;40&#x27;),
+      this.getColorObject(color, &#x27;50&#x27;),
+      this.getColorObject(color.darken(0.5), &#x27;60&#x27;),
+      this.getColorObject(color.darken(0.1), &#x27;70&#x27;),
+      this.getColorObject(color.darken(0.15), &#x27;80&#x27;),
+      this.getColorObject(color.darken(0.18), &#x27;90&#x27;),
+      this.getColorObject(color.darken(0.21), &#x27;95&#x27;),
+      this.getColorObject(color.darken(0.24), &#x27;98&#x27;),
+      this.getColorObject(color.darken(0.27), &#x27;99&#x27;),
+      this.getColorObject(color.darken(0.3), &#x27;100&#x27;)
     ];
   }
 
-  private getColorObject(value: any, name: string): Color {
-    const color &#x3D; new TinyColor(value);
+  private getColorObject(color: Colord, name: string): ThemeColor {
     const lightnessLimit &#x3D; this.darkMode() ? 150 : 200;
     return {
       name: name,
-      hex: color.toHexString(false),
-      darkContrast: color.getBrightness() &gt; lightnessLimit
+      hex: color.toHex(),
+      darkContrast: color.brightness() &gt; lightnessLimit
       // darkContrast: c.isLight()
     };
   }

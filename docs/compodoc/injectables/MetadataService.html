@@ -725,7 +725,7 @@ import { CoverColorPalette, RemoteCoverArtUrls } from &#x27;./metadata.types&#x2
 import { MusicbrainzService } from &#x27;./musicbrainz.service&#x27;;
 import { Vibrant } from &#x27;node-vibrant/browser&#x27;;
 import { FileData } from &#x27;../file-loader-service/file-loader.helpers&#x27;;
-import SparkMD5 from &#x27;spark-md5&#x27;;
+import { md5 } from &#x27;hash-wasm&#x27;;
 
 @Injectable({ providedIn: &#x27;root&#x27; })
 export class MetadataService {
@@ -887,47 +887,56 @@ export class MetadataService {
 }
 
 async function generateFileHash(file: File): Promise&lt;string&gt; {
-  const spark &#x3D; new SparkMD5.ArrayBuffer();
   const fileSize &#x3D; file.size;
 
   // For very small files, hash the entire content
   if (fileSize &lt;&#x3D; 256 * 1024) {
     // 256KB or less
     const buffer &#x3D; await file.arrayBuffer();
-    spark.append(buffer);
-    return spark.end();
+    return await md5(new Uint8Array(buffer));
   }
 
   // Choose smaller chunk size based on file size
   const chunkSize &#x3D; fileSize &lt; 5 * 1024 * 1024 ? 64 * 1024 : 128 * 1024; // 64KB or 128KB
 
+  const chunks: Uint8Array[] &#x3D; [];
+
   // First chunk - contains headers in audio files
   const firstChunk &#x3D; await file.slice(0, chunkSize).arrayBuffer();
-  spark.append(firstChunk);
+  chunks.push(new Uint8Array(firstChunk));
 
   // For files larger than 1MB, sample the middle
   if (fileSize &gt; 1024 * 1024) {
     const middlePos &#x3D; Math.floor(fileSize / 2) - Math.floor(chunkSize / 2);
     const middleChunk &#x3D; await file.slice(middlePos, middlePos + chunkSize).arrayBuffer();
-    spark.append(middleChunk);
+    chunks.push(new Uint8Array(middleChunk));
   }
 
   // For files larger than 8MB, add quarter and three-quarter samples
   if (fileSize &gt; 8 * 1024 * 1024) {
     const quarterPos &#x3D; Math.floor(fileSize * 0.25);
     const quarterChunk &#x3D; await file.slice(quarterPos, quarterPos + chunkSize).arrayBuffer();
-    spark.append(quarterChunk);
+    chunks.push(new Uint8Array(quarterChunk));
 
     const threeQuarterPos &#x3D; Math.floor(fileSize * 0.75);
     const threeQuarterChunk &#x3D; await file.slice(threeQuarterPos, threeQuarterPos + chunkSize).arrayBuffer();
-    spark.append(threeQuarterChunk);
+    chunks.push(new Uint8Array(threeQuarterChunk));
   }
 
   // Last chunk - often contains important metadata in audio files
   const endChunk &#x3D; await file.slice(Math.max(0, fileSize - chunkSize), fileSize).arrayBuffer();
-  spark.append(endChunk);
+  chunks.push(new Uint8Array(endChunk));
 
-  return spark.end();
+  // Combine all chunks into one array
+  const totalLength &#x3D; chunks.reduce((sum, chunk) &#x3D;&gt; sum + chunk.length, 0);
+  const combined &#x3D; new Uint8Array(totalLength);
+  let offset &#x3D; 0;
+  for (const chunk of chunks) {
+    combined.set(chunk, offset);
+    offset +&#x3D; chunk.length;
+  }
+
+  return await md5(combined);
 }
 
 async function extractColorsWithNodeVibrant(url: string): Promise&lt;CoverColorPalette | undefined&gt; {

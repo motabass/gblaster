@@ -279,9 +279,6 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 <a href="interfaces/Chainable.html" data-type="entity-link" >Chainable</a>
                             </li>
                             <li class="link">
-                                <a href="interfaces/Color.html" data-type="entity-link" >Color</a>
-                            </li>
-                            <li class="link">
                                 <a href="interfaces/ColorConfig.html" data-type="entity-link" >ColorConfig</a>
                             </li>
                             <li class="link">
@@ -349,6 +346,9 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                             </li>
                             <li class="link">
                                 <a href="interfaces/TagsWorkerResponse.html" data-type="entity-link" >TagsWorkerResponse</a>
+                            </li>
+                            <li class="link">
+                                <a href="interfaces/ThemeColor.html" data-type="entity-link" >ThemeColor</a>
                             </li>
                             <li class="link">
                                 <a href="interfaces/Track.html" data-type="entity-link" >Track</a>
