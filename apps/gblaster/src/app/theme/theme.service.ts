@@ -1,6 +1,6 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { Meta } from '@angular/platform-browser';
-import { TinyColor } from '@thebespokepixel/es-tinycolor';
+import { Colord, colord } from 'colord';
 import { LocalStorageService } from 'ngx-webstorage';
 import { Color } from './theme.types';
 import { FALLBACK_ACCENT_COLOR, FALLBACK_PRIMARY_COLOR } from './default-colors';
@@ -69,33 +69,33 @@ export class ThemeService {
   }
 
   private computeColors(hex: string): Color[] {
+    const color = colord(hex);
     return [
-      this.getColorObject(new TinyColor(hex).lighten(55), '0'),
-      this.getColorObject(new TinyColor(hex).lighten(45), '10'),
-      this.getColorObject(new TinyColor(hex).lighten(35), '20'),
-      this.getColorObject(new TinyColor(hex).lighten(30), '25'),
-      this.getColorObject(new TinyColor(hex).lighten(25), '30'),
-      this.getColorObject(new TinyColor(hex).lighten(20), '35'),
-      this.getColorObject(new TinyColor(hex).lighten(15), '40'),
-      this.getColorObject(new TinyColor(hex), '50'),
-      this.getColorObject(new TinyColor(hex).darken(5), '60'),
-      this.getColorObject(new TinyColor(hex).darken(10), '70'),
-      this.getColorObject(new TinyColor(hex).darken(15), '80'),
-      this.getColorObject(new TinyColor(hex).darken(18), '90'),
-      this.getColorObject(new TinyColor(hex).darken(21), '95'),
-      this.getColorObject(new TinyColor(hex).darken(24), '98'),
-      this.getColorObject(new TinyColor(hex).darken(27), '99'),
-      this.getColorObject(new TinyColor(hex).darken(30), '100')
+      this.getColorObject(color.lighten(0.55), '0'),
+      this.getColorObject(color.lighten(0.45), '10'),
+      this.getColorObject(color.lighten(0.35), '20'),
+      this.getColorObject(color.lighten(0.3), '25'),
+      this.getColorObject(color.lighten(0.25), '30'),
+      this.getColorObject(color.lighten(0.2), '35'),
+      this.getColorObject(color.lighten(0.15), '40'),
+      this.getColorObject(color, '50'),
+      this.getColorObject(color.darken(0.5), '60'),
+      this.getColorObject(color.darken(0.1), '70'),
+      this.getColorObject(color.darken(0.15), '80'),
+      this.getColorObject(color.darken(0.18), '90'),
+      this.getColorObject(color.darken(0.21), '95'),
+      this.getColorObject(color.darken(0.24), '98'),
+      this.getColorObject(color.darken(0.27), '99'),
+      this.getColorObject(color.darken(0.3), '100')
     ];
   }
 
-  private getColorObject(value: any, name: string): Color {
-    const color = new TinyColor(value);
+  private getColorObject(color: Colord, name: string): Color {
     const lightnessLimit = this.darkMode() ? 150 : 200;
     return {
       name: name,
-      hex: color.toHexString(false),
-      darkContrast: color.getBrightness() > lightnessLimit
+      hex: color.toHex(),
+      darkContrast: color.brightness() > lightnessLimit
       // darkContrast: c.isLight()
     };
   }
