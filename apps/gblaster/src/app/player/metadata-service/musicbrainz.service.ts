@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import luceneEscapeQuery from 'lucene-escape-query';
 import { Id3Tags } from './id3-tags.types';
 import { RemoteCoverArtUrls } from './metadata.types';
 import { CoverArtArchiveApi, MusicBrainzApi } from 'musicbrainz-api';
 import { ensureHttps } from './metadata.helper';
+import { escapeLuceneQueryString } from '@motabass/helpers';
 
 @Injectable({ providedIn: 'root' })
 export class MusicbrainzService {
@@ -34,7 +34,7 @@ export class MusicbrainzService {
   }
 
   private async findReleaseGroupId(artist: string, album: string): Promise<string | undefined> {
-    const query = `release:${luceneEscapeQuery.escape(album)} AND artist:${luceneEscapeQuery.escape(artist)} AND primarytype:Album`;
+    const query = `release:${escapeLuceneQueryString(album)} AND artist:${escapeLuceneQueryString(artist)} AND primarytype:Album`;
 
     try {
       const data = await this.mbApi.search('release-group', { query });

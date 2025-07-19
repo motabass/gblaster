@@ -1,6 +1,5 @@
 import { Component, computed, effect, inject, OnInit, signal } from '@angular/core';
 import { IndexedDbTrackMetadata, Track } from '../player.types';
-import { NgArrayPipesModule } from 'ngx-pipes';
 import { MatListModule } from '@angular/material/list';
 import { MatMenu, MatMenuContent, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
 import { PlayerService } from '../player.service';
@@ -24,7 +23,6 @@ export interface Album {
 @Component({
   imports: [
     MatListModule,
-    NgArrayPipesModule,
     MatMenu,
     MatMenuContent,
     MatMenuItem,

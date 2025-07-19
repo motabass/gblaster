@@ -1,4 +1,4 @@
-import { formatSecondsAsClock } from './helpers-time';
+import { formatSecondsAsClock } from './time.helper';
 
 describe('helpersTime', () => {
   it('formats seconds as clock string', () => {
