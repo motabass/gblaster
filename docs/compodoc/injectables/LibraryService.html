@@ -155,7 +155,8 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
-                                <a href="#reload" >reload</a>
+                                    <span class="modifier">Async</span>
+                                <a href="#loadLibraryFromDb" >loadLibraryFromDb</a>
                             </li>
                         </ul>
                     </td>
@@ -169,24 +170,6 @@
     </table>
 </section>
 
-            <section data-compodoc="block-constructor">
-    <h3 id="constructor">Constructor</h3>
-        <table class="table table-sm table-bordered">
-            <tbody>
-                <tr>
-                    <td class="col-md-4">
-<code>constructor()</code>
-                    </td>
-                </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">apps/gblaster/src/app/player/library/library.service.ts:16</a></div>
-                            </td>
-                        </tr>
-
-            </tbody>
-        </table>
-</section>
 
             <section data-compodoc="block-methods">
     
@@ -197,24 +180,26 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="reload"></a>
+                    <a name="loadLibraryFromDb"></a>
                     <span class="name">
-                        <span ><b>reload</b></span>
-                        <a href="#reload"><span class="icon ion-ios-link"></span></a>
+                            <span class="modifier">Async</span>
+                        <span ><b>loadLibraryFromDb</b></span>
+                        <a href="#loadLibraryFromDb"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>reload()</code>
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>loadLibraryFromDb()</code>
                 </td>
             </tr>
 
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="21"
-                                    class="link-to-prism">apps/gblaster/src/app/player/library/library.service.ts:21</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="18"
+                                    class="link-to-prism">apps/gblaster/src/app/player/library/library.service.ts:18</a></div>
                         </td>
                     </tr>
 
@@ -223,7 +208,7 @@
                 <td class="col-md-4">
 
                         <div class="io-description">
-                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+                            <b>Returns : </b>    <code>unknown</code>
 
                         </div>
                 </td>
@@ -310,15 +295,12 @@ export class LibraryService {
   readonly isLoading &#x3D; signal&lt;boolean&gt;(false);
 
   readonly indexedDbTracks &#x3D; signal&lt;IndexedDbTrackMetadata[]&gt;([]);
-  constructor() {
-    void this.loadLibrary();
+
+  async loadLibraryFromDb() {
+    return this.loadFromDb();
   }
 
-  reload() {
-    this.loadLibrary();
-  }
-
-  private async loadLibrary() {
+  private async loadFromDb() {
     try {
       this.isLoading.set(true);
       const result &#x3D; await firstValueFrom(this.indexedDbService.getAll&lt;IndexedDbTrackMetadata&gt;(&#x27;library&#x27;));

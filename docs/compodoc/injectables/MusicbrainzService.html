@@ -233,11 +233,11 @@
 
     <div class="tab-pane fade  tab-source-code" id="source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable } from &#x27;@angular/core&#x27;;
-import luceneEscapeQuery from &#x27;lucene-escape-query&#x27;;
 import { Id3Tags } from &#x27;./id3-tags.types&#x27;;
 import { RemoteCoverArtUrls } from &#x27;./metadata.types&#x27;;
 import { CoverArtArchiveApi, MusicBrainzApi } from &#x27;musicbrainz-api&#x27;;
 import { ensureHttps } from &#x27;./metadata.helper&#x27;;
+import { escapeLuceneQueryString } from &#x27;@motabass/helpers&#x27;;
 
 @Injectable({ providedIn: &#x27;root&#x27; })
 export class MusicbrainzService {
@@ -268,7 +268,7 @@ export class MusicbrainzService {
   }
 
   private async findReleaseGroupId(artist: string, album: string): Promise&lt;string | undefined&gt; {
-    const query &#x3D; &#x60;release:${luceneEscapeQuery.escape(album)} AND artist:${luceneEscapeQuery.escape(artist)} AND primarytype:Album&#x60;;
+    const query &#x3D; &#x60;release:${escapeLuceneQueryString(album)} AND artist:${escapeLuceneQueryString(artist)} AND primarytype:Album&#x60;;
 
     try {
       const data &#x3D; await this.mbApi.search(&#x27;release-group&#x27;, { query });

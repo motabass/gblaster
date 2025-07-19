@@ -273,9 +273,8 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, computed, inject, OnInit, signal } from &#x27;@angular/core&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, computed, effect, inject, OnInit, signal } from &#x27;@angular/core&#x27;;
 import { IndexedDbTrackMetadata, Track } from &#x27;../player.types&#x27;;
-import { NgArrayPipesModule } from &#x27;ngx-pipes&#x27;;
 import { MatListModule } from &#x27;@angular/material/list&#x27;;
 import { MatMenu, MatMenuContent, MatMenuItem, MatMenuTrigger } from &#x27;@angular/material/menu&#x27;;
 import { PlayerService } from &#x27;../player.service&#x27;;
@@ -299,7 +298,6 @@ export interface Album {
 @Component({
   imports: [
     MatListModule,
-    NgArrayPipesModule,
     MatMenu,
     MatMenuContent,
     MatMenuItem,
@@ -415,9 +413,29 @@ export default class LibraryComponent implements OnInit {
     });
   });
 
-  ngOnInit() {
-    this.libraryService.reload();
+  private processingInterval: any;
+
+  constructor() {
+    // Automatically manage the interval based on processing state
+    effect(() &#x3D;&gt; {
+      const isProcessing &#x3D; this.metadataService.processing();
+
+      if (isProcessing &amp;&amp; !this.processingInterval) {
+        this.processingInterval &#x3D; globalThis.setInterval(() &#x3D;&gt; {
+          void this.libraryService.loadLibraryFromDb();
+        }, 5000);
+      } else if (!isProcessing &amp;&amp; this.processingInterval) {
+        clearInterval(this.processingInterval);
+        this.processingInterval &#x3D; undefined;
+      }
+    });
   }
+
+  ngOnInit() {
+    void this.libraryService.loadLibraryFromDb();
+  }
+
+  private onLibraryUpdate() {}
 
   selectArtist(artist: string | undefined) {
     this.selectedArtist.set(artist);
