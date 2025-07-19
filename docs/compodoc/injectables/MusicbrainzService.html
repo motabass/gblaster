@@ -179,8 +179,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="17"
-                                    class="link-to-prism">apps/gblaster/src/app/player/metadata-service/musicbrainz.service.ts:17</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="18"
+                                    class="link-to-prism">apps/gblaster/src/app/player/metadata-service/musicbrainz.service.ts:18</a></div>
                         </td>
                     </tr>
 
@@ -237,6 +237,7 @@ import luceneEscapeQuery from &#x27;lucene-escape-query&#x27;;
 import { Id3Tags } from &#x27;./id3-tags.types&#x27;;
 import { RemoteCoverArtUrls } from &#x27;./metadata.types&#x27;;
 import { CoverArtArchiveApi, MusicBrainzApi } from &#x27;musicbrainz-api&#x27;;
+import { ensureHttps } from &#x27;./metadata.helper&#x27;;
 
 @Injectable({ providedIn: &#x27;root&#x27; })
 export class MusicbrainzService {
@@ -310,7 +311,7 @@ export class MusicbrainzService {
       // Use large thumbnail or fall back to the full image
       const original &#x3D; coverImage.thumbnails.large || coverImage.image;
 
-      return { thumbUrl: thumb, originalUrl: original };
+      return { thumbUrl: ensureHttps(thumb), originalUrl: ensureHttps(original) };
     } catch {
       // console.warn(&#x27;No cover found with this ID&#x27;, error);
       return undefined;
