@@ -114,7 +114,7 @@
     "dotenv-cli": "8.0.0",
     "esbuild-visualizer": "0.7.0",
     "eslint": "9.31.0",
-    "eslint-config-prettier": "10.1.5",
+    "eslint-config-prettier": "10.1.8",
     "eslint-interactive": "12.0.0",
     "eslint-plugin-cypress": "5.1.0",
     "eslint-plugin-sonarjs": "3.0.4",
