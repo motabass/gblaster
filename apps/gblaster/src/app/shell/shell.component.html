@@ -52,8 +52,9 @@
       >
     </mat-toolbar>
 
-    @if (metadataService.processionPercent() < 100) {
+    @if (metadataService.processing()) {
       <mat-progress-bar class="progress" mode="determinate" [value]="metadataService.processionPercent()" />
+      <div class="status">{{ metadataService.statusText() }}</div>
     }
     <div class="router-outlet main"><router-outlet /></div>
 

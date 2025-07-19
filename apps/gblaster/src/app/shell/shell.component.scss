@@ -7,9 +7,10 @@
   grid-template-areas:
     'header'
     'progress'
+    'status'
     'main'
     'toolbar';
-  grid-template-rows: auto auto 1fr auto;
+  grid-template-rows: auto auto auto 1fr auto;
   grid-template-columns: 1fr;
 
   .header {
@@ -19,6 +20,12 @@
 
   .progress {
     grid-area: progress;
+  }
+
+  .status {
+    grid-area: status;
+    font-size: 0.8rem;
+    padding: 0.2rem 0.5rem;
   }
 
   .main {

@@ -1,4 +1,4 @@
-import { Component, computed, inject, OnInit, signal } from '@angular/core';
+import { Component, computed, effect, inject, OnInit, signal } from '@angular/core';
 import { IndexedDbTrackMetadata, Track } from '../player.types';
 import { NgArrayPipesModule } from 'ngx-pipes';
 import { MatListModule } from '@angular/material/list';
@@ -140,9 +140,29 @@ export default class LibraryComponent implements OnInit {
     });
   });
 
-  ngOnInit() {
-    this.libraryService.reload();
+  private processingInterval: any;
+
+  constructor() {
+    // Automatically manage the interval based on processing state
+    effect(() => {
+      const isProcessing = this.metadataService.processing();
+
+      if (isProcessing && !this.processingInterval) {
+        this.processingInterval = globalThis.setInterval(() => {
+          void this.libraryService.loadLibraryFromDb();
+        }, 5000);
+      } else if (!isProcessing && this.processingInterval) {
+        clearInterval(this.processingInterval);
+        this.processingInterval = undefined;
+      }
+    });
   }
+
+  ngOnInit() {
+    void this.libraryService.loadLibraryFromDb();
+  }
+
+  private onLibraryUpdate() {}
 
   selectArtist(artist: string | undefined) {
     this.selectedArtist.set(artist);

@@ -14,15 +14,12 @@ export class LibraryService {
   readonly isLoading = signal<boolean>(false);
 
   readonly indexedDbTracks = signal<IndexedDbTrackMetadata[]>([]);
-  constructor() {
-    void this.loadLibrary();
+
+  async loadLibraryFromDb() {
+    return this.loadFromDb();
   }
 
-  reload() {
-    this.loadLibrary();
-  }
-
-  private async loadLibrary() {
+  private async loadFromDb() {
     try {
       this.isLoading.set(true);
       const result = await firstValueFrom(this.indexedDbService.getAll<IndexedDbTrackMetadata>('library'));

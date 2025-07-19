@@ -6,9 +6,8 @@
   display: grid;
   gap: 2px;
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: auto 1fr 1fr auto;
+  grid-template-rows: auto 1fr auto;
   grid-template-areas:
-    'status status'
     'artists tracks'
     'albums tracks'
     'searchinput searchinput';
@@ -23,12 +22,6 @@
 .searchbox {
   background-color: var(--mat-sys-background);
   overflow-y: auto;
-}
-
-.status {
-  grid-area: status;
-  font-size: 0.8rem;
-  padding: 0.2rem 0.5rem;
 }
 
 .searchinput {
