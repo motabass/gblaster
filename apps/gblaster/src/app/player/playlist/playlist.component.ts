@@ -63,7 +63,7 @@ export class PlaylistComponent {
               this.isAutoScrollEnabled.set(true);
             }
             // If user scrolled up
-            else if (scrollPosition > measureOffset && this.isAutoScrollEnabled) {
+            else if (scrollPosition > measureOffset && this.isAutoScrollEnabled()) {
               this.isAutoScrollEnabled.set(false);
             }
           });
