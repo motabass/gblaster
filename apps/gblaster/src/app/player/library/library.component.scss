@@ -6,7 +6,7 @@
   display: grid;
   gap: 2px;
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: auto 1fr auto;
+  grid-template-rows: 1fr 1fr auto;
   grid-template-areas:
     'artists tracks'
     'albums tracks'
