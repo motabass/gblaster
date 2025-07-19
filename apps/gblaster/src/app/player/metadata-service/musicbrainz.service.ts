@@ -3,6 +3,7 @@ import luceneEscapeQuery from 'lucene-escape-query';
 import { Id3Tags } from './id3-tags.types';
 import { RemoteCoverArtUrls } from './metadata.types';
 import { CoverArtArchiveApi, MusicBrainzApi } from 'musicbrainz-api';
+import { ensureHttps } from './metadata.helper';
 
 @Injectable({ providedIn: 'root' })
 export class MusicbrainzService {
@@ -76,7 +77,7 @@ export class MusicbrainzService {
       // Use large thumbnail or fall back to the full image
       const original = coverImage.thumbnails.large || coverImage.image;
 
-      return { thumbUrl: thumb, originalUrl: original };
+      return { thumbUrl: ensureHttps(thumb), originalUrl: ensureHttps(original) };
     } catch {
       // console.warn('No cover found with this ID', error);
       return undefined;
