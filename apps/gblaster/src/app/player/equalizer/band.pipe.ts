@@ -6,17 +6,14 @@ import { FrequencyBand } from '../player.types';
   pure: true
 })
 export class BandPipe implements PipeTransform {
-  transform(value: FrequencyBand, ...arguments_: unknown[]): string {
-    if (!value) {
+  transform(value: FrequencyBand): string {
+    if (!value || value < 0) {
       return '';
     }
 
-    if (value < 1000) {
-      return value.toString();
-    } else if (value >= 1000 && value < 10_000) {
-      return value.toString().slice(0, 1) + 'K';
-    } else if (value >= 10_000) {
-      return value.toString().slice(0, 2) + 'K';
+    if (value >= 1000) {
+      const kValue = value / 1000;
+      return kValue % 1 === 0 ? `${Math.floor(kValue)}K` : `${kValue.toFixed(1)}K`;
     }
 
     return value.toString();

@@ -1,22 +1,25 @@
 export function formatSecondsAsClock(value: number | undefined, leadingMinuteZero = true): string {
-  if (value === undefined) {
+  if (value === undefined || value <= 0) {
     return leadingMinuteZero ? '00:00' : '0:00';
   }
 
-  if (value > 0) {
-    // Round the total seconds first
-    const totalSeconds = Math.round(value);
+  // Round the total seconds first
+  const totalSeconds = Math.round(value);
 
-    // Calculate minutes and seconds properly
-    const minutes = Math.floor(totalSeconds / 60);
-    const seconds = totalSeconds % 60; // Using modulo to ensure 0-59 range
+  // Calculate minutes and seconds properly
+  const minutes = Math.floor(totalSeconds / 60);
+  const seconds = totalSeconds % 60;
 
-    // Format the output string
-    const formattedMinutes = minutes > 9 ? minutes : leadingMinuteZero ? '0' + minutes : minutes;
-    const formattedSeconds = seconds > 9 ? seconds : '0' + seconds;
+  // Format minutes with leading zero if needed
+  const formattedMinutes = formatWithLeadingZero(minutes, leadingMinuteZero);
+  const formattedSeconds = formatWithLeadingZero(seconds, true);
 
-    return `${formattedMinutes}:${formattedSeconds}`;
-  } else {
-    return leadingMinuteZero ? '00:00' : '0:00';
+  return `${formattedMinutes}:${formattedSeconds}`;
+}
+
+function formatWithLeadingZero(value: number, useLeadingZero: boolean): string {
+  if (value > 9 || !useLeadingZero) {
+    return value.toString();
   }
+  return '0' + value;
 }
