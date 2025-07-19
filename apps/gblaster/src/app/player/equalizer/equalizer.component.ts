@@ -78,7 +78,7 @@ export default class EqualizerComponent {
     };
 
     // Draw frequency response curve with gain applied
-    ctx.strokeStyle = this.themeService.primaryColor;
+    ctx.strokeStyle = this.themeService.primaryColor();
     ctx.lineWidth = 3;
 
     const freqPoints: { x: number; y: number }[] = [];
@@ -130,7 +130,7 @@ export default class EqualizerComponent {
     }
 
     // Display gain value
-    ctx.fillStyle = this.themeService.accentColor;
+    ctx.fillStyle = this.themeService.accentColor();
     ctx.font = 'bold 12px Arial';
     ctx.textAlign = 'right';
     ctx.fillText(`Gain: ${gainValue.toFixed(1)}x`, width - 10, 20);

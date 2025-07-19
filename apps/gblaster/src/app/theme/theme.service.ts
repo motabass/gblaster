@@ -1,10 +1,16 @@
-import { inject, Injectable, signal } from '@angular/core';
+import { computed, effect, inject, Injectable, signal } from '@angular/core';
 import { Meta } from '@angular/platform-browser';
 import { Colord, colord } from 'colord';
 import { LocalStorageService } from 'ngx-webstorage';
 import { ThemeColor } from './theme.types';
 import { FALLBACK_ACCENT_COLOR, FALLBACK_PRIMARY_COLOR } from './default-colors';
 import { ColorConfig } from '../player/player.types';
+
+interface ColorVariant {
+  suffix: string;
+  lightenFactor?: number;
+  darkenFactor?: number;
+}
 
 @Injectable({
   providedIn: 'root'
@@ -13,90 +19,119 @@ export class ThemeService {
   private meta = inject(Meta);
   private localStorageService = inject(LocalStorageService);
 
-  primaryColor = FALLBACK_PRIMARY_COLOR;
-
-  accentColor = FALLBACK_ACCENT_COLOR;
+  private readonly COLOR_VARIANTS: ColorVariant[] = [
+    { suffix: '0', lightenFactor: 0.55 },
+    { suffix: '10', lightenFactor: 0.45 },
+    { suffix: '20', lightenFactor: 0.35 },
+    { suffix: '25', lightenFactor: 0.3 },
+    { suffix: '30', lightenFactor: 0.25 },
+    { suffix: '35', lightenFactor: 0.2 },
+    { suffix: '40', lightenFactor: 0.15 },
+    { suffix: '50' },
+    { suffix: '60', darkenFactor: 0.05 },
+    { suffix: '70', darkenFactor: 0.1 },
+    { suffix: '80', darkenFactor: 0.15 },
+    { suffix: '90', darkenFactor: 0.18 },
+    { suffix: '95', darkenFactor: 0.21 },
+    { suffix: '98', darkenFactor: 0.24 },
+    { suffix: '99', darkenFactor: 0.27 },
+    { suffix: '100', darkenFactor: 0.3 }
+  ];
 
   readonly darkMode = signal<boolean>(this.localStorageService.retrieve('darkMode') ?? globalThis.matchMedia('(prefers-color-scheme: dark)').matches);
 
-  primaryColorPalette: ThemeColor[] = [];
-  accentColorPalette: ThemeColor[] = [];
+  readonly primaryColor = signal<string>(this.localStorageService.retrieve('primaryColor') ?? FALLBACK_PRIMARY_COLOR);
+
+  readonly accentColor = signal<string>(this.localStorageService.retrieve('accentColor') ?? FALLBACK_ACCENT_COLOR);
+
+  readonly primaryColorPalette = computed(() => this.computeColors(this.primaryColor()));
+  readonly accentColorPalette = computed(() => this.computeColors(this.accentColor()));
+
+  constructor() {
+    // Automatische Updates bei Änderungen
+    effect(() => {
+      this.updateCSSProperties();
+      this.updateMetaThemeColor();
+    });
+
+    effect(() => {
+      this.localStorageService.store('darkMode', this.darkMode());
+    });
+
+    effect(() => {
+      this.localStorageService.store('primaryColor', this.primaryColor());
+    });
+
+    effect(() => {
+      this.localStorageService.store('accentColor', this.accentColor());
+    });
+  }
 
   initializeTheme() {
-    this.setOverlayClass();
-    this.setPrimaryColor(this.primaryColor);
-    this.setAccentColor(this.accentColor);
+    this.updateCSSProperties();
+    this.updateMetaThemeColor();
   }
 
   setDarkMode(darkMode: boolean) {
     this.darkMode.set(darkMode);
-    this.localStorageService.store('darkMode', darkMode);
-    this.setOverlayClass();
   }
 
   setColors(colors: ColorConfig) {
-    this.setPrimaryColor(colors.mainColor);
-    this.setAccentColor(colors.peakColor);
+    this.primaryColor.set(colors.mainColor || FALLBACK_PRIMARY_COLOR);
+    this.accentColor.set(colors.peakColor || FALLBACK_ACCENT_COLOR);
   }
 
-  private setPrimaryColor(color?: string) {
-    this.primaryColor = color || FALLBACK_PRIMARY_COLOR;
-    this.primaryColorPalette = this.computeColors(this.primaryColor);
-
-    for (const clr of this.primaryColorPalette) {
-      document.documentElement.style.setProperty(`--theme-primary-${clr.name}`, clr.hex);
-    }
-
-    this.meta.addTag({ name: 'theme-color', content: this.primaryColor }, true);
-    this.meta.updateTag({ name: 'theme-color', content: this.primaryColor });
+  setPrimaryColor(color: string) {
+    this.primaryColor.set(color || FALLBACK_PRIMARY_COLOR);
   }
 
-  private setAccentColor(color?: string) {
-    this.accentColor = color || FALLBACK_ACCENT_COLOR;
-    this.accentColorPalette = this.computeColors(this.accentColor);
-
-    for (const clr of this.accentColorPalette) {
-      document.documentElement.style.setProperty(`--theme-accent-${clr.name}`, clr.hex);
-    }
+  setAccentColor(color: string) {
+    this.accentColor.set(color || FALLBACK_ACCENT_COLOR);
   }
 
-  private setOverlayClass() {
-    if (this.darkMode()) {
-      document.documentElement.style.setProperty('--app-color-scheme', 'dark');
-    } else {
-      document.documentElement.style.setProperty('--app-color-scheme', 'light');
-    }
+  private updateCSSProperties() {
+    const root = document.documentElement.style;
+
+    // App color scheme
+    root.setProperty('--app-color-scheme', this.darkMode() ? 'dark' : 'light');
+
+    // Primary colors
+    this.primaryColorPalette().forEach((color) => {
+      root.setProperty(`--theme-primary-${color.name}`, color.hex);
+    });
+
+    // Accent colors
+    this.accentColorPalette().forEach((color) => {
+      root.setProperty(`--theme-accent-${color.name}`, color.hex);
+    });
+  }
+
+  private updateMetaThemeColor() {
+    this.meta.updateTag({ name: 'theme-color', content: this.primaryColor() });
   }
 
   private computeColors(hex: string): ThemeColor[] {
-    const color = colord(hex);
-    return [
-      this.getColorObject(color.lighten(0.55), '0'),
-      this.getColorObject(color.lighten(0.45), '10'),
-      this.getColorObject(color.lighten(0.35), '20'),
-      this.getColorObject(color.lighten(0.3), '25'),
-      this.getColorObject(color.lighten(0.25), '30'),
-      this.getColorObject(color.lighten(0.2), '35'),
-      this.getColorObject(color.lighten(0.15), '40'),
-      this.getColorObject(color, '50'),
-      this.getColorObject(color.darken(0.5), '60'),
-      this.getColorObject(color.darken(0.1), '70'),
-      this.getColorObject(color.darken(0.15), '80'),
-      this.getColorObject(color.darken(0.18), '90'),
-      this.getColorObject(color.darken(0.21), '95'),
-      this.getColorObject(color.darken(0.24), '98'),
-      this.getColorObject(color.darken(0.27), '99'),
-      this.getColorObject(color.darken(0.3), '100')
-    ];
+    const baseColor = colord(hex);
+
+    return this.COLOR_VARIANTS.map((variant) => {
+      let color = baseColor;
+
+      if (variant.lightenFactor) {
+        color = baseColor.lighten(variant.lightenFactor);
+      } else if (variant.darkenFactor) {
+        color = baseColor.darken(variant.darkenFactor);
+      }
+
+      return this.getThemeColor(color, variant.suffix);
+    });
   }
 
-  private getColorObject(color: Colord, name: string): ThemeColor {
+  private getThemeColor(color: Colord, name: string): ThemeColor {
     const lightnessLimit = this.darkMode() ? 150 : 200;
     return {
-      name: name,
+      name,
       hex: color.toHex(),
       darkContrast: color.brightness() > lightnessLimit
-      // darkContrast: c.isLight()
     };
   }
 }
