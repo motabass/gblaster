@@ -159,7 +159,7 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>transform(value: <a href="../undefineds/FrequencyBand.html" target="_self">FrequencyBand</a>, ...arguments_: [])</code>
+<code>transform(value: <a href="../undefineds/FrequencyBand.html" target="_self">FrequencyBand</a>)</code>
                 </td>
             </tr>
 
@@ -199,18 +199,6 @@
 
 
                                         </tr>
-                                        <tr>
-                                                <td>arguments_</td>
-                                            <td>
-                                                        <code>[]</code>
-                                            </td>
-
-                                            <td>
-                                                    No
-                                            </td>
-
-
-                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -239,17 +227,14 @@ import { FrequencyBand } from &#x27;../player.types&#x27;;
   pure: true
 })
 export class BandPipe implements PipeTransform {
-  transform(value: FrequencyBand, ...arguments_: unknown[]): string {
-    if (!value) {
+  transform(value: FrequencyBand): string {
+    if (!value || value &lt; 0) {
       return &#x27;&#x27;;
     }
 
-    if (value &lt; 1000) {
-      return value.toString();
-    } else if (value &gt;&#x3D; 1000 &amp;&amp; value &lt; 10_000) {
-      return value.toString().slice(0, 1) + &#x27;K&#x27;;
-    } else if (value &gt;&#x3D; 10_000) {
-      return value.toString().slice(0, 2) + &#x27;K&#x27;;
+    if (value &gt;&#x3D; 1000) {
+      const kValue &#x3D; value / 1000;
+      return kValue % 1 &#x3D;&#x3D;&#x3D; 0 ? &#x60;${Math.floor(kValue)}K&#x60; : &#x60;${kValue.toFixed(1)}K&#x60;;
     }
 
     return value.toString();

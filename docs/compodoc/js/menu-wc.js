@@ -282,6 +282,9 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 <a href="interfaces/ColorConfig.html" data-type="entity-link" >ColorConfig</a>
                             </li>
                             <li class="link">
+                                <a href="interfaces/ColorVariant.html" data-type="entity-link" >ColorVariant</a>
+                            </li>
+                            <li class="link">
                                 <a href="interfaces/CoverColor.html" data-type="entity-link" >CoverColor</a>
                             </li>
                             <li class="link">

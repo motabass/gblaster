@@ -198,8 +198,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="18"
-                                    class="link-to-prism">apps/gblaster/src/app/player/library/library.service.ts:18</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="17"
+                                    class="link-to-prism">apps/gblaster/src/app/player/library/library.service.ts:17</a></div>
                         </td>
                     </tr>
 
@@ -208,7 +208,7 @@
                 <td class="col-md-4">
 
                         <div class="io-description">
-                            <b>Returns : </b>    <code>unknown</code>
+                            <b>Returns : </b>    <code>Promise&lt;IndexedDbTrackMetadata[]&gt;</code>
 
                         </div>
                 </td>
@@ -240,7 +240,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">apps/gblaster/src/app/player/library/library.service.ts:16</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">apps/gblaster/src/app/player/library/library.service.ts:15</a></div>
                         </td>
                     </tr>
 
@@ -289,29 +289,29 @@ import { MetadataService } from &#x27;../metadata-service/metadata.service&#x27;
   providedIn: &#x27;root&#x27;
 })
 export class LibraryService {
-  private indexedDbService &#x3D; inject(NgxIndexedDBService);
-  private metadataService &#x3D; inject(MetadataService);
+  private readonly indexedDbService &#x3D; inject(NgxIndexedDBService);
+  private readonly metadataService &#x3D; inject(MetadataService);
 
   readonly isLoading &#x3D; signal&lt;boolean&gt;(false);
-
   readonly indexedDbTracks &#x3D; signal&lt;IndexedDbTrackMetadata[]&gt;([]);
 
-  async loadLibraryFromDb() {
-    return this.loadFromDb();
-  }
-
-  private async loadFromDb() {
+  async loadLibraryFromDb(): Promise&lt;IndexedDbTrackMetadata[]&gt; {
     try {
       this.isLoading.set(true);
-      const result &#x3D; await firstValueFrom(this.indexedDbService.getAll&lt;IndexedDbTrackMetadata&gt;(&#x27;library&#x27;));
-      const tagsWithOptionalBlobUrls &#x3D; result.map((tag) &#x3D;&gt; {
-        return this.metadataService.createObjectUrlForEmbeddedPicture(tag);
-      });
 
-      this.indexedDbTracks.set(tagsWithOptionalBlobUrls || []);
-      this.isLoading.set(false);
+      const result &#x3D; await firstValueFrom(this.indexedDbService.getAll&lt;IndexedDbTrackMetadata&gt;(&#x27;library&#x27;));
+
+      // Parallele Verarbeitung für bessere Performance
+      const tracksWithBlobUrls &#x3D; await Promise.all(result.map((track) &#x3D;&gt; this.metadataService.createObjectUrlForEmbeddedPicture(track)));
+
+      this.indexedDbTracks.set(tracksWithBlobUrls);
+      return tracksWithBlobUrls;
     } catch (error) {
       console.error(&#x27;Error loading library data:&#x27;, error);
+      this.indexedDbTracks.set([]);
+      throw error; // Re-throw für Caller
+    } finally {
+      this.isLoading.set(false);
     }
   }
 }

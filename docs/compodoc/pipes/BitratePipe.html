@@ -133,6 +133,10 @@
                         <td class="col-md-3">Name</td>
                         <td class="col-md-9">bitrate</td>
                     </tr>
+                    <tr>
+                        <td class="col-md-3">Pure</td>
+                        <td class="col-md-9">true</td>
+                    </tr>
                 </tbody>
             </table>
         </section>
@@ -155,15 +159,15 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>transform(value: number | undefined)</code>
+<code>transform(value: number | null | undefined)</code>
                 </td>
             </tr>
 
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="7"
-                                    class="link-to-prism">apps/gblaster/src/app/player/cover-display/bitrate.pipe.ts:7</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="8"
+                                    class="link-to-prism">apps/gblaster/src/app/player/cover-display/bitrate.pipe.ts:8</a></div>
                         </td>
                     </tr>
 
@@ -186,7 +190,7 @@
                                         <tr>
                                                 <td>value</td>
                                             <td>
-                                                        <code>number | undefined</code>
+                                                        <code>number | null | undefined</code>
                                             </td>
 
                                             <td>
@@ -218,13 +222,15 @@
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Pipe, PipeTransform } from &#x27;@angular/core&#x27;;
 
 @Pipe({
-  name: &#x27;bitrate&#x27;
+  name: &#x27;bitrate&#x27;,
+  pure: true
 })
 export class BitratePipe implements PipeTransform {
-  transform(value: number | undefined): string {
-    if (!value) {
-      return &#x27;0&#x27;;
+  transform(value: number | null | undefined): string {
+    if (value &#x3D;&#x3D; null || value &lt;&#x3D; 0 || !Number.isFinite(value)) {
+      return &#x27;0 kb/s&#x27;;
     }
+
     const bitrate &#x3D; Math.round(value / 1000);
     return &#x60;${bitrate} kb/s&#x60;;
   }
