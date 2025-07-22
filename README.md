@@ -26,6 +26,8 @@ A web audio player PWA using latest Web APIs.
 
 ### Dependencies
 
+[Graph](https://npmgraph.js.org/?q=https%3A%2F%2Fraw.githubusercontent.com%2Fmotabass%2Fgblaster%2Frefs%2Fheads%2Fmain%2Fpackage.json#sizing=&zoom=w)
+
 App-Icon generated with:
 
 [https://android-material-icon-generator.bitdroid.de/#section-material-icons](https://android-material-icon-generator.bitdroid.de/#section-material-icons)
