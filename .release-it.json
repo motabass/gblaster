@@ -4,14 +4,14 @@
     "publish": false
   },
   "hooks": {
-    "after:bump": "npm run generate-changelog -p && npm run dep-graph:html  && npm run compodoc",
+    "after:bump": "npx auto-changelog -p && npm run dep-graph:html  && npm run compodoc",
     "after:release": "echo Successfully released ${name} v${version} to ${repo.repository}."
   },
   "git": {
     "requireBranch": "main",
     "requireCleanWorkingDir": false,
     "addUntrackedFiles": true,
-    "changelog": "npm run generate-changelog --stdout --commit-limit false --unreleased --template https://raw.githubusercontent.com/release-it/release-it/master/templates/changelog-compact.hbs",
+    "changelog": "npx auto-changelog --stdout --commit-limit false --unreleased --template https://raw.githubusercontent.com/release-it/release-it/master/templates/changelog-compact.hbs",
     "commit": true,
     "tag": true,
     "push": true
