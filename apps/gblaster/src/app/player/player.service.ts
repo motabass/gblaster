@@ -159,6 +159,7 @@ export class PlayerService {
     this.currentPlaylist.update((playlist) => playlist.filter((t) => t !== track));
   }
 
+  //  TODO: replace this with library
   async addFilesToPlaylist(...fileDatas: FileData[]) {
     for await (const track of this.metadataService.addFilesToLibrary(...fileDatas)) {
       this.addTrackToPlaylist(track);
