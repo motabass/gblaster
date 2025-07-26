@@ -1,4 +1,4 @@
-import { Component, computed, effect, inject, OnInit, signal } from '@angular/core';
+import { Component, computed, effect, inject, OnDestroy, OnInit, signal } from '@angular/core';
 import { IndexedDbTrackMetadata, Track } from '../player.types';
 import { MatListModule } from '@angular/material/list';
 import { MatMenu, MatMenuContent, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
@@ -44,7 +44,7 @@ export interface Album {
   templateUrl: './library.component.html',
   styleUrl: './library.component.scss'
 })
-export default class LibraryComponent implements OnInit {
+export default class LibraryComponent implements OnInit, OnDestroy {
   metadataService = inject(MetadataService);
   playerService = inject(PlayerService);
   libraryService = inject(LibraryService);
@@ -158,6 +158,13 @@ export default class LibraryComponent implements OnInit {
 
   ngOnInit() {
     void this.libraryService.loadLibraryFromDb();
+  }
+
+  ngOnDestroy() {
+    if (this.processingInterval) {
+      clearInterval(this.processingInterval);
+      this.processingInterval = undefined;
+    }
   }
 
   private onLibraryUpdate() {}
