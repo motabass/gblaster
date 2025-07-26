@@ -51,6 +51,43 @@
         Sample-Rate: <strong>{{ currentTrack?.metadata?.format?.sampleRate }}</strong>
       </span>
     }
+
+    @if (currentTrack?.metadata?.coverColors) {
+      <span>&nbsp;</span>
+      <span>Color Palette:</span>
+      <div class="flex row" style="gap: 4px; margin-top: 4px">
+        <div
+          style="width: 20px; height: 20px; border-radius: 2px; border: 1px solid rgba(255, 255, 255, 0.3)"
+          [style.background-color]="currentTrack?.metadata?.coverColors?.vibrant?.hex"
+          [title]="`vibrant: ${currentTrack?.metadata?.coverColors?.vibrant?.hex}`"
+        ></div>
+        <div
+          style="width: 20px; height: 20px; border-radius: 2px; border: 1px solid rgba(255, 255, 255, 0.3)"
+          [style.background-color]="currentTrack?.metadata?.coverColors?.darkVibrant?.hex"
+          [title]="`darkVibrant: ${currentTrack?.metadata?.coverColors?.darkVibrant?.hex}`"
+        ></div>
+        <div
+          style="width: 20px; height: 20px; border-radius: 2px; border: 1px solid rgba(255, 255, 255, 0.3)"
+          [style.background-color]="currentTrack?.metadata?.coverColors?.lightVibrant?.hex"
+          [title]="`lightVibrant: ${currentTrack?.metadata?.coverColors?.lightVibrant?.hex}`"
+        ></div>
+        <div
+          style="width: 20px; height: 20px; border-radius: 2px; border: 1px solid rgba(255, 255, 255, 0.3)"
+          [style.background-color]="currentTrack?.metadata?.coverColors?.muted?.hex"
+          [title]="`muted: ${currentTrack?.metadata?.coverColors?.muted?.hex}`"
+        ></div>
+        <div
+          style="width: 20px; height: 20px; border-radius: 2px; border: 1px solid rgba(255, 255, 255, 0.3)"
+          [style.background-color]="currentTrack?.metadata?.coverColors?.darkMuted?.hex"
+          [title]="`darkMuted: ${currentTrack?.metadata?.coverColors?.darkMuted?.hex}`"
+        ></div>
+        <div
+          style="width: 20px; height: 20px; border-radius: 2px; border: 1px solid rgba(255, 255, 255, 0.3)"
+          [style.background-color]="currentTrack?.metadata?.coverColors?.lightMuted?.hex"
+          [title]="`lightMuted: ${currentTrack?.metadata?.coverColors?.lightMuted?.hex}`"
+        ></div>
+      </div>
+    }
   </div>
 </div>
 @if (currentTrack && cover) {
