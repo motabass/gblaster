@@ -232,10 +232,9 @@ async function extractColorsWithColorThief(url: string): Promise<CoverColorPalet
       img.onload = () => {
         try {
           const colorThief = new ColorThief();
-          const palette = colorThief.getPalette(img, 6);
-          const dominantColor = colorThief.getColor(img);
+          const palette = colorThief.getPalette(img);
 
-          if (!palette || !dominantColor) {
+          if (!palette) {
             resolve(undefined);
             return;
           }
@@ -250,7 +249,7 @@ async function extractColorsWithColorThief(url: string): Promise<CoverColorPalet
           };
 
           const result: CoverColorPalette = {
-            vibrant: createColorInfo(dominantColor),
+            vibrant: createColorInfo(palette[0] || [0, 0, 0]),
             darkVibrant: createColorInfo(palette[1] || [0, 0, 0]),
             lightVibrant: createColorInfo(palette[2] || [255, 255, 255]),
             muted: createColorInfo(palette[3] || [128, 128, 128]),
