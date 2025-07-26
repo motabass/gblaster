@@ -32,11 +32,12 @@
     },
     {
       "name": "coverart-apis",
-      "version": 1,
+      "version": 2,
       "cacheConfig": {
-        "maxAge": "7d",
-        "maxSize": 300,
-        "strategy": "performance"
+        "maxAge": "365d",
+        "maxSize": 10000,
+        "strategy": "performance",
+        "timeout": "5s"
       },
       "urls": ["**/coverartarchive.org/**", "**/archive.org/**", "**/*.jpg", "**/*.jpeg", "**/*.png"]
     }
