@@ -1760,7 +1760,7 @@ export class PlayerService {
 
     const currentPosition &#x3D; this.currentPlaylist().indexOf(selectedTrack);
 
-    if (currentPosition &lt; this.currentPlaylist.length) {
+    if (currentPosition &lt; this.currentPlaylist().length) {
       this.selectedTrack.set(this.currentPlaylist()[currentPosition]);
     }
   }
