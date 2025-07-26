@@ -7,9 +7,10 @@ import { Id3TagsService } from './id3-tags.service';
 import { LastfmMetadataService } from './lastfm-metadata.service';
 import { CoverColorPalette, RemoteCoverArtUrls } from './metadata.types';
 import { MusicbrainzService } from './musicbrainz.service';
-import { Vibrant } from 'node-vibrant/browser';
+import ColorThief from 'colorthief';
 import { FileData } from '../file-loader-service/file-loader.helpers';
 import { md5 } from 'hash-wasm';
+import { colord } from 'colord';
 
 @Injectable({ providedIn: 'root' })
 export class MetadataService {
@@ -104,7 +105,6 @@ export class MetadataService {
     const tags = await this.id3TagsService.extractTags(fileData.file);
 
     if (!tags) {
-      // if no tags
       return undefined;
     }
 
@@ -121,10 +121,10 @@ export class MetadataService {
     let palette: CoverColorPalette | undefined;
     this.processingFile.set(fileData.file.name + ' - Reading colors...');
     if (coverUrls?.originalUrl) {
-      palette = await extractColorsWithNodeVibrant(coverUrls.originalUrl);
+      palette = await extractColorsWithColorThief(coverUrls.originalUrl);
     } else if (tags.picture) {
       const objectUrl = URL.createObjectURL(new Blob([tags.picture.data], { type: tags.picture.format }));
-      palette = await extractColorsWithNodeVibrant(objectUrl);
+      palette = await extractColorsWithColorThief(objectUrl);
       URL.revokeObjectURL(objectUrl);
     }
 
@@ -223,19 +223,57 @@ async function generateFileHash(file: File): Promise<string> {
   return await md5(combined);
 }
 
-async function extractColorsWithNodeVibrant(url: string): Promise<CoverColorPalette | undefined> {
+async function extractColorsWithColorThief(url: string): Promise<CoverColorPalette | undefined> {
   try {
-    const palette = await Vibrant.from(url).getPalette();
-    return {
-      vibrant: { hex: palette.Vibrant?.hex, textHex: palette.Vibrant?.titleTextColor },
-      darkVibrant: { hex: palette.DarkVibrant?.hex, textHex: palette.DarkVibrant?.titleTextColor },
-      lightVibrant: { hex: palette.LightVibrant?.hex, textHex: palette.LightVibrant?.titleTextColor },
-      muted: { hex: palette.Muted?.hex, textHex: palette.Muted?.titleTextColor },
-      darkMuted: { hex: palette.DarkMuted?.hex, textHex: palette.DarkMuted?.titleTextColor },
-      lightMuted: { hex: palette.LightMuted?.hex, textHex: palette.LightMuted?.titleTextColor }
-    };
+    const img = new Image();
+    img.crossOrigin = 'anonymous';
+
+    return new Promise((resolve) => {
+      img.onload = () => {
+        try {
+          const colorThief = new ColorThief();
+          const palette = colorThief.getPalette(img, 6);
+          const dominantColor = colorThief.getColor(img);
+
+          if (!palette || !dominantColor) {
+            resolve(undefined);
+            return;
+          }
+
+          // Convert RGB arrays using colord
+          const createColorInfo = (rgb: number[]) => {
+            const color = colord({ r: rgb[0], g: rgb[1], b: rgb[2] });
+            return {
+              hex: color.toHex(),
+              textHex: color.isLight() ? '#000000' : '#ffffff'
+            };
+          };
+
+          const result: CoverColorPalette = {
+            vibrant: createColorInfo(dominantColor),
+            darkVibrant: createColorInfo(palette[1] || [0, 0, 0]),
+            lightVibrant: createColorInfo(palette[2] || [255, 255, 255]),
+            muted: createColorInfo(palette[3] || [128, 128, 128]),
+            darkMuted: createColorInfo(palette[4] || [64, 64, 64]),
+            lightMuted: createColorInfo(palette[5] || [192, 192, 192])
+          };
+
+          resolve(result);
+        } catch (error) {
+          console.error('Error processing image with ColorThief:', error);
+          resolve(undefined);
+        }
+      };
+
+      img.onerror = () => {
+        console.error('Error loading image for color extraction');
+        resolve(undefined);
+      };
+
+      img.src = url;
+    });
   } catch (error) {
-    console.error('Error extracting colors with Vibrant:', error);
+    console.error('Error extracting colors with ColorThief:', error);
     return undefined;
   }
 }
