@@ -9,9 +9,9 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   providedIn: 'root'
 })
 export class UpdateService {
-  private swUpdate = inject(SwUpdate);
-  private dialog = inject(MatDialog);
-  private destroRef = inject(DestroyRef);
+  private readonly swUpdate = inject(SwUpdate);
+  private readonly dialog = inject(MatDialog);
+  private readonly destroRef = inject(DestroyRef);
 
   constructor() {
     const swUpdate = this.swUpdate;

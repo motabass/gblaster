@@ -5,18 +5,17 @@ import { FREQUENCY_BANDS } from '../player.types';
 import { ThemeService } from '../../theme/theme.service';
 
 @Component({
-  selector: 'mtb-equalizer',
   imports: [MatSliderModule],
   templateUrl: './equalizer.component.html',
   styleUrl: './equalizer.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export default class EqualizerComponent {
-  audioService = inject(AudioService);
-  themeService = inject(ThemeService);
-  readonly canvasRef = viewChild<ElementRef<HTMLCanvasElement>>('eqCanvas');
+  protected readonly audioService = inject(AudioService);
+  private readonly themeService = inject(ThemeService);
+  private readonly canvasRef = viewChild<ElementRef<HTMLCanvasElement>>('eqCanvas');
 
-  BANDS = FREQUENCY_BANDS;
+  protected readonly BANDS = FREQUENCY_BANDS;
 
   constructor() {
     // React to changes in equalizer values

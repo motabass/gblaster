@@ -14,11 +14,11 @@ import { colord } from 'colord';
 
 @Injectable({ providedIn: 'root' })
 export class MetadataService {
-  private id3TagsService = inject(Id3TagsService);
-  private lastfmMetadataService = inject(LastfmMetadataService);
-  private musicbrainzService = inject(MusicbrainzService);
-  private indexedDBService = inject(NgxIndexedDBService);
-  private localStorageService = inject(LocalStorageService);
+  private readonly id3TagsService = inject(Id3TagsService);
+  private readonly lastfmMetadataService = inject(LastfmMetadataService);
+  private readonly musicbrainzService = inject(MusicbrainzService);
+  private readonly indexedDBService = inject(NgxIndexedDBService);
+  private readonly localStorageService = inject(LocalStorageService);
 
   private readonly PLACEHOLDER_URL = 'assets/icons/record.svg';
 

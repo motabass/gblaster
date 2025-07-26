@@ -9,7 +9,7 @@ import { MatCardModule } from '@angular/material/card';
   templateUrl: './theme-settings.component.html'
 })
 export class ThemeSettingsComponent {
-  themeService = inject(ThemeService);
+  protected readonly themeService = inject(ThemeService);
 
   changeDarkMode(event: MatCheckboxChange) {
     this.themeService.setDarkMode(event.checked);

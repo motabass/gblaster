@@ -13,12 +13,12 @@ import { TimePipe } from '../time.pipe';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CoverDisplayComponent {
-  private themeService = inject(ThemeService);
-  playerService = inject(PlayerService);
+  private readonly themeService = inject(ThemeService);
+  protected readonly playerService = inject(PlayerService);
 
-  readonly coverUrl = computed(() => this.playerService.currentlyLoadedTrack()?.metadata?.coverUrl?.originalUrl);
+  protected readonly coverUrl = computed(() => this.playerService.currentlyLoadedTrack()?.metadata?.coverUrl?.originalUrl);
 
-  readonly backgroundColor = computed(() => {
+  protected readonly backgroundColor = computed(() => {
     const coverBackground = this.themeService.darkMode()
       ? this.playerService.currentlyLoadedTrack()?.metadata?.coverColors?.darkMuted?.hex
       : this.playerService.currentlyLoadedTrack()?.metadata?.coverColors?.lightMuted?.hex;

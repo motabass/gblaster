@@ -4,9 +4,9 @@ import { TagsWorkerRequest, TagsWorkerResponse } from './metadata.types';
 
 @Injectable({ providedIn: 'root' })
 export class Id3TagsService implements OnDestroy {
-  private worker: Worker;
+  private readonly worker: Worker;
   private nextId = 0;
-  private pendingRequests = new Map<string, { resolve: (tags?: Id3Tags) => void; reject: (error: Error) => void }>();
+  private readonly pendingRequests = new Map<string, { resolve: (tags?: Id3Tags) => void; reject: (error: Error) => void }>();
 
   constructor() {
     this.worker = new Worker(new URL('metadata.worker', import.meta.url), { type: 'module' });

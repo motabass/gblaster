@@ -4,9 +4,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class WakelockService {
-  wakelock?: WakeLockSentinel;
-
-  constructor() {}
+  private wakelock?: WakeLockSentinel;
 
   async activateWakelock() {
     if (!this.wakelock) {

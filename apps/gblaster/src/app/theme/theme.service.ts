@@ -16,8 +16,8 @@ interface ColorVariant {
   providedIn: 'root'
 })
 export class ThemeService {
-  private meta = inject(Meta);
-  private localStorageService = inject(LocalStorageService);
+  private readonly meta = inject(Meta);
+  private readonly localStorageService = inject(LocalStorageService);
 
   private readonly COLOR_VARIANTS: ColorVariant[] = [
     { suffix: '0', lightenFactor: 0.55 },

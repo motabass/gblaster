@@ -29,7 +29,8 @@ type LastfmResponse = LastfmSuccessResponse | LastfmErrorResponse;
 
 @Injectable({ providedIn: 'root' })
 export class LastfmMetadataService {
-  private http = inject(HttpClient);
+  private readonly http = inject(HttpClient);
+
   private readonly LASTFM_API_KEY = '3a67934408152a2fc3f7216c022ec1df';
   private readonly API_URL = 'https://ws.audioscrobbler.com/2.0/';
 

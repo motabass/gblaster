@@ -10,7 +10,6 @@ export interface HotkeysData {
 }
 
 @Component({
-  selector: 'mtb-hotkeys-help-dialog',
   imports: [MatDialogModule, MatButtonModule, MatIconModule, MatListModule],
   templateUrl: './hotkeys-help-dialog.component.html',
   styleUrl: './hotkeys-help-dialog.component.scss'

@@ -8,11 +8,11 @@ export class GamepadService implements OnDestroy {
   private readonly DEFAULT_TURBO_TIMEOUT = 300;
   private readonly DEFAULT_DEADSPACE = 0.07;
 
-  private checkIntervals: number[] = [];
-  private pressedButtonsCaches: ActionCache[][] = [];
-  private activeAxesCaches: ActionCache[][] = [];
+  private readonly checkIntervals: number[] = [];
+  private readonly pressedButtonsCaches: ActionCache[][] = [];
+  private readonly activeAxesCaches: ActionCache[][] = [];
 
-  buttonActions: ButtonGamepadAction[] = [];
+  private readonly buttonActions: ButtonGamepadAction[] = [];
   axisActions: AxisGamepadAction[] = [];
 
   constructor() {

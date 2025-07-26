@@ -23,25 +23,25 @@ import { PlayerService } from '../player.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class VisualizerComponent implements OnInit, OnDestroy {
-  readonly FFT_OPTIONS: FftSize[] = [32, 64, 128, 256, 512, 1024, 2048, 4096, 8192, 16_384, 32_768];
+  private readonly gamepadService = inject(GamepadService, { optional: true });
+  private readonly playerService = inject(PlayerService);
+  private readonly localStorageService = inject(LocalStorageService);
+  protected readonly visualsService = inject(VisualsService);
+  protected readonly audioService = inject(AudioService);
 
-  private gamepadService = inject(GamepadService, { optional: true });
-  audioService = inject(AudioService);
-  playerService = inject(PlayerService);
-  visualsService = inject(VisualsService);
-  localStorageService = inject(LocalStorageService);
+  protected readonly FFT_OPTIONS: FftSize[] = [32, 64, 128, 256, 512, 1024, 2048, 4096, 8192, 16_384, 32_768];
 
-  readonly smoothing = signal<number>(this.localStorageService.retrieve('smoothing') ?? 0.7);
-  readonly minDb = signal<number>(this.localStorageService.retrieve('minDb') ?? -73);
-  readonly alpha = signal<number>(this.localStorageService.retrieve('alpha') ?? 0.75);
-  readonly barCount = signal<number>(this.localStorageService.retrieve('barCount') ?? 24);
-  readonly fftSize = signal<FftSize>(this.localStorageService.retrieve('fftSize') ?? 2048);
-  readonly capHeight = signal<number>(this.localStorageService.retrieve('capHeight') ?? 4);
-  readonly gap = signal<number>(this.localStorageService.retrieve('gap') ?? 0.5);
-  readonly capFalldown = signal<number>(this.localStorageService.retrieve('capFalldown') ?? 2);
-  readonly lineThickness = signal<number>(this.localStorageService.retrieve('lineThickness') ?? 8);
+  protected readonly smoothing = signal<number>(this.localStorageService.retrieve('smoothing') ?? 0.7);
+  protected readonly minDb = signal<number>(this.localStorageService.retrieve('minDb') ?? -73);
+  protected readonly alpha = signal<number>(this.localStorageService.retrieve('alpha') ?? 0.75);
+  protected readonly barCount = signal<number>(this.localStorageService.retrieve('barCount') ?? 24);
+  protected readonly fftSize = signal<FftSize>(this.localStorageService.retrieve('fftSize') ?? 2048);
+  protected readonly capHeight = signal<number>(this.localStorageService.retrieve('capHeight') ?? 4);
+  protected readonly gap = signal<number>(this.localStorageService.retrieve('gap') ?? 0.5);
+  protected readonly capFalldown = signal<number>(this.localStorageService.retrieve('capFalldown') ?? 2);
+  protected readonly lineThickness = signal<number>(this.localStorageService.retrieve('lineThickness') ?? 8);
 
-  analyser: AnalyserNode = this.audioService.plugInNewAnalyserNode();
+  protected readonly analyser: AnalyserNode = this.audioService.plugInNewAnalyserNode();
 
   constructor() {
     this.analyser.fftSize = this.fftSize();

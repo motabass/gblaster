@@ -18,21 +18,21 @@ export interface HotkeyInfo {
 
 @Injectable({ providedIn: 'root' })
 export class HotkeysService {
-  private eventManager = inject(EventManager);
-  private document = inject<Document>(DOCUMENT);
-  private dialog = inject(MatDialog);
+  private readonly eventManager = inject(EventManager);
+  private readonly document = inject<Document>(DOCUMENT);
+  private readonly dialog = inject(MatDialog);
 
-  defaults: Partial<Hotkey> = {
+  private readonly defaults: Partial<Hotkey> = {
     element: this.document
   };
 
-  hotkeys: Map<string, HotkeyInfo> = new Map<string, HotkeyInfo>();
+  private readonly hotkeys: Map<string, HotkeyInfo> = new Map<string, HotkeyInfo>();
 
-  helpOpen = false;
+  private helpOpen = false;
 
-  dialogRef?: MatDialogRef<HotkeysHelpDialogComponent>;
+  private dialogRef?: MatDialogRef<HotkeysHelpDialogComponent>;
 
-  _pause = false;
+  private _pause = false;
 
   initialize() {
     this.register({

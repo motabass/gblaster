@@ -13,7 +13,7 @@ interface DirHandleEntry {
   providedIn: 'root'
 })
 export class NativeBrowserFileLoaderService implements FileLoaderService {
-  private indexedDbService = inject(NgxIndexedDBService);
+  private readonly indexedDbService = inject(NgxIndexedDBService);
 
   readonly currentFolderHandle = signal<FileSystemDirectoryHandle | undefined>(undefined);
 

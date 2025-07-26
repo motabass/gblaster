@@ -4,7 +4,6 @@ import { ThemeSettingsComponent } from './theme-settings/theme-settings.componen
 import { MetadataSettingsComponent } from './metadata-settings/metadata-settings.component';
 
 @Component({
-  selector: 'mtb-settings',
   imports: [MetadataSettingsComponent, ThemeSettingsComponent, StorageSettingsComponent],
   templateUrl: './settings.component.html',
   styleUrl: './settings.component.scss'

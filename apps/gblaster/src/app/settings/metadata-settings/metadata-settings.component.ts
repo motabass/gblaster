@@ -12,9 +12,9 @@ import { LocalStorageService } from 'ngx-webstorage';
   templateUrl: './metadata-settings.component.html'
 })
 export class MetadataSettingsComponent {
-  metadataService = inject(MetadataService);
-  private indexedDBService = inject(NgxIndexedDBService);
-  private localStorageService = inject(LocalStorageService);
+  protected readonly metadataService = inject(MetadataService);
+  private readonly indexedDBService = inject(NgxIndexedDBService);
+  private readonly localStorageService = inject(LocalStorageService);
 
   onUseWebTagsChange(event: MatSlideToggleChange) {
     this.metadataService.useWebMetainfos.set(event.checked);

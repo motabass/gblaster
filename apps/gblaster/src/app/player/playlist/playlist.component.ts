@@ -37,13 +37,13 @@ import { MatMenuModule, MatMenuTrigger } from '@angular/material/menu';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PlaylistComponent {
-  playerService = inject(PlayerService);
-  audioService = inject(AudioService);
-  private destroRef = inject(DestroyRef);
+  private readonly audioService = inject(AudioService);
+  private readonly destroRef = inject(DestroyRef);
+  protected readonly playerService = inject(PlayerService);
 
-  readonly menuTrigger = viewChild<MatMenuTrigger>('menuTrigger');
+  private readonly menuTrigger = viewChild<MatMenuTrigger>('menuTrigger');
 
-  readonly scrollViewport = viewChild<CdkVirtualScrollViewport>('scrollViewport');
+  private readonly scrollViewport = viewChild<CdkVirtualScrollViewport>('scrollViewport');
 
   private readonly isAutoScrollEnabled = signal(false);
 

@@ -37,25 +37,25 @@ import { MetadataService } from '../player/metadata-service/metadata.service';
   styleUrl: './shell.component.scss'
 })
 export class ShellComponent {
-  private breakpointObserver = inject(BreakpointObserver);
-  private router = inject(Router);
-  titleService = inject(TitleService);
-  loaderService = inject(LoaderService);
-  playerService = inject(PlayerService);
-  metadataService = inject(MetadataService);
+  private readonly breakpointObserver = inject(BreakpointObserver);
+  private readonly router = inject(Router);
+  protected readonly titleService = inject(TitleService);
+  protected readonly loaderService = inject(LoaderService);
+  protected readonly playerService = inject(PlayerService);
+  protected readonly metadataService = inject(MetadataService);
 
-  readonly ALLOWED_TYPES = ALLOWED_MIMETYPES;
+  protected readonly ALLOWED_TYPES = ALLOWED_MIMETYPES;
 
-  private isHandset$: Observable<boolean> = this.breakpointObserver
+  private readonly isHandset$: Observable<boolean> = this.breakpointObserver
     .observe([Breakpoints.XSmall, Breakpoints.Small, Breakpoints.Medium, Breakpoints.Large, Breakpoints.XLarge])
     .pipe(
       map((result) => result.matches),
       shareReplay()
     );
 
-  readonly isHandset = toSignal(this.isHandset$, { initialValue: false });
+  protected readonly isHandset = toSignal(this.isHandset$, { initialValue: false });
 
-  readonly sidenav = viewChild<MatSidenav>('drawer');
+  private readonly sidenav = viewChild<MatSidenav>('drawer');
 
   navigateTo(route: string, skipLocationChange = false) {
     this.sidenav()?.close();

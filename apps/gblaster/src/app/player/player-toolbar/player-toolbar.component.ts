@@ -24,14 +24,14 @@ import { MetadataService } from '../metadata-service/metadata.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PlayerToolbarComponent implements OnInit, OnDestroy {
-  private gamepadService = inject(GamepadService, { optional: true });
-  private hotkeysService = inject(HotkeysService, { optional: true });
-  fileLoaderService = inject(FileLoaderService);
-  playerService = inject(PlayerService);
-  audioService = inject(AudioService);
-  metadataService = inject(MetadataService);
+  private readonly gamepadService = inject(GamepadService, { optional: true });
+  private readonly hotkeysService = inject(HotkeysService, { optional: true });
+  protected readonly fileLoaderService = inject(FileLoaderService);
+  protected readonly playerService = inject(PlayerService);
+  protected readonly audioService = inject(AudioService);
+  protected readonly metadataService = inject(MetadataService);
 
-  readonly volumeIcon = computed(() => this.getVolumeIconForLevel(this.audioService.volume()));
+  protected readonly volumeIcon = computed(() => this.getVolumeIconForLevel(this.audioService.volume()));
 
   ngOnInit() {
     if (this.hotkeysService) {

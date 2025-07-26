@@ -12,15 +12,14 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Injectable({ providedIn: 'root' })
 export class PlayerService {
-  private audioService = inject(AudioService);
-  private localStorageService = inject(LocalStorageService);
-  private fileLoaderService = inject(FileLoaderService);
-  private metadataService = inject(MetadataService);
-  private themeService = inject(ThemeService);
-  private wakelockService = inject(WakelockService, { optional: true });
-  private mediaSessionService = inject(MediaSessionService, { optional: true });
-
-  private destroRef = inject(DestroyRef);
+  private readonly audioService = inject(AudioService);
+  private readonly localStorageService = inject(LocalStorageService);
+  private readonly fileLoaderService = inject(FileLoaderService);
+  private readonly metadataService = inject(MetadataService);
+  private readonly themeService = inject(ThemeService);
+  private readonly wakelockService = inject(WakelockService, { optional: true });
+  private readonly mediaSessionService = inject(MediaSessionService, { optional: true });
+  private readonly destroRef = inject(DestroyRef);
 
   readonly currentPlaylist = signal<Track[]>([]);
 

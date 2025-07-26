@@ -9,7 +9,7 @@ import { MatCardModule } from '@angular/material/card';
   templateUrl: './storage-settings.component.html'
 })
 export class StorageSettingsComponent {
-  private localStorage = inject(LocalStorageService);
+  private readonly localStorage = inject(LocalStorageService);
 
   clearSettingsCache() {
     this.localStorage.clear();

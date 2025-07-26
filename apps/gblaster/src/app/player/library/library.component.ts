@@ -45,13 +45,13 @@ export interface Album {
   styleUrl: './library.component.scss'
 })
 export default class LibraryComponent implements OnInit, OnDestroy {
-  metadataService = inject(MetadataService);
-  playerService = inject(PlayerService);
-  libraryService = inject(LibraryService);
+  private readonly metadataService = inject(MetadataService);
+  private readonly playerService = inject(PlayerService);
+  protected readonly libraryService = inject(LibraryService);
 
-  readonly searchTerm = signal('');
+  protected readonly searchTerm = signal('');
 
-  readonly filteredBySerchterm = computed(() => {
+  private readonly filteredBySerchterm = computed(() => {
     const searchTerm = this.searchTerm();
     const lowerSearchTerm = searchTerm.toLowerCase();
     return this.libraryService.indexedDbTracks().filter((tag) => {
@@ -64,11 +64,11 @@ export default class LibraryComponent implements OnInit, OnDestroy {
     });
   });
 
-  readonly selectedArtist = signal<string | undefined>(undefined);
-  readonly selectedAlbum = signal<string | undefined>(undefined);
-  readonly selectedTrack = signal<IndexedDbTrackMetadata | undefined>(undefined);
+  private readonly selectedArtist = signal<string | undefined>(undefined);
+  protected readonly selectedAlbum = signal<string | undefined>(undefined);
+  private readonly selectedTrack = signal<IndexedDbTrackMetadata | undefined>(undefined);
 
-  readonly uniqueArtists = computed(() => {
+  protected readonly uniqueArtists = computed(() => {
     const filtered = this.filteredBySerchterm()
       .map((tag) => tag.artist)
       .filter((artist): artist is string => !!artist);
@@ -76,7 +76,7 @@ export default class LibraryComponent implements OnInit, OnDestroy {
     return [...new Set(filtered.toSorted((a, b) => a.localeCompare(b)))];
   });
 
-  readonly uniqueAlbums = computed(() => {
+  protected readonly uniqueAlbums = computed(() => {
     let filtered = this.filteredBySerchterm();
     const artist = this.selectedArtist();
 
@@ -99,7 +99,7 @@ export default class LibraryComponent implements OnInit, OnDestroy {
     return [...albumMap.values()].sort((a, b) => a.name.localeCompare(b.name));
   });
 
-  readonly tracks = computed(() => {
+  protected readonly tracks = computed(() => {
     this.searchTerm();
 
     let filtered = this.filteredBySerchterm();
@@ -166,8 +166,6 @@ export default class LibraryComponent implements OnInit, OnDestroy {
       this.processingInterval = undefined;
     }
   }
-
-  private onLibraryUpdate() {}
 
   selectArtist(artist: string | undefined) {
     this.selectedArtist.set(artist);

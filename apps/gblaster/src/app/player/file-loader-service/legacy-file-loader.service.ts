@@ -6,7 +6,7 @@ import { FileLoaderService } from './file-loader.service.abstract';
   providedIn: 'root'
 })
 export class LegacyFileLoaderService implements FileLoaderService {
-  private fileInput!: HTMLInputElement;
+  private readonly fileInput!: HTMLInputElement;
 
   private files: File[] = [];
 

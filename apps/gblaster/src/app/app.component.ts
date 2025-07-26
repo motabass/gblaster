@@ -12,17 +12,17 @@ import { ShellComponent } from './shell/shell.component';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent {
+  private readonly updateService = inject(UpdateService);
+  private readonly iconRegistry = inject(MatIconRegistry);
+  private readonly sanitizer = inject(DomSanitizer);
+  private readonly themeService = inject(ThemeService);
+
   constructor() {
-    const updateService = inject(UpdateService);
-    const iconRegistry = inject(MatIconRegistry);
-    const sanitizer = inject(DomSanitizer);
-    const themeService = inject(ThemeService);
+    void this.updateService.init();
 
-    void updateService.init();
+    this.themeService.initializeTheme();
 
-    themeService.initializeTheme();
-
-    iconRegistry.addSvgIconSet(sanitizer.bypassSecurityTrustResourceUrl('assets/icon-set.svg'));
-    iconRegistry.addSvgIcon('logo', sanitizer.bypassSecurityTrustResourceUrl('assets/icons/logo-monochrome.svg'));
+    this.iconRegistry.addSvgIconSet(this.sanitizer.bypassSecurityTrustResourceUrl('assets/icon-set.svg'));
+    this.iconRegistry.addSvgIcon('logo', this.sanitizer.bypassSecurityTrustResourceUrl('assets/icons/logo-monochrome.svg'));
   }
 }

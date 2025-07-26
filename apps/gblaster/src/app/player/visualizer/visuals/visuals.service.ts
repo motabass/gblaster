@@ -6,7 +6,7 @@ import type { VisualizerMode } from './visuals.types';
   providedIn: 'root'
 })
 export class VisualsService {
-  private localStorageService = inject(LocalStorageService);
+  private readonly localStorageService = inject(LocalStorageService);
 
   readonly visualMode = signal<VisualizerMode>(this.localStorageService.retrieve('visualMode') ?? 'off');
 
