@@ -274,7 +274,7 @@ export class PlayerService {
 
     const currentPosition = this.currentPlaylist().indexOf(selectedTrack);
 
-    if (currentPosition < this.currentPlaylist.length) {
+    if (currentPosition < this.currentPlaylist().length) {
       this.selectedTrack.set(this.currentPlaylist()[currentPosition]);
     }
   }

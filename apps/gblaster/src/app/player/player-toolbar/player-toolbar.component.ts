@@ -104,9 +104,7 @@ export class PlayerToolbarComponent implements OnInit, OnDestroy {
   }
 
   onSliderPositionChanged(value: number) {
-    if (value !== null) {
-      this.playerService.setSeekPosition(value);
-    }
+    this.playerService.setSeekPosition(value);
   }
 
   onVolumeChange(value: number) {
