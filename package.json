@@ -68,7 +68,7 @@
     "colord": "^2.9.3",
     "date-fns": "4.1.0",
     "hash-wasm": "4.12.0",
-    "music-metadata": "11.7.1",
+    "music-metadata": "11.7.3",
     "musicbrainz-api": "0.25.1",
     "ngx-date-fns": "12.0.1",
     "ngx-indexed-db": "21.0.0",
