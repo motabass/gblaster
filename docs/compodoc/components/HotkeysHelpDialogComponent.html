@@ -140,10 +140,6 @@
 
 
 
-            <tr>
-                <td class="col-md-3">selector</td>
-                <td class="col-md-9"><code>mtb-hotkeys-help-dialog</code></td>
-            </tr>
 
 
             <tr>
@@ -268,8 +264,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="26"
-                                    class="link-to-prism">apps/gblaster/src/app/services/hotkeys/hotkeys-help-dialog.component.ts:26</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="25"
+                                    class="link-to-prism">apps/gblaster/src/app/services/hotkeys/hotkeys-help-dialog.component.ts:25</a></div>
                         </td>
                     </tr>
 
@@ -309,7 +305,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="20" class="link-to-prism">apps/gblaster/src/app/services/hotkeys/hotkeys-help-dialog.component.ts:20</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">apps/gblaster/src/app/services/hotkeys/hotkeys-help-dialog.component.ts:19</a></div>
                         </td>
                     </tr>
 
@@ -334,7 +330,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">apps/gblaster/src/app/services/hotkeys/hotkeys-help-dialog.component.ts:19</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">apps/gblaster/src/app/services/hotkeys/hotkeys-help-dialog.component.ts:18</a></div>
                         </td>
                     </tr>
 
@@ -363,7 +359,7 @@
                 </tr>
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="22" class="link-to-prism">apps/gblaster/src/app/services/hotkeys/hotkeys-help-dialog.component.ts:22</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="21" class="link-to-prism">apps/gblaster/src/app/services/hotkeys/hotkeys-help-dialog.component.ts:21</a></div>
                                 </td>
                             </tr>
 
@@ -386,7 +382,6 @@ export interface HotkeysData {
 }
 
 @Component({
-  selector: &#x27;mtb-hotkeys-help-dialog&#x27;,
   imports: [MatDialogModule, MatButtonModule, MatIconModule, MatListModule],
   templateUrl: &#x27;./hotkeys-help-dialog.component.html&#x27;,
   styleUrl: &#x27;./hotkeys-help-dialog.component.scss&#x27;
@@ -469,7 +464,7 @@ export class HotkeysHelpDialogComponent {
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
         var COMPONENT_TEMPLATE = '<div><div class="flex row">  <h2 matDialogTitle>Tastenkürzel</h2>  <span class="flex-grow"></span>  <button mat-icon-button (click)="close()"><mat-icon svgIcon="close-thick" /></button></div><mat-dialog-content>  @for (hotkey of hotkeyList; track hotkey[0]) {    <div matListItemLine class="flex row align-center">      <div class="keyboard-key">        {{          hotkey[0]            .toString()            .substr(0, hotkey[0].length - 2)            .toUpperCase()        }}      </div>      <div style="font-size: 2em; padding: 14px">+</div>      <div class="keyboard-key" style="padding-left: 12px; padding-right: 12px">        {{          hotkey[0]            .toString()            .substr(hotkey[0].length - 1, 1)            .toUpperCase()        }}      </div>      <p style="margin-left: 16px">{{ hotkey[1].description }}</p>    </div>  } @empty {    <p>Es sind keine Tastenkürzel definiert.</p>  }</mat-dialog-content></div>'
-    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'mtb-root'},{'name': 'CoverDisplayComponent', 'selector': 'mtb-cover-display'},{'name': 'EqualizerComponent', 'selector': 'mtb-equalizer'},{'name': 'FileDropOverlayComponent', 'selector': 'mtb-file-drop-overlay'},{'name': 'HotkeysHelpDialogComponent', 'selector': 'mtb-hotkeys-help-dialog'},{'name': 'LibraryComponent', 'selector': ''},{'name': 'MetadataSettingsComponent', 'selector': 'mtb-metadata-settings'},{'name': 'PlayerComponent', 'selector': 'mtb-player'},{'name': 'PlayerToolbarComponent', 'selector': 'player-toolbar'},{'name': 'PlaylistComponent', 'selector': 'mtb-playlist'},{'name': 'PromptDialogComponent', 'selector': 'mtb-prompt-dialog'},{'name': 'SettingsComponent', 'selector': 'mtb-settings'},{'name': 'ShellComponent', 'selector': 'mtb-shell'},{'name': 'SlidePanelComponent', 'selector': 'mtb-slide-panel'},{'name': 'StorageSettingsComponent', 'selector': 'mtb-storage-settings'},{'name': 'ThemeSettingsComponent', 'selector': 'mtb-theme-settings'},{'name': 'VisualizerComponent', 'selector': 'mtb-visualizer'}];
+    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'mtb-root'},{'name': 'CoverDisplayComponent', 'selector': 'mtb-cover-display'},{'name': 'EqualizerComponent', 'selector': ''},{'name': 'FileDropOverlayComponent', 'selector': 'mtb-file-drop-overlay'},{'name': 'HotkeysHelpDialogComponent', 'selector': ''},{'name': 'LibraryComponent', 'selector': ''},{'name': 'MetadataSettingsComponent', 'selector': 'mtb-metadata-settings'},{'name': 'PlayerComponent', 'selector': ''},{'name': 'PlayerToolbarComponent', 'selector': 'player-toolbar'},{'name': 'PlaylistComponent', 'selector': 'mtb-playlist'},{'name': 'PromptDialogComponent', 'selector': 'mtb-prompt-dialog'},{'name': 'SettingsComponent', 'selector': ''},{'name': 'ShellComponent', 'selector': 'mtb-shell'},{'name': 'SlidePanelComponent', 'selector': 'mtb-slide-panel'},{'name': 'StorageSettingsComponent', 'selector': 'mtb-storage-settings'},{'name': 'ThemeSettingsComponent', 'selector': 'mtb-theme-settings'},{'name': 'VisualizerComponent', 'selector': 'mtb-visualizer'}];
     var DIRECTIVES = [{'name': 'VisualsDirective', 'selector': '[mtbVisual]'}];
     var ACTUAL_COMPONENT = {'name': 'HotkeysHelpDialogComponent'};
 </script>

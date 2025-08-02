@@ -303,8 +303,8 @@ interface ColorVariant {
   providedIn: &#x27;root&#x27;
 })
 export class ThemeService {
-  private meta &#x3D; inject(Meta);
-  private localStorageService &#x3D; inject(LocalStorageService);
+  private readonly meta &#x3D; inject(Meta);
+  private readonly localStorageService &#x3D; inject(LocalStorageService);
 
   private readonly COLOR_VARIANTS: ColorVariant[] &#x3D; [
     { suffix: &#x27;0&#x27;, lightenFactor: 0.55 },

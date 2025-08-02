@@ -198,27 +198,33 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
+                                    <span class="modifier">Protected</span>
                                     <span class="modifier">Readonly</span>
                                 <a href="#ALLOWED_TYPES" >ALLOWED_TYPES</a>
                             </li>
                             <li>
+                                    <span class="modifier">Protected</span>
                                     <span class="modifier">Readonly</span>
                                 <a href="#isHandset" >isHandset</a>
                             </li>
                             <li>
+                                    <span class="modifier">Protected</span>
+                                    <span class="modifier">Readonly</span>
                                 <a href="#loaderService" >loaderService</a>
                             </li>
                             <li>
+                                    <span class="modifier">Protected</span>
+                                    <span class="modifier">Readonly</span>
                                 <a href="#metadataService" >metadataService</a>
                             </li>
                             <li>
+                                    <span class="modifier">Protected</span>
+                                    <span class="modifier">Readonly</span>
                                 <a href="#playerService" >playerService</a>
                             </li>
                             <li>
+                                    <span class="modifier">Protected</span>
                                     <span class="modifier">Readonly</span>
-                                <a href="#sidenav" >sidenav</a>
-                            </li>
-                            <li>
                                 <a href="#titleService" >titleService</a>
                             </li>
                         </ul>
@@ -500,6 +506,7 @@
                 <td class="col-md-4">
                     <a name="ALLOWED_TYPES"></a>
                     <span class="name">
+                            <span class="modifier">Protected</span>
                             <span class="modifier">Readonly</span>
                         <span ><b>ALLOWED_TYPES</b></span>
                         <a href="#ALLOWED_TYPES"><span class="icon ion-ios-link"></span></a>
@@ -526,6 +533,7 @@
                 <td class="col-md-4">
                     <a name="isHandset"></a>
                     <span class="name">
+                            <span class="modifier">Protected</span>
                             <span class="modifier">Readonly</span>
                         <span ><b>isHandset</b></span>
                         <a href="#isHandset"><span class="icon ion-ios-link"></span></a>
@@ -552,6 +560,8 @@
                 <td class="col-md-4">
                     <a name="loaderService"></a>
                     <span class="name">
+                            <span class="modifier">Protected</span>
+                            <span class="modifier">Readonly</span>
                         <span ><b>loaderService</b></span>
                         <a href="#loaderService"><span class="icon ion-ios-link"></span></a>
                     </span>
@@ -577,6 +587,8 @@
                 <td class="col-md-4">
                     <a name="metadataService"></a>
                     <span class="name">
+                            <span class="modifier">Protected</span>
+                            <span class="modifier">Readonly</span>
                         <span ><b>metadataService</b></span>
                         <a href="#metadataService"><span class="icon ion-ios-link"></span></a>
                     </span>
@@ -602,6 +614,8 @@
                 <td class="col-md-4">
                     <a name="playerService"></a>
                     <span class="name">
+                            <span class="modifier">Protected</span>
+                            <span class="modifier">Readonly</span>
                         <span ><b>playerService</b></span>
                         <a href="#playerService"><span class="icon ion-ios-link"></span></a>
                     </span>
@@ -625,34 +639,10 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="sidenav"></a>
-                    <span class="name">
-                            <span class="modifier">Readonly</span>
-                        <span ><b>sidenav</b></span>
-                        <a href="#sidenav"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-                <tr>
-                    <td class="col-md-4">
-                        <i>Default value : </i><code>viewChild&lt;MatSidenav&gt;(&#x27;drawer&#x27;)</code>
-                    </td>
-                </tr>
-                    <tr>
-                        <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="58" class="link-to-prism">apps/gblaster/src/app/shell/shell.component.ts:58</a></div>
-                        </td>
-                    </tr>
-
-
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
                     <a name="titleService"></a>
                     <span class="name">
+                            <span class="modifier">Protected</span>
+                            <span class="modifier">Readonly</span>
                         <span ><b>titleService</b></span>
                         <a href="#titleService"><span class="icon ion-ios-link"></span></a>
                     </span>
@@ -717,25 +707,25 @@ import { MetadataService } from &#x27;../player/metadata-service/metadata.servic
   styleUrl: &#x27;./shell.component.scss&#x27;
 })
 export class ShellComponent {
-  private breakpointObserver &#x3D; inject(BreakpointObserver);
-  private router &#x3D; inject(Router);
-  titleService &#x3D; inject(TitleService);
-  loaderService &#x3D; inject(LoaderService);
-  playerService &#x3D; inject(PlayerService);
-  metadataService &#x3D; inject(MetadataService);
+  private readonly breakpointObserver &#x3D; inject(BreakpointObserver);
+  private readonly router &#x3D; inject(Router);
+  protected readonly titleService &#x3D; inject(TitleService);
+  protected readonly loaderService &#x3D; inject(LoaderService);
+  protected readonly playerService &#x3D; inject(PlayerService);
+  protected readonly metadataService &#x3D; inject(MetadataService);
 
-  readonly ALLOWED_TYPES &#x3D; ALLOWED_MIMETYPES;
+  protected readonly ALLOWED_TYPES &#x3D; ALLOWED_MIMETYPES;
 
-  private isHandset$: Observable&lt;boolean&gt; &#x3D; this.breakpointObserver
+  private readonly isHandset$: Observable&lt;boolean&gt; &#x3D; this.breakpointObserver
     .observe([Breakpoints.XSmall, Breakpoints.Small, Breakpoints.Medium, Breakpoints.Large, Breakpoints.XLarge])
     .pipe(
       map((result) &#x3D;&gt; result.matches),
       shareReplay()
     );
 
-  readonly isHandset &#x3D; toSignal(this.isHandset$, { initialValue: false });
+  protected readonly isHandset &#x3D; toSignal(this.isHandset$, { initialValue: false });
 
-  readonly sidenav &#x3D; viewChild&lt;MatSidenav&gt;(&#x27;drawer&#x27;);
+  private readonly sidenav &#x3D; viewChild&lt;MatSidenav&gt;(&#x27;drawer&#x27;);
 
   navigateTo(route: string, skipLocationChange &#x3D; false) {
     this.sidenav()?.close();
@@ -855,7 +845,7 @@ export class ShellComponent {
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
         var COMPONENT_TEMPLATE = '<div><mat-sidenav-container class="sidenav-container">  <mat-sidenav    #drawer    class="sidenav"    fixedInViewport    [attr.role]="isHandset() ? \'dialog\' : \'navigation\'"    [mode]="isHandset() ? \'over\' : \'side\'"    [opened]="!isHandset()"  >    <mat-toolbar color="primary">      <mat-icon aria-label="Side nav toggle icon" svgIcon="radio" style="margin-right: 0.7rem" />      <span class="title">{{ titleService.title() }}</span>    </mat-toolbar>    <mat-nav-list>      <mat-list-item (click)="navigateTo(\'/player\')"> <mat-icon matListItemIcon svgIcon="record-player" /><span matListItemTitle> Player</span></mat-list-item>      <mat-list-item (click)="navigateTo(\'/player/eq\')">        <mat-icon matListItemIcon svgIcon="tune-vertical" /><span matListItemTitle> Equalizer</span></mat-list-item      >      <mat-list-item (click)="navigateTo(\'/player/library\')"        ><mat-icon matListItemIcon svgIcon="music-box-multiple-outline" /><span matListItemTitle> Library</span></mat-list-item      >      <mat-list-item (click)="navigateTo(\'/settings\')">        <mat-icon matListItemIcon svgIcon="cog-outline" /><span matListItemTitle> Settings</span></mat-list-item      >    </mat-nav-list>  </mat-sidenav>  <mat-sidenav-content style="overflow: hidden" class="sidenav-content">    <mat-toolbar class="header">      @if (isHandset()) {        <button          id="sidenav_menu_button"          type="button"          aria-label="Toggle sidenav"          mat-icon-button          style="margin-right: 0.7rem; padding: 6px"          (click)="drawer.toggle()"        >          <mat-icon aria-label="Side nav toggle icon" style="--mat-icon-button-icon-size: 28px; width: 28px; height: 28px" svgIcon="logo" />        </button>      }      <span class="title">{{ titleService.title() }}</span>      @if (loaderService.isLoading()) {        <mat-spinner style="margin-left: 1rem" color="accent" diameter="32" strokeWidth="6" />      }      <div style="flex: 1"></div>      @let currentTrack = playerService.currentlyLoadedTrack();      <span class="standard-font" style="font-size: 1rem; font-weight: 500; margin-right: 1rem"        >{{ currentTrack?.metadata?.artist ? `${currentTrack?.metadata?.artist} - ` : \'\' }}{{ currentTrack?.metadata?.title || currentTrack?.file?.name }}</span      >    </mat-toolbar>    @if (metadataService.processing()) {      <mat-progress-bar class="progress" mode="determinate" [value]="metadataService.processionPercent()" />      <div class="status">{{ metadataService.statusText() }}</div>    }    <div class="router-outlet main"><router-outlet /></div>    <player-toolbar class="toolbar" />    <mtb-file-drop-overlay [allowedTypes]="ALLOWED_TYPES" (filesDroped)="onFilesDropped($event)" (fileHandlesDropped)="onFileHandlesDropped($event)" />  </mat-sidenav-content></mat-sidenav-container></div>'
-    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'mtb-root'},{'name': 'CoverDisplayComponent', 'selector': 'mtb-cover-display'},{'name': 'EqualizerComponent', 'selector': 'mtb-equalizer'},{'name': 'FileDropOverlayComponent', 'selector': 'mtb-file-drop-overlay'},{'name': 'HotkeysHelpDialogComponent', 'selector': 'mtb-hotkeys-help-dialog'},{'name': 'LibraryComponent', 'selector': ''},{'name': 'MetadataSettingsComponent', 'selector': 'mtb-metadata-settings'},{'name': 'PlayerComponent', 'selector': 'mtb-player'},{'name': 'PlayerToolbarComponent', 'selector': 'player-toolbar'},{'name': 'PlaylistComponent', 'selector': 'mtb-playlist'},{'name': 'PromptDialogComponent', 'selector': 'mtb-prompt-dialog'},{'name': 'SettingsComponent', 'selector': 'mtb-settings'},{'name': 'ShellComponent', 'selector': 'mtb-shell'},{'name': 'SlidePanelComponent', 'selector': 'mtb-slide-panel'},{'name': 'StorageSettingsComponent', 'selector': 'mtb-storage-settings'},{'name': 'ThemeSettingsComponent', 'selector': 'mtb-theme-settings'},{'name': 'VisualizerComponent', 'selector': 'mtb-visualizer'}];
+    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'mtb-root'},{'name': 'CoverDisplayComponent', 'selector': 'mtb-cover-display'},{'name': 'EqualizerComponent', 'selector': ''},{'name': 'FileDropOverlayComponent', 'selector': 'mtb-file-drop-overlay'},{'name': 'HotkeysHelpDialogComponent', 'selector': ''},{'name': 'LibraryComponent', 'selector': ''},{'name': 'MetadataSettingsComponent', 'selector': 'mtb-metadata-settings'},{'name': 'PlayerComponent', 'selector': ''},{'name': 'PlayerToolbarComponent', 'selector': 'player-toolbar'},{'name': 'PlaylistComponent', 'selector': 'mtb-playlist'},{'name': 'PromptDialogComponent', 'selector': 'mtb-prompt-dialog'},{'name': 'SettingsComponent', 'selector': ''},{'name': 'ShellComponent', 'selector': 'mtb-shell'},{'name': 'SlidePanelComponent', 'selector': 'mtb-slide-panel'},{'name': 'StorageSettingsComponent', 'selector': 'mtb-storage-settings'},{'name': 'ThemeSettingsComponent', 'selector': 'mtb-theme-settings'},{'name': 'VisualizerComponent', 'selector': 'mtb-visualizer'}];
     var DIRECTIVES = [{'name': 'VisualsDirective', 'selector': '[mtbVisual]'}];
     var ACTUAL_COMPONENT = {'name': 'ShellComponent'};
 </script>

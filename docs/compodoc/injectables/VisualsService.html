@@ -254,7 +254,7 @@ import type { VisualizerMode } from &#x27;./visuals.types&#x27;;
   providedIn: &#x27;root&#x27;
 })
 export class VisualsService {
-  private localStorageService &#x3D; inject(LocalStorageService);
+  private readonly localStorageService &#x3D; inject(LocalStorageService);
 
   readonly visualMode &#x3D; signal&lt;VisualizerMode&gt;(this.localStorageService.retrieve(&#x27;visualMode&#x27;) ?? &#x27;off&#x27;);
 

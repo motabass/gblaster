@@ -254,21 +254,21 @@ export interface HotkeyInfo {
 
 @Injectable({ providedIn: &#x27;root&#x27; })
 export class HotkeysService {
-  private eventManager &#x3D; inject(EventManager);
-  private document &#x3D; inject&lt;Document&gt;(DOCUMENT);
-  private dialog &#x3D; inject(MatDialog);
+  private readonly eventManager &#x3D; inject(EventManager);
+  private readonly document &#x3D; inject&lt;Document&gt;(DOCUMENT);
+  private readonly dialog &#x3D; inject(MatDialog);
 
-  defaults: Partial&lt;Hotkey&gt; &#x3D; {
+  private readonly defaults: Partial&lt;Hotkey&gt; &#x3D; {
     element: this.document
   };
 
-  hotkeys: Map&lt;string, HotkeyInfo&gt; &#x3D; new Map&lt;string, HotkeyInfo&gt;();
+  private readonly hotkeys: Map&lt;string, HotkeyInfo&gt; &#x3D; new Map&lt;string, HotkeyInfo&gt;();
 
-  helpOpen &#x3D; false;
+  private helpOpen &#x3D; false;
 
-  dialogRef?: MatDialogRef&lt;HotkeysHelpDialogComponent&gt;;
+  private dialogRef?: MatDialogRef&lt;HotkeysHelpDialogComponent&gt;;
 
-  _pause &#x3D; false;
+  private _pause &#x3D; false;
 
   initialize() {
     this.register({

@@ -241,13 +241,13 @@ import { escapeLuceneQueryString } from &#x27;@motabass/helpers&#x27;;
 
 @Injectable({ providedIn: &#x27;root&#x27; })
 export class MusicbrainzService {
-  private readonly mbApi &#x3D; new MusicBrainzApi({
+  private readonly musicBrainzApi &#x3D; new MusicBrainzApi({
     appName: &#x27;gblaster&#x27;,
     appVersion: &#x27;1.0.0&#x27;,
     appContactInfo: &#x27;markus.mohoritsch@gmx.at&#x27;
   });
 
-  private readonly caApi &#x3D; new CoverArtArchiveApi();
+  private readonly coverArtArchiveApi &#x3D; new CoverArtArchiveApi();
 
   async getCoverPictureUrls(tags: Id3Tags): Promise&lt;RemoteCoverArtUrls | undefined&gt; {
     if (!tags.artist || !tags.album) {
@@ -271,7 +271,7 @@ export class MusicbrainzService {
     const query &#x3D; &#x60;release:${escapeLuceneQueryString(album)} AND artist:${escapeLuceneQueryString(artist)} AND primarytype:Album&#x60;;
 
     try {
-      const data &#x3D; await this.mbApi.search(&#x27;release-group&#x27;, { query });
+      const data &#x3D; await this.musicBrainzApi.search(&#x27;release-group&#x27;, { query });
       if (!data[&#x27;release-groups&#x27;]?.length) {
         return undefined;
       }
@@ -287,7 +287,7 @@ export class MusicbrainzService {
     try {
       // const url &#x3D; &#x60;${this.COVER_API_URL}/release-group/${releaseGroupId}&#x60;;
       // const coverData &#x3D; await firstValueFrom(this.http.get&lt;CoverArtResponse&gt;(url));
-      const coverData &#x3D; await this.caApi.getReleaseGroupCovers(releaseGroupId);
+      const coverData &#x3D; await this.coverArtArchiveApi.getReleaseGroupCovers(releaseGroupId);
 
       if (!coverData.images?.length) {
         return undefined;

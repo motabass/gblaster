@@ -205,18 +205,9 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
-                                <a href="#audioService" >audioService</a>
-                            </li>
-                            <li>
+                                    <span class="modifier">Protected</span>
                                     <span class="modifier">Readonly</span>
-                                <a href="#menuTrigger" >menuTrigger</a>
-                            </li>
-                            <li>
                                 <a href="#playerService" >playerService</a>
-                            </li>
-                            <li>
-                                    <span class="modifier">Readonly</span>
-                                <a href="#scrollViewport" >scrollViewport</a>
                             </li>
                         </ul>
                     </td>
@@ -669,59 +660,10 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="audioService"></a>
-                    <span class="name">
-                        <span ><b>audioService</b></span>
-                        <a href="#audioService"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-                <tr>
-                    <td class="col-md-4">
-                        <i>Default value : </i><code>inject(AudioService)</code>
-                    </td>
-                </tr>
-                    <tr>
-                        <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="41" class="link-to-prism">apps/gblaster/src/app/player/playlist/playlist.component.ts:41</a></div>
-                        </td>
-                    </tr>
-
-
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="menuTrigger"></a>
-                    <span class="name">
-                            <span class="modifier">Readonly</span>
-                        <span ><b>menuTrigger</b></span>
-                        <a href="#menuTrigger"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-                <tr>
-                    <td class="col-md-4">
-                        <i>Default value : </i><code>viewChild&lt;MatMenuTrigger&gt;(&#x27;menuTrigger&#x27;)</code>
-                    </td>
-                </tr>
-                    <tr>
-                        <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="44" class="link-to-prism">apps/gblaster/src/app/player/playlist/playlist.component.ts:44</a></div>
-                        </td>
-                    </tr>
-
-
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
                     <a name="playerService"></a>
                     <span class="name">
+                            <span class="modifier">Protected</span>
+                            <span class="modifier">Readonly</span>
                         <span ><b>playerService</b></span>
                         <a href="#playerService"><span class="icon ion-ios-link"></span></a>
                     </span>
@@ -734,33 +676,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="40" class="link-to-prism">apps/gblaster/src/app/player/playlist/playlist.component.ts:40</a></div>
-                        </td>
-                    </tr>
-
-
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="scrollViewport"></a>
-                    <span class="name">
-                            <span class="modifier">Readonly</span>
-                        <span ><b>scrollViewport</b></span>
-                        <a href="#scrollViewport"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-                <tr>
-                    <td class="col-md-4">
-                        <i>Default value : </i><code>viewChild&lt;CdkVirtualScrollViewport&gt;(&#x27;scrollViewport&#x27;)</code>
-                    </td>
-                </tr>
-                    <tr>
-                        <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="46" class="link-to-prism">apps/gblaster/src/app/player/playlist/playlist.component.ts:46</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="42" class="link-to-prism">apps/gblaster/src/app/player/playlist/playlist.component.ts:42</a></div>
                         </td>
                     </tr>
 
@@ -812,13 +728,13 @@ import { MatMenuModule, MatMenuTrigger } from &#x27;@angular/material/menu&#x27;
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PlaylistComponent {
-  playerService &#x3D; inject(PlayerService);
-  audioService &#x3D; inject(AudioService);
-  private destroRef &#x3D; inject(DestroyRef);
+  private readonly audioService &#x3D; inject(AudioService);
+  private readonly destroRef &#x3D; inject(DestroyRef);
+  protected readonly playerService &#x3D; inject(PlayerService);
 
-  readonly menuTrigger &#x3D; viewChild&lt;MatMenuTrigger&gt;(&#x27;menuTrigger&#x27;);
+  private readonly menuTrigger &#x3D; viewChild&lt;MatMenuTrigger&gt;(&#x27;menuTrigger&#x27;);
 
-  readonly scrollViewport &#x3D; viewChild&lt;CdkVirtualScrollViewport&gt;(&#x27;scrollViewport&#x27;);
+  private readonly scrollViewport &#x3D; viewChild&lt;CdkVirtualScrollViewport&gt;(&#x27;scrollViewport&#x27;);
 
   private readonly isAutoScrollEnabled &#x3D; signal(false);
 
@@ -1050,7 +966,7 @@ export class PlaylistComponent {
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
         var COMPONENT_TEMPLATE = '<div><cdk-virtual-scroll-viewport #scrollViewport itemSize="72" class="playlist-viewport" style="height: 100%">  <mat-list class="playlist">    <mat-list-item      *cdkVirtualFor="let song of playerService.currentPlaylist(); trackBy: trackByHash"      class="playlist-item"      [ngClass]="{ selected: this.playerService.selectedTrack()?.metadata?.hash === song.metadata.hash }"      (dblclick)="playPauseSong($event, song)"      (click)="playerService.selectSong(song)"      (contextmenu)="onContextMenu($event, song)"    >      <div matListItemAvatar style="overflow: hidden; border-radius: 4px; position: relative">        @if (song && song.metadata && song.metadata.coverUrl) {          <img            style="position: absolute; top: 0; right: 0; bottom: 0; left: 0; width: 100%; height: 100%"            fill            [src]="song.metadata.coverUrl.thumbUrl | safe: \'resourceUrl\'"          />        }        @let songPlaying = isPlaying(song)();        @if (songPlaying) {          <canvas            mtbVisual            mode="osc"            style="position: absolute; right: 0; bottom: 0; left: 0; width: 100%; height: 100%"            [colorConfig]="playerService.colorConfig()"            [oscConfig]="{ thickness: 2 }"          ></canvas>        }      </div>      <h3 matListItemTitle style="font-size: 0.9rem; font-weight: bold">{{ song?.metadata?.title || song.file.name }}</h3>      <p matListItemLine style="font-size: 0.8rem">{{ song?.metadata?.artist }}</p>      @if (isActive(song)()) {        <button matListItemMeta mat-icon-button (click)="playPauseSong($event, song)">          <mat-icon class="accent-color" [svgIcon]="songPlaying ? \'pause\' : \'play-outline\'" />        </button>      }    </mat-list-item>  </mat-list></cdk-virtual-scroll-viewport><!-- Context menu trigger--><div style="display: none">  <span #menuTrigger="matMenuTrigger" [matMenuTriggerFor]="songMenu"></span></div><!-- Context Menu --><mat-menu #songMenu="matMenu">  <ng-template let-song="song" matMenuContent>    <button mat-menu-item (click)="playerService.removeTrackFromPlaylist(song)">      <mat-icon svgIcon="close-thick" />      <span>Remove from playlist</span>    </button>  </ng-template></mat-menu></div>'
-    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'mtb-root'},{'name': 'CoverDisplayComponent', 'selector': 'mtb-cover-display'},{'name': 'EqualizerComponent', 'selector': 'mtb-equalizer'},{'name': 'FileDropOverlayComponent', 'selector': 'mtb-file-drop-overlay'},{'name': 'HotkeysHelpDialogComponent', 'selector': 'mtb-hotkeys-help-dialog'},{'name': 'LibraryComponent', 'selector': ''},{'name': 'MetadataSettingsComponent', 'selector': 'mtb-metadata-settings'},{'name': 'PlayerComponent', 'selector': 'mtb-player'},{'name': 'PlayerToolbarComponent', 'selector': 'player-toolbar'},{'name': 'PlaylistComponent', 'selector': 'mtb-playlist'},{'name': 'PromptDialogComponent', 'selector': 'mtb-prompt-dialog'},{'name': 'SettingsComponent', 'selector': 'mtb-settings'},{'name': 'ShellComponent', 'selector': 'mtb-shell'},{'name': 'SlidePanelComponent', 'selector': 'mtb-slide-panel'},{'name': 'StorageSettingsComponent', 'selector': 'mtb-storage-settings'},{'name': 'ThemeSettingsComponent', 'selector': 'mtb-theme-settings'},{'name': 'VisualizerComponent', 'selector': 'mtb-visualizer'}];
+    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'mtb-root'},{'name': 'CoverDisplayComponent', 'selector': 'mtb-cover-display'},{'name': 'EqualizerComponent', 'selector': ''},{'name': 'FileDropOverlayComponent', 'selector': 'mtb-file-drop-overlay'},{'name': 'HotkeysHelpDialogComponent', 'selector': ''},{'name': 'LibraryComponent', 'selector': ''},{'name': 'MetadataSettingsComponent', 'selector': 'mtb-metadata-settings'},{'name': 'PlayerComponent', 'selector': ''},{'name': 'PlayerToolbarComponent', 'selector': 'player-toolbar'},{'name': 'PlaylistComponent', 'selector': 'mtb-playlist'},{'name': 'PromptDialogComponent', 'selector': 'mtb-prompt-dialog'},{'name': 'SettingsComponent', 'selector': ''},{'name': 'ShellComponent', 'selector': 'mtb-shell'},{'name': 'SlidePanelComponent', 'selector': 'mtb-slide-panel'},{'name': 'StorageSettingsComponent', 'selector': 'mtb-storage-settings'},{'name': 'ThemeSettingsComponent', 'selector': 'mtb-theme-settings'},{'name': 'VisualizerComponent', 'selector': 'mtb-visualizer'}];
     var DIRECTIVES = [{'name': 'VisualsDirective', 'selector': '[mtbVisual]'}];
     var ACTUAL_COMPONENT = {'name': 'PlaylistComponent'};
 </script>

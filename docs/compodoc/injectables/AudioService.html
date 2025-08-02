@@ -1441,7 +1441,7 @@ export type EqualizerGainValues &#x3D; {
 
 @Injectable({ providedIn: &#x27;root&#x27; })
 export class AudioService {
-  private localStorageService &#x3D; inject(LocalStorageService);
+  private readonly localStorageService &#x3D; inject(LocalStorageService);
 
   // Core audio elements
   private _audioElement: HTMLAudioElement;

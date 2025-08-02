@@ -241,7 +241,7 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable, inject } from &#x27;@angular/core&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { inject, Injectable } from &#x27;@angular/core&#x27;;
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from &#x27;@angular/common/http&#x27;;
 import { Observable } from &#x27;rxjs&#x27;;
 import { finalize } from &#x27;rxjs/operators&#x27;;
@@ -249,7 +249,7 @@ import { LoaderService } from &#x27;./loader.service&#x27;;
 
 @Injectable()
 export class LoaderInterceptor implements HttpInterceptor {
-  private loaderService &#x3D; inject(LoaderService);
+  private readonly loaderService &#x3D; inject(LoaderService);
 
   intercept(request: HttpRequest&lt;unknown&gt;, next: HttpHandler): Observable&lt;HttpEvent&lt;unknown&gt;&gt; {
     this.loaderService.show();

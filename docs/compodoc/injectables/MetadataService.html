@@ -300,8 +300,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="152"
-                                    class="link-to-prism">apps/gblaster/src/app/player/metadata-service/metadata.service.ts:152</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="151"
+                                    class="link-to-prism">apps/gblaster/src/app/player/metadata-service/metadata.service.ts:151</a></div>
                         </td>
                     </tr>
 
@@ -729,11 +729,11 @@ import { md5 } from &#x27;hash-wasm&#x27;;
 
 @Injectable({ providedIn: &#x27;root&#x27; })
 export class MetadataService {
-  private id3TagsService &#x3D; inject(Id3TagsService);
-  private lastfmMetadataService &#x3D; inject(LastfmMetadataService);
-  private musicbrainzService &#x3D; inject(MusicbrainzService);
-  private indexedDBService &#x3D; inject(NgxIndexedDBService);
-  private localStorageService &#x3D; inject(LocalStorageService);
+  private readonly id3TagsService &#x3D; inject(Id3TagsService);
+  private readonly lastfmMetadataService &#x3D; inject(LastfmMetadataService);
+  private readonly musicbrainzService &#x3D; inject(MusicbrainzService);
+  private readonly indexedDBService &#x3D; inject(NgxIndexedDBService);
+  private readonly localStorageService &#x3D; inject(LocalStorageService);
 
   private readonly PLACEHOLDER_URL &#x3D; &#x27;assets/icons/record.svg&#x27;;
 
@@ -820,7 +820,6 @@ export class MetadataService {
     const tags &#x3D; await this.id3TagsService.extractTags(fileData.file);
 
     if (!tags) {
-      // if no tags
       return undefined;
     }
 

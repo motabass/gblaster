@@ -274,9 +274,9 @@ import { takeUntilDestroyed } from &#x27;@angular/core/rxjs-interop&#x27;;
   providedIn: &#x27;root&#x27;
 })
 export class UpdateService {
-  private swUpdate &#x3D; inject(SwUpdate);
-  private dialog &#x3D; inject(MatDialog);
-  private destroRef &#x3D; inject(DestroyRef);
+  private readonly swUpdate &#x3D; inject(SwUpdate);
+  private readonly dialog &#x3D; inject(MatDialog);
+  private readonly destroRef &#x3D; inject(DestroyRef);
 
   constructor() {
     const swUpdate &#x3D; this.swUpdate;

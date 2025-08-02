@@ -273,7 +273,7 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, computed, effect, inject, OnInit, signal } from &#x27;@angular/core&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, computed, effect, inject, OnDestroy, OnInit, signal } from &#x27;@angular/core&#x27;;
 import { IndexedDbTrackMetadata, Track } from &#x27;../player.types&#x27;;
 import { MatListModule } from &#x27;@angular/material/list&#x27;;
 import { MatMenu, MatMenuContent, MatMenuItem, MatMenuTrigger } from &#x27;@angular/material/menu&#x27;;
@@ -319,14 +319,14 @@ export interface Album {
   templateUrl: &#x27;./library.component.html&#x27;,
   styleUrl: &#x27;./library.component.scss&#x27;
 })
-export default class LibraryComponent implements OnInit {
-  metadataService &#x3D; inject(MetadataService);
-  playerService &#x3D; inject(PlayerService);
-  libraryService &#x3D; inject(LibraryService);
+export default class LibraryComponent implements OnInit, OnDestroy {
+  private readonly metadataService &#x3D; inject(MetadataService);
+  private readonly playerService &#x3D; inject(PlayerService);
+  protected readonly libraryService &#x3D; inject(LibraryService);
 
-  readonly searchTerm &#x3D; signal(&#x27;&#x27;);
+  protected readonly searchTerm &#x3D; signal(&#x27;&#x27;);
 
-  readonly filteredBySerchterm &#x3D; computed(() &#x3D;&gt; {
+  private readonly filteredBySerchterm &#x3D; computed(() &#x3D;&gt; {
     const searchTerm &#x3D; this.searchTerm();
     const lowerSearchTerm &#x3D; searchTerm.toLowerCase();
     return this.libraryService.indexedDbTracks().filter((tag) &#x3D;&gt; {
@@ -339,11 +339,11 @@ export default class LibraryComponent implements OnInit {
     });
   });
 
-  readonly selectedArtist &#x3D; signal&lt;string | undefined&gt;(undefined);
-  readonly selectedAlbum &#x3D; signal&lt;string | undefined&gt;(undefined);
-  readonly selectedTrack &#x3D; signal&lt;IndexedDbTrackMetadata | undefined&gt;(undefined);
+  private readonly selectedArtist &#x3D; signal&lt;string | undefined&gt;(undefined);
+  protected readonly selectedAlbum &#x3D; signal&lt;string | undefined&gt;(undefined);
+  private readonly selectedTrack &#x3D; signal&lt;IndexedDbTrackMetadata | undefined&gt;(undefined);
 
-  readonly uniqueArtists &#x3D; computed(() &#x3D;&gt; {
+  protected readonly uniqueArtists &#x3D; computed(() &#x3D;&gt; {
     const filtered &#x3D; this.filteredBySerchterm()
       .map((tag) &#x3D;&gt; tag.artist)
       .filter((artist): artist is string &#x3D;&gt; !!artist);
@@ -351,7 +351,7 @@ export default class LibraryComponent implements OnInit {
     return [...new Set(filtered.toSorted((a, b) &#x3D;&gt; a.localeCompare(b)))];
   });
 
-  readonly uniqueAlbums &#x3D; computed(() &#x3D;&gt; {
+  protected readonly uniqueAlbums &#x3D; computed(() &#x3D;&gt; {
     let filtered &#x3D; this.filteredBySerchterm();
     const artist &#x3D; this.selectedArtist();
 
@@ -374,7 +374,7 @@ export default class LibraryComponent implements OnInit {
     return [...albumMap.values()].sort((a, b) &#x3D;&gt; a.name.localeCompare(b.name));
   });
 
-  readonly tracks &#x3D; computed(() &#x3D;&gt; {
+  protected readonly tracks &#x3D; computed(() &#x3D;&gt; {
     this.searchTerm();
 
     let filtered &#x3D; this.filteredBySerchterm();
@@ -435,7 +435,12 @@ export default class LibraryComponent implements OnInit {
     void this.libraryService.loadLibraryFromDb();
   }
 
-  private onLibraryUpdate() {}
+  ngOnDestroy() {
+    if (this.processingInterval) {
+      clearInterval(this.processingInterval);
+      this.processingInterval &#x3D; undefined;
+    }
+  }
 
   selectArtist(artist: string | undefined) {
     this.selectedArtist.set(artist);

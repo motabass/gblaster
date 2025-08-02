@@ -276,14 +276,14 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable, signal, inject } from &#x27;@angular/core&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { inject, Injectable, signal } from &#x27;@angular/core&#x27;;
 import { Title } from &#x27;@angular/platform-browser&#x27;;
 
 @Injectable({
   providedIn: &#x27;root&#x27;
 })
 export class TitleService {
-  private angularTitleService &#x3D; inject(Title);
+  private readonly angularTitleService &#x3D; inject(Title);
 
   readonly title &#x3D; signal&lt;string&gt;(&#x27;&#x27;);
 

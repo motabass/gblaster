@@ -188,7 +188,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">apps/gblaster/src/app/app.component.ts:14</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">apps/gblaster/src/app/app.component.ts:18</a></div>
                             </td>
                         </tr>
 
@@ -220,18 +220,18 @@ import { ShellComponent } from &#x27;./shell/shell.component&#x27;;
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent {
+  private readonly updateService &#x3D; inject(UpdateService);
+  private readonly iconRegistry &#x3D; inject(MatIconRegistry);
+  private readonly sanitizer &#x3D; inject(DomSanitizer);
+  private readonly themeService &#x3D; inject(ThemeService);
+
   constructor() {
-    const updateService &#x3D; inject(UpdateService);
-    const iconRegistry &#x3D; inject(MatIconRegistry);
-    const sanitizer &#x3D; inject(DomSanitizer);
-    const themeService &#x3D; inject(ThemeService);
+    void this.updateService.init();
 
-    void updateService.init();
+    this.themeService.initializeTheme();
 
-    themeService.initializeTheme();
-
-    iconRegistry.addSvgIconSet(sanitizer.bypassSecurityTrustResourceUrl(&#x27;assets/icon-set.svg&#x27;));
-    iconRegistry.addSvgIcon(&#x27;logo&#x27;, sanitizer.bypassSecurityTrustResourceUrl(&#x27;assets/icons/logo-monochrome.svg&#x27;));
+    this.iconRegistry.addSvgIconSet(this.sanitizer.bypassSecurityTrustResourceUrl(&#x27;assets/icon-set.svg&#x27;));
+    this.iconRegistry.addSvgIcon(&#x27;logo&#x27;, this.sanitizer.bypassSecurityTrustResourceUrl(&#x27;assets/icons/logo-monochrome.svg&#x27;));
   }
 }
 </code></pre>
@@ -269,7 +269,7 @@ export class AppComponent {
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
         var COMPONENT_TEMPLATE = '<div><mtb-shell /></div>'
-    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'mtb-root'},{'name': 'CoverDisplayComponent', 'selector': 'mtb-cover-display'},{'name': 'EqualizerComponent', 'selector': 'mtb-equalizer'},{'name': 'FileDropOverlayComponent', 'selector': 'mtb-file-drop-overlay'},{'name': 'HotkeysHelpDialogComponent', 'selector': 'mtb-hotkeys-help-dialog'},{'name': 'LibraryComponent', 'selector': ''},{'name': 'MetadataSettingsComponent', 'selector': 'mtb-metadata-settings'},{'name': 'PlayerComponent', 'selector': 'mtb-player'},{'name': 'PlayerToolbarComponent', 'selector': 'player-toolbar'},{'name': 'PlaylistComponent', 'selector': 'mtb-playlist'},{'name': 'PromptDialogComponent', 'selector': 'mtb-prompt-dialog'},{'name': 'SettingsComponent', 'selector': 'mtb-settings'},{'name': 'ShellComponent', 'selector': 'mtb-shell'},{'name': 'SlidePanelComponent', 'selector': 'mtb-slide-panel'},{'name': 'StorageSettingsComponent', 'selector': 'mtb-storage-settings'},{'name': 'ThemeSettingsComponent', 'selector': 'mtb-theme-settings'},{'name': 'VisualizerComponent', 'selector': 'mtb-visualizer'}];
+    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'mtb-root'},{'name': 'CoverDisplayComponent', 'selector': 'mtb-cover-display'},{'name': 'EqualizerComponent', 'selector': ''},{'name': 'FileDropOverlayComponent', 'selector': 'mtb-file-drop-overlay'},{'name': 'HotkeysHelpDialogComponent', 'selector': ''},{'name': 'LibraryComponent', 'selector': ''},{'name': 'MetadataSettingsComponent', 'selector': 'mtb-metadata-settings'},{'name': 'PlayerComponent', 'selector': ''},{'name': 'PlayerToolbarComponent', 'selector': 'player-toolbar'},{'name': 'PlaylistComponent', 'selector': 'mtb-playlist'},{'name': 'PromptDialogComponent', 'selector': 'mtb-prompt-dialog'},{'name': 'SettingsComponent', 'selector': ''},{'name': 'ShellComponent', 'selector': 'mtb-shell'},{'name': 'SlidePanelComponent', 'selector': 'mtb-slide-panel'},{'name': 'StorageSettingsComponent', 'selector': 'mtb-storage-settings'},{'name': 'ThemeSettingsComponent', 'selector': 'mtb-theme-settings'},{'name': 'VisualizerComponent', 'selector': 'mtb-visualizer'}];
     var DIRECTIVES = [{'name': 'VisualsDirective', 'selector': '[mtbVisual]'}];
     var ACTUAL_COMPONENT = {'name': 'AppComponent'};
 </script>

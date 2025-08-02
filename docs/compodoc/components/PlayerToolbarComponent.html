@@ -209,18 +209,27 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
+                                    <span class="modifier">Protected</span>
+                                    <span class="modifier">Readonly</span>
                                 <a href="#audioService" >audioService</a>
                             </li>
                             <li>
+                                    <span class="modifier">Protected</span>
+                                    <span class="modifier">Readonly</span>
                                 <a href="#fileLoaderService" >fileLoaderService</a>
                             </li>
                             <li>
+                                    <span class="modifier">Protected</span>
+                                    <span class="modifier">Readonly</span>
                                 <a href="#metadataService" >metadataService</a>
                             </li>
                             <li>
+                                    <span class="modifier">Protected</span>
+                                    <span class="modifier">Readonly</span>
                                 <a href="#playerService" >playerService</a>
                             </li>
                             <li>
+                                    <span class="modifier">Protected</span>
                                     <span class="modifier">Readonly</span>
                                 <a href="#volumeIcon" >volumeIcon</a>
                             </li>
@@ -966,6 +975,8 @@
                 <td class="col-md-4">
                     <a name="audioService"></a>
                     <span class="name">
+                            <span class="modifier">Protected</span>
+                            <span class="modifier">Readonly</span>
                         <span ><b>audioService</b></span>
                         <a href="#audioService"><span class="icon ion-ios-link"></span></a>
                     </span>
@@ -991,6 +1002,8 @@
                 <td class="col-md-4">
                     <a name="fileLoaderService"></a>
                     <span class="name">
+                            <span class="modifier">Protected</span>
+                            <span class="modifier">Readonly</span>
                         <span ><b>fileLoaderService</b></span>
                         <a href="#fileLoaderService"><span class="icon ion-ios-link"></span></a>
                     </span>
@@ -1016,6 +1029,8 @@
                 <td class="col-md-4">
                     <a name="metadataService"></a>
                     <span class="name">
+                            <span class="modifier">Protected</span>
+                            <span class="modifier">Readonly</span>
                         <span ><b>metadataService</b></span>
                         <a href="#metadataService"><span class="icon ion-ios-link"></span></a>
                     </span>
@@ -1041,6 +1056,8 @@
                 <td class="col-md-4">
                     <a name="playerService"></a>
                     <span class="name">
+                            <span class="modifier">Protected</span>
+                            <span class="modifier">Readonly</span>
                         <span ><b>playerService</b></span>
                         <a href="#playerService"><span class="icon ion-ios-link"></span></a>
                     </span>
@@ -1066,6 +1083,7 @@
                 <td class="col-md-4">
                     <a name="volumeIcon"></a>
                     <span class="name">
+                            <span class="modifier">Protected</span>
                             <span class="modifier">Readonly</span>
                         <span ><b>volumeIcon</b></span>
                         <a href="#volumeIcon"><span class="icon ion-ios-link"></span></a>
@@ -1118,14 +1136,14 @@ import { MetadataService } from &#x27;../metadata-service/metadata.service&#x27;
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PlayerToolbarComponent implements OnInit, OnDestroy {
-  private gamepadService &#x3D; inject(GamepadService, { optional: true });
-  private hotkeysService &#x3D; inject(HotkeysService, { optional: true });
-  fileLoaderService &#x3D; inject(FileLoaderService);
-  playerService &#x3D; inject(PlayerService);
-  audioService &#x3D; inject(AudioService);
-  metadataService &#x3D; inject(MetadataService);
+  private readonly gamepadService &#x3D; inject(GamepadService, { optional: true });
+  private readonly hotkeysService &#x3D; inject(HotkeysService, { optional: true });
+  protected readonly fileLoaderService &#x3D; inject(FileLoaderService);
+  protected readonly playerService &#x3D; inject(PlayerService);
+  protected readonly audioService &#x3D; inject(AudioService);
+  protected readonly metadataService &#x3D; inject(MetadataService);
 
-  readonly volumeIcon &#x3D; computed(() &#x3D;&gt; this.getVolumeIconForLevel(this.audioService.volume()));
+  protected readonly volumeIcon &#x3D; computed(() &#x3D;&gt; this.getVolumeIconForLevel(this.audioService.volume()));
 
   ngOnInit() {
     if (this.hotkeysService) {
@@ -1366,7 +1384,7 @@ export class PlayerToolbarComponent implements OnInit, OnDestroy {
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
         var COMPONENT_TEMPLATE = '<div><mat-toolbar color="primary" class="bar flex row justify-center">  <button mat-icon-button (click)="playerService.playPause()">    @if (audioService.isPlaying()) {      <mat-icon matTooltip="Pause" svgIcon="pause" />    } @else {      <mat-icon matTooltip="Play" svgIcon="play" />    }  </button>  <button mat-icon-button (click)="playerService.stop()">    <mat-icon matTooltip="Stop" svgIcon="stop" />  </button>  <button class="no-mobile" mat-icon-button (click)="playerService.previous()">    <mat-icon matTooltip="Previous" svgIcon="skip-previous" />  </button>  <button class="no-mobile" mat-icon-button (click)="playerService.next()">    <mat-icon matTooltip="Next" svgIcon="skip-next" />  </button>  <button mat-icon-button id="load_files" [matMenuTriggerFor]="fileMenu" [disabled]="metadataService.processing()">    <mat-icon matTooltip="Load folder/files..." svgIcon="folder-music-outline" />  </button>  <mat-menu #fileMenu="matMenu">    <button id="load_files_menu" mat-menu-item (click)="showFilePickerAndLoadFiles()">      <mat-icon svgIcon="folder-music-outline" />      <span>Load folder/files...</span>    </button>    @if (fileLoaderService.currentFolderHandle()) {      <button mat-menu-item (click)="loadLastDirectory()">        <mat-icon svgIcon="folder-music-outline" />        <span>Load last directory</span>      </button>    }  </mat-menu>  <!-- TODO: The \'tickInterval\' property no longer exists -->  @if (playerService.currentlyLoadedTrack()) {    <mat-slider class="flex-grow" min="0" step="1" discrete color="accent" [max]="playerService.durationSeconds()" [displayWith]="formatLabel"      ><input #ngSliderThumb="matSliderThumb" matSliderThumb [value]="playerService.currentTime()" (valueChange)="onSliderPositionChanged(ngSliderThumb.value)"    /></mat-slider>  } @else {    <div class="flex-grow"></div>  }  <div class="no-mobile standard-font" style="font-size: small; padding: 0 12px">    <p>{{ playerService.currentTime() | time }} / {{ this.playerService.durationSeconds() | time }}</p>  </div>  <button mat-icon-button id="volume_button" [matMenuTriggerFor]="volumeMenu">    <mat-icon [matTooltip]="`Volume: ${(audioService.volume() * 100).toFixed(0)}`" [svgIcon]="volumeIcon()" />  </button>  <button mat-icon-button [class.disabled-color]="!playerService.shuffle()" (click)="toggleShuffle()">    <mat-icon svgIcon="shuffle-variant" [matTooltip]="playerService.shuffle() ? \'Shuffle on\' : \'Shuffle off\'" />  </button>  <button mat-icon-button [class.disabled-color]="playerService.repeat() === \'off\'" (click)="toggleRepeat()">    @switch (playerService.repeat()) {      @case (\'off\') {        <mat-icon matTooltip="Repeat off" svgIcon="repeat-off" />      }      @case (\'all\') {        <mat-icon matTooltip="Repeat all" svgIcon="repeat" />      }      @case (\'one\') {        <mat-icon matTooltip="Repeat one" svgIcon="repeat-once" />      }    }  </button>  <mat-menu #volumeMenu="matMenu" class="volume-menu" yPosition="above">    <div class="vertical-slider-container">      <div class="vertical-slider">        <mat-slider style="width: 9rem" id="volume_slider" min="0" max="1" step="0.01"          ><input #volumeSlider="matSliderThumb" matSliderThumb [value]="audioService.volume()" (input)="onVolumeChange(volumeSlider.value)"        /></mat-slider>      </div>    </div>  </mat-menu></mat-toolbar></div>'
-    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'mtb-root'},{'name': 'CoverDisplayComponent', 'selector': 'mtb-cover-display'},{'name': 'EqualizerComponent', 'selector': 'mtb-equalizer'},{'name': 'FileDropOverlayComponent', 'selector': 'mtb-file-drop-overlay'},{'name': 'HotkeysHelpDialogComponent', 'selector': 'mtb-hotkeys-help-dialog'},{'name': 'LibraryComponent', 'selector': ''},{'name': 'MetadataSettingsComponent', 'selector': 'mtb-metadata-settings'},{'name': 'PlayerComponent', 'selector': 'mtb-player'},{'name': 'PlayerToolbarComponent', 'selector': 'player-toolbar'},{'name': 'PlaylistComponent', 'selector': 'mtb-playlist'},{'name': 'PromptDialogComponent', 'selector': 'mtb-prompt-dialog'},{'name': 'SettingsComponent', 'selector': 'mtb-settings'},{'name': 'ShellComponent', 'selector': 'mtb-shell'},{'name': 'SlidePanelComponent', 'selector': 'mtb-slide-panel'},{'name': 'StorageSettingsComponent', 'selector': 'mtb-storage-settings'},{'name': 'ThemeSettingsComponent', 'selector': 'mtb-theme-settings'},{'name': 'VisualizerComponent', 'selector': 'mtb-visualizer'}];
+    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'mtb-root'},{'name': 'CoverDisplayComponent', 'selector': 'mtb-cover-display'},{'name': 'EqualizerComponent', 'selector': ''},{'name': 'FileDropOverlayComponent', 'selector': 'mtb-file-drop-overlay'},{'name': 'HotkeysHelpDialogComponent', 'selector': ''},{'name': 'LibraryComponent', 'selector': ''},{'name': 'MetadataSettingsComponent', 'selector': 'mtb-metadata-settings'},{'name': 'PlayerComponent', 'selector': ''},{'name': 'PlayerToolbarComponent', 'selector': 'player-toolbar'},{'name': 'PlaylistComponent', 'selector': 'mtb-playlist'},{'name': 'PromptDialogComponent', 'selector': 'mtb-prompt-dialog'},{'name': 'SettingsComponent', 'selector': ''},{'name': 'ShellComponent', 'selector': 'mtb-shell'},{'name': 'SlidePanelComponent', 'selector': 'mtb-slide-panel'},{'name': 'StorageSettingsComponent', 'selector': 'mtb-storage-settings'},{'name': 'ThemeSettingsComponent', 'selector': 'mtb-theme-settings'},{'name': 'VisualizerComponent', 'selector': 'mtb-visualizer'}];
     var DIRECTIVES = [{'name': 'VisualsDirective', 'selector': '[mtbVisual]'}];
     var ACTUAL_COMPONENT = {'name': 'PlayerToolbarComponent'};
 </script>
