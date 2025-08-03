@@ -126,7 +126,7 @@
     "jest-environment-jsdom": "30.0.5",
     "jest-preset-angular": "15.0.0",
     "jest-util": "30.0.5",
-    "lint-staged": "16.1.2",
+    "lint-staged": "16.1.4",
     "ng-packagr": "20.1.0",
     "npm-check-updates": "18.0.2",
     "nx": "21.3.11",
