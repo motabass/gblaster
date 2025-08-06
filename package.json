@@ -101,11 +101,11 @@
     "@swc/helpers": "0.5.17",
     "@twittwer/compodoc": "1.13.0",
     "@types/jest": "30.0.0",
-    "@types/node": "24.1.0",
+    "@types/node": "24.2.0",
     "@types/spark-md5": "3.0.5",
     "@types/wicg-file-system-access": "2023.10.6",
-    "@typescript-eslint/parser": "8.38.0",
-    "@typescript-eslint/utils": "8.38.0",
+    "@typescript-eslint/parser": "8.39.0",
+    "@typescript-eslint/utils": "8.39.0",
     "angular-eslint": "20.1.1",
     "auto-changelog": "2.5.0",
     "cypress": "14.5.3",
@@ -126,7 +126,7 @@
     "jest-environment-jsdom": "30.0.5",
     "jest-preset-angular": "15.0.0",
     "jest-util": "30.0.5",
-    "lint-staged": "16.1.2",
+    "lint-staged": "16.1.4",
     "ng-packagr": "20.1.0",
     "npm-check-updates": "18.0.2",
     "nx": "21.3.11",
@@ -141,9 +141,9 @@
     "stylelint-config-standard": "39.0.0",
     "stylelint-config-standard-scss": "15.0.1",
     "svgo": "4.0.0",
-    "ts-jest": "29.4.0",
+    "ts-jest": "29.4.1",
     "ts-node": "10.9.2",
     "typescript": "5.8.3",
-    "typescript-eslint": "8.38.0"
+    "typescript-eslint": "8.39.0"
   }
 }
