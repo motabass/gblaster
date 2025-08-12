@@ -138,7 +138,7 @@ export default class LibraryComponent implements OnInit, OnDestroy {
     });
   });
 
-  private processingInterval: any;
+  private processingInterval: number | undefined;
 
   constructor() {
     // Automatically manage the interval based on processing state
