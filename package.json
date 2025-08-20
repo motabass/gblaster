@@ -108,7 +108,7 @@
     "@typescript-eslint/utils": "8.39.1",
     "angular-eslint": "20.1.1",
     "auto-changelog": "2.5.0",
-    "cypress": "14.5.4",
+    "cypress": "15.0.0",
     "cypress-file-upload": "5.0.8",
     "dotenv": "17.2.1",
     "dotenv-cli": "10.0.0",
