@@ -889,7 +889,7 @@
     provideZonelessChangeDetection(),
     provideBrowserGlobalErrorListeners(),
     provideIndexedDb(databaseConfig),
-    provideServiceWorker(&#x27;ngsw-worker.js&#x27;, { enabled: environment.production, registrationStrategy: &#x27;registerImmediately&#x27; }),
+    provideServiceWorker(&#x27;ngsw-worker.js&#x27;, { enabled: environment.production, registrationStrategy: &#x27;registerImmediately&#x27;, type: &#x27;module&#x27; }),
     provideNgxWebstorage(withNgxWebstorageConfig({ separator: &#x27;|&#x27;, caseSensitive: true, prefix: &#x27;gblaster&#x27; }), withLocalStorage()),
     provideHttpClient(withInterceptorsFromDi(), withFetch()),
     provideRouter(routes, withEnabledBlockingInitialNavigation(), withViewTransitions()),
