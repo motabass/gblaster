@@ -106,7 +106,7 @@
     "@types/wicg-file-system-access": "2023.10.6",
     "@typescript-eslint/parser": "8.40.0",
     "@typescript-eslint/utils": "8.40.0",
-    "angular-eslint": "20.1.1",
+    "angular-eslint": "20.2.0",
     "auto-changelog": "2.5.0",
     "cypress": "15.0.0",
     "cypress-file-upload": "5.0.8",
