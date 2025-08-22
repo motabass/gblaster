@@ -11,6 +11,6 @@ export interface Id3Tags {
 }
 
 export interface Id3CoverPicture {
-  data: Uint8Array;
+  data: Uint8Array<ArrayBuffer>;
   format: string;
 }

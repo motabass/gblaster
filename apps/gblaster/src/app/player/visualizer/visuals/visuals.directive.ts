@@ -141,13 +141,13 @@ export class VisualsDirective implements OnDestroy {
     const bufferSize = this.analyserNode.frequencyBinCount;
 
     // Create a buffer pool with more buffers for better rotation
-    const bufferPool: Uint8Array[] = [];
+    const bufferPool: Uint8Array<ArrayBuffer>[] = [];
     for (let i = 0; i < 3; i++) {
       bufferPool.push(new Uint8Array(bufferSize));
     }
 
     // Track available buffers
-    const availableBuffers: Uint8Array[] = [...bufferPool];
+    const availableBuffers: Uint8Array<ArrayBuffer>[] = [...bufferPool];
     let lastUpdateTime = 0;
     const updateInterval = 1000 / 60; // Limit to 60fps
 
