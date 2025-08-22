@@ -478,7 +478,7 @@ export interface Id3Tags {
 }
 
 export interface Id3CoverPicture {
-  data: Uint8Array;
+  data: Uint8Array&lt;ArrayBuffer&gt;;
   format: string;
 }
 </code></pre>
