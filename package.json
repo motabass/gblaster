@@ -97,7 +97,7 @@
     "@nx/workspace": "21.4.0",
     "@schematics/angular": "20.2.0",
     "@swc-node/register": "1.11.1",
-    "@swc/core": "1.13.4",
+    "@swc/core": "1.13.5",
     "@swc/helpers": "0.5.17",
     "@twittwer/compodoc": "1.13.0",
     "@types/jest": "30.0.0",
