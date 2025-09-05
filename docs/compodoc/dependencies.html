@@ -61,6 +61,20 @@
                }
                toggleDarkMode(darkModeState);
           </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
 
         <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
                <div class="d-flex">
@@ -96,28 +110,32 @@
 
 
 
+
+
+
+
     <ol class="breadcrumb">
         <li class="breadcrumb-item">Dependencies</li>
     </ol>
     <ul class="dependencies-list">
         <li>
-            <b>@angular/cdk</b> : 20.2.1</li>
+            <b>@angular/cdk</b> : 20.2.2</li>
         <li>
-            <b>@angular/common</b> : 20.2.3</li>
+            <b>@angular/common</b> : 20.2.4</li>
         <li>
-            <b>@angular/compiler</b> : 20.2.3</li>
+            <b>@angular/compiler</b> : 20.2.4</li>
         <li>
-            <b>@angular/core</b> : 20.2.3</li>
+            <b>@angular/core</b> : 20.2.4</li>
         <li>
-            <b>@angular/forms</b> : 20.2.3</li>
+            <b>@angular/forms</b> : 20.2.4</li>
         <li>
-            <b>@angular/material</b> : 20.2.1</li>
+            <b>@angular/material</b> : 20.2.2</li>
         <li>
-            <b>@angular/platform-browser</b> : 20.2.3</li>
+            <b>@angular/platform-browser</b> : 20.2.4</li>
         <li>
-            <b>@angular/router</b> : 20.2.3</li>
+            <b>@angular/router</b> : 20.2.4</li>
         <li>
-            <b>@angular/service-worker</b> : 20.2.3</li>
+            <b>@angular/service-worker</b> : 20.2.4</li>
         <li>
             <b>colord</b> : ^2.9.3</li>
         <li>

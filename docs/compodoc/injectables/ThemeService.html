@@ -61,6 +61,20 @@
                }
                toggleDarkMode(darkModeState);
           </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
 
         <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
                <div class="d-flex">
@@ -81,6 +95,10 @@
                <!-- START CONTENT -->
                <div class="content injectable">
                    <div class="content-data">
+
+
+
+
 
 
 
@@ -756,20 +774,17 @@ export class ThemeService {
   }
 
   private updateCSSProperties() {
-    const root &#x3D; document.documentElement.style;
+    const variables: string[] &#x3D; [&#x60;--app-color-scheme: ${this.darkMode() ? &#x27;dark&#x27; : &#x27;light&#x27;}&#x60;];
 
-    // App color scheme
-    root.setProperty(&#x27;--app-color-scheme&#x27;, this.darkMode() ? &#x27;dark&#x27; : &#x27;light&#x27;);
+    for (const color of this.primaryColorPalette()) {
+      variables.push(&#x60;--theme-primary-${color.name}: ${color.hex}&#x60;);
+    }
 
-    // Primary colors
-    this.primaryColorPalette().forEach((color) &#x3D;&gt; {
-      root.setProperty(&#x60;--theme-primary-${color.name}&#x60;, color.hex);
-    });
+    for (const color of this.accentColorPalette()) {
+      variables.push(&#x60;--theme-accent-${color.name}: ${color.hex}&#x60;);
+    }
 
-    // Accent colors
-    this.accentColorPalette().forEach((color) &#x3D;&gt; {
-      root.setProperty(&#x60;--theme-accent-${color.name}&#x60;, color.hex);
-    });
+    document.documentElement.style.cssText +&#x3D; variables.join(&#x27;;&#x27;);
   }
 
   private updateMetaThemeColor() {

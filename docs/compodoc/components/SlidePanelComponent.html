@@ -61,6 +61,20 @@
                }
                toggleDarkMode(darkModeState);
           </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
 
         <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
                <div class="d-flex">
@@ -81,6 +95,10 @@
                <!-- START CONTENT -->
                <div class="content component">
                    <div class="content-data">
+
+
+
+
 
 
 
@@ -198,10 +216,6 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
-                                    <span class="modifier">Readonly</span>
-                                <a href="#buttonTooltip" >buttonTooltip</a>
-                            </li>
-                            <li>
                                     <span class="modifier"></span>
                                 <a href="#closed" >closed</a>
                             </li>
@@ -259,6 +273,9 @@
                             </li>
                             <li>
                                 <a href="#width" >width</a>
+                            </li>
+                            <li>
+                                <a href="#buttonTooltip" >buttonTooltip</a>
                             </li>
                         </ul>
                     </td>
@@ -458,6 +475,32 @@
                         </tr>
             </tbody>
         </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="buttonTooltip"></a>
+                        <b>buttonTooltip</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>string | undefined</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="48" class="link-to-prism">libs/ui-components/slide-panel/src/lib/slide-panel.component.ts:48</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
 </section>
 
     <section data-compodoc="block-properties">
@@ -611,32 +654,6 @@
     <h3 id="inputs">
         Properties
     </h3>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="buttonTooltip"></a>
-                    <span class="name">
-                            <span class="modifier">Readonly</span>
-                        <span ><b>buttonTooltip</b></span>
-                        <a href="#buttonTooltip"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-                <tr>
-                    <td class="col-md-4">
-                        <i>Default value : </i><code>input&lt;string | undefined&gt;(&#x27;&#x27;)</code>
-                    </td>
-                </tr>
-                    <tr>
-                        <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="48" class="link-to-prism">libs/ui-components/slide-panel/src/lib/slide-panel.component.ts:48</a></div>
-                        </td>
-                    </tr>
-
-
-        </tbody>
-    </table>
     <table class="table table-sm table-bordered">
         <tbody>
             <tr>
