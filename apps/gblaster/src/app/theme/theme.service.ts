@@ -90,20 +90,17 @@ export class ThemeService {
   }
 
   private updateCSSProperties() {
-    const root = document.documentElement.style;
+    const variables: string[] = [`--app-color-scheme: ${this.darkMode() ? 'dark' : 'light'}`];
 
-    // App color scheme
-    root.setProperty('--app-color-scheme', this.darkMode() ? 'dark' : 'light');
+    for (const color of this.primaryColorPalette()) {
+      variables.push(`--theme-primary-${color.name}: ${color.hex}`);
+    }
 
-    // Primary colors
-    this.primaryColorPalette().forEach((color) => {
-      root.setProperty(`--theme-primary-${color.name}`, color.hex);
-    });
+    for (const color of this.accentColorPalette()) {
+      variables.push(`--theme-accent-${color.name}: ${color.hex}`);
+    }
 
-    // Accent colors
-    this.accentColorPalette().forEach((color) => {
-      root.setProperty(`--theme-accent-${color.name}`, color.hex);
-    });
+    document.documentElement.style.cssText += variables.join(';');
   }
 
   private updateMetaThemeColor() {

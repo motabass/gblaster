@@ -1,2 +1,4 @@
 [tools]
 node = '24.7.0'
+
+"npm:eslint-nibble" = "latest"
