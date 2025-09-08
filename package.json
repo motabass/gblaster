@@ -120,7 +120,7 @@
     "eslint-filtered-fix": "0.3.0",
     "eslint-plugin-cypress": "5.1.1",
     "eslint-plugin-sonarjs": "3.0.5",
-    "eslint-plugin-unicorn": "61.0.0",
+    "eslint-plugin-unicorn": "61.0.2",
     "firebase-tools": "14.15.2",
     "husky": "9.1.7",
     "jest": "30.1.3",
