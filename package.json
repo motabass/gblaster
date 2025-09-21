@@ -1,6 +1,6 @@
 {
   "name": "gblaster",
-  "version": "20.3.43",
+  "version": "20.3.44",
   "author": "motabass",
   "repository": "https://github.com/motabass/gblaster",
   "description": "Colorful Web Audio Player PWA",
@@ -116,7 +116,7 @@
     "eslint": "9.36.0",
     "eslint-config-prettier": "10.1.8",
     "eslint-interactive": "12.0.0",
-        "eslint-nibble": "9.0.0",
+    "eslint-nibble": "9.0.0",
     "eslint-filtered-fix": "0.3.0",
     "eslint-plugin-cypress": "5.1.1",
     "eslint-plugin-sonarjs": "3.0.5",
