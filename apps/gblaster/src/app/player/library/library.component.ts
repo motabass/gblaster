@@ -1,4 +1,4 @@
-import { Component, computed, effect, inject, OnDestroy, OnInit, signal } from '@angular/core';
+import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { IndexedDbTrackMetadata, Track } from '../player.types';
 import { MatListModule } from '@angular/material/list';
 import { MatMenu, MatMenuContent, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
@@ -8,7 +8,6 @@ import { MatIconButton } from '@angular/material/button';
 import { CdkFixedSizeVirtualScroll, CdkVirtualForOf, CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 import { SafePipe } from 'safe-pipe';
 import { RemoteCoverArtUrls } from '../metadata-service/metadata.types';
-import { MetadataService } from '../metadata-service/metadata.service';
 import { FormsModule } from '@angular/forms';
 import { MatFormField, MatHint, MatInput, MatPrefix, MatSuffix } from '@angular/material/input';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
@@ -44,8 +43,7 @@ export interface Album {
   templateUrl: './library.component.html',
   styleUrl: './library.component.scss'
 })
-export default class LibraryComponent implements OnInit, OnDestroy {
-  private readonly metadataService = inject(MetadataService);
+export default class LibraryComponent implements OnInit {
   private readonly playerService = inject(PlayerService);
   protected readonly libraryService = inject(LibraryService);
 
@@ -96,7 +94,7 @@ export default class LibraryComponent implements OnInit, OnDestroy {
       }
     }
 
-    return [...albumMap.values()].sort((a, b) => a.name.localeCompare(b.name));
+    return [...albumMap.values()].toSorted((a, b) => a.name.localeCompare(b.name));
   });
 
   protected readonly tracks = computed(() => {
@@ -115,7 +113,7 @@ export default class LibraryComponent implements OnInit, OnDestroy {
     }
 
     // Sort tracks by artist, then album, then track number (if available), then title
-    return filtered.sort((a, b) => {
+    return filtered.toSorted((a, b) => {
       // Compare artists first
       const artistCompare = (a.artist || '').localeCompare(b.artist || '');
       if (artistCompare !== 0) return artistCompare;
@@ -138,33 +136,8 @@ export default class LibraryComponent implements OnInit, OnDestroy {
     });
   });
 
-  private processingInterval: number | undefined;
-
-  constructor() {
-    // Automatically manage the interval based on processing state
-    effect(() => {
-      const isProcessing = this.metadataService.processing();
-
-      if (isProcessing && !this.processingInterval) {
-        this.processingInterval = globalThis.setInterval(() => {
-          void this.libraryService.loadLibraryFromDb();
-        }, 5000);
-      } else if (!isProcessing && this.processingInterval) {
-        clearInterval(this.processingInterval);
-        this.processingInterval = undefined;
-      }
-    });
-  }
-
   ngOnInit() {
     void this.libraryService.loadLibraryFromDb();
-  }
-
-  ngOnDestroy() {
-    if (this.processingInterval) {
-      clearInterval(this.processingInterval);
-      this.processingInterval = undefined;
-    }
   }
 
   selectArtist(artist: string | undefined) {

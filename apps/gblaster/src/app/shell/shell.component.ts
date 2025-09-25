@@ -55,11 +55,11 @@ export class ShellComponent {
 
   protected readonly isHandset = toSignal(this.isHandset$, { initialValue: false });
 
-  private readonly sidenav = viewChild<MatSidenav>('drawer');
+  private readonly sidenav = viewChild.required<MatSidenav>('drawer');
 
   navigateTo(route: string, skipLocationChange = false) {
-    this.sidenav()?.close();
-    this.router.navigate([route], { skipLocationChange: skipLocationChange });
+    void this.sidenav().close();
+    void this.router.navigate([route], { skipLocationChange: skipLocationChange });
   }
 
   async onFilesDropped(files: File[]) {

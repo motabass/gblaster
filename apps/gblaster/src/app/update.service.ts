@@ -11,42 +11,53 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 export class UpdateService {
   private readonly swUpdate = inject(SwUpdate);
   private readonly dialog = inject(MatDialog);
-  private readonly destroRef = inject(DestroyRef);
+  private readonly destroyRef = inject(DestroyRef);
+  private isInitialized = false;
 
-  constructor() {
-    const swUpdate = this.swUpdate;
-
-    if (swUpdate.isEnabled) {
-      swUpdate.versionUpdates.pipe(takeUntilDestroyed(this.destroRef)).subscribe((event) => {
-        switch (event.type) {
-          case 'VERSION_DETECTED': {
-            console.log(`Downloading new app version: ${event.version.hash}`);
-            break;
-          }
-          case 'VERSION_READY': {
-            console.log(`Current app version: ${event.currentVersion.hash}`);
-            console.log(`New app version ready for use: ${event.latestVersion.hash}`);
-            this.askUserForUpdate().then((update) => {
-              if (update) {
-                swUpdate.activateUpdate().then(() => document.location.reload());
-              }
-            });
-            break;
-          }
-          case 'VERSION_INSTALLATION_FAILED': {
-            console.log(`Failed to install app version '${event.version.hash}': ${event.error}`);
-            break;
-          }
-        }
-      });
+  async init(): Promise<boolean> {
+    if (!this.swUpdate.isEnabled) {
+      return false;
     }
+
+    if (!this.isInitialized) {
+      this.setupUpdateListener();
+      this.isInitialized = true;
+    }
+
+    return this.swUpdate.checkForUpdate();
   }
 
-  async init(): Promise<boolean | undefined> {
-    if (this.swUpdate.isEnabled) {
-      return this.swUpdate.checkForUpdate();
+  private setupUpdateListener(): void {
+    this.swUpdate.versionUpdates.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((event) => {
+      switch (event.type) {
+        case 'VERSION_DETECTED': {
+          console.log(`Downloading new app version: ${event.version.hash}`);
+          break;
+        }
+        case 'VERSION_READY': {
+          console.log(`Current app version: ${event.currentVersion.hash}`);
+          console.log(`New app version ready for use: ${event.latestVersion.hash}`);
+          void this.handleVersionReady();
+          break;
+        }
+        case 'VERSION_INSTALLATION_FAILED': {
+          console.log(`Failed to install app version '${event.version.hash}': ${event.error}`);
+          break;
+        }
+      }
+    });
+  }
+
+  private async handleVersionReady(): Promise<void> {
+    try {
+      const shouldUpdate = await this.askUserForUpdate();
+      if (shouldUpdate) {
+        await this.swUpdate.activateUpdate();
+        document.location.reload();
+      }
+    } catch (error) {
+      console.error('Error during update process:', error);
     }
-    return;
   }
 
   async askUserForUpdate(): Promise<boolean> {
@@ -61,6 +72,7 @@ export class UpdateService {
       disableClose: true,
       closeOnNavigation: false
     };
+
     return firstValueFrom(this.dialog.open(PromptDialogComponent, config).afterClosed());
   }
 }

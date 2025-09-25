@@ -21,7 +21,7 @@ export class LibraryService {
       const result = await firstValueFrom(this.indexedDbService.getAll<IndexedDbTrackMetadata>('library'));
 
       // Parallele Verarbeitung für bessere Performance
-      const tracksWithBlobUrls = await Promise.all(result.map((track) => this.metadataService.createObjectUrlForEmbeddedPicture(track)));
+      const tracksWithBlobUrls = result.map((track) => this.metadataService.createObjectUrlForEmbeddedPicture(track));
 
       this.indexedDbTracks.set(tracksWithBlobUrls);
       return tracksWithBlobUrls;

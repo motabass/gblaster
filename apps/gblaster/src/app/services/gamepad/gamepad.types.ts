@@ -1,4 +1,4 @@
-export type ActionFunction = (buttonValue: number) => void;
+export type ActionFunction = (buttonValue: number) => unknown;
 
 export interface GamepadAction {
   index: number;

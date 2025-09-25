@@ -5,10 +5,10 @@ import { Observable, Subscription } from 'rxjs';
 import { HotkeysHelpDialogComponent } from './hotkeys-help-dialog.component';
 
 export interface Hotkey {
-  element: any;
+  element: HTMLElement;
   keys: string;
   description: string;
-  callback: () => any;
+  callback: () => unknown;
 }
 
 export interface HotkeyInfo {
@@ -19,11 +19,11 @@ export interface HotkeyInfo {
 @Injectable({ providedIn: 'root' })
 export class HotkeysService {
   private readonly eventManager = inject(EventManager);
-  private readonly document = inject<Document>(DOCUMENT);
+  private readonly document = inject(DOCUMENT);
   private readonly dialog = inject(MatDialog);
 
   private readonly defaults: Partial<Hotkey> = {
-    element: this.document
+    element: this.document.documentElement
   };
 
   private readonly hotkeys: Map<string, HotkeyInfo> = new Map<string, HotkeyInfo>();
@@ -67,12 +67,15 @@ export class HotkeysService {
         return false;
       };
 
-      const dispose = this.eventManager.addEventListener(merged.element, event, handler);
-
-      return () => {
-        dispose();
-        this.hotkeys.delete(merged.keys);
-      };
+      if (merged.element) {
+        const dispose = this.eventManager.addEventListener(merged.element, event, handler);
+        return () => {
+          dispose();
+          this.hotkeys.delete(merged.keys);
+        };
+      } else {
+        return () => {};
+      }
     });
 
     const sub = observable.subscribe(options.callback);

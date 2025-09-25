@@ -5,6 +5,7 @@ import { MetadataService } from '../../player/metadata-service/metadata.service'
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { LocalStorageService } from 'ngx-webstorage';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'mtb-metadata-settings',
@@ -37,6 +38,6 @@ export class MetadataSettingsComponent {
   }
 
   async clearMetadataCache() {
-    await this.indexedDBService.clear('library').toPromise();
+    await firstValueFrom(this.indexedDBService.clear('library'));
   }
 }

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ThemeService } from './theme/theme.service';
@@ -11,18 +11,20 @@ import { ShellComponent } from './shell/shell.component';
   templateUrl: './app.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   private readonly updateService = inject(UpdateService);
   private readonly iconRegistry = inject(MatIconRegistry);
   private readonly sanitizer = inject(DomSanitizer);
   private readonly themeService = inject(ThemeService);
 
   constructor() {
-    void this.updateService.init();
-
     this.themeService.initializeTheme();
 
     this.iconRegistry.addSvgIconSet(this.sanitizer.bypassSecurityTrustResourceUrl('assets/icon-set.svg'));
     this.iconRegistry.addSvgIcon('logo', this.sanitizer.bypassSecurityTrustResourceUrl('assets/icons/logo-monochrome.svg'));
+  }
+
+  ngOnInit(): void {
+    void this.updateService.init();
   }
 }

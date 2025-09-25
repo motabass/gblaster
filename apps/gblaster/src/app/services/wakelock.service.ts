@@ -14,12 +14,11 @@ export class WakelockService {
 
   private async requestWakeLock() {
     if (navigator.wakeLock) {
-      try {
-        this.wakelock = await navigator.wakeLock.request('screen');
-        this.wakelock.addEventListener('release', () => {});
-      } catch (error: any) {
-        console.warn(`${error.name}, ${error.message}`);
-      }
+      this.wakelock = await navigator.wakeLock.request('screen');
+      console.log('Wakelock is active');
+      this.wakelock.addEventListener('release', () => {
+        console.log('Wakelock was released');
+      });
     }
   }
 

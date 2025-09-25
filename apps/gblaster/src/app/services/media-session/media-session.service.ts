@@ -28,7 +28,7 @@ export class MediaSessionService {
     });
   }
 
-  setActionHandler(action: MediaSessionAction, handler: (details: MediaSessionActionDetails) => any) {
+  setActionHandler(action: MediaSessionAction, handler: (details: MediaSessionActionDetails) => unknown) {
     try {
       navigator.mediaSession.setActionHandler(action, handler);
     } catch {
