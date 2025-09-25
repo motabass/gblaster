@@ -529,7 +529,7 @@ export class MediaSessionService {
     });
   }
 
-  setActionHandler(action: MediaSessionAction, handler: (details: MediaSessionActionDetails) &#x3D;&gt; any) {
+  setActionHandler(action: MediaSessionAction, handler: (details: MediaSessionActionDetails) &#x3D;&gt; unknown) {
     try {
       navigator.mediaSession.setActionHandler(action, handler);
     } catch {

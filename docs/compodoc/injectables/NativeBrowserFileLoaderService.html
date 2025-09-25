@@ -234,8 +234,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="42"
-                                    class="link-to-prism">apps/gblaster/src/app/player/file-loader-service/native-browser-file-loader.service.ts:42</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="43"
+                                    class="link-to-prism">apps/gblaster/src/app/player/file-loader-service/native-browser-file-loader.service.ts:43</a></div>
                         </td>
                     </tr>
 
@@ -273,8 +273,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="32"
-                                    class="link-to-prism">apps/gblaster/src/app/player/file-loader-service/native-browser-file-loader.service.ts:32</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="33"
+                                    class="link-to-prism">apps/gblaster/src/app/player/file-loader-service/native-browser-file-loader.service.ts:33</a></div>
                         </td>
                     </tr>
 
@@ -348,6 +348,7 @@ export class NativeBrowserFileLoaderService implements FileLoaderService {
   readonly currentFolderHandle &#x3D; signal&lt;FileSystemDirectoryHandle | undefined&gt;(undefined);
 
   constructor() {
+    //  TODO: refactor
     firstValueFrom(this.indexedDbService.getByID&lt;DirHandleEntry&gt;(&#x27;directoryHandles&#x27;, 1)).then((entry) &#x3D;&gt; {
       if (entry) {
         verifyPermission(entry.handle).then((granted) &#x3D;&gt; {

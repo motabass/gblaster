@@ -173,24 +173,6 @@
     </table>
 </section>
 
-            <section data-compodoc="block-constructor">
-    <h3 id="constructor">Constructor</h3>
-        <table class="table table-sm table-bordered">
-            <tbody>
-                <tr>
-                    <td class="col-md-4">
-<code>constructor()</code>
-                    </td>
-                </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">apps/gblaster/src/app/update.service.ts:14</a></div>
-                            </td>
-                        </tr>
-
-            </tbody>
-        </table>
-</section>
 
             <section data-compodoc="block-methods">
     
@@ -219,8 +201,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="52"
-                                    class="link-to-prism">apps/gblaster/src/app/update.service.ts:52</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="63"
+                                    class="link-to-prism">apps/gblaster/src/app/update.service.ts:63</a></div>
                         </td>
                     </tr>
 
@@ -258,8 +240,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="45"
-                                    class="link-to-prism">apps/gblaster/src/app/update.service.ts:45</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="17"
+                                    class="link-to-prism">apps/gblaster/src/app/update.service.ts:17</a></div>
                         </td>
                     </tr>
 
@@ -268,7 +250,7 @@
                 <td class="col-md-4">
 
                         <div class="io-description">
-                            <b>Returns : </b>    <code>Promise&lt;boolean | undefined&gt;</code>
+                            <b>Returns : </b>    <code>Promise&lt;boolean&gt;</code>
 
                         </div>
                 </td>
@@ -294,42 +276,53 @@ import { takeUntilDestroyed } from &#x27;@angular/core/rxjs-interop&#x27;;
 export class UpdateService {
   private readonly swUpdate &#x3D; inject(SwUpdate);
   private readonly dialog &#x3D; inject(MatDialog);
-  private readonly destroRef &#x3D; inject(DestroyRef);
+  private readonly destroyRef &#x3D; inject(DestroyRef);
+  private isInitialized &#x3D; false;
 
-  constructor() {
-    const swUpdate &#x3D; this.swUpdate;
-
-    if (swUpdate.isEnabled) {
-      swUpdate.versionUpdates.pipe(takeUntilDestroyed(this.destroRef)).subscribe((event) &#x3D;&gt; {
-        switch (event.type) {
-          case &#x27;VERSION_DETECTED&#x27;: {
-            console.log(&#x60;Downloading new app version: ${event.version.hash}&#x60;);
-            break;
-          }
-          case &#x27;VERSION_READY&#x27;: {
-            console.log(&#x60;Current app version: ${event.currentVersion.hash}&#x60;);
-            console.log(&#x60;New app version ready for use: ${event.latestVersion.hash}&#x60;);
-            this.askUserForUpdate().then((update) &#x3D;&gt; {
-              if (update) {
-                swUpdate.activateUpdate().then(() &#x3D;&gt; document.location.reload());
-              }
-            });
-            break;
-          }
-          case &#x27;VERSION_INSTALLATION_FAILED&#x27;: {
-            console.log(&#x60;Failed to install app version &#x27;${event.version.hash}&#x27;: ${event.error}&#x60;);
-            break;
-          }
-        }
-      });
+  async init(): Promise&lt;boolean&gt; {
+    if (!this.swUpdate.isEnabled) {
+      return false;
     }
+
+    if (!this.isInitialized) {
+      this.setupUpdateListener();
+      this.isInitialized &#x3D; true;
+    }
+
+    return this.swUpdate.checkForUpdate();
   }
 
-  async init(): Promise&lt;boolean | undefined&gt; {
-    if (this.swUpdate.isEnabled) {
-      return this.swUpdate.checkForUpdate();
+  private setupUpdateListener(): void {
+    this.swUpdate.versionUpdates.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((event) &#x3D;&gt; {
+      switch (event.type) {
+        case &#x27;VERSION_DETECTED&#x27;: {
+          console.log(&#x60;Downloading new app version: ${event.version.hash}&#x60;);
+          break;
+        }
+        case &#x27;VERSION_READY&#x27;: {
+          console.log(&#x60;Current app version: ${event.currentVersion.hash}&#x60;);
+          console.log(&#x60;New app version ready for use: ${event.latestVersion.hash}&#x60;);
+          void this.handleVersionReady();
+          break;
+        }
+        case &#x27;VERSION_INSTALLATION_FAILED&#x27;: {
+          console.log(&#x60;Failed to install app version &#x27;${event.version.hash}&#x27;: ${event.error}&#x60;);
+          break;
+        }
+      }
+    });
+  }
+
+  private async handleVersionReady(): Promise&lt;void&gt; {
+    try {
+      const shouldUpdate &#x3D; await this.askUserForUpdate();
+      if (shouldUpdate) {
+        await this.swUpdate.activateUpdate();
+        document.location.reload();
+      }
+    } catch (error) {
+      console.error(&#x27;Error during update process:&#x27;, error);
     }
-    return;
   }
 
   async askUserForUpdate(): Promise&lt;boolean&gt; {
@@ -344,6 +337,7 @@ export class UpdateService {
       disableClose: true,
       closeOnNavigation: false
     };
+
     return firstValueFrom(this.dialog.open(PromptDialogComponent, config).afterClosed());
   }
 }

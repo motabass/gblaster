@@ -246,8 +246,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="95"
-                                    class="link-to-prism">apps/gblaster/src/app/services/hotkeys/hotkeys.service.ts:95</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="98"
+                                    class="link-to-prism">apps/gblaster/src/app/services/hotkeys/hotkeys.service.ts:98</a></div>
                         </td>
                     </tr>
 
@@ -350,8 +350,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="99"
-                                    class="link-to-prism">apps/gblaster/src/app/services/hotkeys/hotkeys.service.ts:99</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="102"
+                                    class="link-to-prism">apps/gblaster/src/app/services/hotkeys/hotkeys.service.ts:102</a></div>
                         </td>
                     </tr>
 
@@ -387,8 +387,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="103"
-                                    class="link-to-prism">apps/gblaster/src/app/services/hotkeys/hotkeys.service.ts:103</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="106"
+                                    class="link-to-prism">apps/gblaster/src/app/services/hotkeys/hotkeys.service.ts:106</a></div>
                         </td>
                     </tr>
 
@@ -424,8 +424,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="84"
-                                    class="link-to-prism">apps/gblaster/src/app/services/hotkeys/hotkeys.service.ts:84</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="87"
+                                    class="link-to-prism">apps/gblaster/src/app/services/hotkeys/hotkeys.service.ts:87</a></div>
                         </td>
                     </tr>
 
@@ -484,10 +484,10 @@ import { Observable, Subscription } from &#x27;rxjs&#x27;;
 import { HotkeysHelpDialogComponent } from &#x27;./hotkeys-help-dialog.component&#x27;;
 
 export interface Hotkey {
-  element: any;
+  element: HTMLElement;
   keys: string;
   description: string;
-  callback: () &#x3D;&gt; any;
+  callback: () &#x3D;&gt; unknown;
 }
 
 export interface HotkeyInfo {
@@ -498,11 +498,11 @@ export interface HotkeyInfo {
 @Injectable({ providedIn: &#x27;root&#x27; })
 export class HotkeysService {
   private readonly eventManager &#x3D; inject(EventManager);
-  private readonly document &#x3D; inject&lt;Document&gt;(DOCUMENT);
+  private readonly document &#x3D; inject(DOCUMENT);
   private readonly dialog &#x3D; inject(MatDialog);
 
   private readonly defaults: Partial&lt;Hotkey&gt; &#x3D; {
-    element: this.document
+    element: this.document.documentElement
   };
 
   private readonly hotkeys: Map&lt;string, HotkeyInfo&gt; &#x3D; new Map&lt;string, HotkeyInfo&gt;();
@@ -546,12 +546,15 @@ export class HotkeysService {
         return false;
       };
 
-      const dispose &#x3D; this.eventManager.addEventListener(merged.element, event, handler);
-
-      return () &#x3D;&gt; {
-        dispose();
-        this.hotkeys.delete(merged.keys);
-      };
+      if (merged.element) {
+        const dispose &#x3D; this.eventManager.addEventListener(merged.element, event, handler);
+        return () &#x3D;&gt; {
+          dispose();
+          this.hotkeys.delete(merged.keys);
+        };
+      } else {
+        return () &#x3D;&gt; {};
+      }
     });
 
     const sub &#x3D; observable.subscribe(options.callback);

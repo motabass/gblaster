@@ -240,8 +240,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="26"
-                                    class="link-to-prism">apps/gblaster/src/app/services/wakelock.service.ts:26</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="25"
+                                    class="link-to-prism">apps/gblaster/src/app/services/wakelock.service.ts:25</a></div>
                         </td>
                     </tr>
 
@@ -279,12 +279,11 @@ export class WakelockService {
 
   private async requestWakeLock() {
     if (navigator.wakeLock) {
-      try {
-        this.wakelock &#x3D; await navigator.wakeLock.request(&#x27;screen&#x27;);
-        this.wakelock.addEventListener(&#x27;release&#x27;, () &#x3D;&gt; {});
-      } catch (error: any) {
-        console.warn(&#x60;${error.name}, ${error.message}&#x60;);
-      }
+      this.wakelock &#x3D; await navigator.wakeLock.request(&#x27;screen&#x27;);
+      console.log(&#x27;Wakelock is active&#x27;);
+      this.wakelock.addEventListener(&#x27;release&#x27;, () &#x3D;&gt; {
+        console.log(&#x27;Wakelock was released&#x27;);
+      });
     }
   }
 

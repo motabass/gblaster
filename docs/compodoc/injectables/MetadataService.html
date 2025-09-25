@@ -877,7 +877,7 @@ export class MetadataService {
     };
 
     if (this.useTagsCache()) {
-      await this.indexedDBService.add(&#x27;library&#x27;, metadata).toPromise();
+      await firstValueFrom(this.indexedDBService.add(&#x27;library&#x27;, metadata));
     }
     return this.createObjectUrlForEmbeddedPicture(metadata);
   }

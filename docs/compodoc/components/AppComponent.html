@@ -140,6 +140,12 @@
 
 
 
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                <code>OnInit</code>
+    </p>
 
 
 <section data-compodoc="block-metadata">
@@ -224,7 +230,7 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ChangeDetectionStrategy, Component, inject } from &#x27;@angular/core&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ChangeDetectionStrategy, Component, inject, OnInit } from &#x27;@angular/core&#x27;;
 import { MatIconRegistry } from &#x27;@angular/material/icon&#x27;;
 import { DomSanitizer } from &#x27;@angular/platform-browser&#x27;;
 import { ThemeService } from &#x27;./theme/theme.service&#x27;;
@@ -237,19 +243,21 @@ import { ShellComponent } from &#x27;./shell/shell.component&#x27;;
   templateUrl: &#x27;./app.component.html&#x27;,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   private readonly updateService &#x3D; inject(UpdateService);
   private readonly iconRegistry &#x3D; inject(MatIconRegistry);
   private readonly sanitizer &#x3D; inject(DomSanitizer);
   private readonly themeService &#x3D; inject(ThemeService);
 
   constructor() {
-    void this.updateService.init();
-
     this.themeService.initializeTheme();
 
     this.iconRegistry.addSvgIconSet(this.sanitizer.bypassSecurityTrustResourceUrl(&#x27;assets/icon-set.svg&#x27;));
     this.iconRegistry.addSvgIcon(&#x27;logo&#x27;, this.sanitizer.bypassSecurityTrustResourceUrl(&#x27;assets/icons/logo-monochrome.svg&#x27;));
+  }
+
+  ngOnInit(): void {
+    void this.updateService.init();
   }
 }
 </code></pre>

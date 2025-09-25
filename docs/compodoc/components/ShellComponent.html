@@ -743,11 +743,11 @@ export class ShellComponent {
 
   protected readonly isHandset &#x3D; toSignal(this.isHandset$, { initialValue: false });
 
-  private readonly sidenav &#x3D; viewChild&lt;MatSidenav&gt;(&#x27;drawer&#x27;);
+  private readonly sidenav &#x3D; viewChild.required&lt;MatSidenav&gt;(&#x27;drawer&#x27;);
 
   navigateTo(route: string, skipLocationChange &#x3D; false) {
-    this.sidenav()?.close();
-    this.router.navigate([route], { skipLocationChange: skipLocationChange });
+    void this.sidenav().close();
+    void this.router.navigate([route], { skipLocationChange: skipLocationChange });
   }
 
   async onFilesDropped(files: File[]) {

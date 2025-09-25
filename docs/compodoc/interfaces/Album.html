@@ -291,7 +291,7 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, computed, effect, inject, OnDestroy, OnInit, signal } from &#x27;@angular/core&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, computed, inject, OnInit, signal } from &#x27;@angular/core&#x27;;
 import { IndexedDbTrackMetadata, Track } from &#x27;../player.types&#x27;;
 import { MatListModule } from &#x27;@angular/material/list&#x27;;
 import { MatMenu, MatMenuContent, MatMenuItem, MatMenuTrigger } from &#x27;@angular/material/menu&#x27;;
@@ -301,7 +301,6 @@ import { MatIconButton } from &#x27;@angular/material/button&#x27;;
 import { CdkFixedSizeVirtualScroll, CdkVirtualForOf, CdkVirtualScrollViewport } from &#x27;@angular/cdk/scrolling&#x27;;
 import { SafePipe } from &#x27;safe-pipe&#x27;;
 import { RemoteCoverArtUrls } from &#x27;../metadata-service/metadata.types&#x27;;
-import { MetadataService } from &#x27;../metadata-service/metadata.service&#x27;;
 import { FormsModule } from &#x27;@angular/forms&#x27;;
 import { MatFormField, MatHint, MatInput, MatPrefix, MatSuffix } from &#x27;@angular/material/input&#x27;;
 import { MatProgressSpinner } from &#x27;@angular/material/progress-spinner&#x27;;
@@ -337,8 +336,7 @@ export interface Album {
   templateUrl: &#x27;./library.component.html&#x27;,
   styleUrl: &#x27;./library.component.scss&#x27;
 })
-export default class LibraryComponent implements OnInit, OnDestroy {
-  private readonly metadataService &#x3D; inject(MetadataService);
+export default class LibraryComponent implements OnInit {
   private readonly playerService &#x3D; inject(PlayerService);
   protected readonly libraryService &#x3D; inject(LibraryService);
 
@@ -389,7 +387,7 @@ export default class LibraryComponent implements OnInit, OnDestroy {
       }
     }
 
-    return [...albumMap.values()].sort((a, b) &#x3D;&gt; a.name.localeCompare(b.name));
+    return [...albumMap.values()].toSorted((a, b) &#x3D;&gt; a.name.localeCompare(b.name));
   });
 
   protected readonly tracks &#x3D; computed(() &#x3D;&gt; {
@@ -408,7 +406,7 @@ export default class LibraryComponent implements OnInit, OnDestroy {
     }
 
     // Sort tracks by artist, then album, then track number (if available), then title
-    return filtered.sort((a, b) &#x3D;&gt; {
+    return filtered.toSorted((a, b) &#x3D;&gt; {
       // Compare artists first
       const artistCompare &#x3D; (a.artist || &#x27;&#x27;).localeCompare(b.artist || &#x27;&#x27;);
       if (artistCompare !&#x3D;&#x3D; 0) return artistCompare;
@@ -431,33 +429,8 @@ export default class LibraryComponent implements OnInit, OnDestroy {
     });
   });
 
-  private processingInterval: number | undefined;
-
-  constructor() {
-    // Automatically manage the interval based on processing state
-    effect(() &#x3D;&gt; {
-      const isProcessing &#x3D; this.metadataService.processing();
-
-      if (isProcessing &amp;&amp; !this.processingInterval) {
-        this.processingInterval &#x3D; globalThis.setInterval(() &#x3D;&gt; {
-          void this.libraryService.loadLibraryFromDb();
-        }, 5000);
-      } else if (!isProcessing &amp;&amp; this.processingInterval) {
-        clearInterval(this.processingInterval);
-        this.processingInterval &#x3D; undefined;
-      }
-    });
-  }
-
   ngOnInit() {
     void this.libraryService.loadLibraryFromDb();
-  }
-
-  ngOnDestroy() {
-    if (this.processingInterval) {
-      clearInterval(this.processingInterval);
-      this.processingInterval &#x3D; undefined;
-    }
   }
 
   selectArtist(artist: string | undefined) {

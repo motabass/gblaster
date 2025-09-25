@@ -281,8 +281,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="39"
-                                    class="link-to-prism">apps/gblaster/src/app/settings/metadata-settings/metadata-settings.component.ts:39</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="40"
+                                    class="link-to-prism">apps/gblaster/src/app/settings/metadata-settings/metadata-settings.component.ts:40</a></div>
                         </td>
                     </tr>
 
@@ -318,8 +318,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="34"
-                                    class="link-to-prism">apps/gblaster/src/app/settings/metadata-settings/metadata-settings.component.ts:34</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="35"
+                                    class="link-to-prism">apps/gblaster/src/app/settings/metadata-settings/metadata-settings.component.ts:35</a></div>
                         </td>
                     </tr>
 
@@ -385,8 +385,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="29"
-                                    class="link-to-prism">apps/gblaster/src/app/settings/metadata-settings/metadata-settings.component.ts:29</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="30"
+                                    class="link-to-prism">apps/gblaster/src/app/settings/metadata-settings/metadata-settings.component.ts:30</a></div>
                         </td>
                     </tr>
 
@@ -452,8 +452,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="24"
-                                    class="link-to-prism">apps/gblaster/src/app/settings/metadata-settings/metadata-settings.component.ts:24</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="25"
+                                    class="link-to-prism">apps/gblaster/src/app/settings/metadata-settings/metadata-settings.component.ts:25</a></div>
                         </td>
                     </tr>
 
@@ -519,8 +519,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="19"
-                                    class="link-to-prism">apps/gblaster/src/app/settings/metadata-settings/metadata-settings.component.ts:19</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="20"
+                                    class="link-to-prism">apps/gblaster/src/app/settings/metadata-settings/metadata-settings.component.ts:20</a></div>
                         </td>
                     </tr>
 
@@ -592,7 +592,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">apps/gblaster/src/app/settings/metadata-settings/metadata-settings.component.ts:15</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">apps/gblaster/src/app/settings/metadata-settings/metadata-settings.component.ts:16</a></div>
                         </td>
                     </tr>
 
@@ -612,6 +612,7 @@ import { MetadataService } from &#x27;../../player/metadata-service/metadata.ser
 import { MatButtonModule } from &#x27;@angular/material/button&#x27;;
 import { MatCardModule } from &#x27;@angular/material/card&#x27;;
 import { LocalStorageService } from &#x27;ngx-webstorage&#x27;;
+import { firstValueFrom } from &#x27;rxjs&#x27;;
 
 @Component({
   selector: &#x27;mtb-metadata-settings&#x27;,
@@ -644,7 +645,7 @@ export class MetadataSettingsComponent {
   }
 
   async clearMetadataCache() {
-    await this.indexedDBService.clear(&#x27;library&#x27;).toPromise();
+    await firstValueFrom(this.indexedDBService.clear(&#x27;library&#x27;));
   }
 }
 </code></pre>

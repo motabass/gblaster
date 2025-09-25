@@ -272,6 +272,7 @@ export class NativeBrowserFileLoaderService implements FileLoaderService {
   readonly currentFolderHandle &#x3D; signal&lt;FileSystemDirectoryHandle | undefined&gt;(undefined);
 
   constructor() {
+    //  TODO: refactor
     firstValueFrom(this.indexedDbService.getByID&lt;DirHandleEntry&gt;(&#x27;directoryHandles&#x27;, 1)).then((entry) &#x3D;&gt; {
       if (entry) {
         verifyPermission(entry.handle).then((granted) &#x3D;&gt; {
