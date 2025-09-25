@@ -3,6 +3,9 @@
 
 name: Deploy Pipeline
 
+permissions:
+  contents: read
+
 on:
   release:
     types: [created]
