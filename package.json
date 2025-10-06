@@ -101,11 +101,11 @@
     "@swc/helpers": "0.5.17",
     "@twittwer/compodoc": "1.13.0",
     "@types/jest": "30.0.0",
-    "@types/node": "24.6.2",
+    "@types/node": "24.7.0",
     "@types/spark-md5": "3.0.5",
     "@types/wicg-file-system-access": "2023.10.7",
-    "@typescript-eslint/parser": "8.45.0",
-    "@typescript-eslint/utils": "8.45.0",
+    "@typescript-eslint/parser": "8.46.0",
+    "@typescript-eslint/utils": "8.46.0",
     "angular-eslint": "20.3.0",
     "auto-changelog": "2.5.0",
     "cypress": "15.3.0",
@@ -139,12 +139,12 @@
     "stylelint-config-html": "1.1.0",
     "stylelint-config-recommended": "17.0.0",
     "stylelint-config-recommended-scss": "16.0.2",
-    "stylelint-config-standard": "39.0.0",
+    "stylelint-config-standard": "39.0.1",
     "stylelint-config-standard-scss": "16.0.0",
     "svgo": "4.0.0",
     "ts-jest": "29.4.4",
     "ts-node": "10.9.2",
     "typescript": "5.9.3",
-    "typescript-eslint": "8.45.0"
+    "typescript-eslint": "8.46.0"
   }
 }
