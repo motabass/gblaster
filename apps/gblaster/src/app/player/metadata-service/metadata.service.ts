@@ -9,7 +9,8 @@ import { CoverColorPalette, RemoteCoverArtUrls } from './metadata.types';
 import { MusicbrainzService } from './musicbrainz.service';
 import { Vibrant } from 'node-vibrant/browser';
 import { FileData } from '../file-loader-service/file-loader.helpers';
-import { md5 } from 'hash-wasm';
+import { md5 } from '@noble/hashes/legacy.js';
+import { bytesToHex } from '@noble/hashes/utils.js';
 
 @Injectable({ providedIn: 'root' })
 export class MetadataService {
@@ -176,7 +177,7 @@ async function generateFileHash(file: File): Promise<string> {
   if (fileSize <= 256 * 1024) {
     // 256KB or less
     const buffer = await file.arrayBuffer();
-    return await md5(new Uint8Array(buffer));
+    return bytesToHex(md5(new Uint8Array(buffer)));
   }
 
   // Choose smaller chunk size based on file size
@@ -219,7 +220,7 @@ async function generateFileHash(file: File): Promise<string> {
     offset += chunk.length;
   }
 
-  return await md5(combined);
+  return bytesToHex(md5(combined));
 }
 
 async function extractColorsWithNodeVibrant(url: string): Promise<CoverColorPalette | undefined> {
