@@ -129,7 +129,7 @@
     "jest-util": "30.2.0",
     "lint-staged": "16.2.4",
     "ng-packagr": "20.3.0",
-    "npm-check-updates": "19.1.0",
+    "npm-check-updates": "19.1.1",
     "nx": "21.6.4",
     "nx-stylelint": "18.0.2",
     "postcss-html": "1.8.0",
