@@ -16,6 +16,10 @@
   );
 }
 
+.playlist-viewport {
+  height: 100%;
+}
+
 ::ng-deep .playlist-item {
   box-sizing: border-box;
   transition: background-color 0.3s ease;
@@ -45,7 +49,44 @@
 
 .playlist {
   padding: 0;
-
   box-sizing: border-box;
   overflow: hidden auto;
+}
+
+.playlist-item-avatar {
+  overflow: hidden;
+  border-radius: 4px;
+  position: relative;
+}
+
+.playlist-item-cover {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.playlist-item-visualizer {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.playlist-item-title {
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+
+.playlist-item-artist {
+  font-size: 0.8rem;
+}
+
+.context-menu-trigger {
+  display: none;
 }

@@ -1,25 +1,11 @@
 @let currentTrack = playerService.currentlyLoadedTrack();
 @let cover = coverUrl();
-<div
-  style="
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    z-index: 5;
-    overflow-x: auto;
-    padding: 1rem;
-    user-select: text;
-    text-shadow: -1px 1px 6px black;
-  "
-  class="mat-typography"
->
-  <h1 style="font-size: 3rem; font-weight: bold; line-height: 3.3rem; margin-bottom: 4px; opacity: 0.9">
+<div class="mat-typography metadata-overlay">
+  <h1 class="track-title">
     {{ currentTrack?.metadata?.title || currentTrack?.file?.name }}
   </h1>
-  <p style="font-size: 1.5rem; margin-bottom: 8px; opacity: 0.8">{{ currentTrack?.metadata?.artist }}</p>
-  <div class="flex column" style="margin-top: 16px; opacity: 0.9">
+  <p class="track-artist">{{ currentTrack?.metadata?.artist }}</p>
+  <div class="flex column metadata-info">
     @if (currentTrack?.metadata?.album) {
       <span>
         Album: <strong>{{ currentTrack?.metadata?.album }}</strong>
@@ -55,34 +41,34 @@
     @if (currentTrack?.metadata?.coverColors) {
       <span>&nbsp;</span>
       <span>Color Palette:</span>
-      <div class="flex row" style="gap: 4px; margin-top: 4px">
+      <div class="flex row color-palette-container">
         <div
-          style="width: 20px; height: 20px; border-radius: 2px; border: 1px solid rgba(255, 255, 255, 0.3)"
+          class="color-swatch"
           [style.background-color]="currentTrack?.metadata?.coverColors?.vibrant?.hex"
           [title]="`vibrant: ${currentTrack?.metadata?.coverColors?.vibrant?.hex}`"
         ></div>
         <div
-          style="width: 20px; height: 20px; border-radius: 2px; border: 1px solid rgba(255, 255, 255, 0.3)"
+          class="color-swatch"
           [style.background-color]="currentTrack?.metadata?.coverColors?.darkVibrant?.hex"
           [title]="`darkVibrant: ${currentTrack?.metadata?.coverColors?.darkVibrant?.hex}`"
         ></div>
         <div
-          style="width: 20px; height: 20px; border-radius: 2px; border: 1px solid rgba(255, 255, 255, 0.3)"
+          class="color-swatch"
           [style.background-color]="currentTrack?.metadata?.coverColors?.lightVibrant?.hex"
           [title]="`lightVibrant: ${currentTrack?.metadata?.coverColors?.lightVibrant?.hex}`"
         ></div>
         <div
-          style="width: 20px; height: 20px; border-radius: 2px; border: 1px solid rgba(255, 255, 255, 0.3)"
+          class="color-swatch"
           [style.background-color]="currentTrack?.metadata?.coverColors?.muted?.hex"
           [title]="`muted: ${currentTrack?.metadata?.coverColors?.muted?.hex}`"
         ></div>
         <div
-          style="width: 20px; height: 20px; border-radius: 2px; border: 1px solid rgba(255, 255, 255, 0.3)"
+          class="color-swatch"
           [style.background-color]="currentTrack?.metadata?.coverColors?.darkMuted?.hex"
           [title]="`darkMuted: ${currentTrack?.metadata?.coverColors?.darkMuted?.hex}`"
         ></div>
         <div
-          style="width: 20px; height: 20px; border-radius: 2px; border: 1px solid rgba(255, 255, 255, 0.3)"
+          class="color-swatch"
           [style.background-color]="currentTrack?.metadata?.coverColors?.lightMuted?.hex"
           [title]="`lightMuted: ${currentTrack?.metadata?.coverColors?.lightMuted?.hex}`"
         ></div>

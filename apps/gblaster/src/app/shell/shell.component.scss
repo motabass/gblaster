@@ -12,6 +12,7 @@
     'toolbar';
   grid-template-rows: auto auto auto 1fr auto;
   grid-template-columns: 1fr;
+  overflow: hidden;
 
   .header {
     grid-area: header;
@@ -59,4 +60,33 @@
 
 .title {
   font-size: 2rem;
+}
+
+.nav-icon {
+  margin-right: 0.7rem;
+}
+
+.menu-button {
+  margin-right: 0.7rem;
+  padding: 6px;
+}
+
+.logo-icon {
+  --mat-icon-button-icon-size: 28px;
+  width: 28px;
+  height: 28px;
+}
+
+.loading-spinner {
+  margin-left: 1rem;
+}
+
+.flex-spacer {
+  flex: 1;
+}
+
+.current-track-info {
+  font-size: 1rem;
+  font-weight: 500;
+  margin-right: 1rem;
 }

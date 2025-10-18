@@ -8,7 +8,7 @@
     [opened]="!isHandset()"
   >
     <mat-toolbar color="primary">
-      <mat-icon aria-label="Side nav toggle icon" svgIcon="radio" style="margin-right: 0.7rem" />
+      <mat-icon aria-label="Side nav toggle icon" svgIcon="radio" class="nav-icon" />
       <span class="title">{{ titleService.title() }}</span>
     </mat-toolbar>
     <mat-nav-list>
@@ -24,30 +24,23 @@
       >
     </mat-nav-list>
   </mat-sidenav>
-  <mat-sidenav-content style="overflow: hidden" class="sidenav-content">
+  <mat-sidenav-content class="sidenav-content">
     <mat-toolbar class="header">
       @if (isHandset()) {
-        <button
-          id="sidenav_menu_button"
-          type="button"
-          aria-label="Toggle sidenav"
-          mat-icon-button
-          style="margin-right: 0.7rem; padding: 6px"
-          (click)="drawer.toggle()"
-        >
-          <mat-icon aria-label="Side nav toggle icon" style="--mat-icon-button-icon-size: 28px; width: 28px; height: 28px" svgIcon="logo" />
+        <button id="sidenav_menu_button" type="button" aria-label="Toggle sidenav" mat-icon-button class="menu-button" (click)="drawer.toggle()">
+          <mat-icon aria-label="Side nav toggle icon" class="logo-icon" svgIcon="logo" />
         </button>
       }
       <span class="title">{{ titleService.title() }}</span>
 
       @if (loaderService.isLoading()) {
-        <mat-spinner style="margin-left: 1rem" color="accent" diameter="32" strokeWidth="6" />
+        <mat-spinner class="loading-spinner" color="accent" diameter="32" strokeWidth="6" />
       }
 
-      <div style="flex: 1"></div>
+      <div class="flex-spacer"></div>
 
       @let currentTrack = playerService.currentlyLoadedTrack();
-      <span class="standard-font" style="font-size: 1rem; font-weight: 500; margin-right: 1rem"
+      <span class="standard-font current-track-info"
         >{{ currentTrack?.metadata?.artist ? `${currentTrack?.metadata?.artist} - ` : '' }}{{ currentTrack?.metadata?.title || currentTrack?.file?.name }}</span
       >
     </mat-toolbar>
