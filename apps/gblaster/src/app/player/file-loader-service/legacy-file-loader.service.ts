@@ -23,6 +23,7 @@ export class LegacyFileLoaderService implements FileLoaderService {
 
   readonly currentFolderHandle = signal(undefined);
 
+  // eslint-disable-next-line @typescript-eslint/require-await
   async openFiles(): Promise<FileData[]> {
     return this.files.map((file) => ({ file }));
   }

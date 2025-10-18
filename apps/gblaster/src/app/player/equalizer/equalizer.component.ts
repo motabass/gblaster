@@ -32,9 +32,10 @@ export default class EqualizerComponent {
   }
 
   drawEqualizerResponse(): void {
-    if (!this.canvasRef()) return;
+    const canvasRef = this.canvasRef();
+    if (!canvasRef) return;
 
-    const canvas = this.canvasRef()!.nativeElement;
+    const canvas = canvasRef.nativeElement;
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
