@@ -15,8 +15,8 @@
             .toUpperCase()
         }}
       </div>
-      <div style="font-size: 2em; padding: 14px">+</div>
-      <div class="keyboard-key" style="padding-left: 12px; padding-right: 12px">
+      <div class="key-plus-sign">+</div>
+      <div class="keyboard-key key-separator">
         {{
           hotkey[0]
             .toString()
@@ -24,7 +24,7 @@
             .toUpperCase()
         }}
       </div>
-      <p style="margin-left: 16px">{{ hotkey[1].description }}</p>
+      <p class="key-description">{{ hotkey[1].description }}</p>
     </div>
   } @empty {
     <p>Es sind keine Tastenkürzel definiert.</p>

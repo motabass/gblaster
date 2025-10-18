@@ -11,4 +11,18 @@
   flex-direction: row;
   place-content: center center;
   place-items: center center;
+
+  &.key-separator {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+}
+
+.key-plus-sign {
+  font-size: 2em;
+  padding: 14px;
+}
+
+.key-description {
+  margin-left: 16px;
 }

@@ -47,13 +47,9 @@
           </button> </span
       ></mat-list-item>
       <mat-list-item *cdkVirtualFor="let album of uniqueAlbums(); trackBy: trackByAlbum" (click)="selectAlbum(album.name)">
-        <div matListItemAvatar style="overflow: hidden; border-radius: 2px; position: relative; width: 28px; height: 28px">
+        <div matListItemAvatar class="library-item-avatar">
           @if (album && album.coverUrl) {
-            <img
-              style="position: absolute; top: 0; right: 0; bottom: 0; left: 0; width: 100%; height: 100%"
-              fill
-              [src]="album.coverUrl.thumbUrl | safe: 'resourceUrl'"
-            />
+            <img class="library-item-cover" fill [src]="album.coverUrl.thumbUrl | safe: 'resourceUrl'" />
           }
         </div>
         <span matListItemTitle>{{ album.name }}{{ album.year ? ` | ${album.year}` : '' }}</span>
@@ -90,13 +86,9 @@
         </span>
       </mat-list-item>
       <mat-list-item *cdkVirtualFor="let track of tracks(); trackBy: trackByHash" (click)="selectTrack(track)" (dblclick)="playTrack(track)">
-        <div matListItemAvatar style="overflow: hidden; border-radius: 2px; position: relative; width: 28px; height: 28px">
+        <div matListItemAvatar class="library-item-avatar">
           @if (track && track.coverUrl) {
-            <img
-              style="position: absolute; top: 0; right: 0; bottom: 0; left: 0; width: 100%; height: 100%"
-              fill
-              [src]="track.coverUrl.thumbUrl | safe: 'resourceUrl'"
-            />
+            <img class="library-item-cover" fill [src]="track.coverUrl.thumbUrl | safe: 'resourceUrl'" />
           }
         </div>
         @if (selectedAlbum()) {
@@ -120,7 +112,7 @@
   </mat-menu>
 </div>
 
-<mat-form-field appearance="fill" style="width: 100%" class="searchinput">
+<mat-form-field appearance="fill" class="searchinput">
   <mat-icon matPrefix svgIcon="search" />
   <input matInput [ngModel]="searchTerm()" (ngModelChange)="searchTerm.set($event)" />
   @if (searchTerm()) {

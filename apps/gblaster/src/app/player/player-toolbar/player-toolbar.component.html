@@ -43,7 +43,7 @@
     <div class="flex-grow"></div>
   }
 
-  <div class="no-mobile standard-font" style="font-size: small; padding: 0 12px">
+  <div class="no-mobile standard-font time-display">
     <p>{{ playerService.currentTime() | time }} / {{ this.playerService.durationSeconds() | time }}</p>
   </div>
 
@@ -70,7 +70,7 @@
   <mat-menu #volumeMenu="matMenu" class="volume-menu" yPosition="above">
     <div class="vertical-slider-container">
       <div class="vertical-slider">
-        <mat-slider style="width: 9rem" id="volume_slider" min="0" max="1" step="0.01"
+        <mat-slider class="volume-slider" id="volume_slider" min="0" max="1" step="0.01"
           ><input #volumeSlider="matSliderThumb" matSliderThumb [value]="audioService.volume()" (input)="onVolumeChange(volumeSlider.value)"
         /></mat-slider>
       </div>

@@ -2,7 +2,7 @@
   <mat-card-header>
     <mat-card-title>Metadata-Settings</mat-card-title>
   </mat-card-header>
-  <mat-card-content class="flex column gap-1" style="min-height: 48px; padding-top: 16px">
+  <mat-card-content class="flex column gap-1">
     <mat-slide-toggle labelPosition="before" [checked]="metadataService.useWebMetainfos()" (change)="onUseWebTagsChange($event)"
       >Download Metadata from Last.FM and Musicbrainz</mat-slide-toggle
     >

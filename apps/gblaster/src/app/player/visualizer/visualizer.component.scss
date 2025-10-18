@@ -18,3 +18,27 @@
 .slider-label {
   margin: 4px 2px;
 }
+
+.visualizer-container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.visualizer-canvas {
+  width: 100%;
+  height: 100%;
+  transform: translate3d(0, 0, 0);
+  will-change: transform;
+}
+
+.visualizer-title {
+  padding: 16px 0;
+}
+
+.visualizer-toggle-button {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  z-index: 10;
+}

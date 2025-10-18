@@ -10,7 +10,8 @@ import { firstValueFrom } from 'rxjs';
 @Component({
   selector: 'mtb-metadata-settings',
   imports: [MatCardModule, MatSlideToggleModule, MatButtonModule],
-  templateUrl: './metadata-settings.component.html'
+  templateUrl: './metadata-settings.component.html',
+  styleUrl: './metadata-settings.component.scss'
 })
 export class MetadataSettingsComponent {
   protected readonly metadataService = inject(MetadataService);

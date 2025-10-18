@@ -1,10 +1,10 @@
-<div style="width: 100%; height: 100%; position: relative">
+<div class="visualizer-container">
   @let visualizerMode = visualsService.visualMode();
 
   @if (audioService.isPlaying()) {
     <canvas
       mtbVisual
-      style="width: 100%; height: 100%; transform: translate3d(0, 0, 0); will-change: transform"
+      class="visualizer-canvas"
       [mode]="visualizerMode"
       [colorConfig]="colorConfig()"
       [barsConfig]="barsConfig()"
@@ -23,7 +23,7 @@
       buttonTooltip=" visualizer config"
       class="visuals-slide-panel"
     >
-      <h3 class="accent-font" style="padding: 16px 0">Visualizer</h3>
+      <h3 class="accent-font visualizer-title">Visualizer</h3>
       <div class="visuals-settings">
         @if (visualizerMode !== 'off') {
           <div>
@@ -92,7 +92,7 @@
     </mtb-slide-panel>
   }
 
-  <button mat-icon-button style="position: absolute; top: 0.5rem; right: 0.5rem; z-index: 10" (click)="visualsService.toggleVisualMode()">
+  <button mat-icon-button class="visualizer-toggle-button" (click)="visualsService.toggleVisualMode()">
     @switch (visualizerMode) {
       @case ('bars') {
         <mat-icon matTooltip="Frequency-Bands" svgIcon="equalizer" />

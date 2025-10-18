@@ -4,6 +4,13 @@
   padding: 2rem 1rem;
 }
 
+.equalizer-container {
+  padding: 24px;
+  height: 50%;
+  position: relative;
+  width: 800px;
+}
+
 ::ng-deep .vertical-slider-container {
   height: 10rem;
   width: 64px;
