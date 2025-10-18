@@ -376,26 +376,12 @@ export class CoverDisplayComponent {
     <div class="tab-pane fade " id="templateData">
         <pre class="line-numbers"><code class="language-html">@let currentTrack &#x3D; playerService.currentlyLoadedTrack();
 @let cover &#x3D; coverUrl();
-&lt;div
-  style&#x3D;&quot;
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    z-index: 5;
-    overflow-x: auto;
-    padding: 1rem;
-    user-select: text;
-    text-shadow: -1px 1px 6px black;
-  &quot;
-  class&#x3D;&quot;mat-typography&quot;
-&gt;
-  &lt;h1 style&#x3D;&quot;font-size: 3rem; font-weight: bold; line-height: 3.3rem; margin-bottom: 4px; opacity: 0.9&quot;&gt;
+&lt;div class&#x3D;&quot;mat-typography metadata-overlay&quot;&gt;
+  &lt;h1 class&#x3D;&quot;track-title&quot;&gt;
     {{ currentTrack?.metadata?.title || currentTrack?.file?.name }}
   &lt;/h1&gt;
-  &lt;p style&#x3D;&quot;font-size: 1.5rem; margin-bottom: 8px; opacity: 0.8&quot;&gt;{{ currentTrack?.metadata?.artist }}&lt;/p&gt;
-  &lt;div class&#x3D;&quot;flex column&quot; style&#x3D;&quot;margin-top: 16px; opacity: 0.9&quot;&gt;
+  &lt;p class&#x3D;&quot;track-artist&quot;&gt;{{ currentTrack?.metadata?.artist }}&lt;/p&gt;
+  &lt;div class&#x3D;&quot;flex column metadata-info&quot;&gt;
     @if (currentTrack?.metadata?.album) {
       &lt;span&gt;
         Album: &lt;strong&gt;{{ currentTrack?.metadata?.album }}&lt;/strong&gt;
@@ -431,34 +417,34 @@ export class CoverDisplayComponent {
     @if (currentTrack?.metadata?.coverColors) {
       &lt;span&gt;&amp;nbsp;&lt;/span&gt;
       &lt;span&gt;Color Palette:&lt;/span&gt;
-      &lt;div class&#x3D;&quot;flex row&quot; style&#x3D;&quot;gap: 4px; margin-top: 4px&quot;&gt;
+      &lt;div class&#x3D;&quot;flex row color-palette-container&quot;&gt;
         &lt;div
-          style&#x3D;&quot;width: 20px; height: 20px; border-radius: 2px; border: 1px solid rgba(255, 255, 255, 0.3)&quot;
+          class&#x3D;&quot;color-swatch&quot;
           [style.background-color]&#x3D;&quot;currentTrack?.metadata?.coverColors?.vibrant?.hex&quot;
           [title]&#x3D;&quot;&#x60;vibrant: ${currentTrack?.metadata?.coverColors?.vibrant?.hex}&#x60;&quot;
         &gt;&lt;/div&gt;
         &lt;div
-          style&#x3D;&quot;width: 20px; height: 20px; border-radius: 2px; border: 1px solid rgba(255, 255, 255, 0.3)&quot;
+          class&#x3D;&quot;color-swatch&quot;
           [style.background-color]&#x3D;&quot;currentTrack?.metadata?.coverColors?.darkVibrant?.hex&quot;
           [title]&#x3D;&quot;&#x60;darkVibrant: ${currentTrack?.metadata?.coverColors?.darkVibrant?.hex}&#x60;&quot;
         &gt;&lt;/div&gt;
         &lt;div
-          style&#x3D;&quot;width: 20px; height: 20px; border-radius: 2px; border: 1px solid rgba(255, 255, 255, 0.3)&quot;
+          class&#x3D;&quot;color-swatch&quot;
           [style.background-color]&#x3D;&quot;currentTrack?.metadata?.coverColors?.lightVibrant?.hex&quot;
           [title]&#x3D;&quot;&#x60;lightVibrant: ${currentTrack?.metadata?.coverColors?.lightVibrant?.hex}&#x60;&quot;
         &gt;&lt;/div&gt;
         &lt;div
-          style&#x3D;&quot;width: 20px; height: 20px; border-radius: 2px; border: 1px solid rgba(255, 255, 255, 0.3)&quot;
+          class&#x3D;&quot;color-swatch&quot;
           [style.background-color]&#x3D;&quot;currentTrack?.metadata?.coverColors?.muted?.hex&quot;
           [title]&#x3D;&quot;&#x60;muted: ${currentTrack?.metadata?.coverColors?.muted?.hex}&#x60;&quot;
         &gt;&lt;/div&gt;
         &lt;div
-          style&#x3D;&quot;width: 20px; height: 20px; border-radius: 2px; border: 1px solid rgba(255, 255, 255, 0.3)&quot;
+          class&#x3D;&quot;color-swatch&quot;
           [style.background-color]&#x3D;&quot;currentTrack?.metadata?.coverColors?.darkMuted?.hex&quot;
           [title]&#x3D;&quot;&#x60;darkMuted: ${currentTrack?.metadata?.coverColors?.darkMuted?.hex}&#x60;&quot;
         &gt;&lt;/div&gt;
         &lt;div
-          style&#x3D;&quot;width: 20px; height: 20px; border-radius: 2px; border: 1px solid rgba(255, 255, 255, 0.3)&quot;
+          class&#x3D;&quot;color-swatch&quot;
           [style.background-color]&#x3D;&quot;currentTrack?.metadata?.coverColors?.lightMuted?.hex&quot;
           [title]&#x3D;&quot;&#x60;lightMuted: ${currentTrack?.metadata?.coverColors?.lightMuted?.hex}&#x60;&quot;
         &gt;&lt;/div&gt;
@@ -499,7 +485,7 @@ export class CoverDisplayComponent {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div>@let currentTrack = playerService.currentlyLoadedTrack();@let cover = coverUrl();<div  style="    position: absolute;    top: 0;    right: 0;    bottom: 0;    left: 0;    z-index: 5;    overflow-x: auto;    padding: 1rem;    user-select: text;    text-shadow: -1px 1px 6px black;  "  class="mat-typography">  <h1 style="font-size: 3rem; font-weight: bold; line-height: 3.3rem; margin-bottom: 4px; opacity: 0.9">    {{ currentTrack?.metadata?.title || currentTrack?.file?.name }}  </h1>  <p style="font-size: 1.5rem; margin-bottom: 8px; opacity: 0.8">{{ currentTrack?.metadata?.artist }}</p>  <div class="flex column" style="margin-top: 16px; opacity: 0.9">    @if (currentTrack?.metadata?.album) {      <span>        Album: <strong>{{ currentTrack?.metadata?.album }}</strong>      </span>    }    @if (currentTrack?.metadata?.year) {      <span>        Year: <strong>{{ currentTrack?.metadata?.year }}</strong>      </span>    }    <span>&nbsp;</span>    @if (currentTrack?.metadata?.format?.duration) {      <span>        Duration: <strong>{{ currentTrack?.metadata?.format?.duration | time }}</strong>      </span>    }    @if (currentTrack?.metadata?.format?.container && currentTrack?.metadata?.format?.codec) {      <span>        Format: <strong>{{ currentTrack?.metadata?.format?.container }} ({{ currentTrack?.metadata?.format?.codec }})</strong>      </span>    }    @if (currentTrack?.metadata?.format?.bitrate) {      <span>        Bitrate: <strong>{{ currentTrack?.metadata?.format?.bitrate | bitrate }}</strong>      </span>    }    @if (currentTrack?.metadata?.format?.sampleRate) {      <span>        Sample-Rate: <strong>{{ currentTrack?.metadata?.format?.sampleRate }}</strong>      </span>    }    @if (currentTrack?.metadata?.coverColors) {      <span>&nbsp;</span>      <span>Color Palette:</span>      <div class="flex row" style="gap: 4px; margin-top: 4px">        <div          style="width: 20px; height: 20px; border-radius: 2px; border: 1px solid rgba(255, 255, 255, 0.3)"          [style.background-color]="currentTrack?.metadata?.coverColors?.vibrant?.hex"          [title]="`vibrant: ${currentTrack?.metadata?.coverColors?.vibrant?.hex}`"        ></div>        <div          style="width: 20px; height: 20px; border-radius: 2px; border: 1px solid rgba(255, 255, 255, 0.3)"          [style.background-color]="currentTrack?.metadata?.coverColors?.darkVibrant?.hex"          [title]="`darkVibrant: ${currentTrack?.metadata?.coverColors?.darkVibrant?.hex}`"        ></div>        <div          style="width: 20px; height: 20px; border-radius: 2px; border: 1px solid rgba(255, 255, 255, 0.3)"          [style.background-color]="currentTrack?.metadata?.coverColors?.lightVibrant?.hex"          [title]="`lightVibrant: ${currentTrack?.metadata?.coverColors?.lightVibrant?.hex}`"        ></div>        <div          style="width: 20px; height: 20px; border-radius: 2px; border: 1px solid rgba(255, 255, 255, 0.3)"          [style.background-color]="currentTrack?.metadata?.coverColors?.muted?.hex"          [title]="`muted: ${currentTrack?.metadata?.coverColors?.muted?.hex}`"        ></div>        <div          style="width: 20px; height: 20px; border-radius: 2px; border: 1px solid rgba(255, 255, 255, 0.3)"          [style.background-color]="currentTrack?.metadata?.coverColors?.darkMuted?.hex"          [title]="`darkMuted: ${currentTrack?.metadata?.coverColors?.darkMuted?.hex}`"        ></div>        <div          style="width: 20px; height: 20px; border-radius: 2px; border: 1px solid rgba(255, 255, 255, 0.3)"          [style.background-color]="currentTrack?.metadata?.coverColors?.lightMuted?.hex"          [title]="`lightMuted: ${currentTrack?.metadata?.coverColors?.lightMuted?.hex}`"        ></div>      </div>    }  </div></div>@if (currentTrack && cover) {  <div class="cover-img" [style.background-image]="`url(${cover})`" [style.background-color]="backgroundColor()"></div>}<mtb-visualizer class="visualizer" /></div>'
+        var COMPONENT_TEMPLATE = '<div>@let currentTrack = playerService.currentlyLoadedTrack();@let cover = coverUrl();<div class="mat-typography metadata-overlay">  <h1 class="track-title">    {{ currentTrack?.metadata?.title || currentTrack?.file?.name }}  </h1>  <p class="track-artist">{{ currentTrack?.metadata?.artist }}</p>  <div class="flex column metadata-info">    @if (currentTrack?.metadata?.album) {      <span>        Album: <strong>{{ currentTrack?.metadata?.album }}</strong>      </span>    }    @if (currentTrack?.metadata?.year) {      <span>        Year: <strong>{{ currentTrack?.metadata?.year }}</strong>      </span>    }    <span>&nbsp;</span>    @if (currentTrack?.metadata?.format?.duration) {      <span>        Duration: <strong>{{ currentTrack?.metadata?.format?.duration | time }}</strong>      </span>    }    @if (currentTrack?.metadata?.format?.container && currentTrack?.metadata?.format?.codec) {      <span>        Format: <strong>{{ currentTrack?.metadata?.format?.container }} ({{ currentTrack?.metadata?.format?.codec }})</strong>      </span>    }    @if (currentTrack?.metadata?.format?.bitrate) {      <span>        Bitrate: <strong>{{ currentTrack?.metadata?.format?.bitrate | bitrate }}</strong>      </span>    }    @if (currentTrack?.metadata?.format?.sampleRate) {      <span>        Sample-Rate: <strong>{{ currentTrack?.metadata?.format?.sampleRate }}</strong>      </span>    }    @if (currentTrack?.metadata?.coverColors) {      <span>&nbsp;</span>      <span>Color Palette:</span>      <div class="flex row color-palette-container">        <div          class="color-swatch"          [style.background-color]="currentTrack?.metadata?.coverColors?.vibrant?.hex"          [title]="`vibrant: ${currentTrack?.metadata?.coverColors?.vibrant?.hex}`"        ></div>        <div          class="color-swatch"          [style.background-color]="currentTrack?.metadata?.coverColors?.darkVibrant?.hex"          [title]="`darkVibrant: ${currentTrack?.metadata?.coverColors?.darkVibrant?.hex}`"        ></div>        <div          class="color-swatch"          [style.background-color]="currentTrack?.metadata?.coverColors?.lightVibrant?.hex"          [title]="`lightVibrant: ${currentTrack?.metadata?.coverColors?.lightVibrant?.hex}`"        ></div>        <div          class="color-swatch"          [style.background-color]="currentTrack?.metadata?.coverColors?.muted?.hex"          [title]="`muted: ${currentTrack?.metadata?.coverColors?.muted?.hex}`"        ></div>        <div          class="color-swatch"          [style.background-color]="currentTrack?.metadata?.coverColors?.darkMuted?.hex"          [title]="`darkMuted: ${currentTrack?.metadata?.coverColors?.darkMuted?.hex}`"        ></div>        <div          class="color-swatch"          [style.background-color]="currentTrack?.metadata?.coverColors?.lightMuted?.hex"          [title]="`lightMuted: ${currentTrack?.metadata?.coverColors?.lightMuted?.hex}`"        ></div>      </div>    }  </div></div>@if (currentTrack && cover) {  <div class="cover-img" [style.background-image]="`url(${cover})`" [style.background-color]="backgroundColor()"></div>}<mtb-visualizer class="visualizer" /></div>'
     var COMPONENTS = [{'name': 'AppComponent', 'selector': 'mtb-root'},{'name': 'CoverDisplayComponent', 'selector': 'mtb-cover-display'},{'name': 'EqualizerComponent', 'selector': ''},{'name': 'FileDropOverlayComponent', 'selector': 'mtb-file-drop-overlay'},{'name': 'HotkeysHelpDialogComponent', 'selector': ''},{'name': 'LibraryComponent', 'selector': ''},{'name': 'MetadataSettingsComponent', 'selector': 'mtb-metadata-settings'},{'name': 'PlayerComponent', 'selector': ''},{'name': 'PlayerToolbarComponent', 'selector': 'player-toolbar'},{'name': 'PlaylistComponent', 'selector': 'mtb-playlist'},{'name': 'PromptDialogComponent', 'selector': 'mtb-prompt-dialog'},{'name': 'SettingsComponent', 'selector': ''},{'name': 'ShellComponent', 'selector': 'mtb-shell'},{'name': 'SlidePanelComponent', 'selector': 'mtb-slide-panel'},{'name': 'StorageSettingsComponent', 'selector': 'mtb-storage-settings'},{'name': 'ThemeSettingsComponent', 'selector': 'mtb-theme-settings'},{'name': 'VisualizerComponent', 'selector': 'mtb-visualizer'}];
     var DIRECTIVES = [{'name': 'VisualsDirective', 'selector': '[mtbVisual]'}];
     var ACTUAL_COMPONENT = {'name': 'CoverDisplayComponent'};

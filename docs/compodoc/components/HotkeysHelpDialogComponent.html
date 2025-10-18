@@ -437,8 +437,8 @@ export class HotkeysHelpDialogComponent {
             .toUpperCase()
         }}
       &lt;/div&gt;
-      &lt;div style&#x3D;&quot;font-size: 2em; padding: 14px&quot;&gt;+&lt;/div&gt;
-      &lt;div class&#x3D;&quot;keyboard-key&quot; style&#x3D;&quot;padding-left: 12px; padding-right: 12px&quot;&gt;
+      &lt;div class&#x3D;&quot;key-plus-sign&quot;&gt;+&lt;/div&gt;
+      &lt;div class&#x3D;&quot;keyboard-key key-separator&quot;&gt;
         {{
           hotkey[0]
             .toString()
@@ -446,7 +446,7 @@ export class HotkeysHelpDialogComponent {
             .toUpperCase()
         }}
       &lt;/div&gt;
-      &lt;p style&#x3D;&quot;margin-left: 16px&quot;&gt;{{ hotkey[1].description }}&lt;/p&gt;
+      &lt;p class&#x3D;&quot;key-description&quot;&gt;{{ hotkey[1].description }}&lt;/p&gt;
     &lt;/div&gt;
   } @empty {
     &lt;p&gt;Es sind keine Tastenkürzel definiert.&lt;/p&gt;
@@ -481,7 +481,7 @@ export class HotkeysHelpDialogComponent {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><div class="flex row">  <h2 matDialogTitle>Tastenkürzel</h2>  <span class="flex-grow"></span>  <button mat-icon-button (click)="close()"><mat-icon svgIcon="close-thick" /></button></div><mat-dialog-content>  @for (hotkey of hotkeyList; track hotkey[0]) {    <div matListItemLine class="flex row align-center">      <div class="keyboard-key">        {{          hotkey[0]            .toString()            .substr(0, hotkey[0].length - 2)            .toUpperCase()        }}      </div>      <div style="font-size: 2em; padding: 14px">+</div>      <div class="keyboard-key" style="padding-left: 12px; padding-right: 12px">        {{          hotkey[0]            .toString()            .substr(hotkey[0].length - 1, 1)            .toUpperCase()        }}      </div>      <p style="margin-left: 16px">{{ hotkey[1].description }}</p>    </div>  } @empty {    <p>Es sind keine Tastenkürzel definiert.</p>  }</mat-dialog-content></div>'
+        var COMPONENT_TEMPLATE = '<div><div class="flex row">  <h2 matDialogTitle>Tastenkürzel</h2>  <span class="flex-grow"></span>  <button mat-icon-button (click)="close()"><mat-icon svgIcon="close-thick" /></button></div><mat-dialog-content>  @for (hotkey of hotkeyList; track hotkey[0]) {    <div matListItemLine class="flex row align-center">      <div class="keyboard-key">        {{          hotkey[0]            .toString()            .substr(0, hotkey[0].length - 2)            .toUpperCase()        }}      </div>      <div class="key-plus-sign">+</div>      <div class="keyboard-key key-separator">        {{          hotkey[0]            .toString()            .substr(hotkey[0].length - 1, 1)            .toUpperCase()        }}      </div>      <p class="key-description">{{ hotkey[1].description }}</p>    </div>  } @empty {    <p>Es sind keine Tastenkürzel definiert.</p>  }</mat-dialog-content></div>'
     var COMPONENTS = [{'name': 'AppComponent', 'selector': 'mtb-root'},{'name': 'CoverDisplayComponent', 'selector': 'mtb-cover-display'},{'name': 'EqualizerComponent', 'selector': ''},{'name': 'FileDropOverlayComponent', 'selector': 'mtb-file-drop-overlay'},{'name': 'HotkeysHelpDialogComponent', 'selector': ''},{'name': 'LibraryComponent', 'selector': ''},{'name': 'MetadataSettingsComponent', 'selector': 'mtb-metadata-settings'},{'name': 'PlayerComponent', 'selector': ''},{'name': 'PlayerToolbarComponent', 'selector': 'player-toolbar'},{'name': 'PlaylistComponent', 'selector': 'mtb-playlist'},{'name': 'PromptDialogComponent', 'selector': 'mtb-prompt-dialog'},{'name': 'SettingsComponent', 'selector': ''},{'name': 'ShellComponent', 'selector': 'mtb-shell'},{'name': 'SlidePanelComponent', 'selector': 'mtb-slide-panel'},{'name': 'StorageSettingsComponent', 'selector': 'mtb-storage-settings'},{'name': 'ThemeSettingsComponent', 'selector': 'mtb-theme-settings'},{'name': 'VisualizerComponent', 'selector': 'mtb-visualizer'}];
     var DIRECTIVES = [{'name': 'VisualsDirective', 'selector': '[mtbVisual]'}];
     var ACTUAL_COMPONENT = {'name': 'HotkeysHelpDialogComponent'};

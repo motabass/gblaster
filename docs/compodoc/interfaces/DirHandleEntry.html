@@ -288,7 +288,7 @@ export class NativeBrowserFileLoaderService implements FileLoaderService {
     try {
       const handle &#x3D; await showDirectoryPicker();
       this.currentFolderHandle.set(handle);
-      await this.indexedDbService.update(&#x27;directoryHandles&#x27;, { id: 1, handle: handle } as DirHandleEntry).toPromise();
+      await firstValueFrom(this.indexedDbService.update(&#x27;directoryHandles&#x27;, { id: 1, handle: handle } as DirHandleEntry));
     } catch (error) {
       console.log(&#x27;No files:&#x27;, error);
     }
@@ -322,11 +322,7 @@ async function getAudioFilesFromDirHandle(dirHandle: FileSystemDirectoryHandle):
 
 async function verifyPermission(handle: FileSystemDirectoryHandle) {
   // Request permission. If the user grants permission, return true.
-  if ((await handle.requestPermission()) &#x3D;&#x3D;&#x3D; &#x27;granted&#x27;) {
-    return true;
-  }
-  // The user didn&#x27;t grant permission, so return false.
-  return false;
+  return (await handle.requestPermission()) &#x3D;&#x3D;&#x3D; &#x27;granted&#x27;;
 }
 </code></pre>
     </div>

@@ -234,8 +234,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="26"
-                                    class="link-to-prism">apps/gblaster/src/app/player/file-loader-service/legacy-file-loader.service.ts:26</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="27"
+                                    class="link-to-prism">apps/gblaster/src/app/player/file-loader-service/legacy-file-loader.service.ts:27</a></div>
                         </td>
                     </tr>
 
@@ -273,8 +273,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="43"
-                                    class="link-to-prism">apps/gblaster/src/app/player/file-loader-service/legacy-file-loader.service.ts:43</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="44"
+                                    class="link-to-prism">apps/gblaster/src/app/player/file-loader-service/legacy-file-loader.service.ts:44</a></div>
                         </td>
                     </tr>
 
@@ -353,6 +353,7 @@ export class LegacyFileLoaderService implements FileLoaderService {
 
   readonly currentFolderHandle &#x3D; signal(undefined);
 
+  // eslint-disable-next-line @typescript-eslint/require-await
   async openFiles(): Promise&lt;FileData[]&gt; {
     return this.files.map((file) &#x3D;&gt; ({ file }));
   }

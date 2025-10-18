@@ -478,9 +478,10 @@ export default class EqualizerComponent {
   }
 
   drawEqualizerResponse(): void {
-    if (!this.canvasRef()) return;
+    const canvasRef &#x3D; this.canvasRef();
+    if (!canvasRef) return;
 
-    const canvas &#x3D; this.canvasRef()!.nativeElement;
+    const canvas &#x3D; canvasRef.nativeElement;
     const ctx &#x3D; canvas.getContext(&#x27;2d&#x27;);
     if (!ctx) return;
 
@@ -585,7 +586,7 @@ export default class EqualizerComponent {
     </div>
 
     <div class="tab-pane fade " id="templateData">
-        <pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;flex row&quot; style&#x3D;&quot;padding: 24px; height: 50%; position: relative; width: 800px&quot;&gt;
+        <pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;flex row equalizer-container&quot;&gt;
   &lt;div class&#x3D;&quot;eq-visualization&quot;&gt;
     &lt;canvas #eqCanvas width&#x3D;&quot;800&quot; height&#x3D;&quot;200&quot;&gt;&lt;/canvas&gt;
   &lt;/div&gt;
@@ -648,7 +649,7 @@ export default class EqualizerComponent {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><div class="flex row" style="padding: 24px; height: 50%; position: relative; width: 800px">  <div class="eq-visualization">    <canvas #eqCanvas width="800" height="200"></canvas>  </div>  @for (band of BANDS; track band) {    <div class="vertical-slider-container">      <div class="flex row justify-center vertical-slider">        <!--        <div class="vertical-slider-label">{{ band | band }}</div>-->        <mat-slider discrete min="-12" max="12" step="0.01" [displayWith]="displayFunction"          ><input            #thumb="matSliderThumb"            matSliderThumb            [value]="audioService.getFrequencyBandGainSignal(band)()"            (dblclick)="audioService.resetFrequencyBandGain(band)"            (input)="audioService.setFrequencyBandGain(band, thumb.value)"        /></mat-slider>      </div>    </div>  }  <div class="vertical-slider-container">    <div class="flex row justify-center vertical-slider">      <!--      <div class="vertical-slider-label" style="font-weight: bold">GAIN</div>-->      <mat-slider discrete min="0" max="2" step="0.01" [displayWith]="displayFunction"        ><input          #gainThumb="matSliderThumb"          matSliderThumb          [value]="audioService.baseGain()"          (dblclick)="audioService.setBaseGain(1)"          (input)="audioService.setBaseGain(gainThumb.value)"      /></mat-slider>    </div>  </div></div></div>'
+        var COMPONENT_TEMPLATE = '<div><div class="flex row equalizer-container">  <div class="eq-visualization">    <canvas #eqCanvas width="800" height="200"></canvas>  </div>  @for (band of BANDS; track band) {    <div class="vertical-slider-container">      <div class="flex row justify-center vertical-slider">        <!--        <div class="vertical-slider-label">{{ band | band }}</div>-->        <mat-slider discrete min="-12" max="12" step="0.01" [displayWith]="displayFunction"          ><input            #thumb="matSliderThumb"            matSliderThumb            [value]="audioService.getFrequencyBandGainSignal(band)()"            (dblclick)="audioService.resetFrequencyBandGain(band)"            (input)="audioService.setFrequencyBandGain(band, thumb.value)"        /></mat-slider>      </div>    </div>  }  <div class="vertical-slider-container">    <div class="flex row justify-center vertical-slider">      <!--      <div class="vertical-slider-label" style="font-weight: bold">GAIN</div>-->      <mat-slider discrete min="0" max="2" step="0.01" [displayWith]="displayFunction"        ><input          #gainThumb="matSliderThumb"          matSliderThumb          [value]="audioService.baseGain()"          (dblclick)="audioService.setBaseGain(1)"          (input)="audioService.setBaseGain(gainThumb.value)"      /></mat-slider>    </div>  </div></div></div>'
     var COMPONENTS = [{'name': 'AppComponent', 'selector': 'mtb-root'},{'name': 'CoverDisplayComponent', 'selector': 'mtb-cover-display'},{'name': 'EqualizerComponent', 'selector': ''},{'name': 'FileDropOverlayComponent', 'selector': 'mtb-file-drop-overlay'},{'name': 'HotkeysHelpDialogComponent', 'selector': ''},{'name': 'LibraryComponent', 'selector': ''},{'name': 'MetadataSettingsComponent', 'selector': 'mtb-metadata-settings'},{'name': 'PlayerComponent', 'selector': ''},{'name': 'PlayerToolbarComponent', 'selector': 'player-toolbar'},{'name': 'PlaylistComponent', 'selector': 'mtb-playlist'},{'name': 'PromptDialogComponent', 'selector': 'mtb-prompt-dialog'},{'name': 'SettingsComponent', 'selector': ''},{'name': 'ShellComponent', 'selector': 'mtb-shell'},{'name': 'SlidePanelComponent', 'selector': 'mtb-slide-panel'},{'name': 'StorageSettingsComponent', 'selector': 'mtb-storage-settings'},{'name': 'ThemeSettingsComponent', 'selector': 'mtb-theme-settings'},{'name': 'VisualizerComponent', 'selector': 'mtb-visualizer'}];
     var DIRECTIVES = [{'name': 'VisualsDirective', 'selector': '[mtbVisual]'}];
     var ACTUAL_COMPONENT = {'name': 'EqualizerComponent'};

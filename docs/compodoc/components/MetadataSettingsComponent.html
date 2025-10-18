@@ -183,6 +183,10 @@
 
 
 
+            <tr>
+                <td class="col-md-3">styleUrl</td>
+                <td class="col-md-9"><code>./metadata-settings.component.scss</code></td>
+            </tr>
 
 
 
@@ -281,8 +285,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="40"
-                                    class="link-to-prism">apps/gblaster/src/app/settings/metadata-settings/metadata-settings.component.ts:40</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="41"
+                                    class="link-to-prism">apps/gblaster/src/app/settings/metadata-settings/metadata-settings.component.ts:41</a></div>
                         </td>
                     </tr>
 
@@ -318,8 +322,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="35"
-                                    class="link-to-prism">apps/gblaster/src/app/settings/metadata-settings/metadata-settings.component.ts:35</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="36"
+                                    class="link-to-prism">apps/gblaster/src/app/settings/metadata-settings/metadata-settings.component.ts:36</a></div>
                         </td>
                     </tr>
 
@@ -385,8 +389,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="30"
-                                    class="link-to-prism">apps/gblaster/src/app/settings/metadata-settings/metadata-settings.component.ts:30</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="31"
+                                    class="link-to-prism">apps/gblaster/src/app/settings/metadata-settings/metadata-settings.component.ts:31</a></div>
                         </td>
                     </tr>
 
@@ -452,8 +456,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="25"
-                                    class="link-to-prism">apps/gblaster/src/app/settings/metadata-settings/metadata-settings.component.ts:25</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="26"
+                                    class="link-to-prism">apps/gblaster/src/app/settings/metadata-settings/metadata-settings.component.ts:26</a></div>
                         </td>
                     </tr>
 
@@ -519,8 +523,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="20"
-                                    class="link-to-prism">apps/gblaster/src/app/settings/metadata-settings/metadata-settings.component.ts:20</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="21"
+                                    class="link-to-prism">apps/gblaster/src/app/settings/metadata-settings/metadata-settings.component.ts:21</a></div>
                         </td>
                     </tr>
 
@@ -592,7 +596,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">apps/gblaster/src/app/settings/metadata-settings/metadata-settings.component.ts:16</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">apps/gblaster/src/app/settings/metadata-settings/metadata-settings.component.ts:17</a></div>
                         </td>
                     </tr>
 
@@ -617,7 +621,8 @@ import { firstValueFrom } from &#x27;rxjs&#x27;;
 @Component({
   selector: &#x27;mtb-metadata-settings&#x27;,
   imports: [MatCardModule, MatSlideToggleModule, MatButtonModule],
-  templateUrl: &#x27;./metadata-settings.component.html&#x27;
+  templateUrl: &#x27;./metadata-settings.component.html&#x27;,
+  styleUrl: &#x27;./metadata-settings.component.scss&#x27;
 })
 export class MetadataSettingsComponent {
   protected readonly metadataService &#x3D; inject(MetadataService);
@@ -656,7 +661,7 @@ export class MetadataSettingsComponent {
   &lt;mat-card-header&gt;
     &lt;mat-card-title&gt;Metadata-Settings&lt;/mat-card-title&gt;
   &lt;/mat-card-header&gt;
-  &lt;mat-card-content class&#x3D;&quot;flex column gap-1&quot; style&#x3D;&quot;min-height: 48px; padding-top: 16px&quot;&gt;
+  &lt;mat-card-content class&#x3D;&quot;flex column gap-1&quot;&gt;
     &lt;mat-slide-toggle labelPosition&#x3D;&quot;before&quot; [checked]&#x3D;&quot;metadataService.useWebMetainfos()&quot; (change)&#x3D;&quot;onUseWebTagsChange($event)&quot;
       &gt;Download Metadata from Last.FM and Musicbrainz&lt;/mat-slide-toggle
     &gt;
@@ -674,7 +679,7 @@ export class MetadataSettingsComponent {
       &lt;mat-slide-toggle labelPosition&#x3D;&quot;before&quot; [checked]&#x3D;&quot;metadataService.useTagsCache()&quot; (change)&#x3D;&quot;onUseTagsCacheChange($event)&quot;
         &gt;Cache Tags in Indexed-DB&lt;/mat-slide-toggle
       &gt;
-      &lt;button mat-flat-button style&#x3D;&quot;height: 28px; padding: 0 4px; line-height: normal&quot; color&#x3D;&quot;accent&quot; (click)&#x3D;&quot;clearMetadataCache()&quot;&gt;Clear Tags-DB&lt;/button&gt;
+      &lt;button mat-flat-button class&#x3D;&quot;clear-cache-button&quot; color&#x3D;&quot;accent&quot; (click)&#x3D;&quot;clearMetadataCache()&quot;&gt;Clear Tags-DB&lt;/button&gt;
     &lt;/div&gt;
   &lt;/mat-card-content&gt;
 &lt;/mat-card&gt;
@@ -707,7 +712,7 @@ export class MetadataSettingsComponent {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><mat-card appearance="raised">  <mat-card-header>    <mat-card-title>Metadata-Settings</mat-card-title>  </mat-card-header>  <mat-card-content class="flex column gap-1" style="min-height: 48px; padding-top: 16px">    <mat-slide-toggle labelPosition="before" [checked]="metadataService.useWebMetainfos()" (change)="onUseWebTagsChange($event)"      >Download Metadata from Last.FM and Musicbrainz</mat-slide-toggle    >    <mat-slide-toggle #useTagPicsToggle labelPosition="before" [checked]="metadataService.useTagEmbeddedPicture()" (change)="onUseTagEmbeddedPicsChange($event)"      >Use coverart from file-tags</mat-slide-toggle    >    <mat-slide-toggle      labelPosition="before"      [disabled]="!useTagPicsToggle.checked"      [checked]="metadataService.preferTagEmbeddedPicture()"      (change)="onPreferTagEmbeddedPicsChange($event)"      >Prioritize coverart from file-Tags</mat-slide-toggle    >    <div class="flex row gap-1">      <mat-slide-toggle labelPosition="before" [checked]="metadataService.useTagsCache()" (change)="onUseTagsCacheChange($event)"        >Cache Tags in Indexed-DB</mat-slide-toggle      >      <button mat-flat-button style="height: 28px; padding: 0 4px; line-height: normal" color="accent" (click)="clearMetadataCache()">Clear Tags-DB</button>    </div>  </mat-card-content></mat-card></div>'
+        var COMPONENT_TEMPLATE = '<div><mat-card appearance="raised">  <mat-card-header>    <mat-card-title>Metadata-Settings</mat-card-title>  </mat-card-header>  <mat-card-content class="flex column gap-1">    <mat-slide-toggle labelPosition="before" [checked]="metadataService.useWebMetainfos()" (change)="onUseWebTagsChange($event)"      >Download Metadata from Last.FM and Musicbrainz</mat-slide-toggle    >    <mat-slide-toggle #useTagPicsToggle labelPosition="before" [checked]="metadataService.useTagEmbeddedPicture()" (change)="onUseTagEmbeddedPicsChange($event)"      >Use coverart from file-tags</mat-slide-toggle    >    <mat-slide-toggle      labelPosition="before"      [disabled]="!useTagPicsToggle.checked"      [checked]="metadataService.preferTagEmbeddedPicture()"      (change)="onPreferTagEmbeddedPicsChange($event)"      >Prioritize coverart from file-Tags</mat-slide-toggle    >    <div class="flex row gap-1">      <mat-slide-toggle labelPosition="before" [checked]="metadataService.useTagsCache()" (change)="onUseTagsCacheChange($event)"        >Cache Tags in Indexed-DB</mat-slide-toggle      >      <button mat-flat-button class="clear-cache-button" color="accent" (click)="clearMetadataCache()">Clear Tags-DB</button>    </div>  </mat-card-content></mat-card></div>'
     var COMPONENTS = [{'name': 'AppComponent', 'selector': 'mtb-root'},{'name': 'CoverDisplayComponent', 'selector': 'mtb-cover-display'},{'name': 'EqualizerComponent', 'selector': ''},{'name': 'FileDropOverlayComponent', 'selector': 'mtb-file-drop-overlay'},{'name': 'HotkeysHelpDialogComponent', 'selector': ''},{'name': 'LibraryComponent', 'selector': ''},{'name': 'MetadataSettingsComponent', 'selector': 'mtb-metadata-settings'},{'name': 'PlayerComponent', 'selector': ''},{'name': 'PlayerToolbarComponent', 'selector': 'player-toolbar'},{'name': 'PlaylistComponent', 'selector': 'mtb-playlist'},{'name': 'PromptDialogComponent', 'selector': 'mtb-prompt-dialog'},{'name': 'SettingsComponent', 'selector': ''},{'name': 'ShellComponent', 'selector': 'mtb-shell'},{'name': 'SlidePanelComponent', 'selector': 'mtb-slide-panel'},{'name': 'StorageSettingsComponent', 'selector': 'mtb-storage-settings'},{'name': 'ThemeSettingsComponent', 'selector': 'mtb-theme-settings'},{'name': 'VisualizerComponent', 'selector': 'mtb-visualizer'}];
     var DIRECTIVES = [{'name': 'VisualsDirective', 'selector': '[mtbVisual]'}];
     var ACTUAL_COMPONENT = {'name': 'MetadataSettingsComponent'};
