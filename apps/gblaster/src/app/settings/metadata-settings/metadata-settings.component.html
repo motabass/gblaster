@@ -20,7 +20,7 @@
       <mat-slide-toggle labelPosition="before" [checked]="metadataService.useTagsCache()" (change)="onUseTagsCacheChange($event)"
         >Cache Tags in Indexed-DB</mat-slide-toggle
       >
-      <button mat-flat-button style="height: 28px; padding: 0 4px; line-height: normal" color="accent" (click)="clearMetadataCache()">Clear Tags-DB</button>
+      <button mat-flat-button class="clear-cache-button" color="accent" (click)="clearMetadataCache()">Clear Tags-DB</button>
     </div>
   </mat-card-content>
 </mat-card>
