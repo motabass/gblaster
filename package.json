@@ -5,6 +5,10 @@
   "repository": "https://github.com/motabass/gblaster",
   "description": "Colorful Web Audio Player PWA",
   "license": "CC0-1.0",
+  "engines": {
+    "node": ">=24.0.0",
+    "pnpm": ">=10.0.0"
+  },
   "scripts": {
     "ng": "nx",
     "nx": "nx",

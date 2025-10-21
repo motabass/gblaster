@@ -1,4 +1,7 @@
 {
+  "cli": {
+    "packageManager": "pnpm"
+  },
   "tasksRunnerOptions": {
     "default": {
       "options": {
