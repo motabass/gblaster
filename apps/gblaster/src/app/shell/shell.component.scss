@@ -16,6 +16,7 @@
 
   .header {
     grid-area: header;
+
     @include mat.elevation(12);
   }
 
@@ -36,6 +37,7 @@
 
   .toolbar {
     grid-area: toolbar;
+
     @include mat.elevation(12);
   }
 }
@@ -73,6 +75,7 @@
 
 .logo-icon {
   --mat-icon-button-icon-size: 28px;
+
   width: 28px;
   height: 28px;
 }

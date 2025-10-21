@@ -25,7 +25,6 @@
       density: 0
     )
   );
-
   @include mat.theme-overrides(
     (
       background: light-dark(white, #303030),
@@ -34,7 +33,6 @@
       on-surface: white
     )
   );
-
   @include mat.system-level-shape(
     (
       'corner-extra-small': 2px,
@@ -45,20 +43,17 @@
       'corner-full': 28px
     )
   );
-
   @include mat.card-overrides(
     (
       outlined-container-elevation: 12
     )
   );
-
   @include mat.toolbar-overrides(
     (
       container-background-color: var(--theme-primary-50),
       container-text-color: white
     )
   );
-
   @include mat.slider-overrides(
     (
       handle-color: var(--theme-accent-50),
@@ -69,13 +64,11 @@
       label-label-text-color: var(--theme-accent-50)
     )
   );
-
   @include mat.progress-spinner-overrides(
     (
       active-indicator-color: var(--theme-accent-50)
     )
   );
-
   @include mat.progress-bar-overrides(
     (
       active-indicator-color: var(--theme-accent-50),
