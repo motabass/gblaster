@@ -14,8 +14,7 @@ export default defineConfig({
   video: false,
   videosFolder: '../../dist/cypress/apps/gblaster-e2e/videos',
   screenshotsFolder: '../../dist/cypress/apps/gblaster-e2e/screenshots',
-  chromeWebSecurity: true,
-  experimentalStudio: true
+  chromeWebSecurity: true
 });
 
 //
@@ -26,7 +25,6 @@ export default defineConfig({
 //   videosFolder: '../../dist/cypress/apps/gblaster-e2e/videos',
 //   screenshotsFolder: '../../dist/cypress/apps/gblaster-e2e/screenshots',
 //   chromeWebSecurity: true,
-//   experimentalStudio: true,
 //   specPattern: 'src/e2e/**/*.cy.{js,jsx,ts,tsx}',
 //   supportFile: 'src/support/e2e.ts'
 // };
