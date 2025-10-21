@@ -6,7 +6,7 @@
 # https://angular.io/guide/browser-support
 
 # You can see what browsers were selected by your queries by running:
-#   npx browserslist
+#   pnpm dlx browserslist
 
 last 2 Chrome versions
 last 2 Edge major versions

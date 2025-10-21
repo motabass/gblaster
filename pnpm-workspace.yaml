@@ -1,0 +1,15 @@
+ignoredBuiltDependencies:
+  - '@biomejs/biome'
+  - '@parcel/watcher'
+  - lmdb
+  - msgpackr-extract
+  - protobufjs
+  - re2
+  - unrs-resolver
+
+onlyBuiltDependencies:
+  - '@compodoc/compodoc'
+  - '@swc/core'
+  - cypress
+  - esbuild
+  - nx

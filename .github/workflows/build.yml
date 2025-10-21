@@ -20,29 +20,29 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v5
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+          run_install: false
       - name: Setup NodeJS
         uses: actions/setup-node@v6
         with:
           node-version: 24.x
-      - name: Cache dependencies
-        uses: actions/cache@v4
-        with:
-          path: ~/.npm
-          key: npm-${{ hashFiles('package-lock.json') }}
-          restore-keys: npm-
+          cache: 'pnpm'
       - name: Install dependencies
-        run: npm ci
+        run: pnpm install
         env:
           CI: true
       - name: Build
-        run: npm run ci:build
+        run: pnpm run ci:build
         env:
           CI: true
       - name: Cypress E2E Tests
-        run: npm run ci:e2e
+        run: pnpm run ci:e2e
         env:
           CI: true
       - name: Jest-Tests
-        run: npm run test:all
+        run: pnpm run test:all
         env:
           CI: true

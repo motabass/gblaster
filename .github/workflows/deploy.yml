@@ -19,22 +19,22 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v5
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+          run_install: false
       - name: Setup NodeJS
         uses: actions/setup-node@v6
         with:
           node-version: 24.x
-      - name: Cache dependencies
-        uses: actions/cache@v4
-        with:
-          path: ~/.npm
-          key: npm-${{ hashFiles('package-lock.json') }}
-          restore-keys: npm-
-      - name: Install
-        run: npm ci
+          cache: 'pnpm'
+      - name: Install dependencies
+        run: pnpm install
         env:
           CI: true
       - name: Build
-        run: npm run ci:build
+        run: pnpm run ci:build
         env:
           CI: true
       - name: Deploy
