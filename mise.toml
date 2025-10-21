@@ -1,8 +1,4 @@
 [tools]
-node = '24.10.0'
+node = '24'
 pnpm = "10"
 
-#"npm:eslint-nibble" = "latest"
-
-[env]
-NX_SKIP_PROVENANCE_CHECK=1
