@@ -121,7 +121,7 @@
   },
   "namedInputs": {
     "default": ["{projectRoot}/**/*", "sharedGlobals"],
-    "sharedGlobals": ["{workspaceRoot}/workspace.json", "{workspaceRoot}/nx.json", "{workspaceRoot}/tsconfig.base.json", "{workspaceRoot}/.stylelintrc.json"],
+    "sharedGlobals": ["{workspaceRoot}/nx.json", "{workspaceRoot}/tsconfig.base.json", "{workspaceRoot}/.stylelintrc.json"],
     "production": [
       "default",
       "!{projectRoot}/eslint.config.mjs",
