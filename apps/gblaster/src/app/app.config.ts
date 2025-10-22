@@ -4,8 +4,8 @@ import { environment } from '../environments/environment';
 import { provideNgxWebstorage, withLocalStorage, withNgxWebstorageConfig } from 'ngx-webstorage';
 import { NgxIndexedDBService, provideIndexedDb } from 'ngx-indexed-db';
 import { provideRouter, withEnabledBlockingInitialNavigation, withViewTransitions } from '@angular/router';
-import { HTTP_INTERCEPTORS, provideHttpClient, withFetch, withInterceptorsFromDi } from '@angular/common/http';
-import { LoaderInterceptor } from './services/loader/loader.interceptor';
+import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
+import { loaderInterceptor } from './services/loader/loader.interceptor';
 import { FileLoaderService } from './player/file-loader-service/file-loader.service.abstract';
 import { FileLoaderServiceFactory } from './player/file-loader-service/file-loader.service.factory';
 import { MAT_TOOLTIP_DEFAULT_OPTIONS } from '@angular/material/tooltip';
@@ -27,7 +27,7 @@ export const appConfig: ApplicationConfig = {
     provideIndexedDb(databaseConfig),
     provideServiceWorker('ngsw-worker.js', { enabled: environment.production, registrationStrategy: 'registerImmediately', type: 'module' }),
     provideNgxWebstorage(withNgxWebstorageConfig({ separator: '|', caseSensitive: true, prefix: 'gblaster' }), withLocalStorage()),
-    provideHttpClient(withInterceptorsFromDi(), withFetch()),
+    provideHttpClient(withInterceptors([loaderInterceptor]), withFetch()),
     provideRouter(routes, withEnabledBlockingInitialNavigation(), withViewTransitions()),
     {
       provide: FileLoaderService,
@@ -41,7 +41,6 @@ export const appConfig: ApplicationConfig = {
     {
       provide: MAT_TOOLTIP_DEFAULT_OPTIONS,
       useValue: { showDelay: 800, position: 'above', disableTooltipInteractivity: true }
-    },
-    { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true }
+    }
   ]
 };
