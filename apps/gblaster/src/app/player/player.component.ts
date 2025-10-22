@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { MatSliderModule } from '@angular/material/slider';
 import { TitleService } from '../services/title.service';
 import { MatMenuModule } from '@angular/material/menu';
@@ -15,10 +15,10 @@ import { PlaylistComponent } from './playlist/playlist.component';
   styleUrl: './player.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export default class PlayerComponent implements OnInit {
+export default class PlayerComponent {
   private readonly titleService = inject(TitleService);
 
-  ngOnInit() {
+  constructor() {
     this.titleService.setTitle('gBlaster');
   }
 }

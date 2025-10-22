@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, inject, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, OnDestroy } from '@angular/core';
 
 import { MatMenu, MatMenuModule, MatMenuTrigger } from '@angular/material/menu';
 import { MatSlider, MatSliderThumb } from '@angular/material/slider';
@@ -23,7 +23,7 @@ import { MetadataService } from '../metadata-service/metadata.service';
   styleUrl: './player-toolbar.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class PlayerToolbarComponent implements OnInit, OnDestroy {
+export class PlayerToolbarComponent implements OnDestroy {
   private readonly gamepadService = inject(GamepadService, { optional: true });
   private readonly hotkeysService = inject(HotkeysService, { optional: true });
   protected readonly fileLoaderService = inject(FileLoaderService);
@@ -33,7 +33,7 @@ export class PlayerToolbarComponent implements OnInit, OnDestroy {
 
   protected readonly volumeIcon = computed(() => this.getVolumeIconForLevel(this.audioService.volume()));
 
-  ngOnInit() {
+  constructor() {
     if (this.hotkeysService) {
       this.hotkeysService.initialize();
 

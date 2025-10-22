@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, inject, OnDestroy, OnInit, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, OnDestroy, signal } from '@angular/core';
 import { LocalStorageService } from 'ngx-webstorage';
 import type { FftSize, FrequencyBarsConfig, OsciloscopeConfig } from './visuals/visuals.types';
 import { VisualsService } from './visuals/visuals.service';
@@ -22,7 +22,7 @@ import { PlayerService } from '../player.service';
   styleUrl: './visualizer.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class VisualizerComponent implements OnInit, OnDestroy {
+export class VisualizerComponent implements OnDestroy {
   private readonly gamepadService = inject(GamepadService, { optional: true });
   private readonly playerService = inject(PlayerService);
   private readonly localStorageService = inject(LocalStorageService);
@@ -48,9 +48,7 @@ export class VisualizerComponent implements OnInit, OnDestroy {
     this.analyser.smoothingTimeConstant = this.smoothing();
     this.analyser.minDecibels = this.minDb();
     this.analyser.maxDecibels = 220;
-  }
 
-  ngOnInit(): void {
     this.gamepadService?.registerButtonAction(GamepadButtons.SELECT_BUTTON, () => this.visualsService.toggleVisualMode());
   }
 
