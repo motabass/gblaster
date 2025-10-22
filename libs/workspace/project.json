@@ -3,6 +3,7 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/workspace/src",
   "projectType": "library",
+  "tags": ["workspace-helper"],
   "targets": {
     "compodoc": {
       "executor": "@twittwer/compodoc:compodoc",
@@ -17,6 +18,5 @@
         }
       }
     }
-  },
-  "tags": ["workspace-helper"]
+  }
 }
