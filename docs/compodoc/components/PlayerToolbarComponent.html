@@ -144,7 +144,6 @@
         <h3>Implements</h3>
     </p>
     <p class="comment">
-                <code>OnInit</code>
                 <code>OnDestroy</code>
     </p>
 
@@ -313,6 +312,24 @@
     </table>
 </section>
 
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor()</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="34" class="link-to-prism">apps/gblaster/src/app/player/player-toolbar/player-toolbar.component.ts:34</a></div>
+                            </td>
+                        </tr>
+
+            </tbody>
+        </table>
+</section>
 
 
 
@@ -1128,7 +1145,7 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ChangeDetectionStrategy, Component, computed, inject, OnDestroy, OnInit } from &#x27;@angular/core&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ChangeDetectionStrategy, Component, computed, inject, OnDestroy } from &#x27;@angular/core&#x27;;
 
 import { MatMenu, MatMenuModule, MatMenuTrigger } from &#x27;@angular/material/menu&#x27;;
 import { MatSlider, MatSliderThumb } from &#x27;@angular/material/slider&#x27;;
@@ -1153,7 +1170,7 @@ import { MetadataService } from &#x27;../metadata-service/metadata.service&#x27;
   styleUrl: &#x27;./player-toolbar.component.scss&#x27;,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class PlayerToolbarComponent implements OnInit, OnDestroy {
+export class PlayerToolbarComponent implements OnDestroy {
   private readonly gamepadService &#x3D; inject(GamepadService, { optional: true });
   private readonly hotkeysService &#x3D; inject(HotkeysService, { optional: true });
   protected readonly fileLoaderService &#x3D; inject(FileLoaderService);
@@ -1163,7 +1180,7 @@ export class PlayerToolbarComponent implements OnInit, OnDestroy {
 
   protected readonly volumeIcon &#x3D; computed(() &#x3D;&gt; this.getVolumeIconForLevel(this.audioService.volume()));
 
-  ngOnInit() {
+  constructor() {
     if (this.hotkeysService) {
       this.hotkeysService.initialize();
 

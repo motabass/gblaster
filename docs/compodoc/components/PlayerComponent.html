@@ -140,12 +140,6 @@
 
 
 
-    <p class="comment">
-        <h3>Implements</h3>
-    </p>
-    <p class="comment">
-                <code>OnInit</code>
-    </p>
 
 
 <section data-compodoc="block-metadata">
@@ -208,6 +202,24 @@
 </section>
 
 
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor()</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">apps/gblaster/src/app/player/player.component.ts:19</a></div>
+                            </td>
+                        </tr>
+
+            </tbody>
+        </table>
+</section>
 
 
 
@@ -219,7 +231,7 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ChangeDetectionStrategy, Component, inject, OnInit } from &#x27;@angular/core&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ChangeDetectionStrategy, Component, inject } from &#x27;@angular/core&#x27;;
 import { MatSliderModule } from &#x27;@angular/material/slider&#x27;;
 import { TitleService } from &#x27;../services/title.service&#x27;;
 import { MatMenuModule } from &#x27;@angular/material/menu&#x27;;
@@ -236,10 +248,10 @@ import { PlaylistComponent } from &#x27;./playlist/playlist.component&#x27;;
   styleUrl: &#x27;./player.component.scss&#x27;,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export default class PlayerComponent implements OnInit {
+export default class PlayerComponent {
   private readonly titleService &#x3D; inject(TitleService);
 
-  ngOnInit() {
+  constructor() {
     this.titleService.setTitle(&#x27;gBlaster&#x27;);
   }
 }
