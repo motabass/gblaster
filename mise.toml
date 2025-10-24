@@ -1,4 +1,5 @@
 [tools]
 node = '24'
 pnpm = "10"
+"npm:nx" = "latest"
 

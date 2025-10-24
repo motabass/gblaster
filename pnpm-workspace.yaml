@@ -12,8 +12,6 @@ ignoredBuiltDependencies:
   - unrs-resolver
 
 onlyBuiltDependencies:
-  - '@compodoc/compodoc'
-  - '@swc/core'
   - cypress
   - esbuild
   - nx
