@@ -1,5 +1,11 @@
 import { Directive, effect, ElementRef, inject, input, OnDestroy } from '@angular/core';
-import type { FrequencyBarsConfig, OsciloscopeConfig, VisualizerMode, VisualsColorConfig, VisualsWorkerMessage } from './visuals.types';
+import type {
+  FrequencyBarsConfig,
+  OsciloscopeConfig,
+  VisualizerMode,
+  VisualsColorConfig,
+  VisualsWorkerMessage
+} from './visuals.types';
 import { AudioService } from '../../audio.service';
 
 const FALLBACK_PRIMARY_COLOR = '#424242';
@@ -12,7 +18,12 @@ export class VisualsDirective implements OnDestroy {
 
   readonly mode = input<VisualizerMode>('bars');
 
-  readonly barsConfig = input<FrequencyBarsConfig>({ gap: 0, capHeight: 1, barCount: 24, capFalldown: 0.5 });
+  readonly barsConfig = input<FrequencyBarsConfig>({
+    gap: 0,
+    capHeight: 1,
+    barCount: 24,
+    capFalldown: 0.5
+  });
 
   readonly oscConfig = input<OsciloscopeConfig>({ thickness: 2 });
 
@@ -82,7 +93,9 @@ export class VisualsDirective implements OnDestroy {
   private setupResizeObserver() {
     const observer = new ResizeObserver((entries) => {
       const rect = entries[0].contentRect;
-      this.visualizerWorker.postMessage({ newSize: rect } as VisualsWorkerMessage);
+      this.visualizerWorker.postMessage({
+        newSize: rect
+      } as VisualsWorkerMessage);
     });
     observer.observe(this.canvas);
     return observer;

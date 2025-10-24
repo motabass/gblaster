@@ -38,7 +38,9 @@ export class ThemeService {
     { suffix: '100', darkenFactor: 0.3 }
   ];
 
-  readonly darkMode = signal<boolean>(this.localStorageService.retrieve('darkMode') ?? globalThis.matchMedia('(prefers-color-scheme: dark)').matches);
+  readonly darkMode = signal<boolean>(
+    this.localStorageService.retrieve('darkMode') ?? globalThis.matchMedia('(prefers-color-scheme: dark)').matches
+  );
 
   readonly primaryColor = signal<string>(this.localStorageService.retrieve('primaryColor') ?? FALLBACK_PRIMARY_COLOR);
 

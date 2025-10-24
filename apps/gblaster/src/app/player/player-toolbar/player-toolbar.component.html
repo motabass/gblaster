@@ -1,33 +1,80 @@
-<mat-toolbar color="primary" class="bar flex row justify-center">
-  <button mat-icon-button (click)="playerService.playPause()">
+<mat-toolbar
+  color="primary"
+  class="bar flex row justify-center"
+>
+  <button
+    mat-icon-button
+    (click)="playerService.playPause()"
+  >
     @if (audioService.isPlaying()) {
-      <mat-icon matTooltip="Pause" svgIcon="pause" />
+      <mat-icon
+        matTooltip="Pause"
+        svgIcon="pause"
+      />
     } @else {
-      <mat-icon matTooltip="Play" svgIcon="play" />
+      <mat-icon
+        matTooltip="Play"
+        svgIcon="play"
+      />
     }
   </button>
 
-  <button mat-icon-button (click)="playerService.stop()">
-    <mat-icon matTooltip="Stop" svgIcon="stop" />
+  <button
+    mat-icon-button
+    (click)="playerService.stop()"
+  >
+    <mat-icon
+      matTooltip="Stop"
+      svgIcon="stop"
+    />
   </button>
 
-  <button class="no-mobile" mat-icon-button (click)="playerService.previous()">
-    <mat-icon matTooltip="Previous" svgIcon="skip-previous" />
+  <button
+    class="no-mobile"
+    mat-icon-button
+    (click)="playerService.previous()"
+  >
+    <mat-icon
+      matTooltip="Previous"
+      svgIcon="skip-previous"
+    />
   </button>
-  <button class="no-mobile" mat-icon-button (click)="playerService.next()">
-    <mat-icon matTooltip="Next" svgIcon="skip-next" />
+  <button
+    class="no-mobile"
+    mat-icon-button
+    (click)="playerService.next()"
+  >
+    <mat-icon
+      matTooltip="Next"
+      svgIcon="skip-next"
+    />
   </button>
 
-  <button mat-icon-button id="load_files" [matMenuTriggerFor]="fileMenu" [disabled]="metadataService.processing()">
-    <mat-icon matTooltip="Load folder/files..." svgIcon="folder-music-outline" />
+  <button
+    mat-icon-button
+    id="load_files"
+    [matMenuTriggerFor]="fileMenu"
+    [disabled]="metadataService.processing()"
+  >
+    <mat-icon
+      matTooltip="Load folder/files..."
+      svgIcon="folder-music-outline"
+    />
   </button>
   <mat-menu #fileMenu="matMenu">
-    <button id="load_files_menu" mat-menu-item (click)="showFilePickerAndLoadFiles()">
+    <button
+      id="load_files_menu"
+      mat-menu-item
+      (click)="showFilePickerAndLoadFiles()"
+    >
       <mat-icon svgIcon="folder-music-outline" />
       <span>Load folder/files...</span>
     </button>
     @if (fileLoaderService.currentFolderHandle()) {
-      <button mat-menu-item (click)="loadLastDirectory()">
+      <button
+        mat-menu-item
+        (click)="loadLastDirectory()"
+      >
         <mat-icon svgIcon="folder-music-outline" />
         <span>Load last directory</span>
       </button>
@@ -36,42 +83,96 @@
 
   <!-- TODO: The 'tickInterval' property no longer exists -->
   @if (playerService.currentlyLoadedTrack()) {
-    <mat-slider class="flex-grow" min="0" step="1" discrete color="accent" [max]="playerService.durationSeconds()" [displayWith]="formatLabel"
-      ><input #ngSliderThumb="matSliderThumb" matSliderThumb [value]="playerService.currentTime()" (valueChange)="onSliderPositionChanged(ngSliderThumb.value)"
+    <mat-slider
+      class="flex-grow"
+      min="0"
+      step="1"
+      discrete
+      color="accent"
+      [max]="playerService.durationSeconds()"
+      [displayWith]="formatLabel"
+      ><input
+        #ngSliderThumb="matSliderThumb"
+        matSliderThumb
+        [value]="playerService.currentTime()"
+        (valueChange)="onSliderPositionChanged(ngSliderThumb.value)"
     /></mat-slider>
   } @else {
     <div class="flex-grow"></div>
   }
 
   <div class="no-mobile standard-font time-display">
-    <p>{{ playerService.currentTime() | time }} / {{ this.playerService.durationSeconds() | time }}</p>
+    <p>
+      {{ playerService.currentTime() | time }} /
+      {{ this.playerService.durationSeconds() | time }}
+    </p>
   </div>
 
-  <button mat-icon-button id="volume_button" [matMenuTriggerFor]="volumeMenu">
-    <mat-icon [matTooltip]="`Volume: ${(audioService.volume() * 100).toFixed(0)}`" [svgIcon]="volumeIcon()" />
+  <button
+    mat-icon-button
+    id="volume_button"
+    [matMenuTriggerFor]="volumeMenu"
+  >
+    <mat-icon
+      [matTooltip]="`Volume: ${(audioService.volume() * 100).toFixed(0)}`"
+      [svgIcon]="volumeIcon()"
+    />
   </button>
-  <button mat-icon-button [class.disabled-color]="!playerService.shuffle()" (click)="toggleShuffle()">
-    <mat-icon svgIcon="shuffle-variant" [matTooltip]="playerService.shuffle() ? 'Shuffle on' : 'Shuffle off'" />
+  <button
+    mat-icon-button
+    [class.disabled-color]="!playerService.shuffle()"
+    (click)="toggleShuffle()"
+  >
+    <mat-icon
+      svgIcon="shuffle-variant"
+      [matTooltip]="playerService.shuffle() ? 'Shuffle on' : 'Shuffle off'"
+    />
   </button>
-  <button mat-icon-button [class.disabled-color]="playerService.repeat() === 'off'" (click)="toggleRepeat()">
+  <button
+    mat-icon-button
+    [class.disabled-color]="playerService.repeat() === 'off'"
+    (click)="toggleRepeat()"
+  >
     @switch (playerService.repeat()) {
       @case ('off') {
-        <mat-icon matTooltip="Repeat off" svgIcon="repeat-off" />
+        <mat-icon
+          matTooltip="Repeat off"
+          svgIcon="repeat-off"
+        />
       }
       @case ('all') {
-        <mat-icon matTooltip="Repeat all" svgIcon="repeat" />
+        <mat-icon
+          matTooltip="Repeat all"
+          svgIcon="repeat"
+        />
       }
       @case ('one') {
-        <mat-icon matTooltip="Repeat one" svgIcon="repeat-once" />
+        <mat-icon
+          matTooltip="Repeat one"
+          svgIcon="repeat-once"
+        />
       }
     }
   </button>
 
-  <mat-menu #volumeMenu="matMenu" class="volume-menu" yPosition="above">
+  <mat-menu
+    #volumeMenu="matMenu"
+    class="volume-menu"
+    yPosition="above"
+  >
     <div class="vertical-slider-container">
       <div class="vertical-slider">
-        <mat-slider class="volume-slider" id="volume_slider" min="0" max="1" step="0.01"
-          ><input #volumeSlider="matSliderThumb" matSliderThumb [value]="audioService.volume()" (input)="onVolumeChange(volumeSlider.value)"
+        <mat-slider
+          class="volume-slider"
+          id="volume_slider"
+          min="0"
+          max="1"
+          step="0.01"
+          ><input
+            #volumeSlider="matSliderThumb"
+            matSliderThumb
+            [value]="audioService.volume()"
+            (input)="onVolumeChange(volumeSlider.value)"
         /></mat-slider>
       </div>
     </div>

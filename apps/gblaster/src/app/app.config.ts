@@ -25,8 +25,19 @@ export const appConfig: ApplicationConfig = {
     provideZonelessChangeDetection(),
     provideBrowserGlobalErrorListeners(),
     provideIndexedDb(databaseConfig),
-    provideServiceWorker('ngsw-worker.js', { enabled: environment.production, registrationStrategy: 'registerImmediately', type: 'module' }),
-    provideNgxWebstorage(withNgxWebstorageConfig({ separator: '|', caseSensitive: true, prefix: 'gblaster' }), withLocalStorage()),
+    provideServiceWorker('ngsw-worker.js', {
+      enabled: environment.production,
+      registrationStrategy: 'registerImmediately',
+      type: 'module'
+    }),
+    provideNgxWebstorage(
+      withNgxWebstorageConfig({
+        separator: '|',
+        caseSensitive: true,
+        prefix: 'gblaster'
+      }),
+      withLocalStorage()
+    ),
     provideHttpClient(withInterceptors([loaderInterceptor]), withFetch()),
     provideRouter(routes, withEnabledBlockingInitialNavigation(), withViewTransitions()),
     {
@@ -40,7 +51,11 @@ export const appConfig: ApplicationConfig = {
     { provide: MediaSessionService, useFactory: mediaSessionServiceFactory },
     {
       provide: MAT_TOOLTIP_DEFAULT_OPTIONS,
-      useValue: { showDelay: 800, position: 'above', disableTooltipInteractivity: true }
+      useValue: {
+        showDelay: 800,
+        position: 'above',
+        disableTooltipInteractivity: true
+      }
     }
   ]
 };

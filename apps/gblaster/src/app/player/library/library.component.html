@@ -1,23 +1,41 @@
 <div class="artists searchbox">
-  <cdk-virtual-scroll-viewport class="virtual-scroll-viewport" itemSize="32">
+  <cdk-virtual-scroll-viewport
+    class="virtual-scroll-viewport"
+    itemSize="32"
+  >
     <mat-nav-list>
       <mat-list-item (click)="selectArtist(undefined)">
         @if (libraryService.isLoading()) {
           <span matListItemIcon>
-            <mat-spinner color="accent" diameter="24" strokeWidth="5" />
+            <mat-spinner
+              color="accent"
+              diameter="24"
+              strokeWidth="5"
+            />
           </span>
         }
         <span matListItemTitle>ALL ({{ uniqueArtists().length }}) </span>
         <span matListItemMeta>
           <button mat-icon-button>
-            <mat-icon svgIcon="dots-vertical" [matMenuTriggerFor]="artistContextMenu" [matMenuTriggerData]="{ artist: undefined }" />
+            <mat-icon
+              svgIcon="dots-vertical"
+              [matMenuTriggerFor]="artistContextMenu"
+              [matMenuTriggerData]="{ artist: undefined }"
+            />
           </button> </span
       ></mat-list-item>
-      <mat-list-item *cdkVirtualFor="let artist of uniqueArtists(); trackBy: trackByArtist" (click)="selectArtist(artist)">
+      <mat-list-item
+        *cdkVirtualFor="let artist of uniqueArtists(); trackBy: trackByArtist"
+        (click)="selectArtist(artist)"
+      >
         <span matListItemTitle>{{ artist }}</span>
         <span matListItemMeta>
           <button mat-icon-button>
-            <mat-icon svgIcon="dots-vertical" [matMenuTriggerFor]="artistContextMenu" [matMenuTriggerData]="{ artist: artist }" />
+            <mat-icon
+              svgIcon="dots-vertical"
+              [matMenuTriggerFor]="artistContextMenu"
+              [matMenuTriggerData]="{ artist: artist }"
+            />
           </button>
         </span>
       </mat-list-item>
@@ -25,37 +43,70 @@
   </cdk-virtual-scroll-viewport>
   <!-- Artist Context Menu -->
   <mat-menu #artistContextMenu="matMenu">
-    <ng-template let-artist="artist" matMenuContent>
-      <button mat-menu-item (click)="addArtistToPlaylist(artist)">Add to Playlist</button>
+    <ng-template
+      let-artist="artist"
+      matMenuContent
+    >
+      <button
+        mat-menu-item
+        (click)="addArtistToPlaylist(artist)"
+      >
+        Add to Playlist
+      </button>
     </ng-template>
   </mat-menu>
 </div>
 
 <div class="albums searchbox">
-  <cdk-virtual-scroll-viewport class="virtual-scroll-viewport" itemSize="32">
+  <cdk-virtual-scroll-viewport
+    class="virtual-scroll-viewport"
+    itemSize="32"
+  >
     <mat-nav-list>
       <mat-list-item (click)="selectAlbum(undefined)">
         @if (libraryService.isLoading()) {
           <span matListItemIcon>
-            <mat-spinner color="accent" diameter="24" strokeWidth="5" />
+            <mat-spinner
+              color="accent"
+              diameter="24"
+              strokeWidth="5"
+            />
           </span>
         }
         <span matListItemTitle>ALL ({{ uniqueAlbums().length }})</span>
         <span matListItemMeta>
           <button mat-icon-button>
-            <mat-icon svgIcon="dots-vertical" [matMenuTriggerFor]="artistContextMenu" [matMenuTriggerData]="{ album: undefined }" />
+            <mat-icon
+              svgIcon="dots-vertical"
+              [matMenuTriggerFor]="artistContextMenu"
+              [matMenuTriggerData]="{ album: undefined }"
+            />
           </button> </span
       ></mat-list-item>
-      <mat-list-item *cdkVirtualFor="let album of uniqueAlbums(); trackBy: trackByAlbum" (click)="selectAlbum(album.name)">
-        <div matListItemAvatar class="library-item-avatar">
+      <mat-list-item
+        *cdkVirtualFor="let album of uniqueAlbums(); trackBy: trackByAlbum"
+        (click)="selectAlbum(album.name)"
+      >
+        <div
+          matListItemAvatar
+          class="library-item-avatar"
+        >
           @if (album && album.coverUrl) {
-            <img class="library-item-cover" fill [src]="album.coverUrl.thumbUrl | safe: 'resourceUrl'" />
+            <img
+              class="library-item-cover"
+              fill
+              [src]="album.coverUrl.thumbUrl | safe: 'resourceUrl'"
+            />
           }
         </div>
         <span matListItemTitle>{{ album.name }}{{ album.year ? ` | ${album.year}` : '' }}</span>
         <span matListItemMeta>
           <button mat-icon-button>
-            <mat-icon svgIcon="dots-vertical" [matMenuTriggerFor]="albumContextMenu" [matMenuTriggerData]="{ album: album }" />
+            <mat-icon
+              svgIcon="dots-vertical"
+              [matMenuTriggerFor]="albumContextMenu"
+              [matMenuTriggerData]="{ album: album }"
+            />
           </button>
         </span>
       </mat-list-item>
@@ -63,32 +114,62 @@
   </cdk-virtual-scroll-viewport>
   <!-- Album Context Menu -->
   <mat-menu #albumContextMenu="matMenu">
-    <ng-template let-album="album" matMenuContent>
-      <button mat-menu-item (click)="addAlbumToPlaylist(album)">Add to Playlist</button>
+    <ng-template
+      let-album="album"
+      matMenuContent
+    >
+      <button
+        mat-menu-item
+        (click)="addAlbumToPlaylist(album)"
+      >
+        Add to Playlist
+      </button>
     </ng-template>
   </mat-menu>
 </div>
 
 <div class="tracks searchbox">
-  <cdk-virtual-scroll-viewport class="virtual-scroll-viewport" itemSize="32">
+  <cdk-virtual-scroll-viewport
+    class="virtual-scroll-viewport"
+    itemSize="32"
+  >
     <mat-nav-list>
       <mat-list-item (click)="selectTrack(undefined)">
         @if (libraryService.isLoading()) {
           <span matListItemIcon>
-            <mat-spinner color="accent" diameter="24" strokeWidth="5" />
+            <mat-spinner
+              color="accent"
+              diameter="24"
+              strokeWidth="5"
+            />
           </span>
         }
         <span matListItemTitle>ALL ({{ tracks().length }})</span>
         <span matListItemMeta>
           <button mat-icon-button>
-            <mat-icon svgIcon="dots-vertical" [matMenuTriggerFor]="artistContextMenu" [matMenuTriggerData]="{ track: undefined }" />
+            <mat-icon
+              svgIcon="dots-vertical"
+              [matMenuTriggerFor]="artistContextMenu"
+              [matMenuTriggerData]="{ track: undefined }"
+            />
           </button>
         </span>
       </mat-list-item>
-      <mat-list-item *cdkVirtualFor="let track of tracks(); trackBy: trackByHash" (click)="selectTrack(track)" (dblclick)="playTrack(track)">
-        <div matListItemAvatar class="library-item-avatar">
+      <mat-list-item
+        *cdkVirtualFor="let track of tracks(); trackBy: trackByHash"
+        (click)="selectTrack(track)"
+        (dblclick)="playTrack(track)"
+      >
+        <div
+          matListItemAvatar
+          class="library-item-avatar"
+        >
           @if (track && track.coverUrl) {
-            <img class="library-item-cover" fill [src]="track.coverUrl.thumbUrl | safe: 'resourceUrl'" />
+            <img
+              class="library-item-cover"
+              fill
+              [src]="track.coverUrl.thumbUrl | safe: 'resourceUrl'"
+            />
           }
         </div>
         @if (selectedAlbum()) {
@@ -98,7 +179,11 @@
         }
         <span matListItemMeta>
           <button mat-icon-button>
-            <mat-icon svgIcon="dots-vertical" [matMenuTriggerFor]="trackContextMenu" [matMenuTriggerData]="{ track: track }" />
+            <mat-icon
+              svgIcon="dots-vertical"
+              [matMenuTriggerFor]="trackContextMenu"
+              [matMenuTriggerData]="{ track: track }"
+            />
           </button>
         </span>
       </mat-list-item>
@@ -106,17 +191,39 @@
   </cdk-virtual-scroll-viewport>
   <!--Track Context Menu -->
   <mat-menu #trackContextMenu="matMenu">
-    <ng-template let-track="track" matMenuContent>
-      <button mat-menu-item (click)="addTrackToPlaylist(track)">Add to Playlist</button>
+    <ng-template
+      let-track="track"
+      matMenuContent
+    >
+      <button
+        mat-menu-item
+        (click)="addTrackToPlaylist(track)"
+      >
+        Add to Playlist
+      </button>
     </ng-template>
   </mat-menu>
 </div>
 
-<mat-form-field appearance="fill" class="searchinput">
-  <mat-icon matPrefix svgIcon="search" />
-  <input matInput [ngModel]="searchTerm()" (ngModelChange)="searchTerm.set($event)" />
+<mat-form-field
+  appearance="fill"
+  class="searchinput"
+>
+  <mat-icon
+    matPrefix
+    svgIcon="search"
+  />
+  <input
+    matInput
+    [ngModel]="searchTerm()"
+    (ngModelChange)="searchTerm.set($event)"
+  />
   @if (searchTerm()) {
-    <button matSuffix mat-icon-button (click)="searchTerm.set('')">
+    <button
+      matSuffix
+      mat-icon-button
+      (click)="searchTerm.set('')"
+    >
       <mat-icon svgIcon="close-thick" />
     </button>
   }

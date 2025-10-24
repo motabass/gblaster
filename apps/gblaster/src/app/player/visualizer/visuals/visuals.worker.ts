@@ -1,4 +1,10 @@
-import type { BarsVisualizerOptions, OscVisualizerOptions, VisualizerMode, VisualizerOptions, VisualsWorkerMessage } from './visuals.types';
+import type {
+  BarsVisualizerOptions,
+  OscVisualizerOptions,
+  VisualizerMode,
+  VisualizerOptions,
+  VisualsWorkerMessage
+} from './visuals.types';
 
 let mode: VisualizerMode = 'off';
 let canvas: OffscreenCanvas;
@@ -290,7 +296,13 @@ function drawCircularBars() {
     // Add caps at the end of each line
     if (value > 0.05) {
       context.beginPath();
-      context.arc(centerX + outerRadius * Math.cos(angle), centerY + outerRadius * Math.sin(angle), lineWidth / 2, 0, Math.PI * 2);
+      context.arc(
+        centerX + outerRadius * Math.cos(angle),
+        centerY + outerRadius * Math.sin(angle),
+        lineWidth / 2,
+        0,
+        Math.PI * 2
+      );
       context.fillStyle = peakColor;
       context.fill();
     }

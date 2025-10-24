@@ -82,7 +82,9 @@ export class MetadataService {
     const hash = await generateFileHash(fileData.file);
 
     if (this.useTagsCache()) {
-      const metadataCache: TrackMetadata = await firstValueFrom(this.indexedDBService.getByKey<IndexedDbTrackMetadata>('library', hash));
+      const metadataCache: TrackMetadata = await firstValueFrom(
+        this.indexedDBService.getByKey<IndexedDbTrackMetadata>('library', hash)
+      );
 
       if (metadataCache) {
         if (
@@ -91,7 +93,11 @@ export class MetadataService {
           (metadataCache.coverUrl.thumbUrl === this.PLACEHOLDER_URL || this.preferTagEmbeddedPicture())
         ) {
           // renew local object urls
-          const url = URL.createObjectURL(new Blob([metadataCache.embeddedPicture.data], { type: metadataCache.embeddedPicture.format }));
+          const url = URL.createObjectURL(
+            new Blob([metadataCache.embeddedPicture.data], {
+              type: metadataCache.embeddedPicture.format
+            })
+          );
           return {
             ...metadataCache,
             coverUrl: { thumbUrl: url, originalUrl: url } // overwrite remote url with objectUrl for tag cover art
@@ -132,7 +138,10 @@ export class MetadataService {
       hash: hash,
       fileName: fileData.file.name,
       fileHandle: fileData.fileHandle,
-      coverUrl: coverUrls ?? { thumbUrl: this.PLACEHOLDER_URL, originalUrl: this.PLACEHOLDER_URL },
+      coverUrl: coverUrls ?? {
+        thumbUrl: this.PLACEHOLDER_URL,
+        originalUrl: this.PLACEHOLDER_URL
+      },
       embeddedPicture: tags.picture,
       coverColors: palette || {},
       artist: tags.artist,
@@ -150,7 +159,11 @@ export class MetadataService {
   }
 
   createObjectUrlForEmbeddedPicture(meta: TrackMetadata): TrackMetadata {
-    if (meta.embeddedPicture && this.useTagEmbeddedPicture() && (meta.coverUrl.originalUrl === this.PLACEHOLDER_URL || this.preferTagEmbeddedPicture())) {
+    if (
+      meta.embeddedPicture &&
+      this.useTagEmbeddedPicture() &&
+      (meta.coverUrl.originalUrl === this.PLACEHOLDER_URL || this.preferTagEmbeddedPicture())
+    ) {
       // renew local object urls
       if (meta.coverUrl?.originalUrl?.startsWith('blob:')) {
         URL.revokeObjectURL(meta.coverUrl.originalUrl);
@@ -159,7 +172,11 @@ export class MetadataService {
         URL.revokeObjectURL(meta.coverUrl.thumbUrl);
       }
       // TODO: Erst kreieren wenn gebraucht!
-      const url = URL.createObjectURL(new Blob([meta.embeddedPicture.data], { type: meta.embeddedPicture.format }));
+      const url = URL.createObjectURL(
+        new Blob([meta.embeddedPicture.data], {
+          type: meta.embeddedPicture.format
+        })
+      );
       return {
         ...meta,
         coverUrl: { thumbUrl: url, originalUrl: url } // overwrite remote url with objectUrl for tag cover art
@@ -227,12 +244,30 @@ async function extractColorsWithNodeVibrant(url: string): Promise<CoverColorPale
   try {
     const palette = await Vibrant.from(url).getPalette();
     return {
-      vibrant: { hex: palette.Vibrant?.hex, textHex: palette.Vibrant?.titleTextColor },
-      darkVibrant: { hex: palette.DarkVibrant?.hex, textHex: palette.DarkVibrant?.titleTextColor },
-      lightVibrant: { hex: palette.LightVibrant?.hex, textHex: palette.LightVibrant?.titleTextColor },
-      muted: { hex: palette.Muted?.hex, textHex: palette.Muted?.titleTextColor },
-      darkMuted: { hex: palette.DarkMuted?.hex, textHex: palette.DarkMuted?.titleTextColor },
-      lightMuted: { hex: palette.LightMuted?.hex, textHex: palette.LightMuted?.titleTextColor }
+      vibrant: {
+        hex: palette.Vibrant?.hex,
+        textHex: palette.Vibrant?.titleTextColor
+      },
+      darkVibrant: {
+        hex: palette.DarkVibrant?.hex,
+        textHex: palette.DarkVibrant?.titleTextColor
+      },
+      lightVibrant: {
+        hex: palette.LightVibrant?.hex,
+        textHex: palette.LightVibrant?.titleTextColor
+      },
+      muted: {
+        hex: palette.Muted?.hex,
+        textHex: palette.Muted?.titleTextColor
+      },
+      darkMuted: {
+        hex: palette.DarkMuted?.hex,
+        textHex: palette.DarkMuted?.titleTextColor
+      },
+      lightMuted: {
+        hex: palette.LightMuted?.hex,
+        textHex: palette.LightMuted?.titleTextColor
+      }
     };
   } catch (error) {
     console.error('Error extracting colors with Vibrant:', error);

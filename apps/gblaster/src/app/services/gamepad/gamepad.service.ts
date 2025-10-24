@@ -1,5 +1,13 @@
 import { Injectable, OnDestroy } from '@angular/core';
-import { ActionCache, ActionFunction, AxisGamepadAction, ButtonGamepadAction, GamepadAxes, GamepadButtons, InputCheckMode } from './gamepad.types';
+import {
+  ActionCache,
+  ActionFunction,
+  AxisGamepadAction,
+  ButtonGamepadAction,
+  GamepadAxes,
+  GamepadButtons,
+  InputCheckMode
+} from './gamepad.types';
 
 @Injectable({
   providedIn: 'root'
@@ -105,7 +113,12 @@ export class GamepadService implements OnDestroy {
     }
   }
 
-  registerButtonAction(buttonIndex: number, actionFunction: ActionFunction, mode: InputCheckMode = 'click', timeout = this.DEFAULT_TURBO_TIMEOUT) {
+  registerButtonAction(
+    buttonIndex: number,
+    actionFunction: ActionFunction,
+    mode: InputCheckMode = 'click',
+    timeout = this.DEFAULT_TURBO_TIMEOUT
+  ) {
     if (!this.buttonActions[buttonIndex].default) {
       console.warn('Diesem Button wurde bereits eine Action zugewiesen.');
     }
@@ -166,12 +179,18 @@ export class GamepadService implements OnDestroy {
     if (button.pressed) {
       if (buttonCache) {
         const timeout = this.buttonActions[buttonIndex].timeout ?? this.DEFAULT_TURBO_TIMEOUT;
-        if (this.buttonActions[buttonIndex].mode === 'turbo' && performance.now() - buttonCache.lastActionExecution > timeout) {
+        if (
+          this.buttonActions[buttonIndex].mode === 'turbo' &&
+          performance.now() - buttonCache.lastActionExecution > timeout
+        ) {
           buttonCache.lastActionExecution = performance.now();
           this.fireButtonAction(buttonIndex, button.value);
         }
       } else {
-        cache.push({ index: buttonIndex, lastActionExecution: performance.now() });
+        cache.push({
+          index: buttonIndex,
+          lastActionExecution: performance.now()
+        });
         this.fireButtonAction(buttonIndex, button.value);
       }
     } else {
@@ -217,7 +236,10 @@ export class GamepadService implements OnDestroy {
           this.fireAxisAction(axisIndex, axis.valueOf());
         }
       } else {
-        cache.push({ index: axisIndex, lastActionExecution: performance.now() });
+        cache.push({
+          index: axisIndex,
+          lastActionExecution: performance.now()
+        });
         this.fireAxisAction(axisIndex, axis.valueOf());
       }
     } else {

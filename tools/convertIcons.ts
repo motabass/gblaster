@@ -1,6 +1,6 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import { optimize, loadConfig } from 'svgo';
+import { loadConfig, optimize } from 'svgo';
 
 const optimizeSvg = async (svg: string): Promise<string> => {
   try {
@@ -41,7 +41,9 @@ const convertToIconSet = async (svgFilesFolder: string, svgMapFile: string): Pro
   const finalIconSetSvgString = `<svg><defs>${iconSetSvgStrings.join('')}</defs></svg>`;
 
   try {
-    fs.writeFileSync(path.join(svgMapFile), finalIconSetSvgString, { encoding: 'utf8' });
+    fs.writeFileSync(path.join(svgMapFile), finalIconSetSvgString, {
+      encoding: 'utf8'
+    });
   } catch (err) {
     console.error('Error writing SVG file:', err);
     throw err;

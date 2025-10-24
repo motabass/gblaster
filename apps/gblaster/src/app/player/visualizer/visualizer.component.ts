@@ -5,19 +5,16 @@ import { VisualsService } from './visuals/visuals.service';
 import { GamepadService } from '../../services/gamepad/gamepad.service';
 import { GamepadButtons } from '../../services/gamepad/gamepad.types';
 import { AudioService } from '../audio.service';
-import { MatTooltipModule } from '@angular/material/tooltip';
-import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
-import { MatSliderModule } from '@angular/material/slider';
-import { MatOptionModule } from '@angular/material/core';
-import { MatSelectModule } from '@angular/material/select';
 import { SlidePanelComponent } from '@motabass/ui-components/slide-panel';
 import { VisualsDirective } from './visuals/visuals.directive';
 import { PlayerService } from '../player.service';
+import { MatOption, MatSelect } from '@angular/material/select';
+import { MatSlider, MatSliderThumb } from '@angular/material/slider';
+import { MatIcon } from '@angular/material/icon';
 
 @Component({
   selector: 'mtb-visualizer',
-  imports: [VisualsDirective, SlidePanelComponent, MatSelectModule, MatOptionModule, MatSliderModule, MatButtonModule, MatIconModule, MatTooltipModule],
+  imports: [VisualsDirective, SlidePanelComponent, MatSelect, MatOption, MatSlider, MatSliderThumb, MatIcon],
   templateUrl: './visualizer.component.html',
   styleUrl: './visualizer.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -49,7 +46,9 @@ export class VisualizerComponent implements OnDestroy {
     this.analyser.minDecibels = this.minDb();
     this.analyser.maxDecibels = 220;
 
-    this.gamepadService?.registerButtonAction(GamepadButtons.SELECT_BUTTON, () => this.visualsService.toggleVisualMode());
+    this.gamepadService?.registerButtonAction(GamepadButtons.SELECT_BUTTON, () =>
+      this.visualsService.toggleVisualMode()
+    );
   }
 
   ngOnDestroy(): void {
@@ -66,7 +65,12 @@ export class VisualizerComponent implements OnDestroy {
   });
 
   readonly barsConfig = computed<FrequencyBarsConfig>(() => {
-    return { barCount: this.barCount(), capHeight: this.capHeight(), gap: this.gap(), capFalldown: this.capFalldown() };
+    return {
+      barCount: this.barCount(),
+      capHeight: this.capHeight(),
+      gap: this.gap(),
+      capFalldown: this.capFalldown()
+    };
   });
 
   readonly oscConfig = computed<OsciloscopeConfig>(() => {

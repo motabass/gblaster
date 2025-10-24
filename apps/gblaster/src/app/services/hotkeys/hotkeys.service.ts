@@ -54,7 +54,11 @@ export class HotkeysService {
       return;
     }
 
-    const merged = { ...this.defaults, ...options, keys: options.keys.replaceAll('+', '.') };
+    const merged = {
+      ...this.defaults,
+      ...options,
+      keys: options.keys.replaceAll('+', '.')
+    };
     const event = `keydown.${merged.keys}`;
 
     const observable = new Observable((observer) => {
@@ -79,7 +83,10 @@ export class HotkeysService {
     });
 
     const sub = observable.subscribe(options.callback);
-    this.hotkeys.set(merged.keys, { description: merged.description ?? '', subscription: sub });
+    this.hotkeys.set(merged.keys, {
+      description: merged.description ?? '',
+      subscription: sub
+    });
 
     return merged.keys;
   }

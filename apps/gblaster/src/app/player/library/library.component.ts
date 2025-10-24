@@ -82,7 +82,9 @@ export default class LibraryComponent {
     let filtered = this.filteredBySerchterm();
     const artist = this.selectedArtist();
 
-    filtered = artist ? filtered.filter((item) => item.artist === artist && !!item.album) : filtered.filter((item) => !!item.album);
+    filtered = artist
+      ? filtered.filter((item) => item.artist === artist && !!item.album)
+      : filtered.filter((item) => !!item.album);
 
     // Map to store unique albums by name
     const albumMap = new Map<string, Album>();

@@ -1,4 +1,14 @@
-import { ChangeDetectionStrategy, Component, computed, DestroyRef, effect, inject, signal, Signal, viewChild } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  DestroyRef,
+  effect,
+  inject,
+  signal,
+  Signal,
+  viewChild
+} from '@angular/core';
 import { PlayerService } from '../player.service';
 import { Track } from '../player.types';
 import { AudioService } from '../audio.service';
@@ -142,14 +152,18 @@ export class PlaylistComponent {
   isActive(song: Track): Signal<boolean> {
     return computed(() => {
       return (
-        (this.audioService.isPlaying() || this.audioService.isPaused()) && this.playerService.currentlyLoadedTrack()?.metadata?.hash === song.metadata?.hash
+        (this.audioService.isPlaying() || this.audioService.isPaused()) &&
+        this.playerService.currentlyLoadedTrack()?.metadata?.hash === song.metadata?.hash
       );
     });
   }
 
   isPlaying(song: Track): Signal<boolean> {
     return computed(() => {
-      return this.audioService.isPlaying() && this.playerService.currentlyLoadedTrack()?.metadata?.hash === song.metadata?.hash;
+      return (
+        this.audioService.isPlaying() &&
+        this.playerService.currentlyLoadedTrack()?.metadata?.hash === song.metadata?.hash
+      );
     });
   }
 

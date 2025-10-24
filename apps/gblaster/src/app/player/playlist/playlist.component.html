@@ -1,14 +1,23 @@
-<cdk-virtual-scroll-viewport #scrollViewport itemSize="72" class="playlist-viewport">
+<cdk-virtual-scroll-viewport
+  #scrollViewport
+  itemSize="72"
+  class="playlist-viewport"
+>
   <mat-list class="playlist">
     <mat-list-item
       *cdkVirtualFor="let song of playerService.currentPlaylist(); trackBy: trackByHash"
       class="playlist-item"
-      [ngClass]="{ selected: this.playerService.selectedTrack()?.metadata?.hash === song.metadata.hash }"
+      [ngClass]="{
+        selected: this.playerService.selectedTrack()?.metadata?.hash === song.metadata.hash
+      }"
       (dblclick)="playPauseSong($event, song)"
       (click)="playerService.selectSong(song)"
       (contextmenu)="onContextMenu($event, song)"
     >
-      <div matListItemAvatar class="playlist-item-avatar">
+      <div
+        matListItemAvatar
+        class="playlist-item-avatar"
+      >
         @if (song && song.metadata && song.metadata.coverUrl) {
           <img
             class="playlist-item-cover"
@@ -19,16 +28,39 @@
         }
         @let songPlaying = isPlaying(song)();
         @if (songPlaying) {
-          <canvas mtbVisual mode="osc" class="playlist-item-visualizer" [colorConfig]="playerService.colorConfig()" [oscConfig]="{ thickness: 2 }"></canvas>
+          <canvas
+            mtbVisual
+            mode="osc"
+            class="playlist-item-visualizer"
+            [colorConfig]="playerService.colorConfig()"
+            [oscConfig]="{ thickness: 2 }"
+          ></canvas>
         }
       </div>
 
-      <h3 matListItemTitle class="playlist-item-title">{{ song?.metadata?.title || song.file.name }}</h3>
-      <p matListItemLine class="playlist-item-artist">{{ song?.metadata?.artist }}</p>
+      <h3
+        matListItemTitle
+        class="playlist-item-title"
+      >
+        {{ song?.metadata?.title || song.file.name }}
+      </h3>
+      <p
+        matListItemLine
+        class="playlist-item-artist"
+      >
+        {{ song?.metadata?.artist }}
+      </p>
 
       @if (isActive(song)()) {
-        <button matListItemMeta mat-icon-button (click)="playPauseSong($event, song)">
-          <mat-icon class="accent-color" [svgIcon]="songPlaying ? 'pause' : 'play-outline'" />
+        <button
+          matListItemMeta
+          mat-icon-button
+          (click)="playPauseSong($event, song)"
+        >
+          <mat-icon
+            class="accent-color"
+            [svgIcon]="songPlaying ? 'pause' : 'play-outline'"
+          />
         </button>
       }
     </mat-list-item>
@@ -37,13 +69,22 @@
 
 <!-- Context menu trigger-->
 <div class="context-menu-trigger">
-  <span #menuTrigger="matMenuTrigger" [matMenuTriggerFor]="songMenu"></span>
+  <span
+    #menuTrigger="matMenuTrigger"
+    [matMenuTriggerFor]="songMenu"
+  ></span>
 </div>
 
 <!-- Context Menu -->
 <mat-menu #songMenu="matMenu">
-  <ng-template let-song="song" matMenuContent>
-    <button mat-menu-item (click)="playerService.removeTrackFromPlaylist(song)">
+  <ng-template
+    let-song="song"
+    matMenuContent
+  >
+    <button
+      mat-menu-item
+      (click)="playerService.removeTrackFromPlaylist(song)"
+    >
       <mat-icon svgIcon="close-thick" />
       <span>Remove from playlist</span>
     </button>

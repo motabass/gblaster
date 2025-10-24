@@ -79,7 +79,10 @@ export class LastfmMetadataService {
     }
 
     // Find images by size
-    const smallImage = images.find((img) => img.size === 'small')?.['#text'] || images.find((img) => img.size === 'medium')?.['#text'] || images[0]?.['#text'];
+    const smallImage =
+      images.find((img) => img.size === 'small')?.['#text'] ||
+      images.find((img) => img.size === 'medium')?.['#text'] ||
+      images[0]?.['#text'];
 
     const largeImage =
       images.find((img) => img.size === 'mega')?.['#text'] ||

@@ -8,51 +8,94 @@
     [opened]="!isHandset()"
   >
     <mat-toolbar color="primary">
-      <mat-icon aria-label="Side nav toggle icon" svgIcon="radio" class="nav-icon" />
+      <mat-icon
+        aria-label="Side nav toggle icon"
+        svgIcon="radio"
+        class="nav-icon"
+      />
       <span class="title">{{ titleService.title() }}</span>
     </mat-toolbar>
     <mat-nav-list>
-      <mat-list-item (click)="navigateTo('/player')"> <mat-icon matListItemIcon svgIcon="record-player" /><span matListItemTitle> Player</span></mat-list-item>
+      <mat-list-item (click)="navigateTo('/player')">
+        <mat-icon
+          matListItemIcon
+          svgIcon="record-player"
+        /><span matListItemTitle> Player</span></mat-list-item
+      >
       <mat-list-item (click)="navigateTo('/player/eq')">
-        <mat-icon matListItemIcon svgIcon="tune-vertical" /><span matListItemTitle> Equalizer</span></mat-list-item
+        <mat-icon
+          matListItemIcon
+          svgIcon="tune-vertical"
+        /><span matListItemTitle> Equalizer</span></mat-list-item
       >
       <mat-list-item (click)="navigateTo('/player/library')"
-        ><mat-icon matListItemIcon svgIcon="music-box-multiple-outline" /><span matListItemTitle> Library</span></mat-list-item
+        ><mat-icon
+          matListItemIcon
+          svgIcon="music-box-multiple-outline"
+        /><span matListItemTitle> Library</span></mat-list-item
       >
       <mat-list-item (click)="navigateTo('/settings')">
-        <mat-icon matListItemIcon svgIcon="cog-outline" /><span matListItemTitle> Settings</span></mat-list-item
+        <mat-icon
+          matListItemIcon
+          svgIcon="cog-outline"
+        /><span matListItemTitle> Settings</span></mat-list-item
       >
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content class="sidenav-content">
     <mat-toolbar class="header">
       @if (isHandset()) {
-        <button id="sidenav_menu_button" type="button" aria-label="Toggle sidenav" mat-icon-button class="menu-button" (click)="drawer.toggle()">
-          <mat-icon aria-label="Side nav toggle icon" class="logo-icon" svgIcon="logo" />
+        <button
+          id="sidenav_menu_button"
+          type="button"
+          aria-label="Toggle sidenav"
+          mat-icon-button
+          class="menu-button"
+          (click)="drawer.toggle()"
+        >
+          <mat-icon
+            aria-label="Side nav toggle icon"
+            class="logo-icon"
+            svgIcon="logo"
+          />
         </button>
       }
       <span class="title">{{ titleService.title() }}</span>
 
       @if (loaderService.isLoading()) {
-        <mat-spinner class="loading-spinner" color="accent" diameter="32" strokeWidth="6" />
+        <mat-spinner
+          class="loading-spinner"
+          color="accent"
+          diameter="32"
+          strokeWidth="6"
+        />
       }
 
       <div class="flex-spacer"></div>
 
       @let currentTrack = playerService.currentlyLoadedTrack();
       <span class="standard-font current-track-info"
-        >{{ currentTrack?.metadata?.artist ? `${currentTrack?.metadata?.artist} - ` : '' }}{{ currentTrack?.metadata?.title || currentTrack?.file?.name }}</span
+        >{{ currentTrack?.metadata?.artist ? `${currentTrack?.metadata?.artist} - ` : ''
+        }}{{ currentTrack?.metadata?.title || currentTrack?.file?.name }}</span
       >
     </mat-toolbar>
 
     @if (metadataService.processing()) {
-      <mat-progress-bar class="progress" mode="determinate" [value]="metadataService.processionPercent()" />
+      <mat-progress-bar
+        class="progress"
+        mode="determinate"
+        [value]="metadataService.processionPercent()"
+      />
       <div class="status">{{ metadataService.statusText() }}</div>
     }
     <div class="router-outlet main"><router-outlet /></div>
 
     <player-toolbar class="toolbar" />
 
-    <mtb-file-drop-overlay [allowedTypes]="ALLOWED_TYPES" (filesDroped)="onFilesDropped($event)" (fileHandlesDropped)="onFileHandlesDropped($event)" />
+    <mtb-file-drop-overlay
+      [allowedTypes]="ALLOWED_TYPES"
+      (filesDroped)="onFilesDropped($event)"
+      (fileHandlesDropped)="onFileHandlesDropped($event)"
+    />
   </mat-sidenav-content>
 </mat-sidenav-container>

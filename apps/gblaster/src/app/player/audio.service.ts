@@ -34,7 +34,18 @@ export class AudioService {
 
   readonly equalizerGainValues = signal<EqualizerGainValues>(
     this.localStorageService.retrieve('equalizerGainValues') ??
-      ({ 31: 0, 63: 0, 125: 0, 250: 0, 500: 0, 1000: 0, 2000: 0, 4000: 0, 8000: 0, 16_000: 0 } as EqualizerGainValues)
+      ({
+        31: 0,
+        63: 0,
+        125: 0,
+        250: 0,
+        500: 0,
+        1000: 0,
+        2000: 0,
+        4000: 0,
+        8000: 0,
+        16_000: 0
+      } as EqualizerGainValues)
   );
 
   private readonly _hasEnded = new Subject<boolean>();
@@ -227,7 +238,10 @@ export class AudioService {
     this.localStorageService.store('baseGain', volume);
   }
 
-  private createEqualizer(audioContext: AudioContext): { eqInput: AudioNode; eqOutput: AudioNode } {
+  private createEqualizer(audioContext: AudioContext): {
+    eqInput: AudioNode;
+    eqOutput: AudioNode;
+  } {
     const input = audioContext.createGain();
     input.gain.value = 1;
 

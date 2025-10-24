@@ -20,7 +20,11 @@ describe('gblaster', () => {
     // initial playlist after load
     getPlaylistItems().should('have.length', 2);
     getPlaylistItems().first();
-    getPlaylistItems().first().should('be.visible').should('contain', 'Get U Freak On (_insane_teknology_rmx)').should('contain', 'Teknambul');
+    getPlaylistItems()
+      .first()
+      .should('be.visible')
+      .should('contain', 'Get U Freak On (_insane_teknology_rmx)')
+      .should('contain', 'Teknambul');
     // .should('have.css', 'border-left')
     // .and('match', /4px solid/);
 

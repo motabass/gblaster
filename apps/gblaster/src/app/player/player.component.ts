@@ -10,7 +10,16 @@ import { MatButtonModule } from '@angular/material/button';
 import { PlaylistComponent } from './playlist/playlist.component';
 
 @Component({
-  imports: [PlaylistComponent, MatButtonModule, MatIconModule, CoverDisplayComponent, MatToolbarModule, MatTooltipModule, MatSliderModule, MatMenuModule],
+  imports: [
+    PlaylistComponent,
+    MatButtonModule,
+    MatIconModule,
+    CoverDisplayComponent,
+    MatToolbarModule,
+    MatTooltipModule,
+    MatSliderModule,
+    MatMenuModule
+  ],
   templateUrl: './player.component.html',
   styleUrl: './player.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush

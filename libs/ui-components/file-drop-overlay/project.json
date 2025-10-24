@@ -47,7 +47,10 @@
       "executor": "nx-stylelint:lint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["libs/ui-components/file-drop-overlay/**/*.css", "libs/ui-components/file-drop-overlay/**/*.scss"]
+        "lintFilePatterns": [
+          "libs/ui-components/file-drop-overlay/**/*.css",
+          "libs/ui-components/file-drop-overlay/**/*.scss"
+        ]
       }
     }
   }

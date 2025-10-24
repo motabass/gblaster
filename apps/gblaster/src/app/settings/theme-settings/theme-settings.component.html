@@ -3,6 +3,12 @@
     <mat-card-title>Theme-Colors</mat-card-title>
   </mat-card-header>
   <mat-card-content class="flex column gap-1">
-    <mat-checkbox labelPosition="before" [checked]="themeService.darkMode()" (change)="changeDarkMode($event)"> Dark Mode </mat-checkbox>
+    <mat-checkbox
+      labelPosition="before"
+      [checked]="themeService.darkMode()"
+      (change)="changeDarkMode($event)"
+    >
+      Dark Mode
+    </mat-checkbox>
   </mat-card-content>
 </mat-card>

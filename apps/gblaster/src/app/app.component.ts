@@ -21,7 +21,10 @@ export class AppComponent {
     this.themeService.initializeTheme();
 
     this.iconRegistry.addSvgIconSet(this.sanitizer.bypassSecurityTrustResourceUrl('assets/icon-set.svg'));
-    this.iconRegistry.addSvgIcon('logo', this.sanitizer.bypassSecurityTrustResourceUrl('assets/icons/logo-monochrome.svg'));
+    this.iconRegistry.addSvgIcon(
+      'logo',
+      this.sanitizer.bypassSecurityTrustResourceUrl('assets/icons/logo-monochrome.svg')
+    );
 
     void this.updateService.init();
   }

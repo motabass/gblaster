@@ -6,7 +6,10 @@ addEventListener('message', async (event: MessageEvent<TagsWorkerRequest>) => {
   const { id, file } = event.data;
 
   if (!id || !file) {
-    self.postMessage({ id: id || 'unknown', error: 'Invalid request: missing id or file' });
+    self.postMessage({
+      id: id || 'unknown',
+      error: 'Invalid request: missing id or file'
+    });
     return;
   }
 
@@ -33,7 +36,10 @@ async function extractTags(file: File): Promise<Id3Tags | undefined> {
 
     let tagsCover: Id3CoverPicture | undefined;
     if (tags.common.picture?.length) {
-      tagsCover = { format: tags.common.picture[0].format, data: tags.common.picture[0].data };
+      tagsCover = {
+        format: tags.common.picture[0].format,
+        data: tags.common.picture[0].data
+      };
     }
 
     return {

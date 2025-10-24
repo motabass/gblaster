@@ -16,7 +16,9 @@ export class CoverDisplayComponent {
   private readonly themeService = inject(ThemeService);
   protected readonly playerService = inject(PlayerService);
 
-  protected readonly coverUrl = computed(() => this.playerService.currentlyLoadedTrack()?.metadata?.coverUrl?.originalUrl);
+  protected readonly coverUrl = computed(
+    () => this.playerService.currentlyLoadedTrack()?.metadata?.coverUrl?.originalUrl
+  );
 
   protected readonly backgroundColor = computed(() => {
     const coverBackground = this.themeService.darkMode()

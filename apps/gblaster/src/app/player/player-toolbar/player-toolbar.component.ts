@@ -18,7 +18,18 @@ import { MetadataService } from '../metadata-service/metadata.service';
 
 @Component({
   selector: 'player-toolbar',
-  imports: [MatIcon, MatIconButton, MatMenu, MatSlider, MatSliderThumb, MatToolbar, MatTooltip, TimePipe, MatMenuTrigger, MatMenuModule],
+  imports: [
+    MatIcon,
+    MatIconButton,
+    MatMenu,
+    MatSlider,
+    MatSliderThumb,
+    MatToolbar,
+    MatTooltip,
+    TimePipe,
+    MatMenuTrigger,
+    MatMenuModule
+  ],
   templateUrl: './player-toolbar.component.html',
   styleUrl: './player-toolbar.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -37,7 +48,11 @@ export class PlayerToolbarComponent implements OnDestroy {
     if (this.hotkeysService) {
       this.hotkeysService.initialize();
 
-      this.hotkeysService.register({ keys: 'shift+p', description: 'Play/Pause', callback: () => this.playerService.playPause() });
+      this.hotkeysService.register({
+        keys: 'shift+p',
+        description: 'Play/Pause',
+        callback: () => this.playerService.playPause()
+      });
     }
 
     if (this.gamepadService) {
@@ -136,7 +151,9 @@ export class PlayerToolbarComponent implements OnDestroy {
   }
 
   async loadLastDirectory() {
-    return this.fileLoaderService.currentFolderHandle() ? this.playerService.loadFiles() : this.showFilePickerAndLoadFiles();
+    return this.fileLoaderService.currentFolderHandle()
+      ? this.playerService.loadFiles()
+      : this.showFilePickerAndLoadFiles();
   }
 
   seekLeft(value: number) {

@@ -3,10 +3,17 @@
     <mat-card-title>Metadata-Settings</mat-card-title>
   </mat-card-header>
   <mat-card-content class="flex column gap-1">
-    <mat-slide-toggle labelPosition="before" [checked]="metadataService.useWebMetainfos()" (change)="onUseWebTagsChange($event)"
+    <mat-slide-toggle
+      labelPosition="before"
+      [checked]="metadataService.useWebMetainfos()"
+      (change)="onUseWebTagsChange($event)"
       >Download Metadata from Last.FM and Musicbrainz</mat-slide-toggle
     >
-    <mat-slide-toggle #useTagPicsToggle labelPosition="before" [checked]="metadataService.useTagEmbeddedPicture()" (change)="onUseTagEmbeddedPicsChange($event)"
+    <mat-slide-toggle
+      #useTagPicsToggle
+      labelPosition="before"
+      [checked]="metadataService.useTagEmbeddedPicture()"
+      (change)="onUseTagEmbeddedPicsChange($event)"
       >Use coverart from file-tags</mat-slide-toggle
     >
     <mat-slide-toggle
@@ -17,10 +24,20 @@
       >Prioritize coverart from file-Tags</mat-slide-toggle
     >
     <div class="flex row gap-1">
-      <mat-slide-toggle labelPosition="before" [checked]="metadataService.useTagsCache()" (change)="onUseTagsCacheChange($event)"
+      <mat-slide-toggle
+        labelPosition="before"
+        [checked]="metadataService.useTagsCache()"
+        (change)="onUseTagsCacheChange($event)"
         >Cache Tags in Indexed-DB</mat-slide-toggle
       >
-      <button mat-flat-button class="clear-cache-button" color="accent" (click)="clearMetadataCache()">Clear Tags-DB</button>
+      <button
+        mat-flat-button
+        class="clear-cache-button"
+        color="accent"
+        (click)="clearMetadataCache()"
+      >
+        Clear Tags-DB
+      </button>
     </div>
   </mat-card-content>
 </mat-card>

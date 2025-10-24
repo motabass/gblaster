@@ -72,12 +72,16 @@ export class MusicbrainzService {
       }
 
       // Create a fallback chain for thumbnails
-      const thumb = coverImage.thumbnails['500'] || coverImage.thumbnails.large || coverImage.thumbnails.small || coverImage.image;
+      const thumb =
+        coverImage.thumbnails['500'] || coverImage.thumbnails.large || coverImage.thumbnails.small || coverImage.image;
 
       // Use large thumbnail or fall back to the full image
       const original = coverImage.thumbnails.large || coverImage.image;
 
-      return { thumbUrl: ensureHttps(thumb), originalUrl: ensureHttps(original) };
+      return {
+        thumbUrl: ensureHttps(thumb),
+        originalUrl: ensureHttps(original)
+      };
     } catch {
       // console.warn('No cover found with this ID', error);
       return undefined;

@@ -19,22 +19,26 @@
     <span>&nbsp;</span>
     @if (currentTrack?.metadata?.format?.duration) {
       <span>
-        Duration: <strong>{{ currentTrack?.metadata?.format?.duration | time }}</strong>
+        Duration:
+        <strong>{{ currentTrack?.metadata?.format?.duration | time }}</strong>
       </span>
     }
     @if (currentTrack?.metadata?.format?.container && currentTrack?.metadata?.format?.codec) {
       <span>
-        Format: <strong>{{ currentTrack?.metadata?.format?.container }} ({{ currentTrack?.metadata?.format?.codec }})</strong>
+        Format:
+        <strong>{{ currentTrack?.metadata?.format?.container }} ({{ currentTrack?.metadata?.format?.codec }})</strong>
       </span>
     }
     @if (currentTrack?.metadata?.format?.bitrate) {
       <span>
-        Bitrate: <strong>{{ currentTrack?.metadata?.format?.bitrate | bitrate }}</strong>
+        Bitrate:
+        <strong>{{ currentTrack?.metadata?.format?.bitrate | bitrate }}</strong>
       </span>
     }
     @if (currentTrack?.metadata?.format?.sampleRate) {
       <span>
-        Sample-Rate: <strong>{{ currentTrack?.metadata?.format?.sampleRate }}</strong>
+        Sample-Rate:
+        <strong>{{ currentTrack?.metadata?.format?.sampleRate }}</strong>
       </span>
     }
 
@@ -77,6 +81,10 @@
   </div>
 </div>
 @if (currentTrack && cover) {
-  <div class="cover-img" [style.background-image]="`url(${cover})`" [style.background-color]="backgroundColor()"></div>
+  <div
+    class="cover-img"
+    [style.background-image]="`url(${cover})`"
+    [style.background-color]="backgroundColor()"
+  ></div>
 }
 <mtb-visualizer class="visualizer" />

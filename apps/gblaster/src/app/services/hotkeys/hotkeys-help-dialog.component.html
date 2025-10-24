@@ -1,12 +1,20 @@
 <div class="flex row">
   <h2 matDialogTitle>Tastenkürzel</h2>
   <span class="flex-grow"></span>
-  <button mat-icon-button (click)="close()"><mat-icon svgIcon="close-thick" /></button>
+  <button
+    mat-icon-button
+    (click)="close()"
+  >
+    <mat-icon svgIcon="close-thick" />
+  </button>
 </div>
 
 <mat-dialog-content>
   @for (hotkey of hotkeyList; track hotkey[0]) {
-    <div matListItemLine class="flex row align-center">
+    <div
+      matListItemLine
+      class="flex row align-center"
+    >
       <div class="keyboard-key">
         {{
           hotkey[0]

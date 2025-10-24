@@ -17,8 +17,12 @@ export class PlayerService {
   private readonly fileLoaderService = inject(FileLoaderService);
   private readonly metadataService = inject(MetadataService);
   private readonly themeService = inject(ThemeService);
-  private readonly wakelockService = inject(WakelockService, { optional: true });
-  private readonly mediaSessionService = inject(MediaSessionService, { optional: true });
+  private readonly wakelockService = inject(WakelockService, {
+    optional: true
+  });
+  private readonly mediaSessionService = inject(MediaSessionService, {
+    optional: true
+  });
   private readonly destroRef = inject(DestroyRef);
 
   readonly currentPlaylist = signal<Track[]>([]);
@@ -125,7 +129,9 @@ export class PlayerService {
         title: track.metadata.title,
         artist: track.metadata.artist,
         album: track.metadata.album,
-        artwork: track.metadata.coverUrl?.originalUrl ? [{ src: track.metadata.coverUrl.originalUrl, sizes: '512x512' }] : undefined
+        artwork: track.metadata.coverUrl?.originalUrl
+          ? [{ src: track.metadata.coverUrl.originalUrl, sizes: '512x512' }]
+          : undefined
       });
     }
     await this.audioService.play();

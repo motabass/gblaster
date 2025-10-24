@@ -1,12 +1,21 @@
 <div class="flex row equalizer-container">
   <div class="eq-visualization">
-    <canvas #eqCanvas width="800" height="200"></canvas>
+    <canvas
+      #eqCanvas
+      width="800"
+      height="200"
+    ></canvas>
   </div>
   @for (band of BANDS; track band) {
     <div class="vertical-slider-container">
       <div class="flex row justify-center vertical-slider">
         <!--        <div class="vertical-slider-label">{{ band | band }}</div>-->
-        <mat-slider discrete min="-12" max="12" step="0.01" [displayWith]="displayFunction"
+        <mat-slider
+          discrete
+          min="-12"
+          max="12"
+          step="0.01"
+          [displayWith]="displayFunction"
           ><input
             #thumb="matSliderThumb"
             matSliderThumb
@@ -21,7 +30,12 @@
   <div class="vertical-slider-container">
     <div class="flex row justify-center vertical-slider">
       <!--      <div class="vertical-slider-label" style="font-weight: bold">GAIN</div>-->
-      <mat-slider discrete min="0" max="2" step="0.01" [displayWith]="displayFunction"
+      <mat-slider
+        discrete
+        min="0"
+        max="2"
+        step="0.01"
+        [displayWith]="displayFunction"
         ><input
           #gainThumb="matSliderThumb"
           matSliderThumb
