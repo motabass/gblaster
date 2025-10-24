@@ -9,6 +9,7 @@ import { WakelockService } from '../services/wakelock.service';
 import { MediaSessionService } from '../services/media-session/media-session.service';
 import { AudioService } from './audio.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { getRandomInt } from './player-helper';
 
 @Injectable({ providedIn: 'root' })
 export class PlayerService {
@@ -341,11 +342,4 @@ export class PlayerService {
   toggleShuffle() {
     this.shuffle.set(!this.shuffle());
   }
-}
-
-function getRandomInt(min: number, max: number) {
-  min = Math.ceil(min);
-  max = Math.floor(max);
-  // eslint-disable-next-line sonarjs/pseudo-random
-  return Math.floor(Math.random() * (max - min + 1)) + min;
 }

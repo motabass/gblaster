@@ -2,6 +2,7 @@ import { computed, inject, Injectable, signal } from '@angular/core';
 import { LocalStorageService } from 'ngx-webstorage';
 import { FREQUENCY_BANDS, FrequencyBand } from './player.types';
 import { Subject } from 'rxjs';
+import { createEqualizer } from './audio-helper';
 
 export type EqualizerGainValues = {
   [Band in FrequencyBand]: number;
@@ -77,7 +78,8 @@ export class AudioService {
     const audioSource = audioContext.createMediaElementSource(audioElement);
     const gain = audioContext.createGain();
     const eqGain = audioContext.createGain();
-    const { eqInput, eqOutput } = this.createEqualizer(audioContext);
+    const { eqInput, eqOutput, frequencyFilters } = createEqualizer(audioContext);
+    this._frequencyFilters = frequencyFilters;
 
     // connect audio nodes
     audioSource.connect(eqGain);
@@ -236,49 +238,5 @@ export class AudioService {
     this._eqGainNode.gain.value = volume;
     this.baseGain.set(volume);
     this.localStorageService.store('baseGain', volume);
-  }
-
-  private createEqualizer(audioContext: AudioContext): {
-    eqInput: AudioNode;
-    eqOutput: AudioNode;
-  } {
-    const input = audioContext.createGain();
-    input.gain.value = 1;
-
-    let output = input;
-    for (const [index, bandFrequency] of FREQUENCY_BANDS.entries()) {
-      const filter = audioContext.createBiquadFilter();
-
-      this._frequencyFilters[bandFrequency] = filter;
-
-      if (index === 0) {
-        // The first filter, includes all lower frequencies
-        filter.type = 'lowshelf';
-        // Add a gentle slope for low shelf
-        filter.Q.value = 0.7;
-      } else if (index === FREQUENCY_BANDS.length - 1) {
-        // The last filter, includes all higher frequencies
-        filter.type = 'highshelf';
-        // Add a gentle slope for high shelf
-        filter.Q.value = 0.7;
-      } else {
-        filter.type = 'peaking';
-
-        // Use different Q values based on frequency ranges
-        if (bandFrequency < 250) {
-          filter.Q.value = 0.8; // Wider for low frequencies
-        } else if (bandFrequency < 2000) {
-          filter.Q.value = 0.7; // Medium for mid frequencies
-        } else {
-          filter.Q.value = 0.6; // Narrower for high frequencies
-        }
-      }
-      filter.frequency.value = bandFrequency;
-
-      output.connect(filter);
-      output = filter;
-    }
-
-    return { eqInput: input, eqOutput: output };
   }
 }
