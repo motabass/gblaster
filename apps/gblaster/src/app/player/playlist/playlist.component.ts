@@ -12,35 +12,46 @@ import {
 import { PlayerService } from '../player.service';
 import { Track } from '../player.types';
 import { AudioService } from '../audio.service';
-import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { MatIconButton } from '@angular/material/button';
 import { VisualsDirective } from '../visualizer/visuals/visuals.directive';
 import { NgClass } from '@angular/common';
-import { MatListModule } from '@angular/material/list';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import {
+  MatList,
+  MatListItem,
+  MatListItemAvatar,
+  MatListItemLine,
+  MatListItemMeta,
+  MatListItemTitle
+} from '@angular/material/list';
 import { SafePipe } from 'safe-pipe';
 import { CdkFixedSizeVirtualScroll, CdkVirtualForOf, CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormsModule } from '@angular/forms';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatMenuModule, MatMenuTrigger } from '@angular/material/menu';
+import { MatMenu, MatMenuContent, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
 
 @Component({
   selector: 'mtb-playlist',
   imports: [
-    MatListModule,
+    MatList,
+    MatListItem,
+    MatListItemAvatar,
+    MatListItemTitle,
+    MatListItemLine,
+    MatListItemMeta,
     NgClass,
     VisualsDirective,
-    MatButtonModule,
-    MatIconModule,
-    MatProgressSpinnerModule,
+    MatIconButton,
+    MatIcon,
     SafePipe,
     CdkVirtualScrollViewport,
     CdkVirtualForOf,
     CdkFixedSizeVirtualScroll,
-    MatFormFieldModule,
     FormsModule,
-    MatMenuModule
+    MatMenu,
+    MatMenuItem,
+    MatMenuContent,
+    MatMenuTrigger
   ],
   templateUrl: './playlist.component.html',
   styleUrl: './playlist.component.scss',

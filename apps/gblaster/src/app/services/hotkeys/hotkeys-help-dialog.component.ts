@@ -1,16 +1,15 @@
 import { Component, inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogContent, MatDialogRef, MatDialogTitle } from '@angular/material/dialog';
 import { HotkeyInfo } from './hotkeys.service';
-import { MatListModule } from '@angular/material/list';
-import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { MatIconButton } from '@angular/material/button';
 
 export interface HotkeysData {
   registeredHotkeys: Map<string, HotkeyInfo>;
 }
 
 @Component({
-  imports: [MatDialogModule, MatButtonModule, MatIconModule, MatListModule],
+  imports: [MatDialogTitle, MatDialogContent, MatIconButton, MatIcon],
   templateUrl: './hotkeys-help-dialog.component.html',
   styleUrl: './hotkeys-help-dialog.component.scss'
 })

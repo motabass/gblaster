@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed, inject, OnDestroy } from '@angular/core';
 
-import { MatMenu, MatMenuModule, MatMenuTrigger } from '@angular/material/menu';
+import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
 import { MatSlider, MatSliderThumb } from '@angular/material/slider';
 import { MatToolbar } from '@angular/material/toolbar';
 import { TimePipe } from '../time.pipe';
@@ -22,13 +22,13 @@ import { MetadataService } from '../metadata-service/metadata.service';
     MatIcon,
     MatIconButton,
     MatMenu,
+    MatMenuItem,
+    MatMenuTrigger,
     MatSlider,
     MatSliderThumb,
     MatToolbar,
     MatTooltip,
-    TimePipe,
-    MatMenuTrigger,
-    MatMenuModule
+    TimePipe
   ],
   templateUrl: './player-toolbar.component.html',
   styleUrl: './player-toolbar.component.scss',

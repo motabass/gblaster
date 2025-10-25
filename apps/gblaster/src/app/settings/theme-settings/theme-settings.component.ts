@@ -1,11 +1,11 @@
 import { Component, inject } from '@angular/core';
-import { MatCheckboxChange, MatCheckboxModule } from '@angular/material/checkbox';
+import { MatCheckbox, MatCheckboxChange } from '@angular/material/checkbox';
 import { ThemeService } from '../../theme/theme.service';
-import { MatCardModule } from '@angular/material/card';
+import { MatCard, MatCardContent, MatCardHeader, MatCardTitle } from '@angular/material/card';
 
 @Component({
   selector: 'mtb-theme-settings',
-  imports: [MatCardModule, MatCheckboxModule],
+  imports: [MatCard, MatCardContent, MatCheckbox, MatCardTitle, MatCardHeader],
   templateUrl: './theme-settings.component.html'
 })
 export class ThemeSettingsComponent {

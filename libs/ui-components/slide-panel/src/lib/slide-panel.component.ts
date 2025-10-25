@@ -1,14 +1,14 @@
 import { booleanAttribute, Component, HostBinding, Input, input, OnChanges } from '@angular/core';
-import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
-import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatIcon } from '@angular/material/icon';
+import { MatIconButton } from '@angular/material/button';
+import { MatTooltip } from '@angular/material/tooltip';
 import { NgClass } from '@angular/common';
 
 @Component({
   selector: 'mtb-slide-panel',
   templateUrl: './slide-panel.component.html',
   styleUrl: './slide-panel.component.scss',
-  imports: [MatIconModule, MatButtonModule, MatTooltipModule, NgClass]
+  imports: [MatIcon, MatIconButton, MatTooltip, NgClass]
 })
 export class SlidePanelComponent implements OnChanges {
   // TODO: Skipped for migration because:

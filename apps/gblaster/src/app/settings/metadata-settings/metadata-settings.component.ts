@@ -1,15 +1,15 @@
 import { Component, inject } from '@angular/core';
-import { MatSlideToggleChange, MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatSlideToggle, MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { NgxIndexedDBService } from 'ngx-indexed-db';
 import { MetadataService } from '../../player/metadata-service/metadata.service';
-import { MatButtonModule } from '@angular/material/button';
-import { MatCardModule } from '@angular/material/card';
+import { MatButton } from '@angular/material/button';
+import { MatCard, MatCardContent, MatCardHeader, MatCardTitle } from '@angular/material/card';
 import { LocalStorageService } from 'ngx-webstorage';
 import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'mtb-metadata-settings',
-  imports: [MatCardModule, MatSlideToggleModule, MatButtonModule],
+  imports: [MatCard, MatCardContent, MatSlideToggle, MatButton, MatCardTitle, MatCardHeader],
   templateUrl: './metadata-settings.component.html',
   styleUrl: './metadata-settings.component.scss'
 })

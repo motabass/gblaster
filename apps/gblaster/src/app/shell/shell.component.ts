@@ -1,16 +1,16 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Component, inject, viewChild } from '@angular/core';
-import { MatSidenav, MatSidenavModule } from '@angular/material/sidenav';
+import { MatSidenav, MatSidenavContainer, MatSidenavContent } from '@angular/material/sidenav';
 import { Router, RouterOutlet } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { LoaderService } from '../services/loader/loader.service';
 import { TitleService } from '../services/title.service';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MatButtonModule } from '@angular/material/button';
-import { MatListModule } from '@angular/material/list';
-import { MatIconModule } from '@angular/material/icon';
-import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { MatIconButton } from '@angular/material/button';
+import { MatListItem, MatListItemIcon, MatNavList } from '@angular/material/list';
+import { MatIcon } from '@angular/material/icon';
+import { MatToolbar } from '@angular/material/toolbar';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { FileDropOverlayComponent } from '@motabass/ui-components/file-drop-overlay';
 import { PlayerService } from '../player/player.service';
@@ -22,16 +22,20 @@ import { MetadataService } from '../player/metadata-service/metadata.service';
 @Component({
   selector: 'mtb-shell',
   imports: [
-    MatSidenavModule,
-    MatToolbarModule,
-    MatIconModule,
-    MatListModule,
-    MatButtonModule,
-    MatProgressSpinnerModule,
+    MatSidenavContainer,
+    MatSidenav,
+    MatSidenavContent,
+    MatToolbar,
+    MatIcon,
+    MatNavList,
+    MatListItem,
+    MatIconButton,
+    MatProgressSpinner,
     RouterOutlet,
     FileDropOverlayComponent,
     PlayerToolbarComponent,
-    MatProgressBar
+    MatProgressBar,
+    MatListItemIcon
   ],
   templateUrl: './shell.component.html',
   styleUrl: './shell.component.scss'

@@ -1,6 +1,6 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { IndexedDbTrackMetadata, Track } from '../player.types';
-import { MatListModule } from '@angular/material/list';
+import { MatListItem, MatListItemAvatar, MatListItemMeta, MatListItemTitle, MatNavList } from '@angular/material/list';
 import { MatMenu, MatMenuContent, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
 import { PlayerService } from '../player.service';
 import { MatIcon } from '@angular/material/icon';
@@ -21,7 +21,11 @@ export interface Album {
 
 @Component({
   imports: [
-    MatListModule,
+    MatNavList,
+    MatListItem,
+    MatListItemTitle,
+    MatListItemMeta,
+    MatListItemAvatar,
     MatMenu,
     MatMenuContent,
     MatMenuItem,
