@@ -56,7 +56,7 @@ export function computeColors(hex: string, isDarkMode: boolean): ThemeColor[] {
  * @returns A ThemeColor object
  */
 export function getThemeColor(color: Colord, name: string, isDarkMode: boolean): ThemeColor {
-  const lightnessLimit = isDarkMode ? 150 : 200;
+  const lightnessLimit = isDarkMode ? 0.3 : 0.5;
   return {
     name,
     hex: color.toHex(),

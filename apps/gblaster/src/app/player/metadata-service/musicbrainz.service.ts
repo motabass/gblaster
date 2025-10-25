@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { Id3Tags } from './id3-tags.types';
 import { RemoteCoverArtUrls } from './metadata.types';
 import { CoverArtArchiveApi, MusicBrainzApi } from 'musicbrainz-api';
-import { ensureHttps } from './metadata.helper';
 import { escapeLuceneQueryString } from '@motabass/helpers';
+import { ensureHttps } from './metadata-helper';
 
 @Injectable({ providedIn: 'root' })
 export class MusicbrainzService {

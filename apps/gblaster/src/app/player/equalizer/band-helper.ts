@@ -1,11 +1,9 @@
-import { FrequencyBand } from '../player.types';
-
 /**
  * Formats a frequency band value for display
  * @param value The frequency band value in Hz
  * @returns A formatted string like "1K" for 1000 Hz or "250" for 250 Hz
  */
-export function formatFrequencyBand(value: FrequencyBand): string {
+export function formatFrequencyBand(value: number): string {
   if (!value || value < 0) {
     return '';
   }

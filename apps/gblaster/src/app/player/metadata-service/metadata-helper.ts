@@ -3,6 +3,19 @@ import { bytesToHex } from '@noble/hashes/utils.js';
 import { Vibrant } from 'node-vibrant/browser';
 import type { CoverColorPalette } from './metadata.types';
 
+export function ensureHttps(url: string): string {
+  if (!url) return url;
+
+  try {
+    const urlObj = new URL(url);
+    urlObj.protocol = 'https:';
+    return urlObj.toString();
+  } catch {
+    console.warn('Invalid URL provided to ensureHttps:', url);
+    return url; // Return the original URL if it cannot be parsed
+  }
+}
+
 /**
  * Generates a hash for a file by sampling strategic portions of its content
  * @param file The file to hash

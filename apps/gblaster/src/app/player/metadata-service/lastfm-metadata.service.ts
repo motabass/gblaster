@@ -3,7 +3,7 @@ import { inject, Injectable } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
 import { Id3Tags } from './id3-tags.types';
 import { RemoteCoverArtUrls } from './metadata.types';
-import { ensureHttps } from './metadata.helper';
+import { ensureHttps } from './metadata-helper';
 
 interface LastfmImage {
   '#text': string;
