@@ -1,6 +1,6 @@
 packages:
-  - 'apps/*'
-  - 'libs/*'
+  - apps/*
+  - libs/*
 
 ignoredBuiltDependencies:
   - '@biomejs/biome'
@@ -10,8 +10,10 @@ ignoredBuiltDependencies:
   - protobufjs
   - re2
   - unrs-resolver
+  - esbuild
 
 onlyBuiltDependencies:
+  - '@compodoc/compodoc'
+  - '@swc/core'
   - cypress
-  - esbuild
   - nx
