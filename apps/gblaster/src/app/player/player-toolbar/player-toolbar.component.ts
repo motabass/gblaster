@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component, computed, inject, OnDestroy, OnInit } from '@angular/core';
-
 import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
 import { MatSlider, MatSliderThumb } from '@angular/material/slider';
 import { MatToolbar } from '@angular/material/toolbar';
