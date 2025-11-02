@@ -130,7 +130,13 @@
                 <td class="col-md-4">
                     <ul class="index-list">
                         <li>
+                            <a href="#computeColors" title="apps/gblaster/src/app/theme/theme-helper.ts" ><b>computeColors</b>&nbsp;&nbsp;&nbsp;(apps/.../theme-helper.ts)</a>
+                        </li>
+                        <li>
                             <a href="#convertToBarkScale" title="apps/gblaster/src/app/player/visualizer/visuals/visuals.worker.ts" ><b>convertToBarkScale</b>&nbsp;&nbsp;&nbsp;(apps/.../visuals.worker.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#createEqualizer" title="apps/gblaster/src/app/player/audio-helper.ts" ><b>createEqualizer</b>&nbsp;&nbsp;&nbsp;(apps/.../audio-helper.ts)</a>
                         </li>
                         <li>
                             <a href="#drawBars" title="apps/gblaster/src/app/player/visualizer/visuals/visuals.worker.ts" ><b>drawBars</b>&nbsp;&nbsp;&nbsp;(apps/.../visuals.worker.ts)</a>
@@ -145,19 +151,25 @@
                             <a href="#drawOsc" title="apps/gblaster/src/app/player/visualizer/visuals/visuals.worker.ts" ><b>drawOsc</b>&nbsp;&nbsp;&nbsp;(apps/.../visuals.worker.ts)</a>
                         </li>
                         <li>
-                            <a href="#ensureHttps" title="apps/gblaster/src/app/player/metadata-service/metadata.helper.ts" ><b>ensureHttps</b>&nbsp;&nbsp;&nbsp;(apps/.../metadata.helper.ts)</a>
+                            <a href="#ensureHttps" title="apps/gblaster/src/app/player/metadata-service/metadata-helper.ts" ><b>ensureHttps</b>&nbsp;&nbsp;&nbsp;(apps/.../metadata-helper.ts)</a>
                         </li>
                         <li>
                             <a href="#escapeLuceneQueryString" title="libs/helpers/src/lib/lucene-escape.helper.ts" ><b>escapeLuceneQueryString</b>&nbsp;&nbsp;&nbsp;(libs/.../lucene-escape.helper.ts)</a>
                         </li>
                         <li>
-                            <a href="#extractColorsWithNodeVibrant" title="apps/gblaster/src/app/player/metadata-service/metadata.service.ts" ><b>extractColorsWithNodeVibrant</b>&nbsp;&nbsp;&nbsp;(apps/.../metadata.service.ts)</a>
+                            <a href="#extractColorsWithNodeVibrant" title="apps/gblaster/src/app/player/metadata-service/metadata-helper.ts" ><b>extractColorsWithNodeVibrant</b>&nbsp;&nbsp;&nbsp;(apps/.../metadata-helper.ts)</a>
                         </li>
                         <li>
                             <a href="#extractTags" title="apps/gblaster/src/app/player/metadata-service/metadata.worker.ts" ><b>extractTags</b>&nbsp;&nbsp;&nbsp;(apps/.../metadata.worker.ts)</a>
                         </li>
                         <li>
                             <a href="#FileLoaderServiceFactory" title="apps/gblaster/src/app/player/file-loader-service/file-loader.service.factory.ts" ><b>FileLoaderServiceFactory</b>&nbsp;&nbsp;&nbsp;(apps/.../file-loader.service.factory.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#formatBitrate" title="apps/gblaster/src/app/player/cover-display/bitrate-helper.ts" ><b>formatBitrate</b>&nbsp;&nbsp;&nbsp;(apps/.../bitrate-helper.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#formatFrequencyBand" title="apps/gblaster/src/app/player/equalizer/band-helper.ts" ><b>formatFrequencyBand</b>&nbsp;&nbsp;&nbsp;(apps/.../band-helper.ts)</a>
                         </li>
                         <li>
                             <a href="#formatSecondsAsClock" title="libs/helpers/src/lib/time.helper.ts" ><b>formatSecondsAsClock</b>&nbsp;&nbsp;&nbsp;(libs/.../time.helper.ts)</a>
@@ -169,13 +181,19 @@
                             <a href="#gamepadServiceFactory" title="apps/gblaster/src/app/services/gamepad/gamepad.service.factory.ts" ><b>gamepadServiceFactory</b>&nbsp;&nbsp;&nbsp;(apps/.../gamepad.service.factory.ts)</a>
                         </li>
                         <li>
-                            <a href="#generateFileHash" title="apps/gblaster/src/app/player/metadata-service/metadata.service.ts" ><b>generateFileHash</b>&nbsp;&nbsp;&nbsp;(apps/.../metadata.service.ts)</a>
+                            <a href="#generateFileHash" title="apps/gblaster/src/app/player/metadata-service/metadata-helper.ts" ><b>generateFileHash</b>&nbsp;&nbsp;&nbsp;(apps/.../metadata-helper.ts)</a>
                         </li>
                         <li>
                             <a href="#getAudioFilesFromDirHandle" title="apps/gblaster/src/app/player/file-loader-service/native-browser-file-loader.service.ts" ><b>getAudioFilesFromDirHandle</b>&nbsp;&nbsp;&nbsp;(apps/.../native-browser-file-loader.service.ts)</a>
                         </li>
                         <li>
-                            <a href="#getRandomInt" title="apps/gblaster/src/app/player/player.service.ts" ><b>getRandomInt</b>&nbsp;&nbsp;&nbsp;(apps/.../player.service.ts)</a>
+                            <a href="#getNextVisualizerMode" title="apps/gblaster/src/app/player/visualizer/visuals/visuals-helper.ts" ><b>getNextVisualizerMode</b>&nbsp;&nbsp;&nbsp;(apps/.../visuals-helper.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#getRandomInt" title="apps/gblaster/src/app/player/player-helper.ts" ><b>getRandomInt</b>&nbsp;&nbsp;&nbsp;(apps/.../player-helper.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#getThemeColor" title="apps/gblaster/src/app/theme/theme-helper.ts" ><b>getThemeColor</b>&nbsp;&nbsp;&nbsp;(apps/.../theme-helper.ts)</a>
                         </li>
                         <li>
                             <a href="#hotkeysServiceFactory" title="apps/gblaster/src/app/services/hotkeys/hotkeys.service.factory.ts" ><b>hotkeysServiceFactory</b>&nbsp;&nbsp;&nbsp;(apps/.../hotkeys.service.factory.ts)</a>
@@ -220,7 +238,195 @@
     </table>
 </section>
 
-    <h3>apps/gblaster/src/app/player/visualizer/visuals/visuals.worker.ts</h3>
+    <h3>apps/gblaster/src/app/theme/theme-helper.ts</h3>
+    <section data-compodoc="block-methods">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="computeColors"></a>
+                    <span class="name">
+                        <span ><b>computeColors</b></span>
+                        <a href="#computeColors"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>computeColors(hex: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, isDarkMode: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank">boolean</a>)</code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Computes a color palette from a base color by generating lighter and darker variants</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>hex</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>The base color in hex format</p>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>isDarkMode</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>Whether dark mode is enabled</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="../interfaces/ThemeColor.html" target="_self" >ThemeColor[]</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>An array of ThemeColor objects</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getThemeColor"></a>
+                    <span class="name">
+                        <span ><b>getThemeColor</b></span>
+                        <a href="#getThemeColor"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getThemeColor(color: Colord, name: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, isDarkMode: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank">boolean</a>)</code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Creates a ThemeColor object from a Colord color instance</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>color</td>
+                                            <td>
+                                                        <code>Colord</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>The Colord color instance</p>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>name</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>The name/suffix for this color variant</p>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>isDarkMode</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>Whether dark mode is enabled</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="../interfaces/ThemeColor.html" target="_self" >ThemeColor</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>A ThemeColor object</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>    <h3>apps/gblaster/src/app/player/visualizer/visuals/visuals.worker.ts</h3>
     <section data-compodoc="block-methods">
     <h3></h3>    <table class="table table-sm table-bordered">
         <tbody>
@@ -539,7 +745,78 @@
             </tr>
         </tbody>
     </table>
-</section>    <h3>apps/gblaster/src/app/player/metadata-service/metadata.helper.ts</h3>
+</section>    <h3>apps/gblaster/src/app/player/audio-helper.ts</h3>
+    <section data-compodoc="block-methods">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="createEqualizer"></a>
+                    <span class="name">
+                        <span ><b>createEqualizer</b></span>
+                        <a href="#createEqualizer"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>createEqualizer(audioContext: AudioContext)</code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Creates an equalizer chain of BiquadFilterNodes for an audio context</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>audioContext</td>
+                                            <td>
+                                                        <code>AudioContext</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>The AudioContext to create the equalizer in</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>literal type</code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>An object containing the input node, output node, and frequency filters</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>    <h3>apps/gblaster/src/app/player/metadata-service/metadata-helper.ts</h3>
     <section data-compodoc="block-methods">
     <h3></h3>    <table class="table table-sm table-bordered">
         <tbody>
@@ -602,6 +879,144 @@
             </tr>
         </tbody>
     </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="extractColorsWithNodeVibrant"></a>
+                    <span class="name">
+                        <span ><b>extractColorsWithNodeVibrant</b></span>
+                        <a href="#extractColorsWithNodeVibrant"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>extractColorsWithNodeVibrant(url: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Extracts a color palette from an image URL using node-vibrant</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>url</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>The URL of the image to extract colors from</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>Promise&lt;CoverColorPalette | undefined&gt;</code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>A color palette or undefined if extraction fails</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="generateFileHash"></a>
+                    <span class="name">
+                        <span ><b>generateFileHash</b></span>
+                        <a href="#generateFileHash"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>generateFileHash(file: File)</code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Generates a hash for a file by sampling strategic portions of its content</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>file</td>
+                                            <td>
+                                                        <code>File</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>The file to hash</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>Promise&lt;string&gt;</code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>A hex string representing the hash of the file</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 </section>    <h3>libs/helpers/src/lib/lucene-escape.helper.ts</h3>
     <section data-compodoc="block-methods">
     <h3></h3>    <table class="table table-sm table-bordered">
@@ -656,130 +1071,6 @@
                             </div>
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
-
-                        </div>
-                            <div class="io-description">
-                                
-                            </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-</section>    <h3>apps/gblaster/src/app/player/metadata-service/metadata.service.ts</h3>
-    <section data-compodoc="block-methods">
-    <h3></h3>    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="extractColorsWithNodeVibrant"></a>
-                    <span class="name">
-                        <span ><b>extractColorsWithNodeVibrant</b></span>
-                        <a href="#extractColorsWithNodeVibrant"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-<code>extractColorsWithNodeVibrant(url: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
-                </td>
-            </tr>
-
-
-
-
-            <tr>
-                <td class="col-md-4">
-
-                            <div class="io-description">
-                                <b>Parameters :</b>
-                                
-                                <table class="params">
-                                    <thead>
-                                        <tr>
-                                            <td>Name</td>
-                                                <td>Type</td>
-                                            <td>Optional</td>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                                <td>url</td>
-                                            <td>
-                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
-                                            </td>
-
-                                            <td>
-                                                    No
-                                            </td>
-
-
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        <div class="io-description">
-                            <b>Returns : </b>    <code>Promise&lt;CoverColorPalette | undefined&gt;</code>
-
-                        </div>
-                            <div class="io-description">
-                                
-                            </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="generateFileHash"></a>
-                    <span class="name">
-                        <span ><b>generateFileHash</b></span>
-                        <a href="#generateFileHash"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-<code>generateFileHash(file: File)</code>
-                </td>
-            </tr>
-
-
-
-
-            <tr>
-                <td class="col-md-4">
-
-                            <div class="io-description">
-                                <b>Parameters :</b>
-                                
-                                <table class="params">
-                                    <thead>
-                                        <tr>
-                                            <td>Name</td>
-                                                <td>Type</td>
-                                            <td>Optional</td>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                                <td>file</td>
-                                            <td>
-                                                        <code>File</code>
-                                            </td>
-
-                                            <td>
-                                                    No
-                                            </td>
-
-
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        <div class="io-description">
-                            <b>Returns : </b>    <code>Promise&lt;string&gt;</code>
 
                         </div>
                             <div class="io-description">
@@ -876,6 +1167,144 @@
 
         </tbody>
     </table>
+</section>    <h3>apps/gblaster/src/app/player/cover-display/bitrate-helper.ts</h3>
+    <section data-compodoc="block-methods">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="formatBitrate"></a>
+                    <span class="name">
+                        <span ><b>formatBitrate</b></span>
+                        <a href="#formatBitrate"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>formatBitrate(value)</code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Formats a bitrate value in bits per second to a readable string</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>value</td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>The bitrate in bits per second</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>A formatted string like &quot;320 kb/s&quot; or &quot;0 kb/s&quot; for invalid values</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>    <h3>apps/gblaster/src/app/player/equalizer/band-helper.ts</h3>
+    <section data-compodoc="block-methods">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="formatFrequencyBand"></a>
+                    <span class="name">
+                        <span ><b>formatFrequencyBand</b></span>
+                        <a href="#formatFrequencyBand"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>formatFrequencyBand(value: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Formats a frequency band value for display</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>value</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>The frequency band value in Hz</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>A formatted string like &quot;1K&quot; for 1000 Hz or &quot;250&quot; for 250 Hz</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 </section>    <h3>libs/helpers/src/lib/time.helper.ts</h3>
     <section data-compodoc="block-methods">
     <h3></h3>    <table class="table table-sm table-bordered">
@@ -891,7 +1320,7 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>formatSecondsAsClock(value, leadingMinuteZero)</code>
+<code>formatSecondsAsClock(value, leadingMinuteZero: unknown)</code>
                 </td>
             </tr>
 
@@ -908,6 +1337,7 @@
                                     <thead>
                                         <tr>
                                             <td>Name</td>
+                                                <td>Type</td>
                                             <td>Optional</td>
                                                 <td>Default value</td>
                                         </tr>
@@ -915,6 +1345,8 @@
                                     <tbody>
                                         <tr>
                                                 <td>value</td>
+                                            <td>
+                                            </td>
 
                                             <td>
                                                     No
@@ -926,6 +1358,9 @@
                                         </tr>
                                         <tr>
                                                 <td>leadingMinuteZero</td>
+                                            <td>
+                                                        <code>unknown</code>
+                                            </td>
 
                                             <td>
                                                     No
@@ -1204,7 +1639,78 @@
             </tr>
         </tbody>
     </table>
-</section>    <h3>apps/gblaster/src/app/player/player.service.ts</h3>
+</section>    <h3>apps/gblaster/src/app/player/visualizer/visuals/visuals-helper.ts</h3>
+    <section data-compodoc="block-methods">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getNextVisualizerMode"></a>
+                    <span class="name">
+                        <span ><b>getNextVisualizerMode</b></span>
+                        <a href="#getNextVisualizerMode"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getNextVisualizerMode(currentMode: <a href="../undefineds/VisualizerMode.html" target="_self">VisualizerMode</a>)</code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Gets the next visualizer mode in the cycle</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>currentMode</td>
+                                            <td>
+                                                            <code><a href="../miscellaneous/typealiases.html#VisualizerMode" target="_self" >VisualizerMode</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>The current visualizer mode</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="../miscellaneous/typealiases.html#VisualizerMode" target="_self" >VisualizerMode</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>The next visualizer mode</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>    <h3>apps/gblaster/src/app/player/player-helper.ts</h3>
     <section data-compodoc="block-methods">
     <h3></h3>    <table class="table table-sm table-bordered">
         <tbody>
@@ -1228,6 +1734,8 @@
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Generates a random integer between min and max (inclusive)</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -1238,6 +1746,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -1252,6 +1761,10 @@
                                             </td>
 
 
+                                            <td>
+                                                    <p>The minimum value (inclusive)</p>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>max</td>
@@ -1264,9 +1777,21 @@
                                             </td>
 
 
+                                            <td>
+                                                    <p>The maximum value (inclusive)</p>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>A random integer between min and max</p>
+
                             </div>
                 </td>
             </tr>

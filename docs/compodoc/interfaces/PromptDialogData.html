@@ -292,8 +292,14 @@
 
     <div class="tab-pane fade  tab-source-code" id="source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, inject } from &#x27;@angular/core&#x27;;
-import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from &#x27;@angular/material/dialog&#x27;;
-import { MatButtonModule } from &#x27;@angular/material/button&#x27;;
+import {
+  MAT_DIALOG_DATA,
+  MatDialogActions,
+  MatDialogContent,
+  MatDialogRef,
+  MatDialogTitle
+} from &#x27;@angular/material/dialog&#x27;;
+import { MatButton } from &#x27;@angular/material/button&#x27;;
 
 export interface PromptDialogData {
   title: string;
@@ -304,7 +310,7 @@ export interface PromptDialogData {
 @Component({
   selector: &#x27;mtb-prompt-dialog&#x27;,
   templateUrl: &#x27;./prompt-dialog.component.html&#x27;,
-  imports: [MatDialogModule, MatButtonModule]
+  imports: [MatDialogTitle, MatDialogContent, MatDialogActions, MatButton]
 })
 export class PromptDialogComponent {
   data &#x3D; inject&lt;PromptDialogData&gt;(MAT_DIALOG_DATA);

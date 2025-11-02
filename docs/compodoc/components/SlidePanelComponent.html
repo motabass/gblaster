@@ -173,9 +173,9 @@
             <tr>
                 <td class="col-md-3">imports</td>
                 <td class="col-md-9">
-                            <code>MatIconModule</code>
-                            <code>MatButtonModule</code>
-                            <code>MatTooltipModule</code>
+                            <code>MatIcon</code>
+                            <code>MatIconButton</code>
+                            <code>MatTooltip</code>
                             <code>NgClass</code>
                 </td>
             </tr>
@@ -668,6 +668,12 @@
             </tr>
                 <tr>
                     <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
                         <i>Default value : </i><code>false</code>
                     </td>
                 </tr>
@@ -703,6 +709,12 @@
             </tr>
                 <tr>
                     <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
                         <i>Default value : </i><code>true</code>
                     </td>
                 </tr>
@@ -731,16 +743,16 @@
 
     <div class="tab-pane fade  tab-source-code" id="source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { booleanAttribute, Component, HostBinding, Input, input, OnChanges } from &#x27;@angular/core&#x27;;
-import { MatIconModule } from &#x27;@angular/material/icon&#x27;;
-import { MatButtonModule } from &#x27;@angular/material/button&#x27;;
-import { MatTooltipModule } from &#x27;@angular/material/tooltip&#x27;;
+import { MatIcon } from &#x27;@angular/material/icon&#x27;;
+import { MatIconButton } from &#x27;@angular/material/button&#x27;;
+import { MatTooltip } from &#x27;@angular/material/tooltip&#x27;;
 import { NgClass } from &#x27;@angular/common&#x27;;
 
 @Component({
   selector: &#x27;mtb-slide-panel&#x27;,
   templateUrl: &#x27;./slide-panel.component.html&#x27;,
   styleUrl: &#x27;./slide-panel.component.scss&#x27;,
-  imports: [MatIconModule, MatButtonModule, MatTooltipModule, NgClass]
+  imports: [MatIcon, MatIconButton, MatTooltip, NgClass]
 })
 export class SlidePanelComponent implements OnChanges {
   // TODO: Skipped for migration because:
@@ -808,19 +820,38 @@ export class SlidePanelComponent implements OnChanges {
     </div>
 
     <div class="tab-pane fade " id="templateData">
-        <pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;slide-panel-toggle-wrapper&quot; [ngClass]&#x3D;&quot;{ &#x27;slide-panel-toggle-wrapper-opened&#x27;: openedState }&quot;&gt;
+        <pre class="line-numbers"><code class="language-html">&lt;div
+  class&#x3D;&quot;slide-panel-toggle-wrapper&quot;
+  [ngClass]&#x3D;&quot;{ &#x27;slide-panel-toggle-wrapper-opened&#x27;: openedState }&quot;
+&gt;
   @switch (side) {
     @case (&#x27;left&#x27;) {
-      &lt;button class&#x3D;&quot;slide-panel-toggle&quot; mat-icon-button (click)&#x3D;&quot;openedState ? closePanel() : openPanel()&quot;&gt;
+      &lt;button
+        class&#x3D;&quot;slide-panel-toggle&quot;
+        mat-icon-button
+        (click)&#x3D;&quot;openedState ? closePanel() : openPanel()&quot;
+      &gt;
         @if (toggleIcon) {
-          &lt;mat-icon [matTooltip]&#x3D;&quot;(openedState ? &#x27;Close &#x27; : &#x27;Open &#x27;) + buttonTooltip()&quot; matTooltipPosition&#x3D;&quot;right&quot; [svgIcon]&#x3D;&quot;toggleIcon&quot;&gt;&lt;/mat-icon&gt;
+          &lt;mat-icon
+            [matTooltip]&#x3D;&quot;(openedState ? &#x27;Close &#x27; : &#x27;Open &#x27;) + buttonTooltip()&quot;
+            matTooltipPosition&#x3D;&quot;right&quot;
+            [svgIcon]&#x3D;&quot;toggleIcon&quot;
+          &gt;&lt;/mat-icon&gt;
         }
       &lt;/button&gt;
     }
     @case (&#x27;right&#x27;) {
-      &lt;button class&#x3D;&quot;slide-panel-toggle&quot; mat-icon-button (click)&#x3D;&quot;openedState ? closePanel() : openPanel()&quot;&gt;
+      &lt;button
+        class&#x3D;&quot;slide-panel-toggle&quot;
+        mat-icon-button
+        (click)&#x3D;&quot;openedState ? closePanel() : openPanel()&quot;
+      &gt;
         @if (toggleIcon) {
-          &lt;mat-icon [matTooltip]&#x3D;&quot;(openedState ? &#x27;Close &#x27; : &#x27;Open &#x27;) + buttonTooltip()&quot; matTooltipPosition&#x3D;&quot;left&quot; [svgIcon]&#x3D;&quot;toggleIcon&quot;&gt;&lt;/mat-icon&gt;
+          &lt;mat-icon
+            [matTooltip]&#x3D;&quot;(openedState ? &#x27;Close &#x27; : &#x27;Open &#x27;) + buttonTooltip()&quot;
+            matTooltipPosition&#x3D;&quot;left&quot;
+            [svgIcon]&#x3D;&quot;toggleIcon&quot;
+          &gt;&lt;/mat-icon&gt;
         }
       &lt;/button&gt;
     }
@@ -858,7 +889,7 @@ export class SlidePanelComponent implements OnChanges {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><div class="slide-panel-toggle-wrapper" [ngClass]="{ \'slide-panel-toggle-wrapper-opened\': openedState }">  @switch (side) {    @case (\'left\') {      <button class="slide-panel-toggle" mat-icon-button (click)="openedState ? closePanel() : openPanel()">        @if (toggleIcon) {          <mat-icon [matTooltip]="(openedState ? \'Close \' : \'Open \') + buttonTooltip()" matTooltipPosition="right" [svgIcon]="toggleIcon"></mat-icon>        }      </button>    }    @case (\'right\') {      <button class="slide-panel-toggle" mat-icon-button (click)="openedState ? closePanel() : openPanel()">        @if (toggleIcon) {          <mat-icon [matTooltip]="(openedState ? \'Close \' : \'Open \') + buttonTooltip()" matTooltipPosition="left" [svgIcon]="toggleIcon"></mat-icon>        }      </button>    }  }</div><div class="panel-content">  <ng-content></ng-content></div></div>'
+        var COMPONENT_TEMPLATE = '<div><div  class="slide-panel-toggle-wrapper"  [ngClass]="{ \'slide-panel-toggle-wrapper-opened\': openedState }">  @switch (side) {    @case (\'left\') {      <button        class="slide-panel-toggle"        mat-icon-button        (click)="openedState ? closePanel() : openPanel()"      >        @if (toggleIcon) {          <mat-icon            [matTooltip]="(openedState ? \'Close \' : \'Open \') + buttonTooltip()"            matTooltipPosition="right"            [svgIcon]="toggleIcon"          ></mat-icon>        }      </button>    }    @case (\'right\') {      <button        class="slide-panel-toggle"        mat-icon-button        (click)="openedState ? closePanel() : openPanel()"      >        @if (toggleIcon) {          <mat-icon            [matTooltip]="(openedState ? \'Close \' : \'Open \') + buttonTooltip()"            matTooltipPosition="left"            [svgIcon]="toggleIcon"          ></mat-icon>        }      </button>    }  }</div><div class="panel-content">  <ng-content></ng-content></div></div>'
     var COMPONENTS = [{'name': 'AppComponent', 'selector': 'mtb-root'},{'name': 'CoverDisplayComponent', 'selector': 'mtb-cover-display'},{'name': 'EqualizerComponent', 'selector': ''},{'name': 'FileDropOverlayComponent', 'selector': 'mtb-file-drop-overlay'},{'name': 'HotkeysHelpDialogComponent', 'selector': ''},{'name': 'LibraryComponent', 'selector': ''},{'name': 'MetadataSettingsComponent', 'selector': 'mtb-metadata-settings'},{'name': 'PlayerComponent', 'selector': ''},{'name': 'PlayerToolbarComponent', 'selector': 'player-toolbar'},{'name': 'PlaylistComponent', 'selector': 'mtb-playlist'},{'name': 'PromptDialogComponent', 'selector': 'mtb-prompt-dialog'},{'name': 'SettingsComponent', 'selector': ''},{'name': 'ShellComponent', 'selector': 'mtb-shell'},{'name': 'SlidePanelComponent', 'selector': 'mtb-slide-panel'},{'name': 'StorageSettingsComponent', 'selector': 'mtb-storage-settings'},{'name': 'ThemeSettingsComponent', 'selector': 'mtb-theme-settings'},{'name': 'VisualizerComponent', 'selector': 'mtb-visualizer'}];
     var DIRECTIVES = [{'name': 'VisualsDirective', 'selector': '[mtbVisual]'}];
     var ACTUAL_COMPONENT = {'name': 'SlidePanelComponent'};

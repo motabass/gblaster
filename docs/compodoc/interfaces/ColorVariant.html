@@ -140,7 +140,7 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>apps/gblaster/src/app/theme/theme.service.ts</code>
+            <code>apps/gblaster/src/app/theme/theme-helper.ts</code>
         </p>
 
 
@@ -303,13 +303,8 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { computed, effect, inject, Injectable, signal } from &#x27;@angular/core&#x27;;
-import { Meta } from &#x27;@angular/platform-browser&#x27;;
-import { Colord, colord } from &#x27;colord&#x27;;
-import { LocalStorageService } from &#x27;ngx-webstorage&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Colord, colord } from &#x27;colord&#x27;;
 import { ThemeColor } from &#x27;./theme.types&#x27;;
-import { FALLBACK_ACCENT_COLOR, FALLBACK_PRIMARY_COLOR } from &#x27;./default-colors&#x27;;
-import { ColorConfig } from &#x27;../player/player.types&#x27;;
 
 interface ColorVariant {
   suffix: string;
@@ -317,125 +312,61 @@ interface ColorVariant {
   darkenFactor?: number;
 }
 
-@Injectable({
-  providedIn: &#x27;root&#x27;
-})
-export class ThemeService {
-  private readonly meta &#x3D; inject(Meta);
-  private readonly localStorageService &#x3D; inject(LocalStorageService);
+const COLOR_VARIANTS: ColorVariant[] &#x3D; [
+  { suffix: &#x27;0&#x27;, lightenFactor: 0.55 },
+  { suffix: &#x27;10&#x27;, lightenFactor: 0.45 },
+  { suffix: &#x27;20&#x27;, lightenFactor: 0.35 },
+  { suffix: &#x27;25&#x27;, lightenFactor: 0.3 },
+  { suffix: &#x27;30&#x27;, lightenFactor: 0.25 },
+  { suffix: &#x27;35&#x27;, lightenFactor: 0.2 },
+  { suffix: &#x27;40&#x27;, lightenFactor: 0.15 },
+  { suffix: &#x27;50&#x27; },
+  { suffix: &#x27;60&#x27;, darkenFactor: 0.05 },
+  { suffix: &#x27;70&#x27;, darkenFactor: 0.1 },
+  { suffix: &#x27;80&#x27;, darkenFactor: 0.15 },
+  { suffix: &#x27;90&#x27;, darkenFactor: 0.18 },
+  { suffix: &#x27;95&#x27;, darkenFactor: 0.21 },
+  { suffix: &#x27;98&#x27;, darkenFactor: 0.24 },
+  { suffix: &#x27;99&#x27;, darkenFactor: 0.27 },
+  { suffix: &#x27;100&#x27;, darkenFactor: 0.3 }
+];
 
-  private readonly COLOR_VARIANTS: ColorVariant[] &#x3D; [
-    { suffix: &#x27;0&#x27;, lightenFactor: 0.55 },
-    { suffix: &#x27;10&#x27;, lightenFactor: 0.45 },
-    { suffix: &#x27;20&#x27;, lightenFactor: 0.35 },
-    { suffix: &#x27;25&#x27;, lightenFactor: 0.3 },
-    { suffix: &#x27;30&#x27;, lightenFactor: 0.25 },
-    { suffix: &#x27;35&#x27;, lightenFactor: 0.2 },
-    { suffix: &#x27;40&#x27;, lightenFactor: 0.15 },
-    { suffix: &#x27;50&#x27; },
-    { suffix: &#x27;60&#x27;, darkenFactor: 0.05 },
-    { suffix: &#x27;70&#x27;, darkenFactor: 0.1 },
-    { suffix: &#x27;80&#x27;, darkenFactor: 0.15 },
-    { suffix: &#x27;90&#x27;, darkenFactor: 0.18 },
-    { suffix: &#x27;95&#x27;, darkenFactor: 0.21 },
-    { suffix: &#x27;98&#x27;, darkenFactor: 0.24 },
-    { suffix: &#x27;99&#x27;, darkenFactor: 0.27 },
-    { suffix: &#x27;100&#x27;, darkenFactor: 0.3 }
-  ];
+/**
+ * Computes a color palette from a base color by generating lighter and darker variants
+ * @param hex The base color in hex format
+ * @param isDarkMode Whether dark mode is enabled
+ * @returns An array of ThemeColor objects
+ */
+export function computeColors(hex: string, isDarkMode: boolean): ThemeColor[] {
+  const baseColor &#x3D; colord(hex);
 
-  readonly darkMode &#x3D; signal&lt;boolean&gt;(this.localStorageService.retrieve(&#x27;darkMode&#x27;) ?? globalThis.matchMedia(&#x27;(prefers-color-scheme: dark)&#x27;).matches);
+  return COLOR_VARIANTS.map((variant) &#x3D;&gt; {
+    let color &#x3D; baseColor;
 
-  readonly primaryColor &#x3D; signal&lt;string&gt;(this.localStorageService.retrieve(&#x27;primaryColor&#x27;) ?? FALLBACK_PRIMARY_COLOR);
-
-  readonly accentColor &#x3D; signal&lt;string&gt;(this.localStorageService.retrieve(&#x27;accentColor&#x27;) ?? FALLBACK_ACCENT_COLOR);
-
-  readonly primaryColorPalette &#x3D; computed(() &#x3D;&gt; this.computeColors(this.primaryColor()));
-  readonly accentColorPalette &#x3D; computed(() &#x3D;&gt; this.computeColors(this.accentColor()));
-
-  constructor() {
-    // Automatische Updates bei Änderungen
-    effect(() &#x3D;&gt; {
-      this.updateCSSProperties();
-      this.updateMetaThemeColor();
-    });
-
-    effect(() &#x3D;&gt; {
-      this.localStorageService.store(&#x27;darkMode&#x27;, this.darkMode());
-    });
-
-    effect(() &#x3D;&gt; {
-      this.localStorageService.store(&#x27;primaryColor&#x27;, this.primaryColor());
-    });
-
-    effect(() &#x3D;&gt; {
-      this.localStorageService.store(&#x27;accentColor&#x27;, this.accentColor());
-    });
-  }
-
-  initializeTheme() {
-    this.updateCSSProperties();
-    this.updateMetaThemeColor();
-  }
-
-  setDarkMode(darkMode: boolean) {
-    this.darkMode.set(darkMode);
-  }
-
-  setColors(colors: ColorConfig) {
-    this.primaryColor.set(colors.mainColor || FALLBACK_PRIMARY_COLOR);
-    this.accentColor.set(colors.peakColor || FALLBACK_ACCENT_COLOR);
-  }
-
-  setPrimaryColor(color: string) {
-    this.primaryColor.set(color || FALLBACK_PRIMARY_COLOR);
-  }
-
-  setAccentColor(color: string) {
-    this.accentColor.set(color || FALLBACK_ACCENT_COLOR);
-  }
-
-  private updateCSSProperties() {
-    const variables: string[] &#x3D; [&#x60;--app-color-scheme: ${this.darkMode() ? &#x27;dark&#x27; : &#x27;light&#x27;}&#x60;];
-
-    for (const color of this.primaryColorPalette()) {
-      variables.push(&#x60;--theme-primary-${color.name}: ${color.hex}&#x60;);
+    if (variant.lightenFactor) {
+      color &#x3D; baseColor.lighten(variant.lightenFactor);
+    } else if (variant.darkenFactor) {
+      color &#x3D; baseColor.darken(variant.darkenFactor);
     }
 
-    for (const color of this.accentColorPalette()) {
-      variables.push(&#x60;--theme-accent-${color.name}: ${color.hex}&#x60;);
-    }
+    return getThemeColor(color, variant.suffix, isDarkMode);
+  });
+}
 
-    document.documentElement.style.cssText +&#x3D; variables.join(&#x27;;&#x27;);
-  }
-
-  private updateMetaThemeColor() {
-    this.meta.updateTag({ name: &#x27;theme-color&#x27;, content: this.primaryColor() });
-  }
-
-  private computeColors(hex: string): ThemeColor[] {
-    const baseColor &#x3D; colord(hex);
-
-    return this.COLOR_VARIANTS.map((variant) &#x3D;&gt; {
-      let color &#x3D; baseColor;
-
-      if (variant.lightenFactor) {
-        color &#x3D; baseColor.lighten(variant.lightenFactor);
-      } else if (variant.darkenFactor) {
-        color &#x3D; baseColor.darken(variant.darkenFactor);
-      }
-
-      return this.getThemeColor(color, variant.suffix);
-    });
-  }
-
-  private getThemeColor(color: Colord, name: string): ThemeColor {
-    const lightnessLimit &#x3D; this.darkMode() ? 150 : 200;
-    return {
-      name,
-      hex: color.toHex(),
-      darkContrast: color.brightness() &gt; lightnessLimit
-    };
-  }
+/**
+ * Creates a ThemeColor object from a Colord color instance
+ * @param color The Colord color instance
+ * @param name The name/suffix for this color variant
+ * @param isDarkMode Whether dark mode is enabled
+ * @returns A ThemeColor object
+ */
+export function getThemeColor(color: Colord, name: string, isDarkMode: boolean): ThemeColor {
+  const lightnessLimit &#x3D; isDarkMode ? 0.3 : 0.5;
+  return {
+    name,
+    hex: color.toHex(),
+    darkContrast: color.brightness() &gt; lightnessLimit
+  };
 }
 </code></pre>
     </div>

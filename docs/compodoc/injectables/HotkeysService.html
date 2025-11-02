@@ -246,8 +246,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="98"
-                                    class="link-to-prism">apps/gblaster/src/app/services/hotkeys/hotkeys.service.ts:98</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="105"
+                                    class="link-to-prism">apps/gblaster/src/app/services/hotkeys/hotkeys.service.ts:105</a></div>
                         </td>
                     </tr>
 
@@ -350,8 +350,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="102"
-                                    class="link-to-prism">apps/gblaster/src/app/services/hotkeys/hotkeys.service.ts:102</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="109"
+                                    class="link-to-prism">apps/gblaster/src/app/services/hotkeys/hotkeys.service.ts:109</a></div>
                         </td>
                     </tr>
 
@@ -387,8 +387,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="106"
-                                    class="link-to-prism">apps/gblaster/src/app/services/hotkeys/hotkeys.service.ts:106</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="113"
+                                    class="link-to-prism">apps/gblaster/src/app/services/hotkeys/hotkeys.service.ts:113</a></div>
                         </td>
                     </tr>
 
@@ -424,8 +424,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="87"
-                                    class="link-to-prism">apps/gblaster/src/app/services/hotkeys/hotkeys.service.ts:87</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="94"
+                                    class="link-to-prism">apps/gblaster/src/app/services/hotkeys/hotkeys.service.ts:94</a></div>
                         </td>
                     </tr>
 
@@ -533,7 +533,11 @@ export class HotkeysService {
       return;
     }
 
-    const merged &#x3D; { ...this.defaults, ...options, keys: options.keys.replaceAll(&#x27;+&#x27;, &#x27;.&#x27;) };
+    const merged &#x3D; {
+      ...this.defaults,
+      ...options,
+      keys: options.keys.replaceAll(&#x27;+&#x27;, &#x27;.&#x27;)
+    };
     const event &#x3D; &#x60;keydown.${merged.keys}&#x60;;
 
     const observable &#x3D; new Observable((observer) &#x3D;&gt; {
@@ -558,7 +562,10 @@ export class HotkeysService {
     });
 
     const sub &#x3D; observable.subscribe(options.callback);
-    this.hotkeys.set(merged.keys, { description: merged.description ?? &#x27;&#x27;, subscription: sub });
+    this.hotkeys.set(merged.keys, {
+      description: merged.description ?? &#x27;&#x27;,
+      subscription: sub
+    });
 
     return merged.keys;
   }

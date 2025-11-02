@@ -254,8 +254,8 @@
 import { Id3Tags } from &#x27;./id3-tags.types&#x27;;
 import { RemoteCoverArtUrls } from &#x27;./metadata.types&#x27;;
 import { CoverArtArchiveApi, MusicBrainzApi } from &#x27;musicbrainz-api&#x27;;
-import { ensureHttps } from &#x27;./metadata.helper&#x27;;
 import { escapeLuceneQueryString } from &#x27;@motabass/helpers&#x27;;
+import { ensureHttps } from &#x27;./metadata-helper&#x27;;
 
 @Injectable({ providedIn: &#x27;root&#x27; })
 export class MusicbrainzService {
@@ -324,12 +324,16 @@ export class MusicbrainzService {
       }
 
       // Create a fallback chain for thumbnails
-      const thumb &#x3D; coverImage.thumbnails[&#x27;500&#x27;] || coverImage.thumbnails.large || coverImage.thumbnails.small || coverImage.image;
+      const thumb &#x3D;
+        coverImage.thumbnails[&#x27;500&#x27;] || coverImage.thumbnails.large || coverImage.thumbnails.small || coverImage.image;
 
       // Use large thumbnail or fall back to the full image
       const original &#x3D; coverImage.thumbnails.large || coverImage.image;
 
-      return { thumbUrl: ensureHttps(thumb), originalUrl: ensureHttps(original) };
+      return {
+        thumbUrl: ensureHttps(thumb),
+        originalUrl: ensureHttps(original)
+      };
     } catch {
       // console.warn(&#x27;No cover found with this ID&#x27;, error);
       return undefined;

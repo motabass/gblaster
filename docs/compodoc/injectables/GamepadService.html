@@ -202,7 +202,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">apps/gblaster/src/app/services/gamepad/gamepad.service.ts:16</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="24" class="link-to-prism">apps/gblaster/src/app/services/gamepad/gamepad.service.ts:24</a></div>
                             </td>
                         </tr>
 
@@ -235,8 +235,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="145"
-                                    class="link-to-prism">apps/gblaster/src/app/services/gamepad/gamepad.service.ts:145</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="158"
+                                    class="link-to-prism">apps/gblaster/src/app/services/gamepad/gamepad.service.ts:158</a></div>
                         </td>
                     </tr>
 
@@ -302,8 +302,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="121"
-                                    class="link-to-prism">apps/gblaster/src/app/services/gamepad/gamepad.service.ts:121</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="134"
+                                    class="link-to-prism">apps/gblaster/src/app/services/gamepad/gamepad.service.ts:134</a></div>
                         </td>
                     </tr>
 
@@ -362,15 +362,15 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>registerAxisAction(axisIndex: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, positiveActionFunction: <a href="../undefineds/ActionFunction.html" target="_self">ActionFunction</a>, negativeActionFunction: <a href="../undefineds/ActionFunction.html" target="_self">ActionFunction</a>, mode: <a href="../undefineds/InputCheckMode.html" target="_self">InputCheckMode</a>, turboTimeout)</code>
+<code>registerAxisAction(axisIndex: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, positiveActionFunction: <a href="../undefineds/ActionFunction.html" target="_self">ActionFunction</a>, negativeActionFunction: <a href="../undefineds/ActionFunction.html" target="_self">ActionFunction</a>, mode: <a href="../undefineds/InputCheckMode.html" target="_self">InputCheckMode</a>, turboTimeout: unknown)</code>
                 </td>
             </tr>
 
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="125"
-                                    class="link-to-prism">apps/gblaster/src/app/services/gamepad/gamepad.service.ts:125</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="138"
+                                    class="link-to-prism">apps/gblaster/src/app/services/gamepad/gamepad.service.ts:138</a></div>
                         </td>
                     </tr>
 
@@ -451,6 +451,7 @@
                                         <tr>
                                                 <td>turboTimeout</td>
                                             <td>
+                                                        <code>unknown</code>
                                             </td>
 
                                             <td>
@@ -489,15 +490,15 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>registerButtonAction(buttonIndex: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, actionFunction: <a href="../undefineds/ActionFunction.html" target="_self">ActionFunction</a>, mode: <a href="../undefineds/InputCheckMode.html" target="_self">InputCheckMode</a>, timeout)</code>
+<code>registerButtonAction(buttonIndex: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, actionFunction: <a href="../undefineds/ActionFunction.html" target="_self">ActionFunction</a>, mode: <a href="../undefineds/InputCheckMode.html" target="_self">InputCheckMode</a>, timeout: unknown)</code>
                 </td>
             </tr>
 
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="108"
-                                    class="link-to-prism">apps/gblaster/src/app/services/gamepad/gamepad.service.ts:108</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="116"
+                                    class="link-to-prism">apps/gblaster/src/app/services/gamepad/gamepad.service.ts:116</a></div>
                         </td>
                     </tr>
 
@@ -564,6 +565,7 @@
                                         <tr>
                                                 <td>timeout</td>
                                             <td>
+                                                        <code>unknown</code>
                                             </td>
 
                                             <td>
@@ -619,7 +621,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">apps/gblaster/src/app/services/gamepad/gamepad.service.ts:16</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="24" class="link-to-prism">apps/gblaster/src/app/services/gamepad/gamepad.service.ts:24</a></div>
                         </td>
                     </tr>
 
@@ -633,7 +635,15 @@
 
     <div class="tab-pane fade  tab-source-code" id="source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable, OnDestroy } from &#x27;@angular/core&#x27;;
-import { ActionCache, ActionFunction, AxisGamepadAction, ButtonGamepadAction, GamepadAxes, GamepadButtons, InputCheckMode } from &#x27;./gamepad.types&#x27;;
+import {
+  ActionCache,
+  ActionFunction,
+  AxisGamepadAction,
+  ButtonGamepadAction,
+  GamepadAxes,
+  GamepadButtons,
+  InputCheckMode
+} from &#x27;./gamepad.types&#x27;;
 
 @Injectable({
   providedIn: &#x27;root&#x27;
@@ -739,7 +749,12 @@ export class GamepadService implements OnDestroy {
     }
   }
 
-  registerButtonAction(buttonIndex: number, actionFunction: ActionFunction, mode: InputCheckMode &#x3D; &#x27;click&#x27;, timeout &#x3D; this.DEFAULT_TURBO_TIMEOUT) {
+  registerButtonAction(
+    buttonIndex: number,
+    actionFunction: ActionFunction,
+    mode: InputCheckMode &#x3D; &#x27;click&#x27;,
+    timeout &#x3D; this.DEFAULT_TURBO_TIMEOUT
+  ) {
     if (!this.buttonActions[buttonIndex].default) {
       console.warn(&#x27;Diesem Button wurde bereits eine Action zugewiesen.&#x27;);
     }
@@ -800,12 +815,18 @@ export class GamepadService implements OnDestroy {
     if (button.pressed) {
       if (buttonCache) {
         const timeout &#x3D; this.buttonActions[buttonIndex].timeout ?? this.DEFAULT_TURBO_TIMEOUT;
-        if (this.buttonActions[buttonIndex].mode &#x3D;&#x3D;&#x3D; &#x27;turbo&#x27; &amp;&amp; performance.now() - buttonCache.lastActionExecution &gt; timeout) {
+        if (
+          this.buttonActions[buttonIndex].mode &#x3D;&#x3D;&#x3D; &#x27;turbo&#x27; &amp;&amp;
+          performance.now() - buttonCache.lastActionExecution &gt; timeout
+        ) {
           buttonCache.lastActionExecution &#x3D; performance.now();
           this.fireButtonAction(buttonIndex, button.value);
         }
       } else {
-        cache.push({ index: buttonIndex, lastActionExecution: performance.now() });
+        cache.push({
+          index: buttonIndex,
+          lastActionExecution: performance.now()
+        });
         this.fireButtonAction(buttonIndex, button.value);
       }
     } else {
@@ -851,7 +872,10 @@ export class GamepadService implements OnDestroy {
           this.fireAxisAction(axisIndex, axis.valueOf());
         }
       } else {
-        cache.push({ index: axisIndex, lastActionExecution: performance.now() });
+        cache.push({
+          index: axisIndex,
+          lastActionExecution: performance.now()
+        });
         this.fireAxisAction(axisIndex, axis.valueOf());
       }
     } else {

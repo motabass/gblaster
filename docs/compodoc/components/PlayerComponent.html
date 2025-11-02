@@ -140,6 +140,12 @@
 
 
 
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                <code>OnInit</code>
+    </p>
 
 
 <section data-compodoc="block-metadata">
@@ -168,13 +174,7 @@
                 <td class="col-md-3">imports</td>
                 <td class="col-md-9">
                                 <code><a href="../components/PlaylistComponent.html" target="_self" >PlaylistComponent</a></code>
-                            <code>MatButtonModule</code>
-                            <code>MatIconModule</code>
                                 <code><a href="../components/CoverDisplayComponent.html" target="_self" >CoverDisplayComponent</a></code>
-                            <code>MatToolbarModule</code>
-                            <code>MatTooltipModule</code>
-                            <code>MatSliderModule</code>
-                            <code>MatMenuModule</code>
                 </td>
             </tr>
 
@@ -202,24 +202,6 @@
 </section>
 
 
-    <section data-compodoc="block-constructor">
-    <h3 id="constructor">Constructor</h3>
-        <table class="table table-sm table-bordered">
-            <tbody>
-                <tr>
-                    <td class="col-md-4">
-<code>constructor()</code>
-                    </td>
-                </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">apps/gblaster/src/app/player/player.component.ts:19</a></div>
-                            </td>
-                        </tr>
-
-            </tbody>
-        </table>
-</section>
 
 
 
@@ -232,26 +214,23 @@
 
     <div class="tab-pane fade  tab-source-code" id="source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ChangeDetectionStrategy, Component, inject } from &#x27;@angular/core&#x27;;
-import { MatSliderModule } from &#x27;@angular/material/slider&#x27;;
+
 import { TitleService } from &#x27;../services/title.service&#x27;;
-import { MatMenuModule } from &#x27;@angular/material/menu&#x27;;
-import { MatTooltipModule } from &#x27;@angular/material/tooltip&#x27;;
-import { MatToolbarModule } from &#x27;@angular/material/toolbar&#x27;;
+
 import { CoverDisplayComponent } from &#x27;./cover-display/cover-display.component&#x27;;
-import { MatIconModule } from &#x27;@angular/material/icon&#x27;;
-import { MatButtonModule } from &#x27;@angular/material/button&#x27;;
+
 import { PlaylistComponent } from &#x27;./playlist/playlist.component&#x27;;
 
 @Component({
-  imports: [PlaylistComponent, MatButtonModule, MatIconModule, CoverDisplayComponent, MatToolbarModule, MatTooltipModule, MatSliderModule, MatMenuModule],
+  imports: [PlaylistComponent, CoverDisplayComponent],
   templateUrl: &#x27;./player.component.html&#x27;,
   styleUrl: &#x27;./player.component.scss&#x27;,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export default class PlayerComponent {
+export default class PlayerComponent implements OnInit {
   private readonly titleService &#x3D; inject(TitleService);
 
-  constructor() {
+  ngOnInit() {
     this.titleService.setTitle(&#x27;gBlaster&#x27;);
   }
 }

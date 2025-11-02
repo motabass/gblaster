@@ -291,9 +291,9 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, computed, inject, signal } from &#x27;@angular/core&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, computed, inject, OnInit, signal } from &#x27;@angular/core&#x27;;
 import { IndexedDbTrackMetadata, Track } from &#x27;../player.types&#x27;;
-import { MatListModule } from &#x27;@angular/material/list&#x27;;
+import { MatListItem, MatListItemAvatar, MatListItemMeta, MatListItemTitle, MatNavList } from &#x27;@angular/material/list&#x27;;
 import { MatMenu, MatMenuContent, MatMenuItem, MatMenuTrigger } from &#x27;@angular/material/menu&#x27;;
 import { PlayerService } from &#x27;../player.service&#x27;;
 import { MatIcon } from &#x27;@angular/material/icon&#x27;;
@@ -314,7 +314,11 @@ export interface Album {
 
 @Component({
   imports: [
-    MatListModule,
+    MatNavList,
+    MatListItem,
+    MatListItemTitle,
+    MatListItemMeta,
+    MatListItemAvatar,
     MatMenu,
     MatMenuContent,
     MatMenuItem,
@@ -336,13 +340,9 @@ export interface Album {
   templateUrl: &#x27;./library.component.html&#x27;,
   styleUrl: &#x27;./library.component.scss&#x27;
 })
-export default class LibraryComponent {
+export default class LibraryComponent implements OnInit {
   private readonly playerService &#x3D; inject(PlayerService);
   protected readonly libraryService &#x3D; inject(LibraryService);
-
-  constructor() {
-    void this.libraryService.loadLibraryFromDb();
-  }
 
   protected readonly searchTerm &#x3D; signal(&#x27;&#x27;);
 
@@ -375,7 +375,9 @@ export default class LibraryComponent {
     let filtered &#x3D; this.filteredBySerchterm();
     const artist &#x3D; this.selectedArtist();
 
-    filtered &#x3D; artist ? filtered.filter((item) &#x3D;&gt; item.artist &#x3D;&#x3D;&#x3D; artist &amp;&amp; !!item.album) : filtered.filter((item) &#x3D;&gt; !!item.album);
+    filtered &#x3D; artist
+      ? filtered.filter((item) &#x3D;&gt; item.artist &#x3D;&#x3D;&#x3D; artist &amp;&amp; !!item.album)
+      : filtered.filter((item) &#x3D;&gt; !!item.album);
 
     // Map to store unique albums by name
     const albumMap &#x3D; new Map&lt;string, Album&gt;();
@@ -432,6 +434,10 @@ export default class LibraryComponent {
       return (a.title || &#x27;&#x27;).localeCompare(b.title || &#x27;&#x27;);
     });
   });
+
+  ngOnInit() {
+    void this.libraryService.loadLibraryFromDb();
+  }
 
   selectArtist(artist: string | undefined) {
     this.selectedArtist.set(artist);

@@ -386,7 +386,11 @@ export class HotkeysService {
       return;
     }
 
-    const merged &#x3D; { ...this.defaults, ...options, keys: options.keys.replaceAll(&#x27;+&#x27;, &#x27;.&#x27;) };
+    const merged &#x3D; {
+      ...this.defaults,
+      ...options,
+      keys: options.keys.replaceAll(&#x27;+&#x27;, &#x27;.&#x27;)
+    };
     const event &#x3D; &#x60;keydown.${merged.keys}&#x60;;
 
     const observable &#x3D; new Observable((observer) &#x3D;&gt; {
@@ -411,7 +415,10 @@ export class HotkeysService {
     });
 
     const sub &#x3D; observable.subscribe(options.callback);
-    this.hotkeys.set(merged.keys, { description: merged.description ?? &#x27;&#x27;, subscription: sub });
+    this.hotkeys.set(merged.keys, {
+      description: merged.description ?? &#x27;&#x27;,
+      subscription: sub
+    });
 
     return merged.keys;
   }

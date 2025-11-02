@@ -179,7 +179,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="9" class="link-to-prism">apps/gblaster/src/app/player/metadata-service/id3-tags.service.ts:9</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">apps/gblaster/src/app/player/metadata-service/id3-tags.service.ts:12</a></div>
                             </td>
                         </tr>
 
@@ -212,8 +212,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="17"
-                                    class="link-to-prism">apps/gblaster/src/app/player/metadata-service/id3-tags.service.ts:17</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="22"
+                                    class="link-to-prism">apps/gblaster/src/app/player/metadata-service/id3-tags.service.ts:22</a></div>
                         </td>
                     </tr>
 
@@ -291,10 +291,15 @@ import { TagsWorkerRequest, TagsWorkerResponse } from &#x27;./metadata.types&#x2
 export class Id3TagsService implements OnDestroy {
   private readonly worker: Worker;
   private nextId &#x3D; 0;
-  private readonly pendingRequests &#x3D; new Map&lt;string, { resolve: (tags?: Id3Tags) &#x3D;&gt; void; reject: (error: Error) &#x3D;&gt; void }&gt;();
+  private readonly pendingRequests &#x3D; new Map&lt;
+    string,
+    { resolve: (tags?: Id3Tags) &#x3D;&gt; void; reject: (error: Error) &#x3D;&gt; void }
+  &gt;();
 
   constructor() {
-    this.worker &#x3D; new Worker(new URL(&#x27;metadata.worker&#x27;, import.meta.url), { type: &#x27;module&#x27; });
+    this.worker &#x3D; new Worker(new URL(&#x27;metadata.worker&#x27;, import.meta.url), {
+      type: &#x27;module&#x27;
+    });
     this.worker.addEventListener(&#x27;message&#x27;, this.handleMessage);
     this.worker.addEventListener(&#x27;error&#x27;, this.handleError);
   }

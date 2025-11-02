@@ -172,6 +172,9 @@
                             <a href="#capYPositionArray" title="apps/gblaster/src/app/player/visualizer/visuals/visuals.worker.ts" ><b>capYPositionArray</b>&nbsp;&nbsp;&nbsp;(apps/.../visuals.worker.ts)</a>
                         </li>
                         <li>
+                            <a href="#COLOR_VARIANTS" title="apps/gblaster/src/app/theme/theme-helper.ts" ><b>COLOR_VARIANTS</b>&nbsp;&nbsp;&nbsp;(apps/.../theme-helper.ts)</a>
+                        </li>
+                        <li>
                             <a href="#context" title="apps/gblaster/src/app/player/visualizer/visuals/visuals.worker.ts" ><b>context</b>&nbsp;&nbsp;&nbsp;(apps/.../visuals.worker.ts)</a>
                         </li>
                         <li>
@@ -910,8 +913,19 @@
     provideZonelessChangeDetection(),
     provideBrowserGlobalErrorListeners(),
     provideIndexedDb(databaseConfig),
-    provideServiceWorker(&#x27;ngsw-worker.js&#x27;, { enabled: environment.production, registrationStrategy: &#x27;registerImmediately&#x27;, type: &#x27;module&#x27; }),
-    provideNgxWebstorage(withNgxWebstorageConfig({ separator: &#x27;|&#x27;, caseSensitive: true, prefix: &#x27;gblaster&#x27; }), withLocalStorage()),
+    provideServiceWorker(&#x27;ngsw-worker.js&#x27;, {
+      enabled: environment.production,
+      registrationStrategy: &#x27;registerImmediately&#x27;,
+      type: &#x27;module&#x27;
+    }),
+    provideNgxWebstorage(
+      withNgxWebstorageConfig({
+        separator: &#x27;|&#x27;,
+        caseSensitive: true,
+        prefix: &#x27;gblaster&#x27;
+      }),
+      withLocalStorage()
+    ),
     provideHttpClient(withInterceptors([loaderInterceptor]), withFetch()),
     provideRouter(routes, withEnabledBlockingInitialNavigation(), withViewTransitions()),
     {
@@ -925,10 +939,60 @@
     { provide: MediaSessionService, useFactory: mediaSessionServiceFactory },
     {
       provide: MAT_TOOLTIP_DEFAULT_OPTIONS,
-      useValue: { showDelay: 800, position: &#x27;above&#x27;, disableTooltipInteractivity: true }
+      useValue: {
+        showDelay: 800,
+        position: &#x27;above&#x27;,
+        disableTooltipInteractivity: true
+      }
     }
   ]
 }</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>apps/gblaster/src/app/theme/theme-helper.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="COLOR_VARIANTS"></a>
+                    <span class="name">
+                        <span ><b>COLOR_VARIANTS</b></span>
+                        <a href="#COLOR_VARIANTS"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/ColorVariant.html" target="_self" >ColorVariant[]</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[
+  { suffix: &#x27;0&#x27;, lightenFactor: 0.55 },
+  { suffix: &#x27;10&#x27;, lightenFactor: 0.45 },
+  { suffix: &#x27;20&#x27;, lightenFactor: 0.35 },
+  { suffix: &#x27;25&#x27;, lightenFactor: 0.3 },
+  { suffix: &#x27;30&#x27;, lightenFactor: 0.25 },
+  { suffix: &#x27;35&#x27;, lightenFactor: 0.2 },
+  { suffix: &#x27;40&#x27;, lightenFactor: 0.15 },
+  { suffix: &#x27;50&#x27; },
+  { suffix: &#x27;60&#x27;, darkenFactor: 0.05 },
+  { suffix: &#x27;70&#x27;, darkenFactor: 0.1 },
+  { suffix: &#x27;80&#x27;, darkenFactor: 0.15 },
+  { suffix: &#x27;90&#x27;, darkenFactor: 0.18 },
+  { suffix: &#x27;95&#x27;, darkenFactor: 0.21 },
+  { suffix: &#x27;98&#x27;, darkenFactor: 0.24 },
+  { suffix: &#x27;99&#x27;, darkenFactor: 0.27 },
+  { suffix: &#x27;100&#x27;, darkenFactor: 0.3 }
+]</code>
                     </td>
                 </tr>
 
@@ -1172,6 +1236,12 @@
             </tr>
                 <tr>
                     <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
                         <i>Default value : </i><code>[31, 63, 125, 250, 500, 1000, 2000, 4000, 8000, 16_000] as const</code>
                     </td>
                 </tr>
@@ -1193,6 +1263,12 @@
                     </span>
                 </td>
             </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
                 <tr>
                     <td class="col-md-4">
                         <i>Default value : </i><code>(title: string) &#x3D;&gt; cy.get(&#x27;mat-card-title&#x27;).contains(title)</code>
@@ -1218,6 +1294,12 @@
             </tr>
                 <tr>
                     <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
                         <i>Default value : </i><code>() &#x3D;&gt; cy.get(&#x27;mtb-cover-display&#x27;)</code>
                     </td>
                 </tr>
@@ -1236,6 +1318,12 @@
                     </span>
                 </td>
             </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
                 <tr>
                     <td class="col-md-4">
                         <i>Default value : </i><code>() &#x3D;&gt; cy.get(&#x27;#load_files&#x27;)</code>
@@ -1258,6 +1346,12 @@
             </tr>
                 <tr>
                     <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
                         <i>Default value : </i><code>() &#x3D;&gt; cy.get(&#x27;#load_files_menu&#x27;)</code>
                     </td>
                 </tr>
@@ -1276,6 +1370,12 @@
                     </span>
                 </td>
             </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
                 <tr>
                     <td class="col-md-4">
                         <i>Default value : </i><code>() &#x3D;&gt; cy.get(&#x27;.playlist &gt; mat-list-item&#x27;)</code>
@@ -1298,6 +1398,12 @@
             </tr>
                 <tr>
                     <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
                         <i>Default value : </i><code>() &#x3D;&gt; cy.get(&#x27;#volume_button&#x27;)</code>
                     </td>
                 </tr>
@@ -1316,6 +1422,12 @@
                     </span>
                 </td>
             </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
                 <tr>
                     <td class="col-md-4">
                         <i>Default value : </i><code>() &#x3D;&gt; cy.get(&#x27;#volume_slider&#x27;)</code>
@@ -1341,6 +1453,12 @@
             </tr>
                 <tr>
                     <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
                         <i>Default value : </i><code>(link: number) &#x3D;&gt; cy.get(&#x60;:nth-child(${link}) &gt; .mdc-list-item__content&#x60;)</code>
                     </td>
                 </tr>
@@ -1361,6 +1479,12 @@
             </tr>
                 <tr>
                     <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
                         <i>Default value : </i><code>() &#x3D;&gt; cy.get(&#x27;#sidenav_menu_button&#x27;)</code>
                     </td>
                 </tr>
@@ -1379,6 +1503,12 @@
                     </span>
                 </td>
             </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
                 <tr>
                     <td class="col-md-4">
                         <i>Default value : </i><code>() &#x3D;&gt; cy.get(&#x27;.title&#x27;)</code>
@@ -1447,9 +1577,18 @@
                         <i>Default value : </i><code>[
   { path: &#x27;&#x27;, redirectTo: &#x27;player&#x27;, pathMatch: &#x27;full&#x27; },
   { path: &#x27;player&#x27;, loadComponent: () &#x3D;&gt; import(&#x27;./player/player.component&#x27;) },
-  { path: &#x27;player/eq&#x27;, loadComponent: () &#x3D;&gt; import(&#x27;./player/equalizer/equalizer.component&#x27;) },
-  { path: &#x27;player/library&#x27;, loadComponent: () &#x3D;&gt; import(&#x27;./player/library/library.component&#x27;) },
-  { path: &#x27;settings&#x27;, loadComponent: () &#x3D;&gt; import(&#x27;./settings/settings.component&#x27;) },
+  {
+    path: &#x27;player/eq&#x27;,
+    loadComponent: () &#x3D;&gt; import(&#x27;./player/equalizer/equalizer.component&#x27;)
+  },
+  {
+    path: &#x27;player/library&#x27;,
+    loadComponent: () &#x3D;&gt; import(&#x27;./player/library/library.component&#x27;)
+  },
+  {
+    path: &#x27;settings&#x27;,
+    loadComponent: () &#x3D;&gt; import(&#x27;./settings/settings.component&#x27;)
+  },
   { path: &#x27;**&#x27;, redirectTo: &#x27;&#x27; }
 ]</code>
                     </td>
