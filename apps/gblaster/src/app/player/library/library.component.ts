@@ -1,4 +1,4 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { IndexedDbTrackMetadata, Track } from '../player.types';
 import { MatListItem, MatListItemAvatar, MatListItemMeta, MatListItemTitle, MatNavList } from '@angular/material/list';
 import { MatMenu, MatMenuContent, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
@@ -47,13 +47,9 @@ export interface Album {
   templateUrl: './library.component.html',
   styleUrl: './library.component.scss'
 })
-export default class LibraryComponent {
+export default class LibraryComponent implements OnInit {
   private readonly playerService = inject(PlayerService);
   protected readonly libraryService = inject(LibraryService);
-
-  constructor() {
-    void this.libraryService.loadLibraryFromDb();
-  }
 
   protected readonly searchTerm = signal('');
 
@@ -145,6 +141,10 @@ export default class LibraryComponent {
       return (a.title || '').localeCompare(b.title || '');
     });
   });
+
+  ngOnInit() {
+    void this.libraryService.loadLibraryFromDb();
+  }
 
   selectArtist(artist: string | undefined) {
     this.selectedArtist.set(artist);

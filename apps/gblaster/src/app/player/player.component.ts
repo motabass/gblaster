@@ -12,10 +12,10 @@ import { PlaylistComponent } from './playlist/playlist.component';
   styleUrl: './player.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export default class PlayerComponent {
+export default class PlayerComponent implements OnInit {
   private readonly titleService = inject(TitleService);
 
-  constructor() {
+  ngOnInit() {
     this.titleService.setTitle('gBlaster');
   }
 }

@@ -1,5 +1,5 @@
 [tools]
-node = '24'
+node = "25"
 pnpm = "10"
 "npm:nx" = "latest"
 
