@@ -75,7 +75,7 @@
     "colord": "^2.9.3",
     "date-fns": "4.1.0",
     "music-metadata": "11.9.0",
-    "musicbrainz-api": "0.25.1",
+    "musicbrainz-api": "0.26.0",
     "ngx-date-fns": "12.0.1",
     "ngx-indexed-db": "21.0.0",
     "ngx-webstorage": "20.0.0",
