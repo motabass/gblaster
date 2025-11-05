@@ -28,7 +28,7 @@ jobs:
       - name: Setup NodeJS
         uses: actions/setup-node@v6
         with:
-          node-version: 24.x
+          node-version: 25
           cache: 'pnpm'
       - name: Cache Cypress Binary
         uses: actions/cache@v4
