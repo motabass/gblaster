@@ -15,9 +15,8 @@ export interface PromptDialogData {
 }
 
 @Component({
-  selector: 'mtb-prompt-dialog',
-  templateUrl: './prompt-dialog.component.html',
-  imports: [MatDialogTitle, MatDialogContent, MatDialogActions, MatButton]
+  imports: [MatDialogTitle, MatDialogContent, MatDialogActions, MatButton],
+  templateUrl: './prompt-dialog.component.html'
 })
 export class PromptDialogComponent {
   data = inject<PromptDialogData>(MAT_DIALOG_DATA);

@@ -1,20 +1,20 @@
 <div
   class="slide-panel-toggle-wrapper"
-  [ngClass]="{ 'slide-panel-toggle-wrapper-opened': openedState }"
+  [class.slide-panel-toggle-wrapper-opened]="openedState()"
 >
   @switch (side()) {
     @case ('left') {
       <button
         class="slide-panel-toggle"
         mat-icon-button
-        (click)="openedState ? closePanel() : openPanel()"
+        (click)="openedState() ? closePanel() : openPanel()"
       >
-        @if (toggleIcon) {
+        @if (toggleIcon()) {
           <mat-icon
-            [matTooltip]="(openedState ? 'Close ' : 'Open ') + buttonTooltip()"
             matTooltipPosition="right"
-            [svgIcon]="toggleIcon"
-          ></mat-icon>
+            [matTooltip]="(openedState() ? 'Close ' : 'Open ') + buttonTooltip()"
+            [svgIcon]="toggleIcon()"
+          />
         }
       </button>
     }
@@ -22,19 +22,19 @@
       <button
         class="slide-panel-toggle"
         mat-icon-button
-        (click)="openedState ? closePanel() : openPanel()"
+        (click)="openedState() ? closePanel() : openPanel()"
       >
-        @if (toggleIcon) {
+        @if (toggleIcon()) {
           <mat-icon
-            [matTooltip]="(openedState ? 'Close ' : 'Open ') + buttonTooltip()"
             matTooltipPosition="left"
-            [svgIcon]="toggleIcon"
-          ></mat-icon>
+            [matTooltip]="(openedState() ? 'Close ' : 'Open ') + buttonTooltip()"
+            [svgIcon]="toggleIcon()"
+          />
         }
       </button>
     }
   }
 </div>
 <div class="panel-content">
-  <ng-content></ng-content>
+  <ng-content />
 </div>

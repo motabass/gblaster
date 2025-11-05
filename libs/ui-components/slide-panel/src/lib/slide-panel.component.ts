@@ -1,28 +1,27 @@
-import { booleanAttribute, Component, Input, input } from '@angular/core';
+import { booleanAttribute, Component, input, linkedSignal } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 import { MatIconButton } from '@angular/material/button';
 import { MatTooltip } from '@angular/material/tooltip';
-import { NgClass } from '@angular/common';
 
 @Component({
   selector: 'mtb-slide-panel',
+  imports: [MatIcon, MatIconButton, MatTooltip],
   templateUrl: './slide-panel.component.html',
   styleUrl: './slide-panel.component.scss',
-  imports: [MatIcon, MatIconButton, MatTooltip, NgClass],
   host: {
     '[style.bottom]': 'bottom()',
     '[style.top]': 'top()',
     '[style.width]': 'width()',
     '[style.height]': 'height()',
     '[class]': 'side()',
-    '[class.closed-slide-panel]': '!openedState',
-    '[class.opened-slide-panel]': 'openedState'
+    '[class.closed-slide-panel]': '!openedState()',
+    '[class.opened-slide-panel]': 'openedState()'
   }
 })
 export class SlidePanelComponent {
-  // TODO: Skipped for migration because:
-  //  Your application code writes to the input. This prevents migration.
-  @Input({ transform: booleanAttribute }) openedState = true;
+  readonly opened = input(true, { transform: booleanAttribute });
+
+  readonly openedState = linkedSignal(() => this.opened());
 
   readonly bottom = input<string>();
 
@@ -34,18 +33,15 @@ export class SlidePanelComponent {
 
   readonly side = input<'left' | 'right'>('left');
 
-  // TODO: Skipped for migration because:
-  //  This input is used in a control flow expression (e.g. `@if` or `*ngIf`)
-  //  and migrating would break narrowing currently.
-  @Input() toggleIcon?: string;
+  readonly toggleIcon = input<string>('');
 
   readonly buttonTooltip = input<string | undefined>('');
 
   openPanel() {
-    this.openedState = true;
+    this.openedState.set(true);
   }
 
   closePanel() {
-    this.openedState = false;
+    this.openedState.set(false);
   }
 }
