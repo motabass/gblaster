@@ -20,7 +20,8 @@ export const ANGULAR_ESLINT_TS_RULES = {
   '@angular-eslint/use-pipe-transform-interface': 'error',
   '@angular-eslint/prefer-signals': 'error',
   '@angular-eslint/no-uncalled-signals': 'error',
-  '@angular-eslint/sort-keys-in-type-decorator': 'error'
+  '@angular-eslint/sort-keys-in-type-decorator': 'error',
+  '@angular-eslint/prefer-host-metadata-property': 'error'
 };
 
 export const ANGULAR_ESLINT_TEMPLATE_RULES = {
