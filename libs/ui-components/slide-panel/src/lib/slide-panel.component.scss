@@ -1,13 +1,20 @@
 @use 'pkg:@angular/material' as mat;
 
 :host {
-  --transition-speed: 0.6s;
+  --transition-speed: 0.4s;
   --toggle-size: 3rem;
   --toggle-offset: 1.5rem;
   --toggle-icon-padding: 20px;
 
   position: absolute;
-  transition: var(--transition-speed);
+
+  &.initialized {
+    transition: var(--transition-speed);
+
+    .panel-content {
+      transition: var(--transition-speed);
+    }
+  }
 
   .panel-content {
     max-height: 100%;
@@ -18,7 +25,6 @@
     @include mat.elevation(4);
 
     background-color: rgb(0 0 0 / 60%);
-    transition: var(--transition-speed);
   }
 
   &.closed-slide-panel {
