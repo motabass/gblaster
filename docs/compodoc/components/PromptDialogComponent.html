@@ -158,10 +158,6 @@
 
 
 
-            <tr>
-                <td class="col-md-3">selector</td>
-                <td class="col-md-9"><code>mtb-prompt-dialog</code></td>
-            </tr>
 
 
             <tr>
@@ -271,8 +267,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="30"
-                                    class="link-to-prism">libs/ui-components/dialogs/src/lib/prompt-dialog/prompt-dialog.component.ts:30</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="29"
+                                    class="link-to-prism">libs/ui-components/dialogs/src/lib/prompt-dialog/prompt-dialog.component.ts:29</a></div>
                         </td>
                     </tr>
 
@@ -308,8 +304,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="26"
-                                    class="link-to-prism">libs/ui-components/dialogs/src/lib/prompt-dialog/prompt-dialog.component.ts:26</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="25"
+                                    class="link-to-prism">libs/ui-components/dialogs/src/lib/prompt-dialog/prompt-dialog.component.ts:25</a></div>
                         </td>
                     </tr>
 
@@ -355,7 +351,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="23" class="link-to-prism">libs/ui-components/dialogs/src/lib/prompt-dialog/prompt-dialog.component.ts:23</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="22" class="link-to-prism">libs/ui-components/dialogs/src/lib/prompt-dialog/prompt-dialog.component.ts:22</a></div>
                         </td>
                     </tr>
 
@@ -386,7 +382,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="24" class="link-to-prism">libs/ui-components/dialogs/src/lib/prompt-dialog/prompt-dialog.component.ts:24</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="23" class="link-to-prism">libs/ui-components/dialogs/src/lib/prompt-dialog/prompt-dialog.component.ts:23</a></div>
                         </td>
                     </tr>
 
@@ -416,9 +412,8 @@ export interface PromptDialogData {
 }
 
 @Component({
-  selector: &#x27;mtb-prompt-dialog&#x27;,
-  templateUrl: &#x27;./prompt-dialog.component.html&#x27;,
-  imports: [MatDialogTitle, MatDialogContent, MatDialogActions, MatButton]
+  imports: [MatDialogTitle, MatDialogContent, MatDialogActions, MatButton],
+  templateUrl: &#x27;./prompt-dialog.component.html&#x27;
 })
 export class PromptDialogComponent {
   data &#x3D; inject&lt;PromptDialogData&gt;(MAT_DIALOG_DATA);
@@ -488,7 +483,7 @@ export class PromptDialogComponent {
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
         var COMPONENT_TEMPLATE = '<div><h2 matDialogTitle>{{ data.title }}</h2><mat-dialog-content>  {{ data.text }}</mat-dialog-content><mat-dialog-actions>  <button    mat-button    color="accent"    (click)="cancel()"  >    Abbrechen  </button>  <button    mat-flat-button    color="accent"    (click)="update()"  >    Update  </button></mat-dialog-actions></div>'
-    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'mtb-root'},{'name': 'CoverDisplayComponent', 'selector': 'mtb-cover-display'},{'name': 'EqualizerComponent', 'selector': ''},{'name': 'FileDropOverlayComponent', 'selector': 'mtb-file-drop-overlay'},{'name': 'HotkeysHelpDialogComponent', 'selector': ''},{'name': 'LibraryComponent', 'selector': ''},{'name': 'MetadataSettingsComponent', 'selector': 'mtb-metadata-settings'},{'name': 'PlayerComponent', 'selector': ''},{'name': 'PlayerToolbarComponent', 'selector': 'player-toolbar'},{'name': 'PlaylistComponent', 'selector': 'mtb-playlist'},{'name': 'PromptDialogComponent', 'selector': 'mtb-prompt-dialog'},{'name': 'SettingsComponent', 'selector': ''},{'name': 'ShellComponent', 'selector': 'mtb-shell'},{'name': 'SlidePanelComponent', 'selector': 'mtb-slide-panel'},{'name': 'StorageSettingsComponent', 'selector': 'mtb-storage-settings'},{'name': 'ThemeSettingsComponent', 'selector': 'mtb-theme-settings'},{'name': 'VisualizerComponent', 'selector': 'mtb-visualizer'}];
+    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'mtb-root'},{'name': 'CoverDisplayComponent', 'selector': 'mtb-cover-display'},{'name': 'EqualizerComponent', 'selector': ''},{'name': 'FileDropOverlayComponent', 'selector': 'mtb-file-drop-overlay'},{'name': 'HotkeysHelpDialogComponent', 'selector': ''},{'name': 'LibraryComponent', 'selector': ''},{'name': 'MetadataSettingsComponent', 'selector': 'mtb-metadata-settings'},{'name': 'PlayerComponent', 'selector': ''},{'name': 'PlayerToolbarComponent', 'selector': 'player-toolbar'},{'name': 'PlaylistComponent', 'selector': 'mtb-playlist'},{'name': 'PromptDialogComponent', 'selector': ''},{'name': 'SettingsComponent', 'selector': ''},{'name': 'ShellComponent', 'selector': 'mtb-shell'},{'name': 'SlidePanelComponent', 'selector': 'mtb-slide-panel'},{'name': 'StorageSettingsComponent', 'selector': 'mtb-storage-settings'},{'name': 'ThemeSettingsComponent', 'selector': 'mtb-theme-settings'},{'name': 'VisualizerComponent', 'selector': 'mtb-visualizer'}];
     var DIRECTIVES = [{'name': 'VisualsDirective', 'selector': '[mtbVisual]'}];
     var ACTUAL_COMPONENT = {'name': 'PromptDialogComponent'};
 </script>
