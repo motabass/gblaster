@@ -1,5 +1,6 @@
 import nx from '@nx/eslint-plugin';
 import baseConfig from '../../../eslint.config.mjs';
+import { ANGULAR_ESLINT_TEMPLATE_RULES, ANGULAR_ESLINT_TS_RULES } from '../../../eslint-rules.mjs';
 
 export default [
   ...baseConfig,
@@ -23,12 +24,15 @@ export default [
           prefix: 'mtb',
           style: 'kebab-case'
         }
-      ]
+      ],
+      ...ANGULAR_ESLINT_TS_RULES
     }
   },
   {
     files: ['**/*.html'],
     // Override or add rules here
-    rules: {}
+    rules: {
+      ...ANGULAR_ESLINT_TEMPLATE_RULES
+    }
   }
 ];

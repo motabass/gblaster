@@ -33,15 +33,6 @@ export default [
     files: ['**/*.html'],
     // Override or add rules here
     rules: {
-      '@angular-eslint/template/prefer-control-flow': 'error',
-      '@angular-eslint/template/banana-in-box': 'error',
-      '@angular-eslint/template/no-inline-styles': 'warn',
-      '@angular-eslint/template/conditional-complexity': ['error', { maxComplexity: 4 }],
-      '@angular-eslint/template/cyclomatic-complexity': ['error', { maxComplexity: 5 }],
-      '@angular-eslint/template/eqeqeq': 'error',
-      '@angular-eslint/template/no-negated-async': 'error',
-      '@angular-eslint/template/use-track-by-function': 'error',
-      '@angular-eslint/template/prefer-static-string-properties': 'error',
       ...ANGULAR_ESLINT_TEMPLATE_RULES
     }
   },

@@ -29,8 +29,6 @@ export const ANGULAR_ESLINT_TEMPLATE_RULES = {
   '@angular-eslint/template/use-track-by-function': 'error',
   '@angular-eslint/template/prefer-static-string-properties': 'error',
   '@angular-eslint/template/no-duplicate-attributes': 'error',
-  '@angular-eslint/template/conditional-complexity': 'warn',
-  '@angular-eslint/template/cyclomatic-complexity': 'warn',
   '@angular-eslint/template/no-any': 'error',
   '@angular-eslint/template/no-positive-tabindex': 'error',
   '@angular-eslint/template/attributes-order': 'error',
@@ -42,7 +40,13 @@ export const ANGULAR_ESLINT_TEMPLATE_RULES = {
   '@angular-eslint/template/prefer-at-empty': 'error',
   '@angular-eslint/template/prefer-template-literal': 'error',
   '@angular-eslint/template/prefer-contextual-for-variables': 'error',
-  'unicorn/no-empty-file': 'off'
+  'unicorn/no-empty-file': 'off',
+  '@angular-eslint/template/banana-in-box': 'error',
+  '@angular-eslint/template/no-inline-styles': 'warn',
+  '@angular-eslint/template/conditional-complexity': ['warn', { maxComplexity: 10 }],
+  '@angular-eslint/template/cyclomatic-complexity': ['warn', { maxComplexity: 10 }],
+  '@angular-eslint/template/eqeqeq': 'error',
+  '@angular-eslint/template/no-negated-async': 'error'
 };
 
 const DEFAULT_UNICORN_RULE_OVERRIDES = {
