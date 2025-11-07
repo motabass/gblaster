@@ -145,7 +145,7 @@ export class PlayerToolbarComponent implements OnInit, OnDestroy {
   }
 
   async showFilePickerAndLoadFiles() {
-    await this.fileLoaderService.showPicker();
+    await this.fileLoaderService.pickFolder();
     return this.playerService.loadFiles();
   }
 

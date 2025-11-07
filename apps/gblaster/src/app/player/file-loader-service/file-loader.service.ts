@@ -17,19 +17,24 @@ export class FileLoaderService {
   readonly currentFolderHandle = signal<FileSystemDirectoryHandle | undefined>(undefined);
 
   constructor() {
-    //  TODO: refactor
-    firstValueFrom(this.indexedDbService.getByID<DirHandleEntry>('directoryHandles', 1)).then((entry) => {
-      if (entry) {
-        verifyPermission(entry.handle).then((granted) => {
-          if (granted) {
-            this.currentFolderHandle.set(entry.handle);
-          }
-        });
-      }
-    });
+    void this.restoreSavedDirectoryHandle();
   }
 
-  async showPicker(): Promise<void> {
+  private async restoreSavedDirectoryHandle(): Promise<void> {
+    try {
+      const entry = await firstValueFrom(this.indexedDbService.getByID<DirHandleEntry>('directoryHandles', 1));
+      if (entry?.handle) {
+        const granted = await verifyPermission(entry.handle);
+        if (granted) {
+          this.currentFolderHandle.set(entry.handle);
+        }
+      }
+    } catch (error) {
+      console.error('Failed to restore directory handle:', error);
+    }
+  }
+
+  async pickFolder(): Promise<void> {
     try {
       const handle = await showDirectoryPicker();
       this.currentFolderHandle.set(handle);
@@ -40,33 +45,56 @@ export class FileLoaderService {
         } as DirHandleEntry)
       );
     } catch (error) {
-      console.log('No files:', error);
+      // User cancelled the picker or access was denied
+      if (error instanceof DOMException && error.name === 'AbortError') {
+        console.log('Directory picker was cancelled');
+      } else {
+        console.error('Failed to select directory:', error);
+        throw error;
+      }
     }
   }
 
   async openFiles(): Promise<FileData[]> {
     const handle = this.currentFolderHandle();
-    if (handle) {
-      return getAudioFilesFromDirHandle(handle);
+    if (!handle) {
+      return [];
     }
-    return [];
+
+    try {
+      return await getAudioFilesFromDirHandle(handle);
+    } catch (error) {
+      console.error('Failed to load audio files:', error);
+      throw error;
+    }
   }
 }
 
 async function getAudioFilesFromDirHandle(dirHandle: FileSystemDirectoryHandle): Promise<FileData[]> {
   const fileData: FileData[] = [];
-  for await (const entry of dirHandle.values()) {
-    if (entry.kind === 'file') {
-      const file = await entry.getFile();
-      if (ALLOWED_MIMETYPES.includes(file.type)) {
-        // TODO: remove double check when accepts works for directories in API
-        fileData.push({ file, fileHandle: entry });
+
+  try {
+    for await (const [name, entry] of dirHandle.entries()) {
+      try {
+        if (entry.kind === 'file') {
+          const file = await entry.getFile();
+
+          if (ALLOWED_MIMETYPES.includes(file.type)) {
+            fileData.push({ file, fileHandle: entry });
+          }
+        } else if (entry.kind === 'directory') {
+          const subFiles = await getAudioFilesFromDirHandle(entry);
+          fileData.push(...subFiles);
+        }
+      } catch (error) {
+        console.warn(`Failed to process entry "${name}":`, error);
       }
-    } else {
-      const subFiles = await getAudioFilesFromDirHandle(entry);
-      fileData.push(...subFiles);
     }
+  } catch (error) {
+    console.error('Failed to read directory:', error);
+    throw error;
   }
+
   return fileData;
 }
 
