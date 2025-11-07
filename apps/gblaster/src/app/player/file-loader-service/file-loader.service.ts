@@ -1,10 +1,13 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
+import { Platform } from '@angular/cdk/platform';
 import { ALLOWED_MIMETYPES, FileData } from './file-loader.helpers';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FileLoaderService {
+  private readonly platform = inject(Platform);
+
   private async pickFolder() {
     try {
       const handle = await showDirectoryPicker();
@@ -21,17 +24,54 @@ export class FileLoaderService {
     }
   }
 
-  async getFilesFromPickedFolder(): Promise<FileData[]> {
-    const handle = await this.pickFolder();
-    if (!handle) {
-      return [];
-    }
-
+  private async pickFiles(): Promise<FileSystemFileHandle[]> {
     try {
-      return await recursiveGetAudioFilesFromDirectory(handle);
+      const handles = await showOpenFilePicker({ multiple: true });
+      return handles;
     } catch (error) {
-      console.error('Failed to load audio files:', error);
-      throw error;
+      // User cancelled the picker or access was denied
+      if (error instanceof DOMException && error.name === 'AbortError') {
+        console.log('File picker was cancelled');
+        return [];
+      } else {
+        console.error('Failed to select files:', error);
+        throw error;
+      }
+    }
+  }
+
+  async getFilesFromPickedFolder(): Promise<FileData[]> {
+    if (this.platform.ANDROID) {
+      const fileHandles = await this.pickFiles();
+      if (fileHandles.length === 0) {
+        return [];
+      }
+
+      try {
+        const fileData: FileData[] = [];
+        for (const fileHandle of fileHandles) {
+          const file = await fileHandle.getFile();
+          if (ALLOWED_MIMETYPES.includes(file.type)) {
+            fileData.push({ file, fileHandle });
+          }
+        }
+        return fileData;
+      } catch (error) {
+        console.error('Failed to load audio files:', error);
+        throw error;
+      }
+    } else {
+      const handle = await this.pickFolder();
+      if (!handle) {
+        return [];
+      }
+
+      try {
+        return await recursiveGetAudioFilesFromDirectory(handle);
+      } catch (error) {
+        console.error('Failed to load audio files:', error);
+        throw error;
+      }
     }
   }
 }
