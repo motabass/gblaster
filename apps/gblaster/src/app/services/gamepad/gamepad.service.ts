@@ -6,7 +6,8 @@ import {
   ButtonGamepadAction,
   GamepadAxes,
   GamepadButtons,
-  InputCheckMode
+  InputCheckMode,
+  RumbleOptions
 } from './gamepad.types';
 
 @Injectable({
@@ -101,6 +102,7 @@ export class GamepadService implements OnDestroy {
   private fireButtonAction(index: number, value: number) {
     // console.log(`Button ${index} sending value: ${value}`);
     this.buttonActions[index].action(value);
+    this.triggerRumble({ duration: 50, weakMagnitude: 1, strongMagnitude: 0.2 });
   }
 
   private fireAxisAction(index: number, value: number) {
@@ -110,6 +112,29 @@ export class GamepadService implements OnDestroy {
     }
     if (value > 0) {
       this.axisActions[index].positiveActionFunction(value);
+    }
+    this.triggerRumble({ duration: 10, weakMagnitude: 0.2, strongMagnitude: 0 });
+  }
+
+  /**
+   * Triggers haptic feedback (rumble) on all connected gamepads
+   * @param options Rumble configuration options
+   */
+  private triggerRumble(options: RumbleOptions): void {
+    const gamepads = navigator.getGamepads();
+    for (const gamepad of gamepads) {
+      if (gamepad?.vibrationActuator) {
+        gamepad.vibrationActuator
+          .playEffect('dual-rumble', {
+            duration: options.duration ?? 200,
+            weakMagnitude: options.weakMagnitude ?? 0.5,
+            strongMagnitude: options.strongMagnitude ?? 0.5,
+            startDelay: options.startDelay ?? 0
+          })
+          .catch((error) => {
+            console.warn('Rumble not supported or failed:', error);
+          });
+      }
     }
   }
 

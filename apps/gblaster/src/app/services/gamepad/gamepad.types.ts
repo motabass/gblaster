@@ -25,6 +25,17 @@ export interface ActionCache {
 
 export type InputCheckMode = 'click' | 'hold' | 'turbo';
 
+export interface RumbleOptions {
+  /** Duration in milliseconds */
+  duration?: number;
+  /** Weak motor magnitude (0-1) */
+  weakMagnitude?: number;
+  /** Strong motor magnitude (0-1) */
+  strongMagnitude?: number;
+  /** Start delay in milliseconds */
+  startDelay?: number;
+}
+
 export enum GamepadButtons {
   A_BUTTON = 0,
   B_BUTTON = 1,
