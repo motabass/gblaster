@@ -92,7 +92,9 @@ export class PlayerService {
         }
 
         if (validFiles.length > 0) {
-          this.metadataService.addFilesToLibrary(validFiles);
+          for await (const track of this.metadataService.addFilesToLibrary(validFiles)) {
+            this.addTrackToPlaylist(track);
+          }
           // If you want to play the first file immediately
           // if (validFiles.length && this.currentPlaylist().length) {
           //   const newTrack = this.currentPlaylist()[this.currentPlaylist().length - validFiles.length];
