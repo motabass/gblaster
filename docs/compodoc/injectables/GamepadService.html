@@ -202,7 +202,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="24" class="link-to-prism">apps/gblaster/src/app/services/gamepad/gamepad.service.ts:24</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">apps/gblaster/src/app/services/gamepad/gamepad.service.ts:25</a></div>
                             </td>
                         </tr>
 
@@ -235,8 +235,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="158"
-                                    class="link-to-prism">apps/gblaster/src/app/services/gamepad/gamepad.service.ts:158</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="183"
+                                    class="link-to-prism">apps/gblaster/src/app/services/gamepad/gamepad.service.ts:183</a></div>
                         </td>
                     </tr>
 
@@ -302,8 +302,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="134"
-                                    class="link-to-prism">apps/gblaster/src/app/services/gamepad/gamepad.service.ts:134</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="159"
+                                    class="link-to-prism">apps/gblaster/src/app/services/gamepad/gamepad.service.ts:159</a></div>
                         </td>
                     </tr>
 
@@ -369,8 +369,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="138"
-                                    class="link-to-prism">apps/gblaster/src/app/services/gamepad/gamepad.service.ts:138</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="163"
+                                    class="link-to-prism">apps/gblaster/src/app/services/gamepad/gamepad.service.ts:163</a></div>
                         </td>
                     </tr>
 
@@ -497,8 +497,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="116"
-                                    class="link-to-prism">apps/gblaster/src/app/services/gamepad/gamepad.service.ts:116</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="141"
+                                    class="link-to-prism">apps/gblaster/src/app/services/gamepad/gamepad.service.ts:141</a></div>
                         </td>
                     </tr>
 
@@ -621,7 +621,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="24" class="link-to-prism">apps/gblaster/src/app/services/gamepad/gamepad.service.ts:24</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">apps/gblaster/src/app/services/gamepad/gamepad.service.ts:25</a></div>
                         </td>
                     </tr>
 
@@ -642,7 +642,8 @@ import {
   ButtonGamepadAction,
   GamepadAxes,
   GamepadButtons,
-  InputCheckMode
+  InputCheckMode,
+  RumbleOptions
 } from &#x27;./gamepad.types&#x27;;
 
 @Injectable({
@@ -737,6 +738,7 @@ export class GamepadService implements OnDestroy {
   private fireButtonAction(index: number, value: number) {
     // console.log(&#x60;Button ${index} sending value: ${value}&#x60;);
     this.buttonActions[index].action(value);
+    this.triggerRumble({ duration: 50, weakMagnitude: 1, strongMagnitude: 0.2 });
   }
 
   private fireAxisAction(index: number, value: number) {
@@ -746,6 +748,29 @@ export class GamepadService implements OnDestroy {
     }
     if (value &gt; 0) {
       this.axisActions[index].positiveActionFunction(value);
+    }
+    this.triggerRumble({ duration: 10, weakMagnitude: 0.2, strongMagnitude: 0 });
+  }
+
+  /**
+   * Triggers haptic feedback (rumble) on all connected gamepads
+   * @param options Rumble configuration options
+   */
+  private triggerRumble(options: RumbleOptions): void {
+    const gamepads &#x3D; navigator.getGamepads();
+    for (const gamepad of gamepads) {
+      if (gamepad?.vibrationActuator) {
+        gamepad.vibrationActuator
+          .playEffect(&#x27;dual-rumble&#x27;, {
+            duration: options.duration ?? 200,
+            weakMagnitude: options.weakMagnitude ?? 0.5,
+            strongMagnitude: options.strongMagnitude ?? 0.5,
+            startDelay: options.startDelay ?? 0
+          })
+          .catch((error) &#x3D;&gt; {
+            console.warn(&#x27;Rumble not supported or failed:&#x27;, error);
+          });
+      }
     }
   }
 

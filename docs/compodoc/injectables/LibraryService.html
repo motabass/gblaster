@@ -332,7 +332,9 @@ export class LibraryService {
       const result &#x3D; await firstValueFrom(this.indexedDbService.getAll&lt;IndexedDbTrackMetadata&gt;(&#x27;library&#x27;));
 
       // Parallele Verarbeitung für bessere Performance
-      const tracksWithBlobUrls &#x3D; result.map((track) &#x3D;&gt; this.metadataService.createObjectUrlForEmbeddedPicture(track));
+      const tracksWithBlobUrls &#x3D; result.map((track) &#x3D;&gt;
+        this.metadataService.augmentObjectUrlForTagsEmbeddedPicture(track)
+      );
 
       this.indexedDbTracks.set(tracksWithBlobUrls);
       return tracksWithBlobUrls;

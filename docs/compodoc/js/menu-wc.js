@@ -159,19 +159,6 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 </li>
                             </ul>
                         </li>
-                    <li class="chapter">
-                        <div class="simple menu-toggler" data-bs-toggle="collapse" ${ isNormalMode ? 'data-bs-target="#classes-links"' :
-                            'data-bs-target="#xs-classes-links"' }>
-                            <span class="icon ion-ios-paper"></span>
-                            <span>Classes</span>
-                            <span class="icon ion-ios-arrow-down"></span>
-                        </div>
-                        <ul class="links collapse " ${ isNormalMode ? 'id="classes-links"' : 'id="xs-classes-links"' }>
-                            <li class="link">
-                                <a href="classes/FileLoaderService.html" data-type="entity-link" >FileLoaderService</a>
-                            </li>
-                        </ul>
-                    </li>
                         <li class="chapter">
                             <div class="simple menu-toggler" data-bs-toggle="collapse" ${ isNormalMode ? 'data-bs-target="#injectables-links"' :
                                 'data-bs-target="#xs-injectables-links"' }>
@@ -184,6 +171,9 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                     <a href="injectables/AudioService.html" data-type="entity-link" >AudioService</a>
                                 </li>
                                 <li class="link">
+                                    <a href="injectables/FileLoaderService.html" data-type="entity-link" >FileLoaderService</a>
+                                </li>
+                                <li class="link">
                                     <a href="injectables/GamepadService.html" data-type="entity-link" >GamepadService</a>
                                 </li>
                                 <li class="link">
@@ -194,9 +184,6 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 </li>
                                 <li class="link">
                                     <a href="injectables/LastfmMetadataService.html" data-type="entity-link" >LastfmMetadataService</a>
-                                </li>
-                                <li class="link">
-                                    <a href="injectables/LegacyFileLoaderService.html" data-type="entity-link" >LegacyFileLoaderService</a>
                                 </li>
                                 <li class="link">
                                     <a href="injectables/LibraryService.html" data-type="entity-link" >LibraryService</a>
@@ -212,9 +199,6 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 </li>
                                 <li class="link">
                                     <a href="injectables/MusicbrainzService.html" data-type="entity-link" >MusicbrainzService</a>
-                                </li>
-                                <li class="link">
-                                    <a href="injectables/NativeBrowserFileLoaderService.html" data-type="entity-link" >NativeBrowserFileLoaderService</a>
                                 </li>
                                 <li class="link">
                                     <a href="injectables/PlayerService.html" data-type="entity-link" >PlayerService</a>
@@ -281,9 +265,6 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 <a href="interfaces/CoverColorPalette.html" data-type="entity-link" >CoverColorPalette</a>
                             </li>
                             <li class="link">
-                                <a href="interfaces/DirHandleEntry.html" data-type="entity-link" >DirHandleEntry</a>
-                            </li>
-                            <li class="link">
                                 <a href="interfaces/FileData.html" data-type="entity-link" >FileData</a>
                             </li>
                             <li class="link">
@@ -333,6 +314,9 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                             </li>
                             <li class="link">
                                 <a href="interfaces/RemoteCoverArtUrls.html" data-type="entity-link" >RemoteCoverArtUrls</a>
+                            </li>
+                            <li class="link">
+                                <a href="interfaces/RumbleOptions.html" data-type="entity-link" >RumbleOptions</a>
                             </li>
                             <li class="link">
                                 <a href="interfaces/TagsWorkerRequest.html" data-type="entity-link" >TagsWorkerRequest</a>

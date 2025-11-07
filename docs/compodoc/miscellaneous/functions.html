@@ -163,9 +163,6 @@
                             <a href="#extractTags" title="apps/gblaster/src/app/player/metadata-service/metadata.worker.ts" ><b>extractTags</b>&nbsp;&nbsp;&nbsp;(apps/.../metadata.worker.ts)</a>
                         </li>
                         <li>
-                            <a href="#FileLoaderServiceFactory" title="apps/gblaster/src/app/player/file-loader-service/file-loader.service.factory.ts" ><b>FileLoaderServiceFactory</b>&nbsp;&nbsp;&nbsp;(apps/.../file-loader.service.factory.ts)</a>
-                        </li>
-                        <li>
                             <a href="#formatBitrate" title="apps/gblaster/src/app/player/cover-display/bitrate-helper.ts" ><b>formatBitrate</b>&nbsp;&nbsp;&nbsp;(apps/.../bitrate-helper.ts)</a>
                         </li>
                         <li>
@@ -182,9 +179,6 @@
                         </li>
                         <li>
                             <a href="#generateFileHash" title="apps/gblaster/src/app/player/metadata-service/metadata-helper.ts" ><b>generateFileHash</b>&nbsp;&nbsp;&nbsp;(apps/.../metadata-helper.ts)</a>
-                        </li>
-                        <li>
-                            <a href="#getAudioFilesFromDirHandle" title="apps/gblaster/src/app/player/file-loader-service/native-browser-file-loader.service.ts" ><b>getAudioFilesFromDirHandle</b>&nbsp;&nbsp;&nbsp;(apps/.../native-browser-file-loader.service.ts)</a>
                         </li>
                         <li>
                             <a href="#getNextVisualizerMode" title="apps/gblaster/src/app/player/visualizer/visuals/visuals-helper.ts" ><b>getNextVisualizerMode</b>&nbsp;&nbsp;&nbsp;(apps/.../visuals-helper.ts)</a>
@@ -223,10 +217,10 @@
                             <a href="#mediaSessionServiceFactory" title="apps/gblaster/src/app/services/media-session/media-session.service.factory.ts" ><b>mediaSessionServiceFactory</b>&nbsp;&nbsp;&nbsp;(apps/.../media-session.service.factory.ts)</a>
                         </li>
                         <li>
-                            <a href="#setupVisualsWorkerWithOptions" title="apps/gblaster/src/app/player/visualizer/visuals/visuals.worker.ts" ><b>setupVisualsWorkerWithOptions</b>&nbsp;&nbsp;&nbsp;(apps/.../visuals.worker.ts)</a>
+                            <a href="#recursiveGetAudioFilesFromDirectory" title="apps/gblaster/src/app/player/file-loader-service/file-loader.service.ts" ><b>recursiveGetAudioFilesFromDirectory</b>&nbsp;&nbsp;&nbsp;(apps/.../file-loader.service.ts)</a>
                         </li>
                         <li>
-                            <a href="#verifyPermission" title="apps/gblaster/src/app/player/file-loader-service/native-browser-file-loader.service.ts" ><b>verifyPermission</b>&nbsp;&nbsp;&nbsp;(apps/.../native-browser-file-loader.service.ts)</a>
+                            <a href="#setupVisualsWorkerWithOptions" title="apps/gblaster/src/app/player/visualizer/visuals/visuals.worker.ts" ><b>setupVisualsWorkerWithOptions</b>&nbsp;&nbsp;&nbsp;(apps/.../visuals.worker.ts)</a>
                         </li>
                         <li>
                             <a href="#wakelockServiceFactory" title="apps/gblaster/src/app/services/wakelock.service.factory.ts" ><b>wakelockServiceFactory</b>&nbsp;&nbsp;&nbsp;(apps/.../wakelock.service.factory.ts)</a>
@@ -1143,30 +1137,6 @@
             </tr>
         </tbody>
     </table>
-</section>    <h3>apps/gblaster/src/app/player/file-loader-service/file-loader.service.factory.ts</h3>
-    <section data-compodoc="block-methods">
-    <h3></h3>    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="FileLoaderServiceFactory"></a>
-                    <span class="name">
-                        <span ><b>FileLoaderServiceFactory</b></span>
-                        <a href="#FileLoaderServiceFactory"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-<code>FileLoaderServiceFactory()</code>
-                </td>
-            </tr>
-
-
-
-
-        </tbody>
-    </table>
 </section>    <h3>apps/gblaster/src/app/player/cover-display/bitrate-helper.ts</h3>
     <section data-compodoc="block-methods">
     <h3></h3>    <table class="table table-sm table-bordered">
@@ -1522,123 +1492,6 @@
             </tr>
         </tbody>
     </table>
-</section>    <h3>apps/gblaster/src/app/player/file-loader-service/native-browser-file-loader.service.ts</h3>
-    <section data-compodoc="block-methods">
-    <h3></h3>    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="getAudioFilesFromDirHandle"></a>
-                    <span class="name">
-                        <span ><b>getAudioFilesFromDirHandle</b></span>
-                        <a href="#getAudioFilesFromDirHandle"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-<code>getAudioFilesFromDirHandle(dirHandle: FileSystemDirectoryHandle)</code>
-                </td>
-            </tr>
-
-
-
-
-            <tr>
-                <td class="col-md-4">
-
-                            <div class="io-description">
-                                <b>Parameters :</b>
-                                
-                                <table class="params">
-                                    <thead>
-                                        <tr>
-                                            <td>Name</td>
-                                                <td>Type</td>
-                                            <td>Optional</td>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                                <td>dirHandle</td>
-                                            <td>
-                                                        <code>FileSystemDirectoryHandle</code>
-                                            </td>
-
-                                            <td>
-                                                    No
-                                            </td>
-
-
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        <div class="io-description">
-                            <b>Returns : </b>        <code><a href="../interfaces/FileData.html" target="_self" >Promise&lt;FileData[]&gt;</a></code>
-
-                        </div>
-                            <div class="io-description">
-                                
-                            </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="verifyPermission"></a>
-                    <span class="name">
-                        <span ><b>verifyPermission</b></span>
-                        <a href="#verifyPermission"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-<code>verifyPermission(handle: FileSystemDirectoryHandle)</code>
-                </td>
-            </tr>
-
-
-
-
-            <tr>
-                <td class="col-md-4">
-
-                            <div class="io-description">
-                                <b>Parameters :</b>
-                                
-                                <table class="params">
-                                    <thead>
-                                        <tr>
-                                            <td>Name</td>
-                                                <td>Type</td>
-                                            <td>Optional</td>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                                <td>handle</td>
-                                            <td>
-                                                        <code>FileSystemDirectoryHandle</code>
-                                            </td>
-
-                                            <td>
-                                                    No
-                                            </td>
-
-
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
 </section>    <h3>apps/gblaster/src/app/player/visualizer/visuals/visuals-helper.ts</h3>
     <section data-compodoc="block-methods">
     <h3></h3>    <table class="table table-sm table-bordered">
@@ -1985,6 +1838,69 @@
                             <b>Returns : </b>        <code><a href="../injectables/WakelockService.html" target="_self" >WakelockService | null</a></code>
 
                         </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>    <h3>apps/gblaster/src/app/player/file-loader-service/file-loader.service.ts</h3>
+    <section data-compodoc="block-methods">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="recursiveGetAudioFilesFromDirectory"></a>
+                    <span class="name">
+                        <span ><b>recursiveGetAudioFilesFromDirectory</b></span>
+                        <a href="#recursiveGetAudioFilesFromDirectory"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>recursiveGetAudioFilesFromDirectory(dirHandle: FileSystemDirectoryHandle)</code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>dirHandle</td>
+                                            <td>
+                                                        <code>FileSystemDirectoryHandle</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="../interfaces/FileData.html" target="_self" >Promise&lt;FileData[]&gt;</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
                 </td>
             </tr>
         </tbody>

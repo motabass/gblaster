@@ -408,6 +408,17 @@ export interface ActionCache {
 
 export type InputCheckMode &#x3D; &#x27;click&#x27; | &#x27;hold&#x27; | &#x27;turbo&#x27;;
 
+export interface RumbleOptions {
+  /** Duration in milliseconds */
+  duration?: number;
+  /** Weak motor magnitude (0-1) */
+  weakMagnitude?: number;
+  /** Strong motor magnitude (0-1) */
+  strongMagnitude?: number;
+  /** Start delay in milliseconds */
+  startDelay?: number;
+}
+
 export enum GamepadButtons {
   A_BUTTON &#x3D; 0,
   B_BUTTON &#x3D; 1,

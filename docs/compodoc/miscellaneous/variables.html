@@ -130,9 +130,6 @@
                 <td class="col-md-4">
                     <ul class="index-list">
                         <li>
-                            <a href="#ALLOWED_EXTENSIONS" title="apps/gblaster/src/app/player/file-loader-service/file-loader.helpers.ts" ><b>ALLOWED_EXTENSIONS</b>&nbsp;&nbsp;&nbsp;(apps/.../file-loader.helpers.ts)</a>
-                        </li>
-                        <li>
                             <a href="#ALLOWED_MIMETYPES" title="apps/gblaster/src/app/player/file-loader-service/file-loader.helpers.ts" ><b>ALLOWED_MIMETYPES</b>&nbsp;&nbsp;&nbsp;(apps/.../file-loader.helpers.ts)</a>
                         </li>
                         <li>
@@ -286,32 +283,6 @@
     <h3>apps/gblaster/src/app/player/file-loader-service/file-loader.helpers.ts</h3>
     <section data-compodoc="block-properties">
     <h3></h3>    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="ALLOWED_EXTENSIONS"></a>
-                    <span class="name">
-                        <span ><b>ALLOWED_EXTENSIONS</b></span>
-                        <a href="#ALLOWED_EXTENSIONS"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-                <tr>
-                    <td class="col-md-4">
-                        <i>Type : </i>    <code>[]</code>
-
-                    </td>
-                </tr>
-                <tr>
-                    <td class="col-md-4">
-                        <i>Default value : </i><code>[&#x27;mp3&#x27;, &#x27;flac&#x27;, &#x27;ogg&#x27;, &#x27;wav&#x27;, &#x27;aiff&#x27;, &#x27;opus&#x27;, &#x27;mp4&#x27;]</code>
-                    </td>
-                </tr>
-
-
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
         <tbody>
             <tr>
                 <td class="col-md-4">
@@ -928,11 +899,6 @@
     ),
     provideHttpClient(withInterceptors([loaderInterceptor]), withFetch()),
     provideRouter(routes, withEnabledBlockingInitialNavigation(), withViewTransitions()),
-    {
-      provide: FileLoaderService,
-      useFactory: FileLoaderServiceFactory,
-      deps: [NgxIndexedDBService]
-    },
     { provide: GamepadService, useFactory: gamepadServiceFactory },
     { provide: HotkeysService, useFactory: hotkeysServiceFactory },
     { provide: WakelockService, useFactory: wakelockServiceFactory },
