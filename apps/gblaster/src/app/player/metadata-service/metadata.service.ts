@@ -43,20 +43,23 @@ export class MetadataService {
     return text;
   });
 
-  async addFilesToLibrary(fileDatas: FileData[]) {
+  async *addFilesToLibrary(fileDatas: FileData[]) {
     if (fileDatas?.length) {
       this.totalFilesToProcess.set(fileDatas.length);
       this.filesToProcess.set(fileDatas.length);
       for (const fileData of fileDatas.values()) {
         this.processingFile.set(fileData.file.name);
-        await this.createTrackAndSaveToLibrary(fileData);
+        const track = await this.createTrackAndSaveToLibrary(fileData);
+        if (track) {
+          yield track;
+        }
         this.filesToProcess.update((files) => files - 1);
       }
       this.totalFilesToProcess.set(0);
     }
   }
 
-  async createTrackAndSaveToLibrary(fileData: FileData): Promise<Track | undefined> {
+  private async createTrackAndSaveToLibrary(fileData: FileData): Promise<Track | undefined> {
     // console.time('full-metadata');
     const metadata = await this.getTrackMetadata(fileData);
     // console.timeEnd('full-metadata');
@@ -64,14 +67,18 @@ export class MetadataService {
     if (!metadata) {
       return undefined;
     }
+
+    await firstValueFrom(this.indexedDBService.add('library', metadata));
+
+    const metadataWithObjectUrl = this.augmentObjectUrlForTagsEmbeddedPicture(metadata);
     return {
       file: fileData.file,
       fileHandle: fileData.fileHandle,
-      metadata: metadata
+      metadata: metadataWithObjectUrl
     };
   }
 
-  async getTrackMetadata(fileData: FileData): Promise<TrackMetadata | undefined> {
+  private async getTrackMetadata(fileData: FileData): Promise<TrackMetadata | undefined> {
     this.processingFile.set(fileData.file.name + ' - Generating hash...');
     const hash = await generateFileHash(fileData.file);
 
@@ -145,9 +152,7 @@ export class MetadataService {
       format: tags.format
     };
 
-    await firstValueFrom(this.indexedDBService.add('library', metadata));
-
-    return this.augmentObjectUrlForTagsEmbeddedPicture(metadata);
+    return metadata;
   }
 
   augmentObjectUrlForTagsEmbeddedPicture(meta: TrackMetadata): TrackMetadata {
