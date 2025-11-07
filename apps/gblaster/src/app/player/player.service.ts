@@ -1,6 +1,6 @@
 import { computed, DestroyRef, effect, inject, Injectable, signal } from '@angular/core';
 import { LocalStorageService } from 'ngx-webstorage';
-import { FileLoaderService } from './file-loader-service/file-loader.service.abstract';
+import { FileLoaderService } from './file-loader-service/file-loader.service';
 import { MetadataService } from './metadata-service/metadata.service';
 import type { ColorConfig, RepeatMode, Track } from './player.types';
 import { ALLOWED_MIMETYPES, FileData } from './file-loader-service/file-loader.helpers';

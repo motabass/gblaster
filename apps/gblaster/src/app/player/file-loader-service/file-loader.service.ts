@@ -2,7 +2,6 @@ import { inject, Injectable, signal } from '@angular/core';
 import { NgxIndexedDBService } from 'ngx-indexed-db';
 import { firstValueFrom } from 'rxjs';
 import { ALLOWED_MIMETYPES, FileData } from './file-loader.helpers';
-import { FileLoaderService } from './file-loader.service.abstract';
 
 interface DirHandleEntry {
   id: number;
@@ -12,7 +11,7 @@ interface DirHandleEntry {
 @Injectable({
   providedIn: 'root'
 })
-export class NativeBrowserFileLoaderService implements FileLoaderService {
+export class FileLoaderService {
   private readonly indexedDbService = inject(NgxIndexedDBService);
 
   readonly currentFolderHandle = signal<FileSystemDirectoryHandle | undefined>(undefined);

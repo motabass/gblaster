@@ -2,12 +2,10 @@ import { ApplicationConfig, provideBrowserGlobalErrorListeners, provideZonelessC
 import { provideServiceWorker } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { provideNgxWebstorage, withLocalStorage, withNgxWebstorageConfig } from 'ngx-webstorage';
-import { NgxIndexedDBService, provideIndexedDb } from 'ngx-indexed-db';
+import { provideIndexedDb } from 'ngx-indexed-db';
 import { provideRouter, withEnabledBlockingInitialNavigation, withViewTransitions } from '@angular/router';
 import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
 import { loaderInterceptor } from './services/loader/loader.interceptor';
-import { FileLoaderService } from './player/file-loader-service/file-loader.service.abstract';
-import { FileLoaderServiceFactory } from './player/file-loader-service/file-loader.service.factory';
 import { MAT_TOOLTIP_DEFAULT_OPTIONS } from '@angular/material/tooltip';
 import { routes } from './app.routes';
 import { gamepadServiceFactory } from './services/gamepad/gamepad.service.factory';
@@ -40,11 +38,6 @@ export const appConfig: ApplicationConfig = {
     ),
     provideHttpClient(withInterceptors([loaderInterceptor]), withFetch()),
     provideRouter(routes, withEnabledBlockingInitialNavigation(), withViewTransitions()),
-    {
-      provide: FileLoaderService,
-      useFactory: FileLoaderServiceFactory,
-      deps: [NgxIndexedDBService]
-    },
     { provide: GamepadService, useFactory: gamepadServiceFactory },
     { provide: HotkeysService, useFactory: hotkeysServiceFactory },
     { provide: WakelockService, useFactory: wakelockServiceFactory },

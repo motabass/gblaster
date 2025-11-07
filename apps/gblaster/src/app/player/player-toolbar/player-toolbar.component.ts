@@ -12,7 +12,7 @@ import { formatSecondsAsClock } from '@motabass/helpers';
 import { GamepadAxes, GamepadButtons } from '../../services/gamepad/gamepad.types';
 import { GamepadService } from '../../services/gamepad/gamepad.service';
 import { HotkeysService } from '../../services/hotkeys/hotkeys.service';
-import { FileLoaderService } from '../file-loader-service/file-loader.service.abstract';
+import { FileLoaderService } from '../file-loader-service/file-loader.service';
 import { MetadataService } from '../metadata-service/metadata.service';
 
 @Component({
