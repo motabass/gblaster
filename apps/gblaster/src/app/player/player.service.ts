@@ -92,7 +92,7 @@ export class PlayerService {
         }
 
         if (validFiles.length > 0) {
-          await this.addFilesToPlaylist(...validFiles);
+          this.metadataService.addFilesToLibrary(validFiles);
           // If you want to play the first file immediately
           // if (validFiles.length && this.currentPlaylist().length) {
           //   const newTrack = this.currentPlaylist()[this.currentPlaylist().length - validFiles.length];
@@ -140,9 +140,9 @@ export class PlayerService {
     await this.afterPlayLoaded();
   }
 
-  async loadFiles(): Promise<void> {
-    const fileDatas: FileData[] = await this.fileLoaderService.openFiles();
-    return this.addFilesToPlaylist(...fileDatas);
+  async loadFilesToLibrary(): Promise<void> {
+    const files: FileData[] = await this.fileLoaderService.getFilesFromPickedFolder();
+    this.metadataService.addFilesToLibrary(files);
   }
 
   addTrackToPlaylist(song: Track) {
@@ -163,13 +163,6 @@ export class PlayerService {
     }
     // Update the playlist by filtering out the specified track
     this.currentPlaylist.update((playlist) => playlist.filter((t) => t !== track));
-  }
-
-  //  TODO: replace this with library
-  async addFilesToPlaylist(...fileDatas: FileData[]) {
-    for await (const track of this.metadataService.addFilesToLibrary(...fileDatas)) {
-      this.addTrackToPlaylist(track);
-    }
   }
 
   setSeekPosition(value: number | undefined, fastSeek = false) {

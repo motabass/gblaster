@@ -53,7 +53,7 @@
   <button
     mat-icon-button
     id="load_files"
-    [matMenuTriggerFor]="fileMenu"
+    (click)="showFilePickerAndAddToLibrary()"
     [disabled]="metadataService.processing()"
   >
     <mat-icon
@@ -61,25 +61,6 @@
       svgIcon="folder-music-outline"
     />
   </button>
-  <mat-menu #fileMenu="matMenu">
-    <button
-      id="load_files_menu"
-      mat-menu-item
-      (click)="showFilePickerAndLoadFiles()"
-    >
-      <mat-icon svgIcon="folder-music-outline" />
-      <span>Load folder/files...</span>
-    </button>
-    @if (fileLoaderService.currentFolderHandle()) {
-      <button
-        mat-menu-item
-        (click)="loadLastDirectory()"
-      >
-        <mat-icon svgIcon="folder-music-outline" />
-        <span>Load last directory</span>
-      </button>
-    }
-  </mat-menu>
 
   <!-- TODO: The 'tickInterval' property no longer exists -->
   @if (playerService.currentlyLoadedTrack()) {

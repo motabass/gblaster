@@ -23,11 +23,6 @@ export class MetadataSettingsComponent {
     this.localStorageService.store('useWebMetainfos', event.checked);
   }
 
-  onUseTagsCacheChange(event: MatSlideToggleChange) {
-    this.metadataService.useTagsCache.set(event.checked);
-    this.localStorageService.store('useTagsCache', event.checked);
-  }
-
   onUseTagEmbeddedPicsChange(event: MatSlideToggleChange) {
     this.metadataService.useTagEmbeddedPicture.set(event.checked);
     this.localStorageService.store('useTagEmbeddedPicture', event.checked);

@@ -71,7 +71,7 @@ export class ShellComponent {
   }
 
   async onFilesDropped(files: File[]) {
-    return this.playerService.addFilesToPlaylist(...files.map((file) => ({ file })));
+    return this.metadataService.addFilesToLibrary(files.map((file) => ({ file })));
   }
 
   async onFileHandlesDropped(files: FileSystemFileHandle[]) {
@@ -81,6 +81,6 @@ export class ShellComponent {
       fileData.push({ file, fileHandle });
     }
 
-    return this.playerService.addFilesToPlaylist(...fileData);
+    return this.metadataService.addFilesToLibrary(fileData);
   }
 }

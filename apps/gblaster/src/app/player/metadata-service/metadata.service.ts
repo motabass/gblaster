@@ -21,7 +21,6 @@ export class MetadataService {
   private readonly PLACEHOLDER_URL = 'assets/icons/record.svg';
 
   readonly useWebMetainfos = signal(this.localStorageService.retrieve('useWebMetainfos') ?? true);
-  readonly useTagsCache = signal(this.localStorageService.retrieve('useTagsCache') ?? true);
   readonly useTagEmbeddedPicture = signal(this.localStorageService.retrieve('useTagEmbeddedPicture') ?? true);
   readonly preferTagEmbeddedPicture = signal(this.localStorageService.retrieve('preferTagEmbeddedPicture') ?? true);
 
@@ -44,25 +43,22 @@ export class MetadataService {
     return text;
   });
 
-  async *addFilesToLibrary(...fileDatas: FileData[]): AsyncGenerator<Track> {
+  async addFilesToLibrary(fileDatas: FileData[]) {
     if (fileDatas?.length) {
       this.totalFilesToProcess.set(fileDatas.length);
       this.filesToProcess.set(fileDatas.length);
       for (const fileData of fileDatas.values()) {
         this.processingFile.set(fileData.file.name);
-        const track = await this.createTrackFromFile(fileData);
-        if (track) {
-          yield track; // Yield each track as soon as it's ready
-        }
+        await this.createTrackAndSaveToLibrary(fileData);
         this.filesToProcess.update((files) => files - 1);
       }
       this.totalFilesToProcess.set(0);
     }
   }
 
-  async createTrackFromFile(fileData: FileData): Promise<Track | undefined> {
+  async createTrackAndSaveToLibrary(fileData: FileData): Promise<Track | undefined> {
     // console.time('full-metadata');
-    const metadata = await this.getMetadata(fileData);
+    const metadata = await this.getTrackMetadata(fileData);
     // console.timeEnd('full-metadata');
 
     if (!metadata) {
@@ -75,36 +71,35 @@ export class MetadataService {
     };
   }
 
-  async getMetadata(fileData: FileData): Promise<TrackMetadata | undefined> {
+  async getTrackMetadata(fileData: FileData): Promise<TrackMetadata | undefined> {
     this.processingFile.set(fileData.file.name + ' - Generating hash...');
     const hash = await generateFileHash(fileData.file);
 
-    if (this.useTagsCache()) {
-      const metadataCache: TrackMetadata = await firstValueFrom(
-        this.indexedDBService.getByKey<IndexedDbTrackMetadata>('library', hash)
-      );
+    const metadataCache: TrackMetadata = await firstValueFrom(
+      this.indexedDBService.getByKey<IndexedDbTrackMetadata>('library', hash)
+    );
 
-      if (metadataCache) {
-        if (
-          metadataCache.embeddedPicture &&
-          this.useTagEmbeddedPicture() &&
-          (metadataCache.coverUrl.thumbUrl === this.PLACEHOLDER_URL || this.preferTagEmbeddedPicture())
-        ) {
-          // renew local object urls
-          const url = URL.createObjectURL(
-            new Blob([metadataCache.embeddedPicture.data], {
-              type: metadataCache.embeddedPicture.format
-            })
-          );
-          return {
-            ...metadataCache,
-            coverUrl: { thumbUrl: url, originalUrl: url } // overwrite remote url with objectUrl for tag cover art
-          };
-        } else {
-          return this.createObjectUrlForEmbeddedPicture(metadataCache);
-        }
+    if (metadataCache) {
+      if (
+        metadataCache.embeddedPicture &&
+        this.useTagEmbeddedPicture() &&
+        (metadataCache.coverUrl.thumbUrl === this.PLACEHOLDER_URL || this.preferTagEmbeddedPicture())
+      ) {
+        // renew local object urls
+        const url = URL.createObjectURL(
+          new Blob([metadataCache.embeddedPicture.data], {
+            type: metadataCache.embeddedPicture.format
+          })
+        );
+        return {
+          ...metadataCache,
+          coverUrl: { thumbUrl: url, originalUrl: url } // overwrite remote url with objectUrl for tag cover art
+        };
+      } else {
+        return this.augmentObjectUrlForTagsEmbeddedPicture(metadataCache);
       }
     }
+
     this.processingFile.set(fileData.file.name + ' - Reading tags...');
     const tags = await this.id3TagsService.extractTags(fileData.file);
 
@@ -150,13 +145,12 @@ export class MetadataService {
       format: tags.format
     };
 
-    if (this.useTagsCache()) {
-      await firstValueFrom(this.indexedDBService.add('library', metadata));
-    }
-    return this.createObjectUrlForEmbeddedPicture(metadata);
+    await firstValueFrom(this.indexedDBService.add('library', metadata));
+
+    return this.augmentObjectUrlForTagsEmbeddedPicture(metadata);
   }
 
-  createObjectUrlForEmbeddedPicture(meta: TrackMetadata): TrackMetadata {
+  augmentObjectUrlForTagsEmbeddedPicture(meta: TrackMetadata): TrackMetadata {
     if (
       meta.embeddedPicture &&
       this.useTagEmbeddedPicture() &&

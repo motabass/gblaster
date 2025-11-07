@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, computed, inject, OnDestroy, OnInit } from '@angular/core';
-import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
+import { MatMenu, MatMenuTrigger } from '@angular/material/menu';
 import { MatSlider, MatSliderThumb } from '@angular/material/slider';
 import { MatToolbar } from '@angular/material/toolbar';
 import { TimePipe } from '../time.pipe';
@@ -12,7 +12,6 @@ import { formatSecondsAsClock } from '@motabass/helpers';
 import { GamepadAxes, GamepadButtons } from '../../services/gamepad/gamepad.types';
 import { GamepadService } from '../../services/gamepad/gamepad.service';
 import { HotkeysService } from '../../services/hotkeys/hotkeys.service';
-import { FileLoaderService } from '../file-loader-service/file-loader.service';
 import { MetadataService } from '../metadata-service/metadata.service';
 
 @Component({
@@ -21,7 +20,6 @@ import { MetadataService } from '../metadata-service/metadata.service';
     MatIcon,
     MatIconButton,
     MatMenu,
-    MatMenuItem,
     MatMenuTrigger,
     MatSlider,
     MatSliderThumb,
@@ -36,7 +34,6 @@ import { MetadataService } from '../metadata-service/metadata.service';
 export class PlayerToolbarComponent implements OnInit, OnDestroy {
   private readonly gamepadService = inject(GamepadService, { optional: true });
   private readonly hotkeysService = inject(HotkeysService, { optional: true });
-  protected readonly fileLoaderService = inject(FileLoaderService);
   protected readonly playerService = inject(PlayerService);
   protected readonly audioService = inject(AudioService);
   protected readonly metadataService = inject(MetadataService);
@@ -93,7 +90,7 @@ export class PlayerToolbarComponent implements OnInit, OnDestroy {
       this.gamepadService.registerButtonAction(GamepadButtons.R1_BUTTON, () => this.playerService.next(), 'turbo');
       this.gamepadService.registerButtonAction(GamepadButtons.L1_BUTTON, () => this.playerService.previous(), 'turbo');
 
-      this.gamepadService.registerButtonAction(GamepadButtons.START_BUTTON, () => this.showFilePickerAndLoadFiles());
+      this.gamepadService.registerButtonAction(GamepadButtons.START_BUTTON, () => this.showFilePickerAndAddToLibrary());
     }
   }
 
@@ -144,15 +141,8 @@ export class PlayerToolbarComponent implements OnInit, OnDestroy {
     this.playerService.toggleShuffle();
   }
 
-  async showFilePickerAndLoadFiles() {
-    await this.fileLoaderService.pickFolder();
-    return this.playerService.loadFiles();
-  }
-
-  async loadLastDirectory() {
-    return this.fileLoaderService.currentFolderHandle()
-      ? this.playerService.loadFiles()
-      : this.showFilePickerAndLoadFiles();
+  async showFilePickerAndAddToLibrary() {
+    return this.playerService.loadFilesToLibrary();
   }
 
   seekLeft(value: number) {

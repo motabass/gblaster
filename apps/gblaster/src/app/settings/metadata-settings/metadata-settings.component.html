@@ -24,12 +24,6 @@
       >Prioritize coverart from file-Tags</mat-slide-toggle
     >
     <div class="flex row gap-1">
-      <mat-slide-toggle
-        labelPosition="before"
-        [checked]="metadataService.useTagsCache()"
-        (change)="onUseTagsCacheChange($event)"
-        >Cache Tags in Indexed-DB</mat-slide-toggle
-      >
       <button
         mat-flat-button
         class="clear-cache-button"
