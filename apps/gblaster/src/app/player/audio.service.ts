@@ -66,9 +66,6 @@ export class AudioService {
     audioElement.volume = this.volume();
     audioElement.preload = 'auto';
 
-    // TODO: only for cypress test!?
-    document.body.append(audioElement);
-
     // initialize audio context
     const audioContext = new AudioContext({
       latencyHint: 'playback'
