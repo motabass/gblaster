@@ -73,7 +73,12 @@ export class ShellComponent {
   }
 
   async onFilesDropped(files: File[]) {
-    return this.metadataService.addFilesToLibrary(files.map((file) => ({ file })));
+    const fileData = files.map((file) => ({ file }));
+    // Just process files and add to library, don't add to playlist
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars, sonarjs/no-unused-vars, sonarjs/no-dead-store
+    for await (const track of this.metadataService.addFilesToLibrary(fileData)) {
+      this.playerService.addTrackToPlaylist(track);
+    }
   }
 
   async onFileHandlesDropped(files: FileSystemFileHandle[]) {
@@ -83,6 +88,10 @@ export class ShellComponent {
       fileData.push({ file, fileHandle });
     }
 
-    return this.metadataService.addFilesToLibrary(fileData);
+    // Just process files and add to library, don't add to playlist
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars, sonarjs/no-unused-vars, sonarjs/no-dead-store
+    for await (const track of this.metadataService.addFilesToLibrary(fileData)) {
+      // Track is saved to library in addFilesToLibrary
+    }
   }
 }

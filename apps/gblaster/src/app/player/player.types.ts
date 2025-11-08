@@ -26,6 +26,11 @@ export interface IndexedDbTrackMetadata extends TrackMetadata {
   fileHandle?: FileSystemFileHandle;
 }
 
+export interface TrackMetadataResult {
+  fromCache: boolean;
+  metadata: TrackMetadata;
+}
+
 // EQ
 export const FREQUENCY_BANDS = [31, 63, 125, 250, 500, 1000, 2000, 4000, 8000, 16_000] as const;
 

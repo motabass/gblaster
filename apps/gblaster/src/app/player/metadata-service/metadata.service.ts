@@ -2,7 +2,7 @@ import { inject, Injectable, signal } from '@angular/core';
 import { NgxIndexedDBService } from 'ngx-indexed-db';
 import { LocalStorageService } from 'ngx-webstorage';
 import { firstValueFrom } from 'rxjs';
-import { IndexedDbTrackMetadata, type Track, TrackMetadata } from '../player.types';
+import { IndexedDbTrackMetadata, type Track, TrackMetadata, TrackMetadataResult } from '../player.types';
 import { Id3TagsService } from './id3-tags.service';
 import { LastfmMetadataService } from './lastfm-metadata.service';
 import { CoverColorPalette, RemoteCoverArtUrls } from './metadata.types';
@@ -31,44 +31,41 @@ export class MetadataService {
       this.progressService.startProcessing(fileDatas.length);
       for (const fileData of fileDatas.values()) {
         this.progressService.updateCurrentFile(fileData.file.name);
-        const track = await this.createTrackAndSaveToLibrary(fileData);
-        if (track) {
-          yield track;
+        const result = await this.getTrackMetadataFromCacheOrCalculate(fileData);
+        if (!result?.metadata) {
+          this.progressService.completeFile();
+          continue;
         }
+        if (!result.fromCache) {
+          await this.addMetadataToIndexedDb(result.metadata);
+        }
+
+        const track: Track = {
+          file: fileData.file,
+          fileHandle: fileData.fileHandle,
+          metadata: result.metadata
+        };
         this.progressService.completeFile();
+        yield track;
       }
       this.progressService.reset();
     }
   }
 
-  private async createTrackAndSaveToLibrary(fileData: FileData): Promise<Track | undefined> {
-    // console.time('full-metadata');
-    const metadata = await this.getTrackMetadata(fileData);
-    // console.timeEnd('full-metadata');
-
-    if (!metadata) {
-      return undefined;
-    }
-
+  private async addMetadataToIndexedDb(metadata: TrackMetadata) {
     await firstValueFrom(this.indexedDBService.add('library', metadata));
-
-    const metadataWithObjectUrl = this.augmentObjectUrlForTagsEmbeddedPicture(metadata);
-    return {
-      file: fileData.file,
-      fileHandle: fileData.fileHandle,
-      metadata: metadataWithObjectUrl
-    };
   }
 
-  private async getTrackMetadata(fileData: FileData): Promise<TrackMetadata | undefined> {
+  private async getTrackMetadataFromCacheOrCalculate(fileData: FileData) {
     this.progressService.updateCurrentFile(fileData.file.name + ' - Generating hash...');
     const hash = await generateFileHash(fileData.file);
-
+    let fromCache = false;
     const metadataCache: TrackMetadata = await firstValueFrom(
       this.indexedDBService.getByKey<IndexedDbTrackMetadata>('library', hash)
     );
 
     if (metadataCache) {
+      fromCache = true;
       if (
         metadataCache.embeddedPicture &&
         this.useTagEmbeddedPicture() &&
@@ -80,12 +77,19 @@ export class MetadataService {
             type: metadataCache.embeddedPicture.format
           })
         );
-        return {
-          ...metadataCache,
-          coverUrl: { thumbUrl: url, originalUrl: url } // overwrite remote url with objectUrl for tag cover art
+        const result: TrackMetadataResult = {
+          metadata: {
+            ...metadataCache,
+            coverUrl: { thumbUrl: url, originalUrl: url } // overwrite remote url with objectUrl for tag cover art
+          },
+          fromCache
         };
+        return result;
       } else {
-        return this.augmentObjectUrlForTagsEmbeddedPicture(metadataCache);
+        return {
+          metadata: this.augmentObjectUrlForTagsEmbeddedPicture(metadataCache),
+          fromCache
+        } as TrackMetadataResult;
       }
     }
 
@@ -134,7 +138,7 @@ export class MetadataService {
       format: tags.format
     };
 
-    return metadata;
+    return { metadata, fromCache } as TrackMetadataResult;
   }
 
   augmentObjectUrlForTagsEmbeddedPicture(meta: TrackMetadata): TrackMetadata {

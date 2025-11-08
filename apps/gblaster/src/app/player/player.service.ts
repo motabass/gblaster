@@ -144,7 +144,11 @@ export class PlayerService {
 
   async loadFilesToLibrary(): Promise<void> {
     const files: FileData[] = await this.fileLoaderService.getFilesFromPickedFolder();
-    this.metadataService.addFilesToLibrary(files);
+    // Just process files and add to library, don't add to playlist
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars, sonarjs/no-unused-vars, sonarjs/no-dead-store
+    for await (const track of this.metadataService.addFilesToLibrary(files)) {
+      // Track is saved to library in addFilesToLibrary
+    }
   }
 
   addTrackToPlaylist(song: Track) {
