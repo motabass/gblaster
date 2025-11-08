@@ -12,7 +12,7 @@ import { formatSecondsAsClock } from '@motabass/helpers';
 import { GamepadAxes, GamepadButtons } from '../../services/gamepad/gamepad.types';
 import { GamepadService } from '../../services/gamepad/gamepad.service';
 import { HotkeysService } from '../../services/hotkeys/hotkeys.service';
-import { MetadataService } from '../metadata-service/metadata.service';
+import { ProgressService } from '../metadata-service/progress.service';
 
 @Component({
   selector: 'player-toolbar',
@@ -36,7 +36,7 @@ export class PlayerToolbarComponent implements OnInit, OnDestroy {
   private readonly hotkeysService = inject(HotkeysService, { optional: true });
   protected readonly playerService = inject(PlayerService);
   protected readonly audioService = inject(AudioService);
-  protected readonly metadataService = inject(MetadataService);
+  protected readonly progressService = inject(ProgressService);
 
   protected readonly volumeIcon = computed(() => this.getVolumeIconForLevel(this.audioService.volume()));
 

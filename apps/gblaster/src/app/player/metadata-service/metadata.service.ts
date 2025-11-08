@@ -1,4 +1,4 @@
-import { computed, inject, Injectable, signal } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 import { NgxIndexedDBService } from 'ngx-indexed-db';
 import { LocalStorageService } from 'ngx-webstorage';
 import { firstValueFrom } from 'rxjs';
@@ -9,6 +9,7 @@ import { CoverColorPalette, RemoteCoverArtUrls } from './metadata.types';
 import { MusicbrainzService } from './musicbrainz.service';
 import { FileData } from '../file-loader-service/file-loader.helpers';
 import { extractColorsWithNodeVibrant, generateFileHash } from './metadata-helper';
+import { ProgressService } from './progress.service';
 
 @Injectable({ providedIn: 'root' })
 export class MetadataService {
@@ -17,6 +18,7 @@ export class MetadataService {
   private readonly musicbrainzService = inject(MusicbrainzService);
   private readonly indexedDBService = inject(NgxIndexedDBService);
   private readonly localStorageService = inject(LocalStorageService);
+  private readonly progressService = inject(ProgressService);
 
   private readonly PLACEHOLDER_URL = 'assets/icons/record.svg';
 
@@ -24,38 +26,18 @@ export class MetadataService {
   readonly useTagEmbeddedPicture = signal(this.localStorageService.retrieve('useTagEmbeddedPicture') ?? true);
   readonly preferTagEmbeddedPicture = signal(this.localStorageService.retrieve('preferTagEmbeddedPicture') ?? true);
 
-  private readonly totalFilesToProcess = signal(0);
-  private readonly filesToProcess = signal(0);
-  readonly processionPercent = computed(() => {
-    return 100 - (this.filesToProcess() / this.totalFilesToProcess()) * 100;
-  });
-
-  readonly processing = computed(() => {
-    return this.filesToProcess() > 0;
-  });
-
-  readonly processingFile = signal('');
-
-  readonly statusText = computed(() => {
-    const totalFilesToProcess = this.totalFilesToProcess();
-    let text = `Processing (${totalFilesToProcess - this.filesToProcess()} / ${totalFilesToProcess}): `;
-    text += this.processing() ? this.processingFile() : 'Finished';
-    return text;
-  });
-
   async *addFilesToLibrary(fileDatas: FileData[]) {
     if (fileDatas?.length) {
-      this.totalFilesToProcess.set(fileDatas.length);
-      this.filesToProcess.set(fileDatas.length);
+      this.progressService.startProcessing(fileDatas.length);
       for (const fileData of fileDatas.values()) {
-        this.processingFile.set(fileData.file.name);
+        this.progressService.updateCurrentFile(fileData.file.name);
         const track = await this.createTrackAndSaveToLibrary(fileData);
         if (track) {
           yield track;
         }
-        this.filesToProcess.update((files) => files - 1);
+        this.progressService.completeFile();
       }
-      this.totalFilesToProcess.set(0);
+      this.progressService.reset();
     }
   }
 
@@ -79,7 +61,7 @@ export class MetadataService {
   }
 
   private async getTrackMetadata(fileData: FileData): Promise<TrackMetadata | undefined> {
-    this.processingFile.set(fileData.file.name + ' - Generating hash...');
+    this.progressService.updateCurrentFile(fileData.file.name + ' - Generating hash...');
     const hash = await generateFileHash(fileData.file);
 
     const metadataCache: TrackMetadata = await firstValueFrom(
@@ -107,7 +89,7 @@ export class MetadataService {
       }
     }
 
-    this.processingFile.set(fileData.file.name + ' - Reading tags...');
+    this.progressService.updateCurrentFile(fileData.file.name + ' - Reading tags...');
     const tags = await this.id3TagsService.extractTags(fileData.file);
 
     if (!tags) {
@@ -117,7 +99,7 @@ export class MetadataService {
     let coverUrls: RemoteCoverArtUrls | undefined;
 
     if (this.useWebMetainfos() && tags.artist && tags.album) {
-      this.processingFile.set(fileData.file.name + ' - Getting cover pictures...');
+      this.progressService.updateCurrentFile(fileData.file.name + ' - Getting cover pictures...');
       coverUrls = await this.lastfmMetadataService.getCoverPictureUrls(tags);
       if (!coverUrls) {
         coverUrls = await this.musicbrainzService.getCoverPictureUrls(tags);
@@ -125,7 +107,7 @@ export class MetadataService {
     }
 
     let palette: CoverColorPalette | undefined;
-    this.processingFile.set(fileData.file.name + ' - Reading colors...');
+    this.progressService.updateCurrentFile(fileData.file.name + ' - Reading colors...');
     if (coverUrls?.originalUrl) {
       palette = await extractColorsWithNodeVibrant(coverUrls.originalUrl);
     } else if (tags.picture) {

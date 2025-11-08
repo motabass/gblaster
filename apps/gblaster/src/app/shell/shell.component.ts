@@ -18,6 +18,7 @@ import { ALLOWED_MIMETYPES, FileData } from '../player/file-loader-service/file-
 import { PlayerToolbarComponent } from '../player/player-toolbar/player-toolbar.component';
 import { MatProgressBar } from '@angular/material/progress-bar';
 import { MetadataService } from '../player/metadata-service/metadata.service';
+import { ProgressService } from '../player/metadata-service/progress.service';
 
 @Component({
   selector: 'mtb-shell',
@@ -47,6 +48,7 @@ export class ShellComponent {
   protected readonly loaderService = inject(LoaderService);
   protected readonly playerService = inject(PlayerService);
   protected readonly metadataService = inject(MetadataService);
+  protected readonly progressService = inject(ProgressService);
 
   protected readonly ALLOWED_TYPES = ALLOWED_MIMETYPES;
 

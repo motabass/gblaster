@@ -54,7 +54,7 @@
     mat-icon-button
     id="load_files"
     (click)="showFilePickerAndAddToLibrary()"
-    [disabled]="metadataService.processing()"
+    [disabled]="progressService.processing()"
   >
     <mat-icon
       matTooltip="Load folder/files..."
