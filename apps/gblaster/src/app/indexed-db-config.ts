@@ -13,11 +13,6 @@ export const databaseConfig: DBConfig = {
         { name: 'title', keypath: 'title', options: { unique: false } },
         { name: 'album', keypath: 'album', options: { unique: false } }
       ]
-    },
-    {
-      store: 'directoryHandles',
-      storeConfig: { keyPath: 'id', autoIncrement: true },
-      storeSchema: [{ name: 'handle', keypath: 'handle', options: { unique: false } }]
     }
   ]
 };

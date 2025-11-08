@@ -16,7 +16,7 @@ import { WakelockService } from './services/wakelock.service';
 import { wakelockServiceFactory } from './services/wakelock.service.factory';
 import { mediaSessionServiceFactory } from './services/media-session/media-session.service.factory';
 import { MediaSessionService } from './services/media-session/media-session.service';
-import { databaseConfig } from './idexed-db-config';
+import { databaseConfig } from './indexed-db-config';
 
 export const appConfig: ApplicationConfig = {
   providers: [
