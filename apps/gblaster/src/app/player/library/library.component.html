@@ -209,6 +209,15 @@
   appearance="fill"
   class="searchinput"
 >
+  <button
+    matPrefix
+    mat-icon-button
+    type="button"
+    (click)="refreshLibrary()"
+    [disabled]="libraryService.isLoading()"
+  >
+    <mat-icon svgIcon="reload" />
+  </button>
   <mat-icon
     matPrefix
     svgIcon="search"

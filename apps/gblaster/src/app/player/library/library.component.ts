@@ -234,4 +234,8 @@ export default class LibraryComponent implements OnInit {
   trackByHash(index: number, track: IndexedDbTrackMetadata): string {
     return track.hash;
   }
+
+  async refreshLibrary() {
+    await this.libraryService.loadLibraryFromDb();
+  }
 }
