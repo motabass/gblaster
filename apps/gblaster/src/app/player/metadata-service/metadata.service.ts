@@ -31,7 +31,7 @@ export class MetadataService {
       this.progressService.startProcessing(fileDatas.length);
       for (const fileData of fileDatas.values()) {
         this.progressService.updateCurrentFile(fileData.file.name);
-        const result = await this.getTrackMetadataFromCacheOrCalculate(fileData);
+        const result = await this.getTrackMetadataFromCacheOrExtract(fileData);
         if (!result?.metadata) {
           this.progressService.completeFile();
           continue;
@@ -56,43 +56,21 @@ export class MetadataService {
     await firstValueFrom(this.indexedDBService.add('library', metadata));
   }
 
-  private async getTrackMetadataFromCacheOrCalculate(fileData: FileData) {
+  private async getTrackMetadataFromCacheOrExtract(fileData: FileData): Promise<TrackMetadataResult | undefined> {
     this.progressService.updateCurrentFile(fileData.file.name + ' - Generating hash...');
     const hash = await generateFileHash(fileData.file);
-    let fromCache = false;
-    const metadataCache: TrackMetadata = await firstValueFrom(
-      this.indexedDBService.getByKey<IndexedDbTrackMetadata>('library', hash)
-    );
+
+    const metadataCache = await firstValueFrom(this.indexedDBService.getByKey<IndexedDbTrackMetadata>('library', hash));
 
     if (metadataCache) {
-      fromCache = true;
-      if (
-        metadataCache.embeddedPicture &&
-        this.useTagEmbeddedPicture() &&
-        (metadataCache.coverUrl.thumbUrl === this.PLACEHOLDER_URL || this.preferTagEmbeddedPicture())
-      ) {
-        // renew local object urls
-        const url = URL.createObjectURL(
-          new Blob([metadataCache.embeddedPicture.data], {
-            type: metadataCache.embeddedPicture.format
-          })
-        );
-        const result: TrackMetadataResult = {
-          metadata: {
-            ...metadataCache,
-            coverUrl: { thumbUrl: url, originalUrl: url } // overwrite remote url with objectUrl for tag cover art
-          },
-          fromCache
-        };
-        return result;
-      } else {
-        return {
-          metadata: this.augmentObjectUrlForTagsEmbeddedPicture(metadataCache),
-          fromCache
-        } as TrackMetadataResult;
-      }
+      const metadata = this.applyEmbeddedPictureCoverUrl(metadataCache);
+      return { metadata, fromCache: true };
     }
 
+    return this.extractTrackMetadata(fileData, hash);
+  }
+
+  private async extractTrackMetadata(fileData: FileData, hash: string): Promise<TrackMetadataResult | undefined> {
     this.progressService.updateCurrentFile(fileData.file.name + ' - Reading tags...');
     const tags = await this.id3TagsService.extractTags(fileData.file);
 
@@ -100,18 +78,10 @@ export class MetadataService {
       return undefined;
     }
 
-    let coverUrls: RemoteCoverArtUrls | undefined;
-
-    if (this.useWebMetainfos() && tags.artist && tags.album) {
-      this.progressService.updateCurrentFile(fileData.file.name + ' - Getting cover pictures...');
-      coverUrls = await this.lastfmMetadataService.getCoverPictureUrls(tags);
-      if (!coverUrls) {
-        coverUrls = await this.musicbrainzService.getCoverPictureUrls(tags);
-      }
-    }
+    const coverUrls = await this.fetchRemoteCoverUrls(fileData.file.name, tags);
 
     const metadata: IndexedDbTrackMetadata = {
-      hash: hash,
+      hash,
       fileName: fileData.file.name,
       fileHandle: fileData.fileHandle,
       coverUrl: coverUrls ?? {
@@ -127,34 +97,69 @@ export class MetadataService {
       format: tags.format
     };
 
-    return { metadata, fromCache } as TrackMetadataResult;
+    return { metadata, fromCache: false };
+  }
+
+  private async fetchRemoteCoverUrls(fileName: string, tags: any): Promise<RemoteCoverArtUrls | undefined> {
+    if (!this.useWebMetainfos() || !tags.artist || !tags.album) {
+      return undefined;
+    }
+
+    this.progressService.updateCurrentFile(fileName + ' - Getting cover pictures...');
+    const coverUrls = await this.lastfmMetadataService.getCoverPictureUrls(tags);
+    if (coverUrls) {
+      return coverUrls;
+    }
+
+    return this.musicbrainzService.getCoverPictureUrls(tags);
+  }
+
+  private applyEmbeddedPictureCoverUrl(metadata: TrackMetadata): TrackMetadata {
+    if (!this.shouldUseEmbeddedPicture(metadata)) {
+      return metadata;
+    }
+
+    const objectUrl = this.createObjectUrlFromEmbeddedPicture(metadata.embeddedPicture!);
+    return {
+      ...metadata,
+      coverUrl: { thumbUrl: objectUrl, originalUrl: objectUrl }
+    };
+  }
+
+  private shouldUseEmbeddedPicture(metadata: TrackMetadata): boolean {
+    return !!(
+      metadata.embeddedPicture &&
+      this.useTagEmbeddedPicture() &&
+      (metadata.coverUrl.thumbUrl === this.PLACEHOLDER_URL || this.preferTagEmbeddedPicture())
+    );
+  }
+
+  private createObjectUrlFromEmbeddedPicture(embeddedPicture: any): string {
+    const blob = new Blob([embeddedPicture.data], { type: embeddedPicture.format });
+    return URL.createObjectURL(blob);
   }
 
   augmentObjectUrlForTagsEmbeddedPicture(meta: TrackMetadata): TrackMetadata {
-    if (
-      meta.embeddedPicture &&
-      this.useTagEmbeddedPicture() &&
-      (meta.coverUrl.originalUrl === this.PLACEHOLDER_URL || this.preferTagEmbeddedPicture())
-    ) {
-      // renew local object urls
-      if (meta.coverUrl?.originalUrl?.startsWith('blob:')) {
-        URL.revokeObjectURL(meta.coverUrl.originalUrl);
-      }
-      if (meta.coverUrl?.thumbUrl?.startsWith('blob:')) {
-        URL.revokeObjectURL(meta.coverUrl.thumbUrl);
-      }
-      // TODO: Erst kreieren wenn gebraucht!
-      const url = URL.createObjectURL(
-        new Blob([meta.embeddedPicture.data], {
-          type: meta.embeddedPicture.format
-        })
-      );
-      return {
-        ...meta,
-        coverUrl: { thumbUrl: url, originalUrl: url } // overwrite remote url with objectUrl for tag cover art
-      };
-    } else {
+    if (!this.shouldUseEmbeddedPicture(meta)) {
       return meta;
+    }
+
+    this.revokeExistingObjectUrls(meta.coverUrl);
+
+    // TODO: Erst kreieren wenn gebraucht!
+    const objectUrl = this.createObjectUrlFromEmbeddedPicture(meta.embeddedPicture!);
+    return {
+      ...meta,
+      coverUrl: { thumbUrl: objectUrl, originalUrl: objectUrl }
+    };
+  }
+
+  private revokeExistingObjectUrls(coverUrl: RemoteCoverArtUrls): void {
+    if (coverUrl?.originalUrl?.startsWith('blob:')) {
+      URL.revokeObjectURL(coverUrl.originalUrl);
+    }
+    if (coverUrl?.thumbUrl?.startsWith('blob:')) {
+      URL.revokeObjectURL(coverUrl.thumbUrl);
     }
   }
 }
