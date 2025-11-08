@@ -38,7 +38,7 @@ jobs:
         env:
           CI: true
       - name: Deploy
-        uses: w9jds/firebase-action@v14.24.0
+        uses: w9jds/firebase-action@v14.24.1
         with:
           args: deploy --project gblaster-player --only hosting
         env:
