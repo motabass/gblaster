@@ -181,7 +181,13 @@
                                 <a href="#addFilesToLibrary" >addFilesToLibrary</a>
                             </li>
                             <li>
-                                <a href="#augmentObjectUrlForTagsEmbeddedPicture" >augmentObjectUrlForTagsEmbeddedPicture</a>
+                                <a href="#applyEmbeddedCoverObjectUrsl" >applyEmbeddedCoverObjectUrsl</a>
+                            </li>
+                            <li>
+                                <a href="#revokeBlobUrlForTrack" >revokeBlobUrlForTrack</a>
+                            </li>
+                            <li>
+                                <a href="#revokeBlobUrlsForTracks" >revokeBlobUrlsForTracks</a>
                             </li>
                         </ul>
                     </td>
@@ -274,24 +280,24 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="augmentObjectUrlForTagsEmbeddedPicture"></a>
+                    <a name="applyEmbeddedCoverObjectUrsl"></a>
                     <span class="name">
-                        <span ><b>augmentObjectUrlForTagsEmbeddedPicture</b></span>
-                        <a href="#augmentObjectUrlForTagsEmbeddedPicture"><span class="icon ion-ios-link"></span></a>
+                        <span ><b>applyEmbeddedCoverObjectUrsl</b></span>
+                        <a href="#applyEmbeddedCoverObjectUrsl"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>augmentObjectUrlForTagsEmbeddedPicture(meta: <a href="../interfaces/TrackMetadata.html" target="_self">TrackMetadata</a>)</code>
+<code>applyEmbeddedCoverObjectUrsl(meta: <a href="../interfaces/TrackMetadata.html" target="_self">TrackMetadata</a>)</code>
                 </td>
             </tr>
 
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="142"
-                                    class="link-to-prism">apps/gblaster/src/app/player/metadata-service/metadata.service.ts:142</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="132"
+                                    class="link-to-prism">apps/gblaster/src/app/player/metadata-service/metadata.service.ts:132</a></div>
                         </td>
                     </tr>
 
@@ -328,6 +334,151 @@
                             </div>
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="../interfaces/TrackMetadata.html" target="_self" >TrackMetadata</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="revokeBlobUrlForTrack"></a>
+                    <span class="name">
+                        <span ><b>revokeBlobUrlForTrack</b></span>
+                        <a href="#revokeBlobUrlForTrack"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>revokeBlobUrlForTrack(track: <a href="../interfaces/TrackMetadata.html" target="_self">TrackMetadata</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="174"
+                                    class="link-to-prism">apps/gblaster/src/app/player/metadata-service/metadata.service.ts:174</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Revokes blob URL for a single track.
+Call this when removing a single track from library.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>track</td>
+                                            <td>
+                                                            <code><a href="../interfaces/TrackMetadata.html" target="_self" >TrackMetadata</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="revokeBlobUrlsForTracks"></a>
+                    <span class="name">
+                        <span ><b>revokeBlobUrlsForTracks</b></span>
+                        <a href="#revokeBlobUrlsForTracks"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>revokeBlobUrlsForTracks(tracks: TrackMetadata[])</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="161"
+                                    class="link-to-prism">apps/gblaster/src/app/player/metadata-service/metadata.service.ts:161</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Revokes blob URLs for tracks with embedded pictures.
+Call this when:</p>
+<ul>
+<li>Removing tracks from library</li>
+<li>Clearing the entire library
+for (const track of tracks) {</li>
+</ul>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>tracks</td>
+                                            <td>
+                                                        <code>TrackMetadata[]</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
 
                         </div>
                             <div class="io-description">
@@ -500,7 +651,9 @@ export class MetadataService {
   }
 
   private async addMetadataToIndexedDb(metadata: TrackMetadata) {
-    await firstValueFrom(this.indexedDBService.add(&#x27;library&#x27;, metadata));
+    const { cachedBlobUrl, ...metadataToStore } &#x3D; metadata;
+    // Never persist cachedBlobUrl - blob URLs are session-specific
+    await firstValueFrom(this.indexedDBService.add(&#x27;library&#x27;, metadataToStore));
   }
 
   private async getTrackMetadataFromCacheOrExtract(fileData: FileData): Promise&lt;TrackMetadataResult | undefined&gt; {
@@ -510,7 +663,7 @@ export class MetadataService {
     const metadataCache &#x3D; await firstValueFrom(this.indexedDBService.getByKey&lt;IndexedDbTrackMetadata&gt;(&#x27;library&#x27;, hash));
 
     if (metadataCache) {
-      const metadata &#x3D; this.applyEmbeddedPictureCoverUrl(metadataCache);
+      const metadata &#x3D; this.applyEmbeddedCoverObjectUrsl(metadataCache);
       return { metadata, fromCache: true };
     }
 
@@ -544,7 +697,7 @@ export class MetadataService {
       format: tags.format
     };
 
-    return { metadata, fromCache: false };
+    return { metadata: this.applyEmbeddedCoverObjectUrsl(metadata), fromCache: false };
   }
 
   private async fetchRemoteCoverUrls(fileName: string, tags: any): Promise&lt;RemoteCoverArtUrls | undefined&gt; {
@@ -561,18 +714,6 @@ export class MetadataService {
     return this.musicbrainzService.getCoverPictureUrls(tags);
   }
 
-  private applyEmbeddedPictureCoverUrl(metadata: TrackMetadata): TrackMetadata {
-    if (!this.shouldUseEmbeddedPicture(metadata)) {
-      return metadata;
-    }
-
-    const objectUrl &#x3D; this.createObjectUrlFromEmbeddedPicture(metadata.embeddedPicture!);
-    return {
-      ...metadata,
-      coverUrl: { thumbUrl: objectUrl, originalUrl: objectUrl }
-    };
-  }
-
   private shouldUseEmbeddedPicture(metadata: TrackMetadata): boolean {
     return !!(
       metadata.embeddedPicture &amp;&amp;
@@ -586,27 +727,52 @@ export class MetadataService {
     return URL.createObjectURL(blob);
   }
 
-  augmentObjectUrlForTagsEmbeddedPicture(meta: TrackMetadata): TrackMetadata {
+  applyEmbeddedCoverObjectUrsl(meta: TrackMetadata): TrackMetadata {
     if (!this.shouldUseEmbeddedPicture(meta)) {
       return meta;
     }
 
-    this.revokeExistingObjectUrls(meta.coverUrl);
+    // Reuse cached blob URL if it exists to prevent creating duplicates
+    if (meta.cachedBlobUrl) {
+      return {
+        ...meta,
+        coverUrl: { thumbUrl: meta.cachedBlobUrl, originalUrl: meta.cachedBlobUrl }
+      };
+    }
 
-    // TODO: Erst kreieren wenn gebraucht!
+    // Create new blob URL and cache it
     const objectUrl &#x3D; this.createObjectUrlFromEmbeddedPicture(meta.embeddedPicture!);
     return {
       ...meta,
+      cachedBlobUrl: objectUrl,
       coverUrl: { thumbUrl: objectUrl, originalUrl: objectUrl }
     };
   }
 
-  private revokeExistingObjectUrls(coverUrl: RemoteCoverArtUrls): void {
-    if (coverUrl?.originalUrl?.startsWith(&#x27;blob:&#x27;)) {
-      URL.revokeObjectURL(coverUrl.originalUrl);
+  /**
+   * Revokes blob URLs for tracks with embedded pictures.
+   * Call this when:
+   * - Removing tracks from library
+   * - Clearing the entire library
+    for (const track of tracks) {
+   */
+  revokeBlobUrlsForTracks(tracks: TrackMetadata[]): void {
+    for (const track of tracks) {
+      if (track.cachedBlobUrl) {
+        URL.revokeObjectURL(track.cachedBlobUrl);
+        track.cachedBlobUrl &#x3D; undefined;
+      }
     }
-    if (coverUrl?.thumbUrl?.startsWith(&#x27;blob:&#x27;)) {
-      URL.revokeObjectURL(coverUrl.thumbUrl);
+  }
+
+  /**
+   * Revokes blob URL for a single track.
+   * Call this when removing a single track from library.
+   */
+  revokeBlobUrlForTrack(track: TrackMetadata): void {
+    if (track.cachedBlobUrl) {
+      URL.revokeObjectURL(track.cachedBlobUrl);
+      track.cachedBlobUrl &#x3D; undefined;
     }
   }
 }

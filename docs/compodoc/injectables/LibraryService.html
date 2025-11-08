@@ -174,7 +174,15 @@
                         <ul class="index-list">
                             <li>
                                     <span class="modifier">Async</span>
+                                <a href="#clearLibrary" >clearLibrary</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
                                 <a href="#loadLibraryFromDb" >loadLibraryFromDb</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#removeTrack" >removeTrack</a>
                             </li>
                         </ul>
                     </td>
@@ -194,6 +202,47 @@
     <h3 id="methods">
         Methods
     </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="clearLibrary"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>clearLibrary</b></span>
+                        <a href="#clearLibrary"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>clearLibrary()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="70"
+                                    class="link-to-prism">apps/gblaster/src/app/player/library/library.service.ts:70</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Clears the entire library and cleans up all blob URLs.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>Promise&lt;void&gt;</code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
     <table class="table table-sm table-bordered">
         <tbody>
             <tr>
@@ -229,6 +278,77 @@
                             <b>Returns : </b>    <code>Promise&lt;IndexedDbTrackMetadata[]&gt;</code>
 
                         </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="removeTrack"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>removeTrack</b></span>
+                        <a href="#removeTrack"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>removeTrack(hash: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="58"
+                                    class="link-to-prism">apps/gblaster/src/app/player/library/library.service.ts:58</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Removes a single track from the library and cleans up its blob URL.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>hash</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>Promise&lt;void&gt;</code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
                 </td>
             </tr>
         </tbody>
@@ -330,11 +450,27 @@ export class LibraryService {
       this.isLoading.set(true);
 
       const result &#x3D; await firstValueFrom(this.indexedDbService.getAll&lt;IndexedDbTrackMetadata&gt;(&#x27;library&#x27;));
+      const currentTracks &#x3D; this.indexedDbTracks();
 
-      // Parallele Verarbeitung für bessere Performance
-      const tracksWithBlobUrls &#x3D; result.map((track) &#x3D;&gt;
-        this.metadataService.augmentObjectUrlForTagsEmbeddedPicture(track)
-      );
+      // Create a Map of existing tracks by hash for quick lookup
+      const existingTracksMap &#x3D; new Map(currentTracks.map((t) &#x3D;&gt; [t.hash, t]));
+
+      // Only create blob URLs for new tracks, reuse existing ones
+      const tracksWithBlobUrls &#x3D; result.map((track) &#x3D;&gt; {
+        const existingTrack &#x3D; existingTracksMap.get(track.hash);
+
+        // If track already exists with a cached blob URL, reuse it
+        if (existingTrack?.cachedBlobUrl) {
+          return {
+            ...track,
+            cachedBlobUrl: existingTrack.cachedBlobUrl,
+            coverUrl: existingTrack.coverUrl
+          };
+        }
+
+        // Create blob URL only for new tracks
+        return this.metadataService.applyEmbeddedCoverObjectUrsl(track);
+      });
 
       this.indexedDbTracks.set(tracksWithBlobUrls);
       return tracksWithBlobUrls;
@@ -345,6 +481,26 @@ export class LibraryService {
     } finally {
       this.isLoading.set(false);
     }
+  }
+
+  /**
+   * Removes a single track from the library and cleans up its blob URL.
+   */
+  async removeTrack(hash: string): Promise&lt;void&gt; {
+    const track &#x3D; this.indexedDbTracks().find((t) &#x3D;&gt; t.hash &#x3D;&#x3D;&#x3D; hash);
+    if (track) {
+      this.metadataService.revokeBlobUrlForTrack(track);
+      await firstValueFrom(this.indexedDbService.delete(&#x27;library&#x27;, hash));
+      this.indexedDbTracks.set(this.indexedDbTracks().filter((t) &#x3D;&gt; t.hash !&#x3D;&#x3D; hash));
+    }
+  }
+
+  /**
+   * Clears the entire library and cleans up all blob URLs.
+   */
+  async clearLibrary(): Promise&lt;void&gt; {
+    await firstValueFrom(this.indexedDbService.clear(&#x27;library&#x27;));
+    this.indexedDbTracks.set([]);
   }
 }
 </code></pre>

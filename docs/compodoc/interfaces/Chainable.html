@@ -164,6 +164,12 @@
                                         loadFiles
                                     </a>
                                 </li>
+                                <li>
+                                    <a href="#mockDirectoryPicker" 
+>
+                                        mockDirectoryPicker
+                                    </a>
+                                </li>
                             </ul>
                         </td>
                     </tr>
@@ -196,8 +202,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="16"
-                                    class="link-to-prism">apps/gblaster/cypress/support/commands.ts:16</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="18"
+                                    class="link-to-prism">apps/gblaster/cypress/support/commands.ts:18</a></div>
                         </td>
                     </tr>
 
@@ -206,7 +212,44 @@
                 <td class="col-md-4">
 
                         <div class="io-description">
-                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+                            <b>Returns : </b>        <code><a href="../interfaces/Chainable.html" target="_self" >Chainable&lt;void&gt;</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="mockDirectoryPicker"></a>
+                    <span class="name">
+                        <span ><b>mockDirectoryPicker</b></span>
+                        <a href="#mockDirectoryPicker"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>mockDirectoryPicker()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="19"
+                                    class="link-to-prism">apps/gblaster/cypress/support/commands.ts:19</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="../interfaces/Chainable.html" target="_self" >Chainable&lt;void&gt;</a></code>
 
                         </div>
                 </td>
@@ -220,7 +263,7 @@
 
     <div class="tab-pane fade  tab-source-code" id="source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import &#x27;cypress-file-upload&#x27;;
-import { getLoadFilesButton, getLoadFilesMenuEntry } from &#x27;./player.po&#x27;;
+import { getLoadFilesButton } from &#x27;./player.po&#x27;;
 
 // ***********************************************
 // This example commands.js shows you how to
@@ -232,24 +275,220 @@ import { getLoadFilesButton, getLoadFilesMenuEntry } from &#x27;./player.po&#x27
 // https://on.cypress.io/custom-commands
 // ***********************************************
 
-declare namespace Cypress {
-  interface Chainable&lt;Subject&gt; {
-    loadFiles(): void;
+declare global {
+  namespace Cypress {
+    interface Chainable {
+      loadFiles(): Chainable&lt;void&gt;;
+      mockDirectoryPicker(): Chainable&lt;void&gt;;
+    }
   }
 }
+
+// Store files globally so we can access them from serialized handles
+const mockFileStore &#x3D; new Map&lt;string, File&gt;();
+
+function base64ToBlob(base64: string, mimeType: string): Blob {
+  const byteCharacters &#x3D; atob(base64);
+  const byteNumbers &#x3D; Array.from({ length: byteCharacters.length });
+  for (let i &#x3D; 0; i &lt; byteCharacters.length; i++) {
+    byteNumbers[i] &#x3D; byteCharacters.codePointAt(i);
+  }
+  const byteArray &#x3D; new Uint8Array(byteNumbers as number[]);
+  return new Blob([byteArray], { type: mimeType });
+}
+
+function createMockFileHandle(file: File): FileSystemFileHandle {
+  // Store file in global map
+  mockFileStore.set(file.name, file);
+
+  // Create a serializable handle with getFile as a getter
+  const handle &#x3D; {
+    kind: &#x27;file&#x27;,
+    name: file.name,
+    _mockFileName: file.name // Store reference for serialization
+  };
+
+  // Add non-enumerable methods that won&#x27;t be serialized
+  Object.defineProperty(handle, &#x27;getFile&#x27;, {
+    value: () &#x3D;&gt; Promise.resolve(mockFileStore.get(file.name)!),
+    enumerable: false,
+    writable: true
+  });
+
+  Object.defineProperty(handle, &#x27;createWritable&#x27;, {
+    value: () &#x3D;&gt; Promise.reject(new Error(&#x27;Not implemented&#x27;)),
+    enumerable: false
+  });
+
+  Object.defineProperty(handle, &#x27;isSameEntry&#x27;, {
+    value: () &#x3D;&gt; Promise.resolve(false),
+    enumerable: false
+  });
+
+  Object.defineProperty(handle, &#x27;queryPermission&#x27;, {
+    value: () &#x3D;&gt; Promise.resolve(&#x27;granted&#x27; as PermissionState),
+    enumerable: false
+  });
+
+  Object.defineProperty(handle, &#x27;requestPermission&#x27;, {
+    value: () &#x3D;&gt; Promise.resolve(&#x27;granted&#x27; as PermissionState),
+    enumerable: false
+  });
+
+  return handle as FileSystemFileHandle;
+}
+
+function createMockDirectoryHandle(files: File[]): FileSystemDirectoryHandle {
+  const fileHandles &#x3D; files.map((file) &#x3D;&gt; createMockFileHandle(file));
+
+  return {
+    kind: &#x27;directory&#x27;,
+    name: &#x27;test-music&#x27;,
+    // eslint-disable-next-line @typescript-eslint/require-await
+    entries: async function* () {
+      for (const [index, file] of files.entries()) {
+        yield [file.name, fileHandles[index]] as [string, FileSystemFileHandle];
+      }
+    },
+    // eslint-disable-next-line @typescript-eslint/require-await
+    keys: async function* () {
+      for (const file of files) {
+        yield file.name;
+      }
+    },
+    // eslint-disable-next-line @typescript-eslint/require-await
+    values: async function* () {
+      for (const handle of fileHandles) {
+        yield handle;
+      }
+    },
+    getFileHandle: () &#x3D;&gt; Promise.reject(new Error(&#x27;Not implemented&#x27;)),
+    getDirectoryHandle: () &#x3D;&gt; Promise.reject(new Error(&#x27;Not implemented&#x27;)),
+    removeEntry: () &#x3D;&gt; Promise.reject(new Error(&#x27;Not implemented&#x27;)),
+    resolve: () &#x3D;&gt; Promise.resolve(null),
+    isSameEntry: () &#x3D;&gt; Promise.resolve(false),
+    queryPermission: () &#x3D;&gt; Promise.resolve(&#x27;granted&#x27; as PermissionState),
+    requestPermission: () &#x3D;&gt; Promise.resolve(&#x27;granted&#x27; as PermissionState)
+  } as FileSystemDirectoryHandle;
+}
+
+// Helper to restore FileHandle methods after IndexedDB retrieval
+function restoreFileHandleMethods(handle: Record&lt;string, unknown&gt;): FileSystemFileHandle {
+  if (handle &amp;&amp; handle._mockFileName &amp;&amp; typeof handle._mockFileName &#x3D;&#x3D;&#x3D; &#x27;string&#x27;) {
+    const fileName &#x3D; handle._mockFileName;
+
+    Object.defineProperty(handle, &#x27;getFile&#x27;, {
+      value: () &#x3D;&gt; Promise.resolve(mockFileStore.get(fileName)!),
+      enumerable: false,
+      writable: true
+    });
+
+    Object.defineProperty(handle, &#x27;createWritable&#x27;, {
+      value: () &#x3D;&gt; Promise.reject(new Error(&#x27;Not implemented&#x27;)),
+      enumerable: false
+    });
+
+    Object.defineProperty(handle, &#x27;isSameEntry&#x27;, {
+      value: () &#x3D;&gt; Promise.resolve(false),
+      enumerable: false
+    });
+
+    Object.defineProperty(handle, &#x27;queryPermission&#x27;, {
+      value: () &#x3D;&gt; Promise.resolve(&#x27;granted&#x27; as PermissionState),
+      enumerable: false
+    });
+
+    Object.defineProperty(handle, &#x27;requestPermission&#x27;, {
+      value: () &#x3D;&gt; Promise.resolve(&#x27;granted&#x27; as PermissionState),
+      enumerable: false
+    });
+  }
+
+  return handle as FileSystemFileHandle;
+}
+
+// Mock File System Access API
+Cypress.Commands.add(&#x27;mockDirectoryPicker&#x27;, () &#x3D;&gt; {
+  cy.fixture(&#x27;tek.mp3&#x27;, &#x27;base64&#x27;).then((tekMp3) &#x3D;&gt; {
+    cy.fixture(&#x27;440Hz-5sec.mp3&#x27;, &#x27;base64&#x27;).then((sineWave) &#x3D;&gt; {
+      cy.window().then((win) &#x3D;&gt; {
+        const tekBlob &#x3D; base64ToBlob(tekMp3, &#x27;audio/mpeg&#x27;);
+        const sineBlob &#x3D; base64ToBlob(sineWave, &#x27;audio/mpeg&#x27;);
+
+        const tekFile &#x3D; new File([tekBlob], &#x27;tek.mp3&#x27;, { type: &#x27;audio/mpeg&#x27; });
+        const sineFile &#x3D; new File([sineBlob], &#x27;440Hz-5sec.mp3&#x27;, { type: &#x27;audio/mpeg&#x27; });
+
+        const mockDirectoryHandle &#x3D; createMockDirectoryHandle([tekFile, sineFile]);
+
+        // Mock showDirectoryPicker
+        // eslint-disable-next-line sonarjs/no-nested-functions
+        const mockPicker &#x3D; () &#x3D;&gt; Promise.resolve(mockDirectoryHandle);
+        (win as unknown as Window &amp; { showDirectoryPicker: typeof mockPicker }).showDirectoryPicker &#x3D; mockPicker;
+
+        // Intercept IndexedDB get operations to restore methods
+        const originalOpen &#x3D; win.indexedDB.open;
+        win.indexedDB.open &#x3D; function (...args) {
+          const request &#x3D; originalOpen.apply(win.indexedDB, args);
+
+          request.addEventListener(&#x27;success&#x27;, () &#x3D;&gt; {
+            const db &#x3D; request.result;
+            const originalTransaction &#x3D; db.transaction.bind(db);
+
+            db.transaction &#x3D; function (...txArgs) {
+              const transaction &#x3D; originalTransaction(...txArgs);
+              const originalObjectStore &#x3D; transaction.objectStore.bind(transaction);
+
+              transaction.objectStore &#x3D; function (...storeArgs) {
+                const store &#x3D; originalObjectStore(...storeArgs);
+                const originalGet &#x3D; store.get.bind(store);
+                const originalGetAll &#x3D; store.getAll.bind(store);
+
+                store.get &#x3D; function (...getArgs) {
+                  const getRequest &#x3D; originalGet(...getArgs);
+                  getRequest.addEventListener(&#x27;success&#x27;, () &#x3D;&gt; {
+                    const result &#x3D; getRequest.result;
+                    if (result?.fileHandle?._mockFileName) {
+                      result.fileHandle &#x3D; restoreFileHandleMethods(result.fileHandle);
+                    }
+                  });
+                  return getRequest;
+                };
+
+                store.getAll &#x3D; function (...getAllArgs) {
+                  const getAllRequest &#x3D; originalGetAll(...getAllArgs);
+                  getAllRequest.addEventListener(&#x27;success&#x27;, () &#x3D;&gt; {
+                    const results &#x3D; getAllRequest.result;
+                    if (Array.isArray(results)) {
+                      for (const result of results) {
+                        if (result?.fileHandle?._mockFileName) {
+                          result.fileHandle &#x3D; restoreFileHandleMethods(result.fileHandle);
+                        }
+                      }
+                    }
+                  });
+                  return getAllRequest;
+                };
+
+                return store;
+              };
+
+              return transaction;
+            };
+          });
+
+          return request;
+        };
+      });
+    });
+  });
+});
+
 //
 // -- This is a parent command --
 Cypress.Commands.add(&#x27;loadFiles&#x27;, () &#x3D;&gt; {
   cy.log(&#x27;Loading files...&#x27;);
+  cy.mockDirectoryPicker();
   getLoadFilesButton().click();
-  cy.wait(300);
-  getLoadFilesMenuEntry().click();
-
-  cy.get(&#x27;#hidden_file_input&#x27;).attachFile([
-    { filePath: &#x27;tek.mp3&#x27;, encoding: &#x27;base64&#x27; },
-    { filePath: &#x27;440Hz-5sec.mp3&#x27;, encoding: &#x27;base64&#x27; }
-  ]);
-  // });
 });
 //
 // -- This is a child command --

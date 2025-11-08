@@ -197,8 +197,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="43"
-                                    class="link-to-prism">apps/gblaster/src/app/player/file-loader-service/file-loader.service.ts:43</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="53"
+                                    class="link-to-prism">apps/gblaster/src/app/player/file-loader-service/file-loader.service.ts:53</a></div>
                         </td>
                     </tr>
 
@@ -248,7 +248,17 @@ export class FileLoaderService {
 
   private async pickFiles(): Promise&lt;FileSystemFileHandle[]&gt; {
     try {
-      const handles &#x3D; await showOpenFilePicker({ multiple: true });
+      const handles &#x3D; await showOpenFilePicker({
+        multiple: true,
+        types: [
+          {
+            description: &#x27;Audio Files&#x27;,
+            accept: {
+              &#x27;audio/*&#x27;: [&#x27;.mp3&#x27;, &#x27;.wav&#x27;, &#x27;.ogg&#x27;, &#x27;.flac&#x27;, &#x27;.m4a&#x27;, &#x27;.aiff&#x27;, &#x27;.opus&#x27;]
+            }
+          }
+        ]
+      });
       return handles;
     } catch (error) {
       // User cancelled the picker or access was denied
@@ -273,9 +283,9 @@ export class FileLoaderService {
         const fileData: FileData[] &#x3D; [];
         for (const fileHandle of fileHandles) {
           const file &#x3D; await fileHandle.getFile();
-          if (ALLOWED_MIMETYPES.includes(file.type)) {
-            fileData.push({ file, fileHandle });
-          }
+          // if (ALLOWED_MIMETYPES.includes(file.type)) {
+          fileData.push({ file, fileHandle });
+          // }
         }
         return fileData;
       } catch (error) {

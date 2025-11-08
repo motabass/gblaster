@@ -130,6 +130,9 @@
                 <td class="col-md-4">
                     <ul class="index-list">
                         <li>
+                            <a href="#base64ToBlob" title="apps/gblaster/cypress/support/commands.ts" ><b>base64ToBlob</b>&nbsp;&nbsp;&nbsp;(apps/.../commands.ts)</a>
+                        </li>
+                        <li>
                             <a href="#computeColors" title="apps/gblaster/src/app/theme/theme-helper.ts" ><b>computeColors</b>&nbsp;&nbsp;&nbsp;(apps/.../theme-helper.ts)</a>
                         </li>
                         <li>
@@ -137,6 +140,12 @@
                         </li>
                         <li>
                             <a href="#createEqualizer" title="apps/gblaster/src/app/player/audio-helper.ts" ><b>createEqualizer</b>&nbsp;&nbsp;&nbsp;(apps/.../audio-helper.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#createMockDirectoryHandle" title="apps/gblaster/cypress/support/commands.ts" ><b>createMockDirectoryHandle</b>&nbsp;&nbsp;&nbsp;(apps/.../commands.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#createMockFileHandle" title="apps/gblaster/cypress/support/commands.ts" ><b>createMockFileHandle</b>&nbsp;&nbsp;&nbsp;(apps/.../commands.ts)</a>
                         </li>
                         <li>
                             <a href="#drawBars" title="apps/gblaster/src/app/player/visualizer/visuals/visuals.worker.ts" ><b>drawBars</b>&nbsp;&nbsp;&nbsp;(apps/.../visuals.worker.ts)</a>
@@ -220,6 +229,9 @@
                             <a href="#recursiveGetAudioFilesFromDirectory" title="apps/gblaster/src/app/player/file-loader-service/file-loader.service.ts" ><b>recursiveGetAudioFilesFromDirectory</b>&nbsp;&nbsp;&nbsp;(apps/.../file-loader.service.ts)</a>
                         </li>
                         <li>
+                            <a href="#restoreFileHandleMethods" title="apps/gblaster/cypress/support/commands.ts" ><b>restoreFileHandleMethods</b>&nbsp;&nbsp;&nbsp;(apps/.../commands.ts)</a>
+                        </li>
+                        <li>
                             <a href="#setupVisualsWorkerWithOptions" title="apps/gblaster/src/app/player/visualizer/visuals/visuals.worker.ts" ><b>setupVisualsWorkerWithOptions</b>&nbsp;&nbsp;&nbsp;(apps/.../visuals.worker.ts)</a>
                         </li>
                         <li>
@@ -232,7 +244,261 @@
     </table>
 </section>
 
-    <h3>apps/gblaster/src/app/theme/theme-helper.ts</h3>
+    <h3>apps/gblaster/cypress/support/commands.ts</h3>
+    <section data-compodoc="block-methods">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="base64ToBlob"></a>
+                    <span class="name">
+                        <span ><b>base64ToBlob</b></span>
+                        <a href="#base64ToBlob"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>base64ToBlob(base64: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, mimeType: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>base64</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>mimeType</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>Blob</code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="createMockDirectoryHandle"></a>
+                    <span class="name">
+                        <span ><b>createMockDirectoryHandle</b></span>
+                        <a href="#createMockDirectoryHandle"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>createMockDirectoryHandle(files)</code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>files</td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>FileSystemDirectoryHandle</code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="createMockFileHandle"></a>
+                    <span class="name">
+                        <span ><b>createMockFileHandle</b></span>
+                        <a href="#createMockFileHandle"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>createMockFileHandle(file: File)</code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>file</td>
+                                            <td>
+                                                        <code>File</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>FileSystemFileHandle</code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="restoreFileHandleMethods"></a>
+                    <span class="name">
+                        <span ><b>restoreFileHandleMethods</b></span>
+                        <a href="#restoreFileHandleMethods"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>restoreFileHandleMethods(handle: Record)</code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>handle</td>
+                                            <td>
+                                                        <code>Record</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>FileSystemFileHandle</code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>    <h3>apps/gblaster/src/app/theme/theme-helper.ts</h3>
     <section data-compodoc="block-methods">
     <h3></h3>    <table class="table table-sm table-bordered">
         <tbody>

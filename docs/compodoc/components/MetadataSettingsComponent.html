@@ -285,8 +285,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="36"
-                                    class="link-to-prism">apps/gblaster/src/app/settings/metadata-settings/metadata-settings.component.ts:36</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="35"
+                                    class="link-to-prism">apps/gblaster/src/app/settings/metadata-settings/metadata-settings.component.ts:35</a></div>
                         </td>
                     </tr>
 
@@ -322,8 +322,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="31"
-                                    class="link-to-prism">apps/gblaster/src/app/settings/metadata-settings/metadata-settings.component.ts:31</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="30"
+                                    class="link-to-prism">apps/gblaster/src/app/settings/metadata-settings/metadata-settings.component.ts:30</a></div>
                         </td>
                     </tr>
 
@@ -389,8 +389,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="26"
-                                    class="link-to-prism">apps/gblaster/src/app/settings/metadata-settings/metadata-settings.component.ts:26</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="25"
+                                    class="link-to-prism">apps/gblaster/src/app/settings/metadata-settings/metadata-settings.component.ts:25</a></div>
                         </td>
                     </tr>
 
@@ -456,8 +456,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="21"
-                                    class="link-to-prism">apps/gblaster/src/app/settings/metadata-settings/metadata-settings.component.ts:21</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="20"
+                                    class="link-to-prism">apps/gblaster/src/app/settings/metadata-settings/metadata-settings.component.ts:20</a></div>
                         </td>
                     </tr>
 
@@ -535,7 +535,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">apps/gblaster/src/app/settings/metadata-settings/metadata-settings.component.ts:17</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">apps/gblaster/src/app/settings/metadata-settings/metadata-settings.component.ts:16</a></div>
                         </td>
                     </tr>
 
@@ -550,12 +550,11 @@
     <div class="tab-pane fade  tab-source-code" id="source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, inject } from &#x27;@angular/core&#x27;;
 import { MatSlideToggle, MatSlideToggleChange } from &#x27;@angular/material/slide-toggle&#x27;;
-import { NgxIndexedDBService } from &#x27;ngx-indexed-db&#x27;;
 import { MetadataService } from &#x27;../../player/metadata-service/metadata.service&#x27;;
 import { MatButton } from &#x27;@angular/material/button&#x27;;
 import { MatCard, MatCardContent, MatCardHeader, MatCardTitle } from &#x27;@angular/material/card&#x27;;
 import { LocalStorageService } from &#x27;ngx-webstorage&#x27;;
-import { firstValueFrom } from &#x27;rxjs&#x27;;
+import { LibraryService } from &#x27;../../player/library/library.service&#x27;;
 
 @Component({
   selector: &#x27;mtb-metadata-settings&#x27;,
@@ -565,7 +564,7 @@ import { firstValueFrom } from &#x27;rxjs&#x27;;
 })
 export class MetadataSettingsComponent {
   protected readonly metadataService &#x3D; inject(MetadataService);
-  private readonly indexedDBService &#x3D; inject(NgxIndexedDBService);
+  private readonly libraryService &#x3D; inject(LibraryService);
   private readonly localStorageService &#x3D; inject(LocalStorageService);
 
   onUseWebTagsChange(event: MatSlideToggleChange) {
@@ -584,7 +583,7 @@ export class MetadataSettingsComponent {
   }
 
   async clearMetadataCache() {
-    await firstValueFrom(this.indexedDBService.clear(&#x27;library&#x27;));
+    await this.libraryService.clearLibrary();
   }
 }
 </code></pre>
