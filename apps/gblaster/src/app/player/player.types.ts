@@ -19,7 +19,7 @@ export interface TrackMetadata {
   format: IFormat;
   coverUrl: RemoteCoverArtUrls;
   embeddedPicture?: Id3CoverPicture;
-  coverColors: CoverColorPalette;
+  coverColors?: CoverColorPalette;
 }
 
 export interface IndexedDbTrackMetadata extends TrackMetadata {

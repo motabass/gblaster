@@ -10,6 +10,7 @@ import { MediaSessionService } from '../services/media-session/media-session.ser
 import { AudioService } from './audio.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { getRandomInt } from './player-helper';
+import { extractColorsWithNodeVibrant } from './metadata-service/metadata-helper';
 
 @Injectable({ providedIn: 'root' })
 export class PlayerService {
@@ -137,9 +138,35 @@ export class PlayerService {
           : undefined
       });
     }
+
+    // Extract colors lazily when the track is played
+    if (!track.metadata.coverColors) {
+      void this.extractAndSetCoverColors(track);
+    }
+
     await this.audioService.play();
     this.currentlyLoadedTrack.set(track);
     await this.afterPlayLoaded();
+  }
+
+  private async extractAndSetCoverColors(track: Track) {
+    try {
+      const augmentedMeta = this.metadataService.augmentObjectUrlForTagsEmbeddedPicture(track.metadata);
+      const coverUrl = augmentedMeta.coverUrl?.originalUrl;
+
+      if (coverUrl && coverUrl !== 'assets/icons/record.svg') {
+        const palette = await extractColorsWithNodeVibrant(coverUrl);
+        if (palette) {
+          track.metadata.coverColors = palette;
+          // Trigger reactivity by updating the signal
+          if (this.currentlyLoadedTrack() === track) {
+            this.currentlyLoadedTrack.set({ ...track });
+          }
+        }
+      }
+    } catch (error) {
+      console.warn('Failed to extract cover colors:', error);
+    }
   }
 
   async loadFilesToLibrary(): Promise<void> {

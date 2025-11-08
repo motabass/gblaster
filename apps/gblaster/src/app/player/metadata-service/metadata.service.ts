@@ -5,10 +5,10 @@ import { firstValueFrom } from 'rxjs';
 import { IndexedDbTrackMetadata, type Track, TrackMetadata, TrackMetadataResult } from '../player.types';
 import { Id3TagsService } from './id3-tags.service';
 import { LastfmMetadataService } from './lastfm-metadata.service';
-import { CoverColorPalette, RemoteCoverArtUrls } from './metadata.types';
+import { RemoteCoverArtUrls } from './metadata.types';
 import { MusicbrainzService } from './musicbrainz.service';
 import { FileData } from '../file-loader-service/file-loader.helpers';
-import { extractColorsWithNodeVibrant, generateFileHash } from './metadata-helper';
+import { generateFileHash } from './metadata-helper';
 import { ProgressService } from './progress.service';
 
 @Injectable({ providedIn: 'root' })
@@ -110,16 +110,6 @@ export class MetadataService {
       }
     }
 
-    let palette: CoverColorPalette | undefined;
-    this.progressService.updateCurrentFile(fileData.file.name + ' - Reading colors...');
-    if (coverUrls?.originalUrl) {
-      palette = await extractColorsWithNodeVibrant(coverUrls.originalUrl);
-    } else if (tags.picture) {
-      const objectUrl = URL.createObjectURL(new Blob([tags.picture.data], { type: tags.picture.format }));
-      palette = await extractColorsWithNodeVibrant(objectUrl);
-      URL.revokeObjectURL(objectUrl);
-    }
-
     const metadata: IndexedDbTrackMetadata = {
       hash: hash,
       fileName: fileData.file.name,
@@ -129,7 +119,6 @@ export class MetadataService {
         originalUrl: this.PLACEHOLDER_URL
       },
       embeddedPicture: tags.picture,
-      coverColors: palette || {},
       artist: tags.artist,
       title: tags.title,
       track: tags.track?.no?.toString(),
