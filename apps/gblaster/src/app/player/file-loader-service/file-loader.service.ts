@@ -61,9 +61,9 @@ export class FileLoaderService {
         const fileData: FileData[] = [];
         for (const fileHandle of fileHandles) {
           const file = await fileHandle.getFile();
-          // if (ALLOWED_MIMETYPES.includes(file.type)) {
-          fileData.push({ file, fileHandle });
-          // }
+          if (ALLOWED_MIMETYPES.includes(file.type)) {
+            fileData.push({ file, fileHandle });
+          }
         }
         return fileData;
       } catch (error) {
