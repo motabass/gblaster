@@ -233,12 +233,12 @@
                             <li>
                                     <span class="modifier">Protected</span>
                                     <span class="modifier">Readonly</span>
-                                <a href="#metadataService" >metadataService</a>
+                                <a href="#playerService" >playerService</a>
                             </li>
                             <li>
                                     <span class="modifier">Protected</span>
                                     <span class="modifier">Readonly</span>
-                                <a href="#playerService" >playerService</a>
+                                <a href="#progressService" >progressService</a>
                             </li>
                             <li>
                                     <span class="modifier">Protected</span>
@@ -975,39 +975,6 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="metadataService"></a>
-                    <span class="name">
-                            <span class="modifier">Protected</span>
-                            <span class="modifier">Readonly</span>
-                        <span ><b>metadataService</b></span>
-                        <a href="#metadataService"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-                <tr>
-                    <td class="col-md-4">
-                        <i>Type : </i>    <code>unknown</code>
-
-                    </td>
-                </tr>
-                <tr>
-                    <td class="col-md-4">
-                        <i>Default value : </i><code>inject(MetadataService)</code>
-                    </td>
-                </tr>
-                    <tr>
-                        <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="39" class="link-to-prism">apps/gblaster/src/app/player/player-toolbar/player-toolbar.component.ts:39</a></div>
-                        </td>
-                    </tr>
-
-
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
                     <a name="playerService"></a>
                     <span class="name">
                             <span class="modifier">Protected</span>
@@ -1031,6 +998,39 @@
                     <tr>
                         <td class="col-md-4">
                                 <div class="io-line">Defined in <a href="" data-line="37" class="link-to-prism">apps/gblaster/src/app/player/player-toolbar/player-toolbar.component.ts:37</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="progressService"></a>
+                    <span class="name">
+                            <span class="modifier">Protected</span>
+                            <span class="modifier">Readonly</span>
+                        <span ><b>progressService</b></span>
+                        <a href="#progressService"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>inject(ProgressService)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="39" class="link-to-prism">apps/gblaster/src/app/player/player-toolbar/player-toolbar.component.ts:39</a></div>
                         </td>
                     </tr>
 
@@ -1090,7 +1090,7 @@ import { formatSecondsAsClock } from &#x27;@motabass/helpers&#x27;;
 import { GamepadAxes, GamepadButtons } from &#x27;../../services/gamepad/gamepad.types&#x27;;
 import { GamepadService } from &#x27;../../services/gamepad/gamepad.service&#x27;;
 import { HotkeysService } from &#x27;../../services/hotkeys/hotkeys.service&#x27;;
-import { MetadataService } from &#x27;../metadata-service/metadata.service&#x27;;
+import { ProgressService } from &#x27;../metadata-service/progress.service&#x27;;
 
 @Component({
   selector: &#x27;player-toolbar&#x27;,
@@ -1114,7 +1114,7 @@ export class PlayerToolbarComponent implements OnInit, OnDestroy {
   private readonly hotkeysService &#x3D; inject(HotkeysService, { optional: true });
   protected readonly playerService &#x3D; inject(PlayerService);
   protected readonly audioService &#x3D; inject(AudioService);
-  protected readonly metadataService &#x3D; inject(MetadataService);
+  protected readonly progressService &#x3D; inject(ProgressService);
 
   protected readonly volumeIcon &#x3D; computed(() &#x3D;&gt; this.getVolumeIconForLevel(this.audioService.volume()));
 
@@ -1303,7 +1303,7 @@ export class PlayerToolbarComponent implements OnInit, OnDestroy {
     mat-icon-button
     id&#x3D;&quot;load_files&quot;
     (click)&#x3D;&quot;showFilePickerAndAddToLibrary()&quot;
-    [disabled]&#x3D;&quot;metadataService.processing()&quot;
+    [disabled]&#x3D;&quot;progressService.processing()&quot;
   &gt;
     &lt;mat-icon
       matTooltip&#x3D;&quot;Load folder/files...&quot;
@@ -1437,7 +1437,7 @@ export class PlayerToolbarComponent implements OnInit, OnDestroy {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><mat-toolbar  color="primary"  class="bar flex row justify-center">  <button    mat-icon-button    (click)="playerService.playPause()"  >    @if (audioService.isPlaying()) {      <mat-icon        matTooltip="Pause"        svgIcon="pause"      />    } @else {      <mat-icon        matTooltip="Play"        svgIcon="play"      />    }  </button>  <button    mat-icon-button    (click)="playerService.stop()"  >    <mat-icon      matTooltip="Stop"      svgIcon="stop"    />  </button>  <button    class="no-mobile"    mat-icon-button    (click)="playerService.previous()"  >    <mat-icon      matTooltip="Previous"      svgIcon="skip-previous"    />  </button>  <button    class="no-mobile"    mat-icon-button    (click)="playerService.next()"  >    <mat-icon      matTooltip="Next"      svgIcon="skip-next"    />  </button>  <button    mat-icon-button    id="load_files"    (click)="showFilePickerAndAddToLibrary()"    [disabled]="metadataService.processing()"  >    <mat-icon      matTooltip="Load folder/files..."      svgIcon="folder-music-outline"    />  </button>  <!-- TODO: The \'tickInterval\' property no longer exists -->  @if (playerService.currentlyLoadedTrack()) {    <mat-slider      class="flex-grow"      min="0"      step="1"      discrete      color="accent"      [max]="playerService.durationSeconds()"      [displayWith]="formatLabel"      ><input        #ngSliderThumb="matSliderThumb"        matSliderThumb        [value]="playerService.currentTime()"        (valueChange)="onSliderPositionChanged(ngSliderThumb.value)"    /></mat-slider>  } @else {    <div class="flex-grow"></div>  }  <div class="no-mobile standard-font time-display">    <p>      {{ playerService.currentTime() | time }} /      {{ this.playerService.durationSeconds() | time }}    </p>  </div>  <button    mat-icon-button    id="volume_button"    [matMenuTriggerFor]="volumeMenu"  >    <mat-icon      [matTooltip]="`Volume: ${(audioService.volume() * 100).toFixed(0)}`"      [svgIcon]="volumeIcon()"    />  </button>  <button    mat-icon-button    [class.disabled-color]="!playerService.shuffle()"    (click)="toggleShuffle()"  >    <mat-icon      svgIcon="shuffle-variant"      [matTooltip]="playerService.shuffle() ? \'Shuffle on\' : \'Shuffle off\'"    />  </button>  <button    mat-icon-button    [class.disabled-color]="playerService.repeat() === \'off\'"    (click)="toggleRepeat()"  >    @switch (playerService.repeat()) {      @case (\'off\') {        <mat-icon          matTooltip="Repeat off"          svgIcon="repeat-off"        />      }      @case (\'all\') {        <mat-icon          matTooltip="Repeat all"          svgIcon="repeat"        />      }      @case (\'one\') {        <mat-icon          matTooltip="Repeat one"          svgIcon="repeat-once"        />      }    }  </button>  <mat-menu    #volumeMenu="matMenu"    class="volume-menu"    yPosition="above"  >    <div class="vertical-slider-container">      <div class="vertical-slider">        <mat-slider          class="volume-slider"          id="volume_slider"          min="0"          max="1"          step="0.01"          ><input            #volumeSlider="matSliderThumb"            matSliderThumb            [value]="audioService.volume()"            (input)="onVolumeChange(volumeSlider.value)"        /></mat-slider>      </div>    </div>  </mat-menu></mat-toolbar></div>'
+        var COMPONENT_TEMPLATE = '<div><mat-toolbar  color="primary"  class="bar flex row justify-center">  <button    mat-icon-button    (click)="playerService.playPause()"  >    @if (audioService.isPlaying()) {      <mat-icon        matTooltip="Pause"        svgIcon="pause"      />    } @else {      <mat-icon        matTooltip="Play"        svgIcon="play"      />    }  </button>  <button    mat-icon-button    (click)="playerService.stop()"  >    <mat-icon      matTooltip="Stop"      svgIcon="stop"    />  </button>  <button    class="no-mobile"    mat-icon-button    (click)="playerService.previous()"  >    <mat-icon      matTooltip="Previous"      svgIcon="skip-previous"    />  </button>  <button    class="no-mobile"    mat-icon-button    (click)="playerService.next()"  >    <mat-icon      matTooltip="Next"      svgIcon="skip-next"    />  </button>  <button    mat-icon-button    id="load_files"    (click)="showFilePickerAndAddToLibrary()"    [disabled]="progressService.processing()"  >    <mat-icon      matTooltip="Load folder/files..."      svgIcon="folder-music-outline"    />  </button>  <!-- TODO: The \'tickInterval\' property no longer exists -->  @if (playerService.currentlyLoadedTrack()) {    <mat-slider      class="flex-grow"      min="0"      step="1"      discrete      color="accent"      [max]="playerService.durationSeconds()"      [displayWith]="formatLabel"      ><input        #ngSliderThumb="matSliderThumb"        matSliderThumb        [value]="playerService.currentTime()"        (valueChange)="onSliderPositionChanged(ngSliderThumb.value)"    /></mat-slider>  } @else {    <div class="flex-grow"></div>  }  <div class="no-mobile standard-font time-display">    <p>      {{ playerService.currentTime() | time }} /      {{ this.playerService.durationSeconds() | time }}    </p>  </div>  <button    mat-icon-button    id="volume_button"    [matMenuTriggerFor]="volumeMenu"  >    <mat-icon      [matTooltip]="`Volume: ${(audioService.volume() * 100).toFixed(0)}`"      [svgIcon]="volumeIcon()"    />  </button>  <button    mat-icon-button    [class.disabled-color]="!playerService.shuffle()"    (click)="toggleShuffle()"  >    <mat-icon      svgIcon="shuffle-variant"      [matTooltip]="playerService.shuffle() ? \'Shuffle on\' : \'Shuffle off\'"    />  </button>  <button    mat-icon-button    [class.disabled-color]="playerService.repeat() === \'off\'"    (click)="toggleRepeat()"  >    @switch (playerService.repeat()) {      @case (\'off\') {        <mat-icon          matTooltip="Repeat off"          svgIcon="repeat-off"        />      }      @case (\'all\') {        <mat-icon          matTooltip="Repeat all"          svgIcon="repeat"        />      }      @case (\'one\') {        <mat-icon          matTooltip="Repeat one"          svgIcon="repeat-once"        />      }    }  </button>  <mat-menu    #volumeMenu="matMenu"    class="volume-menu"    yPosition="above"  >    <div class="vertical-slider-container">      <div class="vertical-slider">        <mat-slider          class="volume-slider"          id="volume_slider"          min="0"          max="1"          step="0.01"          ><input            #volumeSlider="matSliderThumb"            matSliderThumb            [value]="audioService.volume()"            (input)="onVolumeChange(volumeSlider.value)"        /></mat-slider>      </div>    </div>  </mat-menu></mat-toolbar></div>'
     var COMPONENTS = [{'name': 'AppComponent', 'selector': 'mtb-root'},{'name': 'CoverDisplayComponent', 'selector': 'mtb-cover-display'},{'name': 'EqualizerComponent', 'selector': ''},{'name': 'FileDropOverlayComponent', 'selector': 'mtb-file-drop-overlay'},{'name': 'HotkeysHelpDialogComponent', 'selector': ''},{'name': 'LibraryComponent', 'selector': ''},{'name': 'MetadataSettingsComponent', 'selector': 'mtb-metadata-settings'},{'name': 'PlayerComponent', 'selector': ''},{'name': 'PlayerToolbarComponent', 'selector': 'player-toolbar'},{'name': 'PlaylistComponent', 'selector': 'mtb-playlist'},{'name': 'PromptDialogComponent', 'selector': ''},{'name': 'SettingsComponent', 'selector': ''},{'name': 'ShellComponent', 'selector': 'mtb-shell'},{'name': 'SlidePanelComponent', 'selector': 'mtb-slide-panel'},{'name': 'StorageSettingsComponent', 'selector': 'mtb-storage-settings'},{'name': 'ThemeSettingsComponent', 'selector': 'mtb-theme-settings'},{'name': 'VisualizerComponent', 'selector': 'mtb-visualizer'}];
     var DIRECTIVES = [{'name': 'VisualsDirective', 'selector': '[mtbVisual]'}];
     var ACTUAL_COMPONENT = {'name': 'PlayerToolbarComponent'};

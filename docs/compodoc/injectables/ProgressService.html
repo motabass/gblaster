@@ -109,7 +109,7 @@
 
 <ol class="breadcrumb">
   <li class="breadcrumb-item">Injectables</li>
-  <li class="breadcrumb-item" >MetadataService</li>
+  <li class="breadcrumb-item" >ProgressService</li>
 </ol>
 
 <ul class="nav nav-tabs" role="tablist">
@@ -133,7 +133,7 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>apps/gblaster/src/app/player/metadata-service/metadata.service.ts</code>
+            <code>apps/gblaster/src/app/player/metadata-service/progress.service.ts</code>
         </p>
 
 
@@ -154,15 +154,19 @@
                         <ul class="index-list">
                             <li>
                                     <span class="modifier">Readonly</span>
-                                <a href="#preferTagEmbeddedPicture" >preferTagEmbeddedPicture</a>
+                                <a href="#currentFile" >currentFile</a>
                             </li>
                             <li>
                                     <span class="modifier">Readonly</span>
-                                <a href="#useTagEmbeddedPicture" >useTagEmbeddedPicture</a>
+                                <a href="#processing" >processing</a>
                             </li>
                             <li>
                                     <span class="modifier">Readonly</span>
-                                <a href="#useWebMetainfos" >useWebMetainfos</a>
+                                <a href="#processionPercent" >processionPercent</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#statusText" >statusText</a>
                             </li>
                         </ul>
                     </td>
@@ -177,11 +181,16 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
-                                    <span class="modifier">Async</span>
-                                <a href="#addFilesToLibrary" >addFilesToLibrary</a>
+                                <a href="#completeFile" >completeFile</a>
                             </li>
                             <li>
-                                <a href="#augmentObjectUrlForTagsEmbeddedPicture" >augmentObjectUrlForTagsEmbeddedPicture</a>
+                                <a href="#reset" >reset</a>
+                            </li>
+                            <li>
+                                <a href="#startProcessing" >startProcessing</a>
+                            </li>
+                            <li>
+                                <a href="#updateCurrentFile" >updateCurrentFile</a>
                             </li>
                         </ul>
                     </td>
@@ -205,26 +214,98 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="addFilesToLibrary"></a>
+                    <a name="completeFile"></a>
                     <span class="name">
-                            <span class="modifier">Async</span>
-                        <span ><b>addFilesToLibrary</b></span>
-                        <a href="#addFilesToLibrary"><span class="icon ion-ios-link"></span></a>
+                        <span ><b>completeFile</b></span>
+                        <a href="#completeFile"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
-                        <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>addFilesToLibrary(fileDatas: <a href="../interfaces/FileData.html" target="_self">FileData[]</a>)</code>
+<code>completeFile()</code>
                 </td>
             </tr>
 
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="29"
-                                    class="link-to-prism">apps/gblaster/src/app/player/metadata-service/metadata.service.ts:29</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="35"
+                                    class="link-to-prism">apps/gblaster/src/app/player/metadata-service/progress.service.ts:35</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="reset"></a>
+                    <span class="name">
+                        <span ><b>reset</b></span>
+                        <a href="#reset"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>reset()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="39"
+                                    class="link-to-prism">apps/gblaster/src/app/player/metadata-service/progress.service.ts:39</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="startProcessing"></a>
+                    <span class="name">
+                        <span ><b>startProcessing</b></span>
+                        <a href="#startProcessing"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>startProcessing(totalFiles: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="26"
+                                    class="link-to-prism">apps/gblaster/src/app/player/metadata-service/progress.service.ts:26</a></div>
                         </td>
                     </tr>
 
@@ -245,9 +326,9 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                                <td>fileDatas</td>
+                                                <td>totalFiles</td>
                                             <td>
-                                                            <code><a href="../interfaces/FileData.html" target="_self" >FileData[]</a></code>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
                                             </td>
 
                                             <td>
@@ -260,7 +341,7 @@
                                 </table>
                             </div>
                         <div class="io-description">
-                            <b>Returns : </b>    <code>{}</code>
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
 
                         </div>
                             <div class="io-description">
@@ -274,24 +355,24 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="augmentObjectUrlForTagsEmbeddedPicture"></a>
+                    <a name="updateCurrentFile"></a>
                     <span class="name">
-                        <span ><b>augmentObjectUrlForTagsEmbeddedPicture</b></span>
-                        <a href="#augmentObjectUrlForTagsEmbeddedPicture"><span class="icon ion-ios-link"></span></a>
+                        <span ><b>updateCurrentFile</b></span>
+                        <a href="#updateCurrentFile"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>augmentObjectUrlForTagsEmbeddedPicture(meta: <a href="../interfaces/TrackMetadata.html" target="_self">TrackMetadata</a>)</code>
+<code>updateCurrentFile(fileName: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
                 </td>
             </tr>
 
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="142"
-                                    class="link-to-prism">apps/gblaster/src/app/player/metadata-service/metadata.service.ts:142</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="31"
+                                    class="link-to-prism">apps/gblaster/src/app/player/metadata-service/progress.service.ts:31</a></div>
                         </td>
                     </tr>
 
@@ -312,9 +393,9 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                                <td>meta</td>
+                                                <td>fileName</td>
                                             <td>
-                                                            <code><a href="../interfaces/TrackMetadata.html" target="_self" >TrackMetadata</a></code>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
                                             </td>
 
                                             <td>
@@ -327,7 +408,7 @@
                                 </table>
                             </div>
                         <div class="io-description">
-                            <b>Returns : </b>        <code><a href="../interfaces/TrackMetadata.html" target="_self" >TrackMetadata</a></code>
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
 
                         </div>
                             <div class="io-description">
@@ -347,11 +428,11 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="preferTagEmbeddedPicture"></a>
+                    <a name="currentFile"></a>
                     <span class="name">
                             <span class="modifier">Readonly</span>
-                        <span ><b>preferTagEmbeddedPicture</b></span>
-                        <a href="#preferTagEmbeddedPicture"><span class="icon ion-ios-link"></span></a>
+                        <span ><b>currentFile</b></span>
+                        <a href="#currentFile"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
@@ -363,12 +444,12 @@
                 </tr>
                 <tr>
                     <td class="col-md-4">
-                        <i>Default value : </i><code>signal(this.localStorageService.retrieve(&#x27;preferTagEmbeddedPicture&#x27;) ?? true)</code>
+                        <i>Default value : </i><code>this.processingFile.asReadonly()</code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="27" class="link-to-prism">apps/gblaster/src/app/player/metadata-service/metadata.service.ts:27</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">apps/gblaster/src/app/player/metadata-service/progress.service.ts:17</a></div>
                         </td>
                     </tr>
 
@@ -379,11 +460,11 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="useTagEmbeddedPicture"></a>
+                    <a name="processing"></a>
                     <span class="name">
                             <span class="modifier">Readonly</span>
-                        <span ><b>useTagEmbeddedPicture</b></span>
-                        <a href="#useTagEmbeddedPicture"><span class="icon ion-ios-link"></span></a>
+                        <span ><b>processing</b></span>
+                        <a href="#processing"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
@@ -395,12 +476,14 @@
                 </tr>
                 <tr>
                     <td class="col-md-4">
-                        <i>Default value : </i><code>signal(this.localStorageService.retrieve(&#x27;useTagEmbeddedPicture&#x27;) ?? true)</code>
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; {
+    return this.filesToProcess() &gt; 0;
+  })</code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">apps/gblaster/src/app/player/metadata-service/metadata.service.ts:26</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">apps/gblaster/src/app/player/metadata-service/progress.service.ts:13</a></div>
                         </td>
                     </tr>
 
@@ -411,11 +494,11 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="useWebMetainfos"></a>
+                    <a name="processionPercent"></a>
                     <span class="name">
                             <span class="modifier">Readonly</span>
-                        <span ><b>useWebMetainfos</b></span>
-                        <a href="#useWebMetainfos"><span class="icon ion-ios-link"></span></a>
+                        <span ><b>processionPercent</b></span>
+                        <a href="#processionPercent"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
@@ -427,12 +510,51 @@
                 </tr>
                 <tr>
                     <td class="col-md-4">
-                        <i>Default value : </i><code>signal(this.localStorageService.retrieve(&#x27;useWebMetainfos&#x27;) ?? true)</code>
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; {
+    return 100 - (this.filesToProcess() / this.totalFilesToProcess()) * 100;
+  })</code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">apps/gblaster/src/app/player/metadata-service/metadata.service.ts:25</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="9" class="link-to-prism">apps/gblaster/src/app/player/metadata-service/progress.service.ts:9</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="statusText"></a>
+                    <span class="name">
+                            <span class="modifier">Readonly</span>
+                        <span ><b>statusText</b></span>
+                        <a href="#statusText"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; {
+    const totalFilesToProcess &#x3D; this.totalFilesToProcess();
+    let text &#x3D; &#x60;Processing (${totalFilesToProcess - this.filesToProcess()} / ${totalFilesToProcess}): &#x60;;
+    text +&#x3D; this.processing() ? this.processingFile() : &#x27;Finished&#x27;;
+    return text;
+  })</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">apps/gblaster/src/app/player/metadata-service/progress.service.ts:19</a></div>
                         </td>
                     </tr>
 
@@ -445,169 +567,48 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { inject, Injectable, signal } from &#x27;@angular/core&#x27;;
-import { NgxIndexedDBService } from &#x27;ngx-indexed-db&#x27;;
-import { LocalStorageService } from &#x27;ngx-webstorage&#x27;;
-import { firstValueFrom } from &#x27;rxjs&#x27;;
-import { IndexedDbTrackMetadata, type Track, TrackMetadata, TrackMetadataResult } from &#x27;../player.types&#x27;;
-import { Id3TagsService } from &#x27;./id3-tags.service&#x27;;
-import { LastfmMetadataService } from &#x27;./lastfm-metadata.service&#x27;;
-import { RemoteCoverArtUrls } from &#x27;./metadata.types&#x27;;
-import { MusicbrainzService } from &#x27;./musicbrainz.service&#x27;;
-import { FileData } from &#x27;../file-loader-service/file-loader.helpers&#x27;;
-import { generateFileHash } from &#x27;./metadata-helper&#x27;;
-import { ProgressService } from &#x27;./progress.service&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { computed, Injectable, signal } from &#x27;@angular/core&#x27;;
 
 @Injectable({ providedIn: &#x27;root&#x27; })
-export class MetadataService {
-  private readonly id3TagsService &#x3D; inject(Id3TagsService);
-  private readonly lastfmMetadataService &#x3D; inject(LastfmMetadataService);
-  private readonly musicbrainzService &#x3D; inject(MusicbrainzService);
-  private readonly indexedDBService &#x3D; inject(NgxIndexedDBService);
-  private readonly localStorageService &#x3D; inject(LocalStorageService);
-  private readonly progressService &#x3D; inject(ProgressService);
+export class ProgressService {
+  private readonly totalFilesToProcess &#x3D; signal(0);
+  private readonly filesToProcess &#x3D; signal(0);
+  private readonly processingFile &#x3D; signal(&#x27;&#x27;);
 
-  private readonly PLACEHOLDER_URL &#x3D; &#x27;assets/icons/record.svg&#x27;;
+  readonly processionPercent &#x3D; computed(() &#x3D;&gt; {
+    return 100 - (this.filesToProcess() / this.totalFilesToProcess()) * 100;
+  });
 
-  readonly useWebMetainfos &#x3D; signal(this.localStorageService.retrieve(&#x27;useWebMetainfos&#x27;) ?? true);
-  readonly useTagEmbeddedPicture &#x3D; signal(this.localStorageService.retrieve(&#x27;useTagEmbeddedPicture&#x27;) ?? true);
-  readonly preferTagEmbeddedPicture &#x3D; signal(this.localStorageService.retrieve(&#x27;preferTagEmbeddedPicture&#x27;) ?? true);
+  readonly processing &#x3D; computed(() &#x3D;&gt; {
+    return this.filesToProcess() &gt; 0;
+  });
 
-  async *addFilesToLibrary(fileDatas: FileData[]) {
-    if (fileDatas?.length) {
-      this.progressService.startProcessing(fileDatas.length);
-      for (const fileData of fileDatas.values()) {
-        this.progressService.updateCurrentFile(fileData.file.name);
-        const result &#x3D; await this.getTrackMetadataFromCacheOrExtract(fileData);
-        if (!result?.metadata) {
-          this.progressService.completeFile();
-          continue;
-        }
-        if (!result.fromCache) {
-          await this.addMetadataToIndexedDb(result.metadata);
-        }
+  readonly currentFile &#x3D; this.processingFile.asReadonly();
 
-        const track: Track &#x3D; {
-          file: fileData.file,
-          fileHandle: fileData.fileHandle,
-          metadata: result.metadata
-        };
-        this.progressService.completeFile();
-        yield track;
-      }
-      this.progressService.reset();
-    }
+  readonly statusText &#x3D; computed(() &#x3D;&gt; {
+    const totalFilesToProcess &#x3D; this.totalFilesToProcess();
+    let text &#x3D; &#x60;Processing (${totalFilesToProcess - this.filesToProcess()} / ${totalFilesToProcess}): &#x60;;
+    text +&#x3D; this.processing() ? this.processingFile() : &#x27;Finished&#x27;;
+    return text;
+  });
+
+  startProcessing(totalFiles: number): void {
+    this.totalFilesToProcess.set(totalFiles);
+    this.filesToProcess.set(totalFiles);
   }
 
-  private async addMetadataToIndexedDb(metadata: TrackMetadata) {
-    await firstValueFrom(this.indexedDBService.add(&#x27;library&#x27;, metadata));
+  updateCurrentFile(fileName: string): void {
+    this.processingFile.set(fileName);
   }
 
-  private async getTrackMetadataFromCacheOrExtract(fileData: FileData): Promise&lt;TrackMetadataResult | undefined&gt; {
-    this.progressService.updateCurrentFile(fileData.file.name + &#x27; - Generating hash...&#x27;);
-    const hash &#x3D; await generateFileHash(fileData.file);
-
-    const metadataCache &#x3D; await firstValueFrom(this.indexedDBService.getByKey&lt;IndexedDbTrackMetadata&gt;(&#x27;library&#x27;, hash));
-
-    if (metadataCache) {
-      const metadata &#x3D; this.applyEmbeddedPictureCoverUrl(metadataCache);
-      return { metadata, fromCache: true };
-    }
-
-    return this.extractTrackMetadata(fileData, hash);
+  completeFile(): void {
+    this.filesToProcess.update((files) &#x3D;&gt; files - 1);
   }
 
-  private async extractTrackMetadata(fileData: FileData, hash: string): Promise&lt;TrackMetadataResult | undefined&gt; {
-    this.progressService.updateCurrentFile(fileData.file.name + &#x27; - Reading tags...&#x27;);
-    const tags &#x3D; await this.id3TagsService.extractTags(fileData.file);
-
-    if (!tags) {
-      return undefined;
-    }
-
-    const coverUrls &#x3D; await this.fetchRemoteCoverUrls(fileData.file.name, tags);
-
-    const metadata: IndexedDbTrackMetadata &#x3D; {
-      hash,
-      fileName: fileData.file.name,
-      fileHandle: fileData.fileHandle,
-      coverUrl: coverUrls ?? {
-        thumbUrl: this.PLACEHOLDER_URL,
-        originalUrl: this.PLACEHOLDER_URL
-      },
-      embeddedPicture: tags.picture,
-      artist: tags.artist,
-      title: tags.title,
-      track: tags.track?.no?.toString(),
-      album: tags.album,
-      year: tags.year,
-      format: tags.format
-    };
-
-    return { metadata, fromCache: false };
-  }
-
-  private async fetchRemoteCoverUrls(fileName: string, tags: any): Promise&lt;RemoteCoverArtUrls | undefined&gt; {
-    if (!this.useWebMetainfos() || !tags.artist || !tags.album) {
-      return undefined;
-    }
-
-    this.progressService.updateCurrentFile(fileName + &#x27; - Getting cover pictures...&#x27;);
-    const coverUrls &#x3D; await this.lastfmMetadataService.getCoverPictureUrls(tags);
-    if (coverUrls) {
-      return coverUrls;
-    }
-
-    return this.musicbrainzService.getCoverPictureUrls(tags);
-  }
-
-  private applyEmbeddedPictureCoverUrl(metadata: TrackMetadata): TrackMetadata {
-    if (!this.shouldUseEmbeddedPicture(metadata)) {
-      return metadata;
-    }
-
-    const objectUrl &#x3D; this.createObjectUrlFromEmbeddedPicture(metadata.embeddedPicture!);
-    return {
-      ...metadata,
-      coverUrl: { thumbUrl: objectUrl, originalUrl: objectUrl }
-    };
-  }
-
-  private shouldUseEmbeddedPicture(metadata: TrackMetadata): boolean {
-    return !!(
-      metadata.embeddedPicture &amp;&amp;
-      this.useTagEmbeddedPicture() &amp;&amp;
-      (metadata.coverUrl.thumbUrl &#x3D;&#x3D;&#x3D; this.PLACEHOLDER_URL || this.preferTagEmbeddedPicture())
-    );
-  }
-
-  private createObjectUrlFromEmbeddedPicture(embeddedPicture: any): string {
-    const blob &#x3D; new Blob([embeddedPicture.data], { type: embeddedPicture.format });
-    return URL.createObjectURL(blob);
-  }
-
-  augmentObjectUrlForTagsEmbeddedPicture(meta: TrackMetadata): TrackMetadata {
-    if (!this.shouldUseEmbeddedPicture(meta)) {
-      return meta;
-    }
-
-    this.revokeExistingObjectUrls(meta.coverUrl);
-
-    // TODO: Erst kreieren wenn gebraucht!
-    const objectUrl &#x3D; this.createObjectUrlFromEmbeddedPicture(meta.embeddedPicture!);
-    return {
-      ...meta,
-      coverUrl: { thumbUrl: objectUrl, originalUrl: objectUrl }
-    };
-  }
-
-  private revokeExistingObjectUrls(coverUrl: RemoteCoverArtUrls): void {
-    if (coverUrl?.originalUrl?.startsWith(&#x27;blob:&#x27;)) {
-      URL.revokeObjectURL(coverUrl.originalUrl);
-    }
-    if (coverUrl?.thumbUrl?.startsWith(&#x27;blob:&#x27;)) {
-      URL.revokeObjectURL(coverUrl.thumbUrl);
-    }
+  reset(): void {
+    this.totalFilesToProcess.set(0);
+    this.filesToProcess.set(0);
+    this.processingFile.set(&#x27;&#x27;);
   }
 }
 </code></pre>
@@ -653,7 +654,7 @@ export class MetadataService {
        <script>
             var COMPODOC_CURRENT_PAGE_DEPTH = 1;
             var COMPODOC_CURRENT_PAGE_CONTEXT = 'injectable';
-            var COMPODOC_CURRENT_PAGE_URL = 'MetadataService.html';
+            var COMPODOC_CURRENT_PAGE_URL = 'ProgressService.html';
             var MAX_SEARCH_RESULTS = 15;
        </script>
 

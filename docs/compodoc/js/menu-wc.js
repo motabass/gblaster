@@ -204,6 +204,9 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                     <a href="injectables/PlayerService.html" data-type="entity-link" >PlayerService</a>
                                 </li>
                                 <li class="link">
+                                    <a href="injectables/ProgressService.html" data-type="entity-link" >ProgressService</a>
+                                </li>
+                                <li class="link">
                                     <a href="injectables/ThemeService.html" data-type="entity-link" >ThemeService</a>
                                 </li>
                                 <li class="link">
@@ -332,6 +335,9 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                             </li>
                             <li class="link">
                                 <a href="interfaces/TrackMetadata.html" data-type="entity-link" >TrackMetadata</a>
+                            </li>
+                            <li class="link">
+                                <a href="interfaces/TrackMetadataResult.html" data-type="entity-link" >TrackMetadataResult</a>
                             </li>
                             <li class="link">
                                 <a href="interfaces/VisualsColorConfig.html" data-type="entity-link" >VisualsColorConfig</a>

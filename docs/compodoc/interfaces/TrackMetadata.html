@@ -173,6 +173,7 @@
                                         </a>
                                 </li>
                                 <li>
+                                            <span class="modifier">Optional</span>
                                         <a href="#coverColors" 
 >
                                             coverColors
@@ -344,6 +345,11 @@
                                         </td>
                                     </tr>
 
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Optional</i>
+                                        </td>
+                                    </tr>
 
 
 
@@ -660,11 +666,16 @@ export interface TrackMetadata {
   format: IFormat;
   coverUrl: RemoteCoverArtUrls;
   embeddedPicture?: Id3CoverPicture;
-  coverColors: CoverColorPalette;
+  coverColors?: CoverColorPalette;
 }
 
 export interface IndexedDbTrackMetadata extends TrackMetadata {
   fileHandle?: FileSystemFileHandle;
+}
+
+export interface TrackMetadataResult {
+  fromCache: boolean;
+  metadata: TrackMetadata;
 }
 
 // EQ
