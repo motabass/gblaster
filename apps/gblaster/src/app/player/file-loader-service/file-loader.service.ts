@@ -26,7 +26,17 @@ export class FileLoaderService {
 
   private async pickFiles(): Promise<FileSystemFileHandle[]> {
     try {
-      const handles = await showOpenFilePicker({ multiple: true });
+      const handles = await showOpenFilePicker({
+        multiple: true,
+        types: [
+          {
+            description: 'Audio Files',
+            accept: {
+              'audio/*': ['.mp3', '.wav', '.ogg', '.flac', '.m4a', '.aiff', '.opus']
+            }
+          }
+        ]
+      });
       return handles;
     } catch (error) {
       // User cancelled the picker or access was denied
@@ -51,9 +61,9 @@ export class FileLoaderService {
         const fileData: FileData[] = [];
         for (const fileHandle of fileHandles) {
           const file = await fileHandle.getFile();
-          if (ALLOWED_MIMETYPES.includes(file.type)) {
-            fileData.push({ file, fileHandle });
-          }
+          // if (ALLOWED_MIMETYPES.includes(file.type)) {
+          fileData.push({ file, fileHandle });
+          // }
         }
         return fileData;
       } catch (error) {
