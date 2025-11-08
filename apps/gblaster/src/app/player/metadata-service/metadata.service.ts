@@ -53,7 +53,9 @@ export class MetadataService {
   }
 
   private async addMetadataToIndexedDb(metadata: TrackMetadata) {
-    await firstValueFrom(this.indexedDBService.add('library', metadata));
+    const { cachedBlobUrl, ...metadataToStore } = metadata;
+    // Never persist cachedBlobUrl - blob URLs are session-specific
+    await firstValueFrom(this.indexedDBService.add('library', metadataToStore));
   }
 
   private async getTrackMetadataFromCacheOrExtract(fileData: FileData): Promise<TrackMetadataResult | undefined> {
@@ -63,7 +65,7 @@ export class MetadataService {
     const metadataCache = await firstValueFrom(this.indexedDBService.getByKey<IndexedDbTrackMetadata>('library', hash));
 
     if (metadataCache) {
-      const metadata = this.applyEmbeddedPictureCoverUrl(metadataCache);
+      const metadata = this.applyEmbeddedCoverObjectUrsl(metadataCache);
       return { metadata, fromCache: true };
     }
 
@@ -97,7 +99,7 @@ export class MetadataService {
       format: tags.format
     };
 
-    return { metadata, fromCache: false };
+    return { metadata: this.applyEmbeddedCoverObjectUrsl(metadata), fromCache: false };
   }
 
   private async fetchRemoteCoverUrls(fileName: string, tags: any): Promise<RemoteCoverArtUrls | undefined> {
@@ -114,18 +116,6 @@ export class MetadataService {
     return this.musicbrainzService.getCoverPictureUrls(tags);
   }
 
-  private applyEmbeddedPictureCoverUrl(metadata: TrackMetadata): TrackMetadata {
-    if (!this.shouldUseEmbeddedPicture(metadata)) {
-      return metadata;
-    }
-
-    const objectUrl = this.createObjectUrlFromEmbeddedPicture(metadata.embeddedPicture!);
-    return {
-      ...metadata,
-      coverUrl: { thumbUrl: objectUrl, originalUrl: objectUrl }
-    };
-  }
-
   private shouldUseEmbeddedPicture(metadata: TrackMetadata): boolean {
     return !!(
       metadata.embeddedPicture &&
@@ -139,27 +129,52 @@ export class MetadataService {
     return URL.createObjectURL(blob);
   }
 
-  augmentObjectUrlForTagsEmbeddedPicture(meta: TrackMetadata): TrackMetadata {
+  applyEmbeddedCoverObjectUrsl(meta: TrackMetadata): TrackMetadata {
     if (!this.shouldUseEmbeddedPicture(meta)) {
       return meta;
     }
 
-    this.revokeExistingObjectUrls(meta.coverUrl);
+    // Reuse cached blob URL if it exists to prevent creating duplicates
+    if (meta.cachedBlobUrl) {
+      return {
+        ...meta,
+        coverUrl: { thumbUrl: meta.cachedBlobUrl, originalUrl: meta.cachedBlobUrl }
+      };
+    }
 
-    // TODO: Erst kreieren wenn gebraucht!
+    // Create new blob URL and cache it
     const objectUrl = this.createObjectUrlFromEmbeddedPicture(meta.embeddedPicture!);
     return {
       ...meta,
+      cachedBlobUrl: objectUrl,
       coverUrl: { thumbUrl: objectUrl, originalUrl: objectUrl }
     };
   }
 
-  private revokeExistingObjectUrls(coverUrl: RemoteCoverArtUrls): void {
-    if (coverUrl?.originalUrl?.startsWith('blob:')) {
-      URL.revokeObjectURL(coverUrl.originalUrl);
+  /**
+   * Revokes blob URLs for tracks with embedded pictures.
+   * Call this when:
+   * - Removing tracks from library
+   * - Clearing the entire library
+    for (const track of tracks) {
+   */
+  revokeBlobUrlsForTracks(tracks: TrackMetadata[]): void {
+    for (const track of tracks) {
+      if (track.cachedBlobUrl) {
+        URL.revokeObjectURL(track.cachedBlobUrl);
+        track.cachedBlobUrl = undefined;
+      }
     }
-    if (coverUrl?.thumbUrl?.startsWith('blob:')) {
-      URL.revokeObjectURL(coverUrl.thumbUrl);
+  }
+
+  /**
+   * Revokes blob URL for a single track.
+   * Call this when removing a single track from library.
+   */
+  revokeBlobUrlForTrack(track: TrackMetadata): void {
+    if (track.cachedBlobUrl) {
+      URL.revokeObjectURL(track.cachedBlobUrl);
+      track.cachedBlobUrl = undefined;
     }
   }
 }

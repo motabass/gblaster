@@ -1,11 +1,10 @@
 import { Component, inject } from '@angular/core';
 import { MatSlideToggle, MatSlideToggleChange } from '@angular/material/slide-toggle';
-import { NgxIndexedDBService } from 'ngx-indexed-db';
 import { MetadataService } from '../../player/metadata-service/metadata.service';
 import { MatButton } from '@angular/material/button';
 import { MatCard, MatCardContent, MatCardHeader, MatCardTitle } from '@angular/material/card';
 import { LocalStorageService } from 'ngx-webstorage';
-import { firstValueFrom } from 'rxjs';
+import { LibraryService } from '../../player/library/library.service';
 
 @Component({
   selector: 'mtb-metadata-settings',
@@ -15,7 +14,7 @@ import { firstValueFrom } from 'rxjs';
 })
 export class MetadataSettingsComponent {
   protected readonly metadataService = inject(MetadataService);
-  private readonly indexedDBService = inject(NgxIndexedDBService);
+  private readonly libraryService = inject(LibraryService);
   private readonly localStorageService = inject(LocalStorageService);
 
   onUseWebTagsChange(event: MatSlideToggleChange) {
@@ -34,6 +33,6 @@ export class MetadataSettingsComponent {
   }
 
   async clearMetadataCache() {
-    await firstValueFrom(this.indexedDBService.clear('library'));
+    await this.libraryService.clearLibrary();
   }
 }

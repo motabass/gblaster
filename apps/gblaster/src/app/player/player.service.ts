@@ -151,7 +151,7 @@ export class PlayerService {
 
   private async extractAndSetCoverColors(track: Track) {
     try {
-      const augmentedMeta = this.metadataService.augmentObjectUrlForTagsEmbeddedPicture(track.metadata);
+      const augmentedMeta = this.metadataService.applyEmbeddedCoverObjectUrsl(track.metadata);
       const coverUrl = augmentedMeta.coverUrl?.originalUrl;
 
       if (coverUrl && coverUrl !== 'assets/icons/record.svg') {

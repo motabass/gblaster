@@ -8,3 +8,5 @@ TODOs:
 - Writing Meta-Tags
 - Fullscreen/Multiwindow Mode
 - Localization
+
+android impl kaputt
