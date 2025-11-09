@@ -26,8 +26,10 @@ export class FileLoaderService {
 
   private async pickFiles(): Promise<FileSystemFileHandle[]> {
     try {
-      const handles = await showOpenFilePicker({
+      return await showOpenFilePicker({
         multiple: true,
+        startIn: 'music',
+        excludeAcceptAllOption: true,
         types: [
           {
             description: 'Audio Files',
@@ -37,7 +39,6 @@ export class FileLoaderService {
           }
         ]
       });
-      return handles;
     } catch (error) {
       // User cancelled the picker or access was denied
       if (error instanceof DOMException && error.name === 'AbortError') {
