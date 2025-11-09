@@ -2,16 +2,6 @@ import { getCoverDisplay, getPlaylistItems, getVolumeButton, getVolumeSlider } f
 
 describe('gblaster', () => {
   beforeEach(() => {
-    // Ignore uncaught exceptions from color extraction failures in tests
-    cy.on('uncaught:exception', (err) => {
-      // Ignore Canvas color extraction errors
-      if (err.message.includes('addColorStop') || err.message.includes('CanvasGradient')) {
-        return false;
-      }
-      // Let other errors fail the test
-      return true;
-    });
-
     cy.visit('/player');
     // turn down volume
     getVolumeButton().click();
@@ -49,4 +39,8 @@ describe('gblaster', () => {
     getCoverDisplay().should('contain', 'Get U Freak On (_insane_teknology_rmx)');
     getCoverDisplay().should('contain', 'Teknambul');
   });
+});
+
+it('library test', function () {
+  cy.visit('/library');
 });
