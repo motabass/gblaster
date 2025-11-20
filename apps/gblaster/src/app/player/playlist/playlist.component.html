@@ -7,9 +7,7 @@
     <mat-list-item
       *cdkVirtualFor="let song of playerService.currentPlaylist(); trackBy: trackByHash"
       class="playlist-item"
-      [ngClass]="{
-        selected: this.playerService.selectedTrack()?.metadata?.hash === song.metadata.hash
-      }"
+      [class.selected]="this.playerService.selectedTrack()?.metadata?.hash === song.metadata.hash"
       (dblclick)="playPauseSong($event, song)"
       (click)="playerService.selectSong(song)"
       (contextmenu)="onContextMenu($event, song)"

@@ -15,7 +15,7 @@ import { AudioService } from '../audio.service';
 import { MatIcon } from '@angular/material/icon';
 import { MatIconButton } from '@angular/material/button';
 import { VisualsDirective } from '../visualizer/visuals/visuals.directive';
-import { NgClass } from '@angular/common';
+
 import {
   MatList,
   MatListItem,
@@ -39,7 +39,6 @@ import { MatMenu, MatMenuContent, MatMenuItem, MatMenuTrigger } from '@angular/m
     MatListItemTitle,
     MatListItemLine,
     MatListItemMeta,
-    NgClass,
     VisualsDirective,
     MatIconButton,
     MatIcon,
