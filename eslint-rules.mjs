@@ -46,7 +46,8 @@ export const ANGULAR_ESLINT_TEMPLATE_RULES = {
   '@angular-eslint/template/conditional-complexity': ['warn', { maxComplexity: 10 }],
   '@angular-eslint/template/cyclomatic-complexity': ['warn', { maxComplexity: 10 }],
   '@angular-eslint/template/eqeqeq': 'error',
-  '@angular-eslint/template/no-negated-async': 'error'
+  '@angular-eslint/template/no-negated-async': 'error',
+  'unicorn/prefer-string-raw': 'off'
 };
 
 const DEFAULT_UNICORN_RULE_OVERRIDES = {
