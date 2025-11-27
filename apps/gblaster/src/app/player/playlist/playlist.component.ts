@@ -27,7 +27,6 @@ import {
 import { SafePipe } from 'safe-pipe';
 import { CdkFixedSizeVirtualScroll, CdkVirtualForOf, CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { FormsModule } from '@angular/forms';
 import { MatMenu, MatMenuContent, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
 
 @Component({
@@ -46,7 +45,6 @@ import { MatMenu, MatMenuContent, MatMenuItem, MatMenuTrigger } from '@angular/m
     CdkVirtualScrollViewport,
     CdkVirtualForOf,
     CdkFixedSizeVirtualScroll,
-    FormsModule,
     MatMenu,
     MatMenuItem,
     MatMenuContent,
