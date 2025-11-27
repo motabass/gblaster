@@ -7,17 +7,11 @@ import { MatIcon } from '@angular/material/icon';
 import { MatIconButton } from '@angular/material/button';
 import { CdkFixedSizeVirtualScroll, CdkVirtualForOf, CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 import { SafePipe } from 'safe-pipe';
-import { RemoteCoverArtUrls } from '../metadata-service/metadata.types';
-import { FormsModule } from '@angular/forms';
 import { MatFormField, MatHint, MatInput, MatPrefix, MatSuffix } from '@angular/material/input';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { LibraryService } from './library.service';
-
-export interface Album {
-  name: string;
-  year: string;
-  coverUrl: RemoteCoverArtUrls;
-}
+import { Album } from './library.types';
+import { debounce, Field, form } from '@angular/forms/signals';
 
 @Component({
   imports: [
@@ -37,12 +31,12 @@ export interface Album {
     CdkVirtualForOf,
     SafePipe,
     MatHint,
-    FormsModule,
     MatFormField,
     MatInput,
     MatPrefix,
     MatSuffix,
-    MatProgressSpinner
+    MatProgressSpinner,
+    Field
   ],
   templateUrl: './library.component.html',
   styleUrl: './library.component.scss'
@@ -51,8 +45,13 @@ export default class LibraryComponent implements OnInit {
   private readonly playerService = inject(PlayerService);
   protected readonly libraryService = inject(LibraryService);
 
-  protected readonly searchTerm = signal('');
+  protected readonly searchTermForm = form(signal({ searchTerm: '' }), (form) => {
+    debounce(form.searchTerm, 250);
+  });
 
+  protected readonly searchTerm = computed(() => {
+    return this.searchTermForm.searchTerm().value();
+  });
   private readonly filteredBySerchterm = computed(() => {
     const searchTerm = this.searchTerm();
     const lowerSearchTerm = searchTerm.toLowerCase();

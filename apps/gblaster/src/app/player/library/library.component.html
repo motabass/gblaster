@@ -224,14 +224,13 @@
   />
   <input
     matInput
-    [ngModel]="searchTerm()"
-    (ngModelChange)="searchTerm.set($event)"
+    [field]="searchTermForm.searchTerm"
   />
   @if (searchTerm()) {
     <button
       matSuffix
       mat-icon-button
-      (click)="searchTerm.set('')"
+      (click)="searchTermForm.searchTerm().value.set('')"
     >
       <mat-icon svgIcon="close-thick" />
     </button>
