@@ -12,6 +12,7 @@ import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { LibraryService } from './library.service';
 import { Album } from './library.types';
 import { debounce, Field, form } from '@angular/forms/signals';
+import Fuse from 'fuse.js';
 
 @Component({
   imports: [
@@ -46,23 +47,38 @@ export default class LibraryComponent implements OnInit {
   protected readonly libraryService = inject(LibraryService);
 
   protected readonly searchTermForm = form(signal({ searchTerm: '' }), (form) => {
-    debounce(form.searchTerm, 250);
+    debounce(form.searchTerm, 300);
   });
 
   protected readonly searchTerm = computed(() => {
     return this.searchTermForm.searchTerm().value();
   });
+
   private readonly filteredBySerchterm = computed(() => {
     const searchTerm = this.searchTerm();
-    const lowerSearchTerm = searchTerm.toLowerCase();
-    return this.libraryService.indexedDbTracks().filter((tag) => {
-      return (
-        tag.title?.toLowerCase().includes(lowerSearchTerm) ||
-        tag.artist?.toLowerCase().includes(lowerSearchTerm) ||
-        tag.fileName?.toLowerCase().includes(lowerSearchTerm) ||
-        tag.album?.toLowerCase().includes(lowerSearchTerm)
-      );
+    const tracks = this.libraryService.indexedDbTracks();
+
+    if (!searchTerm) {
+      return tracks;
+    }
+
+    const fuse = new Fuse(tracks, {
+      keys: [
+        { name: 'title', weight: 1 },
+        { name: 'artist', weight: 0.8 },
+        { name: 'album', weight: 0.3 },
+        { name: 'fileName', weight: 0.1 }
+      ],
+      threshold: 0.2, // 0.0 = exact match, 1.0 = match anything
+      useExtendedSearch: true,
+      ignoreLocation: true,
+      ignoreDiacritics: true,
+      isCaseSensitive: false,
+      shouldSort: true,
+      minMatchCharLength: 2
     });
+
+    return fuse.search(searchTerm).map((result) => result.item);
   });
 
   private readonly selectedArtist = signal<string | undefined>(undefined);
@@ -103,8 +119,6 @@ export default class LibraryComponent implements OnInit {
   });
 
   protected readonly tracks = computed(() => {
-    this.searchTerm();
-
     let filtered = this.filteredBySerchterm();
     const artist = this.selectedArtist();
     const album = this.selectedAlbum();
