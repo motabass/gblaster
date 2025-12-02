@@ -1,5 +1,11 @@
 {
   "verbose": 1,
+  "plugins": {
+    "@csmith/release-it-calver-plugin": {
+      "format": "yyyy.mm.minor",
+      "increment": "calendar.minor"
+    }
+  },
   "npm": {
     "publish": false
   },
@@ -8,6 +14,7 @@
     "after:release": "echo Successfully released ${name} v${version} to ${repo.repository}."
   },
   "git": {
+    "commitMessage": "chore(release): ${version}",
     "requireBranch": "main",
     "requireCleanWorkingDir": false,
     "addUntrackedFiles": true,
