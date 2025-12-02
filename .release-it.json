@@ -4,13 +4,20 @@
     "@csmith/release-it-calver-plugin": {
       "format": "yyyy.mm.minor",
       "increment": "calendar.minor"
+    },
+    "@release-it/conventional-changelog": {
+      "ignoreRecommendedBump": true,
+      "preset": {
+        "name": "angular"
+      },
+      "infile": "CHANGELOG.md"
     }
   },
   "npm": {
     "publish": false
   },
   "hooks": {
-    "after:bump": "pnpm exec auto-changelog -p && pnpm run dep-graph:html  && pnpm run compodoc",
+    "after:bump": "pnpm run dep-graph:html  && pnpm run compodoc",
     "after:release": "echo Successfully released ${name} v${version} to ${repo.repository}."
   },
   "git": {
