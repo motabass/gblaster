@@ -229,8 +229,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="29"
-                                    class="link-to-prism">apps/gblaster/src/app/player/metadata-service/metadata.service.ts:29</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="30"
+                                    class="link-to-prism">apps/gblaster/src/app/player/metadata-service/metadata.service.ts:30</a></div>
                         </td>
                     </tr>
 
@@ -296,8 +296,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="132"
-                                    class="link-to-prism">apps/gblaster/src/app/player/metadata-service/metadata.service.ts:132</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="133"
+                                    class="link-to-prism">apps/gblaster/src/app/player/metadata-service/metadata.service.ts:133</a></div>
                         </td>
                     </tr>
 
@@ -363,8 +363,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="174"
-                                    class="link-to-prism">apps/gblaster/src/app/player/metadata-service/metadata.service.ts:174</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="175"
+                                    class="link-to-prism">apps/gblaster/src/app/player/metadata-service/metadata.service.ts:175</a></div>
                         </td>
                     </tr>
 
@@ -433,8 +433,8 @@ Call this when removing a single track from library.</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="161"
-                                    class="link-to-prism">apps/gblaster/src/app/player/metadata-service/metadata.service.ts:161</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="162"
+                                    class="link-to-prism">apps/gblaster/src/app/player/metadata-service/metadata.service.ts:162</a></div>
                         </td>
                     </tr>
 
@@ -519,7 +519,7 @@ for (const track of tracks) {</li>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="27" class="link-to-prism">apps/gblaster/src/app/player/metadata-service/metadata.service.ts:27</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">apps/gblaster/src/app/player/metadata-service/metadata.service.ts:28</a></div>
                         </td>
                     </tr>
 
@@ -551,7 +551,7 @@ for (const track of tracks) {</li>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">apps/gblaster/src/app/player/metadata-service/metadata.service.ts:26</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="27" class="link-to-prism">apps/gblaster/src/app/player/metadata-service/metadata.service.ts:27</a></div>
                         </td>
                     </tr>
 
@@ -583,7 +583,7 @@ for (const track of tracks) {</li>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">apps/gblaster/src/app/player/metadata-service/metadata.service.ts:25</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">apps/gblaster/src/app/player/metadata-service/metadata.service.ts:26</a></div>
                         </td>
                     </tr>
 
@@ -608,6 +608,7 @@ import { MusicbrainzService } from &#x27;./musicbrainz.service&#x27;;
 import { FileData } from &#x27;../file-loader-service/file-loader.helpers&#x27;;
 import { generateFileHash } from &#x27;./metadata-helper&#x27;;
 import { ProgressService } from &#x27;./progress.service&#x27;;
+import { Id3CoverPicture, Id3Tags } from &#x27;./id3-tags.types&#x27;;
 
 @Injectable({ providedIn: &#x27;root&#x27; })
 export class MetadataService {
@@ -700,7 +701,7 @@ export class MetadataService {
     return { metadata: this.applyEmbeddedCoverObjectUrsl(metadata), fromCache: false };
   }
 
-  private async fetchRemoteCoverUrls(fileName: string, tags: any): Promise&lt;RemoteCoverArtUrls | undefined&gt; {
+  private async fetchRemoteCoverUrls(fileName: string, tags: Id3Tags): Promise&lt;RemoteCoverArtUrls | undefined&gt; {
     if (!this.useWebMetainfos() || !tags.artist || !tags.album) {
       return undefined;
     }
@@ -722,7 +723,7 @@ export class MetadataService {
     );
   }
 
-  private createObjectUrlFromEmbeddedPicture(embeddedPicture: any): string {
+  private createObjectUrlFromEmbeddedPicture(embeddedPicture: Id3CoverPicture): string {
     const blob &#x3D; new Blob([embeddedPicture.data], { type: embeddedPicture.format });
     return URL.createObjectURL(blob);
   }
