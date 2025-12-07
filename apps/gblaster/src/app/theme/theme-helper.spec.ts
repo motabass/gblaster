@@ -29,9 +29,9 @@ describe('theme-helper', () => {
         '100'
       ];
 
-      colors.forEach((color, index) => {
+      for (const [index, color] of colors.entries()) {
         expect(color.name).toBe(expectedSuffixes[index]);
-      });
+      }
     });
 
     it('should generate lighter colors for low suffixes', () => {
@@ -65,18 +65,18 @@ describe('theme-helper', () => {
     it('should generate valid hex colors', () => {
       const colors = computeColors('#FF5733', false);
 
-      colors.forEach((color) => {
-        expect(color.hex).toMatch(/^#[0-9A-Fa-f]{6}$/);
-      });
+      for (const color of colors) {
+        expect(color.hex).toMatch(/^#[\dA-Fa-f]{6}$/);
+      }
     });
 
     it('should work with dark mode enabled', () => {
       const colors = computeColors('#FF5733', true);
       expect(colors).toHaveLength(16);
 
-      colors.forEach((color) => {
-        expect(color.hex).toMatch(/^#[0-9A-Fa-f]{6}$/);
-      });
+      for (const color of colors) {
+        expect(color.hex).toMatch(/^#[\dA-Fa-f]{6}$/);
+      }
     });
 
     it('should handle different input color formats', () => {

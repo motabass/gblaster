@@ -66,7 +66,7 @@ export class ShellComponent {
   private readonly sidenav = viewChild.required<MatSidenav>('drawer');
 
   navigateTo(route: string, skipLocationChange = false) {
-    void this.sidenav().close();
+    this.sidenav().close();
     void this.router.navigate([route], {
       skipLocationChange: skipLocationChange
     });
@@ -75,7 +75,6 @@ export class ShellComponent {
   async onFilesDropped(files: File[]) {
     const fileData = files.map((file) => ({ file }));
     // Just process files and add to library, don't add to playlist
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars, sonarjs/no-unused-vars, sonarjs/no-dead-store
     for await (const track of this.metadataService.addFilesToLibrary(fileData)) {
       this.playerService.addTrackToPlaylist(track);
     }

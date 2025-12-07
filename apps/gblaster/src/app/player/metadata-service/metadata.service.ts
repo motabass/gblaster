@@ -10,6 +10,7 @@ import { MusicbrainzService } from './musicbrainz.service';
 import { FileData } from '../file-loader-service/file-loader.helpers';
 import { generateFileHash } from './metadata-helper';
 import { ProgressService } from './progress.service';
+import { Id3CoverPicture, Id3Tags } from './id3-tags.types';
 
 @Injectable({ providedIn: 'root' })
 export class MetadataService {
@@ -102,7 +103,7 @@ export class MetadataService {
     return { metadata: this.applyEmbeddedCoverObjectUrsl(metadata), fromCache: false };
   }
 
-  private async fetchRemoteCoverUrls(fileName: string, tags: any): Promise<RemoteCoverArtUrls | undefined> {
+  private async fetchRemoteCoverUrls(fileName: string, tags: Id3Tags): Promise<RemoteCoverArtUrls | undefined> {
     if (!this.useWebMetainfos() || !tags.artist || !tags.album) {
       return undefined;
     }
@@ -124,7 +125,7 @@ export class MetadataService {
     );
   }
 
-  private createObjectUrlFromEmbeddedPicture(embeddedPicture: any): string {
+  private createObjectUrlFromEmbeddedPicture(embeddedPicture: Id3CoverPicture): string {
     const blob = new Blob([embeddedPicture.data], { type: embeddedPicture.format });
     return URL.createObjectURL(blob);
   }

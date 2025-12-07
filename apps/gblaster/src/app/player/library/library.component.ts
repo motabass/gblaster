@@ -46,8 +46,8 @@ export default class LibraryComponent implements OnInit {
   private readonly playerService = inject(PlayerService);
   protected readonly libraryService = inject(LibraryService);
 
-  protected readonly searchTermForm = form(signal({ searchTerm: '' }), (form) => {
-    debounce(form.searchTerm, 300);
+  protected readonly searchTermForm = form(signal({ searchTerm: '' }), (f) => {
+    debounce(f.searchTerm, 300);
   });
 
   protected readonly searchTerm = computed(() => {

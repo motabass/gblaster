@@ -213,8 +213,8 @@
     matPrefix
     mat-icon-button
     type="button"
-    (click)="refreshLibrary()"
     [disabled]="libraryService.isLoading()"
+    (click)="refreshLibrary()"
   >
     <mat-icon svgIcon="reload" />
   </button>
