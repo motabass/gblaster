@@ -30,7 +30,7 @@ jobs:
           node-version: 25
           cache: 'pnpm'
       - name: Cache Cypress Binary
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: ~/.cache/Cypress
           key: cypress-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
