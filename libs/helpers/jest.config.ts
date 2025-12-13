@@ -1,4 +1,4 @@
-export default {
+module.exports = {
   displayName: 'helpers',
   preset: '../../jest.preset.js',
   globals: {},
