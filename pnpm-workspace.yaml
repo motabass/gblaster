@@ -5,12 +5,13 @@ packages:
 ignoredBuiltDependencies:
   - '@biomejs/biome'
   - '@parcel/watcher'
+  - core-js-pure
+  - esbuild
   - lmdb
   - msgpackr-extract
   - protobufjs
   - re2
   - unrs-resolver
-  - esbuild
 
 onlyBuiltDependencies:
   - '@compodoc/compodoc'
