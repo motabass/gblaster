@@ -133,7 +133,7 @@
     "jest-preset-angular": "16.0.0",
     "jest-util": "30.2.0",
     "lint-staged": "16.2.7",
-    "ng-packagr": "21.0.0",
+    "ng-packagr": "21.0.1",
     "nx": "22.2.3",
     "nx-stylelint": "18.0.2",
     "postcss-html": "1.8.0",
