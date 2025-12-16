@@ -12,18 +12,18 @@
   },
   "targets": {
     "test": {
+      "executor": "@nx/vitest:test",
       "inputs": [
         "default",
         "^production",
-        "{workspaceRoot}/jest.preset.js",
         {
-          "externalDependencies": ["jest"]
+          "externalDependencies": ["vitest"]
         }
       ],
       "options": {
         "passWithNoTests": true
       },
-      "outputs": ["{workspaceRoot}/coverage/libs/ui-components/dialogs", "{projectRoot}\\coverage"],
+      "outputs": ["{workspaceRoot}/coverage/libs/ui-components/dialogs", "{projectRoot}/coverage"],
       "configurations": {
         "ci": {
           "ci": true,

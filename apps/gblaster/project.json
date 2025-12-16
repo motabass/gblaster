@@ -85,19 +85,18 @@
       }
     },
     "test": {
+      "executor": "@nx/vitest:test",
       "inputs": [
         "default",
         "^production",
-        "{workspaceRoot}/jest.preset.js",
         {
-          "externalDependencies": ["jest"]
+          "externalDependencies": ["vitest"]
         }
       ],
       "options": {
-        "passWithNoTests": true,
-        "webWorkerTsConfig": "apps/gblaster/tsconfig.worker.json"
+        "passWithNoTests": true
       },
-      "outputs": ["{workspaceRoot}/coverage/apps/gblaster", "{projectRoot}\\coverage"],
+      "outputs": ["{workspaceRoot}/coverage/apps/gblaster", "{projectRoot}/coverage"],
       "configurations": {
         "ci": {
           "ci": true,

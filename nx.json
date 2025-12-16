@@ -96,8 +96,8 @@
     "compodoc": {
       "cache": true
     },
-    "@nx/jest:jest": {
-      "inputs": ["default", "^production", "{workspaceRoot}/jest.preset.js"],
+    "@nx/vitest:test": {
+      "inputs": ["default", "^production"],
       "cache": true,
       "options": {
         "passWithNoTests": true
@@ -105,7 +105,7 @@
       "configurations": {
         "ci": {
           "ci": true,
-          "codeCoverage": true
+          "coverage": true
         }
       }
     },
@@ -147,12 +147,6 @@
       "plugin": "@nx/eslint/plugin",
       "options": {
         "targetName": "lint"
-      }
-    },
-    {
-      "plugin": "@nx/jest/plugin",
-      "options": {
-        "targetName": "test"
       }
     }
   ],

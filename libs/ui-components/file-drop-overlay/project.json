@@ -24,18 +24,18 @@
       }
     },
     "test": {
+      "executor": "@nx/vitest:test",
       "inputs": [
         "default",
         "^production",
-        "{workspaceRoot}/jest.preset.js",
         {
-          "externalDependencies": ["jest"]
+          "externalDependencies": ["vitest"]
         }
       ],
       "options": {
         "passWithNoTests": true
       },
-      "outputs": ["{workspaceRoot}/coverage/libs/ui-components/file-drop-overlay", "{projectRoot}\\coverage"],
+      "outputs": ["{workspaceRoot}/coverage/libs/ui-components/file-drop-overlay", "{projectRoot}/coverage"],
       "configurations": {
         "ci": {
           "ci": true,
