@@ -44,11 +44,11 @@ jobs:
         run: pnpm run ci:build
         env:
           CI: true
-      - name: Cypress E2E Tests
+      - name: Cypress E2E-Tests
         run: pnpm run ci:e2e
         env:
           CI: true
-      - name: Jest-Tests
+      - name: Vitest-Tests
         run: pnpm run test:all
         env:
           CI: true
