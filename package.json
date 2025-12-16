@@ -99,7 +99,7 @@
     "@nx/eslint-plugin": "22.3.0-beta.2",
     "@nx/js": "22.3.0-beta.2",
     "@nx/node": "22.3.0-beta.2",
-    "@nx/vite": "22.3.0-beta.2",
+    "@nx/vitest": "22.3.0-beta.2",
     "@nx/web": "22.3.0-beta.2",
     "@nx/workspace": "22.3.0-beta.2",
     "@schematics/angular": "21.0.3",
