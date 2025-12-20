@@ -19,3 +19,5 @@ onlyBuiltDependencies:
   - '@swc/core'
   - cypress
   - nx
+
+blockExoticSubdeps: true
