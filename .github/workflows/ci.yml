@@ -2,16 +2,8 @@ name: CI
 
 on:
   workflow_call:
-    inputs:
-      deploy:
-        description: 'Whether to deploy after successful tests'
-        required: false
-        default: false
-        type: boolean
     secrets:
       NX_CLOUD_ACCESS_TOKEN:
-        required: false
-      FIREBASE_SERVICE_ACCOUNT_GBLASTER_PLAYER:
         required: false
 
 jobs:
@@ -160,26 +152,3 @@ jobs:
           name: cypress-videos
           path: apps/gblaster/cypress/videos
           retention-days: 7
-
-  deploy:
-    name: Deploy to Firebase
-    runs-on: ubuntu-24.04
-    timeout-minutes: 10
-    needs: [unit-tests, e2e-tests]
-    if: ${{ inputs.deploy }}
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v6
-
-      - name: Download build artifacts
-        uses: actions/download-artifact@v7
-        with:
-          name: dist
-          path: dist/
-
-      - name: Deploy
-        uses: w9jds/firebase-action@v15.1.0
-        with:
-          args: deploy --project gblaster-player --only hosting
-        env:
-          GCP_SA_KEY: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_GBLASTER_PLAYER }}

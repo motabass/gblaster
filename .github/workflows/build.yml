@@ -18,8 +18,8 @@ concurrency:
 jobs:
   ci:
     name: CI
+    # Skip if triggered by a release commit
+    if: ${{ !startsWith(github.event.head_commit.message, 'chore(release)') }}
     uses: ./.github/workflows/ci.yml
-    with:
-      deploy: false
     secrets:
       NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}

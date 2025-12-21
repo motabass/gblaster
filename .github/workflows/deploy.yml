@@ -13,10 +13,29 @@ concurrency:
 
 jobs:
   ci:
-    name: CI & Deploy
+    name: CI
     uses: ./.github/workflows/ci.yml
-    with:
-      deploy: true
     secrets:
       NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
-      FIREBASE_SERVICE_ACCOUNT_GBLASTER_PLAYER: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_GBLASTER_PLAYER }}
+
+  deploy:
+    name: Deploy to Firebase
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    needs: ci
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist/
+
+      - name: Deploy
+        uses: w9jds/firebase-action@v15.1.0
+        with:
+          args: deploy --project gblaster-player --only hosting
+        env:
+          GCP_SA_KEY: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_GBLASTER_PLAYER }}
