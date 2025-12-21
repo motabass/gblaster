@@ -52,3 +52,4 @@ Thumbs.db
 .github/instructions/nx.instructions.md
 
 mise.local.toml
+vitest.config.*.timestamp*

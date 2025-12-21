@@ -77,12 +77,18 @@ importers:
         specifier: 2.8.1
         version: 2.8.1
     devDependencies:
+      '@analogjs/vite-plugin-angular':
+        specifier: ~2.1.2
+        version: 2.1.3(80cc75e6d8c0bdb7274dce7de86282f6)
+      '@analogjs/vitest-angular':
+        specifier: ~2.1.2
+        version: 2.1.3(@analogjs/vite-plugin-angular@2.1.3(80cc75e6d8c0bdb7274dce7de86282f6))(@angular-devkit/architect@0.2100.4(chokidar@4.0.3))(vitest@4.0.16)
       '@angular-devkit/build-angular':
         specifier: 21.0.4
-        version: 21.0.4(@angular/compiler-cli@21.0.6(@angular/compiler@21.0.6)(typescript@5.9.3))(@angular/compiler@21.0.6)(@angular/core@21.0.6(@angular/compiler@21.0.6)(rxjs@7.8.2))(@angular/platform-browser@21.0.6(@angular/common@21.0.6(@angular/core@21.0.6(@angular/compiler@21.0.6)(rxjs@7.8.2))(rxjs@7.8.2))(@angular/core@21.0.6(@angular/compiler@21.0.6)(rxjs@7.8.2)))(@angular/service-worker@21.0.6(@angular/core@21.0.6(@angular/compiler@21.0.6)(rxjs@7.8.2))(rxjs@7.8.2))(@rspack/core@1.6.8(@swc/helpers@0.5.17))(@swc/core@1.15.7(@swc/helpers@0.5.17))(@types/node@25.0.3)(chokidar@4.0.3)(jiti@2.6.1)(ng-packagr@21.0.1(@angular/compiler-cli@21.0.6(@angular/compiler@21.0.6)(typescript@5.9.3))(tslib@2.8.1)(typescript@5.9.3))(sass-embedded@1.97.1)(typescript@5.9.3)(vitest@4.0.16(@opentelemetry/api@1.9.0)(@types/node@25.0.3)(jiti@2.6.1)(jsdom@27.3.0)(less@4.5.1)(sass-embedded@1.97.1)(sass@1.97.1)(terser@5.44.0)(yaml@2.8.2))(yaml@2.8.2)
+        version: 21.0.4(@angular/compiler-cli@21.0.6(@angular/compiler@21.0.6)(typescript@5.9.3))(@angular/compiler@21.0.6)(@angular/core@21.0.6(@angular/compiler@21.0.6)(rxjs@7.8.2))(@angular/platform-browser@21.0.6(@angular/common@21.0.6(@angular/core@21.0.6(@angular/compiler@21.0.6)(rxjs@7.8.2))(rxjs@7.8.2))(@angular/core@21.0.6(@angular/compiler@21.0.6)(rxjs@7.8.2)))(@angular/service-worker@21.0.6(@angular/core@21.0.6(@angular/compiler@21.0.6)(rxjs@7.8.2))(rxjs@7.8.2))(@rspack/core@1.6.8(@swc/helpers@0.5.17))(@swc/core@1.15.7(@swc/helpers@0.5.17))(@types/node@25.0.3)(chokidar@4.0.3)(jiti@2.6.1)(ng-packagr@21.0.1(@angular/compiler-cli@21.0.6(@angular/compiler@21.0.6)(typescript@5.9.3))(tslib@2.8.1)(typescript@5.9.3))(sass-embedded@1.97.1)(typescript@5.9.3)(vitest@4.0.16)(yaml@2.8.2)
       '@angular/build':
         specifier: 21.0.4
-        version: 21.0.4(@angular/compiler-cli@21.0.6(@angular/compiler@21.0.6)(typescript@5.9.3))(@angular/compiler@21.0.6)(@angular/core@21.0.6(@angular/compiler@21.0.6)(rxjs@7.8.2))(@angular/platform-browser@21.0.6(@angular/common@21.0.6(@angular/core@21.0.6(@angular/compiler@21.0.6)(rxjs@7.8.2))(rxjs@7.8.2))(@angular/core@21.0.6(@angular/compiler@21.0.6)(rxjs@7.8.2)))(@angular/service-worker@21.0.6(@angular/core@21.0.6(@angular/compiler@21.0.6)(rxjs@7.8.2))(rxjs@7.8.2))(@types/node@25.0.3)(chokidar@4.0.3)(jiti@2.6.1)(less@4.5.1)(ng-packagr@21.0.1(@angular/compiler-cli@21.0.6(@angular/compiler@21.0.6)(typescript@5.9.3))(tslib@2.8.1)(typescript@5.9.3))(postcss@8.5.6)(sass-embedded@1.97.1)(terser@5.44.0)(tslib@2.8.1)(typescript@5.9.3)(vitest@4.0.16(@opentelemetry/api@1.9.0)(@types/node@25.0.3)(jiti@2.6.1)(jsdom@27.3.0)(less@4.5.1)(sass-embedded@1.97.1)(sass@1.97.1)(terser@5.44.0)(yaml@2.8.2))(yaml@2.8.2)
+        version: 21.0.4(@angular/compiler-cli@21.0.6(@angular/compiler@21.0.6)(typescript@5.9.3))(@angular/compiler@21.0.6)(@angular/core@21.0.6(@angular/compiler@21.0.6)(rxjs@7.8.2))(@angular/platform-browser@21.0.6(@angular/common@21.0.6(@angular/core@21.0.6(@angular/compiler@21.0.6)(rxjs@7.8.2))(rxjs@7.8.2))(@angular/core@21.0.6(@angular/compiler@21.0.6)(rxjs@7.8.2)))(@angular/service-worker@21.0.6(@angular/core@21.0.6(@angular/compiler@21.0.6)(rxjs@7.8.2))(rxjs@7.8.2))(@types/node@25.0.3)(chokidar@4.0.3)(jiti@2.6.1)(less@4.5.1)(ng-packagr@21.0.1(@angular/compiler-cli@21.0.6(@angular/compiler@21.0.6)(typescript@5.9.3))(tslib@2.8.1)(typescript@5.9.3))(postcss@8.5.6)(sass-embedded@1.97.1)(terser@5.44.0)(tslib@2.8.1)(typescript@5.9.3)(vitest@4.0.16)(yaml@2.8.2)
       '@angular/cli':
         specifier: 21.0.4
         version: 21.0.4(@types/node@25.0.3)(chokidar@4.0.3)
@@ -103,7 +109,7 @@ importers:
         version: 9.39.2
       '@nx/angular':
         specifier: 22.3.3
-        version: 22.3.3(1051411f159da2793d577d90aa48a49c)
+        version: 22.3.3(20498e68e9a0f8bc9d924b06cac15d2e)
       '@nx/cypress':
         specifier: 22.3.3
         version: 22.3.3(@babel/traverse@7.28.5)(@swc-node/register@1.11.1(@swc/core@1.15.7(@swc/helpers@0.5.17))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.7(@swc/helpers@0.5.17))(@zkochan/js-yaml@0.0.7)(cypress@15.8.1)(eslint@9.39.2(jiti@2.6.1))(nx@22.3.3(@swc-node/register@1.11.1(@swc/core@1.15.7(@swc/helpers@0.5.17))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.7(@swc/helpers@0.5.17)))(typescript@5.9.3)
@@ -119,9 +125,12 @@ importers:
       '@nx/node':
         specifier: 22.3.3
         version: 22.3.3(@babel/traverse@7.28.5)(@swc-node/register@1.11.1(@swc/core@1.15.7(@swc/helpers@0.5.17))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.7(@swc/helpers@0.5.17))(@types/node@25.0.3)(@zkochan/js-yaml@0.0.7)(babel-plugin-macros@3.1.0)(eslint@9.39.2(jiti@2.6.1))(nx@22.3.3(@swc-node/register@1.11.1(@swc/core@1.15.7(@swc/helpers@0.5.17))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.7(@swc/helpers@0.5.17)))(ts-node@10.9.2(@swc/core@1.15.7(@swc/helpers@0.5.17))(@types/node@25.0.3)(typescript@5.9.3))(typescript@5.9.3)
+      '@nx/vite':
+        specifier: 22.3.3
+        version: 22.3.3(@babel/traverse@7.28.5)(@swc-node/register@1.11.1(@swc/core@1.15.7(@swc/helpers@0.5.17))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.7(@swc/helpers@0.5.17))(nx@22.3.3(@swc-node/register@1.11.1(@swc/core@1.15.7(@swc/helpers@0.5.17))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.7(@swc/helpers@0.5.17)))(typescript@5.9.3)(vite@7.3.0(@types/node@25.0.3)(jiti@2.6.1)(less@4.5.1)(sass-embedded@1.97.1)(sass@1.97.1)(terser@5.44.0)(yaml@2.8.2))(vitest@4.0.16)
       '@nx/vitest':
         specifier: 22.3.3
-        version: 22.3.3(@babel/traverse@7.28.5)(@swc-node/register@1.11.1(@swc/core@1.15.7(@swc/helpers@0.5.17))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.7(@swc/helpers@0.5.17))(nx@22.3.3(@swc-node/register@1.11.1(@swc/core@1.15.7(@swc/helpers@0.5.17))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.7(@swc/helpers@0.5.17)))(typescript@5.9.3)(vite@7.3.0(@types/node@25.0.3)(jiti@2.6.1)(less@4.5.1)(sass-embedded@1.97.1)(sass@1.97.1)(terser@5.44.0)(yaml@2.8.2))(vitest@4.0.16(@opentelemetry/api@1.9.0)(@types/node@25.0.3)(jiti@2.6.1)(jsdom@27.3.0)(less@4.5.1)(sass-embedded@1.97.1)(sass@1.97.1)(terser@5.44.0)(yaml@2.8.2))
+        version: 22.3.3(@babel/traverse@7.28.5)(@swc-node/register@1.11.1(@swc/core@1.15.7(@swc/helpers@0.5.17))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.7(@swc/helpers@0.5.17))(nx@22.3.3(@swc-node/register@1.11.1(@swc/core@1.15.7(@swc/helpers@0.5.17))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.7(@swc/helpers@0.5.17)))(typescript@5.9.3)(vite@7.3.0(@types/node@25.0.3)(jiti@2.6.1)(less@4.5.1)(sass-embedded@1.97.1)(sass@1.97.1)(terser@5.44.0)(yaml@2.8.2))(vitest@4.0.16)
       '@nx/web':
         specifier: 22.3.3
         version: 22.3.3(@babel/traverse@7.28.5)(@swc-node/register@1.11.1(@swc/core@1.15.7(@swc/helpers@0.5.17))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.7(@swc/helpers@0.5.17))(nx@22.3.3(@swc-node/register@1.11.1(@swc/core@1.15.7(@swc/helpers@0.5.17))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.7(@swc/helpers@0.5.17)))
@@ -159,8 +168,11 @@ importers:
         specifier: 8.50.0
         version: 8.50.0(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3)
       '@vitest/coverage-v8':
-        specifier: 4.0.16
-        version: 4.0.16(vitest@4.0.16(@opentelemetry/api@1.9.0)(@types/node@25.0.3)(jiti@2.6.1)(jsdom@27.3.0)(less@4.5.1)(sass-embedded@1.97.1)(sass@1.97.1)(terser@5.44.0)(yaml@2.8.2))
+        specifier: ^4.0.0
+        version: 4.0.16(vitest@4.0.16)
+      '@vitest/ui':
+        specifier: ^4.0.8
+        version: 4.0.16(vitest@4.0.16)
       angular-eslint:
         specifier: 21.1.0
         version: 21.1.0(@angular/cli@21.0.4(@types/node@25.0.3)(chokidar@4.0.3))(chokidar@4.0.3)(eslint@9.39.2(jiti@2.6.1))(typescript-eslint@8.50.0(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3))(typescript@5.9.3)
@@ -261,11 +273,11 @@ importers:
         specifier: 8.50.0
         version: 8.50.0(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3)
       vite:
-        specifier: 7.3.0
+        specifier: ^7.0.0
         version: 7.3.0(@types/node@25.0.3)(jiti@2.6.1)(less@4.5.1)(sass-embedded@1.97.1)(sass@1.97.1)(terser@5.44.0)(yaml@2.8.2)
       vitest:
-        specifier: 4.0.16
-        version: 4.0.16(@opentelemetry/api@1.9.0)(@types/node@25.0.3)(jiti@2.6.1)(jsdom@27.3.0)(less@4.5.1)(sass-embedded@1.97.1)(sass@1.97.1)(terser@5.44.0)(yaml@2.8.2)
+        specifier: ^4.0.8
+        version: 4.0.16(@opentelemetry/api@1.9.0)(@types/node@25.0.3)(@vitest/ui@4.0.16)(jiti@2.6.1)(jsdom@27.3.0)(less@4.5.1)(sass-embedded@1.97.1)(sass@1.97.1)(terser@5.44.0)(yaml@2.8.2)
 
 packages:
   '@acemir/cssom@0.9.29':
@@ -350,6 +362,26 @@ packages:
     resolution:
       { integrity: sha512-30iZtAPgz+LTIYoeivqYo853f02jBYSd5uGnGpkFV0M3xOt9aN73erkgYAmZU43x4VfqcnLxW9Kpg3R5LC4YYw== }
     engines: { node: '>=6.0.0' }
+
+  '@analogjs/vite-plugin-angular@2.1.3':
+    resolution:
+      { integrity: sha512-mXL3LPMRC0nEWzSLP6sguXYUm+J4l+qRZmR9czhTQKWFP+PbNas6UHF6txe1fQs1pc/tMb7HQPZCEoaPMlol9Q== }
+    peerDependencies:
+      '@angular-devkit/build-angular': ^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0 || ^19.0.0 || ^20.0.0 || ^21.0.0
+      '@angular/build': ^18.0.0 || ^19.0.0 || ^20.0.0 || ^21.0.0
+    peerDependenciesMeta:
+      '@angular-devkit/build-angular':
+        optional: true
+      '@angular/build':
+        optional: true
+
+  '@analogjs/vitest-angular@2.1.3':
+    resolution:
+      { integrity: sha512-oRZxP/8cnf7g6e+VDYkILeA2gQLDS+oDrytiPixoA5YQwlroGtB1B3DkPOuzSSlI3Z9YMHkdL3OLKFIcuCDr5g== }
+    peerDependencies:
+      '@analogjs/vite-plugin-angular': '*'
+      '@angular-devkit/architect': '>=0.1500.0 < 0.2200.0'
+      vitest: ^1.3.1 || ^2.0.0 || ^3.0.0 || ^4.0.0
 
   '@angular-devkit/architect@0.2100.4':
     resolution:
@@ -3486,6 +3518,13 @@ packages:
       '@module-federation/enhanced': ^0.21.2
       '@module-federation/node': ^2.7.21
 
+  '@nx/vite@22.3.3':
+    resolution:
+      { integrity: sha512-JYtQeKJVID6Am65M1gDxCBLyO7pA6p/dBxnQyWEHsbJ5VLiOyCxr+W+YOE4p4roVlQxjAaCMqvtGH3cWnNQWxg== }
+    peerDependencies:
+      vite: ^5.0.0 || ^6.0.0 || ^7.0.0
+      vitest: ^1.3.1 || ^2.0.0 || ^3.0.0 || ^4.0.0
+
   '@nx/vitest@22.3.3':
     resolution:
       { integrity: sha512-9BNwWadIfT5EAnEPXLM0n/ucuJ7IQyn+QRMUkUBt6wmms9f0OKMtLpiFxHIMrnQDf0eEk845jo21j7Og2cCZyA== }
@@ -4483,6 +4522,10 @@ packages:
       { integrity: sha512-L7z9BgrNEcYyUYtF+HaEfiS5ebkh9jXqbszz7pC0hRBPaatV0XjSD3+eHrpqFemQfgwiFF0QPIarnIihIDn7OA== }
     engines: { node: '>=10.13.0' }
 
+  '@ts-morph/common@0.22.0':
+    resolution:
+      { integrity: sha512-HqNBuV/oIlMKdkLshXd1zKBqNQCsuPEsgQOkfFQ/eUKjRlwndXW1AjN9LVkBEIukm00gGXSRmfkl0Wv5VXLnlw== }
+
   '@ts-morph/common@0.28.1':
     resolution:
       { integrity: sha512-W74iWf7ILp1ZKNYXY5qbddNaml7e9Sedv5lvU1V8lftlitkc9Pq1A+jlH23ltDgWYeZFFEqGCD1Ies9hqu3O+g== }
@@ -4999,6 +5042,12 @@ packages:
   '@vitest/spy@4.0.16':
     resolution:
       { integrity: sha512-4jIOWjKP0ZUaEmJm00E0cOBLU+5WE0BpeNr3XN6TEF05ltro6NJqHWxXD0kA8/Zc8Nh23AT8WQxwNG+WeROupw== }
+
+  '@vitest/ui@4.0.16':
+    resolution:
+      { integrity: sha512-rkoPH+RqWopVxDnCBE/ysIdfQ2A7j1eDmW8tCxxrR9nnFBa9jKf86VgsSAzxBd1x+ny0GC4JgiD3SNfRHv3pOg== }
+    peerDependencies:
+      vitest: 4.0.16
 
   '@vitest/utils@4.0.16':
     resolution:
@@ -6005,6 +6054,10 @@ packages:
     resolution:
       { integrity: sha512-QVb0dM5HvG+uaxitm8wONl7jltx8dqhfU33DcqtOZcLSVIKSDDLDi7+0LbAKiyI8hD9u42m2YxXSkMGWThaecQ== }
     engines: { iojs: '>= 1.0.0', node: '>= 0.12.0' }
+
+  code-block-writer@12.0.0:
+    resolution:
+      { integrity: sha512-q4dMFMlXtKR3XNBHyMHt/3pwYNA69EDk00lloMOaaUMKPUXBw6lpXtbu3MMVG6/uOihGnRDOlkyqsONEUj60+w== }
 
   code-block-writer@13.0.3:
     resolution:
@@ -7348,6 +7401,10 @@ packages:
     resolution:
       { integrity: sha512-7yAQpD2UMJzLi1Dqv7qFYnPbaPx7ZfFK6PiIxQ4PfkGPyNyl2Ugx+a/umUonmKqjhM4DnfbMvdX6otXq83soQQ== }
     engines: { node: ^12.20 || >= 14.13 }
+
+  fflate@0.8.2:
+    resolution:
+      { integrity: sha512-cPJU47OaAoCbg0pBvzsgpTPhmhqI5eJjh/JIu8tPj5q+T7iLvW/JAYUqmE7KOB4R1ZyEhzBaIQpQpardBF5z8A== }
 
   figures@3.2.0:
     resolution:
@@ -9603,6 +9660,12 @@ packages:
     resolution:
       { integrity: sha512-KZxYo1BUkWD2TVFLr0MQoM8vUUigWD3LlD83a/75BqC+4qE0Hb1Vo5v1FgcfaNXvfXzr+5EhQ6ing/CaBijTlw== }
     engines: { node: '>= 18' }
+
+  mkdirp@3.0.1:
+    resolution:
+      { integrity: sha512-+NsyUUAZDmo6YVHzL/stxSu3t9YS1iljliy3BSDrXJ/dkn1KYdmtZODGGjLcc9XLgVVpH4KshHB8XmZgMhaBXg== }
+    engines: { node: '>=10' }
+    hasBin: true
 
   mocha@10.8.2:
     resolution:
@@ -12437,6 +12500,10 @@ packages:
       typescript: '*'
       webpack: ^5.0.0
 
+  ts-morph@21.0.1:
+    resolution:
+      { integrity: sha512-dbDtVdEAncKctzrVZ+Nr7kHpHkv+0JDJb2MjjpBaj8bFeCkePU9rHfMklmhuLFnpeq/EJZk2IhStY6NzqgjOkg== }
+
   ts-morph@27.0.2:
     resolution:
       { integrity: sha512-fhUhgeljcrdZ+9DZND1De1029PrE+cMkIP7ooqkLRTrRLTqcki2AstsyJm0vRNbTbVCNJ0idGlbBrfqc7/nA8w== }
@@ -13442,6 +13509,19 @@ snapshots:
       '@jridgewell/gen-mapping': 0.3.13
       '@jridgewell/trace-mapping': 0.3.31
 
+  '@analogjs/vite-plugin-angular@2.1.3(80cc75e6d8c0bdb7274dce7de86282f6)':
+    dependencies:
+      ts-morph: 21.0.1
+    optionalDependencies:
+      '@angular-devkit/build-angular': 21.0.4(@angular/compiler-cli@21.0.6(@angular/compiler@21.0.6)(typescript@5.9.3))(@angular/compiler@21.0.6)(@angular/core@21.0.6(@angular/compiler@21.0.6)(rxjs@7.8.2))(@angular/platform-browser@21.0.6(@angular/common@21.0.6(@angular/core@21.0.6(@angular/compiler@21.0.6)(rxjs@7.8.2))(rxjs@7.8.2))(@angular/core@21.0.6(@angular/compiler@21.0.6)(rxjs@7.8.2)))(@angular/service-worker@21.0.6(@angular/core@21.0.6(@angular/compiler@21.0.6)(rxjs@7.8.2))(rxjs@7.8.2))(@rspack/core@1.6.8(@swc/helpers@0.5.17))(@swc/core@1.15.7(@swc/helpers@0.5.17))(@types/node@25.0.3)(chokidar@4.0.3)(jiti@2.6.1)(ng-packagr@21.0.1(@angular/compiler-cli@21.0.6(@angular/compiler@21.0.6)(typescript@5.9.3))(tslib@2.8.1)(typescript@5.9.3))(sass-embedded@1.97.1)(typescript@5.9.3)(vitest@4.0.16)(yaml@2.8.2)
+      '@angular/build': 21.0.4(@angular/compiler-cli@21.0.6(@angular/compiler@21.0.6)(typescript@5.9.3))(@angular/compiler@21.0.6)(@angular/core@21.0.6(@angular/compiler@21.0.6)(rxjs@7.8.2))(@angular/platform-browser@21.0.6(@angular/common@21.0.6(@angular/core@21.0.6(@angular/compiler@21.0.6)(rxjs@7.8.2))(rxjs@7.8.2))(@angular/core@21.0.6(@angular/compiler@21.0.6)(rxjs@7.8.2)))(@angular/service-worker@21.0.6(@angular/core@21.0.6(@angular/compiler@21.0.6)(rxjs@7.8.2))(rxjs@7.8.2))(@types/node@25.0.3)(chokidar@4.0.3)(jiti@2.6.1)(less@4.5.1)(ng-packagr@21.0.1(@angular/compiler-cli@21.0.6(@angular/compiler@21.0.6)(typescript@5.9.3))(tslib@2.8.1)(typescript@5.9.3))(postcss@8.5.6)(sass-embedded@1.97.1)(terser@5.44.0)(tslib@2.8.1)(typescript@5.9.3)(vitest@4.0.16)(yaml@2.8.2)
+
+  '@analogjs/vitest-angular@2.1.3(@analogjs/vite-plugin-angular@2.1.3(80cc75e6d8c0bdb7274dce7de86282f6))(@angular-devkit/architect@0.2100.4(chokidar@4.0.3))(vitest@4.0.16)':
+    dependencies:
+      '@analogjs/vite-plugin-angular': 2.1.3(80cc75e6d8c0bdb7274dce7de86282f6)
+      '@angular-devkit/architect': 0.2100.4(chokidar@4.0.3)
+      vitest: 4.0.16(@opentelemetry/api@1.9.0)(@types/node@25.0.3)(@vitest/ui@4.0.16)(jiti@2.6.1)(jsdom@27.3.0)(less@4.5.1)(sass-embedded@1.97.1)(sass@1.97.1)(terser@5.44.0)(yaml@2.8.2)
+
   '@angular-devkit/architect@0.2100.4(chokidar@4.0.3)':
     dependencies:
       '@angular-devkit/core': 21.0.4(chokidar@4.0.3)
@@ -13449,13 +13529,13 @@ snapshots:
     transitivePeerDependencies:
       - chokidar
 
-  '@angular-devkit/build-angular@21.0.4(@angular/compiler-cli@21.0.6(@angular/compiler@21.0.6)(typescript@5.9.3))(@angular/compiler@21.0.6)(@angular/core@21.0.6(@angular/compiler@21.0.6)(rxjs@7.8.2))(@angular/platform-browser@21.0.6(@angular/common@21.0.6(@angular/core@21.0.6(@angular/compiler@21.0.6)(rxjs@7.8.2))(rxjs@7.8.2))(@angular/core@21.0.6(@angular/compiler@21.0.6)(rxjs@7.8.2)))(@angular/service-worker@21.0.6(@angular/core@21.0.6(@angular/compiler@21.0.6)(rxjs@7.8.2))(rxjs@7.8.2))(@rspack/core@1.6.8(@swc/helpers@0.5.17))(@swc/core@1.15.7(@swc/helpers@0.5.17))(@types/node@25.0.3)(chokidar@4.0.3)(jiti@2.6.1)(ng-packagr@21.0.1(@angular/compiler-cli@21.0.6(@angular/compiler@21.0.6)(typescript@5.9.3))(tslib@2.8.1)(typescript@5.9.3))(sass-embedded@1.97.1)(typescript@5.9.3)(vitest@4.0.16(@opentelemetry/api@1.9.0)(@types/node@25.0.3)(jiti@2.6.1)(jsdom@27.3.0)(less@4.5.1)(sass-embedded@1.97.1)(sass@1.97.1)(terser@5.44.0)(yaml@2.8.2))(yaml@2.8.2)':
+  '@angular-devkit/build-angular@21.0.4(@angular/compiler-cli@21.0.6(@angular/compiler@21.0.6)(typescript@5.9.3))(@angular/compiler@21.0.6)(@angular/core@21.0.6(@angular/compiler@21.0.6)(rxjs@7.8.2))(@angular/platform-browser@21.0.6(@angular/common@21.0.6(@angular/core@21.0.6(@angular/compiler@21.0.6)(rxjs@7.8.2))(rxjs@7.8.2))(@angular/core@21.0.6(@angular/compiler@21.0.6)(rxjs@7.8.2)))(@angular/service-worker@21.0.6(@angular/core@21.0.6(@angular/compiler@21.0.6)(rxjs@7.8.2))(rxjs@7.8.2))(@rspack/core@1.6.8(@swc/helpers@0.5.17))(@swc/core@1.15.7(@swc/helpers@0.5.17))(@types/node@25.0.3)(chokidar@4.0.3)(jiti@2.6.1)(ng-packagr@21.0.1(@angular/compiler-cli@21.0.6(@angular/compiler@21.0.6)(typescript@5.9.3))(tslib@2.8.1)(typescript@5.9.3))(sass-embedded@1.97.1)(typescript@5.9.3)(vitest@4.0.16)(yaml@2.8.2)':
     dependencies:
       '@ampproject/remapping': 2.3.0
       '@angular-devkit/architect': 0.2100.4(chokidar@4.0.3)
       '@angular-devkit/build-webpack': 0.2100.4(chokidar@4.0.3)(webpack-dev-server@5.2.2(webpack@5.104.0(@swc/core@1.15.7(@swc/helpers@0.5.17))(esbuild@0.26.0)))(webpack@5.104.0(@swc/core@1.15.7(@swc/helpers@0.5.17))(esbuild@0.26.0))
       '@angular-devkit/core': 21.0.4(chokidar@4.0.3)
-      '@angular/build': 21.0.4(@angular/compiler-cli@21.0.6(@angular/compiler@21.0.6)(typescript@5.9.3))(@angular/compiler@21.0.6)(@angular/core@21.0.6(@angular/compiler@21.0.6)(rxjs@7.8.2))(@angular/platform-browser@21.0.6(@angular/common@21.0.6(@angular/core@21.0.6(@angular/compiler@21.0.6)(rxjs@7.8.2))(rxjs@7.8.2))(@angular/core@21.0.6(@angular/compiler@21.0.6)(rxjs@7.8.2)))(@angular/service-worker@21.0.6(@angular/core@21.0.6(@angular/compiler@21.0.6)(rxjs@7.8.2))(rxjs@7.8.2))(@types/node@25.0.3)(chokidar@4.0.3)(jiti@2.6.1)(less@4.4.2)(ng-packagr@21.0.1(@angular/compiler-cli@21.0.6(@angular/compiler@21.0.6)(typescript@5.9.3))(tslib@2.8.1)(typescript@5.9.3))(postcss@8.5.6)(sass-embedded@1.97.1)(terser@5.44.0)(tslib@2.8.1)(typescript@5.9.3)(vitest@4.0.16(@opentelemetry/api@1.9.0)(@types/node@25.0.3)(jiti@2.6.1)(jsdom@27.3.0)(less@4.5.1)(sass-embedded@1.97.1)(sass@1.97.1)(terser@5.44.0)(yaml@2.8.2))(yaml@2.8.2)
+      '@angular/build': 21.0.4(@angular/compiler-cli@21.0.6(@angular/compiler@21.0.6)(typescript@5.9.3))(@angular/compiler@21.0.6)(@angular/core@21.0.6(@angular/compiler@21.0.6)(rxjs@7.8.2))(@angular/platform-browser@21.0.6(@angular/common@21.0.6(@angular/core@21.0.6(@angular/compiler@21.0.6)(rxjs@7.8.2))(rxjs@7.8.2))(@angular/core@21.0.6(@angular/compiler@21.0.6)(rxjs@7.8.2)))(@angular/service-worker@21.0.6(@angular/core@21.0.6(@angular/compiler@21.0.6)(rxjs@7.8.2))(rxjs@7.8.2))(@types/node@25.0.3)(chokidar@4.0.3)(jiti@2.6.1)(less@4.4.2)(ng-packagr@21.0.1(@angular/compiler-cli@21.0.6(@angular/compiler@21.0.6)(typescript@5.9.3))(tslib@2.8.1)(typescript@5.9.3))(postcss@8.5.6)(sass-embedded@1.97.1)(terser@5.44.0)(tslib@2.8.1)(typescript@5.9.3)(vitest@4.0.16)(yaml@2.8.2)
       '@angular/compiler-cli': 21.0.6(@angular/compiler@21.0.6)(typescript@5.9.3)
       '@babel/core': 7.28.4
       '@babel/generator': 7.28.3
@@ -13652,7 +13732,7 @@ snapshots:
       eslint: 9.39.2(jiti@2.6.1)
       typescript: 5.9.3
 
-  '@angular/build@21.0.4(@angular/compiler-cli@21.0.6(@angular/compiler@21.0.6)(typescript@5.9.3))(@angular/compiler@21.0.6)(@angular/core@21.0.6(@angular/compiler@21.0.6)(rxjs@7.8.2))(@angular/platform-browser@21.0.6(@angular/common@21.0.6(@angular/core@21.0.6(@angular/compiler@21.0.6)(rxjs@7.8.2))(rxjs@7.8.2))(@angular/core@21.0.6(@angular/compiler@21.0.6)(rxjs@7.8.2)))(@angular/service-worker@21.0.6(@angular/core@21.0.6(@angular/compiler@21.0.6)(rxjs@7.8.2))(rxjs@7.8.2))(@types/node@25.0.3)(chokidar@4.0.3)(jiti@2.6.1)(less@4.4.2)(ng-packagr@21.0.1(@angular/compiler-cli@21.0.6(@angular/compiler@21.0.6)(typescript@5.9.3))(tslib@2.8.1)(typescript@5.9.3))(postcss@8.5.6)(sass-embedded@1.97.1)(terser@5.44.0)(tslib@2.8.1)(typescript@5.9.3)(vitest@4.0.16(@opentelemetry/api@1.9.0)(@types/node@25.0.3)(jiti@2.6.1)(jsdom@27.3.0)(less@4.5.1)(sass-embedded@1.97.1)(sass@1.97.1)(terser@5.44.0)(yaml@2.8.2))(yaml@2.8.2)':
+  '@angular/build@21.0.4(@angular/compiler-cli@21.0.6(@angular/compiler@21.0.6)(typescript@5.9.3))(@angular/compiler@21.0.6)(@angular/core@21.0.6(@angular/compiler@21.0.6)(rxjs@7.8.2))(@angular/platform-browser@21.0.6(@angular/common@21.0.6(@angular/core@21.0.6(@angular/compiler@21.0.6)(rxjs@7.8.2))(rxjs@7.8.2))(@angular/core@21.0.6(@angular/compiler@21.0.6)(rxjs@7.8.2)))(@angular/service-worker@21.0.6(@angular/core@21.0.6(@angular/compiler@21.0.6)(rxjs@7.8.2))(rxjs@7.8.2))(@types/node@25.0.3)(chokidar@4.0.3)(jiti@2.6.1)(less@4.4.2)(ng-packagr@21.0.1(@angular/compiler-cli@21.0.6(@angular/compiler@21.0.6)(typescript@5.9.3))(tslib@2.8.1)(typescript@5.9.3))(postcss@8.5.6)(sass-embedded@1.97.1)(terser@5.44.0)(tslib@2.8.1)(typescript@5.9.3)(vitest@4.0.16)(yaml@2.8.2)':
     dependencies:
       '@ampproject/remapping': 2.3.0
       '@angular-devkit/architect': 0.2100.4(chokidar@4.0.3)
@@ -13693,7 +13773,7 @@ snapshots:
       lmdb: 3.4.3
       ng-packagr: 21.0.1(@angular/compiler-cli@21.0.6(@angular/compiler@21.0.6)(typescript@5.9.3))(tslib@2.8.1)(typescript@5.9.3)
       postcss: 8.5.6
-      vitest: 4.0.16(@opentelemetry/api@1.9.0)(@types/node@25.0.3)(jiti@2.6.1)(jsdom@27.3.0)(less@4.5.1)(sass-embedded@1.97.1)(sass@1.97.1)(terser@5.44.0)(yaml@2.8.2)
+      vitest: 4.0.16(@opentelemetry/api@1.9.0)(@types/node@25.0.3)(@vitest/ui@4.0.16)(jiti@2.6.1)(jsdom@27.3.0)(less@4.5.1)(sass-embedded@1.97.1)(sass@1.97.1)(terser@5.44.0)(yaml@2.8.2)
     transitivePeerDependencies:
       - '@types/node'
       - chokidar
@@ -13707,7 +13787,7 @@ snapshots:
       - tsx
       - yaml
 
-  '@angular/build@21.0.4(@angular/compiler-cli@21.0.6(@angular/compiler@21.0.6)(typescript@5.9.3))(@angular/compiler@21.0.6)(@angular/core@21.0.6(@angular/compiler@21.0.6)(rxjs@7.8.2))(@angular/platform-browser@21.0.6(@angular/common@21.0.6(@angular/core@21.0.6(@angular/compiler@21.0.6)(rxjs@7.8.2))(rxjs@7.8.2))(@angular/core@21.0.6(@angular/compiler@21.0.6)(rxjs@7.8.2)))(@angular/service-worker@21.0.6(@angular/core@21.0.6(@angular/compiler@21.0.6)(rxjs@7.8.2))(rxjs@7.8.2))(@types/node@25.0.3)(chokidar@4.0.3)(jiti@2.6.1)(less@4.5.1)(ng-packagr@21.0.1(@angular/compiler-cli@21.0.6(@angular/compiler@21.0.6)(typescript@5.9.3))(tslib@2.8.1)(typescript@5.9.3))(postcss@8.5.6)(sass-embedded@1.97.1)(terser@5.44.0)(tslib@2.8.1)(typescript@5.9.3)(vitest@4.0.16(@opentelemetry/api@1.9.0)(@types/node@25.0.3)(jiti@2.6.1)(jsdom@27.3.0)(less@4.5.1)(sass-embedded@1.97.1)(sass@1.97.1)(terser@5.44.0)(yaml@2.8.2))(yaml@2.8.2)':
+  '@angular/build@21.0.4(@angular/compiler-cli@21.0.6(@angular/compiler@21.0.6)(typescript@5.9.3))(@angular/compiler@21.0.6)(@angular/core@21.0.6(@angular/compiler@21.0.6)(rxjs@7.8.2))(@angular/platform-browser@21.0.6(@angular/common@21.0.6(@angular/core@21.0.6(@angular/compiler@21.0.6)(rxjs@7.8.2))(rxjs@7.8.2))(@angular/core@21.0.6(@angular/compiler@21.0.6)(rxjs@7.8.2)))(@angular/service-worker@21.0.6(@angular/core@21.0.6(@angular/compiler@21.0.6)(rxjs@7.8.2))(rxjs@7.8.2))(@types/node@25.0.3)(chokidar@4.0.3)(jiti@2.6.1)(less@4.5.1)(ng-packagr@21.0.1(@angular/compiler-cli@21.0.6(@angular/compiler@21.0.6)(typescript@5.9.3))(tslib@2.8.1)(typescript@5.9.3))(postcss@8.5.6)(sass-embedded@1.97.1)(terser@5.44.0)(tslib@2.8.1)(typescript@5.9.3)(vitest@4.0.16)(yaml@2.8.2)':
     dependencies:
       '@ampproject/remapping': 2.3.0
       '@angular-devkit/architect': 0.2100.4(chokidar@4.0.3)
@@ -13748,7 +13828,7 @@ snapshots:
       lmdb: 3.4.3
       ng-packagr: 21.0.1(@angular/compiler-cli@21.0.6(@angular/compiler@21.0.6)(typescript@5.9.3))(tslib@2.8.1)(typescript@5.9.3)
       postcss: 8.5.6
-      vitest: 4.0.16(@opentelemetry/api@1.9.0)(@types/node@25.0.3)(jiti@2.6.1)(jsdom@27.3.0)(less@4.5.1)(sass-embedded@1.97.1)(sass@1.97.1)(terser@5.44.0)(yaml@2.8.2)
+      vitest: 4.0.16(@opentelemetry/api@1.9.0)(@types/node@25.0.3)(@vitest/ui@4.0.16)(jiti@2.6.1)(jsdom@27.3.0)(less@4.5.1)(sass-embedded@1.97.1)(sass@1.97.1)(terser@5.44.0)(yaml@2.8.2)
     transitivePeerDependencies:
       - '@types/node'
       - chokidar
@@ -16829,7 +16909,7 @@ snapshots:
       - '@swc/core'
       - debug
 
-  '@nx/angular@22.3.3(1051411f159da2793d577d90aa48a49c)':
+  '@nx/angular@22.3.3(20498e68e9a0f8bc9d924b06cac15d2e)':
     dependencies:
       '@angular-devkit/core': 21.0.4(chokidar@4.0.3)
       '@angular-devkit/schematics': 21.0.4(chokidar@4.0.3)
@@ -16853,8 +16933,8 @@ snapshots:
       tslib: 2.8.1
       webpack-merge: 5.10.0
     optionalDependencies:
-      '@angular-devkit/build-angular': 21.0.4(@angular/compiler-cli@21.0.6(@angular/compiler@21.0.6)(typescript@5.9.3))(@angular/compiler@21.0.6)(@angular/core@21.0.6(@angular/compiler@21.0.6)(rxjs@7.8.2))(@angular/platform-browser@21.0.6(@angular/common@21.0.6(@angular/core@21.0.6(@angular/compiler@21.0.6)(rxjs@7.8.2))(rxjs@7.8.2))(@angular/core@21.0.6(@angular/compiler@21.0.6)(rxjs@7.8.2)))(@angular/service-worker@21.0.6(@angular/core@21.0.6(@angular/compiler@21.0.6)(rxjs@7.8.2))(rxjs@7.8.2))(@rspack/core@1.6.8(@swc/helpers@0.5.17))(@swc/core@1.15.7(@swc/helpers@0.5.17))(@types/node@25.0.3)(chokidar@4.0.3)(jiti@2.6.1)(ng-packagr@21.0.1(@angular/compiler-cli@21.0.6(@angular/compiler@21.0.6)(typescript@5.9.3))(tslib@2.8.1)(typescript@5.9.3))(sass-embedded@1.97.1)(typescript@5.9.3)(vitest@4.0.16(@opentelemetry/api@1.9.0)(@types/node@25.0.3)(jiti@2.6.1)(jsdom@27.3.0)(less@4.5.1)(sass-embedded@1.97.1)(sass@1.97.1)(terser@5.44.0)(yaml@2.8.2))(yaml@2.8.2)
-      '@angular/build': 21.0.4(@angular/compiler-cli@21.0.6(@angular/compiler@21.0.6)(typescript@5.9.3))(@angular/compiler@21.0.6)(@angular/core@21.0.6(@angular/compiler@21.0.6)(rxjs@7.8.2))(@angular/platform-browser@21.0.6(@angular/common@21.0.6(@angular/core@21.0.6(@angular/compiler@21.0.6)(rxjs@7.8.2))(rxjs@7.8.2))(@angular/core@21.0.6(@angular/compiler@21.0.6)(rxjs@7.8.2)))(@angular/service-worker@21.0.6(@angular/core@21.0.6(@angular/compiler@21.0.6)(rxjs@7.8.2))(rxjs@7.8.2))(@types/node@25.0.3)(chokidar@4.0.3)(jiti@2.6.1)(less@4.5.1)(ng-packagr@21.0.1(@angular/compiler-cli@21.0.6(@angular/compiler@21.0.6)(typescript@5.9.3))(tslib@2.8.1)(typescript@5.9.3))(postcss@8.5.6)(sass-embedded@1.97.1)(terser@5.44.0)(tslib@2.8.1)(typescript@5.9.3)(vitest@4.0.16(@opentelemetry/api@1.9.0)(@types/node@25.0.3)(jiti@2.6.1)(jsdom@27.3.0)(less@4.5.1)(sass-embedded@1.97.1)(sass@1.97.1)(terser@5.44.0)(yaml@2.8.2))(yaml@2.8.2)
+      '@angular-devkit/build-angular': 21.0.4(@angular/compiler-cli@21.0.6(@angular/compiler@21.0.6)(typescript@5.9.3))(@angular/compiler@21.0.6)(@angular/core@21.0.6(@angular/compiler@21.0.6)(rxjs@7.8.2))(@angular/platform-browser@21.0.6(@angular/common@21.0.6(@angular/core@21.0.6(@angular/compiler@21.0.6)(rxjs@7.8.2))(rxjs@7.8.2))(@angular/core@21.0.6(@angular/compiler@21.0.6)(rxjs@7.8.2)))(@angular/service-worker@21.0.6(@angular/core@21.0.6(@angular/compiler@21.0.6)(rxjs@7.8.2))(rxjs@7.8.2))(@rspack/core@1.6.8(@swc/helpers@0.5.17))(@swc/core@1.15.7(@swc/helpers@0.5.17))(@types/node@25.0.3)(chokidar@4.0.3)(jiti@2.6.1)(ng-packagr@21.0.1(@angular/compiler-cli@21.0.6(@angular/compiler@21.0.6)(typescript@5.9.3))(tslib@2.8.1)(typescript@5.9.3))(sass-embedded@1.97.1)(typescript@5.9.3)(vitest@4.0.16)(yaml@2.8.2)
+      '@angular/build': 21.0.4(@angular/compiler-cli@21.0.6(@angular/compiler@21.0.6)(typescript@5.9.3))(@angular/compiler@21.0.6)(@angular/core@21.0.6(@angular/compiler@21.0.6)(rxjs@7.8.2))(@angular/platform-browser@21.0.6(@angular/common@21.0.6(@angular/core@21.0.6(@angular/compiler@21.0.6)(rxjs@7.8.2))(rxjs@7.8.2))(@angular/core@21.0.6(@angular/compiler@21.0.6)(rxjs@7.8.2)))(@angular/service-worker@21.0.6(@angular/core@21.0.6(@angular/compiler@21.0.6)(rxjs@7.8.2))(rxjs@7.8.2))(@types/node@25.0.3)(chokidar@4.0.3)(jiti@2.6.1)(less@4.5.1)(ng-packagr@21.0.1(@angular/compiler-cli@21.0.6(@angular/compiler@21.0.6)(typescript@5.9.3))(tslib@2.8.1)(typescript@5.9.3))(postcss@8.5.6)(sass-embedded@1.97.1)(terser@5.44.0)(tslib@2.8.1)(typescript@5.9.3)(vitest@4.0.16)(yaml@2.8.2)
       ng-packagr: 21.0.1(@angular/compiler-cli@21.0.6(@angular/compiler@21.0.6)(typescript@5.9.3))(tslib@2.8.1)(typescript@5.9.3)
     transitivePeerDependencies:
       - '@babel/traverse'
@@ -17242,7 +17322,31 @@ snapshots:
       - webpack-cli
       - webpack-hot-middleware
 
-  '@nx/vitest@22.3.3(@babel/traverse@7.28.5)(@swc-node/register@1.11.1(@swc/core@1.15.7(@swc/helpers@0.5.17))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.7(@swc/helpers@0.5.17))(nx@22.3.3(@swc-node/register@1.11.1(@swc/core@1.15.7(@swc/helpers@0.5.17))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.7(@swc/helpers@0.5.17)))(typescript@5.9.3)(vite@7.3.0(@types/node@25.0.3)(jiti@2.6.1)(less@4.5.1)(sass-embedded@1.97.1)(sass@1.97.1)(terser@5.44.0)(yaml@2.8.2))(vitest@4.0.16(@opentelemetry/api@1.9.0)(@types/node@25.0.3)(jiti@2.6.1)(jsdom@27.3.0)(less@4.5.1)(sass-embedded@1.97.1)(sass@1.97.1)(terser@5.44.0)(yaml@2.8.2))':
+  '@nx/vite@22.3.3(@babel/traverse@7.28.5)(@swc-node/register@1.11.1(@swc/core@1.15.7(@swc/helpers@0.5.17))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.7(@swc/helpers@0.5.17))(nx@22.3.3(@swc-node/register@1.11.1(@swc/core@1.15.7(@swc/helpers@0.5.17))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.7(@swc/helpers@0.5.17)))(typescript@5.9.3)(vite@7.3.0(@types/node@25.0.3)(jiti@2.6.1)(less@4.5.1)(sass-embedded@1.97.1)(sass@1.97.1)(terser@5.44.0)(yaml@2.8.2))(vitest@4.0.16)':
+    dependencies:
+      '@nx/devkit': 22.3.3(nx@22.3.3(@swc-node/register@1.11.1(@swc/core@1.15.7(@swc/helpers@0.5.17))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.7(@swc/helpers@0.5.17)))
+      '@nx/js': 22.3.3(@babel/traverse@7.28.5)(@swc-node/register@1.11.1(@swc/core@1.15.7(@swc/helpers@0.5.17))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.7(@swc/helpers@0.5.17))(nx@22.3.3(@swc-node/register@1.11.1(@swc/core@1.15.7(@swc/helpers@0.5.17))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.7(@swc/helpers@0.5.17)))
+      '@nx/vitest': 22.3.3(@babel/traverse@7.28.5)(@swc-node/register@1.11.1(@swc/core@1.15.7(@swc/helpers@0.5.17))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.7(@swc/helpers@0.5.17))(nx@22.3.3(@swc-node/register@1.11.1(@swc/core@1.15.7(@swc/helpers@0.5.17))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.7(@swc/helpers@0.5.17)))(typescript@5.9.3)(vite@7.3.0(@types/node@25.0.3)(jiti@2.6.1)(less@4.5.1)(sass-embedded@1.97.1)(sass@1.97.1)(terser@5.44.0)(yaml@2.8.2))(vitest@4.0.16)
+      '@phenomnomnominal/tsquery': 5.0.1(typescript@5.9.3)
+      ajv: 8.17.1
+      enquirer: 2.3.6
+      picomatch: 4.0.2
+      semver: 7.7.3
+      tsconfig-paths: 4.2.0
+      tslib: 2.8.1
+      vite: 7.3.0(@types/node@25.0.3)(jiti@2.6.1)(less@4.5.1)(sass-embedded@1.97.1)(sass@1.97.1)(terser@5.44.0)(yaml@2.8.2)
+      vitest: 4.0.16(@opentelemetry/api@1.9.0)(@types/node@25.0.3)(@vitest/ui@4.0.16)(jiti@2.6.1)(jsdom@27.3.0)(less@4.5.1)(sass-embedded@1.97.1)(sass@1.97.1)(terser@5.44.0)(yaml@2.8.2)
+    transitivePeerDependencies:
+      - '@babel/traverse'
+      - '@swc-node/register'
+      - '@swc/core'
+      - debug
+      - nx
+      - supports-color
+      - typescript
+      - verdaccio
+
+  '@nx/vitest@22.3.3(@babel/traverse@7.28.5)(@swc-node/register@1.11.1(@swc/core@1.15.7(@swc/helpers@0.5.17))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.7(@swc/helpers@0.5.17))(nx@22.3.3(@swc-node/register@1.11.1(@swc/core@1.15.7(@swc/helpers@0.5.17))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.7(@swc/helpers@0.5.17)))(typescript@5.9.3)(vite@7.3.0(@types/node@25.0.3)(jiti@2.6.1)(less@4.5.1)(sass-embedded@1.97.1)(sass@1.97.1)(terser@5.44.0)(yaml@2.8.2))(vitest@4.0.16)':
     dependencies:
       '@nx/devkit': 22.3.3(nx@22.3.3(@swc-node/register@1.11.1(@swc/core@1.15.7(@swc/helpers@0.5.17))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.7(@swc/helpers@0.5.17)))
       '@nx/js': 22.3.3(@babel/traverse@7.28.5)(@swc-node/register@1.11.1(@swc/core@1.15.7(@swc/helpers@0.5.17))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.7(@swc/helpers@0.5.17))(nx@22.3.3(@swc-node/register@1.11.1(@swc/core@1.15.7(@swc/helpers@0.5.17))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.7(@swc/helpers@0.5.17)))
@@ -17251,7 +17355,7 @@ snapshots:
       tslib: 2.8.1
     optionalDependencies:
       vite: 7.3.0(@types/node@25.0.3)(jiti@2.6.1)(less@4.5.1)(sass-embedded@1.97.1)(sass@1.97.1)(terser@5.44.0)(yaml@2.8.2)
-      vitest: 4.0.16(@opentelemetry/api@1.9.0)(@types/node@25.0.3)(jiti@2.6.1)(jsdom@27.3.0)(less@4.5.1)(sass-embedded@1.97.1)(sass@1.97.1)(terser@5.44.0)(yaml@2.8.2)
+      vitest: 4.0.16(@opentelemetry/api@1.9.0)(@types/node@25.0.3)(@vitest/ui@4.0.16)(jiti@2.6.1)(jsdom@27.3.0)(less@4.5.1)(sass-embedded@1.97.1)(sass@1.97.1)(terser@5.44.0)(yaml@2.8.2)
     transitivePeerDependencies:
       - '@babel/traverse'
       - '@swc-node/register'
@@ -17994,6 +18098,13 @@ snapshots:
 
   '@trysound/sax@0.2.0': {}
 
+  '@ts-morph/common@0.22.0':
+    dependencies:
+      fast-glob: 3.3.3
+      minimatch: 9.0.5
+      mkdirp: 3.0.1
+      path-browserify: 1.0.1
+
   '@ts-morph/common@0.28.1':
     dependencies:
       minimatch: 10.1.1
@@ -18422,7 +18533,7 @@ snapshots:
     dependencies:
       vite: 7.2.2(@types/node@25.0.3)(jiti@2.6.1)(less@4.5.1)(sass-embedded@1.97.1)(sass@1.93.2)(terser@5.44.0)(yaml@2.8.2)
 
-  '@vitest/coverage-v8@4.0.16(vitest@4.0.16(@opentelemetry/api@1.9.0)(@types/node@25.0.3)(jiti@2.6.1)(jsdom@27.3.0)(less@4.5.1)(sass-embedded@1.97.1)(sass@1.97.1)(terser@5.44.0)(yaml@2.8.2))':
+  '@vitest/coverage-v8@4.0.16(vitest@4.0.16)':
     dependencies:
       '@bcoe/v8-coverage': 1.0.2
       '@vitest/utils': 4.0.16
@@ -18435,7 +18546,7 @@ snapshots:
       obug: 2.1.1
       std-env: 3.10.0
       tinyrainbow: 3.0.3
-      vitest: 4.0.16(@opentelemetry/api@1.9.0)(@types/node@25.0.3)(jiti@2.6.1)(jsdom@27.3.0)(less@4.5.1)(sass-embedded@1.97.1)(sass@1.97.1)(terser@5.44.0)(yaml@2.8.2)
+      vitest: 4.0.16(@opentelemetry/api@1.9.0)(@types/node@25.0.3)(@vitest/ui@4.0.16)(jiti@2.6.1)(jsdom@27.3.0)(less@4.5.1)(sass-embedded@1.97.1)(sass@1.97.1)(terser@5.44.0)(yaml@2.8.2)
     transitivePeerDependencies:
       - supports-color
 
@@ -18472,6 +18583,17 @@ snapshots:
       pathe: 2.0.3
 
   '@vitest/spy@4.0.16': {}
+
+  '@vitest/ui@4.0.16(vitest@4.0.16)':
+    dependencies:
+      '@vitest/utils': 4.0.16
+      fflate: 0.8.2
+      flatted: 3.3.3
+      pathe: 2.0.3
+      sirv: 3.0.2
+      tinyglobby: 0.2.15
+      tinyrainbow: 3.0.3
+      vitest: 4.0.16(@opentelemetry/api@1.9.0)(@types/node@25.0.3)(@vitest/ui@4.0.16)(jiti@2.6.1)(jsdom@27.3.0)(less@4.5.1)(sass-embedded@1.97.1)(sass@1.97.1)(terser@5.44.0)(yaml@2.8.2)
 
   '@vitest/utils@4.0.16':
     dependencies:
@@ -19425,6 +19547,8 @@ snapshots:
   clone@1.0.4: {}
 
   co@4.6.0: {}
+
+  code-block-writer@12.0.0: {}
 
   code-block-writer@13.0.3: {}
 
@@ -20674,6 +20798,8 @@ snapshots:
       node-domexception: 1.0.0
       web-streams-polyfill: 3.3.3
 
+  fflate@0.8.2: {}
+
   figures@3.2.0:
     dependencies:
       escape-string-regexp: 1.0.5
@@ -21149,7 +21275,7 @@ snapshots:
       fs.realpath: 1.0.0
       inflight: 1.0.6
       inherits: 2.0.4
-      minimatch: 3.0.5
+      minimatch: 3.1.2
       once: 1.4.0
       path-is-absolute: 1.0.1
 
@@ -22866,6 +22992,8 @@ snapshots:
   minizlib@3.1.0:
     dependencies:
       minipass: 7.1.2
+
+  mkdirp@3.0.1: {}
 
   mocha@10.8.2:
     dependencies:
@@ -25541,6 +25669,11 @@ snapshots:
       typescript: 5.9.3
       webpack: 5.104.1(@swc/core@1.15.7(@swc/helpers@0.5.17))
 
+  ts-morph@21.0.1:
+    dependencies:
+      '@ts-morph/common': 0.22.0
+      code-block-writer: 12.0.0
+
   ts-morph@27.0.2:
     dependencies:
       '@ts-morph/common': 0.28.1
@@ -25874,7 +26007,7 @@ snapshots:
       terser: 5.44.0
       yaml: 2.8.2
 
-  vitest@4.0.16(@opentelemetry/api@1.9.0)(@types/node@25.0.3)(jiti@2.6.1)(jsdom@27.3.0)(less@4.5.1)(sass-embedded@1.97.1)(sass@1.97.1)(terser@5.44.0)(yaml@2.8.2):
+  vitest@4.0.16(@opentelemetry/api@1.9.0)(@types/node@25.0.3)(@vitest/ui@4.0.16)(jiti@2.6.1)(jsdom@27.3.0)(less@4.5.1)(sass-embedded@1.97.1)(sass@1.97.1)(terser@5.44.0)(yaml@2.8.2):
     dependencies:
       '@vitest/expect': 4.0.16
       '@vitest/mocker': 4.0.16(vite@7.3.0(@types/node@25.0.3)(jiti@2.6.1)(less@4.5.1)(sass-embedded@1.97.1)(sass@1.97.1)(terser@5.44.0)(yaml@2.8.2))
@@ -25899,6 +26032,7 @@ snapshots:
     optionalDependencies:
       '@opentelemetry/api': 1.9.0
       '@types/node': 25.0.3
+      '@vitest/ui': 4.0.16(vitest@4.0.16)
       jsdom: 27.3.0
     transitivePeerDependencies:
       - jiti
