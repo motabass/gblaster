@@ -12,6 +12,9 @@
   },
   "targets": {
     "test": {
+      "options": {
+        "passWithNoTests": true
+      },
       "configurations": {
         "watch": {
           "watch": true,

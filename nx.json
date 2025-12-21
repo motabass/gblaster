@@ -153,8 +153,7 @@
       "plugin": "@nx/vitest",
       "options": {
         "testTargetName": "test",
-        "testMode": "run",
-        "passWithNoTests": true
+        "testMode": "run"
       }
     }
   ]
