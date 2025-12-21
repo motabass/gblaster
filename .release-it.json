@@ -14,7 +14,7 @@
     "after:release": "echo Successfully released ${name} v${version} to ${repo.repository}."
   },
   "git": {
-    "commitMessage": "release: ${version}",
+    "commitMessage": "chore(release): ${version}",
     "tagName": "${version}",
     "requireBranch": "main",
     "requireCleanWorkingDir": false,
