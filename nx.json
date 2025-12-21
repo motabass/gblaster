@@ -141,7 +141,7 @@
   },
   "parallel": 1,
   "defaultBase": "main",
-  "neverConnectToCloud": false,
+  "neverConnectToCloud": true,
   "plugins": [
     {
       "plugin": "@nx/eslint/plugin",
@@ -163,6 +163,5 @@
         }
       }
     }
-  ],
-  "nxCloudId": "60fb579c9d3cca5f9f2411ce"
+  ]
 }
