@@ -24,21 +24,12 @@
       }
     },
     "test": {
-      "executor": "@nx/vitest:test",
-      "inputs": [
-        "default",
-        "^production",
-        {
-          "externalDependencies": ["vitest"]
-        }
-      ],
-      "options": {
-        "passWithNoTests": true
-      },
-      "outputs": ["{workspaceRoot}/coverage/libs/ui-components/file-drop-overlay", "{projectRoot}/coverage"],
       "configurations": {
+        "watch": {
+          "watch": true,
+          "ui": true
+        },
         "ci": {
-          "ci": true,
           "coverage": true
         }
       }

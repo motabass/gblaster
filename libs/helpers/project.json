@@ -6,21 +6,12 @@
   "tags": ["lib", "helper", "ts"],
   "targets": {
     "test": {
-      "executor": "@nx/vitest:test",
-      "inputs": [
-        "default",
-        "^production",
-        {
-          "externalDependencies": ["vitest"]
-        }
-      ],
-      "outputs": ["{workspaceRoot}/coverage/{projectRoot}", "{projectRoot}/coverage"],
-      "options": {
-        "passWithNoTests": true
-      },
       "configurations": {
+        "watch": {
+          "watch": true,
+          "ui": true
+        },
         "ci": {
-          "ci": true,
           "coverage": true
         }
       }

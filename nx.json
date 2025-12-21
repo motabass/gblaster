@@ -155,12 +155,6 @@
         "testTargetName": "test",
         "testMode": "run",
         "passWithNoTests": true
-      },
-      "configurations": {
-        "ci": {
-          "ci": true,
-          "coverage": true
-        }
       }
     }
   ]
