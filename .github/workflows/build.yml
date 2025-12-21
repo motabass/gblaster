@@ -1,7 +1,5 @@
-# This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
-# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
-
 name: Build Pipeline
+
 permissions:
   contents: read
 
@@ -11,25 +9,106 @@ on:
   pull_request:
     branches: [main]
 
+# Prevent duplicate runs on the same PR/branch
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
 env:
   NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
 
 jobs:
   build:
+    name: Build
     runs-on: ubuntu-24.04
+    timeout-minutes: 15
     steps:
       - name: Checkout
         uses: actions/checkout@v6
+        with:
+          fetch-depth: 0 # Required for Nx affected commands
+
       - name: Install pnpm
         uses: pnpm/action-setup@v4
         with:
           version: 10
           run_install: false
+
       - name: Setup NodeJS
         uses: actions/setup-node@v6
         with:
           node-version: 25
           cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+        env:
+          CI: true
+
+      - name: Build
+        run: pnpm run ci:build
+        env:
+          CI: true
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist/
+          retention-days: 1
+
+  unit-tests:
+    name: Unit Tests
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    needs: build
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+          run_install: false
+
+      - name: Setup NodeJS
+        uses: actions/setup-node@v6
+        with:
+          node-version: 25
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+        env:
+          CI: true
+
+      - name: Vitest Tests
+        run: pnpm run test:all
+        env:
+          CI: true
+
+  e2e-tests:
+    name: E2E Tests
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    needs: build
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+          run_install: false
+
+      - name: Setup NodeJS
+        uses: actions/setup-node@v6
+        with:
+          node-version: 25
+          cache: 'pnpm'
+
       - name: Cache Cypress Binary
         uses: actions/cache@v5
         with:
@@ -37,19 +116,35 @@ jobs:
           key: cypress-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
           restore-keys: |
             cypress-${{ runner.os }}-
+
       - name: Install dependencies
-        run: pnpm install
+        run: pnpm install --frozen-lockfile
         env:
           CI: true
-      - name: Build
-        run: pnpm run ci:build
-        env:
-          CI: true
-      - name: Cypress E2E-Tests
+
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist/
+
+      - name: Cypress E2E Tests
         run: pnpm run ci:e2e
         env:
           CI: true
-      - name: Vitest-Tests
-        run: pnpm run test:all
-        env:
-          CI: true
+
+      - name: Upload Cypress Screenshots on Failure
+        uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: cypress-screenshots
+          path: apps/gblaster/cypress/screenshots
+          retention-days: 7
+
+      - name: Upload Cypress Videos
+        uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: cypress-videos
+          path: apps/gblaster/cypress/videos
+          retention-days: 7

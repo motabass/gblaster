@@ -1,6 +1,3 @@
-# This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
-# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
-
 name: Deploy Pipeline
 
 permissions:
@@ -10,25 +7,104 @@ on:
   release:
     types: [created]
 
+# Prevent duplicate runs
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false # Don't cancel deploys
+
 env:
   NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
 
 jobs:
-  deploy:
+  build:
+    name: Build
     runs-on: ubuntu-24.04
+    timeout-minutes: 15
     steps:
       - name: Checkout
         uses: actions/checkout@v6
+
       - name: Install pnpm
         uses: pnpm/action-setup@v4
         with:
           version: 10
           run_install: false
+
       - name: Setup NodeJS
         uses: actions/setup-node@v6
         with:
           node-version: 25
           cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+        env:
+          CI: true
+
+      - name: Build
+        run: pnpm run ci:build
+        env:
+          CI: true
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist/
+          retention-days: 1
+
+  unit-tests:
+    name: Unit Tests
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    needs: build
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+          run_install: false
+
+      - name: Setup NodeJS
+        uses: actions/setup-node@v6
+        with:
+          node-version: 25
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+        env:
+          CI: true
+
+      - name: Vitest Tests
+        run: pnpm run test:all
+        env:
+          CI: true
+
+  e2e-tests:
+    name: E2E Tests
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    needs: build
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+          run_install: false
+
+      - name: Setup NodeJS
+        uses: actions/setup-node@v6
+        with:
+          node-version: 25
+          cache: 'pnpm'
+
       - name: Cache Cypress Binary
         uses: actions/cache@v5
         with:
@@ -36,25 +112,41 @@ jobs:
           key: cypress-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
           restore-keys: |
             cypress-${{ runner.os }}-
+
       - name: Install dependencies
-        run: pnpm install
+        run: pnpm install --frozen-lockfile
         env:
           CI: true
-      - name: Build
-        run: pnpm run ci:build
-        env:
-          CI: true
-      - name: Cypress E2E-Tests
+
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist/
+
+      - name: Cypress E2E Tests
         run: pnpm run ci:e2e
         env:
           CI: true
-      - name: Vitest-Tests
-        run: pnpm run test:all
-        env:
-          CI: true
+
+  deploy:
+    name: Deploy to Firebase
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    needs: [unit-tests, e2e-tests]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist/
+
       - name: Deploy
         uses: w9jds/firebase-action@v15.1.0
         with:
           args: deploy --project gblaster-player --only hosting
         env:
-          GCP_SA_KEY: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_GBLASTER_PLAYER}}
+          GCP_SA_KEY: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_GBLASTER_PLAYER }}
