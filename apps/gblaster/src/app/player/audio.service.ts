@@ -1,4 +1,4 @@
-import { computed, inject, Injectable, signal } from '@angular/core';
+import { computed, inject, Injectable, Signal, signal } from '@angular/core';
 import { LocalStorageService } from 'ngx-webstorage';
 import { FREQUENCY_BANDS, FrequencyBand } from './player.types';
 import { Subject } from 'rxjs';
@@ -13,13 +13,13 @@ export class AudioService {
   private readonly localStorageService = inject(LocalStorageService);
 
   // Core audio elements
-  private _audioElement: HTMLAudioElement;
-  private _audioContext: AudioContext;
-  private _audioSourceNode: MediaElementAudioSourceNode;
-  private _gainNode: GainNode;
-  private _eqGainNode: GainNode;
-  private _frequencyFilters: { [band: number]: BiquadFilterNode } = {};
-  private _connectedAnalyzers = new Set<AnalyserNode>();
+  private readonly _audioElement: HTMLAudioElement;
+  private readonly _audioContext: AudioContext;
+  private readonly _gainNode: GainNode;
+  private readonly _eqGainNode: GainNode;
+  private readonly _frequencyFilters: Record<FrequencyBand, BiquadFilterNode>;
+  private readonly _connectedAnalyzers = new Set<AnalyserNode>();
+  private readonly _frequencyBandGainSignals = new Map<FrequencyBand, Signal<number>>();
 
   // State signals
   readonly isLoading = signal(false);
@@ -49,11 +49,9 @@ export class AudioService {
       } as EqualizerGainValues)
   );
 
-  private readonly _hasEnded = new Subject<boolean>();
+  private readonly _hasEnded = new Subject<void>();
 
-  get hasEnded$() {
-    return this._hasEnded.asObservable();
-  }
+  readonly hasEnded$ = this._hasEnded.asObservable();
 
   constructor() {
     // create audio element
@@ -94,19 +92,15 @@ export class AudioService {
     gain.gain.value = this.volume();
 
     this._audioElement = audioElement;
-    this._audioSourceNode = audioSource;
     this._audioContext = audioContext;
     this._eqGainNode = eqGain;
     this._gainNode = gain;
 
     this._audioElement.addEventListener('error', (error) => {
-      console.error(error);
+      // eslint-disable-next-line no-console
+      console.error('Audio element error:', error);
       this.isLoading.set(false);
     });
-
-    // this._audioElement.addEventListener('loadeddata', (error) => {
-    //
-    // });
 
     this._audioElement.addEventListener('loadstart', () => {
       this.isLoading.set(true);
@@ -138,7 +132,7 @@ export class AudioService {
     });
 
     this._audioElement.addEventListener('ended', () => {
-      this._hasEnded.next(true);
+      this._hasEnded.next();
     });
   }
 
@@ -167,7 +161,9 @@ export class AudioService {
   setFileAsSource(file: File) {
     const oldSource = this._audioElement.src;
     this._audioElement.src = URL.createObjectURL(file);
-    URL.revokeObjectURL(oldSource);
+    if (oldSource.startsWith('blob:')) {
+      URL.revokeObjectURL(oldSource);
+    }
   }
 
   async play() {
@@ -205,12 +201,17 @@ export class AudioService {
     }
   }
 
-  getFrequencyBandGainSignal(bandFrequency: FrequencyBand) {
-    return computed(() => this.equalizerGainValues()[bandFrequency]);
+  getFrequencyBandGainSignal(bandFrequency: FrequencyBand): Signal<number> {
+    let bandGainSignal = this._frequencyBandGainSignals.get(bandFrequency);
+    if (!bandGainSignal) {
+      bandGainSignal = computed(() => this.equalizerGainValues()[bandFrequency]);
+      this._frequencyBandGainSignals.set(bandFrequency, bandGainSignal);
+    }
+    return bandGainSignal;
   }
 
   setFrequencyBandGain(bandFrequency: FrequencyBand, gainValue: number) {
-    this._frequencyFilters[bandFrequency].gain.value = gainValue;
+    this._frequencyFilters[bandFrequency].gain.setTargetAtTime(gainValue, this._audioContext.currentTime, 0.01);
 
     const bandGains = structuredClone(this.equalizerGainValues());
     bandGains[bandFrequency] = gainValue;
@@ -225,14 +226,14 @@ export class AudioService {
 
   setVolume(value: number) {
     if (value >= 0 && value <= 1) {
-      this._gainNode.gain.value = value;
+      this._gainNode.gain.setTargetAtTime(value, this._audioContext.currentTime, 0.01);
       this.volume.set(value);
       this.localStorageService.store('volume', value);
     }
   }
 
   setBaseGain(volume: number) {
-    this._eqGainNode.gain.value = volume;
+    this._eqGainNode.gain.setTargetAtTime(volume, this._audioContext.currentTime, 0.01);
     this.baseGain.set(volume);
     this.localStorageService.store('baseGain', volume);
   }

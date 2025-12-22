@@ -1,4 +1,4 @@
-import { FREQUENCY_BANDS } from './player.types';
+import { FREQUENCY_BANDS, FrequencyBand } from './player.types';
 
 /**
  * Creates an equalizer chain of BiquadFilterNodes for an audio context
@@ -8,9 +8,9 @@ import { FREQUENCY_BANDS } from './player.types';
 export function createEqualizer(audioContext: AudioContext): {
   eqInput: AudioNode;
   eqOutput: AudioNode;
-  frequencyFilters: { [band: number]: BiquadFilterNode };
+  frequencyFilters: Record<FrequencyBand, BiquadFilterNode>;
 } {
-  const frequencyFilters: { [band: number]: BiquadFilterNode } = {};
+  const frequencyFilters: Partial<Record<FrequencyBand, BiquadFilterNode>> = {};
   const input = audioContext.createGain();
   input.gain.value = 1;
 
@@ -48,5 +48,9 @@ export function createEqualizer(audioContext: AudioContext): {
     output = filter;
   }
 
-  return { eqInput: input, eqOutput: output, frequencyFilters };
+  return {
+    eqInput: input,
+    eqOutput: output,
+    frequencyFilters: frequencyFilters as Record<FrequencyBand, BiquadFilterNode>
+  };
 }
