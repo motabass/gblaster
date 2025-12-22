@@ -3,7 +3,7 @@ import { provideServiceWorker } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { provideNgxWebstorage, withLocalStorage, withNgxWebstorageConfig } from 'ngx-webstorage';
 import { provideIndexedDb } from 'ngx-indexed-db';
-import { provideRouter, withEnabledBlockingInitialNavigation, withViewTransitions } from '@angular/router';
+import { provideRouter, withViewTransitions } from '@angular/router';
 import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
 import { loaderInterceptor } from './services/loader/loader.interceptor';
 import { MAT_TOOLTIP_DEFAULT_OPTIONS } from '@angular/material/tooltip';
@@ -36,7 +36,7 @@ export const appConfig: ApplicationConfig = {
       withLocalStorage()
     ),
     provideHttpClient(withInterceptors([loaderInterceptor]), withFetch()),
-    provideRouter(routes, withEnabledBlockingInitialNavigation(), withViewTransitions()),
+    provideRouter(routes, withViewTransitions()),
     { provide: GamepadService, useFactory: gamepadServiceFactory },
     { provide: HotkeysService, useFactory: hotkeysServiceFactory },
     { provide: WakelockService, useFactory: wakelockServiceFactory },

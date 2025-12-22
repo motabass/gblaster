@@ -81,13 +81,14 @@ export default class EqualizerComponent {
     ctx.strokeStyle = this.themeService.primaryColor();
     ctx.lineWidth = 3;
 
-    const freqPoints: { x: number; y: number }[] = [];
+    const freqPoints: { x: number; y: number }[] = [
+      {
+        x: 0,
+        y: height / 2 - ((eqValues[this.BANDS[0]] + (gainValue - 1) * 12) * height) / 24
+      }
+    ];
 
     // Start with the lowest frequency
-    freqPoints.push({
-      x: 0,
-      y: height / 2 - ((eqValues[this.BANDS[0]] + (gainValue - 1) * 12) * height) / 24
-    });
 
     // Draw points for each frequency band with gain applied
     for (const freq of this.BANDS) {

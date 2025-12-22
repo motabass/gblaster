@@ -1,9 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
-
 import { TitleService } from '../services/title.service';
-
 import { CoverDisplayComponent } from './cover-display/cover-display.component';
-
 import { PlaylistComponent } from './playlist/playlist.component';
 
 @Component({
