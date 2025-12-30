@@ -1,5 +1,5 @@
 [tools]
 node = "25.2.1"
-pnpm = "10.26.1"
+pnpm = "10.26.2"
 "npm:nx" = "latest"
 
