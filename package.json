@@ -37,7 +37,7 @@
     "prettier": "prettier --config ./.prettierrc --write \"{apps,libs,tools,.github}/**/*.{scss,html,ts,js,json,md,yml,yaml,css}\"",
     "update:all:safe": "ncu -ui --format group --peer",
     "update:all": "pnpm update --latest --interactive",
-    "update:all:ncu": "pnpm dlx ncu -ui --format group",
+    "update:all:ncu": "pnpm dlx npm-check-updates -ui --format group",
     "update:angular-cli": "nx migrate @angular/cli",
     "update:angular": "nx migrate @angular/core",
     "update:angular-material": "nx migrate @angular/material --from @angular/material@20.0.0",
