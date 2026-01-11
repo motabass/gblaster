@@ -53,8 +53,8 @@ importers:
         specifier: 11.10.5
         version: 11.10.5
       musicbrainz-api:
-        specifier: 0.27.1
-        version: 0.27.1
+        specifier: 1.0.0
+        version: 1.0.0
       ngx-date-fns:
         specifier: 12.0.1
         version: 12.0.1(@angular/common@21.0.8(@angular/core@21.0.8(@angular/compiler@21.0.8)(rxjs@7.8.2))(rxjs@7.8.2))(@angular/core@21.0.8(@angular/compiler@21.0.8)(rxjs@7.8.2))(date-fns@4.1.0)
@@ -9958,9 +9958,9 @@ packages:
       { integrity: sha512-G0i86zpL7AARmZx8XEkHBVf7rJMQDFfGEFc1C83//rKHGuaK0gwxmNNeo9mjm4g07KUwoT0s0dW7g5QwZhi+qQ== }
     engines: { node: '>=18' }
 
-  musicbrainz-api@0.27.1:
+  musicbrainz-api@1.0.0:
     resolution:
-      { integrity: sha512-K+30W6UYqmKepF4UV9OydLwbLa4UNppdqL3AqcVm7tb6rFrjEmyAtdPGeHD1qsyTNdsqM1PjCor4G+7HlyEKlQ== }
+      { integrity: sha512-WfBwhrKgNijTLIA/43Z1x0HytYorzXwqw6Llk19RYzkkK4QiQiCVzP+B9KTR8jrv4TeqrVc3TpeyVOmKS1Nhow== }
     engines: { node: ^14.13.1 || >=16.0.0 }
 
   mute-stream@2.0.0:
@@ -23545,7 +23545,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  musicbrainz-api@0.27.1:
+  musicbrainz-api@1.0.0:
     dependencies:
       debug: 4.4.3(supports-color@8.1.1)
       http-status-codes: 2.3.0
