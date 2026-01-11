@@ -21,3 +21,4 @@ onlyBuiltDependencies:
   - nx
 
 blockExoticSubdeps: true
+autoInstallPeers: false
