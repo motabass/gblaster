@@ -137,7 +137,7 @@
     "ng-packagr": "21.0.1",
     "nx": "22.3.3",
     "nx-stylelint": "18.0.2",
-    "postcss-html": "1.8.0",
+    "postcss-html": "1.8.1",
     "prettier": "3.7.4",
     "release-it": "19.2.3",
     "stylelint": "16.26.1",
