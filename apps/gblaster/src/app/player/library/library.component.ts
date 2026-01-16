@@ -11,7 +11,7 @@ import { MatFormField, MatHint, MatInput, MatPrefix, MatSuffix } from '@angular/
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { LibraryService } from './library.service';
 import { Album } from './library.types';
-import { debounce, Field, form } from '@angular/forms/signals';
+import { debounce, form, FormField } from '@angular/forms/signals';
 import Fuse from 'fuse.js';
 
 @Component({
@@ -37,7 +37,7 @@ import Fuse from 'fuse.js';
     MatPrefix,
     MatSuffix,
     MatProgressSpinner,
-    Field
+    FormField
   ],
   templateUrl: './library.component.html',
   styleUrl: './library.component.scss'
