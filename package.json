@@ -139,7 +139,7 @@
     "nx-stylelint": "18.0.2",
     "postcss-html": "1.8.1",
     "prettier": "3.8.0",
-    "release-it": "19.2.3",
+    "release-it": "19.2.4",
     "stylelint": "17.0.0",
     "stylelint-config-html": "1.1.0",
     "stylelint-config-recommended": "18.0.0",
