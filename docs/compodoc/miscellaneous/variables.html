@@ -897,7 +897,7 @@
       withLocalStorage()
     ),
     provideHttpClient(withInterceptors([loaderInterceptor]), withFetch()),
-    provideRouter(routes, withViewTransitions()),
+    provideRouter(routes, withViewTransitions(), withExperimentalPlatformNavigation()),
     { provide: GamepadService, useFactory: gamepadServiceFactory },
     { provide: HotkeysService, useFactory: hotkeysServiceFactory },
     { provide: WakelockService, useFactory: wakelockServiceFactory },
