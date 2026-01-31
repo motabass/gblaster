@@ -21,7 +21,8 @@ export const ANGULAR_ESLINT_TS_RULES = {
   '@angular-eslint/prefer-signals': 'error',
   '@angular-eslint/no-uncalled-signals': 'error',
   '@angular-eslint/sort-keys-in-type-decorator': 'error',
-  '@angular-eslint/prefer-host-metadata-property': 'error'
+  '@angular-eslint/prefer-host-metadata-property': 'error',
+  '@angular-eslint/no-implicit-take-until-destroyed': 'error'
 };
 
 export const ANGULAR_ESLINT_TEMPLATE_RULES = {
@@ -43,11 +44,12 @@ export const ANGULAR_ESLINT_TEMPLATE_RULES = {
   'unicorn/no-empty-file': 'off',
   '@angular-eslint/template/banana-in-box': 'error',
   '@angular-eslint/template/no-inline-styles': 'warn',
-  '@angular-eslint/template/conditional-complexity': ['warn', { maxComplexity: 10 }],
-  '@angular-eslint/template/cyclomatic-complexity': ['warn', { maxComplexity: 10 }],
+  '@angular-eslint/template/conditional-complexity': ['warn', { maxComplexity: 15 }],
+  '@angular-eslint/template/cyclomatic-complexity': ['warn', { maxComplexity: 15 }],
   '@angular-eslint/template/eqeqeq': 'error',
   '@angular-eslint/template/no-negated-async': 'error',
-  'unicorn/prefer-string-raw': 'off'
+  'unicorn/prefer-string-raw': 'off',
+  '@angular-eslint/template/prefer-class-binding': 'error'
 };
 
 const DEFAULT_UNICORN_RULE_OVERRIDES = {
