@@ -85,10 +85,14 @@
       }
     },
     "test": {
+      "executor": "@angular/build:unit-test",
+      "options": {
+        "tsConfig": "apps/gblaster/tsconfig.spec.json",
+        "buildTarget": "gblaster:build"
+      },
       "configurations": {
         "watch": {
-          "watch": true,
-          "ui": true
+          "watch": true
         },
         "ci": {
           "coverage": true

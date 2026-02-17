@@ -12,7 +12,7 @@
   },
   "targets": {
     "build": {
-      "executor": "@nx/angular:ng-packagr-lite",
+      "executor": "@angular/build:ng-packagr",
       "options": {
         "tsConfig": "libs/ui-components/slide-panel/tsconfig.lib.json",
         "project": "libs/ui-components/slide-panel/ng-package.json"
@@ -24,13 +24,14 @@
       }
     },
     "test": {
+      "executor": "@angular/build:unit-test",
       "options": {
-        "passWithNoTests": true
+        "tsConfig": "libs/ui-components/slide-panel/tsconfig.spec.json",
+        "buildTarget": "ui-components-slide-panel:build"
       },
       "configurations": {
         "watch": {
-          "watch": true,
-          "ui": true
+          "watch": true
         },
         "ci": {
           "coverage": true

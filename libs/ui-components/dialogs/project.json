@@ -11,14 +11,23 @@
     }
   },
   "targets": {
-    "test": {
+    "build": {
+      "executor": "@angular/build:application",
       "options": {
-        "passWithNoTests": true
+        "outputPath": "dist/libs/ui-components/dialogs",
+        "tsConfig": "libs/ui-components/dialogs/tsconfig.lib.json",
+        "browser": "libs/ui-components/dialogs/src/index.ts"
+      }
+    },
+    "test": {
+      "executor": "@angular/build:unit-test",
+      "options": {
+        "tsConfig": "libs/ui-components/dialogs/tsconfig.spec.json",
+        "buildTarget": "ui-components-dialogs:build"
       },
       "configurations": {
         "watch": {
-          "watch": true,
-          "ui": true
+          "watch": true
         },
         "ci": {
           "coverage": true

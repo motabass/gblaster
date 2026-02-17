@@ -12,7 +12,7 @@
   },
   "targets": {
     "build": {
-      "executor": "@nx/angular:ng-packagr-lite",
+      "executor": "@angular/build:ng-packagr",
       "options": {
         "tsConfig": "libs/ui-components/file-drop-overlay/tsconfig.lib.json",
         "project": "libs/ui-components/file-drop-overlay/ng-package.json"
@@ -24,13 +24,14 @@
       }
     },
     "test": {
+      "executor": "@angular/build:unit-test",
       "options": {
-        "passWithNoTests": true
+        "tsConfig": "libs/ui-components/file-drop-overlay/tsconfig.spec.json",
+        "buildTarget": "ui-components-file-drop-overlay:build"
       },
       "configurations": {
         "watch": {
-          "watch": true,
-          "ui": true
+          "watch": true
         },
         "ci": {
           "coverage": true
