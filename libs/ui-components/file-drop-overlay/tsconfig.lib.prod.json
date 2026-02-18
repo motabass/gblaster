@@ -4,8 +4,6 @@
     "compilationMode": "partial"
   },
   "compilerOptions": {
-    "target": "es2022",
-    "useDefineForClassFields": false,
     "moduleResolution": "bundler"
   }
 }

@@ -2,7 +2,6 @@
   "extends": "../../../tsconfig.base.json",
   "compilerOptions": {
     "types": ["node"],
-    "target": "es2020",
     "module": "preserve",
     "moduleResolution": "bundler"
   },
