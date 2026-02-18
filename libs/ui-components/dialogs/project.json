@@ -12,11 +12,15 @@
   },
   "targets": {
     "build": {
-      "executor": "@angular/build:application",
+      "executor": "@angular/build:ng-packagr",
       "options": {
-        "outputPath": "dist/libs/ui-components/dialogs",
         "tsConfig": "libs/ui-components/dialogs/tsconfig.lib.json",
-        "browser": "libs/ui-components/dialogs/src/index.ts"
+        "project": "libs/ui-components/dialogs/ng-package.json"
+      },
+      "configurations": {
+        "production": {
+          "tsConfig": "libs/ui-components/dialogs/tsconfig.lib.prod.json"
+        }
       }
     },
     "test": {
