@@ -108,7 +108,7 @@
     "@swc/core": "1.15.5",
     "@swc/helpers": "0.5.18",
     "@twittwer/compodoc": "1.13.0",
-    "@types/node": "25.2.3",
+    "@types/node": "25.3.0",
     "@types/spark-md5": "3.0.5",
     "@types/wicg-file-system-access": "2023.10.7",
     "@typescript-eslint/parser": "8.56.0",
