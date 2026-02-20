@@ -120,7 +120,7 @@
     "cypress": "15.10.0",
     "cypress-file-upload": "5.0.8",
     "esbuild-visualizer": "0.7.0",
-    "eslint": "9.39.2",
+    "eslint": "9.39.3",
     "eslint-config-prettier": "10.1.8",
     "eslint-filtered-fix": "0.3.0",
     "eslint-interactive": "12.0.0",
