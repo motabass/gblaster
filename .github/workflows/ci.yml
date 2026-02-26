@@ -82,6 +82,9 @@ jobs:
         env:
           CI: true
 
+      - name: Install Playwright Browsers
+        run: pnpm exec  playwright install --with-deps
+
       - name: Vitest Tests
         run: pnpm run test:all
         env:
