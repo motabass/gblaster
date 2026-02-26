@@ -898,6 +898,7 @@
     ),
     provideHttpClient(withInterceptors([loaderInterceptor]), withFetch()),
     provideRouter(routes, withViewTransitions(), withExperimentalPlatformNavigation()),
+    { provide: LocationStrategy, useClass: NoTrailingSlashPathLocationStrategy },
     { provide: GamepadService, useFactory: gamepadServiceFactory },
     { provide: HotkeysService, useFactory: hotkeysServiceFactory },
     { provide: WakelockService, useFactory: wakelockServiceFactory },
