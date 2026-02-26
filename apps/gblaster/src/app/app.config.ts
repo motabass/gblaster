@@ -17,6 +17,7 @@ import { wakelockServiceFactory } from './services/wakelock.service.factory';
 import { mediaSessionServiceFactory } from './services/media-session/media-session.service.factory';
 import { MediaSessionService } from './services/media-session/media-session.service';
 import { databaseConfig } from './indexed-db-config';
+import { LocationStrategy, NoTrailingSlashPathLocationStrategy } from '@angular/common';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -37,6 +38,7 @@ export const appConfig: ApplicationConfig = {
     ),
     provideHttpClient(withInterceptors([loaderInterceptor]), withFetch()),
     provideRouter(routes, withViewTransitions(), withExperimentalPlatformNavigation()),
+    { provide: LocationStrategy, useClass: NoTrailingSlashPathLocationStrategy },
     { provide: GamepadService, useFactory: gamepadServiceFactory },
     { provide: HotkeysService, useFactory: hotkeysServiceFactory },
     { provide: WakelockService, useFactory: wakelockServiceFactory },
