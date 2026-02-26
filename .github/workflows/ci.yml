@@ -50,7 +50,7 @@ jobs:
           NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
 
       - name: Upload build artifacts
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: dist
           path: dist/
@@ -126,7 +126,7 @@ jobs:
         run: pnpm exec cypress install
 
       - name: Download build artifacts
-        uses: actions/download-artifact@v7
+        uses: actions/download-artifact@v8
         with:
           name: dist
           path: dist/
@@ -138,7 +138,7 @@ jobs:
           NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
 
       - name: Upload Cypress Screenshots on Failure
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         if: failure()
         with:
           name: cypress-screenshots
@@ -146,7 +146,7 @@ jobs:
           retention-days: 7
 
       - name: Upload Cypress Videos
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         if: failure()
         with:
           name: cypress-videos
