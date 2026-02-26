@@ -1,9 +1,20 @@
-import { AfterViewInit, Component, ElementRef, inject, input, OnDestroy, output, Renderer2 } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  inject,
+  input,
+  OnDestroy,
+  output,
+  Renderer2
+} from '@angular/core';
 
 @Component({
   selector: 'mtb-file-drop-overlay',
   templateUrl: './file-drop-overlay.component.html',
-  styleUrls: ['./file-drop-overlay.component.scss']
+  styleUrls: ['./file-drop-overlay.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FileDropOverlayComponent implements AfterViewInit, OnDestroy {
   private hostElement = inject(ElementRef);

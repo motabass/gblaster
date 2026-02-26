@@ -1,5 +1,5 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { Component, inject, viewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, viewChild } from '@angular/core';
 import { MatSidenav, MatSidenavContainer, MatSidenavContent } from '@angular/material/sidenav';
 import { Router, RouterOutlet } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -39,7 +39,8 @@ import { ProgressService } from '../player/metadata-service/progress.service';
     MatListItemIcon
   ],
   templateUrl: './shell.component.html',
-  styleUrl: './shell.component.scss'
+  styleUrl: './shell.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ShellComponent {
   private readonly breakpointObserver = inject(BreakpointObserver);

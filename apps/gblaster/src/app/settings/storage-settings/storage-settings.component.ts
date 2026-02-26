@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { LocalStorageService } from 'ngx-webstorage';
 import { MatButton } from '@angular/material/button';
 import { MatCard, MatCardContent, MatCardHeader, MatCardTitle } from '@angular/material/card';
@@ -6,7 +6,8 @@ import { MatCard, MatCardContent, MatCardHeader, MatCardTitle } from '@angular/m
 @Component({
   selector: 'mtb-storage-settings',
   imports: [MatCard, MatCardContent, MatButton, MatCardTitle, MatCardHeader],
-  templateUrl: './storage-settings.component.html'
+  templateUrl: './storage-settings.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class StorageSettingsComponent {
   private readonly localStorage = inject(LocalStorageService);

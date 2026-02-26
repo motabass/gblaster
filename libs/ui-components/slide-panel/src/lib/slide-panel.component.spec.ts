@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Component, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { SlidePanelComponent } from './slide-panel.component';
 
 @Component({
@@ -17,7 +17,8 @@ import { SlidePanelComponent } from './slide-panel.component';
       <p>Test Content</p>
     </mtb-slide-panel>
   `,
-  imports: [SlidePanelComponent]
+  imports: [SlidePanelComponent],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 class TestHostComponent {
   readonly opened = signal(false);

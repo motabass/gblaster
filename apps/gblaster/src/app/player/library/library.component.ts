@@ -1,4 +1,4 @@
-import { Component, computed, inject, OnInit, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, OnInit, signal } from '@angular/core';
 import { IndexedDbTrackMetadata, Track } from '../player.types';
 import { MatListItem, MatListItemAvatar, MatListItemMeta, MatListItemTitle, MatNavList } from '@angular/material/list';
 import { MatMenu, MatMenuContent, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
@@ -40,7 +40,8 @@ import Fuse from 'fuse.js';
     FormField
   ],
   templateUrl: './library.component.html',
-  styleUrl: './library.component.scss'
+  styleUrl: './library.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export default class LibraryComponent implements OnInit {
   private readonly playerService = inject(PlayerService);

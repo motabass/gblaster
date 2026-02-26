@@ -1,4 +1,12 @@
-import { afterNextRender, booleanAttribute, Component, input, linkedSignal, signal } from '@angular/core';
+import {
+  afterNextRender,
+  booleanAttribute,
+  ChangeDetectionStrategy,
+  Component,
+  input,
+  linkedSignal,
+  signal
+} from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 import { MatIconButton } from '@angular/material/button';
 import { MatTooltip } from '@angular/material/tooltip';
@@ -8,6 +16,7 @@ import { MatTooltip } from '@angular/material/tooltip';
   imports: [MatIcon, MatIconButton, MatTooltip],
   templateUrl: './slide-panel.component.html',
   styleUrl: './slide-panel.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
     '[style.bottom]': 'bottom()',
     '[style.top]': 'top()',

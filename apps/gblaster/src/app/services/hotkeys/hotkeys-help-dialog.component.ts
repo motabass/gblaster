@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogContent, MatDialogRef, MatDialogTitle } from '@angular/material/dialog';
 import { HotkeyInfo } from './hotkeys.service';
 import { MatIcon } from '@angular/material/icon';
@@ -11,7 +11,8 @@ export interface HotkeysData {
 @Component({
   imports: [MatDialogTitle, MatDialogContent, MatIconButton, MatIcon],
   templateUrl: './hotkeys-help-dialog.component.html',
-  styleUrl: './hotkeys-help-dialog.component.scss'
+  styleUrl: './hotkeys-help-dialog.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HotkeysHelpDialogComponent {
   dialogRef = inject<MatDialogRef<HotkeysHelpDialogComponent>>(MatDialogRef);
