@@ -213,7 +213,7 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, inject } from &#x27;@angular/core&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ChangeDetectionStrategy, Component, inject } from &#x27;@angular/core&#x27;;
 import { MAT_DIALOG_DATA, MatDialogContent, MatDialogRef, MatDialogTitle } from &#x27;@angular/material/dialog&#x27;;
 import { HotkeyInfo } from &#x27;./hotkeys.service&#x27;;
 import { MatIcon } from &#x27;@angular/material/icon&#x27;;
@@ -226,7 +226,8 @@ export interface HotkeysData {
 @Component({
   imports: [MatDialogTitle, MatDialogContent, MatIconButton, MatIcon],
   templateUrl: &#x27;./hotkeys-help-dialog.component.html&#x27;,
-  styleUrl: &#x27;./hotkeys-help-dialog.component.scss&#x27;
+  styleUrl: &#x27;./hotkeys-help-dialog.component.scss&#x27;,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HotkeysHelpDialogComponent {
   dialogRef &#x3D; inject&lt;MatDialogRef&lt;HotkeysHelpDialogComponent&gt;&gt;(MatDialogRef);

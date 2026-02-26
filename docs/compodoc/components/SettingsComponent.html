@@ -147,6 +147,10 @@
     <table class="table table-sm table-hover metadata">
         <tbody>
 
+            <tr>
+                <td class="col-md-3">changeDetection</td>
+                <td class="col-md-9"><code>ChangeDetectionStrategy.OnPush</code></td>
+            </tr>
 
 
 
@@ -204,7 +208,7 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component } from &#x27;@angular/core&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ChangeDetectionStrategy, Component } from &#x27;@angular/core&#x27;;
 import { StorageSettingsComponent } from &#x27;./storage-settings/storage-settings.component&#x27;;
 import { ThemeSettingsComponent } from &#x27;./theme-settings/theme-settings.component&#x27;;
 import { MetadataSettingsComponent } from &#x27;./metadata-settings/metadata-settings.component&#x27;;
@@ -212,7 +216,8 @@ import { MetadataSettingsComponent } from &#x27;./metadata-settings/metadata-set
 @Component({
   imports: [MetadataSettingsComponent, ThemeSettingsComponent, StorageSettingsComponent],
   templateUrl: &#x27;./settings.component.html&#x27;,
-  styleUrl: &#x27;./settings.component.scss&#x27;
+  styleUrl: &#x27;./settings.component.scss&#x27;,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export default class SettingsComponent {}
 </code></pre>

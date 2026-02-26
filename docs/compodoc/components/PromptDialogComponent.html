@@ -147,6 +147,10 @@
     <table class="table table-sm table-hover metadata">
         <tbody>
 
+            <tr>
+                <td class="col-md-3">changeDetection</td>
+                <td class="col-md-9"><code>ChangeDetectionStrategy.OnPush</code></td>
+            </tr>
 
 
 
@@ -267,8 +271,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="29"
-                                    class="link-to-prism">libs/ui-components/dialogs/src/lib/prompt-dialog/prompt-dialog.component.ts:29</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="30"
+                                    class="link-to-prism">libs/ui-components/dialogs/src/lib/prompt-dialog/prompt-dialog.component.ts:30</a></div>
                         </td>
                     </tr>
 
@@ -304,8 +308,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="25"
-                                    class="link-to-prism">libs/ui-components/dialogs/src/lib/prompt-dialog/prompt-dialog.component.ts:25</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="26"
+                                    class="link-to-prism">libs/ui-components/dialogs/src/lib/prompt-dialog/prompt-dialog.component.ts:26</a></div>
                         </td>
                     </tr>
 
@@ -351,7 +355,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="22" class="link-to-prism">libs/ui-components/dialogs/src/lib/prompt-dialog/prompt-dialog.component.ts:22</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="23" class="link-to-prism">libs/ui-components/dialogs/src/lib/prompt-dialog/prompt-dialog.component.ts:23</a></div>
                         </td>
                     </tr>
 
@@ -382,7 +386,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="23" class="link-to-prism">libs/ui-components/dialogs/src/lib/prompt-dialog/prompt-dialog.component.ts:23</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="24" class="link-to-prism">libs/ui-components/dialogs/src/lib/prompt-dialog/prompt-dialog.component.ts:24</a></div>
                         </td>
                     </tr>
 
@@ -395,7 +399,7 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, inject } from &#x27;@angular/core&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ChangeDetectionStrategy, Component, inject } from &#x27;@angular/core&#x27;;
 import {
   MAT_DIALOG_DATA,
   MatDialogActions,
@@ -413,7 +417,8 @@ export interface PromptDialogData {
 
 @Component({
   imports: [MatDialogTitle, MatDialogContent, MatDialogActions, MatButton],
-  templateUrl: &#x27;./prompt-dialog.component.html&#x27;
+  templateUrl: &#x27;./prompt-dialog.component.html&#x27;,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PromptDialogComponent {
   data &#x3D; inject&lt;PromptDialogData&gt;(MAT_DIALOG_DATA);

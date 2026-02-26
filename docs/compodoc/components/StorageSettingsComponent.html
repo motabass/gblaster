@@ -147,6 +147,10 @@
     <table class="table table-sm table-hover metadata">
         <tbody>
 
+            <tr>
+                <td class="col-md-3">changeDetection</td>
+                <td class="col-md-9"><code>ChangeDetectionStrategy.OnPush</code></td>
+            </tr>
 
 
 
@@ -252,8 +256,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="14"
-                                    class="link-to-prism">apps/gblaster/src/app/settings/storage-settings/storage-settings.component.ts:14</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="15"
+                                    class="link-to-prism">apps/gblaster/src/app/settings/storage-settings/storage-settings.component.ts:15</a></div>
                         </td>
                     </tr>
 
@@ -275,7 +279,7 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, inject } from &#x27;@angular/core&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ChangeDetectionStrategy, Component, inject } from &#x27;@angular/core&#x27;;
 import { LocalStorageService } from &#x27;ngx-webstorage&#x27;;
 import { MatButton } from &#x27;@angular/material/button&#x27;;
 import { MatCard, MatCardContent, MatCardHeader, MatCardTitle } from &#x27;@angular/material/card&#x27;;
@@ -283,7 +287,8 @@ import { MatCard, MatCardContent, MatCardHeader, MatCardTitle } from &#x27;@angu
 @Component({
   selector: &#x27;mtb-storage-settings&#x27;,
   imports: [MatCard, MatCardContent, MatButton, MatCardTitle, MatCardHeader],
-  templateUrl: &#x27;./storage-settings.component.html&#x27;
+  templateUrl: &#x27;./storage-settings.component.html&#x27;,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class StorageSettingsComponent {
   private readonly localStorage &#x3D; inject(LocalStorageService);
