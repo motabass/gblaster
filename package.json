@@ -80,6 +80,7 @@
     "ngx-indexed-db": "22.0.0",
     "ngx-webstorage": "21.0.1",
     "node-vibrant": "4.0.4",
+    "playwright": "1.58.2",
     "rxjs": "7.8.2",
     "safe-pipe": "3.0.4",
     "tslib": "2.8.1"
@@ -113,6 +114,7 @@
     "@types/wicg-file-system-access": "2023.10.7",
     "@typescript-eslint/parser": "8.56.1",
     "@typescript-eslint/utils": "8.56.1",
+    "@vitest/browser-playwright": "4.0.18",
     "@vitest/coverage-v8": "4.0.18",
     "@vitest/ui": "4.0.18",
     "angular-eslint": "21.2.0",
