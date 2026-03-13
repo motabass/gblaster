@@ -1,4 +1,4 @@
-import { test, expect, Page } from '@playwright/test';
+import { expect, Page, test } from '@playwright/test';
 import * as path from 'path';
 import * as fs from 'fs';
 
@@ -35,7 +35,7 @@ async function mockDirectoryPicker(page: Page) {
           createWritable: () => Promise.reject(new Error('Not implemented')),
           isSameEntry: () => Promise.resolve(false),
           queryPermission: () => Promise.resolve('granted' as PermissionState),
-          requestPermission: () => Promise.resolve('granted' as PermissionState),
+          requestPermission: () => Promise.resolve('granted' as PermissionState)
         } as FileSystemFileHandle;
       }
 
@@ -65,15 +65,34 @@ async function mockDirectoryPicker(page: Page) {
         resolve: () => Promise.resolve(null),
         isSameEntry: () => Promise.resolve(false),
         queryPermission: () => Promise.resolve('granted' as PermissionState),
-        requestPermission: () => Promise.resolve('granted' as PermissionState),
+        requestPermission: () => Promise.resolve('granted' as PermissionState)
       } as FileSystemDirectoryHandle;
 
-      (window as Window & { showDirectoryPicker: () => Promise<FileSystemDirectoryHandle> }).showDirectoryPicker =
-        () => Promise.resolve(mockDirectoryHandle);
+      (window as Window & { showDirectoryPicker: () => Promise<FileSystemDirectoryHandle> }).showDirectoryPicker = () =>
+        Promise.resolve(mockDirectoryHandle);
+
+      // Patch IDBObjectStore to strip non-cloneable mock fileHandle before storing
+      const originalAdd = IDBObjectStore.prototype.add;
+      IDBObjectStore.prototype.add = function (value: unknown, key?: IDBValidKey) {
+        if (value && typeof value === 'object' && 'fileHandle' in value) {
+          const { fileHandle, ...rest } = value as Record<string, unknown>;
+          return originalAdd.call(this, rest, key);
+        }
+        return originalAdd.call(this, value, key);
+      };
+
+      const originalPut = IDBObjectStore.prototype.put;
+      IDBObjectStore.prototype.put = function (value: unknown, key?: IDBValidKey) {
+        if (value && typeof value === 'object' && 'fileHandle' in value) {
+          const { fileHandle, ...rest } = value as Record<string, unknown>;
+          return originalPut.call(this, rest, key);
+        }
+        return originalPut.call(this, value, key);
+      };
     },
     {
       tekBase64: tekMp3.toString('base64'),
-      sineBase64: sineMp3.toString('base64'),
+      sineBase64: sineMp3.toString('base64')
     }
   );
 }
