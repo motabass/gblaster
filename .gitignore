@@ -53,3 +53,9 @@ Thumbs.db
 
 mise.local.toml
 vitest.config.*.timestamp*
+
+# Playwright
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/

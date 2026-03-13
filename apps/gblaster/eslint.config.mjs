@@ -1,6 +1,5 @@
 import nx from '@nx/eslint-plugin';
 import baseConfig from '../../eslint.config.mjs';
-import cypress from 'eslint-plugin-cypress';
 import { ANGULAR_ESLINT_TEMPLATE_RULES, ANGULAR_ESLINT_TS_RULES } from '../../eslint-rules.mjs';
 
 export default [
@@ -35,11 +34,5 @@ export default [
     rules: {
       ...ANGULAR_ESLINT_TEMPLATE_RULES
     }
-  },
-  {
-    files: ['**/*.cy.{ts,js,tsx,jsx}', 'cypress/**/*.{ts,js,tsx,jsx}'],
-    ...cypress.configs['recommended'],
-    // Override or add rules here
-    rules: {}
   }
 ];

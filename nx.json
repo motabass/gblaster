@@ -15,7 +15,7 @@
       "style": "scss",
       "linter": "eslint",
       "unitTestRunner": "vitest",
-      "e2eTestRunner": "cypress"
+      "e2eTestRunner": "playwright"
     },
     "@nx/angular:library": {
       "linter": "eslint",
@@ -138,9 +138,8 @@
       "!{projectRoot}/vite.config.[jt]s",
       "!{projectRoot}/src/test-setup.[jt]s",
       "!{projectRoot}/test-setup.[jt]s",
-      "!{projectRoot}/cypress/**/*",
-      "!{projectRoot}/**/*.cy.[jt]s?(x)",
-      "!{projectRoot}/cypress.config.[jt]s"
+      "!{projectRoot}/e2e/**/*",
+      "!{projectRoot}/playwright.config.[jt]s"
     ]
   },
   "parallel": 1,
