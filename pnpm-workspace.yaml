@@ -17,7 +17,6 @@ ignoredBuiltDependencies:
 onlyBuiltDependencies:
   - '@compodoc/compodoc'
   - '@swc/core'
-  - cypress
   - nx
 
 blockExoticSubdeps: true
