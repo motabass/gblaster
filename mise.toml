@@ -1,5 +1,9 @@
+min_version = '2026.3.8'
+
 [tools]
 node = "25"
 pnpm = "10"
 "npm:nx" = "latest"
 
+[settings]
+npm.package_manager = "pnpm"
