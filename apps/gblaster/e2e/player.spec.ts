@@ -28,15 +28,29 @@ async function mockDirectoryPicker(page: Page) {
       const files = [tekFile, sineFile];
 
       function createMockFileHandle(file: File): FileSystemFileHandle {
-        return {
-          kind: 'file',
-          name: file.name,
-          getFile: () => Promise.resolve(file),
-          createWritable: () => Promise.reject(new Error('Not implemented')),
-          isSameEntry: () => Promise.resolve(false),
-          queryPermission: () => Promise.resolve('granted' as PermissionState),
-          requestPermission: () => Promise.resolve('granted' as PermissionState),
-        } as FileSystemFileHandle;
+        // Use Object.create so methods live on the prototype, not as own properties.
+        // This ensures the handle is structured-clonable (for IndexedDB storage)
+        // just like a real FileSystemFileHandle.
+        const handle = Object.create({
+          getFile() {
+            return Promise.resolve(file);
+          },
+          createWritable() {
+            return Promise.reject(new Error('Not implemented'));
+          },
+          isSameEntry() {
+            return Promise.resolve(false);
+          },
+          queryPermission() {
+            return Promise.resolve('granted' as PermissionState);
+          },
+          requestPermission() {
+            return Promise.resolve('granted' as PermissionState);
+          }
+        });
+        handle.kind = 'file';
+        handle.name = file.name;
+        return handle as FileSystemFileHandle;
       }
 
       const fileHandles = files.map((file) => createMockFileHandle(file));
@@ -65,15 +79,15 @@ async function mockDirectoryPicker(page: Page) {
         resolve: () => Promise.resolve(null),
         isSameEntry: () => Promise.resolve(false),
         queryPermission: () => Promise.resolve('granted' as PermissionState),
-        requestPermission: () => Promise.resolve('granted' as PermissionState),
+        requestPermission: () => Promise.resolve('granted' as PermissionState)
       } as FileSystemDirectoryHandle;
 
-      (window as Window & { showDirectoryPicker: () => Promise<FileSystemDirectoryHandle> }).showDirectoryPicker =
-        () => Promise.resolve(mockDirectoryHandle);
+      (window as Window & { showDirectoryPicker: () => Promise<FileSystemDirectoryHandle> }).showDirectoryPicker = () =>
+        Promise.resolve(mockDirectoryHandle);
     },
     {
       tekBase64: tekMp3.toString('base64'),
-      sineBase64: sineMp3.toString('base64'),
+      sineBase64: sineMp3.toString('base64')
     }
   );
 }

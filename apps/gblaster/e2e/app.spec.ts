@@ -6,7 +6,7 @@ test.describe('gblaster', () => {
   });
 
   test('should show working shell', async ({ page }) => {
-    await expect(page.locator('.title')).toContainText('gBlaster');
+    await expect(page.locator('.header .title')).toContainText('gBlaster');
 
     await page.locator('#sidenav_menu_button').click();
     await page.locator(':nth-child(4) > .mdc-list-item__content').click();
