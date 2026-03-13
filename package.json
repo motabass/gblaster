@@ -128,7 +128,7 @@
     "eslint-interactive": "13.0.1",
     "eslint-nibble": "9.1.1",
     "eslint-plugin-cypress": "6.1.0",
-    "eslint-plugin-sonarjs": "4.0.1",
+    "eslint-plugin-sonarjs": "4.0.2",
     "eslint-plugin-unicorn": "63.0.0",
     "firebase-tools": "15.9.0",
     "husky": "9.1.7",
