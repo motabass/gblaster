@@ -33,7 +33,7 @@ checksum = "sha256:09a5a0dbb2f4cefa800880012810e2dfaac0016a62e75f064c4ab7f3606b2
 url = "https://nodejs.org/dist/v25.8.1/node-v25.8.1-win-x64.zip"
 
 [[tools."npm:nx"]]
-version = "22.5.4"
+version = "22.6.1"
 backend = "npm:nx"
 
 [[tools.pnpm]]

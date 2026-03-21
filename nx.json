@@ -160,5 +160,6 @@
         "testMode": "run"
       }
     }
-  ]
+  ],
+  "analytics": true
 }
