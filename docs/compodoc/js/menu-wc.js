@@ -253,9 +253,6 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 <a href="interfaces/ButtonGamepadAction.html" data-type="entity-link" >ButtonGamepadAction</a>
                             </li>
                             <li class="link">
-                                <a href="interfaces/Chainable.html" data-type="entity-link" >Chainable</a>
-                            </li>
-                            <li class="link">
                                 <a href="interfaces/ColorConfig.html" data-type="entity-link" >ColorConfig</a>
                             </li>
                             <li class="link">
