@@ -15,6 +15,13 @@
           "coverage": true
         }
       }
+    },
+    "lint-interactive": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "eslint-interactive .",
+        "cwd": "libs/helpers"
+      }
     }
   }
 }

@@ -46,6 +46,13 @@
       "options": {
         "lintFilePatterns": ["libs/ui-components/slide-panel/**/*.css", "libs/ui-components/slide-panel/**/*.scss"]
       }
+    },
+    "lint-interactive": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "eslint-interactive .",
+        "cwd": "libs/ui-components/slide-panel"
+      }
     }
   }
 }

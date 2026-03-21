@@ -70,7 +70,8 @@ const DEFAULT_UNICORN_RULE_OVERRIDES = {
 export const DEFAULT_SONARJS_HTML_RULE_OVERRIDES = {
   'sonarjs/no-unenclosed-multiline-block': 'off',
   'sonarjs/no-same-line-conditional': 'off',
-  'sonarjs/no-element-overwrite': 'off'
+  'sonarjs/no-element-overwrite': 'off',
+  'sonarjs/code-eval': 'off'
 };
 
 const DEFAULT_SONARJS_RULE_OVERRIDES = {

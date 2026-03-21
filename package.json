@@ -50,6 +50,7 @@
     "ci:build": "pnpm run build:prod:gblaster",
     "ci:e2e": "nx run gblaster:e2e",
     "ci:deploy": "nx deploy gblaster",
+    "lint:interactive": "nx run-many -t lint-interactive --all",
     "dep-graph:html": "nx graph --file docs/dep-graph.html",
     "compodoc": "nx run workspace:compodoc",
     "generate:icon-set": "ts-node --project tools/tsconfig.tools.json tools/convertIcons.ts",

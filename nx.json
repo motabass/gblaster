@@ -93,6 +93,9 @@
     "stylelint": {
       "cache": true
     },
+    "lint-interactive": {
+      "continuous": true
+    },
     "compodoc": {
       "cache": true
     },
