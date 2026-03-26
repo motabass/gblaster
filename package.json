@@ -92,7 +92,7 @@
     "@angular/compiler-cli": "21.2.5",
     "@angular/language-service": "21.2.5",
     "@compodoc/compodoc": "1.2.1",
-    "@csmith/release-it-calver-plugin": "2023.12.0",
+    "@csmith/release-it-calver-plugin": "2026.3.11",
     "@eslint/js": "10.0.1",
     "@nx/angular": "22.6.1",
     "@nx/eslint": "22.6.1",
