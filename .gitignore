@@ -61,3 +61,4 @@ vitest.config.*.timestamp*
 /playwright/.cache/
 .claude/worktrees
 .claude/settings.local.json
+.nx/polygraph
