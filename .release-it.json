@@ -2,8 +2,7 @@
   "verbose": 1,
   "plugins": {
     "@csmith/release-it-calver-plugin": {
-      "format": "yyyy.mm.minor",
-      "increment": "calendar.minor"
+      "cycle": "month"
     }
   },
   "npm": {
