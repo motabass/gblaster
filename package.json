@@ -127,7 +127,7 @@
     "eslint-filtered-fix": "0.3.0",
     "eslint-interactive": "13.0.1",
     "eslint-nibble": "9.1.1",
-    "eslint-plugin-sonarjs": "4.0.2",
+    "eslint-plugin-sonarjs": "4.0.3",
     "eslint-plugin-unicorn": "64.0.0",
     "firebase-tools": "15.14.0",
     "husky": "9.1.7",
