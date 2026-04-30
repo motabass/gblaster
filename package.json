@@ -131,7 +131,7 @@
     "eslint-plugin-unicorn": "64.0.0",
     "firebase-tools": "15.15.0",
     "husky": "9.1.7",
-    "jsdom": "29.0.2",
+    "jsdom": "29.1.1",
     "lint-staged": "16.4.0",
     "ng-packagr": "21.2.3",
     "nx": "22.6.5",
