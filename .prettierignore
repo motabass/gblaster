@@ -13,3 +13,4 @@ package-lock.json
 .angular
 
 /.nx/workspace-data
+.nx/self-healing
