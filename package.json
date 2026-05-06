@@ -77,7 +77,7 @@
     "date-fns": "4.1.0",
     "fuse.js": "7.3.0",
     "music-metadata": "11.12.3",
-    "musicbrainz-api": "1.2.0",
+    "musicbrainz-api": "1.2.1",
     "ngx-date-fns": "12.0.1",
     "ngx-indexed-db": "22.0.0",
     "ngx-webstorage": "21.0.1",
