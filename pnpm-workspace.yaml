@@ -2,22 +2,17 @@ packages:
   - apps/*
   - libs/*
 
-ignoredBuiltDependencies:
-  - '@biomejs/biome'
-  - '@parcel/watcher'
-  - core-js-pure
-  - esbuild
-  - less
-  - lmdb
-  - msgpackr-extract
-  - protobufjs
-  - re2
-  - unrs-resolver
-
-onlyBuiltDependencies:
-  - '@compodoc/compodoc'
-  - '@swc/core'
-  - nx
-
-blockExoticSubdeps: true
 autoInstallPeers: false
+
+allowBuilds:
+  '@compodoc/compodoc': false
+  '@parcel/watcher': false
+  '@swc/core': false
+  esbuild: true
+  less: false
+  lmdb: false
+  msgpackr-extract: false
+  nx: true
+  protobufjs: false
+  re2: false
+  unrs-resolver: false
