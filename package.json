@@ -132,7 +132,7 @@
     "firebase-tools": "15.17.0",
     "husky": "9.1.7",
     "jsdom": "29.1.1",
-    "lint-staged": "17.0.3",
+    "lint-staged": "17.0.5",
     "ng-packagr": "21.2.3",
     "nx": "22.7.1",
     "nx-stylelint": "19.0.0",
