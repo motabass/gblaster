@@ -1,8 +1,8 @@
 min_version = '2026.5.11'
 
 [tools]
-node = "26.2.0"
-pnpm = "11.2.2"
+node = "26.3.0"
+pnpm = "11.5.1"
 "npm:nx" = "latest"
 
 [settings]
