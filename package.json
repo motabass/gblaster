@@ -133,7 +133,7 @@
     "husky": "9.1.7",
     "jsdom": "29.1.1",
     "lint-staged": "17.0.7",
-    "ng-packagr": "21.2.3",
+    "ng-packagr": "21.2.5",
     "nx": "22.7.5",
     "nx-stylelint": "19.0.0",
     "postcss-html": "1.8.1",
