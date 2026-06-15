@@ -5,7 +5,7 @@
   "repository": "https://github.com/motabass/gblaster",
   "description": "Colorful Web Audio Player PWA",
   "license": "CC0-1.0",
-  "packageManager": "pnpm@11.5.1",
+  "packageManager": "pnpm@11.7.0",
   "engines": {
     "node": "^25 || ^26",
     "pnpm": "^11"
