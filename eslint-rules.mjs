@@ -49,7 +49,8 @@ export const ANGULAR_ESLINT_TEMPLATE_RULES = {
   '@angular-eslint/template/eqeqeq': 'error',
   '@angular-eslint/template/no-negated-async': 'error',
   'unicorn/prefer-string-raw': 'off',
-  '@angular-eslint/template/prefer-class-binding': 'error'
+  '@angular-eslint/template/prefer-class-binding': 'error',
+  'unicorn/no-useless-template-literals': 'off'
 };
 
 const DEFAULT_UNICORN_RULE_OVERRIDES = {
