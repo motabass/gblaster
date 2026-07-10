@@ -5,7 +5,6 @@ packages:
 autoInstallPeers: false
 
 allowBuilds:
-  '@compodoc/compodoc': false
   '@parcel/watcher': false
   '@swc/core': false
   esbuild: true

@@ -1,9 +1,6 @@
 min_version = '2026.5.11'
 
 [tools]
-node = "26.3.0"
-pnpm = "11.7.0"
-"npm:nx" = "latest"
+node = "26"
+pnpm = "11.11.0"
 
-[settings]
-npm.package_manager = "pnpm"

@@ -5,9 +5,9 @@
   "repository": "https://github.com/motabass/gblaster",
   "description": "Colorful Web Audio Player PWA",
   "license": "CC0-1.0",
-  "packageManager": "pnpm@11.7.0",
+  "packageManager": "pnpm@11.11.0",
   "engines": {
-    "node": "^25 || ^26",
+    "node": "^26",
     "pnpm": "^11"
   },
   "scripts": {
@@ -53,7 +53,6 @@
     "ci:deploy": "nx deploy gblaster",
     "lint:interactive": "nx run-many -t lint-interactive --all",
     "dep-graph:html": "nx graph --file docs/dep-graph.html",
-    "compodoc": "nx run workspace:compodoc",
     "generate:icon-set": "ts-node --project tools/tsconfig.tools.json tools/convertIcons.ts",
     "build:stats:gblaster": "pnpm run build:prod -- --stats-json --named-chunks",
     "analyze:treemap:gblaster": "esbuild-visualizer --template treemap --metadata ./dist/apps/gblaster/stats.json --filename docs/analyzer-report-treemap.html",
@@ -92,7 +91,6 @@
     "@angular/cli": "21.2.15",
     "@angular/compiler-cli": "21.2.17",
     "@angular/language-service": "21.2.17",
-    "@compodoc/compodoc": "1.2.1",
     "@csmith/release-it-calver-plugin": "2026.6.0",
     "@eslint/js": "10.0.1",
     "@nx/angular": "23.0.0",
@@ -110,7 +108,6 @@
     "@swc-node/register": "1.11.1",
     "@swc/core": "1.15.41",
     "@swc/helpers": "0.5.23",
-    "@twittwer/compodoc": "1.13.0",
     "@types/node": "25.9.3",
     "@types/spark-md5": "3.0.5",
     "@types/wicg-file-system-access": "2023.10.7",

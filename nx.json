@@ -96,9 +96,6 @@
     "lint-interactive": {
       "continuous": true
     },
-    "compodoc": {
-      "cache": true
-    },
     "@nx/vitest:test": {
       "inputs": ["default", "^production"],
       "cache": true,
