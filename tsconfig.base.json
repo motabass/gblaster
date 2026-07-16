@@ -4,7 +4,7 @@
     "rootDir": ".",
     "sourceMap": true,
     "declaration": false,
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "experimentalDecorators": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
@@ -16,14 +16,15 @@
     "lib": ["es2024", "dom"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
-    "baseUrl": ".",
     "paths": {
-      "@motabass/helpers": ["libs/helpers/src/index.ts"],
-      "@motabass/material-helpers/mat-icon-size": ["libs/material-helpers/mat-icon-size/src/index.ts"],
-      "@motabass/ui-components/dialogs": ["libs/ui-components/dialogs/src/index.ts"],
-      "@motabass/ui-components/file-drop-overlay": ["libs/ui-components/file-drop-overlay/src/index.ts"],
-      "@motabass/ui-components/slide-panel": ["libs/ui-components/slide-panel/src/index.ts"]
-    }
+      "@motabass/helpers": ["./libs/helpers/src/index.ts"],
+      "@motabass/material-helpers/mat-icon-size": ["./libs/material-helpers/mat-icon-size/src/index.ts"],
+      "@motabass/ui-components/dialogs": ["./libs/ui-components/dialogs/src/index.ts"],
+      "@motabass/ui-components/file-drop-overlay": ["./libs/ui-components/file-drop-overlay/src/index.ts"],
+      "@motabass/ui-components/slide-panel": ["./libs/ui-components/slide-panel/src/index.ts"]
+    },
+    "noUncheckedSideEffectImports": false,
+    "types": ["*"]
   },
   "angularCompilerOptions": {
     "extendedDiagnostics": true,

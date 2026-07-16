@@ -8,37 +8,37 @@
   <div class="flex column metadata-info">
     @if (currentTrack?.metadata?.album) {
       <span>
-        Album: <strong>{{ currentTrack?.metadata?.album }}</strong>
+        Album: <strong>{{ currentTrack.metadata.album }}</strong>
       </span>
     }
     @if (currentTrack?.metadata?.year) {
       <span>
-        Year: <strong>{{ currentTrack?.metadata?.year }}</strong>
+        Year: <strong>{{ currentTrack.metadata.year }}</strong>
       </span>
     }
     <span>&nbsp;</span>
     @if (currentTrack?.metadata?.format?.duration) {
       <span>
         Duration:
-        <strong>{{ currentTrack?.metadata?.format?.duration | time }}</strong>
+        <strong>{{ currentTrack.metadata.format.duration | time }}</strong>
       </span>
     }
     @if (currentTrack?.metadata?.format?.container && currentTrack?.metadata?.format?.codec) {
       <span>
         Format:
-        <strong>{{ currentTrack?.metadata?.format?.container }} ({{ currentTrack?.metadata?.format?.codec }})</strong>
+        <strong>{{ currentTrack.metadata.format.container }} ({{ currentTrack.metadata.format.codec }})</strong>
       </span>
     }
     @if (currentTrack?.metadata?.format?.bitrate) {
       <span>
         Bitrate:
-        <strong>{{ currentTrack?.metadata?.format?.bitrate | bitrate }}</strong>
+        <strong>{{ currentTrack.metadata.format.bitrate | bitrate }}</strong>
       </span>
     }
     @if (currentTrack?.metadata?.format?.sampleRate) {
       <span>
         Sample-Rate:
-        <strong>{{ currentTrack?.metadata?.format?.sampleRate }}</strong>
+        <strong>{{ currentTrack.metadata.format.sampleRate }}</strong>
       </span>
     }
 

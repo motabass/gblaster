@@ -75,7 +75,7 @@
 
       @let currentTrack = playerService.currentlyLoadedTrack();
       <span class="standard-font current-track-info"
-        >{{ currentTrack?.metadata?.artist ? `${currentTrack?.metadata?.artist} - ` : ''
+        >{{ currentTrack?.metadata?.artist ? `${currentTrack.metadata.artist} - ` : ''
         }}{{ currentTrack?.metadata?.title || currentTrack?.file?.name }}</span
       >
     </mat-toolbar>
