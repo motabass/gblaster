@@ -87,18 +87,8 @@
     "test": {
       "executor": "@angular/build:unit-test",
       "options": {
-        "browsers": ["chromium"],
         "tsConfig": "apps/gblaster/tsconfig.spec.json",
         "buildTarget": "gblaster:build"
-      },
-      "configurations": {
-        "watch": {
-          "watch": true
-        },
-        "ci": {
-          "coverage": true,
-          "headless": true
-        }
       }
     },
     "deploy": {

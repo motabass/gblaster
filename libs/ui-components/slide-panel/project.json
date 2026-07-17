@@ -26,18 +26,8 @@
     "test": {
       "executor": "@angular/build:unit-test",
       "options": {
-        "browsers": ["chromium"],
         "tsConfig": "libs/ui-components/slide-panel/tsconfig.spec.json",
         "buildTarget": "ui-components-slide-panel:build"
-      },
-      "configurations": {
-        "watch": {
-          "watch": true
-        },
-        "ci": {
-          "coverage": true,
-          "headless": true
-        }
       }
     },
     "stylelint": {

@@ -125,7 +125,19 @@
     },
     "@angular/build:unit-test": {
       "inputs": ["default", "^production"],
-      "cache": true
+      "cache": true,
+      "options": {
+        "browsers": ["chromium"]
+      },
+      "configurations": {
+        "watch": {
+          "watch": true
+        },
+        "ci": {
+          "coverage": true,
+          "headless": true
+        }
+      }
     }
   },
   "namedInputs": {

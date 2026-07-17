@@ -26,18 +26,8 @@
     "test": {
       "executor": "@angular/build:unit-test",
       "options": {
-        "browsers": ["chromium"],
         "tsConfig": "libs/ui-components/file-drop-overlay/tsconfig.spec.json",
         "buildTarget": "ui-components-file-drop-overlay:build"
-      },
-      "configurations": {
-        "watch": {
-          "watch": true
-        },
-        "ci": {
-          "coverage": true,
-          "headless": true
-        }
       }
     },
     "stylelint": {

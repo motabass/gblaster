@@ -26,18 +26,8 @@
     "test": {
       "executor": "@angular/build:unit-test",
       "options": {
-        "browsers": ["chromium"],
         "tsConfig": "libs/ui-components/dialogs/tsconfig.spec.json",
         "buildTarget": "ui-components-dialogs:build"
-      },
-      "configurations": {
-        "watch": {
-          "watch": true
-        },
-        "ci": {
-          "coverage": true,
-          "headless": true
-        }
       }
     },
     "stylelint": {
