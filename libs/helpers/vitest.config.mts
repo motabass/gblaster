@@ -1,11 +1,17 @@
 import { defineConfig } from 'vitest/config';
-import { nxViteTsPaths } from '@nx/vite/plugins/nx-tsconfig-paths.plugin';
-import { nxCopyAssetsPlugin } from '@nx/vite/plugins/nx-copy-assets.plugin';
+import { viteStaticCopy } from 'vite-plugin-static-copy';
 
 export default defineConfig(() => ({
   root: __dirname,
   cacheDir: '../../node_modules/.vite/libs/helpers',
-  plugins: [nxViteTsPaths(), nxCopyAssetsPlugin(['*.md'])],
+  resolve: {
+    tsconfigPaths: true
+  },
+  plugins: [
+    viteStaticCopy({
+      targets: [{ src: resolve(__dirname, '*.md').replaceAll('\\', '/'), dest: '.' }]
+    })
+  ],
   test: {
     name: 'helpers',
     watch: false,
