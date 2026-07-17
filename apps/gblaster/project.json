@@ -14,6 +14,7 @@
     "build": {
       "executor": "@angular/build:application",
       "outputs": ["{options.outputPath.base}"],
+      "defaultConfiguration": "production",
       "options": {
         "allowedCommonJsDependencies": [],
         "outputPath": {
@@ -59,11 +60,12 @@
           "sourceMap": true,
           "namedChunks": true
         }
-      },
-      "defaultConfiguration": "production"
+      }
     },
     "serve": {
       "executor": "@nx/angular:dev-server",
+      "defaultConfiguration": "development",
+      "continuous": true,
       "configurations": {
         "production": {
           "buildTarget": "gblaster:build:production"
@@ -71,9 +73,7 @@
         "development": {
           "buildTarget": "gblaster:build:development"
         }
-      },
-      "defaultConfiguration": "development",
-      "continuous": true
+      }
     },
     "serve-static": {
       "executor": "@nx/web:file-server",
@@ -108,15 +108,6 @@
       "options": {
         "command": "eslint-interactive .",
         "cwd": "apps/gblaster"
-      }
-    },
-    "e2e": {
-      "executor": "@nx/playwright:playwright",
-      "options": {
-        "config": "apps/gblaster/playwright.config.ts"
-      },
-      "configurations": {
-        "production": {}
       }
     }
   }
