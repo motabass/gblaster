@@ -1,5 +1,4 @@
 import { defineConfig } from 'vitest/config';
-import { viteStaticCopy } from 'vite-plugin-static-copy';
 
 export default defineConfig(() => ({
   root: __dirname,
@@ -7,11 +6,6 @@ export default defineConfig(() => ({
   resolve: {
     tsconfigPaths: true
   },
-  plugins: [
-    viteStaticCopy({
-      targets: [{ src: resolve(__dirname, '*.md').replaceAll('\\', '/'), dest: '.' }]
-    })
-  ],
   test: {
     name: 'helpers',
     watch: false,
