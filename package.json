@@ -119,7 +119,7 @@
     "angular-eslint": "22.1.0",
     "auto-changelog": "2.6.0",
     "esbuild-visualizer": "0.7.0",
-    "eslint": "10.7.0",
+    "eslint": "10.8.1",
     "eslint-config-prettier": "10.1.8",
     "eslint-filtered-fix": "0.3.0",
     "eslint-interactive": "14.0.0",
