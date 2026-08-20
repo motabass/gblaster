@@ -72,7 +72,7 @@
     "@angular/router": "22.1.1",
     "@angular/service-worker": "22.1.1",
     "@noble/hashes": "2.3.0",
-    "colord": "2.9.3",
+    "colord": "2.10.0",
     "date-fns": "4.4.0",
     "fuse.js": "7.5.0",
     "music-metadata": "11.14.0",
