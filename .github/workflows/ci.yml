@@ -17,20 +17,8 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Install pnpm
-        uses: pnpm/action-setup@v6
-
-      - name: Setup NodeJS
-        uses: actions/setup-node@v7
-        with:
-          node-version: 26
-          cache: 'pnpm'
-
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-        env:
-          CI: true
-          NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
+      - name: Setup pnpm + NodeJS
+        uses: pnpm/setup@v2
 
       - name: Build
         run: pnpm run ci:build
@@ -54,19 +42,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v7
 
-      - name: Install pnpm
-        uses: pnpm/action-setup@v6
-
-      - name: Setup NodeJS
-        uses: actions/setup-node@v7
-        with:
-          node-version: 26
-          cache: 'pnpm'
-
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-        env:
-          CI: true
+      - name: Setup pnpm + NodeJS
+        uses: pnpm/setup@v2
 
       - name: Install Playwright Browsers
         run: pnpm exec  playwright install --with-deps
@@ -85,20 +62,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v7
-
-      - name: Install pnpm
-        uses: pnpm/action-setup@v6
-
-      - name: Setup NodeJS
-        uses: actions/setup-node@v7
-        with:
-          node-version: 26
-          cache: 'pnpm'
-
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-        env:
-          CI: true
 
       - name: Install Playwright Browsers
         run: pnpm exec playwright install --with-deps
