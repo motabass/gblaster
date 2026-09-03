@@ -18,7 +18,7 @@ jobs:
           fetch-depth: 0
 
       - name: Setup pnpm + NodeJS
-        uses: pnpm/setup@v2
+        uses: pnpm/setup@v2.1.0
         with:
           cache: true
           require-lockfile: true
@@ -45,7 +45,7 @@ jobs:
         uses: actions/checkout@v7
 
       - name: Setup pnpm + NodeJS
-        uses: pnpm/setup@v2
+        uses: pnpm/setup@v2.1.0
         with:
           cache: true
           require-lockfile: true
@@ -68,7 +68,7 @@ jobs:
         uses: actions/checkout@v7
 
       - name: Setup pnpm + NodeJS
-        uses: pnpm/setup@v2
+        uses: pnpm/setup@v2.1.0
         with:
           cache: true
           require-lockfile: true
