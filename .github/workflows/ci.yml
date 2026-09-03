@@ -24,7 +24,6 @@ jobs:
         run: pnpm run ci:build
         env:
           CI: true
-          NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
 
       - name: Upload build artifacts
         uses: actions/upload-artifact@v7
@@ -52,7 +51,6 @@ jobs:
         run: pnpm run test:all
         env:
           CI: true
-          NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
 
   e2e-tests:
     name: E2E Tests
@@ -62,6 +60,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v7
+
+      - name: Setup pnpm + NodeJS
+        uses: pnpm/setup@v2
 
       - name: Install Playwright Browsers
         run: pnpm exec playwright install --with-deps
@@ -76,7 +77,6 @@ jobs:
         run: pnpm run ci:e2e
         env:
           CI: true
-          NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
 
       - name: Upload Playwright Report on Failure
         uses: actions/upload-artifact@v7
