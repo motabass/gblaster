@@ -10,6 +10,13 @@
     "node": "^26",
     "pnpm": "^11"
   },
+  "devEngines": {
+    "runtime": {
+      "name": "node",
+      "version": "^26",
+      "onFail": "download"
+    }
+  },
   "scripts": {
     "ng": "nx",
     "nx": "nx",
