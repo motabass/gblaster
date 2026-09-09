@@ -3,6 +3,7 @@ import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { SlidePanelComponent } from './slide-panel.component';
 
 @Component({
+  imports: [SlidePanelComponent],
   template: `
     <mtb-slide-panel
       [opened]="opened()"
@@ -17,7 +18,6 @@ import { SlidePanelComponent } from './slide-panel.component';
       <p>Test Content</p>
     </mtb-slide-panel>
   `,
-  imports: [SlidePanelComponent],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 class TestHostComponent {

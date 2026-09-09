@@ -5,11 +5,11 @@ import { PromptDialogComponent, PromptDialogData } from './prompt-dialog.compone
 describe('PromptDialogComponent', () => {
   let component: PromptDialogComponent;
   let fixture: ComponentFixture<PromptDialogComponent>;
-  let mockDialogRef: { close: ReturnType<typeof vi.fn> };
+  let mockDialogReference: { close: ReturnType<typeof vi.fn> };
   let mockDialogData: PromptDialogData;
 
   beforeEach(async () => {
-    mockDialogRef = {
+    mockDialogReference = {
       close: vi.fn()
     };
 
@@ -22,7 +22,7 @@ describe('PromptDialogComponent', () => {
     await TestBed.configureTestingModule({
       imports: [PromptDialogComponent],
       providers: [
-        { provide: MatDialogRef, useValue: mockDialogRef },
+        { provide: MatDialogRef, useValue: mockDialogReference },
         { provide: MAT_DIALOG_DATA, useValue: mockDialogData }
       ]
     }).compileComponents();
@@ -58,13 +58,13 @@ describe('PromptDialogComponent', () => {
     it('should close the dialog with true', () => {
       component.update();
 
-      expect(mockDialogRef.close).toHaveBeenCalledWith(true);
+      expect(mockDialogReference.close).toHaveBeenCalledWith(true);
     });
 
     it('should close the dialog exactly once', () => {
       component.update();
 
-      expect(mockDialogRef.close).toHaveBeenCalledTimes(1);
+      expect(mockDialogReference.close).toHaveBeenCalledTimes(1);
     });
   });
 
@@ -72,13 +72,13 @@ describe('PromptDialogComponent', () => {
     it('should close the dialog with false', () => {
       component.cancel();
 
-      expect(mockDialogRef.close).toHaveBeenCalledWith(false);
+      expect(mockDialogReference.close).toHaveBeenCalledWith(false);
     });
 
     it('should close the dialog exactly once', () => {
       component.cancel();
 
-      expect(mockDialogRef.close).toHaveBeenCalledTimes(1);
+      expect(mockDialogReference.close).toHaveBeenCalledTimes(1);
     });
   });
 
@@ -95,25 +95,23 @@ describe('PromptDialogComponent', () => {
 
     it('should have an "Abbrechen" (cancel) button', () => {
       const buttons = fixture.nativeElement.querySelectorAll('button');
-      const cancelButton = Array.from(buttons).find((btn) =>
-        (btn as HTMLButtonElement).textContent?.includes('Abbrechen')
+      const cancelButton = [...buttons].find((button) =>
+        (button as HTMLButtonElement).textContent?.includes('Abbrechen')
       );
       expect(cancelButton).toBeTruthy();
     });
 
     it('should have an "Update" button', () => {
       const buttons = fixture.nativeElement.querySelectorAll('button');
-      const updateButton = Array.from(buttons).find((btn) =>
-        (btn as HTMLButtonElement).textContent?.includes('Update')
-      );
+      const updateButton = [...buttons].find((button) => (button as HTMLButtonElement).textContent?.includes('Update'));
       expect(updateButton).toBeTruthy();
     });
 
     it('should call cancel() when "Abbrechen" button is clicked', () => {
       const cancelSpy = vi.spyOn(component, 'cancel');
       const buttons = fixture.nativeElement.querySelectorAll('button');
-      const cancelButton = Array.from(buttons).find((btn) =>
-        (btn as HTMLButtonElement).textContent?.includes('Abbrechen')
+      const cancelButton = [...buttons].find((button) =>
+        (button as HTMLButtonElement).textContent?.includes('Abbrechen')
       ) as HTMLButtonElement;
 
       cancelButton.click();
@@ -124,8 +122,8 @@ describe('PromptDialogComponent', () => {
     it('should call update() when "Update" button is clicked', () => {
       const updateSpy = vi.spyOn(component, 'update');
       const buttons = fixture.nativeElement.querySelectorAll('button');
-      const updateButton = Array.from(buttons).find((btn) =>
-        (btn as HTMLButtonElement).textContent?.includes('Update')
+      const updateButton = [...buttons].find((button) =>
+        (button as HTMLButtonElement).textContent?.includes('Update')
       ) as HTMLButtonElement;
 
       updateButton.click();

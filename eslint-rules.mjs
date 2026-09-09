@@ -5,7 +5,6 @@ export const ANGULAR_ESLINT_TS_RULES = {
   '@angular-eslint/require-lifecycle-on-prototype': 'error',
   '@angular-eslint/sort-lifecycle-methods': 'warn',
   '@angular-eslint/contextual-decorator': 'error',
-  '@angular-eslint/no-conflicting-lifecycle': 'error',
   '@angular-eslint/no-duplicates-in-metadata-arrays': 'error',
   '@angular-eslint/no-inputs-metadata-property': 'error',
   '@angular-eslint/no-lifecycle-call': 'error',
