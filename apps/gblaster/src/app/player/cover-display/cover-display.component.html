@@ -1,80 +1,83 @@
 @let currentTrack = playerService.currentlyLoadedTrack();
+@let metadata = currentTrack?.metadata;
 @let cover = coverUrl();
+@let format = metadata?.format;
+@let coverColors = metadata?.coverColors;
 <div class="mat-typography metadata-overlay">
   <h1 class="track-title">
-    {{ currentTrack?.metadata?.title || currentTrack?.file?.name }}
+    {{ metadata?.title || currentTrack?.file?.name }}
   </h1>
-  <p class="track-artist">{{ currentTrack?.metadata?.artist }}</p>
+  <p class="track-artist">{{ metadata?.artist }}</p>
   <div class="flex column metadata-info">
-    @if (currentTrack?.metadata?.album) {
+    @if (metadata?.album) {
       <span>
-        Album: <strong>{{ currentTrack.metadata.album }}</strong>
+        Album: <strong>{{ metadata.album }}</strong>
       </span>
     }
-    @if (currentTrack?.metadata?.year) {
+    @if (metadata?.year) {
       <span>
-        Year: <strong>{{ currentTrack.metadata.year }}</strong>
+        Year: <strong>{{ metadata.year }}</strong>
       </span>
     }
     <span>&nbsp;</span>
-    @if (currentTrack?.metadata?.format?.duration) {
+    @if (format?.duration) {
       <span>
         Duration:
-        <strong>{{ currentTrack.metadata.format.duration | time }}</strong>
+        <strong>{{ format.duration | time }}</strong>
       </span>
     }
-    @if (currentTrack?.metadata?.format?.container && currentTrack?.metadata?.format?.codec) {
+    @if (format?.container && format?.codec) {
       <span>
         Format:
-        <strong>{{ currentTrack.metadata.format.container }} ({{ currentTrack.metadata.format.codec }})</strong>
+        <strong>{{ format.container }} ({{ format.codec }})</strong>
       </span>
     }
-    @if (currentTrack?.metadata?.format?.bitrate) {
+    @if (format?.bitrate) {
       <span>
         Bitrate:
-        <strong>{{ currentTrack.metadata.format.bitrate | bitrate }}</strong>
+        <strong>{{ format.bitrate | bitrate }}</strong>
       </span>
     }
-    @if (currentTrack?.metadata?.format?.sampleRate) {
+    @if (format?.sampleRate) {
       <span>
         Sample-Rate:
-        <strong>{{ currentTrack.metadata.format.sampleRate }}</strong>
+        <strong>{{ format.sampleRate }}</strong>
       </span>
     }
 
-    @if (currentTrack?.metadata?.coverColors) {
+    @if (coverColors) {
       <span>&nbsp;</span>
       <span>Color Palette:</span>
       <div class="flex row color-palette-container">
         <div
           class="color-swatch"
-          [style.background-color]="currentTrack?.metadata?.coverColors?.vibrant?.hex"
-          [title]="`vibrant: ${currentTrack?.metadata?.coverColors?.vibrant?.hex}`"
+          [style.background-color]="coverColors.vibrant?.hex"
+          [title]="`vibrant: ${coverColors.vibrant?.hex}`"
         ></div>
         <div
           class="color-swatch"
-          [style.background-color]="currentTrack?.metadata?.coverColors?.darkVibrant?.hex"
-          [title]="`darkVibrant: ${currentTrack?.metadata?.coverColors?.darkVibrant?.hex}`"
+          [style.background-color]="coverColors.darkVibrant?.hex"
+          [title]="`darkVibrant: ${coverColors.darkVibrant?.hex}`"
         ></div>
         <div
           class="color-swatch"
-          [style.background-color]="currentTrack?.metadata?.coverColors?.lightVibrant?.hex"
-          [title]="`lightVibrant: ${currentTrack?.metadata?.coverColors?.lightVibrant?.hex}`"
+          [style.background-color]="coverColors.lightVibrant?.hex"
+          [title]="`lightVibrant: ${coverColors.lightVibrant?.hex}`"
         ></div>
         <div
           class="color-swatch"
-          [style.background-color]="currentTrack?.metadata?.coverColors?.muted?.hex"
-          [title]="`muted: ${currentTrack?.metadata?.coverColors?.muted?.hex}`"
+          [style.background-color]="coverColors.muted?.hex"
+          [title]="`muted: ${coverColors.muted?.hex}`"
         ></div>
         <div
           class="color-swatch"
-          [style.background-color]="currentTrack?.metadata?.coverColors?.darkMuted?.hex"
-          [title]="`darkMuted: ${currentTrack?.metadata?.coverColors?.darkMuted?.hex}`"
+          [style.background-color]="coverColors.darkMuted?.hex"
+          [title]="`darkMuted: ${coverColors.darkMuted?.hex}`"
         ></div>
         <div
           class="color-swatch"
-          [style.background-color]="currentTrack?.metadata?.coverColors?.lightMuted?.hex"
-          [title]="`lightMuted: ${currentTrack?.metadata?.coverColors?.lightMuted?.hex}`"
+          [style.background-color]="coverColors.lightMuted?.hex"
+          [title]="`lightMuted: ${coverColors.lightMuted?.hex}`"
         ></div>
       </div>
     }

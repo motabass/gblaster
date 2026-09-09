@@ -17,11 +17,12 @@
         class="playlist-item-avatar"
       >
         @if (song && song.metadata && song.metadata.coverUrl) {
+          @let songMetadata = song.metadata;
           <img
             class="playlist-item-cover"
             fill
-            [alt]="`Cover of Album ${song?.metadata?.album || ''} by ${song?.metadata?.artist || ''}`"
-            [src]="song.metadata.coverUrl.thumbUrl | safe: 'resourceUrl'"
+            [alt]="`Cover of Album ${songMetadata.album || ''} by ${songMetadata.artist || ''}`"
+            [src]="songMetadata.coverUrl.thumbUrl | safe: 'resourceUrl'"
           />
         }
         @let songPlaying = isPlaying(song)();
@@ -36,17 +37,18 @@
         }
       </div>
 
+      @let songMetadata = song.metadata;
       <h3
         matListItemTitle
         class="playlist-item-title"
       >
-        {{ song?.metadata?.title || song.file.name }}
+        {{ songMetadata.title || song.file.name }}
       </h3>
       <p
         matListItemLine
         class="playlist-item-artist"
       >
-        {{ song?.metadata?.artist }}
+        {{ songMetadata.artist }}
       </p>
 
       @if (isActive(song)()) {
