@@ -69,12 +69,12 @@
     "prepare": "husky"
   },
   "dependencies": {
-    "@angular/cdk": "22.1.5",
+    "@angular/cdk": "22.1.6",
     "@angular/common": "22.1.5",
     "@angular/compiler": "22.1.5",
     "@angular/core": "22.1.5",
     "@angular/forms": "22.1.5",
-    "@angular/material": "22.1.5",
+    "@angular/material": "22.1.6",
     "@angular/platform-browser": "22.1.5",
     "@angular/router": "22.1.5",
     "@angular/service-worker": "22.1.5",
@@ -120,9 +120,9 @@
     "@types/wicg-file-system-access": "2023.10.7",
     "@typescript-eslint/parser": "8.70.0",
     "@typescript-eslint/utils": "8.70.0",
-    "@vitest/browser-playwright": "4.1.11",
-    "@vitest/coverage-v8": "4.1.11",
-    "@vitest/ui": "4.1.11",
+    "@vitest/browser-playwright": "5.0.0",
+    "@vitest/coverage-v8": "5.0.0",
+    "@vitest/ui": "5.0.0",
     "angular-eslint": "22.5.0",
     "auto-changelog": "2.6.1",
     "esbuild-visualizer": "0.7.0",
@@ -153,6 +153,6 @@
     "ts-node": "10.9.2",
     "typescript": "6.0.3",
     "typescript-eslint": "8.70.0",
-    "vitest": "4.1.11"
+    "vitest": "5.0.0"
   }
 }
