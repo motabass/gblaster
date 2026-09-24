@@ -14,8 +14,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v7
-        with:
-          fetch-depth: 0
 
       - name: Setup pnpm + NodeJS
         uses: pnpm/setup@v3
@@ -28,64 +26,20 @@ jobs:
         env:
           CI: true
 
-      - name: Upload build artifacts
-        uses: actions/upload-artifact@v7
-        with:
-          name: dist
-          path: dist/
-          retention-days: 1
-
-  unit-tests:
-    name: Unit Tests
-    runs-on: ubuntu-24.04
-    timeout-minutes: 10
-    needs: build
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v7
-
-      - name: Setup pnpm + NodeJS
-        uses: pnpm/setup@v3
-        with:
-          cache: true
-          require-lockfile: true
-
       - name: Install Playwright Browsers
         run: pnpm exec  playwright install --with-deps
 
-      - name: Vitest Tests
-        run: pnpm run test:all
-        env:
-          CI: true
+      - name: Tests
+        parallel:
+          - name: Unit-Tests
+            run: pnpm run test:all
+            env:
+              CI: true
 
-  e2e-tests:
-    name: E2E Tests
-    runs-on: ubuntu-24.04
-    timeout-minutes: 20
-    needs: build
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v7
-
-      - name: Setup pnpm + NodeJS
-        uses: pnpm/setup@v3
-        with:
-          cache: true
-          require-lockfile: true
-
-      - name: Install Playwright Browsers
-        run: pnpm exec playwright install --with-deps
-
-      - name: Download build artifacts
-        uses: actions/download-artifact@v8
-        with:
-          name: dist
-          path: dist/
-
-      - name: Playwright E2E Tests
-        run: pnpm run ci:e2e
-        env:
-          CI: true
+          - name: Playwright E2E Tests
+            run: pnpm run ci:e2e
+            env:
+              CI: true
 
       - name: Upload Playwright Report on Failure
         uses: actions/upload-artifact@v7
@@ -94,3 +48,10 @@ jobs:
           name: playwright-report
           path: apps/gblaster/playwright-report
           retention-days: 7
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v7
+        with:
+          name: dist
+          path: dist/
+          retention-days: 1
