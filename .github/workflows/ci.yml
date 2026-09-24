@@ -29,8 +29,7 @@ jobs:
       - name: Install Playwright Browsers
         run: pnpm exec  playwright install --with-deps
 
-      - name: Tests
-        parallel:
+      - parallel:
           - name: Unit-Tests
             run: pnpm run test:all
             env:
