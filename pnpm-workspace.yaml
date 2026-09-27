@@ -3,6 +3,7 @@ packages:
   - libs/*
 
 autoInstallPeers: false
+autoDedupe: true
 
 allowBuilds:
   '@parcel/watcher': false
