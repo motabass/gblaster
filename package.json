@@ -118,7 +118,7 @@
     "@swc-node/register": "1.12.1",
     "@swc/core": "1.16.13",
     "@swc/helpers": "0.5.23",
-    "@types/node": "26.6.4",
+    "@types/node": "26.6.5",
     "@types/spark-md5": "3.0.5",
     "@types/wicg-file-system-access": "2023.10.7",
     "@typescript-eslint/parser": "8.71.1",
