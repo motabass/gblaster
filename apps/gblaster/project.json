@@ -63,7 +63,7 @@
       }
     },
     "serve": {
-      "executor": "@nx/angular:dev-server",
+      "executor": "@angular/build:dev-server",
       "defaultConfiguration": "development",
       "continuous": true,
       "configurations": {
@@ -106,7 +106,7 @@
     "lint-interactive": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "eslint-interactive .",
+        "command": "pnpm exec eslint-interactive .",
         "cwd": "apps/gblaster"
       }
     }
