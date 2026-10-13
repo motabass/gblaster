@@ -5,6 +5,8 @@ packages:
 autoInstallPeers: false
 autoDedupe: true
 
+ignoreWorkspaceRootCheck: true
+
 allowBuilds:
   '@parcel/watcher': false
   '@swc/core': false

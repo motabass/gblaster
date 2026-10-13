@@ -1,21 +1,17 @@
 import { expect, Page, test } from '@playwright/test';
-import * as path from 'path';
-import * as fs from 'fs';
+import { readFileSync } from 'node:fs';
+import path from 'node:path';
 
-const fixturesDir = path.resolve(__dirname, 'fixtures');
-
-async function mockDirectoryPicker(page: Page) {
-  const tekMp3 = fs.readFileSync(path.join(fixturesDir, 'tek.mp3'));
-  const sineMp3 = fs.readFileSync(path.join(fixturesDir, '440Hz-5sec.mp3'));
+async function mockDirectoryPicker(page: Page, testFile: string) {
+  const fixturesDirectory = path.resolve(path.dirname(testFile), 'fixtures');
+  const tekMp3 = readFileSync(path.join(fixturesDirectory, 'tek.mp3'));
+  const sineMp3 = readFileSync(path.join(fixturesDirectory, '440Hz-5sec.mp3'));
 
   await page.addInitScript(
     ({ tekBase64, sineBase64 }) => {
       function base64ToArrayBuffer(base64: string): ArrayBuffer {
         const binaryString = atob(base64);
-        const bytes = new Uint8Array(binaryString.length);
-        for (let i = 0; i < binaryString.length; i++) {
-          bytes[i] = binaryString.charCodeAt(i);
-        }
+        const bytes = Uint8Array.from(binaryString, (character) => character.codePointAt(0) ?? 0);
         return bytes.buffer;
       }
 
@@ -31,64 +27,83 @@ async function mockDirectoryPicker(page: Page) {
         return {
           kind: 'file',
           name: file.name,
+          isFile: true,
+          isDirectory: false,
           getFile: () => Promise.resolve(file),
           createWritable: () => Promise.reject(new Error('Not implemented')),
           isSameEntry: () => Promise.resolve(false),
           queryPermission: () => Promise.resolve('granted' as PermissionState),
           requestPermission: () => Promise.resolve('granted' as PermissionState)
-        } as FileSystemFileHandle;
+        };
       }
 
       const fileHandles = files.map((file) => createMockFileHandle(file));
 
+      const mockEntries = async function* () {
+        await Promise.resolve();
+        for (const [index, file] of files.entries()) {
+          yield [file.name, fileHandles[index]] as [string, FileSystemFileHandle];
+        }
+      };
+      const mockValues = async function* () {
+        await Promise.resolve();
+        for (const handle of fileHandles) {
+          yield handle;
+        }
+      };
+
       const mockDirectoryHandle = {
         kind: 'directory',
         name: 'test-music',
-        async *entries() {
-          for (const [index, file] of files.entries()) {
-            yield [file.name, fileHandles[index]] as [string, FileSystemFileHandle];
-          }
-        },
+        isFile: false,
+        isDirectory: true,
+        entries: mockEntries,
         async *keys() {
+          await Promise.resolve();
           for (const file of files) {
             yield file.name;
           }
         },
-        async *values() {
-          for (const handle of fileHandles) {
-            yield handle;
-          }
-        },
+        values: mockValues,
         getFileHandle: () => Promise.reject(new Error('Not implemented')),
         getDirectoryHandle: () => Promise.reject(new Error('Not implemented')),
+        getFile: () => Promise.reject(new Error('Not implemented')),
+        getDirectory: () => Promise.reject(new Error('Not implemented')),
         removeEntry: () => Promise.reject(new Error('Not implemented')),
         resolve: () => Promise.resolve(null),
+        getEntries: mockValues,
+        [Symbol.asyncIterator]: mockEntries,
         isSameEntry: () => Promise.resolve(false),
         queryPermission: () => Promise.resolve('granted' as PermissionState),
         requestPermission: () => Promise.resolve('granted' as PermissionState)
       } as FileSystemDirectoryHandle;
 
-      (window as Window & { showDirectoryPicker: () => Promise<FileSystemDirectoryHandle> }).showDirectoryPicker = () =>
-        Promise.resolve(mockDirectoryHandle);
+      Object.defineProperty(globalThis, 'showDirectoryPicker', {
+        value: () => Promise.resolve(mockDirectoryHandle),
+        configurable: true
+      });
+
+      function withoutFileHandle(value: unknown): unknown {
+        if (value && typeof value === 'object' && 'fileHandle' in value) {
+          const clone = { ...value };
+          Reflect.deleteProperty(clone, 'fileHandle');
+          return clone;
+        }
+        return value;
+      }
 
       // Patch IDBObjectStore to strip non-cloneable mock fileHandle before storing
       const originalAdd = IDBObjectStore.prototype.add;
-      IDBObjectStore.prototype.add = function (value: unknown, key?: IDBValidKey) {
-        if (value && typeof value === 'object' && 'fileHandle' in value) {
-          const { fileHandle, ...rest } = value as Record<string, unknown>;
-          return originalAdd.call(this, rest, key);
-        }
-        return originalAdd.call(this, value, key);
-      };
+      IDBObjectStore.prototype.add = new Proxy(originalAdd, {
+        apply: (target, objectStore, [value, key]) =>
+          Reflect.apply(target, objectStore, [withoutFileHandle(value), key])
+      });
 
       const originalPut = IDBObjectStore.prototype.put;
-      IDBObjectStore.prototype.put = function (value: unknown, key?: IDBValidKey) {
-        if (value && typeof value === 'object' && 'fileHandle' in value) {
-          const { fileHandle, ...rest } = value as Record<string, unknown>;
-          return originalPut.call(this, rest, key);
-        }
-        return originalPut.call(this, value, key);
-      };
+      IDBObjectStore.prototype.put = new Proxy(originalPut, {
+        apply: (target, objectStore, [value, key]) =>
+          Reflect.apply(target, objectStore, [withoutFileHandle(value), key])
+      });
     },
     {
       tekBase64: tekMp3.toString('base64'),
@@ -102,8 +117,8 @@ async function loadFiles(page: Page) {
 }
 
 test.describe('gblaster player', () => {
-  test.beforeEach(async ({ page }) => {
-    await mockDirectoryPicker(page);
+  test.beforeEach(async ({ page }, testInfo) => {
+    await mockDirectoryPicker(page, testInfo.file);
     await page.goto('/player');
 
     // turn down volume
@@ -111,7 +126,7 @@ test.describe('gblaster player', () => {
     await page.locator('#volume_slider').click({ position: { x: 0, y: 100 } });
 
     await loadFiles(page);
-    await page.waitForTimeout(2500);
+    await expect(page.locator('.playlist > mat-list-item')).toHaveCount(2);
   });
 
   test('should load a file with directory picker', async ({ page }) => {
@@ -128,7 +143,7 @@ test.describe('gblaster player', () => {
 
     // click second item
     await playlistItems.nth(1).click();
-    const borderLeft = await playlistItems.nth(1).evaluate((el) => getComputedStyle(el).borderLeft);
+    const borderLeft = await playlistItems.nth(1).evaluate((element) => getComputedStyle(element).borderLeft);
     expect(borderLeft).toMatch(/4px solid/);
   });
 
@@ -145,5 +160,6 @@ test.describe('gblaster player', () => {
 });
 
 test('library test', async ({ page }) => {
-  await page.goto('/library');
+  await page.goto('/player/library');
+  await expect(page.locator('.artists')).toBeVisible();
 });

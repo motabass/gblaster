@@ -155,7 +155,7 @@
       "!{projectRoot}/src/test-setup.[jt]s",
       "!{projectRoot}/test-setup.[jt]s",
       "!{projectRoot}/e2e/**/*",
-      "!{projectRoot}/playwright.config.[jt]s"
+      "!{projectRoot}/playwright.config.m[jt]s"
     ]
   },
   "parallel": 1,
