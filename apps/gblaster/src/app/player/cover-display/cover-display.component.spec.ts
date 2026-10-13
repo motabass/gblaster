@@ -286,7 +286,7 @@ describe('CoverDisplayComponent', () => {
       fixture.detectChanges();
 
       const colorSwatches = fixture.nativeElement.querySelectorAll('.color-swatch');
-      expect(colorSwatches.length).toBe(6);
+      expect(colorSwatches).toHaveLength(6);
     });
 
     it('should not display color palette when no coverColors', () => {

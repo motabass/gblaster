@@ -199,7 +199,7 @@ describe('PlaylistComponent', () => {
       fixture.detectChanges();
 
       // Virtual scroll only renders visible items, so we check the component state
-      expect(currentPlaylistSignal().length).toBe(3);
+      expect(currentPlaylistSignal()).toHaveLength(3);
     });
 
     it('should handle empty playlist', () => {
@@ -207,7 +207,7 @@ describe('PlaylistComponent', () => {
 
       fixture.detectChanges();
 
-      expect(currentPlaylistSignal().length).toBe(0);
+      expect(currentPlaylistSignal()).toHaveLength(0);
     });
   });
 });

@@ -10,7 +10,7 @@ export function formatFrequencyBand(value: number): string {
 
   if (value >= 1000) {
     const kValue = value / 1000;
-    return kValue % 1 === 0 ? `${Math.floor(kValue)}K` : `${kValue.toFixed(1)}K`;
+    return Number.isSafeInteger(kValue) ? `${Math.floor(kValue)}K` : `${kValue.toFixed(1)}K`;
   }
 
   return value.toString();

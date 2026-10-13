@@ -140,7 +140,7 @@ describe('LibraryComponent', () => {
       fixture.detectChanges();
 
       const uniqueAlbums = component['uniqueAlbums']();
-      expect(uniqueAlbums.length).toBe(2);
+      expect(uniqueAlbums).toHaveLength(2);
       expect(uniqueAlbums[0].name).toBe('Alpha Album');
       expect(uniqueAlbums[1].name).toBe('Zeta Album');
     });
@@ -156,7 +156,7 @@ describe('LibraryComponent', () => {
       fixture.detectChanges();
 
       const uniqueAlbums = component['uniqueAlbums']();
-      expect(uniqueAlbums.length).toBe(1);
+      expect(uniqueAlbums).toHaveLength(1);
       expect(uniqueAlbums[0].name).toBe('Album A');
     });
 
@@ -170,7 +170,7 @@ describe('LibraryComponent', () => {
       fixture.detectChanges();
 
       const uniqueAlbums = component['uniqueAlbums']();
-      expect(uniqueAlbums.length).toBe(1);
+      expect(uniqueAlbums).toHaveLength(1);
       expect(uniqueAlbums[0].name).toBe('Valid Album');
     });
   });
@@ -185,7 +185,7 @@ describe('LibraryComponent', () => {
       indexedDbTracksSignal.set(tracks);
       fixture.detectChanges();
 
-      expect(component['tracks']().length).toBe(3);
+      expect(component['tracks']()).toHaveLength(3);
     });
 
     it('should filter tracks by selected artist', () => {
@@ -199,7 +199,7 @@ describe('LibraryComponent', () => {
       fixture.detectChanges();
 
       const filteredTracks = component['tracks']();
-      expect(filteredTracks.length).toBe(1);
+      expect(filteredTracks).toHaveLength(1);
       expect(filteredTracks[0].title).toBe('Song A');
     });
 
@@ -214,7 +214,7 @@ describe('LibraryComponent', () => {
       fixture.detectChanges();
 
       const filteredTracks = component['tracks']();
-      expect(filteredTracks.length).toBe(1);
+      expect(filteredTracks).toHaveLength(1);
       expect(filteredTracks[0].title).toBe('Song A');
     });
 
@@ -379,7 +379,7 @@ describe('LibraryComponent', () => {
       fixture.detectChanges();
 
       const filteredTracks = component['tracks']();
-      expect(filteredTracks.length).toBe(2);
+      expect(filteredTracks).toHaveLength(2);
       expect(filteredTracks.every((t) => t.title?.includes('Hello'))).toBe(true);
     });
 
@@ -396,7 +396,7 @@ describe('LibraryComponent', () => {
       await vi.advanceTimersByTimeAsync(350);
       fixture.detectChanges();
 
-      expect(component['tracks']().length).toBe(3);
+      expect(component['tracks']()).toHaveLength(3);
     });
 
     it('should search by artist name', async () => {
@@ -413,7 +413,7 @@ describe('LibraryComponent', () => {
       fixture.detectChanges();
 
       const filteredTracks = component['tracks']();
-      expect(filteredTracks.length).toBe(2);
+      expect(filteredTracks).toHaveLength(2);
     });
   });
 

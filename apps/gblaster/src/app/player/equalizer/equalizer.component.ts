@@ -48,15 +48,15 @@ export default class EqualizerComponent {
     // Draw grid lines
     ctx.strokeStyle = '#dddddd';
     ctx.lineWidth = 0.2;
+    const gridPath = new Path2D();
 
     // Horizontal grid lines (every 3dB)
     for (let db = -12; db <= 12; db += 3) {
       const y = height / 2 - (db * height) / 24;
-      ctx.beginPath();
-      ctx.moveTo(0, y);
-      ctx.lineTo(width, y);
-      ctx.stroke();
+      gridPath.moveTo(0, y);
+      gridPath.lineTo(width, y);
     }
+    ctx.stroke(gridPath);
 
     // Draw center line (0dB)
     ctx.strokeStyle = '#bbbbbb';

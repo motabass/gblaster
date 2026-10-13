@@ -18,7 +18,7 @@ describe('getRandomInt', () => {
 
     for (let i = 0; i < 50; i++) {
       const result = getRandomInt(min, max);
-      expect(Number.isInteger(result)).toBe(true);
+      expect(Number.isSafeInteger(result)).toBe(true);
     }
   });
 
@@ -41,7 +41,7 @@ describe('getRandomInt', () => {
       const result = getRandomInt(min, max);
       expect(result).toBeGreaterThanOrEqual(min);
       expect(result).toBeLessThanOrEqual(max);
-      expect(Number.isInteger(result)).toBe(true);
+      expect(Number.isSafeInteger(result)).toBe(true);
     }
   });
 
@@ -53,7 +53,7 @@ describe('getRandomInt', () => {
       const result = getRandomInt(min, max);
       expect(result).toBeGreaterThanOrEqual(min);
       expect(result).toBeLessThanOrEqual(max);
-      expect(Number.isInteger(result)).toBe(true);
+      expect(Number.isSafeInteger(result)).toBe(true);
     }
   });
 
@@ -65,7 +65,7 @@ describe('getRandomInt', () => {
       const result = getRandomInt(min, max);
       expect(result).toBeGreaterThanOrEqual(min);
       expect(result).toBeLessThanOrEqual(max);
-      expect(Number.isInteger(result)).toBe(true);
+      expect(Number.isSafeInteger(result)).toBe(true);
     }
   });
 
@@ -73,6 +73,6 @@ describe('getRandomInt', () => {
     const result = getRandomInt(1.7, 5.3);
     expect(result).toBeGreaterThanOrEqual(2); // ceil(1.7)
     expect(result).toBeLessThanOrEqual(5); // floor(5.3)
-    expect(Number.isInteger(result)).toBe(true);
+    expect(Number.isSafeInteger(result)).toBe(true);
   });
 });

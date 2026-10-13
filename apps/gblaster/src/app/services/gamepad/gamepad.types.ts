@@ -26,13 +26,21 @@ export interface ActionCache {
 export type InputCheckMode = 'click' | 'hold' | 'turbo';
 
 export interface RumbleOptions {
-  /** Duration in milliseconds */
+  /**
+  Duration in milliseconds
+  */
   duration?: number;
-  /** Weak motor magnitude (0-1) */
+  /**
+  Weak motor magnitude (0-1)
+  */
   weakMagnitude?: number;
-  /** Strong motor magnitude (0-1) */
+  /**
+  Strong motor magnitude (0-1)
+  */
   strongMagnitude?: number;
-  /** Start delay in milliseconds */
+  /**
+  Start delay in milliseconds
+  */
   startDelay?: number;
 }
 

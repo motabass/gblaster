@@ -275,6 +275,9 @@ function drawCircularBars() {
 
   // Draw frequency bars in circular pattern
   const angleStep = (Math.PI * 2) / meterNumber;
+  const barsPath = new Path2D();
+  const capsPath = new Path2D();
+  const lineWidth = ((radius * Math.PI) / meterNumber) * 0.7;
 
   for (let index = 0; index < meterNumber; index++) {
     const value = Math.min(barkScaleData[index] || 0, 256) / 256;
@@ -283,32 +286,22 @@ function drawCircularBars() {
     const innerRadius = radius * 0.3;
     const outerRadius = innerRadius + radius * 0.9 * value;
 
-    // Draw bar
-    context.beginPath();
-    context.moveTo(centerX + innerRadius * Math.cos(angle), centerY + innerRadius * Math.sin(angle));
-    context.lineTo(centerX + outerRadius * Math.cos(angle), centerY + outerRadius * Math.sin(angle));
+    barsPath.moveTo(centerX + innerRadius * Math.cos(angle), centerY + innerRadius * Math.sin(angle));
+    barsPath.lineTo(centerX + outerRadius * Math.cos(angle), centerY + outerRadius * Math.sin(angle));
 
-    // Calculate width based on radius
-    const lineWidth = ((radius * Math.PI) / meterNumber) * 0.7;
-
-    context.lineWidth = lineWidth;
-    context.strokeStyle = gradient;
-    context.stroke();
-
-    // Add caps at the end of each line
     if (value > 0.05) {
-      context.beginPath();
-      context.arc(
-        centerX + outerRadius * Math.cos(angle),
-        centerY + outerRadius * Math.sin(angle),
-        lineWidth / 2,
-        0,
-        Math.PI * 2
-      );
-      context.fillStyle = peakColor;
-      context.fill();
+      const capX = centerX + outerRadius * Math.cos(angle);
+      const capY = centerY + outerRadius * Math.sin(angle);
+      capsPath.moveTo(capX + lineWidth / 2, capY);
+      capsPath.arc(capX, capY, lineWidth / 2, 0, Math.PI * 2);
     }
   }
+
+  context.lineWidth = lineWidth;
+  context.strokeStyle = gradient;
+  context.stroke(barsPath);
+  context.fillStyle = peakColor;
+  context.fill(capsPath);
 }
 
 function convertToBarkScale(): Float32Array {
