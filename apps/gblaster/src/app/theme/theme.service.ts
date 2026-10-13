@@ -13,7 +13,7 @@ export class ThemeService {
   private readonly localStorageService = inject(LocalStorageService);
 
   readonly darkMode = signal<boolean>(
-    this.localStorageService.retrieve('darkMode') ?? globalThis.matchMedia('(prefers-color-scheme: dark)').matches
+    this.localStorageService.retrieve('darkMode') ?? matchMedia('(prefers-color-scheme: dark)').matches
   );
 
   readonly primaryColor = signal<string>(this.localStorageService.retrieve('primaryColor') ?? FALLBACK_PRIMARY_COLOR);

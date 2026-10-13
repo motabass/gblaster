@@ -112,11 +112,7 @@ export class MetadataService {
 
     this.progressService.updateCurrentFile(fileName + ' - Getting cover pictures...');
     const coverUrls = await this.lastfmMetadataService.getCoverPictureUrls(tags);
-    if (coverUrls) {
-      return coverUrls;
-    }
-
-    return this.musicbrainzService.getCoverPictureUrls(tags);
+    return coverUrls ? coverUrls : this.musicbrainzService.getCoverPictureUrls(tags);
   }
 
   private shouldUseEmbeddedPicture(metadata: TrackMetadata): boolean {
@@ -163,10 +159,12 @@ export class MetadataService {
   */
   revokeBlobUrlsForTracks(tracks: TrackMetadata[]): void {
     for (const track of tracks) {
-      if (track.cachedBlobUrl) {
-        URL.revokeObjectURL(track.cachedBlobUrl);
-        track.cachedBlobUrl = undefined;
+      if (!track.cachedBlobUrl) {
+        continue;
       }
+
+      URL.revokeObjectURL(track.cachedBlobUrl);
+      track.cachedBlobUrl = undefined;
     }
   }
 

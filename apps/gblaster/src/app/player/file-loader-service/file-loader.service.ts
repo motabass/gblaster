@@ -17,10 +17,9 @@ export class FileLoaderService {
       if (error instanceof DOMException && error.name === 'AbortError') {
         console.log('Directory picker was cancelled');
         return undefined;
-      } else {
-        console.error('Failed to select directory:', error);
-        throw error;
       }
+      console.error('Failed to select directory:', error);
+      throw error;
     }
   }
 
@@ -44,10 +43,9 @@ export class FileLoaderService {
       if (error instanceof DOMException && error.name === 'AbortError') {
         console.log('File picker was cancelled');
         return [];
-      } else {
-        console.error('Failed to select files:', error);
-        throw error;
       }
+      console.error('Failed to select files:', error);
+      throw error;
     }
   }
 

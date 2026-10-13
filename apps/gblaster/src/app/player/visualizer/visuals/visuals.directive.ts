@@ -99,12 +99,11 @@ export class VisualsDirective implements OnDestroy {
     const analyserValue = this.analyser();
     if (analyserValue) {
       return analyserValue;
-    } else {
-      if (!this._internalAnalyzer) {
-        this._internalAnalyzer = this.audioService.plugInNewAnalyserNode();
-      }
-      return this._internalAnalyzer;
     }
+    if (!this._internalAnalyzer) {
+      this._internalAnalyzer = this.audioService.plugInNewAnalyserNode();
+    }
+    return this._internalAnalyzer;
   }
 
   visualizeFrequencyBars(circular: boolean) {

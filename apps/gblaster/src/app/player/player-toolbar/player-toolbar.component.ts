@@ -122,15 +122,14 @@ export class PlayerToolbarComponent implements OnInit, OnDestroy {
     this.playerService.setSeekPosition(value);
   }
 
-  onVolumeChange(value: number) {
-    this.audioService.setVolume(value ?? 0);
+  onVolumeChange(value = 0) {
+    this.audioService.setVolume(value);
   }
 
   private getVolumeIconForLevel(vol: number): string {
     if (vol === 0) return 'volume-variant-off';
     if (vol > 0 && vol < 0.2) return 'volume-low';
-    if (vol >= 0.2 && vol < 0.8) return 'volume-medium';
-    return 'volume-high';
+    return vol >= 0.2 && vol < 0.8 ? 'volume-medium' : 'volume-high';
   }
 
   formatLabel(value: number): string {

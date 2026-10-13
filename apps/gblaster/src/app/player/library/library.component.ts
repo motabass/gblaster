@@ -98,9 +98,7 @@ export default class LibraryComponent implements OnInit {
     let filtered = this.filteredBySerchterm();
     const artist = this.selectedArtist();
 
-    filtered = artist
-      ? filtered.filter((item) => item.artist === artist && !!item.album)
-      : filtered.filter((item) => !!item.album);
+    filtered = filtered.filter(artist ? (item) => item.artist === artist && !!item.album : (item) => !!item.album);
 
     // Map to store unique albums by name
     const albumMap = new Map<string, Album>();
@@ -197,20 +195,20 @@ export default class LibraryComponent implements OnInit {
   }
 
   async addAlbumToPlaylist(album: Album) {
+    let tracks: IndexedDbTrackMetadata[];
     if (album) {
-      const tracks = this.filteredBySerchterm().filter((track) => track.album === album.name);
-      await this.addTracksToPlaylist(...tracks);
+      tracks = this.filteredBySerchterm().filter((track) => track.album === album.name);
     } else {
       // filter by all unique albums
       const albums = this.uniqueAlbums();
 
-      const tracks: IndexedDbTrackMetadata[] = [];
+      tracks = [];
       for (const currentAlbum of albums) {
         const albumTracks = this.filteredBySerchterm().filter((track) => track.album === currentAlbum.name);
         tracks.push(...albumTracks);
       }
-      await this.addTracksToPlaylist(...tracks);
     }
+    await this.addTracksToPlaylist(...tracks);
   }
 
   async addTrackToPlaylist(track: IndexedDbTrackMetadata) {

@@ -19,7 +19,7 @@ export class HotkeysHelpDialogComponent {
   data = inject<HotkeysData>(MAT_DIALOG_DATA);
 
   get hotkeyList() {
-    return [...this.data.registeredHotkeys.entries()];
+    return [...this.data.registeredHotkeys];
   }
 
   close() {

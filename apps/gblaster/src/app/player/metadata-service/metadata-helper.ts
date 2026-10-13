@@ -7,9 +7,9 @@ export function ensureHttps(url: string): string {
   if (!url) return url;
 
   try {
-    const urlObj = new URL(url);
-    urlObj.protocol = 'https:';
-    return urlObj.toString();
+    const urlObject = new URL(url);
+    urlObject.protocol = 'https:';
+    return urlObject.href;
   } catch {
     console.warn('Invalid URL provided to ensureHttps:', url);
     return url; // Return the original URL if it cannot be parsed
@@ -32,7 +32,7 @@ export async function generateFileHash(file: File): Promise<string> {
   }
 
   // Choose smaller chunk size based on file size
-  const chunkSize = fileSize < 5 * 1024 * 1024 ? 64 * 1024 : 128 * 1024; // 64KB or 128KB
+  const chunkSize = (fileSize < 5 * 1024 * 1024 ? 64 : 128) * 1024; // 64KB or 128KB
 
   const chunks: Uint8Array[] = [];
 

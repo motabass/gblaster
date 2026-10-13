@@ -97,7 +97,7 @@ export class PlaylistComponent {
         if (playlist && playlist.length > 0 && this.isAutoScrollEnabled()) {
           this.scrollToBottom();
         }
-      });
+      }, 0);
     });
 
     // Scroll to current track when it changes
@@ -108,7 +108,7 @@ export class PlaylistComponent {
       // Only scroll when a track is playing
       if (isPlaying && currentTrack) {
         // Small delay to ensure UI has updated
-        setTimeout(() => this.scrollToCurrentTrack());
+        setTimeout(() => this.scrollToCurrentTrack(), 0);
       }
     });
   }
@@ -205,7 +205,7 @@ export class PlaylistComponent {
         overlayRef.style.position = 'absolute';
         overlayRef.style.left = `${event.clientX}px`;
         overlayRef.style.top = `${event.clientY}px`;
-      });
+      }, 0);
     }
   }
 }

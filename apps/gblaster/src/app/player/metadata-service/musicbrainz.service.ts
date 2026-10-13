@@ -22,11 +22,7 @@ export class MusicbrainzService {
 
     try {
       const releaseGroupId = await this.findReleaseGroupId(tags.artist, tags.album);
-      if (!releaseGroupId) {
-        return undefined;
-      }
-
-      return await this.fetchCoverArt(releaseGroupId);
+      return !releaseGroupId ? undefined : await this.fetchCoverArt(releaseGroupId);
     } catch {
       // console.warn('Failed to query MusicBrainz', error);
       return undefined;
@@ -38,11 +34,7 @@ export class MusicbrainzService {
 
     try {
       const data = await this.musicBrainzApi.search('release-group', { query });
-      if (!data['release-groups']?.length) {
-        return undefined;
-      }
-
-      return data['release-groups'][0].id;
+      return !data['release-groups']?.length ? undefined : data['release-groups'][0].id;
     } catch {
       // console.warn('Failed to search release groups:', error);
       return undefined;

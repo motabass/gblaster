@@ -1,3 +1,4 @@
+/* eslint-disable unicorn/no-top-level-assignment-in-function */
 import type {
   BarsVisualizerOptions,
   OscVisualizerOptions,
@@ -232,12 +233,11 @@ function drawBars() {
     const x = barGapWidth * index;
 
     // Draw cap
+    context.fillStyle = mainColor;
     if (value < capYPositionArrayCopy[index]) {
-      context.fillStyle = mainColor;
       context.fillRect(x, canvasHeight - capYPositionArrayCopy[index], barWidth, capHeight);
       capYPositionArrayCopy[index] = Math.max(capYPositionArrayCopy[index] - capFalldown, capHeight);
     } else {
-      context.fillStyle = mainColor;
       context.fillRect(x, canvasHeight - value, barWidth, capHeight);
       capYPositionArrayCopy[index] = value;
     }

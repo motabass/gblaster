@@ -67,7 +67,7 @@ export class ShellComponent {
   private readonly sidenav = viewChild.required<MatSidenav>('drawer');
 
   navigateTo(route: string, skipLocationChange = false) {
-    this.sidenav().close();
+    void this.sidenav().close();
     void this.router.navigate([route], {
       skipLocationChange: skipLocationChange
     });

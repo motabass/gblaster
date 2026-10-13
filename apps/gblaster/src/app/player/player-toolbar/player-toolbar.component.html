@@ -53,8 +53,8 @@
   <button
     mat-icon-button
     id="load_files"
-    (click)="showFilePickerAndAddToLibrary()"
     [disabled]="progressService.processing()"
+    (click)="showFilePickerAndAddToLibrary()"
   >
     <mat-icon
       matTooltip="Load folder/files..."

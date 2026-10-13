@@ -68,7 +68,7 @@ export class Id3TagsService implements OnDestroy {
   private handleError = (event: ErrorEvent): void => {
     console.error('Worker error:', event);
     // Reject all pending requests on catastrophic worker error
-    for (const [id, request] of this.pendingRequests.entries()) {
+    for (const [id, request] of this.pendingRequests) {
       request.reject(new Error(event.message || 'Unknown worker error'));
       this.pendingRequests.delete(id);
     }

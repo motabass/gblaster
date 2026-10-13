@@ -77,9 +77,10 @@ export class HotkeysService {
           dispose();
           this.hotkeys.delete(merged.keys);
         };
-      } else {
-        return () => {};
       }
+      return () => {
+        /* empty */
+      };
     });
 
     const sub = observable.subscribe(options.callback);

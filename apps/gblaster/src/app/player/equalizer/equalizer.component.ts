@@ -126,7 +126,7 @@ export default class EqualizerComponent {
     const labelFreqs = this.BANDS.filter((freq) => freq >= minFreq && freq <= maxFreq);
     for (const freq of labelFreqs) {
       const x = getXPos(freq);
-      const label = freq >= 1000 ? `${freq / 1000}k` : `${freq}`;
+      const label = freq >= 1000 ? `${freq / 1000}k` : String(freq);
       ctx.fillText(label, x, height - 5);
     }
 

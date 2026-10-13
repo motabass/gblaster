@@ -70,7 +70,7 @@ export class PlayerService {
     // TODO: überarbeiten
     if ('launchQueue' in globalThis) {
       // @ts-expect-error launchQueue is not yet in TS types
-      globalThis.launchQueue.setConsumer(async (launchParameters) => {
+      launchQueue.setConsumer(async (launchParameters) => {
         console.log('Handling launch params:', launchParameters);
         // Focus the window first to ensure we're the active window
         window.focus();
@@ -259,7 +259,8 @@ export class PlayerService {
     const currentPosition = playlist.indexOf(loadedTrack);
     if (currentPosition < playlist.length - 1) {
       return this.playTrack(playlist[currentPosition + 1]);
-    } else if (this.repeat() === 'all') {
+    }
+    if (this.repeat() === 'all') {
       return this.playTrack(playlist[0]);
     }
   }
