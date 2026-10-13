@@ -99,9 +99,6 @@
     "@nx/vitest:test": {
       "inputs": ["default", "^production"],
       "cache": true,
-      "options": {
-        "passWithNoTests": true
-      },
       "configurations": {
         "ci": {
           "ci": true,
@@ -126,16 +123,18 @@
     "@angular/build:unit-test": {
       "inputs": ["default", "^production"],
       "cache": true,
-      "options": {
-        "browsers": ["chromium"]
-      },
       "configurations": {
         "watch": {
           "watch": true
         },
         "ci": {
           "coverage": true,
-          "headless": true
+          "coverageThresholds": {
+            "statements": 20,
+            "branches": 20,
+            "functions": 20,
+            "lines": 20
+          }
         }
       }
     }

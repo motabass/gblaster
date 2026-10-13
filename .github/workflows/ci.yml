@@ -27,11 +27,11 @@ jobs:
           CI: true
 
       - name: Install Playwright Browsers
-        run: pnpm exec  playwright install --with-deps
+        run: pnpm exec playwright install --with-deps chromium --only-shell
 
       - parallel:
           - name: Unit-Tests
-            run: pnpm run test:all
+            run: pnpm exec nx run-many -t test --configuration=ci
             env:
               CI: true
 
@@ -39,6 +39,14 @@ jobs:
             run: pnpm run ci:e2e
             env:
               CI: true
+
+      - name: Upload unit test coverage
+        uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: unit-test-coverage
+          path: coverage/
+          retention-days: 7
 
       - name: Upload Playwright Report on Failure
         uses: actions/upload-artifact@v7

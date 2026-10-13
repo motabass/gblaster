@@ -8,19 +8,19 @@ export default defineConfig({
   ...nxE2EPreset(__filename, { testDir: './e2e' }),
   use: {
     baseURL,
-    trace: 'on-first-retry',
+    trace: 'on-first-retry'
   },
   webServer: {
-    command: 'npx nx serve gblaster',
+    command: 'pnpm exec nx serve gblaster',
     url: baseURL,
     reuseExistingServer: !process.env['CI'],
     cwd: workspaceRoot,
-    timeout: 120_000,
+    timeout: 120_000
   },
   projects: [
     {
       name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
-    },
-  ],
+      use: { ...devices['Desktop Chrome'] }
+    }
+  ]
 });
