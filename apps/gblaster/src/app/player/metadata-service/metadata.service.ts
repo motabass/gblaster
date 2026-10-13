@@ -28,29 +28,31 @@ export class MetadataService {
   readonly preferTagEmbeddedPicture = signal(this.localStorageService.retrieve('preferTagEmbeddedPicture') ?? true);
 
   async *addFilesToLibrary(fileDatas: FileData[]) {
-    if (fileDatas?.length) {
-      this.progressService.startProcessing(fileDatas.length);
-      for (const fileData of fileDatas.values()) {
-        this.progressService.updateCurrentFile(fileData.file.name);
-        const result = await this.getTrackMetadataFromCacheOrExtract(fileData);
-        if (!result?.metadata) {
-          this.progressService.completeFile();
-          continue;
-        }
-        if (!result.fromCache) {
-          await this.addMetadataToIndexedDb(result.metadata);
-        }
-
-        const track: Track = {
-          file: fileData.file,
-          fileHandle: fileData.fileHandle,
-          metadata: result.metadata
-        };
-        this.progressService.completeFile();
-        yield track;
-      }
-      this.progressService.reset();
+    if (!fileDatas?.length) {
+      return;
     }
+
+    this.progressService.startProcessing(fileDatas.length);
+    for (const fileData of fileDatas.values()) {
+      this.progressService.updateCurrentFile(fileData.file.name);
+      const result = await this.getTrackMetadataFromCacheOrExtract(fileData);
+      if (!result?.metadata) {
+        this.progressService.completeFile();
+        continue;
+      }
+      if (!result.fromCache) {
+        await this.addMetadataToIndexedDb(result.metadata);
+      }
+
+      const track: Track = {
+        file: fileData.file,
+        fileHandle: fileData.fileHandle,
+        metadata: result.metadata
+      };
+      this.progressService.completeFile();
+      yield track;
+    }
+    this.progressService.reset();
   }
 
   private async addMetadataToIndexedDb(metadata: TrackMetadata) {
@@ -153,12 +155,12 @@ export class MetadataService {
   }
 
   /**
-   * Revokes blob URLs for tracks with embedded pictures.
-   * Call this when:
-   * - Removing tracks from library
-   * - Clearing the entire library
+  Revokes blob URLs for tracks with embedded pictures.
+  Call this when:
+  - Removing tracks from library
+  - Clearing the entire library
     for (const track of tracks) {
-   */
+  */
   revokeBlobUrlsForTracks(tracks: TrackMetadata[]): void {
     for (const track of tracks) {
       if (track.cachedBlobUrl) {
@@ -169,13 +171,15 @@ export class MetadataService {
   }
 
   /**
-   * Revokes blob URL for a single track.
-   * Call this when removing a single track from library.
-   */
+  Revokes blob URL for a single track.
+  Call this when removing a single track from library.
+  */
   revokeBlobUrlForTrack(track: TrackMetadata): void {
-    if (track.cachedBlobUrl) {
-      URL.revokeObjectURL(track.cachedBlobUrl);
-      track.cachedBlobUrl = undefined;
+    if (!track.cachedBlobUrl) {
+      return;
     }
+
+    URL.revokeObjectURL(track.cachedBlobUrl);
+    track.cachedBlobUrl = undefined;
   }
 }

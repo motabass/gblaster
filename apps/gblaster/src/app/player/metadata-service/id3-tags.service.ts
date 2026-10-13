@@ -1,6 +1,6 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { Id3Tags } from './id3-tags.types';
-import { TagsWorkerRequest, TagsWorkerResponse } from './metadata.types';
+import { TagsWorkerResponse } from './metadata.types';
 
 @Injectable({ providedIn: 'root' })
 export class Id3TagsService implements OnDestroy {
@@ -44,7 +44,7 @@ export class Id3TagsService implements OnDestroy {
         }
       });
 
-      this.worker.postMessage({ id, file } as TagsWorkerRequest);
+      this.worker.postMessage({ id, file });
     });
   }
 
@@ -52,14 +52,16 @@ export class Id3TagsService implements OnDestroy {
     const { id, tags, error } = event.data;
     const request = this.pendingRequests.get(id);
 
-    if (request) {
-      this.pendingRequests.delete(id);
+    if (!request) {
+      return;
+    }
 
-      if (error) {
-        request.reject(new Error(error));
-      } else {
-        request.resolve(tags);
-      }
+    this.pendingRequests.delete(id);
+
+    if (error) {
+      request.reject(new Error(error));
+    } else {
+      request.resolve(tags);
     }
   };
 

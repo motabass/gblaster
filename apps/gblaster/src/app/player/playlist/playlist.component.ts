@@ -198,11 +198,13 @@ export class PlaylistComponent {
       // Forcefully reset the menu position after it's opened
       setTimeout(() => {
         const overlayRef = document.querySelector('.cdk-overlay-pane:last-child') as HTMLElement;
-        if (overlayRef) {
-          overlayRef.style.position = 'absolute';
-          overlayRef.style.left = `${event.clientX}px`;
-          overlayRef.style.top = `${event.clientY}px`;
+        if (!overlayRef) {
+          return;
         }
+
+        overlayRef.style.position = 'absolute';
+        overlayRef.style.left = `${event.clientX}px`;
+        overlayRef.style.top = `${event.clientY}px`;
       });
     }
   }

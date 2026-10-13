@@ -4,7 +4,7 @@ import { environment } from '../environments/environment';
 import { provideNgxWebstorage, withLocalStorage, withNgxWebstorageConfig } from 'ngx-webstorage';
 import { provideIndexedDb } from 'ngx-indexed-db';
 import { provideRouter, withExperimentalPlatformNavigation, withViewTransitions } from '@angular/router';
-import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { loaderInterceptor } from './services/loader/loader.interceptor';
 import { MAT_TOOLTIP_DEFAULT_OPTIONS } from '@angular/material/tooltip';
 import { routes } from './app.routes';
@@ -36,7 +36,7 @@ export const appConfig: ApplicationConfig = {
       }),
       withLocalStorage()
     ),
-    provideHttpClient(withInterceptors([loaderInterceptor]), withFetch()),
+    provideHttpClient(withInterceptors([loaderInterceptor])),
     provideRouter(routes, withViewTransitions(), withExperimentalPlatformNavigation()),
     { provide: LocationStrategy, useClass: NoTrailingSlashPathLocationStrategy },
     { provide: GamepadService, useFactory: gamepadServiceFactory },

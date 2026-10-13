@@ -21,10 +21,10 @@ export interface TrackMetadata {
   embeddedPicture?: Id3CoverPicture;
   coverColors?: CoverColorPalette;
   /**
-   * Runtime-only cache for blob URLs created from embedded pictures.
-   * This is session-specific and should NEVER be persisted to IndexedDB.
-   * Blob URLs become invalid after browser restart.
-   */
+  Runtime-only cache for blob URLs created from embedded pictures.
+  This is session-specific and should NEVER be persisted to IndexedDB.
+  Blob URLs become invalid after browser restart.
+  */
   cachedBlobUrl?: string;
 }
 

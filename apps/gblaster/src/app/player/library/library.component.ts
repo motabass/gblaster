@@ -143,8 +143,8 @@ export default class LibraryComponent implements OnInit {
       if (albumCompare !== 0) return albumCompare;
 
       // Then use track number if available
-      const aTrack = a.track === undefined ? Number.NaN : Number(a.track);
-      const bTrack = b.track === undefined ? Number.NaN : Number(b.track);
+      const aTrack = a.track === undefined ? NaN : Number(a.track);
+      const bTrack = b.track === undefined ? NaN : Number(b.track);
 
       // If both tracks have track numbers, compare them
       if (!Number.isNaN(aTrack) && !Number.isNaN(bTrack)) {
@@ -178,11 +178,13 @@ export default class LibraryComponent implements OnInit {
   }
 
   async playTrack(track: IndexedDbTrackMetadata | undefined) {
-    if (track) {
-      await this.addTrackToPlaylist(track);
-      await this.playerService.playTrackByHash(track.hash);
-      // void this.router.navigate(['/player']);
+    if (!track) {
+      return;
     }
+
+    await this.addTrackToPlaylist(track);
+    await this.playerService.playTrackByHash(track.hash);
+    // void this.router.navigate(['/player']);
   }
 
   async addArtistToPlaylist(artist: string) {

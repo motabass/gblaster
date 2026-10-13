@@ -17,10 +17,10 @@ export function ensureHttps(url: string): string {
 }
 
 /**
- * Generates a hash for a file by sampling strategic portions of its content
- * @param file The file to hash
- * @returns A hex string representing the hash of the file
- */
+Generates a hash for a file by sampling strategic portions of its content
+@param file The file to hash
+@returns A hex string representing the hash of the file
+*/
 export async function generateFileHash(file: File): Promise<string> {
   const fileSize = file.size;
 
@@ -75,10 +75,10 @@ export async function generateFileHash(file: File): Promise<string> {
 }
 
 /**
- * Extracts a color palette from an image URL using node-vibrant
- * @param url The URL of the image to extract colors from
- * @returns A color palette or undefined if extraction fails
- */
+Extracts a color palette from an image URL using node-vibrant
+@param url The URL of the image to extract colors from
+@returns A color palette or undefined if extraction fails
+*/
 export async function extractColorsWithNodeVibrant(url: string): Promise<CoverColorPalette | undefined> {
   try {
     const palette = await Vibrant.from(url).getPalette();

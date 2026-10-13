@@ -1,11 +1,5 @@
 import { Directive, effect, ElementRef, inject, input, OnDestroy } from '@angular/core';
-import type {
-  FrequencyBarsConfig,
-  OsciloscopeConfig,
-  VisualizerMode,
-  VisualsColorConfig,
-  VisualsWorkerMessage
-} from './visuals.types';
+import type { FrequencyBarsConfig, OsciloscopeConfig, VisualizerMode, VisualsColorConfig } from './visuals.types';
 import { AudioService } from '../../audio.service';
 
 const FALLBACK_PRIMARY_COLOR = '#424242';
@@ -52,7 +46,7 @@ export class VisualsDirective implements OnDestroy {
     // };
 
     const offscreenCanvas: OffscreenCanvas = this.canvas.transferControlToOffscreen();
-    this.visualizerWorker.postMessage({ canvas: offscreenCanvas } as VisualsWorkerMessage, [offscreenCanvas]);
+    this.visualizerWorker.postMessage({ canvas: offscreenCanvas }, [offscreenCanvas]);
 
     this.resizeObserver = this.setupResizeObserver();
     effect(() => {
@@ -95,7 +89,7 @@ export class VisualsDirective implements OnDestroy {
       const rect = entries[0].contentRect;
       this.visualizerWorker.postMessage({
         newSize: rect
-      } as VisualsWorkerMessage);
+      });
     });
     observer.observe(this.canvas);
     return observer;
@@ -129,7 +123,7 @@ export class VisualsDirective implements OnDestroy {
         fftSize: this.analyserNode.fftSize,
         sampleRate: this.audioService.sampleRate()
       }
-    } as VisualsWorkerMessage);
+    });
 
     this.startVisualization('getByteFrequencyData');
   }
@@ -145,7 +139,7 @@ export class VisualsDirective implements OnDestroy {
         bufferLength: this.analyserNode.frequencyBinCount,
         thickness: this.oscConfig().thickness
       }
-    } as VisualsWorkerMessage);
+    });
 
     this.startVisualization('getByteTimeDomainData');
   }
@@ -197,7 +191,7 @@ export class VisualsDirective implements OnDestroy {
   }
 
   stopVisualizer() {
-    this.visualizerWorker.postMessage({ stop: true } as VisualsWorkerMessage);
+    this.visualizerWorker.postMessage({ stop: true });
     if (this.animationFrameRef !== undefined) {
       cancelAnimationFrame(this.animationFrameRef);
     }

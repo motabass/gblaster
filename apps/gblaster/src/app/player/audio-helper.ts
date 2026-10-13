@@ -1,10 +1,10 @@
 import { FREQUENCY_BANDS, FrequencyBand } from './player.types';
 
 /**
- * Creates an equalizer chain of BiquadFilterNodes for an audio context
- * @param audioContext The AudioContext to create the equalizer in
- * @returns An object containing the input node, output node, and frequency filters
- */
+Creates an equalizer chain of BiquadFilterNodes for an audio context
+@param audioContext The AudioContext to create the equalizer in
+@returns An object containing the input node, output node, and frequency filters
+*/
 export function createEqualizer(audioContext: AudioContext): {
   eqInput: AudioNode;
   eqOutput: AudioNode;

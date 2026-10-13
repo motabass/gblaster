@@ -245,7 +245,7 @@ export class PlayerService {
 
   async next(): Promise<void> {
     const loadedTrack = this.currentlyLoadedTrack();
-    if (this.audioService.isLoading() || !loadedTrack) {
+    if (!loadedTrack || this.audioService.isLoading()) {
       return;
     }
 

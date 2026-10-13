@@ -34,19 +34,18 @@ export class AudioService {
   readonly sampleRate = signal(44_100);
 
   readonly equalizerGainValues = signal<EqualizerGainValues>(
-    this.localStorageService.retrieve('equalizerGainValues') ??
-      ({
-        31: 0,
-        63: 0,
-        125: 0,
-        250: 0,
-        500: 0,
-        1000: 0,
-        2000: 0,
-        4000: 0,
-        8000: 0,
-        16_000: 0
-      } as EqualizerGainValues)
+    this.localStorageService.retrieve('equalizerGainValues') ?? {
+      31: 0,
+      63: 0,
+      125: 0,
+      250: 0,
+      500: 0,
+      1000: 0,
+      2000: 0,
+      4000: 0,
+      8000: 0,
+      16_000: 0
+    }
   );
 
   private readonly _hasEnded = new Subject<void>();
@@ -144,10 +143,12 @@ export class AudioService {
   }
 
   disconnectAnalyserNode(analyser: AnalyserNode): void {
-    if (this._connectedAnalyzers.has(analyser)) {
-      this._eqGainNode.disconnect(analyser);
-      this._connectedAnalyzers.delete(analyser);
+    if (!this._connectedAnalyzers.has(analyser)) {
+      return;
     }
+
+    this._eqGainNode.disconnect(analyser);
+    this._connectedAnalyzers.delete(analyser);
   }
 
   // Call on major cleanup events or app exit
@@ -194,7 +195,7 @@ export class AudioService {
   }
 
   seekToPosition(position: number, fastSeek = false) {
-    if ('fastSeek' in this._audioElement && fastSeek) {
+    if (fastSeek && 'fastSeek' in this._audioElement) {
       this._audioElement.fastSeek(position);
     } else {
       this._audioElement.currentTime = position;
@@ -225,11 +226,13 @@ export class AudioService {
   }
 
   setVolume(value: number) {
-    if (value >= 0 && value <= 1) {
-      this._gainNode.gain.setTargetAtTime(value, this._audioContext.currentTime, 0.01);
-      this.volume.set(value);
-      this.localStorageService.store('volume', value);
+    if (!(value >= 0 && value <= 1)) {
+      return;
     }
+
+    this._gainNode.gain.setTargetAtTime(value, this._audioContext.currentTime, 0.01);
+    this.volume.set(value);
+    this.localStorageService.store('volume', value);
   }
 
   setBaseGain(volume: number) {

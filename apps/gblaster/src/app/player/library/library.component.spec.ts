@@ -21,8 +21,8 @@ function createMockTrackMetadata(overrides: Partial<IndexedDbTrackMetadata> = {}
       duration: 180,
       container: 'MPEG',
       codec: 'MP3',
-      bitrate: 320000,
-      sampleRate: 44100
+      bitrate: 320_000,
+      sampleRate: 44_100
     } as IndexedDbTrackMetadata['format'],
     coverUrl: { thumbUrl: '', originalUrl: '' },
     fileHandle: {

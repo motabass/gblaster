@@ -80,26 +80,32 @@ export class VisualizerComponent implements OnInit, OnDestroy {
   });
 
   setSmoothing(value: number | null) {
-    if (value !== null) {
-      this.smoothing.set(value);
-      this.analyser.smoothingTimeConstant = value;
-      this.localStorageService.store('smoothing', value);
+    if (!(value !== null)) {
+      return;
     }
+
+    this.smoothing.set(value);
+    this.analyser.smoothingTimeConstant = value;
+    this.localStorageService.store('smoothing', value);
   }
 
   setMinDb(value: number | null) {
-    if (value !== null) {
-      this.minDb.set(value);
-      this.analyser.minDecibels = value;
-      this.localStorageService.store('minDb', value);
+    if (!(value !== null)) {
+      return;
     }
+
+    this.minDb.set(value);
+    this.analyser.minDecibels = value;
+    this.localStorageService.store('minDb', value);
   }
 
   setAlpha(value: number | null) {
-    if (value !== null) {
-      this.alpha.set(value);
-      this.localStorageService.store('alpha', value);
+    if (!(value !== null)) {
+      return;
     }
+
+    this.alpha.set(value);
+    this.localStorageService.store('alpha', value);
   }
 
   setFftSize(value: FftSize) {
@@ -109,37 +115,47 @@ export class VisualizerComponent implements OnInit, OnDestroy {
   }
 
   setBarCount(value: number | null) {
-    if (value !== null) {
-      this.barCount.set(value);
-      this.localStorageService.store('barCount', value);
+    if (!(value !== null)) {
+      return;
     }
+
+    this.barCount.set(value);
+    this.localStorageService.store('barCount', value);
   }
 
   setCapHeight(value: number | null) {
-    if (value !== null) {
-      this.capHeight.set(value);
-      this.localStorageService.store('capHeight', value);
+    if (!(value !== null)) {
+      return;
     }
+
+    this.capHeight.set(value);
+    this.localStorageService.store('capHeight', value);
   }
 
   setCapFalldown(value: number | null) {
-    if (value !== null) {
-      this.capFalldown.set(value);
-      this.localStorageService.store('capFalldown', value);
+    if (!(value !== null)) {
+      return;
     }
+
+    this.capFalldown.set(value);
+    this.localStorageService.store('capFalldown', value);
   }
 
   setLineThickness(value: number | null) {
-    if (value !== null) {
-      this.lineThickness.set(value);
-      this.localStorageService.store('lineThickness', value);
+    if (!(value !== null)) {
+      return;
     }
+
+    this.lineThickness.set(value);
+    this.localStorageService.store('lineThickness', value);
   }
 
   setGap(value: number | null) {
-    if (value !== null) {
-      this.gap.set(value);
-      this.localStorageService.store('gap', value);
+    if (!(value !== null)) {
+      return;
     }
+
+    this.gap.set(value);
+    this.localStorageService.store('gap', value);
   }
 }

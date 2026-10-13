@@ -1,6 +1,6 @@
 import { Id3CoverPicture, Id3Tags } from './id3-tags.types';
 import { parseBlob } from 'music-metadata';
-import { TagsWorkerRequest, TagsWorkerResponse } from './metadata.types';
+import { TagsWorkerRequest } from './metadata.types';
 
 addEventListener('message', async (event: MessageEvent<TagsWorkerRequest>) => {
   const { id, file } = event.data;
@@ -15,13 +15,13 @@ addEventListener('message', async (event: MessageEvent<TagsWorkerRequest>) => {
 
   try {
     const tags = await extractTags(file);
-    self.postMessage({ id, tags } as TagsWorkerResponse);
+    self.postMessage({ id, tags });
   } catch (error) {
     let errorMessage = 'Unknown error during tag extraction';
     if (error instanceof Error) {
       errorMessage = error.message;
     }
-    self.postMessage({ id, error: errorMessage } as TagsWorkerResponse);
+    self.postMessage({ id, error: errorMessage });
   }
 });
 

@@ -72,7 +72,7 @@ addEventListener('message', (event: MessageEvent<VisualsWorkerMessage>) => {
     }
   }
   // message for stopping and clearing the visualizer
-  if (event.data.stop && context) {
+  if (context && event.data.stop) {
     context.clearRect(0, 0, canvasWidth, canvasHeight);
   }
 
@@ -82,31 +82,33 @@ addEventListener('message', (event: MessageEvent<VisualsWorkerMessage>) => {
   }
 
   // Handle analyzer data (optimized for transferable objects)
-  if (event.data.analyserData) {
-    analyserData = event.data.analyserData;
-
-    switch (mode) {
-      case 'osc': {
-        drawOsc();
-        break;
-      }
-      case 'bars': {
-        drawBars();
-        break;
-      }
-      case 'circular-osc': {
-        drawCircularOsc();
-        break;
-      }
-      case 'circular-bars': {
-        drawCircularBars();
-        break;
-      }
-    }
-
-    // Notify main thread we're ready for more data, including the buffer for reuse
-    postMessage({ bufferReady: true, reusableBuffer: analyserData }, [analyserData.buffer]);
+  if (!event.data.analyserData) {
+    return;
   }
+
+  analyserData = event.data.analyserData;
+
+  switch (mode) {
+    case 'osc': {
+      drawOsc();
+      break;
+    }
+    case 'bars': {
+      drawBars();
+      break;
+    }
+    case 'circular-osc': {
+      drawCircularOsc();
+      break;
+    }
+    case 'circular-bars': {
+      drawCircularBars();
+      break;
+    }
+  }
+
+  // Notify main thread we're ready for more data, including the buffer for reuse
+  postMessage({ bufferReady: true, reusableBuffer: analyserData }, [analyserData.buffer]);
 });
 
 function setupVisualsWorkerWithOptions(options: VisualizerOptions) {
@@ -331,7 +333,7 @@ function initBarkScale() {
   frequencyToBarkMap = new Float32Array(fftSize / 2);
   for (let index = 0; index < fftSize / 2; index++) {
     const frequency = (index * sampleRate) / fftSize;
-    frequencyToBarkMap[index] = 13 * Math.atan(0.000_76 * frequency) + 3.5 * Math.atan((frequency / 7500) ** 2);
+    frequencyToBarkMap[index] = 13 * Math.atan(0.00076 * frequency) + 3.5 * Math.atan((frequency / 7500) ** 2);
   }
 }
 

@@ -23,7 +23,7 @@ function createMockTrack(overrides: Partial<Track> = {}): Track {
     ...defaultTrack,
     ...overrides,
     metadata: { ...defaultTrack.metadata, ...overrides.metadata }
-  } as Track;
+  };
 }
 
 describe('PlaylistComponent', () => {

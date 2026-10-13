@@ -46,7 +46,7 @@ describe('formatBitrate', () => {
   });
 
   it('should handle NaN', () => {
-    expect(formatBitrate(Number.NaN)).toBe('0 kb/s');
+    expect(formatBitrate(NaN)).toBe('0 kb/s');
   });
 
   it('should format common audio bitrates correctly', () => {

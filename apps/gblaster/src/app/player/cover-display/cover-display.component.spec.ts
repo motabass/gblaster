@@ -29,8 +29,8 @@ function createMockTrack(overrides: Partial<Track> = {}): Track {
         duration: 180,
         container: 'MPEG',
         codec: 'MP3',
-        bitrate: 320000,
-        sampleRate: 44100
+        bitrate: 320_000,
+        sampleRate: 44_100
       } as Track['metadata']['format'],
       coverUrl: { thumbUrl: '', originalUrl: 'https://example.com/cover.jpg' },
       coverColors: {
@@ -47,7 +47,7 @@ function createMockTrack(overrides: Partial<Track> = {}): Track {
     ...defaultTrack,
     ...overrides,
     metadata: { ...defaultTrack.metadata, ...overrides.metadata }
-  } as Track;
+  };
 }
 
 describe('CoverDisplayComponent', () => {

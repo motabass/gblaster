@@ -117,9 +117,9 @@ export class GamepadService implements OnDestroy {
   }
 
   /**
-   * Triggers haptic feedback (rumble) on all connected gamepads
-   * @param options Rumble configuration options
-   */
+  Triggers haptic feedback (rumble) on all connected gamepads
+  @param options Rumble configuration options
+  */
   private triggerRumble(options: RumbleOptions): void {
     const gamepads = navigator.getGamepads();
     for (const gamepad of gamepads) {
