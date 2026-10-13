@@ -33,7 +33,7 @@ export class MetadataService {
     }
 
     this.progressService.startProcessing(fileDatas.length);
-    for (const fileData of fileDatas.values()) {
+    for (const fileData of fileDatas) {
       this.progressService.updateCurrentFile(fileData.file.name);
       const result = await this.getTrackMetadataFromCacheOrExtract(fileData);
       if (!result?.metadata) {
