@@ -7,10 +7,11 @@ import { Title } from '@angular/platform-browser';
 export class TitleService {
   private readonly angularTitleService = inject(Title);
 
-  readonly title = signal<string>('');
+  private readonly _title = signal<string>('');
+  readonly title = this._title.asReadonly();
 
   setTitle(title: string) {
     this.angularTitleService.setTitle(title);
-    this.title.set(title);
+    this._title.set(title);
   }
 }

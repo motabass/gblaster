@@ -22,18 +22,28 @@ export class AudioService {
   private readonly _frequencyBandGainSignals = new Map<FrequencyBand, Signal<number>>();
 
   // State signals
-  readonly isLoading = signal(false);
-  readonly isPlaying = signal(false);
-  readonly isPaused = signal(true);
-  readonly isStopped = signal(true);
-  readonly isLooping = signal(false);
-  readonly currentTime = signal(0);
-  readonly duration = signal(0);
-  readonly volume = signal(this.localStorageService.retrieve('volume') ?? 0.5);
-  readonly baseGain = signal(this.localStorageService.retrieve('baseGain') ?? 1);
-  readonly sampleRate = signal(44_100);
+  private readonly _isLoading = signal(false);
+  readonly isLoading = this._isLoading.asReadonly();
+  private readonly _isPlaying = signal(false);
+  readonly isPlaying = this._isPlaying.asReadonly();
+  private readonly _isPaused = signal(true);
+  readonly isPaused = this._isPaused.asReadonly();
+  private readonly _isStopped = signal(true);
+  readonly isStopped = this._isStopped.asReadonly();
+  private readonly _isLooping = signal(false);
+  readonly isLooping = this._isLooping.asReadonly();
+  private readonly _currentTime = signal(0);
+  readonly currentTime = this._currentTime.asReadonly();
+  private readonly _duration = signal(0);
+  readonly duration = this._duration.asReadonly();
+  private readonly _volume = signal(this.localStorageService.retrieve('volume') ?? 0.5);
+  readonly volume = this._volume.asReadonly();
+  private readonly _baseGain = signal(this.localStorageService.retrieve('baseGain') ?? 1);
+  readonly baseGain = this._baseGain.asReadonly();
+  private readonly _sampleRate = signal(44_100);
+  readonly sampleRate = this._sampleRate.asReadonly();
 
-  readonly equalizerGainValues = signal<EqualizerGainValues>(
+  private readonly _equalizerGainValues = signal<EqualizerGainValues>(
     this.localStorageService.retrieve('equalizerGainValues') ?? {
       31: 0,
       63: 0,
@@ -47,6 +57,7 @@ export class AudioService {
       16_000: 0
     }
   );
+  readonly equalizerGainValues = this._equalizerGainValues.asReadonly();
 
   private readonly _hasEnded = new Subject<void>();
 
@@ -98,36 +109,36 @@ export class AudioService {
     this._audioElement.addEventListener('error', (error) => {
       // eslint-disable-next-line no-console
       console.error('Audio element error:', error);
-      this.isLoading.set(false);
+      this._isLoading.set(false);
     });
 
     this._audioElement.addEventListener('loadstart', () => {
-      this.isLoading.set(true);
+      this._isLoading.set(true);
     });
 
     this._audioElement.addEventListener('canplay', () => {
-      this.isLoading.set(false);
+      this._isLoading.set(false);
     });
 
     // Add event listeners to update signals
     this._audioElement.addEventListener('timeupdate', () => {
-      this.currentTime.set(this._audioElement.currentTime);
+      this._currentTime.set(this._audioElement.currentTime);
     });
 
     this._audioElement.addEventListener('durationchange', () => {
-      this.duration.set(this._audioElement.duration);
+      this._duration.set(this._audioElement.duration);
     });
 
     this._audioElement.addEventListener('play', () => {
-      this.sampleRate.set(this._audioContext.sampleRate);
-      this.isStopped.set(false);
-      this.isPlaying.set(true);
-      this.isPaused.set(false);
+      this._sampleRate.set(this._audioContext.sampleRate);
+      this._isStopped.set(false);
+      this._isPlaying.set(true);
+      this._isPaused.set(false);
     });
 
     this._audioElement.addEventListener('pause', () => {
-      this.isPlaying.set(false);
-      this.isPaused.set(true);
+      this._isPlaying.set(false);
+      this._isPaused.set(true);
     });
 
     this._audioElement.addEventListener('ended', () => {
@@ -186,12 +197,12 @@ export class AudioService {
       this.pause();
     }
     this.seekToPosition(0);
-    this.isStopped.set(true);
+    this._isStopped.set(true);
   }
 
   setLoop(loop: boolean) {
     this._audioElement.loop = loop;
-    this.isLooping.set(loop);
+    this._isLooping.set(loop);
   }
 
   seekToPosition(position: number, fastSeek = false) {
@@ -218,7 +229,7 @@ export class AudioService {
     bandGains[bandFrequency] = gainValue;
 
     this.localStorageService.store('equalizerGainValues', bandGains);
-    this.equalizerGainValues.set(bandGains);
+    this._equalizerGainValues.set(bandGains);
   }
 
   resetFrequencyBandGain(bandFrequency: FrequencyBand) {
@@ -231,13 +242,13 @@ export class AudioService {
     }
 
     this._gainNode.gain.setTargetAtTime(value, this._audioContext.currentTime, 0.01);
-    this.volume.set(value);
+    this._volume.set(value);
     this.localStorageService.store('volume', value);
   }
 
   setBaseGain(volume: number) {
     this._eqGainNode.gain.setTargetAtTime(volume, this._audioContext.currentTime, 0.01);
-    this.baseGain.set(volume);
+    this._baseGain.set(volume);
     this.localStorageService.store('baseGain', volume);
   }
 }

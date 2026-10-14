@@ -3,7 +3,6 @@ import { MatSlideToggle, MatSlideToggleChange } from '@angular/material/slide-to
 import { MetadataService } from '../../player/metadata-service/metadata.service';
 import { MatButton } from '@angular/material/button';
 import { MatCard, MatCardContent, MatCardHeader, MatCardTitle } from '@angular/material/card';
-import { LocalStorageService } from 'ngx-webstorage';
 import { LibraryService } from '../../player/library/library.service';
 
 @Component({
@@ -16,21 +15,17 @@ import { LibraryService } from '../../player/library/library.service';
 export class MetadataSettingsComponent {
   protected readonly metadataService = inject(MetadataService);
   private readonly libraryService = inject(LibraryService);
-  private readonly localStorageService = inject(LocalStorageService);
 
   onUseWebTagsChange(event: MatSlideToggleChange) {
-    this.metadataService.useWebMetainfos.set(event.checked);
-    this.localStorageService.store('useWebMetainfos', event.checked);
+    this.metadataService.setUseWebMetainfos(event.checked);
   }
 
   onUseTagEmbeddedPicsChange(event: MatSlideToggleChange) {
-    this.metadataService.useTagEmbeddedPicture.set(event.checked);
-    this.localStorageService.store('useTagEmbeddedPicture', event.checked);
+    this.metadataService.setUseTagEmbeddedPicture(event.checked);
   }
 
   onPreferTagEmbeddedPicsChange(event: MatSlideToggleChange) {
-    this.metadataService.preferTagEmbeddedPicture.set(event.checked);
-    this.localStorageService.store('preferTagEmbeddedPicture', event.checked);
+    this.metadataService.setPreferTagEmbeddedPicture(event.checked);
   }
 
   async clearMetadataCache() {

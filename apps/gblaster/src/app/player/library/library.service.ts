@@ -11,12 +11,14 @@ export class LibraryService {
   private readonly indexedDbService = inject(NgxIndexedDBService);
   private readonly metadataService = inject(MetadataService);
 
-  readonly isLoading = signal<boolean>(false);
-  readonly indexedDbTracks = signal<IndexedDbTrackMetadata[]>([]);
+  private readonly _isLoading = signal<boolean>(false);
+  readonly isLoading = this._isLoading.asReadonly();
+  private readonly _indexedDbTracks = signal<IndexedDbTrackMetadata[]>([]);
+  readonly indexedDbTracks = this._indexedDbTracks.asReadonly();
 
   async loadLibraryFromDb(): Promise<IndexedDbTrackMetadata[]> {
     try {
-      this.isLoading.set(true);
+      this._isLoading.set(true);
 
       const result = await firstValueFrom(this.indexedDbService.getAll<IndexedDbTrackMetadata>('library'));
       const currentTracks = this.indexedDbTracks();
@@ -41,14 +43,14 @@ export class LibraryService {
         return this.metadataService.applyEmbeddedCoverObjectUrsl(track);
       });
 
-      this.indexedDbTracks.set(tracksWithBlobUrls);
+      this._indexedDbTracks.set(tracksWithBlobUrls);
       return tracksWithBlobUrls;
     } catch (error) {
       console.error('Error loading library data:', error);
-      this.indexedDbTracks.set([]);
+      this._indexedDbTracks.set([]);
       throw error; // Re-throw für Caller
     } finally {
-      this.isLoading.set(false);
+      this._isLoading.set(false);
     }
   }
 
@@ -63,7 +65,7 @@ export class LibraryService {
 
     this.metadataService.revokeBlobUrlForTrack(track);
     await firstValueFrom(this.indexedDbService.delete('library', hash));
-    this.indexedDbTracks.set(this.indexedDbTracks().filter((t) => t.hash !== hash));
+    this._indexedDbTracks.set(this.indexedDbTracks().filter((t) => t.hash !== hash));
   }
 
   /**
@@ -71,6 +73,6 @@ export class LibraryService {
   */
   async clearLibrary(): Promise<void> {
     await firstValueFrom(this.indexedDbService.clear('library'));
-    this.indexedDbTracks.set([]);
+    this._indexedDbTracks.set([]);
   }
 }

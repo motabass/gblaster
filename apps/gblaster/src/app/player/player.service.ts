@@ -27,14 +27,19 @@ export class PlayerService {
   });
   private readonly destroRef = inject(DestroyRef);
 
-  readonly currentPlaylist = signal<Track[]>([]);
+  private readonly _currentPlaylist = signal<Track[]>([]);
+  readonly currentPlaylist = this._currentPlaylist.asReadonly();
 
-  readonly selectedTrack = signal<Track | undefined>(undefined);
+  private readonly _selectedTrack = signal<Track | undefined>(undefined);
+  readonly selectedTrack = this._selectedTrack.asReadonly();
 
-  readonly currentlyLoadedTrack = signal<Track | undefined>(undefined);
+  private readonly _currentlyLoadedTrack = signal<Track | undefined>(undefined);
+  readonly currentlyLoadedTrack = this._currentlyLoadedTrack.asReadonly();
 
-  readonly repeat = signal<RepeatMode>(this.localStorageService.retrieve('repeat') || 'off');
-  readonly shuffle = signal<boolean>(this.localStorageService.retrieve('shuffle') ?? false);
+  private readonly _repeat = signal<RepeatMode>(this.localStorageService.retrieve('repeat') || 'off');
+  readonly repeat = this._repeat.asReadonly();
+  private readonly _shuffle = signal<boolean>(this.localStorageService.retrieve('shuffle') ?? false);
+  readonly shuffle = this._shuffle.asReadonly();
 
   readonly colorConfig = computed<ColorConfig>(() => {
     const coverColors = this.currentlyLoadedTrack()?.metadata?.coverColors;
@@ -145,7 +150,7 @@ export class PlayerService {
     }
 
     await this.audioService.play();
-    this.currentlyLoadedTrack.set(track);
+    this._currentlyLoadedTrack.set(track);
     await this.afterPlayLoaded();
   }
 
@@ -160,7 +165,7 @@ export class PlayerService {
           track.metadata.coverColors = palette;
           // Trigger reactivity by updating the signal
           if (this.currentlyLoadedTrack() === track) {
-            this.currentlyLoadedTrack.set({ ...track });
+            this._currentlyLoadedTrack.set({ ...track });
           }
         }
       }
@@ -178,7 +183,7 @@ export class PlayerService {
 
   addTrackToPlaylist(song: Track) {
     if (!this.currentPlaylist().some((playlistSong) => playlistSong.metadata?.hash === song.metadata?.hash)) {
-      this.currentPlaylist.update((playlist) => [...playlist, song]);
+      this._currentPlaylist.update((playlist) => [...playlist, song]);
     }
   }
 
@@ -190,10 +195,10 @@ export class PlayerService {
 
     // If the removed track is currently selected, deselect it
     if (this.selectedTrack() === track) {
-      this.selectedTrack.set(undefined);
+      this._selectedTrack.set(undefined);
     }
     // Update the playlist by filtering out the specified track
-    this.currentPlaylist.update((playlist) => playlist.filter((t) => t !== track));
+    this._currentPlaylist.update((playlist) => playlist.filter((t) => t !== track));
   }
 
   setSeekPosition(value: number | undefined, fastSeek = false) {
@@ -203,7 +208,7 @@ export class PlayerService {
   }
 
   selectSong(song: Track) {
-    this.selectedTrack.set(song);
+    this._selectedTrack.set(song);
   }
 
   async playPauseTrack(track: Track) {
@@ -239,7 +244,7 @@ export class PlayerService {
       return;
     }
     this.audioService.stop();
-    this.currentlyLoadedTrack.set(undefined);
+    this._currentlyLoadedTrack.set(undefined);
     await this.afterPausedOrStopped();
   }
 
@@ -306,7 +311,7 @@ export class PlayerService {
     const currentPosition = this.currentPlaylist().indexOf(selectedTrack);
 
     if (currentPosition < this.currentPlaylist().length) {
-      this.selectedTrack.set(this.currentPlaylist()[currentPosition]);
+      this._selectedTrack.set(this.currentPlaylist()[currentPosition]);
     }
   }
 
@@ -323,7 +328,7 @@ export class PlayerService {
     const currentPosition = this.currentPlaylist().indexOf(selectedTrack);
 
     if (currentPosition > 1) {
-      this.selectedTrack.set(this.currentPlaylist()[currentPosition - 2]);
+      this._selectedTrack.set(this.currentPlaylist()[currentPosition - 2]);
     }
   }
 
@@ -348,23 +353,23 @@ export class PlayerService {
   toggleRepeat() {
     switch (this.repeat()) {
       case 'off': {
-        this.repeat.set('all');
+        this._repeat.set('all');
         break;
       }
       case 'all': {
         this.audioService.setLoop(true);
-        this.repeat.set('one');
+        this._repeat.set('one');
         break;
       }
       case 'one': {
         this.audioService.setLoop(false);
-        this.repeat.set('off');
+        this._repeat.set('off');
         break;
       }
     }
   }
 
   toggleShuffle() {
-    this.shuffle.set(!this.shuffle());
+    this._shuffle.set(!this.shuffle());
   }
 }

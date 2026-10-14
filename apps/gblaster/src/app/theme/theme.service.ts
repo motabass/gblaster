@@ -12,13 +12,20 @@ export class ThemeService {
   private readonly meta = inject(Meta);
   private readonly localStorageService = inject(LocalStorageService);
 
-  readonly darkMode = signal<boolean>(
+  private readonly _darkMode = signal<boolean>(
     this.localStorageService.retrieve('darkMode') ?? matchMedia('(prefers-color-scheme: dark)').matches
   );
+  readonly darkMode = this._darkMode.asReadonly();
 
-  readonly primaryColor = signal<string>(this.localStorageService.retrieve('primaryColor') ?? FALLBACK_PRIMARY_COLOR);
+  private readonly _primaryColor = signal<string>(
+    this.localStorageService.retrieve('primaryColor') ?? FALLBACK_PRIMARY_COLOR
+  );
+  readonly primaryColor = this._primaryColor.asReadonly();
 
-  readonly accentColor = signal<string>(this.localStorageService.retrieve('accentColor') ?? FALLBACK_ACCENT_COLOR);
+  private readonly _accentColor = signal<string>(
+    this.localStorageService.retrieve('accentColor') ?? FALLBACK_ACCENT_COLOR
+  );
+  readonly accentColor = this._accentColor.asReadonly();
 
   readonly primaryColorPalette = computed(() => computeColors(this.primaryColor(), this.darkMode()));
   readonly accentColorPalette = computed(() => computeColors(this.accentColor(), this.darkMode()));
@@ -49,20 +56,20 @@ export class ThemeService {
   }
 
   setDarkMode(darkMode: boolean) {
-    this.darkMode.set(darkMode);
+    this._darkMode.set(darkMode);
   }
 
   setColors(colors: ColorConfig) {
-    this.primaryColor.set(colors.mainColor || FALLBACK_PRIMARY_COLOR);
-    this.accentColor.set(colors.peakColor || FALLBACK_ACCENT_COLOR);
+    this._primaryColor.set(colors.mainColor || FALLBACK_PRIMARY_COLOR);
+    this._accentColor.set(colors.peakColor || FALLBACK_ACCENT_COLOR);
   }
 
   setPrimaryColor(color: string) {
-    this.primaryColor.set(color || FALLBACK_PRIMARY_COLOR);
+    this._primaryColor.set(color || FALLBACK_PRIMARY_COLOR);
   }
 
   setAccentColor(color: string) {
-    this.accentColor.set(color || FALLBACK_ACCENT_COLOR);
+    this._accentColor.set(color || FALLBACK_ACCENT_COLOR);
   }
 
   private updateCSSProperties() {

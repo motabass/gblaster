@@ -9,11 +9,12 @@ import { getNextVisualizerMode } from './visuals-helper';
 export class VisualsService {
   private readonly localStorageService = inject(LocalStorageService);
 
-  readonly visualMode = signal<VisualizerMode>(this.localStorageService.retrieve('visualMode') ?? 'off');
+  private readonly _visualMode = signal<VisualizerMode>(this.localStorageService.retrieve('visualMode') ?? 'off');
+  readonly visualMode = this._visualMode.asReadonly();
 
   toggleVisualMode() {
     const nextMode = getNextVisualizerMode(this.visualMode());
-    this.visualMode.set(nextMode);
+    this._visualMode.set(nextMode);
     this.localStorageService.store('visualMode', nextMode);
   }
 }

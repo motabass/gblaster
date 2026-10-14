@@ -23,9 +23,29 @@ export class MetadataService {
 
   private readonly PLACEHOLDER_URL = 'assets/icons/record.svg';
 
-  readonly useWebMetainfos = signal(this.localStorageService.retrieve('useWebMetainfos') ?? true);
-  readonly useTagEmbeddedPicture = signal(this.localStorageService.retrieve('useTagEmbeddedPicture') ?? true);
-  readonly preferTagEmbeddedPicture = signal(this.localStorageService.retrieve('preferTagEmbeddedPicture') ?? true);
+  private readonly _useWebMetainfos = signal(this.localStorageService.retrieve('useWebMetainfos') ?? true);
+  readonly useWebMetainfos = this._useWebMetainfos.asReadonly();
+  private readonly _useTagEmbeddedPicture = signal(this.localStorageService.retrieve('useTagEmbeddedPicture') ?? true);
+  readonly useTagEmbeddedPicture = this._useTagEmbeddedPicture.asReadonly();
+  private readonly _preferTagEmbeddedPicture = signal(
+    this.localStorageService.retrieve('preferTagEmbeddedPicture') ?? true
+  );
+  readonly preferTagEmbeddedPicture = this._preferTagEmbeddedPicture.asReadonly();
+
+  setUseWebMetainfos(value: boolean) {
+    this._useWebMetainfos.set(value);
+    this.localStorageService.store('useWebMetainfos', value);
+  }
+
+  setUseTagEmbeddedPicture(value: boolean) {
+    this._useTagEmbeddedPicture.set(value);
+    this.localStorageService.store('useTagEmbeddedPicture', value);
+  }
+
+  setPreferTagEmbeddedPicture(value: boolean) {
+    this._preferTagEmbeddedPicture.set(value);
+    this.localStorageService.store('preferTagEmbeddedPicture', value);
+  }
 
   async *addFilesToLibrary(fileDatas: FileData[]) {
     if (!fileDatas?.length) {
