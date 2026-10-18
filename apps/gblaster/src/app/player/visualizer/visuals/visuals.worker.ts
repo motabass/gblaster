@@ -150,8 +150,6 @@ function setupVisualsWorkerWithOptions(options: VisualizerOptions) {
   analyserData = new Uint8Array(bufferLength);
 }
 
-let oscilloscopePath: Path2D;
-
 function drawOsc() {
   if (!context) return;
 
@@ -163,16 +161,16 @@ function drawOsc() {
   const halfCanvasHeight = canvasHeight / 2;
   const scaleFactor = halfCanvasHeight / 128;
 
-  oscilloscopePath = new Path2D();
+  context.beginPath();
   let x = 0;
-  oscilloscopePath.moveTo(x, analyserData[0] * scaleFactor);
+  context.moveTo(x, analyserData[0] * scaleFactor);
 
   for (let index = 1; index < bufferLength; index++) {
     x += sliceWidthCache;
-    oscilloscopePath.lineTo(x, analyserData[index] * scaleFactor);
+    context.lineTo(x, analyserData[index] * scaleFactor);
   }
 
-  context.stroke(oscilloscopePath);
+  context.stroke();
 }
 
 function drawCircularOsc() {
@@ -225,7 +223,6 @@ function drawBars() {
   context.globalAlpha = alpha;
 
   const barGapWidth = barWidth + gap;
-  const capYPositionArrayCopy = [...capYPositionArray];
 
   context.fillStyle = gradient;
 
@@ -235,20 +232,18 @@ function drawBars() {
 
     // Draw cap
     context.fillStyle = mainColor;
-    if (value < capYPositionArrayCopy[index]) {
-      context.fillRect(x, canvasHeight - capYPositionArrayCopy[index], barWidth, capHeight);
-      capYPositionArrayCopy[index] = Math.max(capYPositionArrayCopy[index] - capFalldown, capHeight);
+    if (value < capYPositionArray[index]) {
+      context.fillRect(x, canvasHeight - capYPositionArray[index], barWidth, capHeight);
+      capYPositionArray[index] = Math.max(capYPositionArray[index] - capFalldown, capHeight);
     } else {
       context.fillRect(x, canvasHeight - value, barWidth, capHeight);
-      capYPositionArrayCopy[index] = value;
+      capYPositionArray[index] = value;
     }
 
     // Draw bar
     context.fillStyle = gradient;
     context.fillRect(x, canvasHeight - value + capHeight, barWidth, value - capHeight);
   }
-
-  capYPositionArray.set(capYPositionArrayCopy);
 }
 
 function drawCircularBars() {
@@ -276,10 +271,9 @@ function drawCircularBars() {
 
   // Draw frequency bars in circular pattern
   const angleStep = (Math.PI * 2) / meterNumber;
-  const barsPath = new Path2D();
-  const capsPath = new Path2D();
   const lineWidth = ((radius * Math.PI) / meterNumber) * 0.7;
 
+  context.beginPath();
   for (let index = 0; index < meterNumber; index++) {
     const value = Math.min(barkScaleData[index] || 0, 256) / 256;
     const angle = rotation + index * angleStep;
@@ -287,22 +281,29 @@ function drawCircularBars() {
     const innerRadius = radius * 0.3;
     const outerRadius = innerRadius + radius * 0.9 * value;
 
-    barsPath.moveTo(centerX + innerRadius * Math.cos(angle), centerY + innerRadius * Math.sin(angle));
-    barsPath.lineTo(centerX + outerRadius * Math.cos(angle), centerY + outerRadius * Math.sin(angle));
-
-    if (value <= 0.05) continue;
-
-    const capX = centerX + outerRadius * Math.cos(angle);
-    const capY = centerY + outerRadius * Math.sin(angle);
-    capsPath.moveTo(capX + lineWidth / 2, capY);
-    capsPath.arc(capX, capY, lineWidth / 2, 0, Math.PI * 2);
+    context.moveTo(centerX + innerRadius * Math.cos(angle), centerY + innerRadius * Math.sin(angle));
+    context.lineTo(centerX + outerRadius * Math.cos(angle), centerY + outerRadius * Math.sin(angle));
   }
 
   context.lineWidth = lineWidth;
   context.strokeStyle = gradient;
-  context.stroke(barsPath);
+  context.stroke();
+
+  context.beginPath();
+  for (let index = 0; index < meterNumber; index++) {
+    const value = Math.min(barkScaleData[index] || 0, 256) / 256;
+    if (value <= 0.05) continue;
+
+    const angle = rotation + index * angleStep;
+    const outerRadius = radius * 0.3 + radius * 0.9 * value;
+    const capX = centerX + outerRadius * Math.cos(angle);
+    const capY = centerY + outerRadius * Math.sin(angle);
+    context.moveTo(capX + lineWidth / 2, capY);
+    context.arc(capX, capY, lineWidth / 2, 0, Math.PI * 2);
+  }
+
   context.fillStyle = peakColor;
-  context.fill(capsPath);
+  context.fill();
 }
 
 function convertToBarkScale(): Float32Array {
