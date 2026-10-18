@@ -26,10 +26,15 @@ export interface VisualsColorConfig {
 
 export interface VisualsWorkerMessage {
   canvas?: OffscreenCanvas;
-  newSize?: DOMRect;
+  newSize?: DOMRectReadOnly;
   stop?: boolean;
   visualizerOptions?: VisualizerOptions;
-  analyserData: Uint8Array;
+  analyserData?: Uint8Array<ArrayBuffer>;
+}
+
+export interface VisualsWorkerResponse {
+  bufferReady: boolean;
+  reusableBuffer?: Uint8Array<ArrayBuffer>;
 }
 export interface BaseVisualizerOptions {
   mode: VisualizerMode;

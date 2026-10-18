@@ -31,7 +31,7 @@ let bufferLength: number;
 let gradient: CanvasGradient;
 
 // Pre-calculated arrays
-let frequencyToBarkMap: Float32Array;
+let frequencyToBarkMap: Float32Array | undefined;
 let barkScaleBandEnergy: Float32Array;
 let sliceWidthCache: number;
 let rotation = 0;
@@ -123,6 +123,7 @@ function setupVisualsWorkerWithOptions(options: VisualizerOptions) {
     capFalldown = options.capFalldown;
     fftSize = options.fftSize;
     sampleRate = options.sampleRate;
+    frequencyToBarkMap = undefined;
 
     // Pre-allocate arrays
     capYPositionArray = new Float32Array(meterNumber).fill(capHeight);
@@ -289,12 +290,12 @@ function drawCircularBars() {
     barsPath.moveTo(centerX + innerRadius * Math.cos(angle), centerY + innerRadius * Math.sin(angle));
     barsPath.lineTo(centerX + outerRadius * Math.cos(angle), centerY + outerRadius * Math.sin(angle));
 
-    if (value > 0.05) {
-      const capX = centerX + outerRadius * Math.cos(angle);
-      const capY = centerY + outerRadius * Math.sin(angle);
-      capsPath.moveTo(capX + lineWidth / 2, capY);
-      capsPath.arc(capX, capY, lineWidth / 2, 0, Math.PI * 2);
-    }
+    if (value <= 0.05) continue;
+
+    const capX = centerX + outerRadius * Math.cos(angle);
+    const capY = centerY + outerRadius * Math.sin(angle);
+    capsPath.moveTo(capX + lineWidth / 2, capY);
+    capsPath.arc(capX, capY, lineWidth / 2, 0, Math.PI * 2);
   }
 
   context.lineWidth = lineWidth;
@@ -305,29 +306,36 @@ function drawCircularBars() {
 }
 
 function convertToBarkScale(): Float32Array {
-  if (!frequencyToBarkMap) {
-    initBarkScale();
+  let barkMap = frequencyToBarkMap;
+  if (!barkMap) {
+    barkMap = initBarkScale();
+    frequencyToBarkMap = barkMap;
   }
 
-  const barkScaleBandSize = (frequencyToBarkMap.at(-1) - frequencyToBarkMap[0]) / meterNumber;
+  const firstBarkValue = barkMap[0];
+  const barkScaleBandSize = (barkMap.at(-1) - firstBarkValue) / meterNumber;
   barkScaleBandEnergy.fill(0);
 
-  for (const [index, analyserDatum] of analyserData.entries()) {
-    const bandIndex = Math.floor((frequencyToBarkMap[index] - frequencyToBarkMap[0]) / barkScaleBandSize);
+  let index = 0;
+  for (const analyserDatum of analyserData) {
+    const barkValue = barkMap[index];
+    const bandIndex = Math.floor((barkValue - firstBarkValue) / barkScaleBandSize);
     if (bandIndex < meterNumber) {
       barkScaleBandEnergy[bandIndex] += analyserDatum;
     }
+    index++;
   }
 
   return barkScaleBandEnergy;
 }
 
-function initBarkScale() {
-  frequencyToBarkMap = new Float32Array(fftSize / 2);
+function initBarkScale(): Float32Array {
+  const barkMap = new Float32Array(fftSize / 2);
   for (let index = 0; index < fftSize / 2; index++) {
     const frequency = (index * sampleRate) / fftSize;
-    frequencyToBarkMap[index] = 13 * Math.atan(0.00076 * frequency) + 3.5 * Math.atan((frequency / 7500) ** 2);
+    barkMap[index] = 13 * Math.atan(0.00076 * frequency) + 3.5 * Math.atan((frequency / 7500) ** 2);
   }
+  return barkMap;
 }
 
 function isBarsVisualizerOptions(options: VisualizerOptions): options is BarsVisualizerOptions {
