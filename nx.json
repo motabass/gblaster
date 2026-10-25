@@ -40,12 +40,6 @@
     "@schematics/angular:service": {
       "type": "service"
     },
-    "@nx/angular:scam": {
-      "type": "component"
-    },
-    "@nx/angular:scam-directive": {
-      "type": "directive"
-    },
     "@nx/angular:guard": {
       "typeSeparator": "."
     },
@@ -95,25 +89,6 @@
     },
     "lint-interactive": {
       "continuous": true
-    },
-    "@nx/vitest:test": {
-      "inputs": ["default", "^production"],
-      "cache": true,
-      "configurations": {
-        "ci": {
-          "ci": true,
-          "coverage": true
-        }
-      }
-    },
-    "@nx/eslint:lint": {
-      "inputs": ["default", "^default", "{workspaceRoot}/eslint.config.mjs", "{workspaceRoot}/tools/eslint-rules/**/*"],
-      "cache": true,
-      "configurations": {
-        "fix": {
-          "fix": true
-        }
-      }
     },
     "@angular/build:application": {
       "cache": true,
@@ -184,5 +159,5 @@
       }
     }
   ],
-  "analytics": true
+  "analytics": false
 }

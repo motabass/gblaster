@@ -66,6 +66,9 @@
       "executor": "@angular/build:dev-server",
       "defaultConfiguration": "development",
       "continuous": true,
+      "readyWhen": {
+        "signal": true
+      },
       "configurations": {
         "production": {
           "buildTarget": "gblaster:build:production"
@@ -82,7 +85,11 @@
         "port": 4200,
         "staticFilePath": "dist/apps/gblaster",
         "spa": true
-      }
+      },
+      "readyWhen": {
+        "signal": true
+      },
+      "dependsOn": ["build"]
     },
     "test": {
       "executor": "@angular/build:unit-test",
