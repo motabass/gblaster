@@ -159,5 +159,8 @@
       }
     }
   ],
-  "analytics": false
+  "analytics": false,
+  "affected": {
+    "legacy": false
+  }
 }
