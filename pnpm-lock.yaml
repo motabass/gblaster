@@ -365,8 +365,8 @@ importers:
         specifier: 79.0.0
         version: 79.0.0(eslint@10.13.0(jiti@2.7.0)(supports-color@10.2.2))(supports-color@10.2.2)(typescript@6.0.3)
       firebase-tools:
-        specifier: 15.34.1
-        version: 15.34.1(@types/node@26.6.5)(supports-color@10.2.2)
+        specifier: 15.34.0
+        version: 15.34.0(@types/node@26.6.5)(supports-color@10.2.2)
       husky:
         specifier: 9.1.7
         version: 9.1.7
@@ -6456,9 +6456,9 @@ packages:
       { integrity: sha512-78/PXT1wlLLDgTzDs7sjq9hzz0vXD+zn+7wypEe4fXQxCmdmqfGsEPQxmiCSQI3ajFV91bVSsvNtrJRiW6nGng== }
     engines: { node: '>=10' }
 
-  firebase-tools@15.34.1:
+  firebase-tools@15.34.0:
     resolution:
-      { integrity: sha512-guAlrL5NpupsD8g0EowinzeCdAcpgiK7KjZjUUle7PAWzyfX85p5xPsGjcpT+BcfLT8ozktOYm8Etw3aFFX3sg== }
+      { integrity: sha512-Iv21U7tBtQVZloudPHVjeds/U2wqMEcNSLe318WrVo0gsOZjT/Nxp8jVWHCQUKu6HIdhFpZqkmhQCHD4HEDHuw== }
     engines: { node: '>=20.0.0 || >=22.0.0 || >=24.0.0' }
     hasBin: true
 
@@ -16142,7 +16142,7 @@ snapshots:
       locate-path: 6.0.0
       path-exists: 4.0.0
 
-  firebase-tools@15.34.1(@types/node@26.6.5)(supports-color@10.2.2):
+  firebase-tools@15.34.0(@types/node@26.6.5)(supports-color@10.2.2):
     dependencies:
       '@electric-sql/pglite': 0.3.16
       '@electric-sql/pglite-tools': 0.2.21(@electric-sql/pglite@0.3.16)

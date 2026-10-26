@@ -30,7 +30,7 @@ jobs:
           name: dist
 
       - name: Deploy
-        uses: w9jds/firebase-action@v15.34.1
+        uses: w9jds/firebase-action@v15.34.0
         with:
           args: deploy --project gblaster-player --only hosting
         env:
