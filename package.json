@@ -86,7 +86,7 @@
     "colord": "2.10.0",
     "date-fns": "4.4.0",
     "fuse.js": "7.5.0",
-    "music-metadata": "12.3.0",
+    "music-metadata": "12.3.3",
     "musicbrainz-api": "2.0.1",
     "ngx-date-fns": "12.0.1",
     "ngx-indexed-db": "22.0.0",
