@@ -14,32 +14,32 @@ import { extractColorsWithNodeVibrant } from './metadata-service/metadata-helper
 
 @Injectable({ providedIn: 'root' })
 export class PlayerService {
-  private readonly audioService = inject(AudioService);
-  private readonly localStorageService = inject(LocalStorageService);
-  private readonly fileLoaderService = inject(FileLoaderService);
-  private readonly metadataService = inject(MetadataService);
-  private readonly themeService = inject(ThemeService);
-  private readonly wakelockService = inject(WakelockService, {
+  readonly #audioService = inject(AudioService);
+  readonly #localStorageService = inject(LocalStorageService);
+  readonly #fileLoaderService = inject(FileLoaderService);
+  readonly #metadataService = inject(MetadataService);
+  readonly #themeService = inject(ThemeService);
+  readonly #wakelockService = inject(WakelockService, {
     optional: true
   });
-  private readonly mediaSessionService = inject(MediaSessionService, {
+  readonly #mediaSessionService = inject(MediaSessionService, {
     optional: true
   });
-  private readonly destroRef = inject(DestroyRef);
+  readonly #destroRef = inject(DestroyRef);
 
-  private readonly _currentPlaylist = signal<Track[]>([]);
-  readonly currentPlaylist = this._currentPlaylist.asReadonly();
+  readonly #currentPlaylist = signal<Track[]>([]);
+  readonly currentPlaylist = this.#currentPlaylist.asReadonly();
 
-  private readonly _selectedTrack = signal<Track | undefined>(undefined);
-  readonly selectedTrack = this._selectedTrack.asReadonly();
+  readonly #selectedTrack = signal<Track | undefined>(undefined);
+  readonly selectedTrack = this.#selectedTrack.asReadonly();
 
-  private readonly _currentlyLoadedTrack = signal<Track | undefined>(undefined);
-  readonly currentlyLoadedTrack = this._currentlyLoadedTrack.asReadonly();
+  readonly #currentlyLoadedTrack = signal<Track | undefined>(undefined);
+  readonly currentlyLoadedTrack = this.#currentlyLoadedTrack.asReadonly();
 
-  private readonly _repeat = signal<RepeatMode>(this.localStorageService.retrieve('repeat') || 'off');
-  readonly repeat = this._repeat.asReadonly();
-  private readonly _shuffle = signal<boolean>(this.localStorageService.retrieve('shuffle') ?? false);
-  readonly shuffle = this._shuffle.asReadonly();
+  readonly #repeat = signal<RepeatMode>(this.#localStorageService.retrieve('repeat') || 'off');
+  readonly repeat = this.#repeat.asReadonly();
+  readonly #shuffle = signal<boolean>(this.#localStorageService.retrieve('shuffle') ?? false);
+  readonly shuffle = this.#shuffle.asReadonly();
 
   readonly colorConfig = computed<ColorConfig>(() => {
     const coverColors = this.currentlyLoadedTrack()?.metadata?.coverColors;
@@ -49,27 +49,29 @@ export class PlayerService {
   });
 
   readonly durationSeconds = computed(() => {
-    return this.currentlyLoadedTrack() && !this.audioService.isStopped() ? Math.round(this.audioService.duration()) : 0;
+    return this.currentlyLoadedTrack() && !this.#audioService.isStopped()
+      ? Math.round(this.#audioService.duration())
+      : 0;
   });
 
   readonly currentTime = computed(() => {
-    if (!this.currentlyLoadedTrack() || this.audioService.isStopped()) {
+    if (!this.currentlyLoadedTrack() || this.#audioService.isStopped()) {
       return 0;
     }
-    const pos = this.audioService.currentTime();
+    const pos = this.#audioService.currentTime();
     return Math.floor(pos);
   });
 
   constructor() {
-    if (this.mediaSessionService) {
-      this.mediaSessionService.setActionHandler('play', () => this.playPause());
-      this.mediaSessionService.setActionHandler('pause', () => this.playPause());
-      this.mediaSessionService.setActionHandler('stop', () => this.stop());
-      this.mediaSessionService.setActionHandler('nexttrack', () => this.next());
-      this.mediaSessionService.setActionHandler('previoustrack', () => this.previous());
-      this.mediaSessionService.setActionHandler('seekbackward', () => this.seekLeft(10));
-      this.mediaSessionService.setActionHandler('seekforward', () => this.seekRight(10));
-      this.mediaSessionService.setSeekToHandler((details) => this.seekToHandler(details));
+    if (this.#mediaSessionService) {
+      this.#mediaSessionService.setActionHandler('play', () => this.playPause());
+      this.#mediaSessionService.setActionHandler('pause', () => this.playPause());
+      this.#mediaSessionService.setActionHandler('stop', () => this.stop());
+      this.#mediaSessionService.setActionHandler('nexttrack', () => this.next());
+      this.#mediaSessionService.setActionHandler('previoustrack', () => this.previous());
+      this.#mediaSessionService.setActionHandler('seekbackward', () => this.seekLeft(10));
+      this.#mediaSessionService.setActionHandler('seekforward', () => this.seekRight(10));
+      this.#mediaSessionService.setSeekToHandler((details) => this.seekToHandler(details));
     }
 
     // TODO: überarbeiten
@@ -98,7 +100,7 @@ export class PlayerService {
         }
 
         if (validFiles.length > 0) {
-          for await (const track of this.metadataService.addFilesToLibrary(validFiles)) {
+          for await (const track of this.#metadataService.addFilesToLibrary(validFiles)) {
             this.addTrackToPlaylist(track);
           }
           // If you want to play the first file immediately
@@ -110,21 +112,21 @@ export class PlayerService {
       });
     }
 
-    this.audioService.hasEnded$.pipe(takeUntilDestroyed(this.destroRef)).subscribe(() => {
+    this.#audioService.hasEnded$.pipe(takeUntilDestroyed(this.#destroRef)).subscribe(() => {
       void this.next();
     });
 
     effect(() => {
-      this.themeService.setColors(this.colorConfig());
+      this.#themeService.setColors(this.colorConfig());
     });
   }
 
   private afterPlayLoaded() {
-    return this.wakelockService?.activateWakelock();
+    return this.#wakelockService?.activateWakelock();
   }
 
   private afterPausedOrStopped() {
-    return this.wakelockService?.releaseWakelock();
+    return this.#wakelockService?.releaseWakelock();
   }
 
   private async playTrack(track: Track | undefined) {
@@ -132,9 +134,9 @@ export class PlayerService {
       return;
     }
     this.selectSong(track);
-    this.audioService.setFileAsSource(track.file);
-    if (track.metadata && this.mediaSessionService) {
-      this.mediaSessionService.setBrowserMetadata({
+    this.#audioService.setFileAsSource(track.file);
+    if (track.metadata && this.#mediaSessionService) {
+      this.#mediaSessionService.setBrowserMetadata({
         title: track.metadata.title,
         artist: track.metadata.artist,
         album: track.metadata.album,
@@ -149,14 +151,14 @@ export class PlayerService {
       void this.extractAndSetCoverColors(track);
     }
 
-    await this.audioService.play();
-    this._currentlyLoadedTrack.set(track);
+    await this.#audioService.play();
+    this.#currentlyLoadedTrack.set(track);
     await this.afterPlayLoaded();
   }
 
   private async extractAndSetCoverColors(track: Track) {
     try {
-      const augmentedMeta = this.metadataService.applyEmbeddedCoverObjectUrsl(track.metadata);
+      const augmentedMeta = this.#metadataService.applyEmbeddedCoverObjectUrsl(track.metadata);
       const coverUrl = augmentedMeta.coverUrl?.originalUrl;
 
       if (coverUrl && coverUrl !== 'assets/icons/record.svg') {
@@ -165,7 +167,7 @@ export class PlayerService {
           track.metadata.coverColors = palette;
           // Trigger reactivity by updating the signal
           if (this.currentlyLoadedTrack() === track) {
-            this._currentlyLoadedTrack.set({ ...track });
+            this.#currentlyLoadedTrack.set({ ...track });
           }
         }
       }
@@ -175,15 +177,15 @@ export class PlayerService {
   }
 
   async loadFilesToLibrary(): Promise<void> {
-    const files: FileData[] = await this.fileLoaderService.getFilesFromPickedFolder();
-    for await (const track of this.metadataService.addFilesToLibrary(files)) {
+    const files: FileData[] = await this.#fileLoaderService.getFilesFromPickedFolder();
+    for await (const track of this.#metadataService.addFilesToLibrary(files)) {
       this.addTrackToPlaylist(track);
     }
   }
 
   addTrackToPlaylist(song: Track) {
     if (!this.currentPlaylist().some((playlistSong) => playlistSong.metadata?.hash === song.metadata?.hash)) {
-      this._currentPlaylist.update((playlist) => [...playlist, song]);
+      this.#currentPlaylist.update((playlist) => [...playlist, song]);
     }
   }
 
@@ -195,24 +197,24 @@ export class PlayerService {
 
     // If the removed track is currently selected, deselect it
     if (this.selectedTrack() === track) {
-      this._selectedTrack.set(undefined);
+      this.#selectedTrack.set(undefined);
     }
     // Update the playlist by filtering out the specified track
-    this._currentPlaylist.update((playlist) => playlist.filter((t) => t !== track));
+    this.#currentPlaylist.update((playlist) => playlist.filter((t) => t !== track));
   }
 
   setSeekPosition(value: number | undefined, fastSeek = false) {
     if (value !== undefined && value >= 0 && value <= this.durationSeconds()) {
-      this.audioService.seekToPosition(value, fastSeek);
+      this.#audioService.seekToPosition(value, fastSeek);
     }
   }
 
   selectSong(song: Track) {
-    this._selectedTrack.set(song);
+    this.#selectedTrack.set(song);
   }
 
   async playPauseTrack(track: Track) {
-    if (this.audioService.isLoading()) {
+    if (this.#audioService.isLoading()) {
       return;
     }
 
@@ -224,33 +226,33 @@ export class PlayerService {
   }
 
   async playPause() {
-    if (this.audioService.isLoading() || !this.currentlyLoadedTrack()) {
+    if (this.#audioService.isLoading() || !this.currentlyLoadedTrack()) {
       if (this.selectedTrack()) {
         await this.playTrack(this.selectedTrack());
       }
       return;
     }
-    if (this.audioService.isPaused()) {
-      await this.audioService.play();
+    if (this.#audioService.isPaused()) {
+      await this.#audioService.play();
       await this.afterPlayLoaded();
     } else {
-      this.audioService.pause();
+      this.#audioService.pause();
       await this.afterPausedOrStopped();
     }
   }
 
   async stop() {
-    if (this.audioService.isLoading() || !this.currentlyLoadedTrack()) {
+    if (this.#audioService.isLoading() || !this.currentlyLoadedTrack()) {
       return;
     }
-    this.audioService.stop();
-    this._currentlyLoadedTrack.set(undefined);
+    this.#audioService.stop();
+    this.#currentlyLoadedTrack.set(undefined);
     await this.afterPausedOrStopped();
   }
 
   async next(): Promise<void> {
     const loadedTrack = this.currentlyLoadedTrack();
-    if (!loadedTrack || this.audioService.isLoading()) {
+    if (!loadedTrack || this.#audioService.isLoading()) {
       return;
     }
 
@@ -271,7 +273,7 @@ export class PlayerService {
   }
 
   async previous() {
-    if (this.audioService.isLoading() || !this.currentlyLoadedTrack()) {
+    if (this.#audioService.isLoading() || !this.currentlyLoadedTrack()) {
       return;
     }
 
@@ -311,7 +313,7 @@ export class PlayerService {
     const currentPosition = this.currentPlaylist().indexOf(selectedTrack);
 
     if (currentPosition < this.currentPlaylist().length) {
-      this._selectedTrack.set(this.currentPlaylist()[currentPosition]);
+      this.#selectedTrack.set(this.currentPlaylist()[currentPosition]);
     }
   }
 
@@ -328,7 +330,7 @@ export class PlayerService {
     const currentPosition = this.currentPlaylist().indexOf(selectedTrack);
 
     if (currentPosition > 1) {
-      this._selectedTrack.set(this.currentPlaylist()[currentPosition - 2]);
+      this.#selectedTrack.set(this.currentPlaylist()[currentPosition - 2]);
     }
   }
 
@@ -353,23 +355,23 @@ export class PlayerService {
   toggleRepeat() {
     switch (this.repeat()) {
       case 'off': {
-        this._repeat.set('all');
+        this.#repeat.set('all');
         break;
       }
       case 'all': {
-        this.audioService.setLoop(true);
-        this._repeat.set('one');
+        this.#audioService.setLoop(true);
+        this.#repeat.set('one');
         break;
       }
       case 'one': {
-        this.audioService.setLoop(false);
-        this._repeat.set('off');
+        this.#audioService.setLoop(false);
+        this.#repeat.set('off');
         break;
       }
     }
   }
 
   toggleShuffle() {
-    this._shuffle.set(!this.shuffle());
+    this.#shuffle.set(!this.shuffle());
   }
 }

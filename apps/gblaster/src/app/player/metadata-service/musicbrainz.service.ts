@@ -7,13 +7,13 @@ import { ensureHttps } from './metadata-helper';
 
 @Injectable({ providedIn: 'root' })
 export class MusicbrainzService {
-  private readonly musicBrainzApi = new MusicBrainzApi({
+  readonly #musicBrainzApi = new MusicBrainzApi({
     appName: 'gblaster',
     appVersion: '1.0.0',
     appContactInfo: 'markus.mohoritsch@gmx.at'
   });
 
-  private readonly coverArtArchiveApi = new CoverArtArchiveApi();
+  readonly #coverArtArchiveApi = new CoverArtArchiveApi();
 
   async getCoverPictureUrls(tags: Id3Tags): Promise<RemoteCoverArtUrls | undefined> {
     if (!tags.artist || !tags.album) {
@@ -33,7 +33,7 @@ export class MusicbrainzService {
     const query = `release:${escapeLuceneQueryString(album)} AND artist:${escapeLuceneQueryString(artist)} AND primarytype:Album`;
 
     try {
-      const data = await this.musicBrainzApi.search('release-group', { query });
+      const data = await this.#musicBrainzApi.search('release-group', { query });
       return !data['release-groups']?.length ? undefined : data['release-groups'][0].id;
     } catch {
       // console.warn('Failed to search release groups:', error);
@@ -45,7 +45,7 @@ export class MusicbrainzService {
     try {
       // const url = `${this.COVER_API_URL}/release-group/${releaseGroupId}`;
       // const coverData = await firstValueFrom(this.http.get<CoverArtResponse>(url));
-      const coverData = await this.coverArtArchiveApi.getReleaseGroupCovers(releaseGroupId);
+      const coverData = await this.#coverArtArchiveApi.getReleaseGroupCovers(releaseGroupId);
 
       if (!coverData.images?.length) {
         return undefined;

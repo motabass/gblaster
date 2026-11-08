@@ -237,11 +237,16 @@ describe('LibraryComponent', () => {
 
   describe('selection methods', () => {
     it('selectArtist should set artist and reset album', () => {
+      indexedDbTracksSignal.set([
+        createMockTrackMetadata({ artist: 'New Artist', album: 'Some Album', title: 'Song A' }),
+        createMockTrackMetadata({ artist: 'New Artist', album: 'Other Album', title: 'Song B' }),
+        createMockTrackMetadata({ artist: 'Other Artist', album: 'Some Album', title: 'Song C' })
+      ]);
       component.selectAlbum('Some Album');
 
       component.selectArtist('New Artist');
 
-      expect(component['selectedArtist']()).toBe('New Artist');
+      expect(component['tracks']().map((track) => track.title)).toEqual(['Song B', 'Song A']);
       expect(component['selectedAlbum']()).toBeUndefined();
     });
 

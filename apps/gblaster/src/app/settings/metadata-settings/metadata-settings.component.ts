@@ -14,7 +14,7 @@ import { LibraryService } from '../../player/library/library.service';
 })
 export class MetadataSettingsComponent {
   protected readonly metadataService = inject(MetadataService);
-  private readonly libraryService = inject(LibraryService);
+  readonly #libraryService = inject(LibraryService);
 
   onUseWebTagsChange(event: MatSlideToggleChange) {
     this.metadataService.setUseWebMetainfos(event.checked);
@@ -29,6 +29,6 @@ export class MetadataSettingsComponent {
   }
 
   async clearMetadataCache() {
-    await this.libraryService.clearLibrary();
+    await this.#libraryService.clearLibrary();
   }
 }

@@ -9,26 +9,26 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   providedIn: 'root'
 })
 export class UpdateService {
-  private readonly swUpdate = inject(SwUpdate);
-  private readonly dialog = inject(MatDialog);
-  private readonly destroyRef = inject(DestroyRef);
-  private isInitialized = false;
+  readonly #swUpdate = inject(SwUpdate);
+  readonly #dialog = inject(MatDialog);
+  readonly #destroyRef = inject(DestroyRef);
+  #isInitialized = false;
 
   async init(): Promise<boolean> {
-    if (!this.swUpdate.isEnabled) {
+    if (!this.#swUpdate.isEnabled) {
       return false;
     }
 
-    if (!this.isInitialized) {
+    if (!this.#isInitialized) {
       this.setupUpdateListener();
-      this.isInitialized = true;
+      this.#isInitialized = true;
     }
 
-    return this.swUpdate.checkForUpdate();
+    return this.#swUpdate.checkForUpdate();
   }
 
   private setupUpdateListener(): void {
-    this.swUpdate.versionUpdates.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((event) => {
+    this.#swUpdate.versionUpdates.pipe(takeUntilDestroyed(this.#destroyRef)).subscribe((event) => {
       switch (event.type) {
         case 'VERSION_DETECTED': {
           console.log(`Downloading new app version: ${event.version.hash}`);
@@ -52,7 +52,7 @@ export class UpdateService {
     try {
       const shouldUpdate = await this.askUserForUpdate();
       if (shouldUpdate) {
-        await this.swUpdate.activateUpdate();
+        await this.#swUpdate.activateUpdate();
         document.location.reload();
       }
     } catch (error) {
@@ -73,6 +73,6 @@ export class UpdateService {
       closeOnNavigation: false
     };
 
-    return firstValueFrom(this.dialog.open(PromptDialogComponent, config).afterClosed());
+    return firstValueFrom(this.#dialog.open(PromptDialogComponent, config).afterClosed());
   }
 }

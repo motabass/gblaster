@@ -14,20 +14,20 @@ import {
   providedIn: 'root'
 })
 export class GamepadService implements OnDestroy {
-  private readonly DEFAULT_TURBO_TIMEOUT = 300;
-  private readonly DEFAULT_DEADSPACE = 0.07;
+  readonly #DEFAULT_TURBO_TIMEOUT = 300;
+  readonly #DEFAULT_DEADSPACE = 0.07;
 
-  private readonly checkIntervals: number[] = [];
-  private readonly pressedButtonsCaches: ActionCache[][] = [];
-  private readonly activeAxesCaches: ActionCache[][] = [];
+  readonly #checkIntervals: number[] = [];
+  readonly #pressedButtonsCaches: ActionCache[][] = [];
+  readonly #activeAxesCaches: ActionCache[][] = [];
 
-  private readonly buttonActions: ButtonGamepadAction[] = [];
+  readonly #buttonActions: ButtonGamepadAction[] = [];
   axisActions: AxisGamepadAction[] = [];
 
   constructor() {
     for (const buttonIndex in GamepadButtons) {
       if (Number(buttonIndex) >= 0) {
-        this.buttonActions.push(this.createDefaultButtonAction(Number(buttonIndex)));
+        this.#buttonActions.push(this.createDefaultButtonAction(Number(buttonIndex)));
       }
     }
     for (const axisIndex in GamepadAxes) {
@@ -46,7 +46,7 @@ export class GamepadService implements OnDestroy {
     console.log(`New gamepad with Number ${event.gamepad.index} connected: `);
     console.log(gamepad);
 
-    this.checkIntervals[event.gamepad.index] = window.setInterval(() => {
+    this.#checkIntervals[event.gamepad.index] = window.setInterval(() => {
       const gps = navigator.getGamepads();
       const gp = gps[event.gamepad.index];
 
@@ -73,7 +73,7 @@ export class GamepadService implements OnDestroy {
       action: () => console.log('Button nicht zugewiesen'),
       mode: 'hold',
       index: buttonIndex,
-      timeout: this.DEFAULT_TURBO_TIMEOUT,
+      timeout: this.#DEFAULT_TURBO_TIMEOUT,
       default: true
     };
   }
@@ -84,7 +84,7 @@ export class GamepadService implements OnDestroy {
       negativeActionFunction: () => console.log('Negativ-Achse nicht zugewiesen'),
       mode: 'hold',
       index: axisIndex,
-      timeout: this.DEFAULT_TURBO_TIMEOUT,
+      timeout: this.#DEFAULT_TURBO_TIMEOUT,
       default: true,
       axisDirection: 'positive'
     };
@@ -95,13 +95,13 @@ export class GamepadService implements OnDestroy {
     const gamepad = gamepads[event.gamepad.index];
     // console.log(`Gamepad ${event.gamepad.index} disconnected!`);
     if (gamepad === null) {
-      clearInterval(this.checkIntervals[event.gamepad.index]);
+      clearInterval(this.#checkIntervals[event.gamepad.index]);
     }
   }
 
   private fireButtonAction(index: number, value: number) {
     // console.log(`Button ${index} sending value: ${value}`);
-    this.buttonActions[index].action(value);
+    this.#buttonActions[index].action(value);
     this.triggerRumble({ duration: 50, weakMagnitude: 1, strongMagnitude: 0.2 });
   }
 
@@ -142,13 +142,13 @@ export class GamepadService implements OnDestroy {
     buttonIndex: number,
     actionFunction: ActionFunction,
     mode: InputCheckMode = 'click',
-    timeout = this.DEFAULT_TURBO_TIMEOUT
+    timeout = this.#DEFAULT_TURBO_TIMEOUT
   ) {
-    if (!this.buttonActions[buttonIndex].default) {
+    if (!this.#buttonActions[buttonIndex].default) {
       console.warn('Diesem Button wurde bereits eine Action zugewiesen.');
     }
 
-    this.buttonActions[buttonIndex] = {
+    this.#buttonActions[buttonIndex] = {
       action: actionFunction,
       mode: mode,
       timeout: timeout,
@@ -157,7 +157,7 @@ export class GamepadService implements OnDestroy {
   }
 
   deregisterButtonAction(buttonIndex: number) {
-    this.buttonActions[buttonIndex] = this.createDefaultButtonAction(buttonIndex);
+    this.#buttonActions[buttonIndex] = this.createDefaultButtonAction(buttonIndex);
   }
 
   registerAxisAction(
@@ -165,7 +165,7 @@ export class GamepadService implements OnDestroy {
     positiveActionFunction: ActionFunction,
     negativeActionFunction: ActionFunction,
     mode: InputCheckMode = 'click',
-    turboTimeout = this.DEFAULT_TURBO_TIMEOUT
+    turboTimeout = this.#DEFAULT_TURBO_TIMEOUT
   ) {
     if (!this.axisActions[axisIndex].default) {
       console.warn('Dieser Achse wurde bereits eine Action zugewiesen.');
@@ -190,22 +190,22 @@ export class GamepadService implements OnDestroy {
       return;
     }
 
-    if (this.buttonActions[buttonIndex].mode === 'hold' && button.pressed) {
+    if (this.#buttonActions[buttonIndex].mode === 'hold' && button.pressed) {
       this.fireButtonAction(buttonIndex, button.value);
       return;
     }
 
-    if (!this.pressedButtonsCaches[gamepad.index]) {
-      this.pressedButtonsCaches[gamepad.index] = [];
+    if (!this.#pressedButtonsCaches[gamepad.index]) {
+      this.#pressedButtonsCaches[gamepad.index] = [];
     }
 
-    let cache = this.pressedButtonsCaches[gamepad.index];
+    let cache = this.#pressedButtonsCaches[gamepad.index];
     const buttonCache = cache.find((ac) => ac.index === buttonIndex);
     if (button.pressed) {
       if (buttonCache) {
-        const timeout = this.buttonActions[buttonIndex].timeout ?? this.DEFAULT_TURBO_TIMEOUT;
+        const timeout = this.#buttonActions[buttonIndex].timeout ?? this.#DEFAULT_TURBO_TIMEOUT;
         if (
-          this.buttonActions[buttonIndex].mode === 'turbo' &&
+          this.#buttonActions[buttonIndex].mode === 'turbo' &&
           performance.now() - buttonCache.lastActionExecution > timeout
         ) {
           buttonCache.lastActionExecution = performance.now();
@@ -224,11 +224,11 @@ export class GamepadService implements OnDestroy {
       }
     }
 
-    this.pressedButtonsCaches[gamepad.index] = cache;
+    this.#pressedButtonsCaches[gamepad.index] = cache;
   }
 
   private isAxisValueInDetectionRange(axis: number): boolean {
-    return axis.valueOf() > this.DEFAULT_DEADSPACE || axis.valueOf() < 0 - this.DEFAULT_DEADSPACE;
+    return axis.valueOf() > this.#DEFAULT_DEADSPACE || axis.valueOf() < 0 - this.#DEFAULT_DEADSPACE;
   }
 
   private checkForAxesInput(gamepad: Gamepad, axisIndex: number) {
@@ -247,15 +247,15 @@ export class GamepadService implements OnDestroy {
     }
 
     // TODO: move init to connect
-    if (!this.activeAxesCaches[gamepad.index]) {
-      this.activeAxesCaches[gamepad.index] = [];
+    if (!this.#activeAxesCaches[gamepad.index]) {
+      this.#activeAxesCaches[gamepad.index] = [];
     }
 
-    let cache = this.activeAxesCaches[gamepad.index];
+    let cache = this.#activeAxesCaches[gamepad.index];
     const axisCache = cache.find((ac) => ac.index === axisIndex);
     if (this.isAxisValueInDetectionRange(axis)) {
       if (axisCache) {
-        const timeout = axisAction.timeout ?? this.DEFAULT_TURBO_TIMEOUT;
+        const timeout = axisAction.timeout ?? this.#DEFAULT_TURBO_TIMEOUT;
         if (axisAction.mode === 'turbo' && performance.now() - axisCache.lastActionExecution > timeout) {
           axisCache.lastActionExecution = performance.now();
           this.fireAxisAction(axisIndex, axis.valueOf());
@@ -273,11 +273,11 @@ export class GamepadService implements OnDestroy {
       }
     }
 
-    this.activeAxesCaches[gamepad.index] = cache;
+    this.#activeAxesCaches[gamepad.index] = cache;
   }
 
   ngOnDestroy(): void {
-    for (const interval of this.checkIntervals) {
+    for (const interval of this.#checkIntervals) {
       clearInterval(interval);
     }
   }

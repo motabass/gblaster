@@ -67,19 +67,19 @@ const VISIBLE_MARGIN_ITEMS = 1;
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PlaylistComponent {
-  private readonly audioService = inject(AudioService);
-  private readonly injector = inject(Injector);
+  readonly #audioService = inject(AudioService);
+  readonly #injector = inject(Injector);
   protected readonly playerService = inject(PlayerService);
 
   private readonly menuTrigger = viewChild<MatMenuTrigger>('menuTrigger');
   private readonly scrollViewport = viewChild<CdkVirtualScrollViewport>('scrollViewport');
 
-  private readonly isAutoScrollEnabled = signal(false);
-  private readonly playlistLength = computed(() => this.playerService.currentPlaylist().length);
-  private readonly currentHash = computed(() => this.playerService.currentlyLoadedTrack()?.metadata?.hash);
+  readonly #isAutoScrollEnabled = signal(false);
+  readonly #playlistLength = computed(() => this.playerService.currentPlaylist().length);
+  readonly #currentHash = computed(() => this.playerService.currentlyLoadedTrack()?.metadata?.hash);
 
-  private programmaticScrollUntil = 0;
-  private lastScrolledHash: string | undefined;
+  #programmaticScrollUntil = 0;
+  #lastScrolledHash: string | undefined;
 
   protected readonly itemSize = ITEM_SIZE;
 
@@ -88,19 +88,19 @@ export class PlaylistComponent {
 
     // Scroll to bottom when tracks are added and autoscroll is enabled
     effect(() => {
-      const length = this.playlistLength();
-      const shouldScroll = untracked(this.isAutoScrollEnabled);
+      const length = this.#playlistLength();
+      const shouldScroll = untracked(this.#isAutoScrollEnabled);
       if (!shouldScroll || length === 0) return;
-      afterNextRender(() => this.scrollToBottom(), { injector: this.injector });
+      afterNextRender(() => this.scrollToBottom(), { injector: this.#injector });
     });
 
     // Scroll to the current track once when it starts playing
     effect(() => {
-      const hash = this.currentHash();
-      const isPlaying = this.audioService.isPlaying();
-      if (!isPlaying || !hash || hash === this.lastScrolledHash) return;
-      this.lastScrolledHash = hash;
-      afterNextRender(() => this.scrollToCurrentTrack(), { injector: this.injector });
+      const hash = this.#currentHash();
+      const isPlaying = this.#audioService.isPlaying();
+      if (!isPlaying || !hash || hash === this.#lastScrolledHash) return;
+      this.#lastScrolledHash = hash;
+      afterNextRender(() => this.scrollToCurrentTrack(), { injector: this.#injector });
     });
   }
 
@@ -119,7 +119,7 @@ export class PlaylistComponent {
             fromEvent(element, 'pointerdown'),
             fromEvent(element, 'keydown')
           ).pipe(
-            tap(() => (this.programmaticScrollUntil = 0)),
+            tap(() => (this.#programmaticScrollUntil = 0)),
             ignoreElements()
           );
 
@@ -128,20 +128,20 @@ export class PlaylistComponent {
         takeUntilDestroyed()
       )
       .subscribe((viewport) => {
-        if (performance.now() < this.programmaticScrollUntil) return;
-        this.isAutoScrollEnabled.set(viewport.measureScrollOffset('bottom') < AUTOSCROLL_BOTTOM_THRESHOLD);
+        if (performance.now() < this.#programmaticScrollUntil) return;
+        this.#isAutoScrollEnabled.set(viewport.measureScrollOffset('bottom') < AUTOSCROLL_BOTTOM_THRESHOLD);
       });
   }
 
   /** Suppresses user-scroll detection while a programmatic (possibly smooth) scroll is running. */
   private markProgrammaticScroll(): void {
-    this.programmaticScrollUntil = performance.now() + PROGRAMMATIC_SCROLL_TIMEOUT_MS;
+    this.#programmaticScrollUntil = performance.now() + PROGRAMMATIC_SCROLL_TIMEOUT_MS;
   }
 
   /** Smoothly scrolls to the last playlist entry. */
   private scrollToBottom(): void {
     const viewport = this.scrollViewport();
-    const length = this.playlistLength();
+    const length = this.#playlistLength();
     if (!viewport || length === 0) return;
     this.markProgrammaticScroll();
     viewport.scrollToIndex(length - 1, 'smooth');
@@ -181,7 +181,7 @@ export class PlaylistComponent {
   isActive(song: Track): Signal<boolean> {
     return computed(() => {
       return (
-        (this.audioService.isPlaying() || this.audioService.isPaused()) &&
+        (this.#audioService.isPlaying() || this.#audioService.isPaused()) &&
         this.playerService.currentlyLoadedTrack()?.metadata?.hash === song.metadata?.hash
       );
     });
@@ -190,7 +190,7 @@ export class PlaylistComponent {
   isPlaying(song: Track): Signal<boolean> {
     return computed(() => {
       return (
-        this.audioService.isPlaying() &&
+        this.#audioService.isPlaying() &&
         this.playerService.currentlyLoadedTrack()?.metadata?.hash === song.metadata?.hash
       );
     });

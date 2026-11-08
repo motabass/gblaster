@@ -4,10 +4,10 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class WakelockService {
-  private wakelock?: WakeLockSentinel;
+  #wakelock?: WakeLockSentinel;
 
   async activateWakelock() {
-    if (!this.wakelock) {
+    if (!this.#wakelock) {
       return this.requestWakeLock();
     }
   }
@@ -17,16 +17,16 @@ export class WakelockService {
       return;
     }
 
-    this.wakelock = await navigator.wakeLock.request('screen');
+    this.#wakelock = await navigator.wakeLock.request('screen');
     console.log('Wakelock is active');
-    this.wakelock.addEventListener('release', () => {
+    this.#wakelock.addEventListener('release', () => {
       console.log('Wakelock was released');
     });
   }
 
   async releaseWakelock() {
-    if (this.wakelock) {
-      return this.wakelock.release();
+    if (this.#wakelock) {
+      return this.#wakelock.release();
     }
   }
 }

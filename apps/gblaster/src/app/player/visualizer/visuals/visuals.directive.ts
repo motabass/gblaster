@@ -15,51 +15,51 @@ const FALLBACK_ACCENT_COLOR = '#bcbcbc';
   selector: '[mtbVisual]'
 })
 export class VisualsDirective implements OnDestroy {
-  private audioService = inject(AudioService);
-  private _internalAnalyzer: AnalyserNode | undefined;
-  private readonly canvas: HTMLCanvasElement;
-  private animationFrameRef?: number;
-  private visualizerWorker: Worker;
-  private resizeObserver: ResizeObserver;
-  private readonly availableBuffers: Uint8Array<ArrayBuffer>[] = [];
-  private activeDataMethod: 'getByteFrequencyData' | 'getByteTimeDomainData' | undefined;
-  private activeAnalyser: AnalyserNode | undefined;
-  private bufferSize = 0;
-  private lastUpdateTime = 0;
-  private readonly updateInterval = 1000 / 60;
+  #audioService = inject(AudioService);
+  #internalAnalyzer: AnalyserNode | undefined;
+  readonly #canvas: HTMLCanvasElement;
+  #animationFrameRef?: number;
+  #visualizerWorker: Worker;
+  #resizeObserver: ResizeObserver;
+  readonly #availableBuffers: Uint8Array<ArrayBuffer>[] = [];
+  #activeDataMethod: 'getByteFrequencyData' | 'getByteTimeDomainData' | undefined;
+  #activeAnalyser: AnalyserNode | undefined;
+  #bufferSize = 0;
+  #lastUpdateTime = 0;
+  readonly #updateInterval = 1000 / 60;
 
-  private readonly handleWorkerMessage = (event: MessageEvent<VisualsWorkerResponse>) => {
+  readonly #handleWorkerMessage = (event: MessageEvent<VisualsWorkerResponse>) => {
     const buffer = event.data.reusableBuffer;
     if (
       event.data.bufferReady &&
-      buffer?.byteLength === this.bufferSize &&
-      this.activeDataMethod &&
-      this.availableBuffers.length < 3
+      buffer?.byteLength === this.#bufferSize &&
+      this.#activeDataMethod &&
+      this.#availableBuffers.length < 3
     ) {
-      this.availableBuffers.push(buffer);
+      this.#availableBuffers.push(buffer);
     }
   };
 
-  private readonly draw = (): void => {
-    const dataMethod = this.activeDataMethod;
-    const analyser = this.activeAnalyser;
+  readonly #draw = (): void => {
+    const dataMethod = this.#activeDataMethod;
+    const analyser = this.#activeAnalyser;
 
     if (!dataMethod || !analyser) {
-      this.animationFrameRef = undefined;
+      this.#animationFrameRef = undefined;
       return;
     }
 
     const now = performance.now();
-    if (now - this.lastUpdateTime >= this.updateInterval) {
-      const buffer = this.availableBuffers.pop();
+    if (now - this.#lastUpdateTime >= this.#updateInterval) {
+      const buffer = this.#availableBuffers.pop();
       if (buffer) {
         analyser[dataMethod](buffer);
-        this.visualizerWorker.postMessage({ analyserData: buffer }, [buffer.buffer]);
-        this.lastUpdateTime = now;
+        this.#visualizerWorker.postMessage({ analyserData: buffer }, [buffer.buffer]);
+        this.#lastUpdateTime = now;
       }
     }
 
-    this.animationFrameRef = requestAnimationFrame(this.draw);
+    this.#animationFrameRef = requestAnimationFrame(this.#draw);
   };
 
   readonly mode = input<VisualizerMode>('bars');
@@ -82,22 +82,22 @@ export class VisualsDirective implements OnDestroy {
   constructor() {
     const elr = inject<ElementRef<HTMLCanvasElement>>(ElementRef);
 
-    this.canvas = elr.nativeElement;
+    this.#canvas = elr.nativeElement;
 
-    this.visualizerWorker = new Worker(new URL('visuals.worker', import.meta.url), { type: 'module' });
-    this.visualizerWorker.addEventListener('message', this.handleWorkerMessage);
+    this.#visualizerWorker = new Worker(new URL('visuals.worker', import.meta.url), { type: 'module' });
+    this.#visualizerWorker.addEventListener('message', this.#handleWorkerMessage);
 
-    const offscreenCanvas: OffscreenCanvas = this.canvas.transferControlToOffscreen();
-    this.visualizerWorker.postMessage({ canvas: offscreenCanvas }, [offscreenCanvas]);
+    const offscreenCanvas: OffscreenCanvas = this.#canvas.transferControlToOffscreen();
+    this.#visualizerWorker.postMessage({ canvas: offscreenCanvas }, [offscreenCanvas]);
 
-    this.resizeObserver = this.setupResizeObserver();
+    this.#resizeObserver = this.setupResizeObserver();
     effect(() => {
       const currentMode = this.mode();
       if (currentMode === 'off') {
-        this.activeDataMethod = undefined;
-        this.activeAnalyser = undefined;
-        this.availableBuffers.length = 0;
-        this.bufferSize = 0;
+        this.#activeDataMethod = undefined;
+        this.#activeAnalyser = undefined;
+        this.#availableBuffers.length = 0;
+        this.#bufferSize = 0;
         this.stopVisualizer();
         return;
       }
@@ -107,7 +107,7 @@ export class VisualsDirective implements OnDestroy {
       const colorConfig = this.colorConfig();
       const analyser = this.analyserNode;
       const fftSize = this.fftSize() ?? analyser.fftSize;
-      const sampleRate = this.audioService.sampleRate();
+      const sampleRate = this.#audioService.sampleRate();
 
       this.configureVisualizer(currentMode, analyser, fftSize, sampleRate, barsConfig, oscConfig, colorConfig);
     });
@@ -116,11 +116,11 @@ export class VisualsDirective implements OnDestroy {
   private setupResizeObserver() {
     const observer = new ResizeObserver((entries) => {
       const rect = entries[0].contentRect;
-      this.visualizerWorker.postMessage({
+      this.#visualizerWorker.postMessage({
         newSize: rect
       });
     });
-    observer.observe(this.canvas);
+    observer.observe(this.#canvas);
     return observer;
   }
 
@@ -129,10 +129,10 @@ export class VisualsDirective implements OnDestroy {
     if (analyserValue) {
       return analyserValue;
     }
-    if (!this._internalAnalyzer) {
-      this._internalAnalyzer = this.audioService.plugInNewAnalyserNode();
+    if (!this.#internalAnalyzer) {
+      this.#internalAnalyzer = this.#audioService.plugInNewAnalyserNode();
     }
-    return this._internalAnalyzer;
+    return this.#internalAnalyzer;
   }
 
   private configureVisualizer(
@@ -146,16 +146,16 @@ export class VisualsDirective implements OnDestroy {
   ): void {
     const isBars = mode === 'bars' || mode === 'circular-bars';
     const bufferSize = analyser.frequencyBinCount;
-    if (bufferSize !== this.bufferSize) {
-      this.bufferSize = bufferSize;
-      this.availableBuffers.length = 0;
+    if (bufferSize !== this.#bufferSize) {
+      this.#bufferSize = bufferSize;
+      this.#availableBuffers.length = 0;
       for (let index = 0; index < 3; index++) {
-        this.availableBuffers.push(new Uint8Array(bufferSize));
+        this.#availableBuffers.push(new Uint8Array(bufferSize));
       }
     }
 
-    this.activeAnalyser = analyser;
-    this.activeDataMethod = isBars ? 'getByteFrequencyData' : 'getByteTimeDomainData';
+    this.#activeAnalyser = analyser;
+    this.#activeDataMethod = isBars ? 'getByteFrequencyData' : 'getByteTimeDomainData';
 
     const baseOptions = {
       mode,
@@ -184,35 +184,35 @@ export class VisualsDirective implements OnDestroy {
       };
     }
 
-    this.visualizerWorker.postMessage({ visualizerOptions });
-    if (this.animationFrameRef !== undefined) {
+    this.#visualizerWorker.postMessage({ visualizerOptions });
+    if (this.#animationFrameRef !== undefined) {
       return;
     }
 
-    this.lastUpdateTime = 0;
-    this.draw();
+    this.#lastUpdateTime = 0;
+    this.#draw();
   }
 
   private stopVisualizer(): void {
-    this.visualizerWorker.postMessage({ stop: true });
-    if (this.animationFrameRef === undefined) {
+    this.#visualizerWorker.postMessage({ stop: true });
+    if (this.#animationFrameRef === undefined) {
       return;
     }
 
-    cancelAnimationFrame(this.animationFrameRef);
-    this.animationFrameRef = undefined;
+    cancelAnimationFrame(this.#animationFrameRef);
+    this.#animationFrameRef = undefined;
   }
 
   ngOnDestroy(): void {
     this.stopVisualizer();
-    this.resizeObserver.disconnect();
-    this.visualizerWorker.removeEventListener('message', this.handleWorkerMessage);
+    this.#resizeObserver.disconnect();
+    this.#visualizerWorker.removeEventListener('message', this.#handleWorkerMessage);
 
     // Disconnect internal analyzer if it exists
-    if (this._internalAnalyzer) {
-      this.audioService.disconnectAnalyserNode(this._internalAnalyzer);
+    if (this.#internalAnalyzer) {
+      this.#audioService.disconnectAnalyserNode(this.#internalAnalyzer);
     }
 
-    this.visualizerWorker.terminate();
+    this.#visualizerWorker.terminate();
   }
 }

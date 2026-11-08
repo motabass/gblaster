@@ -18,21 +18,21 @@ export interface HotkeyInfo {
 
 @Injectable({ providedIn: 'root' })
 export class HotkeysService {
-  private readonly eventManager = inject(EventManager);
-  private readonly document = inject(DOCUMENT);
-  private readonly dialog = inject(MatDialog);
+  readonly #eventManager = inject(EventManager);
+  readonly #document = inject(DOCUMENT);
+  readonly #dialog = inject(MatDialog);
 
-  private readonly defaults: Partial<Hotkey> = {
-    element: this.document.documentElement
+  readonly #defaults: Partial<Hotkey> = {
+    element: this.#document.documentElement
   };
 
-  private readonly hotkeys: Map<string, HotkeyInfo> = new Map<string, HotkeyInfo>();
+  readonly #hotkeys: Map<string, HotkeyInfo> = new Map<string, HotkeyInfo>();
 
-  private helpOpen = false;
+  #helpOpen = false;
 
-  private dialogRef?: MatDialogRef<HotkeysHelpDialogComponent>;
+  #dialogRef?: MatDialogRef<HotkeysHelpDialogComponent>;
 
-  private _pause = false;
+  #pause = false;
 
   initialize() {
     this.register({
@@ -49,13 +49,13 @@ export class HotkeysService {
       return;
     }
 
-    if (this.hotkeys.get(options.keys)) {
+    if (this.#hotkeys.get(options.keys)) {
       console.warn(`Hotkey ${options.keys} ist bereits registriert!`);
       return;
     }
 
     const merged = {
-      ...this.defaults,
+      ...this.#defaults,
       ...options,
       keys: options.keys.replaceAll('+', '.')
     };
@@ -65,17 +65,17 @@ export class HotkeysService {
       const handler = (e: KeyboardEvent) => {
         e.preventDefault();
         e.stopPropagation();
-        if (!this._pause) {
+        if (!this.#pause) {
           observer.next(e);
         }
         return false;
       };
 
       if (merged.element) {
-        const dispose = this.eventManager.addEventListener(merged.element, event, handler);
+        const dispose = this.#eventManager.addEventListener(merged.element, event, handler);
         return () => {
           dispose();
-          this.hotkeys.delete(merged.keys);
+          this.#hotkeys.delete(merged.keys);
         };
       }
       return () => {
@@ -84,7 +84,7 @@ export class HotkeysService {
     });
 
     const sub = observable.subscribe(options.callback);
-    this.hotkeys.set(merged.keys, {
+    this.#hotkeys.set(merged.keys, {
       description: merged.description ?? '',
       subscription: sub
     });
@@ -94,7 +94,7 @@ export class HotkeysService {
 
   unregister(keys: string) {
     const realKeys = keys.replaceAll('+', '.');
-    const hk = this.hotkeys.get(realKeys);
+    const hk = this.#hotkeys.get(realKeys);
 
     if (hk) {
       hk.subscription.unsubscribe();
@@ -104,28 +104,28 @@ export class HotkeysService {
   }
 
   pause() {
-    this._pause = true;
+    this.#pause = true;
   }
 
   resume() {
-    this._pause = false;
+    this.#pause = false;
   }
 
   toggleHelpDialog() {
-    if (this.helpOpen) {
-      this.helpOpen = false;
-      this.dialogRef?.close();
+    if (this.#helpOpen) {
+      this.#helpOpen = false;
+      this.#dialogRef?.close();
     } else {
-      this.helpOpen = true;
-      const dialogReference = this.dialog.open(HotkeysHelpDialogComponent, {
+      this.#helpOpen = true;
+      const dialogReference = this.#dialog.open(HotkeysHelpDialogComponent, {
         width: '360px',
         hasBackdrop: false,
-        data: { registeredHotkeys: this.hotkeys }
+        data: { registeredHotkeys: this.#hotkeys }
       });
       dialogReference.afterClosed().subscribe(() => {
-        this.helpOpen = false;
+        this.#helpOpen = false;
       });
-      this.dialogRef = dialogReference;
+      this.#dialogRef = dialogReference;
     }
   }
 }

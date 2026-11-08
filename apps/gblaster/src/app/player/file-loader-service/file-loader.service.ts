@@ -6,7 +6,7 @@ import { ALLOWED_MIMETYPES, FileData } from './file-loader.helpers';
   providedIn: 'root'
 })
 export class FileLoaderService {
-  private readonly platform = inject(Platform);
+  readonly #platform = inject(Platform);
 
   private async pickFolder() {
     try {
@@ -50,7 +50,7 @@ export class FileLoaderService {
   }
 
   async getFilesFromPickedFolder(): Promise<FileData[]> {
-    if (this.platform.ANDROID) {
+    if (this.#platform.ANDROID) {
       const fileHandles = await this.pickFiles();
       if (fileHandles.length === 0) {
         return [];

@@ -8,19 +8,19 @@ import { MetadataService } from '../metadata-service/metadata.service';
   providedIn: 'root'
 })
 export class LibraryService {
-  private readonly indexedDbService = inject(NgxIndexedDBService);
-  private readonly metadataService = inject(MetadataService);
+  readonly #indexedDbService = inject(NgxIndexedDBService);
+  readonly #metadataService = inject(MetadataService);
 
-  private readonly _isLoading = signal<boolean>(false);
-  readonly isLoading = this._isLoading.asReadonly();
-  private readonly _indexedDbTracks = signal<IndexedDbTrackMetadata[]>([]);
-  readonly indexedDbTracks = this._indexedDbTracks.asReadonly();
+  readonly #isLoading = signal<boolean>(false);
+  readonly isLoading = this.#isLoading.asReadonly();
+  readonly #indexedDbTracks = signal<IndexedDbTrackMetadata[]>([]);
+  readonly indexedDbTracks = this.#indexedDbTracks.asReadonly();
 
   async loadLibraryFromDb(): Promise<IndexedDbTrackMetadata[]> {
     try {
-      this._isLoading.set(true);
+      this.#isLoading.set(true);
 
-      const result = await firstValueFrom(this.indexedDbService.getAll<IndexedDbTrackMetadata>('library'));
+      const result = await firstValueFrom(this.#indexedDbService.getAll<IndexedDbTrackMetadata>('library'));
       const currentTracks = this.indexedDbTracks();
 
       // Create a Map of existing tracks by hash for quick lookup
@@ -40,17 +40,17 @@ export class LibraryService {
         }
 
         // Create blob URL only for new tracks
-        return this.metadataService.applyEmbeddedCoverObjectUrsl(track);
+        return this.#metadataService.applyEmbeddedCoverObjectUrsl(track);
       });
 
-      this._indexedDbTracks.set(tracksWithBlobUrls);
+      this.#indexedDbTracks.set(tracksWithBlobUrls);
       return tracksWithBlobUrls;
     } catch (error) {
       console.error('Error loading library data:', error);
-      this._indexedDbTracks.set([]);
+      this.#indexedDbTracks.set([]);
       throw error; // Re-throw für Caller
     } finally {
-      this._isLoading.set(false);
+      this.#isLoading.set(false);
     }
   }
 
@@ -63,16 +63,16 @@ export class LibraryService {
       return;
     }
 
-    this.metadataService.revokeBlobUrlForTrack(track);
-    await firstValueFrom(this.indexedDbService.delete('library', hash));
-    this._indexedDbTracks.set(this.indexedDbTracks().filter((t) => t.hash !== hash));
+    this.#metadataService.revokeBlobUrlForTrack(track);
+    await firstValueFrom(this.#indexedDbService.delete('library', hash));
+    this.#indexedDbTracks.set(this.indexedDbTracks().filter((t) => t.hash !== hash));
   }
 
   /**
   Clears the entire library and cleans up all blob URLs.
   */
   async clearLibrary(): Promise<void> {
-    await firstValueFrom(this.indexedDbService.clear('library'));
-    this._indexedDbTracks.set([]);
+    await firstValueFrom(this.#indexedDbService.clear('library'));
+    this.#indexedDbTracks.set([]);
   }
 }

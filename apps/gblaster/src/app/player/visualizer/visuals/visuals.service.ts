@@ -7,14 +7,14 @@ import { getNextVisualizerMode } from './visuals-helper';
   providedIn: 'root'
 })
 export class VisualsService {
-  private readonly localStorageService = inject(LocalStorageService);
+  readonly #localStorageService = inject(LocalStorageService);
 
-  private readonly _visualMode = signal<VisualizerMode>(this.localStorageService.retrieve('visualMode') ?? 'off');
-  readonly visualMode = this._visualMode.asReadonly();
+  readonly #visualMode = signal<VisualizerMode>(this.#localStorageService.retrieve('visualMode') ?? 'off');
+  readonly visualMode = this.#visualMode.asReadonly();
 
   toggleVisualMode() {
     const nextMode = getNextVisualizerMode(this.visualMode());
-    this._visualMode.set(nextMode);
-    this.localStorageService.store('visualMode', nextMode);
+    this.#visualMode.set(nextMode);
+    this.#localStorageService.store('visualMode', nextMode);
   }
 }

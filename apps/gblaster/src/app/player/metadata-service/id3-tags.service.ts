@@ -4,36 +4,33 @@ import { TagsWorkerResponse } from './metadata.types';
 
 @Injectable({ providedIn: 'root' })
 export class Id3TagsService implements OnDestroy {
-  private readonly worker: Worker;
-  private nextId = 0;
-  private readonly pendingRequests = new Map<
-    string,
-    { resolve: (tags?: Id3Tags) => void; reject: (error: Error) => void }
-  >();
+  readonly #worker: Worker;
+  #nextId = 0;
+  readonly #pendingRequests = new Map<string, { resolve: (tags?: Id3Tags) => void; reject: (error: Error) => void }>();
 
   constructor() {
-    this.worker = new Worker(new URL('metadata.worker', import.meta.url), {
+    this.#worker = new Worker(new URL('metadata.worker', import.meta.url), {
       type: 'module'
     });
-    this.worker.addEventListener('message', this.handleMessage);
-    this.worker.addEventListener('error', this.handleError);
+    this.#worker.addEventListener('message', this.#handleMessage);
+    this.#worker.addEventListener('error', this.#handleError);
   }
 
   extractTags(file: File, timeoutMs = 30_000): Promise<Id3Tags | undefined> {
-    if (!this.worker) {
+    if (!this.#worker) {
       return Promise.reject(new Error('Metadata worker is not available'));
     }
 
-    const id = `id-${this.nextId++}`;
+    const id = `id-${this.#nextId++}`;
 
     return new Promise<Id3Tags | undefined>((resolve, reject) => {
       // Set timeout to avoid hanging promises
       const timeoutId = setTimeout(() => {
-        this.pendingRequests.delete(id);
+        this.#pendingRequests.delete(id);
         reject(new Error('Metadata extraction timed out'));
       }, timeoutMs);
 
-      this.pendingRequests.set(id, {
+      this.#pendingRequests.set(id, {
         resolve: (tags) => {
           clearTimeout(timeoutId);
           resolve(tags);
@@ -44,19 +41,19 @@ export class Id3TagsService implements OnDestroy {
         }
       });
 
-      this.worker.postMessage({ id, file });
+      this.#worker.postMessage({ id, file });
     });
   }
 
-  private handleMessage = (event: MessageEvent<TagsWorkerResponse>): void => {
+  #handleMessage = (event: MessageEvent<TagsWorkerResponse>): void => {
     const { id, tags, error } = event.data;
-    const request = this.pendingRequests.get(id);
+    const request = this.#pendingRequests.get(id);
 
     if (!request) {
       return;
     }
 
-    this.pendingRequests.delete(id);
+    this.#pendingRequests.delete(id);
 
     if (error) {
       request.reject(new Error(error));
@@ -65,26 +62,26 @@ export class Id3TagsService implements OnDestroy {
     }
   };
 
-  private handleError = (event: ErrorEvent): void => {
+  #handleError = (event: ErrorEvent): void => {
     console.error('Worker error:', event);
     // Reject all pending requests on catastrophic worker error
-    for (const [id, request] of this.pendingRequests) {
+    for (const [id, request] of this.#pendingRequests) {
       request.reject(new Error(event.message || 'Unknown worker error'));
-      this.pendingRequests.delete(id);
+      this.#pendingRequests.delete(id);
     }
   };
 
   ngOnDestroy(): void {
-    if (this.worker) {
-      this.worker.removeEventListener('message', this.handleMessage);
-      this.worker.removeEventListener('error', this.handleError);
-      this.worker.terminate();
+    if (this.#worker) {
+      this.#worker.removeEventListener('message', this.#handleMessage);
+      this.#worker.removeEventListener('error', this.#handleError);
+      this.#worker.terminate();
     }
 
     // Reject any pending requests
-    for (const request of this.pendingRequests.values()) {
+    for (const request of this.#pendingRequests.values()) {
       request.reject(new Error('Service was destroyed'));
     }
-    this.pendingRequests.clear();
+    this.#pendingRequests.clear();
   }
 }

@@ -13,7 +13,7 @@ import { TimePipe } from '../time.pipe';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CoverDisplayComponent {
-  private readonly themeService = inject(ThemeService);
+  readonly #themeService = inject(ThemeService);
   protected readonly playerService = inject(PlayerService);
 
   protected readonly coverUrl = computed(
@@ -21,7 +21,7 @@ export class CoverDisplayComponent {
   );
 
   protected readonly backgroundColor = computed(() => {
-    const coverBackground = this.themeService.darkMode()
+    const coverBackground = this.#themeService.darkMode()
       ? this.playerService.currentlyLoadedTrack()?.metadata?.coverColors?.darkMuted?.hex
       : this.playerService.currentlyLoadedTrack()?.metadata?.coverColors?.lightMuted?.hex;
     return coverBackground || 'rgba(0,0,0,0)';

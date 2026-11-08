@@ -52,7 +52,7 @@ const collator = new Intl.Collator();
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export default class LibraryComponent implements OnInit {
-  private readonly playerService = inject(PlayerService);
+  readonly #playerService = inject(PlayerService);
   protected readonly libraryService = inject(LibraryService);
 
   protected readonly searchTermForm = form(signal({ searchTerm: '' }), (f) => {
@@ -63,7 +63,7 @@ export default class LibraryComponent implements OnInit {
     return this.searchTermForm.searchTerm().value();
   });
 
-  private readonly sortedTracks = computed(() =>
+  readonly #sortedTracks = computed(() =>
     this.libraryService.indexedDbTracks().toSorted((a, b) => {
       const artistCompare = collator.compare(a.artist || '', b.artist || '');
       if (artistCompare !== 0) return artistCompare;
@@ -81,9 +81,9 @@ export default class LibraryComponent implements OnInit {
     })
   );
 
-  private readonly fuse = computed(
+  readonly #fuse = computed(
     () =>
-      new Fuse(this.sortedTracks(), {
+      new Fuse(this.#sortedTracks(), {
         keys: [
           { name: 'title', weight: 1 },
           { name: 'artist', weight: 0.8 },
@@ -100,28 +100,28 @@ export default class LibraryComponent implements OnInit {
   );
 
   // Keeps the sorted order of sortedTracks
-  private readonly filteredBySearchTerm = computed(() => {
+  readonly #filteredBySearchTerm = computed(() => {
     const searchTerm = this.searchTerm();
-    const tracks = this.sortedTracks();
+    const tracks = this.#sortedTracks();
 
     if (!searchTerm) {
       return tracks;
     }
 
     const matches = new Set(
-      this.fuse()
+      this.#fuse()
         .search(searchTerm)
         .map((result) => result.item)
     );
     return tracks.filter((track) => matches.has(track));
   });
 
-  private readonly selectedArtist = signal<string | undefined>(undefined);
+  readonly #selectedArtist = signal<string | undefined>(undefined);
   protected readonly selectedAlbum = signal<string | undefined>(undefined);
 
   protected readonly uniqueArtists = computed(() => {
     const artists = new Set<string>();
-    for (const track of this.filteredBySearchTerm()) {
+    for (const track of this.#filteredBySearchTerm()) {
       if (track.artist) {
         artists.add(track.artist);
       }
@@ -130,10 +130,10 @@ export default class LibraryComponent implements OnInit {
   });
 
   protected readonly uniqueAlbums = computed(() => {
-    const artist = this.selectedArtist();
+    const artist = this.#selectedArtist();
     const albumMap = new Map<string, Album>();
 
-    for (const tag of this.filteredBySearchTerm()) {
+    for (const tag of this.#filteredBySearchTerm()) {
       if (!tag.album || (artist && tag.artist !== artist) || albumMap.has(tag.album)) {
         continue;
       }
@@ -144,10 +144,10 @@ export default class LibraryComponent implements OnInit {
   });
 
   protected readonly tracks = computed(() => {
-    const artist = this.selectedArtist();
+    const artist = this.#selectedArtist();
     const album = this.selectedAlbum();
 
-    return this.filteredBySearchTerm().filter(
+    return this.#filteredBySearchTerm().filter(
       (item) => (!artist || item.artist === artist) && (!album || item.album === album)
     );
   });
@@ -156,7 +156,7 @@ export default class LibraryComponent implements OnInit {
   }
 
   selectArtist(artist: string | undefined) {
-    this.selectedArtist.set(artist);
+    this.#selectedArtist.set(artist);
     this.selectedAlbum.set(undefined);
   }
 
@@ -170,29 +170,29 @@ export default class LibraryComponent implements OnInit {
     }
 
     await this.addTrackToPlaylist(track);
-    await this.playerService.playTrackByHash(track.hash);
+    await this.#playerService.playTrackByHash(track.hash);
   }
 
   async addArtistToPlaylist(artist: string) {
     if (artist) {
-      const tracks = this.filteredBySearchTerm().filter((track) => track.artist === artist);
+      const tracks = this.#filteredBySearchTerm().filter((track) => track.artist === artist);
       await this.addTracksToPlaylist(...tracks);
     } else {
-      await this.addTracksToPlaylist(...this.filteredBySearchTerm());
+      await this.addTracksToPlaylist(...this.#filteredBySearchTerm());
     }
   }
 
   async addAlbumToPlaylist(album: Album) {
     let tracks: IndexedDbTrackMetadata[];
     if (album) {
-      tracks = this.filteredBySearchTerm().filter((track) => track.album === album.name);
+      tracks = this.#filteredBySearchTerm().filter((track) => track.album === album.name);
     } else {
       // filter by all unique albums
       const albums = this.uniqueAlbums();
 
       tracks = [];
       for (const currentAlbum of albums) {
-        const albumTracks = this.filteredBySearchTerm().filter((track) => track.album === currentAlbum.name);
+        const albumTracks = this.#filteredBySearchTerm().filter((track) => track.album === currentAlbum.name);
         tracks.push(...albumTracks);
       }
     }
@@ -203,7 +203,7 @@ export default class LibraryComponent implements OnInit {
     if (track) {
       await this.addTracksToPlaylist(track);
     } else {
-      const tracks = this.filteredBySearchTerm();
+      const tracks = this.#filteredBySearchTerm();
       await this.addTracksToPlaylist(...tracks);
     }
   }
@@ -219,7 +219,7 @@ export default class LibraryComponent implements OnInit {
           metadata: dbTrack
         };
 
-        this.playerService.addTrackToPlaylist(track);
+        this.#playerService.addTrackToPlaylist(track);
       } else {
         console.error('File not found for track:', dbTrack);
       }

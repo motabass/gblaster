@@ -29,10 +29,10 @@ type LastfmResponse = LastfmSuccessResponse | LastfmErrorResponse;
 
 @Injectable({ providedIn: 'root' })
 export class LastfmMetadataService {
-  private readonly http = inject(HttpClient);
+  readonly #http = inject(HttpClient);
 
-  private readonly LASTFM_API_KEY = '3a67934408152a2fc3f7216c022ec1df';
-  private readonly API_URL = 'https://ws.audioscrobbler.com/2.0/';
+  readonly #LASTFM_API_KEY = '3a67934408152a2fc3f7216c022ec1df';
+  readonly #API_URL = 'https://ws.audioscrobbler.com/2.0/';
 
   async getCoverPictureUrls(tags: Id3Tags): Promise<RemoteCoverArtUrls | undefined> {
     if (!tags.artist || !tags.album) {
@@ -54,18 +54,18 @@ export class LastfmMetadataService {
       album: encodeURIComponent(album)
     });
 
-    return firstValueFrom(this.http.get<LastfmResponse>(url));
+    return firstValueFrom(this.#http.get<LastfmResponse>(url));
   }
 
   private buildApiUrl(method: string, params: Record<string, string>): string {
     const queryParams = new URLSearchParams({
       method,
-      api_key: this.LASTFM_API_KEY,
+      api_key: this.#LASTFM_API_KEY,
       format: 'json',
       ...params
     });
 
-    return `${this.API_URL}?${queryParams.toString()}`;
+    return `${this.#API_URL}?${queryParams.toString()}`;
   }
 
   private extractCoverUrls(data: LastfmResponse): RemoteCoverArtUrls | undefined {

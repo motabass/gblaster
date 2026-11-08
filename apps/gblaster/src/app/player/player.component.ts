@@ -10,9 +10,9 @@ import { PlaylistComponent } from './playlist/playlist.component';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export default class PlayerComponent implements OnInit {
-  private readonly titleService = inject(TitleService);
+  readonly #titleService = inject(TitleService);
 
   ngOnInit() {
-    this.titleService.setTitle('gBlaster');
+    this.#titleService.setTitle('gBlaster');
   }
 }

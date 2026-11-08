@@ -9,23 +9,19 @@ import { computeColors } from './theme-helper';
   providedIn: 'root'
 })
 export class ThemeService {
-  private readonly meta = inject(Meta);
-  private readonly localStorageService = inject(LocalStorageService);
+  readonly #meta = inject(Meta);
+  readonly #localStorageService = inject(LocalStorageService);
 
-  private readonly _darkMode = signal<boolean>(
-    this.localStorageService.retrieve('darkMode') ?? matchMedia('(prefers-color-scheme: dark)').matches
+  readonly #darkMode = signal<boolean>(
+    this.#localStorageService.retrieve('darkMode') ?? matchMedia('(prefers-color-scheme: dark)').matches
   );
-  readonly darkMode = this._darkMode.asReadonly();
+  readonly darkMode = this.#darkMode.asReadonly();
 
-  private readonly _primaryColor = signal<string>(
-    this.localStorageService.retrieve('primaryColor') ?? FALLBACK_PRIMARY_COLOR
-  );
-  readonly primaryColor = this._primaryColor.asReadonly();
+  readonly #primaryColor = signal<string>(this.#localStorageService.retrieve('primaryColor') ?? FALLBACK_PRIMARY_COLOR);
+  readonly primaryColor = this.#primaryColor.asReadonly();
 
-  private readonly _accentColor = signal<string>(
-    this.localStorageService.retrieve('accentColor') ?? FALLBACK_ACCENT_COLOR
-  );
-  readonly accentColor = this._accentColor.asReadonly();
+  readonly #accentColor = signal<string>(this.#localStorageService.retrieve('accentColor') ?? FALLBACK_ACCENT_COLOR);
+  readonly accentColor = this.#accentColor.asReadonly();
 
   readonly primaryColorPalette = computed(() => computeColors(this.primaryColor(), this.darkMode()));
   readonly accentColorPalette = computed(() => computeColors(this.accentColor(), this.darkMode()));
@@ -38,15 +34,15 @@ export class ThemeService {
     });
 
     effect(() => {
-      this.localStorageService.store('darkMode', this.darkMode());
+      this.#localStorageService.store('darkMode', this.darkMode());
     });
 
     effect(() => {
-      this.localStorageService.store('primaryColor', this.primaryColor());
+      this.#localStorageService.store('primaryColor', this.primaryColor());
     });
 
     effect(() => {
-      this.localStorageService.store('accentColor', this.accentColor());
+      this.#localStorageService.store('accentColor', this.accentColor());
     });
   }
 
@@ -56,20 +52,20 @@ export class ThemeService {
   }
 
   setDarkMode(darkMode: boolean) {
-    this._darkMode.set(darkMode);
+    this.#darkMode.set(darkMode);
   }
 
   setColors(colors: ColorConfig) {
-    this._primaryColor.set(colors.mainColor || FALLBACK_PRIMARY_COLOR);
-    this._accentColor.set(colors.peakColor || FALLBACK_ACCENT_COLOR);
+    this.#primaryColor.set(colors.mainColor || FALLBACK_PRIMARY_COLOR);
+    this.#accentColor.set(colors.peakColor || FALLBACK_ACCENT_COLOR);
   }
 
   setPrimaryColor(color: string) {
-    this._primaryColor.set(color || FALLBACK_PRIMARY_COLOR);
+    this.#primaryColor.set(color || FALLBACK_PRIMARY_COLOR);
   }
 
   setAccentColor(color: string) {
-    this._accentColor.set(color || FALLBACK_ACCENT_COLOR);
+    this.#accentColor.set(color || FALLBACK_ACCENT_COLOR);
   }
 
   private updateCSSProperties() {
@@ -87,6 +83,6 @@ export class ThemeService {
   }
 
   private updateMetaThemeColor() {
-    this.meta.updateTag({ name: 'theme-color', content: this.primaryColor() });
+    this.#meta.updateTag({ name: 'theme-color', content: this.primaryColor() });
   }
 }

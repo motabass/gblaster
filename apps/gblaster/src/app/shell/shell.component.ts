@@ -43,8 +43,8 @@ import { ProgressService } from '../player/metadata-service/progress.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ShellComponent {
-  private readonly breakpointObserver = inject(BreakpointObserver);
-  private readonly router = inject(Router);
+  readonly #breakpointObserver = inject(BreakpointObserver);
+  readonly #router = inject(Router);
   protected readonly titleService = inject(TitleService);
   protected readonly loaderService = inject(LoaderService);
   protected readonly playerService = inject(PlayerService);
@@ -53,14 +53,14 @@ export class ShellComponent {
 
   protected readonly ALLOWED_TYPES = ALLOWED_MIMETYPES;
 
-  private readonly isHandset$: Observable<boolean> = this.breakpointObserver
+  readonly #isHandset$: Observable<boolean> = this.#breakpointObserver
     .observe([Breakpoints.XSmall, Breakpoints.Small, Breakpoints.Medium, Breakpoints.Large, Breakpoints.XLarge])
     .pipe(
       map((result) => result.matches),
       shareReplay()
     );
 
-  protected readonly isHandset = toSignal(this.isHandset$, {
+  protected readonly isHandset = toSignal(this.#isHandset$, {
     initialValue: false
   });
 
@@ -68,7 +68,7 @@ export class ShellComponent {
 
   navigateTo(route: string, skipLocationChange = false) {
     void this.sidenav().close();
-    void this.router.navigate([route], {
+    void this.#router.navigate([route], {
       skipLocationChange: skipLocationChange
     });
   }

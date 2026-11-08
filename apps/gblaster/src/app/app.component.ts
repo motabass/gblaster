@@ -12,22 +12,22 @@ import { ShellComponent } from './shell/shell.component';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent implements OnInit {
-  private readonly updateService = inject(UpdateService);
-  private readonly iconRegistry = inject(MatIconRegistry);
-  private readonly sanitizer = inject(DomSanitizer);
-  private readonly themeService = inject(ThemeService);
+  readonly #updateService = inject(UpdateService);
+  readonly #iconRegistry = inject(MatIconRegistry);
+  readonly #sanitizer = inject(DomSanitizer);
+  readonly #themeService = inject(ThemeService);
 
   constructor() {
-    this.themeService.initializeTheme();
+    this.#themeService.initializeTheme();
 
-    this.iconRegistry.addSvgIconSet(this.sanitizer.bypassSecurityTrustResourceUrl('assets/icon-set.svg'));
-    this.iconRegistry.addSvgIcon(
+    this.#iconRegistry.addSvgIconSet(this.#sanitizer.bypassSecurityTrustResourceUrl('assets/icon-set.svg'));
+    this.#iconRegistry.addSvgIcon(
       'logo',
-      this.sanitizer.bypassSecurityTrustResourceUrl('assets/icons/logo-monochrome.svg')
+      this.#sanitizer.bypassSecurityTrustResourceUrl('assets/icons/logo-monochrome.svg')
     );
   }
 
   ngOnInit(): void {
-    void this.updateService.init();
+    void this.#updateService.init();
   }
 }

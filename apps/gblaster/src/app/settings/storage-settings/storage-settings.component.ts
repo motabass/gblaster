@@ -10,9 +10,9 @@ import { MatCard, MatCardContent, MatCardHeader, MatCardTitle } from '@angular/m
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class StorageSettingsComponent {
-  private readonly localStorage = inject(LocalStorageService);
+  readonly #localStorage = inject(LocalStorageService);
 
   clearSettingsCache() {
-    this.localStorage.clear();
+    this.#localStorage.clear();
   }
 }

@@ -17,34 +17,34 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FileDropOverlayComponent implements AfterViewInit, OnDestroy {
-  private hostElement = inject(ElementRef);
-  private renderer = inject(Renderer2);
+  #hostElement = inject(ElementRef);
+  #renderer = inject(Renderer2);
 
   readonly allowedTypes = input<string[]>(['*/*']);
 
   readonly filesDroped = output<File[]>();
   readonly fileHandlesDropped = output<FileSystemFileHandle[]>();
 
-  private dragEnterListener: any;
-  private dragOverListener: any;
-  private dragLeaveListener: any;
-  private dragEndListener: any;
-  private dropListener: any;
+  #dragEnterListener: any;
+  #dragOverListener: any;
+  #dragLeaveListener: any;
+  #dragEndListener: any;
+  #dropListener: any;
 
   ngAfterViewInit() {
-    this.dragEnterListener = this.renderer.listen('window', 'dragenter', this.over.bind(this));
-    this.dragOverListener = this.renderer.listen('window', 'dragover', this.over.bind(this));
-    this.dragLeaveListener = this.renderer.listen('window', 'dragleave', this.leave.bind(this));
-    this.dragEndListener = this.renderer.listen('window', 'dragend', this.leave.bind(this));
-    this.dropListener = this.renderer.listen('window', 'drop', this.drop.bind(this));
+    this.#dragEnterListener = this.#renderer.listen('window', 'dragenter', this.over.bind(this));
+    this.#dragOverListener = this.#renderer.listen('window', 'dragover', this.over.bind(this));
+    this.#dragLeaveListener = this.#renderer.listen('window', 'dragleave', this.leave.bind(this));
+    this.#dragEndListener = this.#renderer.listen('window', 'dragend', this.leave.bind(this));
+    this.#dropListener = this.#renderer.listen('window', 'drop', this.drop.bind(this));
   }
 
   ngOnDestroy() {
-    this.dragEnterListener();
-    this.dragOverListener();
-    this.dragLeaveListener();
-    this.dragEndListener();
-    this.dropListener();
+    this.#dragEnterListener();
+    this.#dragOverListener();
+    this.#dragLeaveListener();
+    this.#dragEndListener();
+    this.#dropListener();
   }
 
   over(event: DragEvent) {
@@ -54,13 +54,13 @@ export class FileDropOverlayComponent implements AfterViewInit, OnDestroy {
     if (event.dataTransfer?.files) {
       event.dataTransfer.dropEffect = 'copy';
     }
-    this.renderer.setStyle(this.hostElement.nativeElement, 'visibility', 'visible');
+    this.#renderer.setStyle(this.#hostElement.nativeElement, 'visibility', 'visible');
   }
 
   leave(event: DragEvent) {
     event.preventDefault();
     event.stopPropagation();
-    this.renderer.setStyle(this.hostElement.nativeElement, 'visibility', 'hidden');
+    this.#renderer.setStyle(this.#hostElement.nativeElement, 'visibility', 'hidden');
   }
 
   drop(event: DragEvent) {

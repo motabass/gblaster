@@ -20,23 +20,23 @@ import { MatIcon } from '@angular/material/icon';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class VisualizerComponent implements OnInit, OnDestroy {
-  private readonly gamepadService = inject(GamepadService, { optional: true });
-  private readonly playerService = inject(PlayerService);
-  private readonly localStorageService = inject(LocalStorageService);
+  readonly #gamepadService = inject(GamepadService, { optional: true });
+  readonly #playerService = inject(PlayerService);
+  readonly #localStorageService = inject(LocalStorageService);
   protected readonly visualsService = inject(VisualsService);
   protected readonly audioService = inject(AudioService);
 
   protected readonly FFT_OPTIONS: FftSize[] = [32, 64, 128, 256, 512, 1024, 2048, 4096, 8192, 16_384, 32_768];
 
-  protected readonly smoothing = signal<number>(this.localStorageService.retrieve('smoothing') ?? 0.7);
-  protected readonly minDb = signal<number>(this.localStorageService.retrieve('minDb') ?? -73);
-  protected readonly alpha = signal<number>(this.localStorageService.retrieve('alpha') ?? 0.75);
-  protected readonly barCount = signal<number>(this.localStorageService.retrieve('barCount') ?? 24);
-  protected readonly fftSize = signal<FftSize>(this.localStorageService.retrieve('fftSize') ?? 2048);
-  protected readonly capHeight = signal<number>(this.localStorageService.retrieve('capHeight') ?? 4);
-  protected readonly gap = signal<number>(this.localStorageService.retrieve('gap') ?? 0.5);
-  protected readonly capFalldown = signal<number>(this.localStorageService.retrieve('capFalldown') ?? 2);
-  protected readonly lineThickness = signal<number>(this.localStorageService.retrieve('lineThickness') ?? 8);
+  protected readonly smoothing = signal<number>(this.#localStorageService.retrieve('smoothing') ?? 0.7);
+  protected readonly minDb = signal<number>(this.#localStorageService.retrieve('minDb') ?? -73);
+  protected readonly alpha = signal<number>(this.#localStorageService.retrieve('alpha') ?? 0.75);
+  protected readonly barCount = signal<number>(this.#localStorageService.retrieve('barCount') ?? 24);
+  protected readonly fftSize = signal<FftSize>(this.#localStorageService.retrieve('fftSize') ?? 2048);
+  protected readonly capHeight = signal<number>(this.#localStorageService.retrieve('capHeight') ?? 4);
+  protected readonly gap = signal<number>(this.#localStorageService.retrieve('gap') ?? 0.5);
+  protected readonly capFalldown = signal<number>(this.#localStorageService.retrieve('capFalldown') ?? 2);
+  protected readonly lineThickness = signal<number>(this.#localStorageService.retrieve('lineThickness') ?? 8);
 
   protected readonly analyser: AnalyserNode = this.audioService.plugInNewAnalyserNode();
 
@@ -48,13 +48,13 @@ export class VisualizerComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.gamepadService?.registerButtonAction(GamepadButtons.SELECT_BUTTON, () =>
+    this.#gamepadService?.registerButtonAction(GamepadButtons.SELECT_BUTTON, () =>
       this.visualsService.toggleVisualMode()
     );
   }
 
   ngOnDestroy(): void {
-    this.gamepadService?.deregisterButtonAction(GamepadButtons.SELECT_BUTTON);
+    this.#gamepadService?.deregisterButtonAction(GamepadButtons.SELECT_BUTTON);
     this.audioService.disconnectAnalyserNode(this.analyser);
   }
 
@@ -63,7 +63,7 @@ export class VisualizerComponent implements OnInit, OnDestroy {
   });
 
   readonly colorConfig = computed(() => {
-    return { ...this.playerService.colorConfig(), alpha: this.alpha() };
+    return { ...this.#playerService.colorConfig(), alpha: this.alpha() };
   });
 
   readonly barsConfig = computed<FrequencyBarsConfig>(() => {
@@ -86,7 +86,7 @@ export class VisualizerComponent implements OnInit, OnDestroy {
 
     this.smoothing.set(value);
     this.analyser.smoothingTimeConstant = value;
-    this.localStorageService.store('smoothing', value);
+    this.#localStorageService.store('smoothing', value);
   }
 
   setMinDb(value: number | null) {
@@ -96,7 +96,7 @@ export class VisualizerComponent implements OnInit, OnDestroy {
 
     this.minDb.set(value);
     this.analyser.minDecibels = value;
-    this.localStorageService.store('minDb', value);
+    this.#localStorageService.store('minDb', value);
   }
 
   setAlpha(value: number | null) {
@@ -105,13 +105,13 @@ export class VisualizerComponent implements OnInit, OnDestroy {
     }
 
     this.alpha.set(value);
-    this.localStorageService.store('alpha', value);
+    this.#localStorageService.store('alpha', value);
   }
 
   setFftSize(value: FftSize) {
     this.fftSize.set(value);
     this.analyser.fftSize = value;
-    this.localStorageService.store('fftSize', value);
+    this.#localStorageService.store('fftSize', value);
   }
 
   setBarCount(value: number | null) {
@@ -120,7 +120,7 @@ export class VisualizerComponent implements OnInit, OnDestroy {
     }
 
     this.barCount.set(value);
-    this.localStorageService.store('barCount', value);
+    this.#localStorageService.store('barCount', value);
   }
 
   setCapHeight(value: number | null) {
@@ -129,7 +129,7 @@ export class VisualizerComponent implements OnInit, OnDestroy {
     }
 
     this.capHeight.set(value);
-    this.localStorageService.store('capHeight', value);
+    this.#localStorageService.store('capHeight', value);
   }
 
   setCapFalldown(value: number | null) {
@@ -138,7 +138,7 @@ export class VisualizerComponent implements OnInit, OnDestroy {
     }
 
     this.capFalldown.set(value);
-    this.localStorageService.store('capFalldown', value);
+    this.#localStorageService.store('capFalldown', value);
   }
 
   setLineThickness(value: number | null) {
@@ -147,7 +147,7 @@ export class VisualizerComponent implements OnInit, OnDestroy {
     }
 
     this.lineThickness.set(value);
-    this.localStorageService.store('lineThickness', value);
+    this.#localStorageService.store('lineThickness', value);
   }
 
   setGap(value: number | null) {
@@ -156,6 +156,6 @@ export class VisualizerComponent implements OnInit, OnDestroy {
     }
 
     this.gap.set(value);
-    this.localStorageService.store('gap', value);
+    this.#localStorageService.store('gap', value);
   }
 }

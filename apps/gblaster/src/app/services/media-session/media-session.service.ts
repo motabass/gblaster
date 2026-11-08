@@ -5,14 +5,14 @@ import { AudioService } from '../../player/audio.service';
   providedIn: 'root'
 })
 export class MediaSessionService {
-  private audioService = inject(AudioService);
+  #audioService = inject(AudioService);
 
   constructor() {
     effect(() => {
-      const playing = this.audioService.isPlaying();
+      const playing = this.#audioService.isPlaying();
       if (playing) {
         this.setPlaybackState('playing');
-      } else if (this.audioService.isPaused()) {
+      } else if (this.#audioService.isPaused()) {
         this.setPlaybackState('paused');
       } else {
         this.setPlaybackState('none');
@@ -20,9 +20,9 @@ export class MediaSessionService {
     });
 
     effect(() => {
-      const duration = this.audioService.duration();
-      if (this.audioService.isPlaying() && !Number.isNaN(duration)) {
-        const currentTime = this.audioService.currentTime();
+      const duration = this.#audioService.duration();
+      if (this.#audioService.isPlaying() && !Number.isNaN(duration)) {
+        const currentTime = this.#audioService.currentTime();
         this.updateMediaPositionState(duration, currentTime);
       }
     });

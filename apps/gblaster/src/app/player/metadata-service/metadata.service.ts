@@ -14,37 +14,35 @@ import { Id3CoverPicture, Id3Tags } from './id3-tags.types';
 
 @Injectable({ providedIn: 'root' })
 export class MetadataService {
-  private readonly id3TagsService = inject(Id3TagsService);
-  private readonly lastfmMetadataService = inject(LastfmMetadataService);
-  private readonly musicbrainzService = inject(MusicbrainzService);
-  private readonly indexedDBService = inject(NgxIndexedDBService);
-  private readonly localStorageService = inject(LocalStorageService);
-  private readonly progressService = inject(ProgressService);
+  readonly #id3TagsService = inject(Id3TagsService);
+  readonly #lastfmMetadataService = inject(LastfmMetadataService);
+  readonly #musicbrainzService = inject(MusicbrainzService);
+  readonly #indexedDBService = inject(NgxIndexedDBService);
+  readonly #localStorageService = inject(LocalStorageService);
+  readonly #progressService = inject(ProgressService);
 
-  private readonly PLACEHOLDER_URL = 'assets/icons/record.svg';
+  readonly #PLACEHOLDER_URL = 'assets/icons/record.svg';
 
-  private readonly _useWebMetainfos = signal(this.localStorageService.retrieve('useWebMetainfos') ?? true);
-  readonly useWebMetainfos = this._useWebMetainfos.asReadonly();
-  private readonly _useTagEmbeddedPicture = signal(this.localStorageService.retrieve('useTagEmbeddedPicture') ?? true);
-  readonly useTagEmbeddedPicture = this._useTagEmbeddedPicture.asReadonly();
-  private readonly _preferTagEmbeddedPicture = signal(
-    this.localStorageService.retrieve('preferTagEmbeddedPicture') ?? true
-  );
-  readonly preferTagEmbeddedPicture = this._preferTagEmbeddedPicture.asReadonly();
+  readonly #useWebMetainfos = signal(this.#localStorageService.retrieve('useWebMetainfos') ?? true);
+  readonly useWebMetainfos = this.#useWebMetainfos.asReadonly();
+  readonly #useTagEmbeddedPicture = signal(this.#localStorageService.retrieve('useTagEmbeddedPicture') ?? true);
+  readonly useTagEmbeddedPicture = this.#useTagEmbeddedPicture.asReadonly();
+  readonly #preferTagEmbeddedPicture = signal(this.#localStorageService.retrieve('preferTagEmbeddedPicture') ?? true);
+  readonly preferTagEmbeddedPicture = this.#preferTagEmbeddedPicture.asReadonly();
 
   setUseWebMetainfos(value: boolean) {
-    this._useWebMetainfos.set(value);
-    this.localStorageService.store('useWebMetainfos', value);
+    this.#useWebMetainfos.set(value);
+    this.#localStorageService.store('useWebMetainfos', value);
   }
 
   setUseTagEmbeddedPicture(value: boolean) {
-    this._useTagEmbeddedPicture.set(value);
-    this.localStorageService.store('useTagEmbeddedPicture', value);
+    this.#useTagEmbeddedPicture.set(value);
+    this.#localStorageService.store('useTagEmbeddedPicture', value);
   }
 
   setPreferTagEmbeddedPicture(value: boolean) {
-    this._preferTagEmbeddedPicture.set(value);
-    this.localStorageService.store('preferTagEmbeddedPicture', value);
+    this.#preferTagEmbeddedPicture.set(value);
+    this.#localStorageService.store('preferTagEmbeddedPicture', value);
   }
 
   async *addFilesToLibrary(fileDatas: FileData[]) {
@@ -52,12 +50,12 @@ export class MetadataService {
       return;
     }
 
-    this.progressService.startProcessing(fileDatas.length);
+    this.#progressService.startProcessing(fileDatas.length);
     for (const fileData of fileDatas) {
-      this.progressService.updateCurrentFile(fileData.file.name);
+      this.#progressService.updateCurrentFile(fileData.file.name);
       const result = await this.getTrackMetadataFromCacheOrExtract(fileData);
       if (!result?.metadata) {
-        this.progressService.completeFile();
+        this.#progressService.completeFile();
         continue;
       }
       if (!result.fromCache) {
@@ -69,23 +67,25 @@ export class MetadataService {
         fileHandle: fileData.fileHandle,
         metadata: result.metadata
       };
-      this.progressService.completeFile();
+      this.#progressService.completeFile();
       yield track;
     }
-    this.progressService.reset();
+    this.#progressService.reset();
   }
 
   private async addMetadataToIndexedDb(metadata: TrackMetadata) {
     const { cachedBlobUrl, ...metadataToStore } = metadata;
     // Never persist cachedBlobUrl - blob URLs are session-specific
-    await firstValueFrom(this.indexedDBService.add('library', metadataToStore));
+    await firstValueFrom(this.#indexedDBService.add('library', metadataToStore));
   }
 
   private async getTrackMetadataFromCacheOrExtract(fileData: FileData): Promise<TrackMetadataResult | undefined> {
-    this.progressService.updateCurrentFile(fileData.file.name + ' - Generating hash...');
+    this.#progressService.updateCurrentFile(fileData.file.name + ' - Generating hash...');
     const hash = await generateFileHash(fileData.file);
 
-    const metadataCache = await firstValueFrom(this.indexedDBService.getByKey<IndexedDbTrackMetadata>('library', hash));
+    const metadataCache = await firstValueFrom(
+      this.#indexedDBService.getByKey<IndexedDbTrackMetadata>('library', hash)
+    );
 
     if (metadataCache) {
       const metadata = this.applyEmbeddedCoverObjectUrsl(metadataCache);
@@ -96,8 +96,8 @@ export class MetadataService {
   }
 
   private async extractTrackMetadata(fileData: FileData, hash: string): Promise<TrackMetadataResult | undefined> {
-    this.progressService.updateCurrentFile(fileData.file.name + ' - Reading tags...');
-    const tags = await this.id3TagsService.extractTags(fileData.file);
+    this.#progressService.updateCurrentFile(fileData.file.name + ' - Reading tags...');
+    const tags = await this.#id3TagsService.extractTags(fileData.file);
 
     if (!tags) {
       return undefined;
@@ -110,8 +110,8 @@ export class MetadataService {
       fileName: fileData.file.name,
       fileHandle: fileData.fileHandle,
       coverUrl: coverUrls ?? {
-        thumbUrl: this.PLACEHOLDER_URL,
-        originalUrl: this.PLACEHOLDER_URL
+        thumbUrl: this.#PLACEHOLDER_URL,
+        originalUrl: this.#PLACEHOLDER_URL
       },
       embeddedPicture: tags.picture,
       artist: tags.artist,
@@ -130,16 +130,16 @@ export class MetadataService {
       return undefined;
     }
 
-    this.progressService.updateCurrentFile(fileName + ' - Getting cover pictures...');
-    const coverUrls = await this.lastfmMetadataService.getCoverPictureUrls(tags);
-    return coverUrls ? coverUrls : this.musicbrainzService.getCoverPictureUrls(tags);
+    this.#progressService.updateCurrentFile(fileName + ' - Getting cover pictures...');
+    const coverUrls = await this.#lastfmMetadataService.getCoverPictureUrls(tags);
+    return coverUrls ? coverUrls : this.#musicbrainzService.getCoverPictureUrls(tags);
   }
 
   private shouldUseEmbeddedPicture(metadata: TrackMetadata): boolean {
     return !!(
       metadata.embeddedPicture &&
       this.useTagEmbeddedPicture() &&
-      (metadata.coverUrl.thumbUrl === this.PLACEHOLDER_URL || this.preferTagEmbeddedPicture())
+      (metadata.coverUrl.thumbUrl === this.#PLACEHOLDER_URL || this.preferTagEmbeddedPicture())
     );
   }
 

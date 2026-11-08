@@ -12,7 +12,7 @@ import { ThemeService } from '../../theme/theme.service';
 })
 export default class EqualizerComponent {
   protected readonly audioService = inject(AudioService);
-  private readonly themeService = inject(ThemeService);
+  readonly #themeService = inject(ThemeService);
   private readonly canvasRef = viewChild<ElementRef<HTMLCanvasElement>>('eqCanvas');
 
   protected readonly BANDS = FREQUENCY_BANDS;
@@ -78,7 +78,7 @@ export default class EqualizerComponent {
     };
 
     // Draw frequency response curve with gain applied
-    ctx.strokeStyle = this.themeService.primaryColor();
+    ctx.strokeStyle = this.#themeService.primaryColor();
     ctx.lineWidth = 3;
 
     const freqPoints: { x: number; y: number }[] = [
@@ -131,7 +131,7 @@ export default class EqualizerComponent {
     }
 
     // Display gain value
-    ctx.fillStyle = this.themeService.accentColor();
+    ctx.fillStyle = this.#themeService.accentColor();
     ctx.font = 'bold 12px Arial';
     ctx.textAlign = 'right';
     ctx.fillText(`Gain: ${gainValue.toFixed(1)}x`, width - 10, 20);
