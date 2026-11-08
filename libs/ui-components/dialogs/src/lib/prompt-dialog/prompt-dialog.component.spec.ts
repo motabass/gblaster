@@ -38,31 +38,31 @@ describe('PromptDialogComponent', () => {
 
   describe('data injection', () => {
     it('should have dialog data injected', () => {
-      expect(component.data).toBe(mockDialogData);
+      expect(component['data']).toBe(mockDialogData);
     });
 
     it('should have title from dialog data', () => {
-      expect(component.data.title).toBe('Test Title');
+      expect(component['data'].title).toBe('Test Title');
     });
 
     it('should have text from dialog data', () => {
-      expect(component.data.text).toBe('Test text content');
+      expect(component['data'].text).toBe('Test text content');
     });
 
     it('should have buttonText from dialog data', () => {
-      expect(component.data.buttonText).toBe('Confirm');
+      expect(component['data'].buttonText).toBe('Confirm');
     });
   });
 
   describe('update()', () => {
     it('should close the dialog with true', () => {
-      component.update();
+      component['update']();
 
       expect(mockDialogReference.close).toHaveBeenCalledWith(true);
     });
 
     it('should close the dialog exactly once', () => {
-      component.update();
+      component['update']();
 
       expect(mockDialogReference.close).toHaveBeenCalledTimes(1);
     });
@@ -70,13 +70,13 @@ describe('PromptDialogComponent', () => {
 
   describe('cancel()', () => {
     it('should close the dialog with false', () => {
-      component.cancel();
+      component['cancel']();
 
       expect(mockDialogReference.close).toHaveBeenCalledWith(false);
     });
 
     it('should close the dialog exactly once', () => {
-      component.cancel();
+      component['cancel']();
 
       expect(mockDialogReference.close).toHaveBeenCalledTimes(1);
     });

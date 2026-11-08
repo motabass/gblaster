@@ -178,7 +178,7 @@ export class PlaylistComponent {
     viewport.scrollToOffset(offset, distance > SMOOTH_SCROLL_MAX_DISTANCE ? 'instant' : 'smooth');
   }
 
-  isActive(song: Track): Signal<boolean> {
+  protected isActive(song: Track): Signal<boolean> {
     return computed(() => {
       return (
         (this.#audioService.isPlaying() || this.#audioService.isPaused()) &&
@@ -187,7 +187,7 @@ export class PlaylistComponent {
     });
   }
 
-  isPlaying(song: Track): Signal<boolean> {
+  protected isPlaying(song: Track): Signal<boolean> {
     return computed(() => {
       return (
         this.#audioService.isPlaying() &&
@@ -196,16 +196,16 @@ export class PlaylistComponent {
     });
   }
 
-  async playPauseSong(event: Event, song: Track): Promise<void> {
+  protected async playPauseSong(event: Event, song: Track): Promise<void> {
     event.stopPropagation();
     return this.playerService.playPauseTrack(song);
   }
 
-  trackByHash(index: number, song: Track): string {
+  protected trackByHash(index: number, song: Track): string {
     return song.metadata.hash;
   }
 
-  onContextMenu(event: MouseEvent, song: Track): void {
+  protected onContextMenu(event: MouseEvent, song: Track): void {
     event.preventDefault();
     const trigger = this.menuTrigger();
     if (!trigger) return;

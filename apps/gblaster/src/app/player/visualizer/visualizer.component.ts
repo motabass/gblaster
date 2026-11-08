@@ -58,15 +58,15 @@ export class VisualizerComponent implements OnInit, OnDestroy {
     this.audioService.disconnectAnalyserNode(this.analyser);
   }
 
-  readonly showSlidePanel = computed(() => {
+  protected readonly showSlidePanel = computed(() => {
     return this.visualsService.visualMode() !== 'off';
   });
 
-  readonly colorConfig = computed(() => {
+  protected readonly colorConfig = computed(() => {
     return { ...this.#playerService.colorConfig(), alpha: this.alpha() };
   });
 
-  readonly barsConfig = computed<FrequencyBarsConfig>(() => {
+  protected readonly barsConfig = computed<FrequencyBarsConfig>(() => {
     return {
       barCount: this.barCount(),
       capHeight: this.capHeight(),
@@ -75,11 +75,11 @@ export class VisualizerComponent implements OnInit, OnDestroy {
     };
   });
 
-  readonly oscConfig = computed<OsciloscopeConfig>(() => {
+  protected readonly oscConfig = computed<OsciloscopeConfig>(() => {
     return { thickness: this.lineThickness() };
   });
 
-  setSmoothing(value: number | null) {
+  protected setSmoothing(value: number | null) {
     if (!(value !== null)) {
       return;
     }
@@ -89,7 +89,7 @@ export class VisualizerComponent implements OnInit, OnDestroy {
     this.#localStorageService.store('smoothing', value);
   }
 
-  setMinDb(value: number | null) {
+  protected setMinDb(value: number | null) {
     if (!(value !== null)) {
       return;
     }
@@ -99,7 +99,7 @@ export class VisualizerComponent implements OnInit, OnDestroy {
     this.#localStorageService.store('minDb', value);
   }
 
-  setAlpha(value: number | null) {
+  protected setAlpha(value: number | null) {
     if (!(value !== null)) {
       return;
     }
@@ -108,13 +108,13 @@ export class VisualizerComponent implements OnInit, OnDestroy {
     this.#localStorageService.store('alpha', value);
   }
 
-  setFftSize(value: FftSize) {
+  protected setFftSize(value: FftSize) {
     this.fftSize.set(value);
     this.analyser.fftSize = value;
     this.#localStorageService.store('fftSize', value);
   }
 
-  setBarCount(value: number | null) {
+  protected setBarCount(value: number | null) {
     if (!(value !== null)) {
       return;
     }
@@ -123,7 +123,7 @@ export class VisualizerComponent implements OnInit, OnDestroy {
     this.#localStorageService.store('barCount', value);
   }
 
-  setCapHeight(value: number | null) {
+  protected setCapHeight(value: number | null) {
     if (!(value !== null)) {
       return;
     }
@@ -132,7 +132,7 @@ export class VisualizerComponent implements OnInit, OnDestroy {
     this.#localStorageService.store('capHeight', value);
   }
 
-  setCapFalldown(value: number | null) {
+  protected setCapFalldown(value: number | null) {
     if (!(value !== null)) {
       return;
     }
@@ -141,7 +141,7 @@ export class VisualizerComponent implements OnInit, OnDestroy {
     this.#localStorageService.store('capFalldown', value);
   }
 
-  setLineThickness(value: number | null) {
+  protected setLineThickness(value: number | null) {
     if (!(value !== null)) {
       return;
     }
@@ -150,7 +150,7 @@ export class VisualizerComponent implements OnInit, OnDestroy {
     this.#localStorageService.store('lineThickness', value);
   }
 
-  setGap(value: number | null) {
+  protected setGap(value: number | null) {
     if (!(value !== null)) {
       return;
     }

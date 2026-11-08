@@ -78,7 +78,7 @@ describe('FileDropOverlayComponent', () => {
     it('should prevent default and stop propagation', () => {
       const event = createMockDragEvent('dragover');
 
-      component.over(event as unknown as DragEvent);
+      component['over'](event as unknown as DragEvent);
 
       expect(event.preventDefault).toHaveBeenCalled();
       expect(event.stopPropagation).toHaveBeenCalled();
@@ -87,7 +87,7 @@ describe('FileDropOverlayComponent', () => {
     it('should set dropEffect to copy when files are present', () => {
       const event = createMockDragEvent('dragover', { files: createFileList([]) });
 
-      component.over(event as unknown as DragEvent);
+      component['over'](event as unknown as DragEvent);
 
       expect(event.dataTransfer?.dropEffect).toBe('copy');
     });
@@ -95,7 +95,7 @@ describe('FileDropOverlayComponent', () => {
     it('should make host element visible', () => {
       const event = createMockDragEvent('dragover');
 
-      component.over(event as unknown as DragEvent);
+      component['over'](event as unknown as DragEvent);
 
       expect(fixture.nativeElement.style.visibility).toBe('visible');
     });
@@ -105,7 +105,7 @@ describe('FileDropOverlayComponent', () => {
     it('should prevent default and stop propagation', () => {
       const event = createMockDragEvent('dragleave');
 
-      component.leave(event as unknown as DragEvent);
+      component['leave'](event as unknown as DragEvent);
 
       expect(event.preventDefault).toHaveBeenCalled();
       expect(event.stopPropagation).toHaveBeenCalled();
@@ -114,7 +114,7 @@ describe('FileDropOverlayComponent', () => {
     it('should hide host element', () => {
       const event = createMockDragEvent('dragleave');
 
-      component.leave(event as unknown as DragEvent);
+      component['leave'](event as unknown as DragEvent);
 
       expect(fixture.nativeElement.style.visibility).toBe('hidden');
     });
@@ -124,7 +124,7 @@ describe('FileDropOverlayComponent', () => {
     it('should prevent default and stop propagation', () => {
       const event = createMockDragEvent('drop', { files: createFileList([]) });
 
-      component.drop(event as unknown as DragEvent);
+      component['drop'](event as unknown as DragEvent);
 
       expect(event.preventDefault).toHaveBeenCalled();
       expect(event.stopPropagation).toHaveBeenCalled();
@@ -133,7 +133,7 @@ describe('FileDropOverlayComponent', () => {
     it('should hide the overlay after drop', () => {
       const event = createMockDragEvent('drop', { files: createFileList([]) });
 
-      component.drop(event as unknown as DragEvent);
+      component['drop'](event as unknown as DragEvent);
 
       expect(fixture.nativeElement.style.visibility).toBe('hidden');
     });
@@ -146,7 +146,7 @@ describe('FileDropOverlayComponent', () => {
       fixture.componentRef.setInput('allowedTypes', ['audio/mpeg']);
       const event = createMockDragEvent('drop', { files: createFileList([mockFile]) });
 
-      component.drop(event as unknown as DragEvent);
+      component['drop'](event as unknown as DragEvent);
 
       expect(filesDropedSpy).toHaveBeenCalledWith([mockFile]);
     });
@@ -162,7 +162,7 @@ describe('FileDropOverlayComponent', () => {
         files: createFileList([allowedFile, notAllowedFile])
       });
 
-      component.drop(event as unknown as DragEvent);
+      component['drop'](event as unknown as DragEvent);
 
       expect(filesDropedSpy).toHaveBeenCalledWith([allowedFile]);
     });
@@ -175,7 +175,7 @@ describe('FileDropOverlayComponent', () => {
       fixture.componentRef.setInput('allowedTypes', ['audio/mpeg']);
       const event = createMockDragEvent('drop', { files: createFileList([notAllowedFile]) });
 
-      component.drop(event as unknown as DragEvent);
+      component['drop'](event as unknown as DragEvent);
 
       expect(filesDropedSpy).toHaveBeenCalledWith([]);
     });
@@ -190,7 +190,7 @@ describe('FileDropOverlayComponent', () => {
       };
       const event = createMockDragEvent('drop', { items: [mockItem], files: createFileList([]) });
 
-      component.drop(event as unknown as DragEvent);
+      component['drop'](event as unknown as DragEvent);
 
       await vi.waitFor(() => {
         expect(fileHandlesDroppedSpy).toHaveBeenCalledWith([mockFileHandle]);
@@ -205,7 +205,7 @@ describe('FileDropOverlayComponent', () => {
       fixture.componentRef.setInput('allowedTypes', ['audio/mpeg']);
       const event = createMockDragEvent('drop', { files: createFileList([mockFile]) });
 
-      component.drop(event as unknown as DragEvent);
+      component['drop'](event as unknown as DragEvent);
 
       expect(filesDropedSpy).toHaveBeenCalledWith([mockFile]);
     });
@@ -225,7 +225,7 @@ describe('FileDropOverlayComponent', () => {
         files: createFileList([mockFile])
       });
 
-      component.drop(event as unknown as DragEvent);
+      component['drop'](event as unknown as DragEvent);
 
       await vi.waitFor(() => {
         expect(filesDropedSpy).toHaveBeenCalledWith([mockFile]);

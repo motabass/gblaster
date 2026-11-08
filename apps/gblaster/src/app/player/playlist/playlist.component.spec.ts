@@ -86,7 +86,7 @@ describe('PlaylistComponent', () => {
       isPausedSignal.set(true);
       currentlyLoadedTrackSignal.set(undefined);
 
-      const result = component.isActive(track);
+      const result = component['isActive'](track);
       expect(result()).toBe(false);
     });
 
@@ -96,7 +96,7 @@ describe('PlaylistComponent', () => {
       isPausedSignal.set(false);
       currentlyLoadedTrackSignal.set(track);
 
-      const result = component.isActive(track);
+      const result = component['isActive'](track);
       expect(result()).toBe(true);
     });
 
@@ -106,7 +106,7 @@ describe('PlaylistComponent', () => {
       isPausedSignal.set(true);
       currentlyLoadedTrackSignal.set(track);
 
-      const result = component.isActive(track);
+      const result = component['isActive'](track);
       expect(result()).toBe(true);
     });
 
@@ -117,7 +117,7 @@ describe('PlaylistComponent', () => {
       isPausedSignal.set(false);
       currentlyLoadedTrackSignal.set(track2);
 
-      const result = component.isActive(track1);
+      const result = component['isActive'](track1);
       expect(result()).toBe(false);
     });
   });
@@ -128,7 +128,7 @@ describe('PlaylistComponent', () => {
       isPlayingSignal.set(false);
       currentlyLoadedTrackSignal.set(track);
 
-      const result = component.isPlaying(track);
+      const result = component['isPlaying'](track);
       expect(result()).toBe(false);
     });
 
@@ -137,7 +137,7 @@ describe('PlaylistComponent', () => {
       isPlayingSignal.set(true);
       currentlyLoadedTrackSignal.set(track);
 
-      const result = component.isPlaying(track);
+      const result = component['isPlaying'](track);
       expect(result()).toBe(true);
     });
 
@@ -147,7 +147,7 @@ describe('PlaylistComponent', () => {
       isPlayingSignal.set(true);
       currentlyLoadedTrackSignal.set(track2);
 
-      const result = component.isPlaying(track1);
+      const result = component['isPlaying'](track1);
       expect(result()).toBe(false);
     });
   });
@@ -158,7 +158,7 @@ describe('PlaylistComponent', () => {
       const event = new MouseEvent('click');
       vi.spyOn(event, 'stopPropagation');
 
-      await component.playPauseSong(event, track);
+      await component['playPauseSong'](event, track);
 
       expect(event.stopPropagation).toHaveBeenCalled();
       expect(mockPlayerService.playPauseTrack).toHaveBeenCalledWith(track);
@@ -169,7 +169,7 @@ describe('PlaylistComponent', () => {
     it('should return the track hash', () => {
       const track = createMockTrack({ metadata: { hash: 'unique-hash' } as Track['metadata'] });
 
-      const result = component.trackByHash(0, track);
+      const result = component['trackByHash'](0, track);
 
       expect(result).toBe('unique-hash');
     });
@@ -181,7 +181,7 @@ describe('PlaylistComponent', () => {
       const event = new MouseEvent('contextmenu', { clientX: 100, clientY: 200 });
       vi.spyOn(event, 'preventDefault');
 
-      component.onContextMenu(event, track);
+      component['onContextMenu'](event, track);
 
       expect(event.preventDefault).toHaveBeenCalled();
     });

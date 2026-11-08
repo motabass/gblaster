@@ -12,7 +12,7 @@ import { MatCard, MatCardContent, MatCardHeader, MatCardTitle } from '@angular/m
 export class StorageSettingsComponent {
   readonly #localStorage = inject(LocalStorageService);
 
-  clearSettingsCache() {
+  protected clearSettingsCache() {
     this.#localStorage.clear();
   }
 }

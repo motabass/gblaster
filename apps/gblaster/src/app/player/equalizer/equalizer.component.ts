@@ -26,12 +26,12 @@ export default class EqualizerComponent {
     });
   }
 
-  displayFunction(value: number): string {
+  protected displayFunction(value: number): string {
     const numberValue = value.toFixed(1);
     return numberValue + ' dB';
   }
 
-  drawEqualizerResponse(): void {
+  protected drawEqualizerResponse(): void {
     const canvasRef = this.canvasRef();
     if (!canvasRef) return;
 

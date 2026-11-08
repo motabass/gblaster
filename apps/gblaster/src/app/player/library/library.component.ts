@@ -155,16 +155,16 @@ export default class LibraryComponent implements OnInit {
     void this.libraryService.loadLibraryFromDb();
   }
 
-  selectArtist(artist: string | undefined) {
+  protected selectArtist(artist: string | undefined) {
     this.#selectedArtist.set(artist);
     this.selectedAlbum.set(undefined);
   }
 
-  selectAlbum(album: string | undefined) {
+  protected selectAlbum(album: string | undefined) {
     this.selectedAlbum.set(album);
   }
 
-  async playTrack(track: IndexedDbTrackMetadata | undefined) {
+  protected async playTrack(track: IndexedDbTrackMetadata | undefined) {
     if (!track) {
       return;
     }
@@ -173,7 +173,7 @@ export default class LibraryComponent implements OnInit {
     await this.#playerService.playTrackByHash(track.hash);
   }
 
-  async addArtistToPlaylist(artist: string) {
+  protected async addArtistToPlaylist(artist: string) {
     if (artist) {
       const tracks = this.#filteredBySearchTerm().filter((track) => track.artist === artist);
       await this.addTracksToPlaylist(...tracks);
@@ -182,7 +182,7 @@ export default class LibraryComponent implements OnInit {
     }
   }
 
-  async addAlbumToPlaylist(album: Album) {
+  protected async addAlbumToPlaylist(album: Album) {
     let tracks: IndexedDbTrackMetadata[];
     if (album) {
       tracks = this.#filteredBySearchTerm().filter((track) => track.album === album.name);
@@ -199,7 +199,7 @@ export default class LibraryComponent implements OnInit {
     await this.addTracksToPlaylist(...tracks);
   }
 
-  async addTrackToPlaylist(track: IndexedDbTrackMetadata) {
+  protected async addTrackToPlaylist(track: IndexedDbTrackMetadata) {
     if (track) {
       await this.addTracksToPlaylist(track);
     } else {
@@ -208,7 +208,7 @@ export default class LibraryComponent implements OnInit {
     }
   }
 
-  async addTracksToPlaylist(...dbTracks: IndexedDbTrackMetadata[]) {
+  protected async addTracksToPlaylist(...dbTracks: IndexedDbTrackMetadata[]) {
     const files = await Promise.all(dbTracks.map((dbTrack) => dbTrack.fileHandle?.getFile()));
     for (const [index, dbTrack] of dbTracks.entries()) {
       const file = files[index];
@@ -226,19 +226,19 @@ export default class LibraryComponent implements OnInit {
     }
   }
 
-  trackByArtist(index: number, artist: string): string {
+  protected trackByArtist(index: number, artist: string): string {
     return artist;
   }
 
-  trackByAlbum(index: number, album: Album): string {
+  protected trackByAlbum(index: number, album: Album): string {
     return album.name;
   }
 
-  trackByHash(index: number, track: IndexedDbTrackMetadata): string {
+  protected trackByHash(index: number, track: IndexedDbTrackMetadata): string {
     return track.hash;
   }
 
-  async refreshLibrary() {
+  protected async refreshLibrary() {
     await this.libraryService.loadLibraryFromDb();
   }
 }

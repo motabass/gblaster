@@ -66,14 +66,14 @@ export class ShellComponent {
 
   private readonly sidenav = viewChild.required<MatSidenav>('drawer');
 
-  navigateTo(route: string, skipLocationChange = false) {
+  protected navigateTo(route: string, skipLocationChange = false) {
     void this.sidenav().close();
     void this.#router.navigate([route], {
       skipLocationChange: skipLocationChange
     });
   }
 
-  async onFilesDropped(files: File[]) {
+  protected async onFilesDropped(files: File[]) {
     const fileData = files.map((file) => ({ file }));
     // Just process files and add to library, don't add to playlist
     for await (const track of this.metadataService.addFilesToLibrary(fileData)) {
@@ -81,7 +81,7 @@ export class ShellComponent {
     }
   }
 
-  async onFileHandlesDropped(files: FileSystemFileHandle[]) {
+  protected async onFileHandlesDropped(files: FileSystemFileHandle[]) {
     const fileData: FileData[] = [];
     for (const fileHandle of files) {
       const file = await fileHandle.getFile();

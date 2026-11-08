@@ -16,19 +16,19 @@ export class MetadataSettingsComponent {
   protected readonly metadataService = inject(MetadataService);
   readonly #libraryService = inject(LibraryService);
 
-  onUseWebTagsChange(event: MatSlideToggleChange) {
+  protected onUseWebTagsChange(event: MatSlideToggleChange) {
     this.metadataService.setUseWebMetainfos(event.checked);
   }
 
-  onUseTagEmbeddedPicsChange(event: MatSlideToggleChange) {
+  protected onUseTagEmbeddedPicsChange(event: MatSlideToggleChange) {
     this.metadataService.setUseTagEmbeddedPicture(event.checked);
   }
 
-  onPreferTagEmbeddedPicsChange(event: MatSlideToggleChange) {
+  protected onPreferTagEmbeddedPicsChange(event: MatSlideToggleChange) {
     this.metadataService.setPreferTagEmbeddedPicture(event.checked);
   }
 
-  async clearMetadataCache() {
+  protected async clearMetadataCache() {
     await this.#libraryService.clearLibrary();
   }
 }

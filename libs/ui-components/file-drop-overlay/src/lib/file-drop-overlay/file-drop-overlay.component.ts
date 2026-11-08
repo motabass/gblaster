@@ -47,7 +47,7 @@ export class FileDropOverlayComponent implements AfterViewInit, OnDestroy {
     this.#dropListener();
   }
 
-  over(event: DragEvent) {
+  protected over(event: DragEvent) {
     event.preventDefault();
     event.stopPropagation();
 
@@ -57,13 +57,13 @@ export class FileDropOverlayComponent implements AfterViewInit, OnDestroy {
     this.#renderer.setStyle(this.#hostElement.nativeElement, 'visibility', 'visible');
   }
 
-  leave(event: DragEvent) {
+  protected leave(event: DragEvent) {
     event.preventDefault();
     event.stopPropagation();
     this.#renderer.setStyle(this.#hostElement.nativeElement, 'visibility', 'hidden');
   }
 
-  drop(event: DragEvent) {
+  protected drop(event: DragEvent) {
     event.preventDefault();
     event.stopPropagation();
     this.leave(event);

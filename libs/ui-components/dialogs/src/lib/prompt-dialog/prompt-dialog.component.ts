@@ -20,14 +20,14 @@ export interface PromptDialogData {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PromptDialogComponent {
-  data = inject<PromptDialogData>(MAT_DIALOG_DATA);
-  dialogRef = inject<MatDialogRef<PromptDialogComponent>>(MatDialogRef);
+  protected data = inject<PromptDialogData>(MAT_DIALOG_DATA);
+  protected dialogRef = inject<MatDialogRef<PromptDialogComponent>>(MatDialogRef);
 
-  update() {
+  protected update() {
     this.dialogRef.close(true);
   }
 
-  cancel() {
+  protected cancel() {
     this.dialogRef.close(false);
   }
 }

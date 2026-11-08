@@ -15,14 +15,14 @@ export interface HotkeysData {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HotkeysHelpDialogComponent {
-  dialogRef = inject<MatDialogRef<HotkeysHelpDialogComponent>>(MatDialogRef);
-  data = inject<HotkeysData>(MAT_DIALOG_DATA);
+  protected dialogRef = inject<MatDialogRef<HotkeysHelpDialogComponent>>(MatDialogRef);
+  protected data = inject<HotkeysData>(MAT_DIALOG_DATA);
 
-  get hotkeyList() {
+  protected get hotkeyList() {
     return [...this.data.registeredHotkeys];
   }
 
-  close() {
+  protected close() {
     this.dialogRef.close();
   }
 }

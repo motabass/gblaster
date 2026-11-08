@@ -29,7 +29,7 @@ import { MatTooltip } from '@angular/material/tooltip';
   }
 })
 export class SlidePanelComponent {
-  readonly isInitialized = signal(false);
+  protected readonly isInitialized = signal(false);
 
   constructor() {
     afterNextRender(() => {
@@ -39,7 +39,7 @@ export class SlidePanelComponent {
   }
   readonly opened = input(false, { transform: booleanAttribute });
 
-  readonly openedState = linkedSignal(() => this.opened());
+  protected readonly openedState = linkedSignal(() => this.opened());
 
   readonly bottom = input<string>();
 
@@ -55,11 +55,11 @@ export class SlidePanelComponent {
 
   readonly buttonTooltip = input<string | undefined>('');
 
-  openPanel() {
+  protected openPanel() {
     this.openedState.set(true);
   }
 
-  closePanel() {
+  protected closePanel() {
     this.openedState.set(false);
   }
 }

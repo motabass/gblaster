@@ -52,11 +52,11 @@ describe('SlidePanelComponent', () => {
   describe('initial state', () => {
     it('should have isInitialized as false initially', () => {
       const newFixture = TestBed.createComponent(SlidePanelComponent);
-      expect(newFixture.componentInstance.isInitialized()).toBe(false);
+      expect(newFixture.componentInstance['isInitialized']()).toBe(false);
     });
 
     it('should have opened state as false by default', () => {
-      expect(component.openedState()).toBe(false);
+      expect(component['openedState']()).toBe(false);
     });
 
     it('should have default width of 20rem', () => {
@@ -82,22 +82,22 @@ describe('SlidePanelComponent', () => {
 
   describe('openPanel()', () => {
     it('should set openedState to true', () => {
-      expect(component.openedState()).toBe(false);
+      expect(component['openedState']()).toBe(false);
 
-      component.openPanel();
+      component['openPanel']();
 
-      expect(component.openedState()).toBe(true);
+      expect(component['openedState']()).toBe(true);
     });
   });
 
   describe('closePanel()', () => {
     it('should set openedState to false', () => {
-      component.openPanel();
-      expect(component.openedState()).toBe(true);
+      component['openPanel']();
+      expect(component['openedState']()).toBe(true);
 
-      component.closePanel();
+      component['closePanel']();
 
-      expect(component.openedState()).toBe(false);
+      expect(component['openedState']()).toBe(false);
     });
   });
 
@@ -110,7 +110,7 @@ describe('SlidePanelComponent', () => {
     });
 
     it('should apply opened-slide-panel class when panel is opened', () => {
-      component.openPanel();
+      component['openPanel']();
       fixture.detectChanges();
 
       expect(fixture.nativeElement.classList.contains('opened-slide-panel')).toBe(true);
@@ -132,17 +132,17 @@ describe('SlidePanelComponent', () => {
       const toggleButton = fixture.nativeElement.querySelector('.slide-panel-toggle');
       expect(toggleButton).toBeTruthy();
 
-      expect(component.openedState()).toBe(false);
+      expect(component['openedState']()).toBe(false);
 
       toggleButton.click();
       fixture.detectChanges();
 
-      expect(component.openedState()).toBe(true);
+      expect(component['openedState']()).toBe(true);
 
       toggleButton.click();
       fixture.detectChanges();
 
-      expect(component.openedState()).toBe(false);
+      expect(component['openedState']()).toBe(false);
     });
   });
 });
@@ -233,17 +233,17 @@ describe('SlidePanelComponent with TestHost', () => {
         (de) => de.componentInstance instanceof SlidePanelComponent
       ).componentInstance as SlidePanelComponent;
 
-      expect(slidePanelComponent.openedState()).toBe(false);
+      expect(slidePanelComponent['openedState']()).toBe(false);
 
       hostComponent.opened.set(true);
       fixture.detectChanges();
 
-      expect(slidePanelComponent.openedState()).toBe(true);
+      expect(slidePanelComponent['openedState']()).toBe(true);
 
       hostComponent.opened.set(false);
       fixture.detectChanges();
 
-      expect(slidePanelComponent.openedState()).toBe(false);
+      expect(slidePanelComponent['openedState']()).toBe(false);
     });
 
     it('should allow local state changes independent of input', () => {
@@ -251,11 +251,11 @@ describe('SlidePanelComponent with TestHost', () => {
         (de) => de.componentInstance instanceof SlidePanelComponent
       ).componentInstance as SlidePanelComponent;
 
-      expect(slidePanelComponent.openedState()).toBe(false);
+      expect(slidePanelComponent['openedState']()).toBe(false);
 
-      slidePanelComponent.openPanel();
+      slidePanelComponent['openPanel']();
 
-      expect(slidePanelComponent.openedState()).toBe(true);
+      expect(slidePanelComponent['openedState']()).toBe(true);
       expect(hostComponent.opened()).toBe(false);
     });
   });

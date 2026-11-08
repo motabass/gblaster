@@ -152,7 +152,7 @@ describe('LibraryComponent', () => {
       ];
       indexedDbTracksSignal.set(tracks);
 
-      component.selectArtist('Artist A');
+      component['selectArtist']('Artist A');
       fixture.detectChanges();
 
       const uniqueAlbums = component['uniqueAlbums']();
@@ -195,7 +195,7 @@ describe('LibraryComponent', () => {
       ];
       indexedDbTracksSignal.set(tracks);
 
-      component.selectArtist('Artist A');
+      component['selectArtist']('Artist A');
       fixture.detectChanges();
 
       const filteredTracks = component['tracks']();
@@ -210,7 +210,7 @@ describe('LibraryComponent', () => {
       ];
       indexedDbTracksSignal.set(tracks);
 
-      component.selectAlbum('Album A');
+      component['selectAlbum']('Album A');
       fixture.detectChanges();
 
       const filteredTracks = component['tracks']();
@@ -242,16 +242,16 @@ describe('LibraryComponent', () => {
         createMockTrackMetadata({ artist: 'New Artist', album: 'Other Album', title: 'Song B' }),
         createMockTrackMetadata({ artist: 'Other Artist', album: 'Some Album', title: 'Song C' })
       ]);
-      component.selectAlbum('Some Album');
+      component['selectAlbum']('Some Album');
 
-      component.selectArtist('New Artist');
+      component['selectArtist']('New Artist');
 
       expect(component['tracks']().map((track) => track.title)).toEqual(['Song B', 'Song A']);
       expect(component['selectedAlbum']()).toBeUndefined();
     });
 
     it('selectAlbum should set album', () => {
-      component.selectAlbum('New Album');
+      component['selectAlbum']('New Album');
 
       expect(component['selectedAlbum']()).toBe('New Album');
     });
@@ -261,14 +261,14 @@ describe('LibraryComponent', () => {
     it('playTrack should add track to playlist and play it', async () => {
       const track = createMockTrackMetadata({ hash: 'test-hash' });
 
-      await component.playTrack(track);
+      await component['playTrack'](track);
 
       expect(mockPlayerService.addTrackToPlaylist).toHaveBeenCalled();
       expect(mockPlayerService.playTrackByHash).toHaveBeenCalledWith('test-hash');
     });
 
     it('playTrack should do nothing when track is undefined', async () => {
-      await component.playTrack(undefined);
+      await component['playTrack'](undefined);
 
       expect(mockPlayerService.addTrackToPlaylist).not.toHaveBeenCalled();
       expect(mockPlayerService.playTrackByHash).not.toHaveBeenCalled();
@@ -283,7 +283,7 @@ describe('LibraryComponent', () => {
       indexedDbTracksSignal.set(tracks);
       fixture.detectChanges();
 
-      await component.addArtistToPlaylist('Artist A');
+      await component['addArtistToPlaylist']('Artist A');
 
       expect(mockPlayerService.addTrackToPlaylist).toHaveBeenCalledTimes(2);
     });
@@ -298,7 +298,7 @@ describe('LibraryComponent', () => {
       fixture.detectChanges();
 
       const album: Album = { name: 'Album A', year: '2024', coverUrl: { thumbUrl: '', originalUrl: '' } };
-      await component.addAlbumToPlaylist(album);
+      await component['addAlbumToPlaylist'](album);
 
       expect(mockPlayerService.addTrackToPlaylist).toHaveBeenCalledTimes(2);
     });
@@ -306,7 +306,7 @@ describe('LibraryComponent', () => {
     it('addTrackToPlaylist should add single track', async () => {
       const track = createMockTrackMetadata({ title: 'Single Track' });
 
-      await component.addTrackToPlaylist(track);
+      await component['addTrackToPlaylist'](track);
 
       expect(mockPlayerService.addTrackToPlaylist).toHaveBeenCalledTimes(1);
     });
@@ -314,17 +314,17 @@ describe('LibraryComponent', () => {
 
   describe('trackBy functions', () => {
     it('trackByArtist should return artist name', () => {
-      expect(component.trackByArtist(0, 'Test Artist')).toBe('Test Artist');
+      expect(component['trackByArtist'](0, 'Test Artist')).toBe('Test Artist');
     });
 
     it('trackByAlbum should return album name', () => {
       const album: Album = { name: 'Test Album', year: '2024', coverUrl: { thumbUrl: '', originalUrl: '' } };
-      expect(component.trackByAlbum(0, album)).toBe('Test Album');
+      expect(component['trackByAlbum'](0, album)).toBe('Test Album');
     });
 
     it('trackByHash should return track hash', () => {
       const track = createMockTrackMetadata({ hash: 'unique-hash' });
-      expect(component.trackByHash(0, track)).toBe('unique-hash');
+      expect(component['trackByHash'](0, track)).toBe('unique-hash');
     });
   });
 
@@ -332,7 +332,7 @@ describe('LibraryComponent', () => {
     it('should call loadLibraryFromDb', async () => {
       vi.clearAllMocks();
 
-      await component.refreshLibrary();
+      await component['refreshLibrary']();
 
       expect(mockLibraryService.loadLibraryFromDb).toHaveBeenCalled();
     });

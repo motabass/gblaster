@@ -118,11 +118,11 @@ export class PlayerToolbarComponent implements OnInit, OnDestroy {
     this.#gamepadService.deregisterAxisAction(GamepadAxes.S1_Y);
   }
 
-  onSliderPositionChanged(value: number) {
+  protected onSliderPositionChanged(value: number) {
     this.playerService.setSeekPosition(value);
   }
 
-  onVolumeChange(value = 0) {
+  protected onVolumeChange(value = 0) {
     this.audioService.setVolume(value);
   }
 
@@ -132,39 +132,39 @@ export class PlayerToolbarComponent implements OnInit, OnDestroy {
     return vol >= 0.2 && vol < 0.8 ? 'volume-medium' : 'volume-high';
   }
 
-  formatLabel(value: number): string {
+  protected formatLabel(value: number): string {
     return formatSecondsAsClock(value, false);
   }
 
-  toggleRepeat() {
+  protected toggleRepeat() {
     this.playerService.toggleRepeat();
   }
 
-  toggleShuffle() {
+  protected toggleShuffle() {
     this.playerService.toggleShuffle();
   }
 
-  async showFilePickerAndAddToLibrary() {
+  protected async showFilePickerAndAddToLibrary() {
     return this.playerService.loadFilesToLibrary();
   }
 
-  seekLeft(value: number) {
+  protected seekLeft(value: number) {
     this.playerService.seekLeft(value + 10);
   }
 
-  seekRight(value: number) {
+  protected seekRight(value: number) {
     this.playerService.seekRight(value + 10);
   }
 
-  increaseVolume(value: number) {
+  protected increaseVolume(value: number) {
     this.audioService.setVolume(this.audioService.volume() + value / 100);
   }
 
-  decreaseVolume(value: number) {
+  protected decreaseVolume(value: number) {
     this.audioService.setVolume(this.audioService.volume() - value / 100);
   }
 
-  toggleMute() {
+  protected toggleMute() {
     // TODO: implement
   }
 }
