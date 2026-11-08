@@ -50,7 +50,8 @@ export const ANGULAR_ESLINT_TEMPLATE_RULES = {
   'unicorn/prefer-string-raw': 'off',
   '@angular-eslint/template/prefer-class-binding': 'error',
   'unicorn/no-useless-template-literals': 'off',
-  'unicorn/no-incorrect-template-string-interpolation': 'off'
+  'unicorn/no-incorrect-template-string-interpolation': 'off',
+  'unicorn/consistent-boolean-name': 'off'
 };
 
 const DEFAULT_UNICORN_RULE_OVERRIDES = {
