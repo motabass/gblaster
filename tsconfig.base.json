@@ -23,8 +23,7 @@
       "@motabass/ui-components/file-drop-overlay": ["./libs/ui-components/file-drop-overlay/src/index.ts"],
       "@motabass/ui-components/slide-panel": ["./libs/ui-components/slide-panel/src/index.ts"]
     },
-    "noUncheckedSideEffectImports": false,
-    "types": ["*"]
+    "noUncheckedSideEffectImports": false
   },
   "angularCompilerOptions": {
     "extendedDiagnostics": true,
