@@ -5,7 +5,6 @@ import { workspaceRoot } from '@nx/devkit';
 const baseURL = process.env.BASE_URL || 'http://localhost:4200';
 
 // Nx's preset derives report paths when the ESM config is loaded.
-// eslint-disable-next-line unicorn/no-top-level-side-effects
 export default defineConfig({
   ...nxE2EPreset(import.meta.dirname, { testDir: './e2e' }),
   use: {
