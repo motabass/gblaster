@@ -94,8 +94,7 @@
           @if (album && album.coverUrl) {
             <img
               class="library-item-cover"
-              fill
-              [src]="album.coverUrl.thumbUrl | safe: 'resourceUrl'"
+              [src]="album.coverUrl.thumbUrl"
             />
           }
         </div>
@@ -134,7 +133,7 @@
     itemSize="32"
   >
     <mat-nav-list>
-      <mat-list-item (click)="selectTrack(undefined)">
+      <mat-list-item>
         @if (libraryService.isLoading()) {
           <span matListItemIcon>
             <mat-spinner
@@ -157,7 +156,6 @@
       </mat-list-item>
       <mat-list-item
         *cdkVirtualFor="let track of tracks(); trackBy: trackByHash"
-        (click)="selectTrack(track)"
         (dblclick)="playTrack(track)"
       >
         <div
@@ -167,8 +165,7 @@
           @if (track && track.coverUrl) {
             <img
               class="library-item-cover"
-              fill
-              [src]="track.coverUrl.thumbUrl | safe: 'resourceUrl'"
+              [src]="track.coverUrl.thumbUrl"
             />
           }
         </div>

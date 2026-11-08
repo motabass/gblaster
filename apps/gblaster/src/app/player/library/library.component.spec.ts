@@ -236,41 +236,19 @@ describe('LibraryComponent', () => {
   });
 
   describe('selection methods', () => {
-    it('selectArtist should set artist and reset album and track', () => {
+    it('selectArtist should set artist and reset album', () => {
       component.selectAlbum('Some Album');
-      component.selectTrack(createMockTrackMetadata());
 
       component.selectArtist('New Artist');
 
       expect(component['selectedArtist']()).toBe('New Artist');
       expect(component['selectedAlbum']()).toBeUndefined();
-      expect(component['selectedTrack']()).toBeUndefined();
     });
 
-    it('selectAlbum should set album and reset track', () => {
-      component.selectTrack(createMockTrackMetadata());
-
+    it('selectAlbum should set album', () => {
       component.selectAlbum('New Album');
 
       expect(component['selectedAlbum']()).toBe('New Album');
-      expect(component['selectedTrack']()).toBeUndefined();
-    });
-
-    it('selectTrack should set track when provided', () => {
-      const track = createMockTrackMetadata({ title: 'Selected Track' });
-
-      component.selectTrack(track);
-
-      expect(component['selectedTrack']()).toEqual(track);
-    });
-
-    it('selectTrack should not update when undefined', () => {
-      const track = createMockTrackMetadata({ title: 'Initial Track' });
-      component.selectTrack(track);
-
-      component.selectTrack(undefined);
-
-      expect(component['selectedTrack']()).toEqual(track);
     });
   });
 

@@ -93,7 +93,6 @@
     "ngx-webstorage": "22.0.0",
     "node-vibrant": "4.0.4",
     "rxjs": "7.8.2",
-    "safe-pipe": "3.0.4",
     "tslib": "2.9.1"
   },
   "devDependencies": {

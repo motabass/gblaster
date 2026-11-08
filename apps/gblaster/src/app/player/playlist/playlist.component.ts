@@ -27,7 +27,6 @@ import {
   MatListItemMeta,
   MatListItemTitle
 } from '@angular/material/list';
-import { SafePipe } from 'safe-pipe';
 import { CdkFixedSizeVirtualScroll, CdkVirtualForOf, CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
 import { MatMenu, MatMenuContent, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
@@ -55,7 +54,6 @@ const VISIBLE_MARGIN_ITEMS = 1;
     VisualsDirective,
     MatIconButton,
     MatIcon,
-    SafePipe,
     CdkVirtualScrollViewport,
     CdkVirtualForOf,
     CdkFixedSizeVirtualScroll,

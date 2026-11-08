@@ -22,7 +22,7 @@
             class="playlist-item-cover"
             fill
             [alt]="`Cover of Album ${songMetadata.album || ''} by ${songMetadata.artist || ''}`"
-            [src]="songMetadata.coverUrl.thumbUrl | safe: 'resourceUrl'"
+            [src]="songMetadata.coverUrl.thumbUrl"
           />
         }
         @let songPlaying = isPlaying(song)();
