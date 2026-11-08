@@ -53,13 +53,13 @@ export class MetadataService {
     this.#progressService.startProcessing(fileDatas.length);
     for (const fileData of fileDatas) {
       this.#progressService.updateCurrentFile(fileData.file.name);
-      const result = await this.getTrackMetadataFromCacheOrExtract(fileData);
+      const result = await this.#getTrackMetadataFromCacheOrExtract(fileData);
       if (!result?.metadata) {
         this.#progressService.completeFile();
         continue;
       }
       if (!result.fromCache) {
-        await this.addMetadataToIndexedDb(result.metadata);
+        await this.#addMetadataToIndexedDb(result.metadata);
       }
 
       const track: Track = {
@@ -73,13 +73,13 @@ export class MetadataService {
     this.#progressService.reset();
   }
 
-  private async addMetadataToIndexedDb(metadata: TrackMetadata) {
+  async #addMetadataToIndexedDb(metadata: TrackMetadata) {
     const { cachedBlobUrl, ...metadataToStore } = metadata;
     // Never persist cachedBlobUrl - blob URLs are session-specific
     await firstValueFrom(this.#indexedDBService.add('library', metadataToStore));
   }
 
-  private async getTrackMetadataFromCacheOrExtract(fileData: FileData): Promise<TrackMetadataResult | undefined> {
+  async #getTrackMetadataFromCacheOrExtract(fileData: FileData): Promise<TrackMetadataResult | undefined> {
     this.#progressService.updateCurrentFile(fileData.file.name + ' - Generating hash...');
     const hash = await generateFileHash(fileData.file);
 
@@ -92,10 +92,10 @@ export class MetadataService {
       return { metadata, fromCache: true };
     }
 
-    return this.extractTrackMetadata(fileData, hash);
+    return this.#extractTrackMetadata(fileData, hash);
   }
 
-  private async extractTrackMetadata(fileData: FileData, hash: string): Promise<TrackMetadataResult | undefined> {
+  async #extractTrackMetadata(fileData: FileData, hash: string): Promise<TrackMetadataResult | undefined> {
     this.#progressService.updateCurrentFile(fileData.file.name + ' - Reading tags...');
     const tags = await this.#id3TagsService.extractTags(fileData.file);
 
@@ -103,7 +103,7 @@ export class MetadataService {
       return undefined;
     }
 
-    const coverUrls = await this.fetchRemoteCoverUrls(fileData.file.name, tags);
+    const coverUrls = await this.#fetchRemoteCoverUrls(fileData.file.name, tags);
 
     const metadata: IndexedDbTrackMetadata = {
       hash,
@@ -125,7 +125,7 @@ export class MetadataService {
     return { metadata: this.applyEmbeddedCoverObjectUrsl(metadata), fromCache: false };
   }
 
-  private async fetchRemoteCoverUrls(fileName: string, tags: Id3Tags): Promise<RemoteCoverArtUrls | undefined> {
+  async #fetchRemoteCoverUrls(fileName: string, tags: Id3Tags): Promise<RemoteCoverArtUrls | undefined> {
     if (!this.useWebMetainfos() || !tags.artist || !tags.album) {
       return undefined;
     }
@@ -135,7 +135,7 @@ export class MetadataService {
     return coverUrls ? coverUrls : this.#musicbrainzService.getCoverPictureUrls(tags);
   }
 
-  private shouldUseEmbeddedPicture(metadata: TrackMetadata): boolean {
+  #shouldUseEmbeddedPicture(metadata: TrackMetadata): boolean {
     return !!(
       metadata.embeddedPicture &&
       this.useTagEmbeddedPicture() &&
@@ -143,13 +143,13 @@ export class MetadataService {
     );
   }
 
-  private createObjectUrlFromEmbeddedPicture(embeddedPicture: Id3CoverPicture): string {
+  #createObjectUrlFromEmbeddedPicture(embeddedPicture: Id3CoverPicture): string {
     const blob = new Blob([embeddedPicture.data], { type: embeddedPicture.format });
     return URL.createObjectURL(blob);
   }
 
   applyEmbeddedCoverObjectUrsl(meta: TrackMetadata): TrackMetadata {
-    if (!this.shouldUseEmbeddedPicture(meta)) {
+    if (!this.#shouldUseEmbeddedPicture(meta)) {
       return meta;
     }
 
@@ -162,7 +162,7 @@ export class MetadataService {
     }
 
     // Create new blob URL and cache it
-    const objectUrl = this.createObjectUrlFromEmbeddedPicture(meta.embeddedPicture!);
+    const objectUrl = this.#createObjectUrlFromEmbeddedPicture(meta.embeddedPicture!);
     return {
       ...meta,
       cachedBlobUrl: objectUrl,

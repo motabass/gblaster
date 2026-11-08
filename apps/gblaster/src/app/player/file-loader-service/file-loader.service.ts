@@ -8,7 +8,7 @@ import { ALLOWED_MIMETYPES, FileData } from './file-loader.helpers';
 export class FileLoaderService {
   readonly #platform = inject(Platform);
 
-  private async pickFolder() {
+  async #pickFolder() {
     try {
       const handle = await showDirectoryPicker();
       return handle;
@@ -23,7 +23,7 @@ export class FileLoaderService {
     }
   }
 
-  private async pickFiles(): Promise<FileSystemFileHandle[]> {
+  async #pickFiles(): Promise<FileSystemFileHandle[]> {
     try {
       return await showOpenFilePicker({
         multiple: true,
@@ -51,7 +51,7 @@ export class FileLoaderService {
 
   async getFilesFromPickedFolder(): Promise<FileData[]> {
     if (this.#platform.ANDROID) {
-      const fileHandles = await this.pickFiles();
+      const fileHandles = await this.#pickFiles();
       if (fileHandles.length === 0) {
         return [];
       }
@@ -70,7 +70,7 @@ export class FileLoaderService {
         throw error;
       }
     } else {
-      const handle = await this.pickFolder();
+      const handle = await this.#pickFolder();
       if (!handle) {
         return [];
       }

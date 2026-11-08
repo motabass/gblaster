@@ -38,7 +38,7 @@ export class PlayerToolbarComponent implements OnInit, OnDestroy {
   protected readonly audioService = inject(AudioService);
   protected readonly progressService = inject(ProgressService);
 
-  protected readonly volumeIcon = computed(() => this.getVolumeIconForLevel(this.audioService.volume()));
+  protected readonly volumeIcon = computed(() => this.#getVolumeIconForLevel(this.audioService.volume()));
 
   ngOnInit() {
     if (this.#hotkeysService) {
@@ -126,7 +126,7 @@ export class PlayerToolbarComponent implements OnInit, OnDestroy {
     this.audioService.setVolume(value);
   }
 
-  private getVolumeIconForLevel(vol: number): string {
+  #getVolumeIconForLevel(vol: number): string {
     if (vol === 0) return 'volume-variant-off';
     if (vol > 0 && vol < 0.2) return 'volume-low';
     return vol >= 0.2 && vol < 0.8 ? 'volume-medium' : 'volume-high';

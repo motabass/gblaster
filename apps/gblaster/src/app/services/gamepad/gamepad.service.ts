@@ -27,20 +27,20 @@ export class GamepadService implements OnDestroy {
   constructor() {
     for (const buttonIndex in GamepadButtons) {
       if (Number(buttonIndex) >= 0) {
-        this.#buttonActions.push(this.createDefaultButtonAction(Number(buttonIndex)));
+        this.#buttonActions.push(this.#createDefaultButtonAction(Number(buttonIndex)));
       }
     }
     for (const axisIndex in GamepadAxes) {
       if (Number(axisIndex) >= 0) {
-        this.axisActions.push(this.createDefaultAxisAction(Number(axisIndex)));
+        this.axisActions.push(this.#createDefaultAxisAction(Number(axisIndex)));
       }
     }
 
-    addEventListener('gamepadconnected', (event: GamepadEvent) => this.connectionListener(event));
-    addEventListener('gamepaddisconnected', (event: GamepadEvent) => this.disconnectionListener(event));
+    addEventListener('gamepadconnected', (event: GamepadEvent) => this.#connectionListener(event));
+    addEventListener('gamepaddisconnected', (event: GamepadEvent) => this.#disconnectionListener(event));
   }
 
-  private connectionListener(event: GamepadEvent) {
+  #connectionListener(event: GamepadEvent) {
     const gamepads = navigator.getGamepads();
     const gamepad = gamepads[event.gamepad.index];
     console.log(`New gamepad with Number ${event.gamepad.index} connected: `);
@@ -56,19 +56,19 @@ export class GamepadService implements OnDestroy {
 
       for (const buttonIndex in GamepadButtons) {
         if (Number(buttonIndex) >= 0) {
-          this.checkForButtonClicked(gp, Number(buttonIndex));
+          this.#checkForButtonClicked(gp, Number(buttonIndex));
         }
       }
 
       for (const axisIndex in GamepadAxes) {
         if (Number(axisIndex) >= 0) {
-          this.checkForAxesInput(gp, Number(axisIndex));
+          this.#checkForAxesInput(gp, Number(axisIndex));
         }
       }
     }, 16);
   }
 
-  private createDefaultButtonAction(buttonIndex: number): ButtonGamepadAction {
+  #createDefaultButtonAction(buttonIndex: number): ButtonGamepadAction {
     return {
       action: () => console.log('Button nicht zugewiesen'),
       mode: 'hold',
@@ -78,7 +78,7 @@ export class GamepadService implements OnDestroy {
     };
   }
 
-  private createDefaultAxisAction(axisIndex: number): AxisGamepadAction {
+  #createDefaultAxisAction(axisIndex: number): AxisGamepadAction {
     return {
       positiveActionFunction: () => console.log('Positiv-Achse nicht zugewiesen'),
       negativeActionFunction: () => console.log('Negativ-Achse nicht zugewiesen'),
@@ -90,7 +90,7 @@ export class GamepadService implements OnDestroy {
     };
   }
 
-  private disconnectionListener(event: GamepadEvent) {
+  #disconnectionListener(event: GamepadEvent) {
     const gamepads = navigator.getGamepads();
     const gamepad = gamepads[event.gamepad.index];
     // console.log(`Gamepad ${event.gamepad.index} disconnected!`);
@@ -99,13 +99,13 @@ export class GamepadService implements OnDestroy {
     }
   }
 
-  private fireButtonAction(index: number, value: number) {
+  #fireButtonAction(index: number, value: number) {
     // console.log(`Button ${index} sending value: ${value}`);
     this.#buttonActions[index].action(value);
-    this.triggerRumble({ duration: 50, weakMagnitude: 1, strongMagnitude: 0.2 });
+    this.#triggerRumble({ duration: 50, weakMagnitude: 1, strongMagnitude: 0.2 });
   }
 
-  private fireAxisAction(index: number, value: number) {
+  #fireAxisAction(index: number, value: number) {
     // console.log(`Axis ${index} sending value: ${value}`);
     if (value < 0) {
       this.axisActions[index].negativeActionFunction(Math.abs(value));
@@ -113,14 +113,14 @@ export class GamepadService implements OnDestroy {
     if (value > 0) {
       this.axisActions[index].positiveActionFunction(value);
     }
-    this.triggerRumble({ duration: 10, weakMagnitude: 0.2, strongMagnitude: 0 });
+    this.#triggerRumble({ duration: 10, weakMagnitude: 0.2, strongMagnitude: 0 });
   }
 
   /**
   Triggers haptic feedback (rumble) on all connected gamepads
   @param options Rumble configuration options
   */
-  private triggerRumble(options: RumbleOptions): void {
+  #triggerRumble(options: RumbleOptions): void {
     const gamepads = navigator.getGamepads();
     for (const gamepad of gamepads) {
       if (gamepad?.vibrationActuator) {
@@ -157,7 +157,7 @@ export class GamepadService implements OnDestroy {
   }
 
   deregisterButtonAction(buttonIndex: number) {
-    this.#buttonActions[buttonIndex] = this.createDefaultButtonAction(buttonIndex);
+    this.#buttonActions[buttonIndex] = this.#createDefaultButtonAction(buttonIndex);
   }
 
   registerAxisAction(
@@ -181,17 +181,17 @@ export class GamepadService implements OnDestroy {
   }
 
   deregisterAxisAction(axisIndex: number) {
-    this.axisActions[axisIndex] = this.createDefaultAxisAction(axisIndex);
+    this.axisActions[axisIndex] = this.#createDefaultAxisAction(axisIndex);
   }
 
-  private checkForButtonClicked(gamepad: Gamepad, buttonIndex: number) {
+  #checkForButtonClicked(gamepad: Gamepad, buttonIndex: number) {
     const button = gamepad.buttons[buttonIndex];
     if (!button) {
       return;
     }
 
     if (this.#buttonActions[buttonIndex].mode === 'hold' && button.pressed) {
-      this.fireButtonAction(buttonIndex, button.value);
+      this.#fireButtonAction(buttonIndex, button.value);
       return;
     }
 
@@ -209,14 +209,14 @@ export class GamepadService implements OnDestroy {
           performance.now() - buttonCache.lastActionExecution > timeout
         ) {
           buttonCache.lastActionExecution = performance.now();
-          this.fireButtonAction(buttonIndex, button.value);
+          this.#fireButtonAction(buttonIndex, button.value);
         }
       } else {
         cache.push({
           index: buttonIndex,
           lastActionExecution: performance.now()
         });
-        this.fireButtonAction(buttonIndex, button.value);
+        this.#fireButtonAction(buttonIndex, button.value);
       }
     } else {
       if (buttonCache) {
@@ -227,11 +227,11 @@ export class GamepadService implements OnDestroy {
     this.#pressedButtonsCaches[gamepad.index] = cache;
   }
 
-  private isAxisValueInDetectionRange(axis: number): boolean {
+  #isAxisValueInDetectionRange(axis: number): boolean {
     return axis.valueOf() > this.#DEFAULT_DEADSPACE || axis.valueOf() < 0 - this.#DEFAULT_DEADSPACE;
   }
 
-  private checkForAxesInput(gamepad: Gamepad, axisIndex: number) {
+  #checkForAxesInput(gamepad: Gamepad, axisIndex: number) {
     const axis = gamepad.axes[axisIndex];
     if (!axis) {
       return;
@@ -241,8 +241,8 @@ export class GamepadService implements OnDestroy {
 
     const axisAction = this.axisActions[axisIndex];
 
-    if (axisAction.mode === 'hold' && this.isAxisValueInDetectionRange(axis)) {
-      this.fireAxisAction(axisIndex, axis.valueOf());
+    if (axisAction.mode === 'hold' && this.#isAxisValueInDetectionRange(axis)) {
+      this.#fireAxisAction(axisIndex, axis.valueOf());
       return;
     }
 
@@ -253,19 +253,19 @@ export class GamepadService implements OnDestroy {
 
     let cache = this.#activeAxesCaches[gamepad.index];
     const axisCache = cache.find((ac) => ac.index === axisIndex);
-    if (this.isAxisValueInDetectionRange(axis)) {
+    if (this.#isAxisValueInDetectionRange(axis)) {
       if (axisCache) {
         const timeout = axisAction.timeout ?? this.#DEFAULT_TURBO_TIMEOUT;
         if (axisAction.mode === 'turbo' && performance.now() - axisCache.lastActionExecution > timeout) {
           axisCache.lastActionExecution = performance.now();
-          this.fireAxisAction(axisIndex, axis.valueOf());
+          this.#fireAxisAction(axisIndex, axis.valueOf());
         }
       } else {
         cache.push({
           index: axisIndex,
           lastActionExecution: performance.now()
         });
-        this.fireAxisAction(axisIndex, axis.valueOf());
+        this.#fireAxisAction(axisIndex, axis.valueOf());
       }
     } else {
       if (axisCache) {

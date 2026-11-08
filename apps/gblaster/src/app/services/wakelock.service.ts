@@ -8,11 +8,11 @@ export class WakelockService {
 
   async activateWakelock() {
     if (!this.#wakelock) {
-      return this.requestWakeLock();
+      return this.#requestWakeLock();
     }
   }
 
-  private async requestWakeLock() {
+  async #requestWakeLock() {
     if (!navigator.wakeLock) {
       return;
     }

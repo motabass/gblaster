@@ -40,16 +40,16 @@ export class LastfmMetadataService {
     }
 
     try {
-      const data = await this.fetchAlbumInfo(tags.artist, tags.album);
-      return this.extractCoverUrls(data);
+      const data = await this.#fetchAlbumInfo(tags.artist, tags.album);
+      return this.#extractCoverUrls(data);
     } catch {
       // console.warn('Failed to query Last.fm', error);
       return undefined;
     }
   }
 
-  private async fetchAlbumInfo(artist: string, album: string): Promise<LastfmResponse> {
-    const url = this.buildApiUrl('album.getinfo', {
+  async #fetchAlbumInfo(artist: string, album: string): Promise<LastfmResponse> {
+    const url = this.#buildApiUrl('album.getinfo', {
       artist: encodeURIComponent(artist),
       album: encodeURIComponent(album)
     });
@@ -57,7 +57,7 @@ export class LastfmMetadataService {
     return firstValueFrom(this.#http.get<LastfmResponse>(url));
   }
 
-  private buildApiUrl(method: string, params: Record<string, string>): string {
+  #buildApiUrl(method: string, params: Record<string, string>): string {
     const queryParams = new URLSearchParams({
       method,
       api_key: this.#LASTFM_API_KEY,
@@ -68,7 +68,7 @@ export class LastfmMetadataService {
     return `${this.#API_URL}?${queryParams.toString()}`;
   }
 
-  private extractCoverUrls(data: LastfmResponse): RemoteCoverArtUrls | undefined {
+  #extractCoverUrls(data: LastfmResponse): RemoteCoverArtUrls | undefined {
     if ('error' in data || !('album' in data)) {
       return undefined;
     }

@@ -90,12 +90,12 @@ export class FileDropOverlayComponent implements AfterViewInit, OnDestroy {
               this.fileHandlesDropped.emit(fileHandles);
             } else {
               // Fall back to regular files if no file handles were obtained
-              this.handleFileFallback(event);
+              this.#handleFileFallback(event);
             }
           })
           .catch(() => {
             // Fall back to regular files on error
-            this.handleFileFallback(event);
+            this.#handleFileFallback(event);
           });
 
         return; // Exit early - we're handling with file handles
@@ -106,16 +106,16 @@ export class FileDropOverlayComponent implements AfterViewInit, OnDestroy {
     }
 
     // Fallback to regular files
-    this.handleFileFallback(event);
+    this.#handleFileFallback(event);
   }
 
-  private handleFileFallback(event: DragEvent) {
+  #handleFileFallback(event: DragEvent) {
     if (event.dataTransfer?.files) {
-      this.handleDroppedFiles(event.dataTransfer.files);
+      this.#handleDroppedFiles(event.dataTransfer.files);
     }
   }
 
-  private handleDroppedFiles(droppedFiles: FileList) {
+  #handleDroppedFiles(droppedFiles: FileList) {
     const files: File[] = [];
     for (const file of Array.from(droppedFiles)) {
       if (file && this.allowedTypes().includes(file.type)) {

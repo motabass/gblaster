@@ -29,8 +29,8 @@ export class ThemeService {
   constructor() {
     // Automatische Updates bei Änderungen
     effect(() => {
-      this.updateCSSProperties();
-      this.updateMetaThemeColor();
+      this.#updateCSSProperties();
+      this.#updateMetaThemeColor();
     });
 
     effect(() => {
@@ -47,8 +47,8 @@ export class ThemeService {
   }
 
   initializeTheme() {
-    this.updateCSSProperties();
-    this.updateMetaThemeColor();
+    this.#updateCSSProperties();
+    this.#updateMetaThemeColor();
   }
 
   setDarkMode(darkMode: boolean) {
@@ -68,7 +68,7 @@ export class ThemeService {
     this.#accentColor.set(color || FALLBACK_ACCENT_COLOR);
   }
 
-  private updateCSSProperties() {
+  #updateCSSProperties() {
     const variables: string[] = [`--app-color-scheme: ${this.darkMode() ? 'dark' : 'light'}`];
 
     for (const color of this.primaryColorPalette()) {
@@ -82,7 +82,7 @@ export class ThemeService {
     document.documentElement.style.cssText += variables.join(';');
   }
 
-  private updateMetaThemeColor() {
+  #updateMetaThemeColor() {
     this.#meta.updateTag({ name: 'theme-color', content: this.primaryColor() });
   }
 }

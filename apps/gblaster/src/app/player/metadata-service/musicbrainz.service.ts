@@ -21,15 +21,15 @@ export class MusicbrainzService {
     }
 
     try {
-      const releaseGroupId = await this.findReleaseGroupId(tags.artist, tags.album);
-      return !releaseGroupId ? undefined : await this.fetchCoverArt(releaseGroupId);
+      const releaseGroupId = await this.#findReleaseGroupId(tags.artist, tags.album);
+      return !releaseGroupId ? undefined : await this.#fetchCoverArt(releaseGroupId);
     } catch {
       // console.warn('Failed to query MusicBrainz', error);
       return undefined;
     }
   }
 
-  private async findReleaseGroupId(artist: string, album: string): Promise<string | undefined> {
+  async #findReleaseGroupId(artist: string, album: string): Promise<string | undefined> {
     const query = `release:${escapeLuceneQueryString(album)} AND artist:${escapeLuceneQueryString(artist)} AND primarytype:Album`;
 
     try {
@@ -41,7 +41,7 @@ export class MusicbrainzService {
     }
   }
 
-  private async fetchCoverArt(releaseGroupId: string): Promise<RemoteCoverArtUrls | undefined> {
+  async #fetchCoverArt(releaseGroupId: string): Promise<RemoteCoverArtUrls | undefined> {
     try {
       // const url = `${this.COVER_API_URL}/release-group/${releaseGroupId}`;
       // const coverData = await firstValueFrom(this.http.get<CoverArtResponse>(url));

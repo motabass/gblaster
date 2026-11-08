@@ -11,11 +11,11 @@ export class MediaSessionService {
     effect(() => {
       const playing = this.#audioService.isPlaying();
       if (playing) {
-        this.setPlaybackState('playing');
+        this.#setPlaybackState('playing');
       } else if (this.#audioService.isPaused()) {
-        this.setPlaybackState('paused');
+        this.#setPlaybackState('paused');
       } else {
-        this.setPlaybackState('none');
+        this.#setPlaybackState('none');
       }
     });
 
@@ -59,7 +59,7 @@ export class MediaSessionService {
     navigator.mediaSession.metadata = new MediaMetadata(metadata);
   }
 
-  private setPlaybackState(state: MediaSessionPlaybackState) {
+  #setPlaybackState(state: MediaSessionPlaybackState) {
     navigator.mediaSession.playbackState = state;
   }
 }

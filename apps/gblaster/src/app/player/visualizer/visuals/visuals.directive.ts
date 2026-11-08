@@ -90,7 +90,7 @@ export class VisualsDirective implements OnDestroy {
     const offscreenCanvas: OffscreenCanvas = this.#canvas.transferControlToOffscreen();
     this.#visualizerWorker.postMessage({ canvas: offscreenCanvas }, [offscreenCanvas]);
 
-    this.#resizeObserver = this.setupResizeObserver();
+    this.#resizeObserver = this.#setupResizeObserver();
     effect(() => {
       const currentMode = this.mode();
       if (currentMode === 'off') {
@@ -98,22 +98,22 @@ export class VisualsDirective implements OnDestroy {
         this.#activeAnalyser = undefined;
         this.#availableBuffers.length = 0;
         this.#bufferSize = 0;
-        this.stopVisualizer();
+        this.#stopVisualizer();
         return;
       }
 
       const barsConfig = this.barsConfig();
       const oscConfig = this.oscConfig();
       const colorConfig = this.colorConfig();
-      const analyser = this.analyserNode;
+      const analyser = this.#analyserNode;
       const fftSize = this.fftSize() ?? analyser.fftSize;
       const sampleRate = this.#audioService.sampleRate();
 
-      this.configureVisualizer(currentMode, analyser, fftSize, sampleRate, barsConfig, oscConfig, colorConfig);
+      this.#configureVisualizer(currentMode, analyser, fftSize, sampleRate, barsConfig, oscConfig, colorConfig);
     });
   }
 
-  private setupResizeObserver() {
+  #setupResizeObserver() {
     const observer = new ResizeObserver((entries) => {
       const rect = entries[0].contentRect;
       this.#visualizerWorker.postMessage({
@@ -124,7 +124,7 @@ export class VisualsDirective implements OnDestroy {
     return observer;
   }
 
-  private get analyserNode(): AnalyserNode {
+  get #analyserNode(): AnalyserNode {
     const analyserValue = this.analyser();
     if (analyserValue) {
       return analyserValue;
@@ -135,7 +135,7 @@ export class VisualsDirective implements OnDestroy {
     return this.#internalAnalyzer;
   }
 
-  private configureVisualizer(
+  #configureVisualizer(
     mode: Exclude<VisualizerMode, 'off'>,
     analyser: AnalyserNode,
     fftSize: number,
@@ -193,7 +193,7 @@ export class VisualsDirective implements OnDestroy {
     this.#draw();
   }
 
-  private stopVisualizer(): void {
+  #stopVisualizer(): void {
     this.#visualizerWorker.postMessage({ stop: true });
     if (this.#animationFrameRef === undefined) {
       return;
@@ -204,7 +204,7 @@ export class VisualsDirective implements OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.stopVisualizer();
+    this.#stopVisualizer();
     this.#resizeObserver.disconnect();
     this.#visualizerWorker.removeEventListener('message', this.#handleWorkerMessage);
 

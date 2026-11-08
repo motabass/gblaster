@@ -20,14 +20,14 @@ export class UpdateService {
     }
 
     if (!this.#isInitialized) {
-      this.setupUpdateListener();
+      this.#setupUpdateListener();
       this.#isInitialized = true;
     }
 
     return this.#swUpdate.checkForUpdate();
   }
 
-  private setupUpdateListener(): void {
+  #setupUpdateListener(): void {
     this.#swUpdate.versionUpdates.pipe(takeUntilDestroyed(this.#destroyRef)).subscribe((event) => {
       switch (event.type) {
         case 'VERSION_DETECTED': {
@@ -37,7 +37,7 @@ export class UpdateService {
         case 'VERSION_READY': {
           console.log(`Current app version: ${event.currentVersion.hash}`);
           console.log(`New app version ready for use: ${event.latestVersion.hash}`);
-          void this.handleVersionReady();
+          void this.#handleVersionReady();
           break;
         }
         case 'VERSION_INSTALLATION_FAILED': {
@@ -48,7 +48,7 @@ export class UpdateService {
     });
   }
 
-  private async handleVersionReady(): Promise<void> {
+  async #handleVersionReady(): Promise<void> {
     try {
       const shouldUpdate = await this.askUserForUpdate();
       if (shouldUpdate) {

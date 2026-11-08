@@ -84,14 +84,14 @@ export class PlaylistComponent {
   protected readonly itemSize = ITEM_SIZE;
 
   constructor() {
-    this.trackUserScrolling();
+    this.#trackUserScrolling();
 
     // Scroll to bottom when tracks are added and autoscroll is enabled
     effect(() => {
       const length = this.#playlistLength();
       const shouldScroll = untracked(this.#isAutoScrollEnabled);
       if (!shouldScroll || length === 0) return;
-      afterNextRender(() => this.scrollToBottom(), { injector: this.#injector });
+      afterNextRender(() => this.#scrollToBottom(), { injector: this.#injector });
     });
 
     // Scroll to the current track once when it starts playing
@@ -100,12 +100,12 @@ export class PlaylistComponent {
       const isPlaying = this.#audioService.isPlaying();
       if (!isPlaying || !hash || hash === this.#lastScrolledHash) return;
       this.#lastScrolledHash = hash;
-      afterNextRender(() => this.scrollToCurrentTrack(), { injector: this.#injector });
+      afterNextRender(() => this.#scrollToCurrentTrack(), { injector: this.#injector });
     });
   }
 
   /** Autoscroll is on while the user is at the bottom; our own scrolls are ignored. */
-  private trackUserScrolling(): void {
+  #trackUserScrolling(): void {
     toObservable(this.scrollViewport)
       .pipe(
         switchMap((viewport) => {
@@ -134,16 +134,16 @@ export class PlaylistComponent {
   }
 
   /** Suppresses user-scroll detection while a programmatic (possibly smooth) scroll is running. */
-  private markProgrammaticScroll(): void {
+  #markProgrammaticScroll(): void {
     this.#programmaticScrollUntil = performance.now() + PROGRAMMATIC_SCROLL_TIMEOUT_MS;
   }
 
   /** Smoothly scrolls to the last playlist entry. */
-  private scrollToBottom(): void {
+  #scrollToBottom(): void {
     const viewport = this.scrollViewport();
     const length = this.#playlistLength();
     if (!viewport || length === 0) return;
-    this.markProgrammaticScroll();
+    this.#markProgrammaticScroll();
     viewport.scrollToIndex(length - 1, 'smooth');
   }
 
@@ -151,7 +151,7 @@ export class PlaylistComponent {
    * Centers the currently loaded track if it is (nearly) outside the visible area.
    * Uses smooth scrolling for short distances and an instant jump for long ones.
    */
-  private scrollToCurrentTrack(): void {
+  #scrollToCurrentTrack(): void {
     const viewport = this.scrollViewport();
     const currentTrack = this.playerService.currentlyLoadedTrack();
     if (!viewport || !currentTrack) return;
@@ -174,7 +174,7 @@ export class PlaylistComponent {
     const offset = Math.max(0, targetIndex * ITEM_SIZE - viewportHeight / 2 + ITEM_SIZE / 2);
     const distance = Math.abs(offset - scrollOffset) / ITEM_SIZE;
 
-    this.markProgrammaticScroll();
+    this.#markProgrammaticScroll();
     viewport.scrollToOffset(offset, distance > SMOOTH_SCROLL_MAX_DISTANCE ? 'instant' : 'smooth');
   }
 
