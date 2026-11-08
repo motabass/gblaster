@@ -1,14 +1,17 @@
 import {
+  afterNextRender,
   ChangeDetectionStrategy,
   Component,
   computed,
-  DestroyRef,
   effect,
   inject,
+  Injector,
   signal,
   Signal,
+  untracked,
   viewChild
 } from '@angular/core';
+import { EMPTY, fromEvent, ignoreElements, map, merge, switchMap, tap } from 'rxjs';
 import { PlayerService } from '../player.service';
 import { Track } from '../player.types';
 import { AudioService } from '../audio.service';
@@ -26,8 +29,19 @@ import {
 } from '@angular/material/list';
 import { SafePipe } from 'safe-pipe';
 import { CdkFixedSizeVirtualScroll, CdkVirtualForOf, CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
 import { MatMenu, MatMenuContent, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
+
+/** Height of a playlist row in px; must match the list item height in the stylesheet. */
+const ITEM_SIZE = 72;
+/** Distance from the bottom (px) within which autoscroll stays enabled. */
+const AUTOSCROLL_BOTTOM_THRESHOLD = 140;
+/** Maximum scroll distance (in items) that is animated; farther jumps are instant. */
+const SMOOTH_SCROLL_MAX_DISTANCE = 20;
+/** Time window (ms) after a programmatic scroll in which scroll events are not treated as user input. */
+const PROGRAMMATIC_SCROLL_TIMEOUT_MS = 1000;
+/** Number of items at the viewport edges that count as "not visible" for the current track. */
+const VISIBLE_MARGIN_ITEMS = 1;
 
 @Component({
   selector: 'mtb-playlist',
@@ -56,105 +70,114 @@ import { MatMenu, MatMenuContent, MatMenuItem, MatMenuTrigger } from '@angular/m
 })
 export class PlaylistComponent {
   private readonly audioService = inject(AudioService);
-  private readonly destroRef = inject(DestroyRef);
+  private readonly injector = inject(Injector);
   protected readonly playerService = inject(PlayerService);
 
   private readonly menuTrigger = viewChild<MatMenuTrigger>('menuTrigger');
-
   private readonly scrollViewport = viewChild<CdkVirtualScrollViewport>('scrollViewport');
 
   private readonly isAutoScrollEnabled = signal(false);
+  private readonly playlistLength = computed(() => this.playerService.currentPlaylist().length);
+  private readonly currentHash = computed(() => this.playerService.currentlyLoadedTrack()?.metadata?.hash);
+
+  private programmaticScrollUntil = 0;
+  private lastScrolledHash: string | undefined;
+
+  protected readonly itemSize = ITEM_SIZE;
 
   constructor() {
-    // Enable auto scroll when user scrolls to bottom
+    this.trackUserScrolling();
+
+    // Scroll to bottom when tracks are added and autoscroll is enabled
     effect(() => {
-      const viewport = this.scrollViewport();
-      if (viewport) {
-        viewport
-          .elementScrolled()
-          .pipe(takeUntilDestroyed(this.destroRef))
-          .subscribe(() => {
-            const scrollPosition = viewport.measureScrollOffset('bottom');
-            const measureOffset = 140;
-            // If user scrolled to bottom (or very close to it)
-            if (scrollPosition < measureOffset) {
-              this.isAutoScrollEnabled.set(true);
-            }
-            // If user scrolled up
-            else if (scrollPosition > measureOffset && this.isAutoScrollEnabled()) {
-              this.isAutoScrollEnabled.set(false);
-            }
-          });
-      }
+      const length = this.playlistLength();
+      const shouldScroll = untracked(this.isAutoScrollEnabled);
+      if (!shouldScroll || length === 0) return;
+      afterNextRender(() => this.scrollToBottom(), { injector: this.injector });
     });
 
-    // Scroll to bottom when playlist changes and autoscroll is enabled
+    // Scroll to the current track once when it starts playing
     effect(() => {
-      const playlist = this.playerService.currentPlaylist();
-
-      // Wait for change detection to complete
-      setTimeout(() => {
-        if (playlist && playlist.length > 0 && this.isAutoScrollEnabled()) {
-          this.scrollToBottom();
-        }
-      }, 0);
-    });
-
-    // Scroll to current track when it changes
-    effect(() => {
+      const hash = this.currentHash();
       const isPlaying = this.audioService.isPlaying();
-      const currentTrack = this.playerService.currentlyLoadedTrack();
-
-      // Only scroll when a track is playing
-      if (isPlaying && currentTrack) {
-        // Small delay to ensure UI has updated
-        setTimeout(() => this.scrollToCurrentTrack(), 0);
-      }
+      if (!isPlaying || !hash || hash === this.lastScrolledHash) return;
+      this.lastScrolledHash = hash;
+      afterNextRender(() => this.scrollToCurrentTrack(), { injector: this.injector });
     });
   }
 
-  private scrollToBottom() {
-    const viewport = this.scrollViewport();
-    if (viewport) {
-      const playlist = this.playerService.currentPlaylist();
-      if (playlist && playlist.length > 0) {
-        viewport.scrollToIndex(playlist.length - 1, 'smooth');
-      }
-    }
+  /** Autoscroll is on while the user is at the bottom; our own scrolls are ignored. */
+  private trackUserScrolling(): void {
+    toObservable(this.scrollViewport)
+      .pipe(
+        switchMap((viewport) => {
+          if (!viewport) return EMPTY;
+          const element = viewport.elementRef.nativeElement;
+
+          // Real user input cancels the programmatic-scroll guard
+          const userInput$ = merge(
+            fromEvent(element, 'wheel', { passive: true }),
+            fromEvent(element, 'touchstart', { passive: true }),
+            fromEvent(element, 'pointerdown'),
+            fromEvent(element, 'keydown')
+          ).pipe(
+            tap(() => (this.programmaticScrollUntil = 0)),
+            ignoreElements()
+          );
+
+          return merge(userInput$, viewport.elementScrolled().pipe(map(() => viewport)));
+        }),
+        takeUntilDestroyed()
+      )
+      .subscribe((viewport) => {
+        if (performance.now() < this.programmaticScrollUntil) return;
+        this.isAutoScrollEnabled.set(viewport.measureScrollOffset('bottom') < AUTOSCROLL_BOTTOM_THRESHOLD);
+      });
   }
 
+  /** Suppresses user-scroll detection while a programmatic (possibly smooth) scroll is running. */
+  private markProgrammaticScroll(): void {
+    this.programmaticScrollUntil = performance.now() + PROGRAMMATIC_SCROLL_TIMEOUT_MS;
+  }
+
+  /** Smoothly scrolls to the last playlist entry. */
+  private scrollToBottom(): void {
+    const viewport = this.scrollViewport();
+    const length = this.playlistLength();
+    if (!viewport || length === 0) return;
+    this.markProgrammaticScroll();
+    viewport.scrollToIndex(length - 1, 'smooth');
+  }
+
+  /**
+   * Centers the currently loaded track if it is (nearly) outside the visible area.
+   * Uses smooth scrolling for short distances and an instant jump for long ones.
+   */
   private scrollToCurrentTrack(): void {
     const viewport = this.scrollViewport();
     const currentTrack = this.playerService.currentlyLoadedTrack();
     if (!viewport || !currentTrack) return;
 
-    const playlist = this.playerService.currentPlaylist();
-    const targetIndex = playlist.findIndex((track) => track.metadata?.hash === currentTrack.metadata?.hash);
+    const targetIndex = this.playerService
+      .currentPlaylist()
+      .findIndex((track) => track.metadata?.hash === currentTrack.metadata?.hash);
+    if (targetIndex === -1) return;
 
-    if (targetIndex !== -1) {
-      // Get the visible range
-      const visibleRange = viewport.getRenderedRange();
+    const scrollOffset = viewport.measureScrollOffset('top');
+    const viewportHeight = viewport.getViewportSize();
+    const firstVisible = Math.ceil(scrollOffset / ITEM_SIZE);
+    const lastVisible = Math.floor((scrollOffset + viewportHeight) / ITEM_SIZE) - 1;
 
-      // Only scroll if the track is outside the visible range
-      if (targetIndex - 3 < visibleRange.start || targetIndex + 3 > visibleRange.end) {
-        // Calculate distance to determine scroll behavior
-        const currentIndex = Math.floor((visibleRange.start + visibleRange.end) / 2);
-        const distance = Math.abs(targetIndex - currentIndex);
+    const isOutside =
+      targetIndex < firstVisible + VISIBLE_MARGIN_ITEMS || targetIndex > lastVisible - VISIBLE_MARGIN_ITEMS;
+    if (!isOutside) return;
 
-        // Use smooth scrolling for nearby items, instant for far away items
-        const scrollBehavior = distance > 20 ? 'instant' : 'smooth';
+    // Center the track in the viewport
+    const offset = Math.max(0, targetIndex * ITEM_SIZE - viewportHeight / 2 + ITEM_SIZE / 2);
+    const distance = Math.abs(offset - scrollOffset) / ITEM_SIZE;
 
-        // For instant scrolling, center the item in the viewport
-        const viewportHeight = viewport.getViewportSize();
-
-        const itemSize = 72; // Height of each item in the list
-
-        // Calculate offset to center the item in the viewport
-        const offset = Math.max(0, targetIndex * itemSize - viewportHeight / 2 + itemSize / 2);
-
-        viewport.scrollToOffset(offset, scrollBehavior);
-      }
-    }
+    this.markProgrammaticScroll();
+    viewport.scrollToOffset(offset, distance > SMOOTH_SCROLL_MAX_DISTANCE ? 'instant' : 'smooth');
   }
 
   isActive(song: Track): Signal<boolean> {
