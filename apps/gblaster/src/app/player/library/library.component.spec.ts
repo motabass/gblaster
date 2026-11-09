@@ -267,10 +267,10 @@ describe('LibraryComponent', () => {
       fixture.nativeElement.querySelectorAll(':scope .tracks mat-list-item')[1].click();
       fixture.detectChanges();
 
-      expect(fixture.nativeElement.querySelector(':scope .selected-track-cover .track-title').textContent.trim()).toBe(
+      expect(fixture.nativeElement.querySelector(':scope .track-details .track-title').textContent.trim()).toBe(
         'Selected Title'
       );
-      const selectedTrackCover = fixture.nativeElement.querySelector(':scope .selected-track-cover .cover-img');
+      const selectedTrackCover = fixture.nativeElement.querySelector(':scope .track-details .cover-img');
       expect(selectedTrackCover.style.backgroundImage).toContain('cover-original.jpg');
       expect(getComputedStyle(selectedTrackCover).zIndex).toBe('0');
     });

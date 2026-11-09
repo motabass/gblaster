@@ -9,7 +9,7 @@
   grid-template-rows: 1fr 1fr auto;
   grid-template-areas:
     'artists tracks'
-    'albums tracks'
+    'albums details'
     'searchinput searchinput';
 
   @include mat.list-overrides(
@@ -19,7 +19,7 @@
   );
 }
 
-.searchbox {
+.library-panel {
   background-color: var(--mat-sys-background);
   overflow-y: auto;
 
@@ -44,16 +44,11 @@
 
 .tracks {
   grid-area: tracks;
-  display: grid;
-  grid-template-rows: minmax(0, 1fr) minmax(0, 1fr);
-  min-height: 0;
-  overflow: hidden;
 }
 
-.selected-track-cover {
+.track-details {
+  grid-area: details;
   position: relative;
-  min-height: 0;
-  overflow: hidden;
 }
 
 .virtual-scroll-viewport {

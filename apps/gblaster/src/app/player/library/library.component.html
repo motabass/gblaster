@@ -1,4 +1,4 @@
-<div class="artists searchbox">
+<div class="artists library-panel">
   <cdk-virtual-scroll-viewport
     class="virtual-scroll-viewport"
     itemSize="32"
@@ -67,7 +67,7 @@
   </mat-menu>
 </div>
 
-<div class="albums searchbox">
+<div class="albums library-panel">
   <cdk-virtual-scroll-viewport
     class="virtual-scroll-viewport"
     itemSize="32"
@@ -148,7 +148,7 @@
   </mat-menu>
 </div>
 
-<div class="tracks searchbox">
+<div class="tracks library-panel">
   <cdk-virtual-scroll-viewport
     class="virtual-scroll-viewport"
     itemSize="32"
@@ -209,10 +209,6 @@
       </mat-list-item>
     </mat-list>
   </cdk-virtual-scroll-viewport>
-  <library-track-details
-    class="selected-track-cover"
-    [trackMetadata]="selectedTrack() ?? null"
-  />
   <!--Track Context Menu -->
   <mat-menu #trackContextMenu="matMenu">
     <ng-template
@@ -236,6 +232,11 @@
     </ng-template>
   </mat-menu>
 </div>
+
+<library-track-details
+  class="track-details library-panel"
+  [trackMetadata]="selectedTrack() ?? null"
+/>
 
 <mat-form-field
   appearance="fill"
