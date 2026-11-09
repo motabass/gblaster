@@ -6,7 +6,6 @@ import {
   inject,
   Injector,
   signal,
-  Signal,
   untracked,
   viewChild
 } from '@angular/core';
@@ -176,22 +175,18 @@ export class PlaylistComponent {
     viewport.scrollToOffset(offset, distance > SMOOTH_SCROLL_MAX_DISTANCE ? 'instant' : 'smooth');
   }
 
-  protected isActive(song: Track): Signal<boolean> {
-    return computed(() => {
-      return (
-        (this.#audioService.isPlaying() || this.#audioService.isPaused()) &&
-        this.playerService.currentlyLoadedTrack()?.metadata?.hash === song.metadata?.hash
-      );
-    });
+  protected isActive(song: Track): boolean {
+    return (
+      (this.#audioService.isPlaying() || this.#audioService.isPaused()) &&
+      this.playerService.currentlyLoadedTrack()?.metadata?.hash === song.metadata?.hash
+    );
   }
 
-  protected isPlaying(song: Track): Signal<boolean> {
-    return computed(() => {
-      return (
-        this.#audioService.isPlaying() &&
-        this.playerService.currentlyLoadedTrack()?.metadata?.hash === song.metadata?.hash
-      );
-    });
+  protected isPlaying(song: Track): boolean {
+    return (
+      this.#audioService.isPlaying() &&
+      this.playerService.currentlyLoadedTrack()?.metadata?.hash === song.metadata?.hash
+    );
   }
 
   protected async playPauseSong(event: Event, song: Track): Promise<void> {

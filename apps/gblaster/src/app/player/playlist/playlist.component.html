@@ -25,7 +25,7 @@
             [src]="songMetadata.coverUrl.thumbUrl"
           />
         }
-        @let songPlaying = isPlaying(song)();
+        @let songPlaying = isPlaying(song);
         @if (songPlaying) {
           <canvas
             mtbVisual
@@ -51,7 +51,7 @@
         {{ songMetadata.artist }}
       </p>
 
-      @if (isActive(song)()) {
+      @if (isActive(song)) {
         <button
           matListItemMeta
           mat-icon-button
