@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MatSlideToggle, MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { MetadataService } from '../../player/metadata-service/metadata.service';
 import { MatButton } from '@angular/material/button';
@@ -9,8 +9,7 @@ import { LibraryService } from '../../player/library/library.service';
   selector: 'mtb-metadata-settings',
   imports: [MatCard, MatCardContent, MatSlideToggle, MatButton, MatCardTitle, MatCardHeader],
   templateUrl: './metadata-settings.component.html',
-  styleUrl: './metadata-settings.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrl: './metadata-settings.component.scss'
 })
 export class MetadataSettingsComponent {
   protected readonly metadataService = inject(MetadataService);

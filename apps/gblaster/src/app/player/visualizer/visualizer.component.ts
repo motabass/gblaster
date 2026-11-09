@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, inject, OnDestroy, OnInit, signal } from '@angular/core';
+import { Component, computed, inject, OnDestroy, OnInit, signal } from '@angular/core';
 import { LocalStorageService } from 'ngx-webstorage';
 import type { FftSize, FrequencyBarsConfig, OsciloscopeConfig } from './visuals/visuals.types';
 import { VisualsService } from './visuals/visuals.service';
@@ -16,8 +16,7 @@ import { MatIcon } from '@angular/material/icon';
   selector: 'mtb-visualizer',
   imports: [VisualsDirective, SlidePanelComponent, MatSelect, MatOption, MatSlider, MatSliderThumb, MatIcon],
   templateUrl: './visualizer.component.html',
-  styleUrl: './visualizer.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrl: './visualizer.component.scss'
 })
 export class VisualizerComponent implements OnInit, OnDestroy {
   readonly #gamepadService = inject(GamepadService, { optional: true });

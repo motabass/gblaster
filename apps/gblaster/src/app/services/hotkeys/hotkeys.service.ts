@@ -1,4 +1,4 @@
-import { DOCUMENT, inject, Injectable } from '@angular/core';
+import { DOCUMENT, inject, Service } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { EventManager } from '@angular/platform-browser';
 import { Observable, Subscription } from 'rxjs';
@@ -16,7 +16,7 @@ export interface HotkeyInfo {
   subscription: Subscription;
 }
 
-@Injectable({ providedIn: 'root' })
+@Service()
 export class HotkeysService {
   readonly #eventManager = inject(EventManager);
   readonly #document = inject(DOCUMENT);

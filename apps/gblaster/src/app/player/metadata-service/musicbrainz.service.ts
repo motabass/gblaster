@@ -1,11 +1,11 @@
-import { Injectable } from '@angular/core';
+import { Service } from '@angular/core';
 import { Id3Tags } from './id3-tags.types';
 import { RemoteCoverArtUrls } from './metadata.types';
 import { CoverArtArchiveApi, MusicBrainzApi } from 'musicbrainz-api';
 import { escapeLuceneQueryString } from '@motabass/helpers';
 import { ensureHttps } from './metadata-helper';
 
-@Injectable({ providedIn: 'root' })
+@Service()
 export class MusicbrainzService {
   readonly #musicBrainzApi = new MusicBrainzApi({
     appName: 'gblaster',

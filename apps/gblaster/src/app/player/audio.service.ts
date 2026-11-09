@@ -1,4 +1,4 @@
-import { computed, inject, Injectable, Signal, signal } from '@angular/core';
+import { computed, inject, Service, signal, Signal } from '@angular/core';
 import { LocalStorageService } from 'ngx-webstorage';
 import { FREQUENCY_BANDS, FrequencyBand } from './player.types';
 import { Subject } from 'rxjs';
@@ -8,7 +8,7 @@ export type EqualizerGainValues = {
   [Band in FrequencyBand]: number;
 };
 
-@Injectable({ providedIn: 'root' })
+@Service()
 export class AudioService {
   readonly #localStorageService = inject(LocalStorageService);
 

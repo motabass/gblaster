@@ -1,4 +1,4 @@
-import { inject, Injectable, signal } from '@angular/core';
+import { inject, Service, signal } from '@angular/core';
 import { NgxIndexedDBService } from 'ngx-indexed-db';
 import { LocalStorageService } from 'ngx-webstorage';
 import { firstValueFrom } from 'rxjs';
@@ -12,7 +12,7 @@ import { generateFileHash } from './metadata-helper';
 import { ProgressService } from './progress.service';
 import { Id3CoverPicture, Id3Tags } from './id3-tags.types';
 
-@Injectable({ providedIn: 'root' })
+@Service()
 export class MetadataService {
   readonly #id3TagsService = inject(Id3TagsService);
   readonly #lastfmMetadataService = inject(LastfmMetadataService);

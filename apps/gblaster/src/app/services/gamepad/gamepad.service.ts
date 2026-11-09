@@ -1,4 +1,4 @@
-import { Injectable, OnDestroy } from '@angular/core';
+import { OnDestroy, Service } from '@angular/core';
 import {
   ActionCache,
   ActionFunction,
@@ -10,9 +10,7 @@ import {
   RumbleOptions
 } from './gamepad.types';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Service()
 export class GamepadService implements OnDestroy {
   readonly #DEFAULT_TURBO_TIMEOUT = 300;
   readonly #DEFAULT_DEADSPACE = 0.07;

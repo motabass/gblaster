@@ -1,7 +1,7 @@
 import { BitratePipe } from './bitrate.pipe';
 import { VisualizerComponent } from '../visualizer/visualizer.component';
 import { PlayerService } from '../player.service';
-import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { ThemeService } from '../../theme/theme.service';
 import { TimePipe } from '../time.pipe';
 
@@ -9,8 +9,7 @@ import { TimePipe } from '../time.pipe';
   selector: 'mtb-cover-display',
   imports: [TimePipe, BitratePipe, VisualizerComponent],
   templateUrl: './cover-display.component.html',
-  styleUrl: './cover-display.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrl: './cover-display.component.scss'
 })
 export class CoverDisplayComponent {
   readonly #themeService = inject(ThemeService);

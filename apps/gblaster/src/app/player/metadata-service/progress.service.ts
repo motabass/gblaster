@@ -1,6 +1,6 @@
-import { computed, Injectable, signal } from '@angular/core';
+import { computed, Service, signal } from '@angular/core';
 
-@Injectable({ providedIn: 'root' })
+@Service()
 export class ProgressService {
   readonly #totalFilesToProcess = signal(0);
   readonly #filesToProcess = signal(0);

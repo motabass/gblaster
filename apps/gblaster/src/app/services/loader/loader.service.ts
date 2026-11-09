@@ -1,8 +1,6 @@
-import { Injectable, signal } from '@angular/core';
+import { Service, signal } from '@angular/core';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Service()
 export class LoaderService {
   readonly #isLoading = signal<boolean>(false);
   readonly isLoading = this.#isLoading.asReadonly();

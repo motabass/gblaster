@@ -1,12 +1,10 @@
-import { inject, Injectable, signal } from '@angular/core';
+import { inject, Service, signal } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
 import { IndexedDbTrackMetadata } from '../player.types';
 import { NgxIndexedDBService } from 'ngx-indexed-db';
 import { MetadataService } from '../metadata-service/metadata.service';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Service()
 export class LibraryService {
   readonly #indexedDbService = inject(NgxIndexedDBService);
   readonly #metadataService = inject(MetadataService);

@@ -1,4 +1,4 @@
-import { computed, DestroyRef, effect, inject, Injectable, signal } from '@angular/core';
+import { computed, DestroyRef, effect, inject, Service, signal } from '@angular/core';
 import { LocalStorageService } from 'ngx-webstorage';
 import { FileLoaderService } from './file-loader-service/file-loader.service';
 import { MetadataService } from './metadata-service/metadata.service';
@@ -12,7 +12,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { getRandomInt } from './player-helper';
 import { extractColorsWithNodeVibrant } from './metadata-service/metadata-helper';
 
-@Injectable({ providedIn: 'root' })
+@Service()
 export class PlayerService {
   readonly #audioService = inject(AudioService);
   readonly #localStorageService = inject(LocalStorageService);

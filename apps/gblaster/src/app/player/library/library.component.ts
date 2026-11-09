@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, inject, OnInit, signal } from '@angular/core';
+import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { IndexedDbTrackMetadata, Track } from '../player.types';
 import {
   MatListItem,
@@ -48,8 +48,7 @@ const collator = new Intl.Collator();
     FormField
   ],
   templateUrl: './library.component.html',
-  styleUrl: './library.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrl: './library.component.scss'
 })
 export default class LibraryComponent implements OnInit {
   readonly #playerService = inject(PlayerService);

@@ -1,9 +1,7 @@
-import { effect, inject, Injectable } from '@angular/core';
+import { effect, inject, Service } from '@angular/core';
 import { AudioService } from '../../player/audio.service';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Service()
 export class MediaSessionService {
   #audioService = inject(AudioService);
 

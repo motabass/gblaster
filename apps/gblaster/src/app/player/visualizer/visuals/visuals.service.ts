@@ -1,11 +1,9 @@
-import { inject, Injectable, signal } from '@angular/core';
+import { inject, Service, signal } from '@angular/core';
 import { LocalStorageService } from 'ngx-webstorage';
 import type { VisualizerMode } from './visuals.types';
 import { getNextVisualizerMode } from './visuals-helper';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Service()
 export class VisualsService {
   readonly #localStorageService = inject(LocalStorageService);
 

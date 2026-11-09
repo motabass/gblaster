@@ -1,6 +1,5 @@
 import {
   afterNextRender,
-  ChangeDetectionStrategy,
   Component,
   computed,
   effect,
@@ -63,8 +62,7 @@ const VISIBLE_MARGIN_ITEMS = 1;
     MatMenuTrigger
   ],
   templateUrl: './playlist.component.html',
-  styleUrl: './playlist.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrl: './playlist.component.scss'
 })
 export class PlaylistComponent {
   readonly #audioService = inject(AudioService);

@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
+import { inject, Service } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
 import { Id3Tags } from './id3-tags.types';
 import { RemoteCoverArtUrls } from './metadata.types';
@@ -27,7 +27,7 @@ interface LastfmErrorResponse {
 
 type LastfmResponse = LastfmSuccessResponse | LastfmErrorResponse;
 
-@Injectable({ providedIn: 'root' })
+@Service()
 export class LastfmMetadataService {
   readonly #http = inject(HttpClient);
 

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, computed, inject, OnDestroy, OnInit } from '@angular/core';
 import { MatMenu, MatMenuTrigger } from '@angular/material/menu';
 import { MatSlider, MatSliderThumb } from '@angular/material/slider';
 import { MatToolbar } from '@angular/material/toolbar';
@@ -28,8 +28,7 @@ import { ProgressService } from '../metadata-service/progress.service';
     TimePipe
   ],
   templateUrl: './player-toolbar.component.html',
-  styleUrl: './player-toolbar.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrl: './player-toolbar.component.scss'
 })
 export class PlayerToolbarComponent implements OnInit, OnDestroy {
   readonly #gamepadService = inject(GamepadService, { optional: true });

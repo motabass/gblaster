@@ -1,10 +1,8 @@
-import { inject, Injectable } from '@angular/core';
+import { inject, Service } from '@angular/core';
 import { Platform } from '@angular/cdk/platform';
 import { ALLOWED_MIMETYPES, FileData } from './file-loader.helpers';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Service()
 export class FileLoaderService {
   readonly #platform = inject(Platform);
 

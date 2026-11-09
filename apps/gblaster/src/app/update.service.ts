@@ -1,13 +1,11 @@
-import { DestroyRef, inject, Injectable } from '@angular/core';
+import { DestroyRef, inject, Service } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { SwUpdate } from '@angular/service-worker';
 import { PromptDialogComponent, PromptDialogData } from '@motabass/ui-components/dialogs';
 import { firstValueFrom } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Service()
 export class UpdateService {
   readonly #swUpdate = inject(SwUpdate);
   readonly #dialog = inject(MatDialog);

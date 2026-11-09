@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { TitleService } from '../services/title.service';
 import { CoverDisplayComponent } from './cover-display/cover-display.component';
 import { PlaylistComponent } from './playlist/playlist.component';
@@ -6,8 +6,7 @@ import { PlaylistComponent } from './playlist/playlist.component';
 @Component({
   imports: [PlaylistComponent, CoverDisplayComponent],
   templateUrl: './player.component.html',
-  styleUrl: './player.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrl: './player.component.scss'
 })
 export default class PlayerComponent implements OnInit {
   readonly #titleService = inject(TitleService);

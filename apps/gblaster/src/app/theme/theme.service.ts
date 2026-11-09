@@ -1,4 +1,4 @@
-import { computed, effect, inject, Injectable, signal } from '@angular/core';
+import { computed, effect, inject, Service, signal } from '@angular/core';
 import { Meta } from '@angular/platform-browser';
 import { LocalStorageService } from 'ngx-webstorage';
 import { FALLBACK_ACCENT_COLOR, FALLBACK_PRIMARY_COLOR } from './default-colors';
@@ -7,9 +7,7 @@ import { computeColors } from './theme-helper';
 
 const DARK_MODE_PREFERENCE_KEY = 'darkModePreference';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Service()
 export class ThemeService {
   readonly #meta = inject(Meta);
   readonly #localStorageService = inject(LocalStorageService);

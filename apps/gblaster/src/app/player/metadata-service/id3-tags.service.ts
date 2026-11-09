@@ -1,8 +1,8 @@
-import { Injectable, OnDestroy } from '@angular/core';
+import { OnDestroy, Service } from '@angular/core';
 import { Id3Tags } from './id3-tags.types';
 import { TagsWorkerResponse } from './metadata.types';
 
-@Injectable({ providedIn: 'root' })
+@Service()
 export class Id3TagsService implements OnDestroy {
   readonly #worker: Worker;
   #nextId = 0;

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ThemeService } from './theme/theme.service';
@@ -8,8 +8,7 @@ import { ShellComponent } from './shell/shell.component';
 @Component({
   selector: 'mtb-root',
   imports: [ShellComponent],
-  templateUrl: './app.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  templateUrl: './app.component.html'
 })
 export class AppComponent implements OnInit {
   readonly #updateService = inject(UpdateService);

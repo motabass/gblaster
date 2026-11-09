@@ -1,9 +1,7 @@
-import { inject, Injectable, signal } from '@angular/core';
+import { inject, Service, signal } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Service()
 export class TitleService {
   readonly #angularTitleService = inject(Title);
 

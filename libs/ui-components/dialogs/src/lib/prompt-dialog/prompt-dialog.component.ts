@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import {
   MAT_DIALOG_DATA,
   MatDialogActions,
@@ -16,8 +16,7 @@ export interface PromptDialogData {
 
 @Component({
   imports: [MatDialogTitle, MatDialogContent, MatDialogActions, MatButton],
-  templateUrl: './prompt-dialog.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  templateUrl: './prompt-dialog.component.html'
 })
 export class PromptDialogComponent {
   protected data = inject<PromptDialogData>(MAT_DIALOG_DATA);

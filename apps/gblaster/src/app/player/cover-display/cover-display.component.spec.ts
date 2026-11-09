@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { CoverDisplayComponent } from './cover-display.component';
 import { PlayerService } from '../player.service';
 import { ThemeService } from '../../theme/theme.service';
@@ -9,8 +9,7 @@ import { VisualizerComponent } from '../visualizer/visualizer.component';
 // Mock VisualizerComponent to avoid complex dependencies
 @Component({
   selector: 'mtb-visualizer',
-  template: '',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  template: ''
 })
 class MockVisualizerComponent {}
 

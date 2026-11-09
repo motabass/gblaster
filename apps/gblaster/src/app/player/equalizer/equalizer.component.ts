@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, effect, ElementRef, inject, viewChild } from '@angular/core';
+import { Component, effect, ElementRef, inject, viewChild } from '@angular/core';
 import { AudioService } from '../audio.service';
 import { MatSlider, MatSliderThumb } from '@angular/material/slider';
 import { FREQUENCY_BANDS } from '../player.types';
@@ -7,8 +7,7 @@ import { ThemeService } from '../../theme/theme.service';
 @Component({
   imports: [MatSlider, MatSliderThumb],
   templateUrl: './equalizer.component.html',
-  styleUrl: './equalizer.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrl: './equalizer.component.scss'
 })
 export default class EqualizerComponent {
   protected readonly audioService = inject(AudioService);
