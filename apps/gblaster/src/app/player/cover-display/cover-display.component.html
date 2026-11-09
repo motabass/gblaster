@@ -1,11 +1,10 @@
-@let currentTrack = playerService.currentlyLoadedTrack();
-@let metadata = currentTrack?.metadata;
+@let metadata = trackMetadata();
 @let cover = coverUrl();
 @let format = metadata?.format;
 @let coverColors = metadata?.coverColors;
 <div class="mat-typography metadata-overlay">
   <h1 class="track-title">
-    {{ metadata?.title || currentTrack?.file?.name }}
+    {{ metadata?.title || metadata?.fileName }}
   </h1>
   <p class="track-artist">{{ metadata?.artist }}</p>
   <div class="flex column metadata-info">
@@ -83,7 +82,7 @@
     }
   </div>
 </div>
-@if (currentTrack && cover) {
+@if (metadata && cover) {
   <div
     class="cover-img"
     [style.background-image]="`url(${cover})`"

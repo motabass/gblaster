@@ -1,0 +1,43 @@
+:host {
+  height: 100%;
+  width: 100%;
+}
+
+.cover-img {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  opacity: 1;
+  background-size: contain;
+  background-position: top center;
+  background-repeat: no-repeat;
+}
+
+.metadata-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  overflow: auto;
+  padding: 0.5rem;
+  user-select: text;
+  text-shadow: -1px 1px 6px black;
+}
+
+.track-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  line-height: 1.6rem;
+  margin-bottom: 4px;
+  opacity: 0.9;
+}
+
+.track-artist {
+  font-size: 1rem;
+  margin-bottom: 8px;
+  opacity: 0.8;
+}
+
+.metadata-info {
+  margin-top: 16px;
+  opacity: 0.9;
+}

@@ -19,6 +19,7 @@ import { LibraryService } from './library.service';
 import { Album } from './library.types';
 import { debounce, form, FormField } from '@angular/forms/signals';
 import Fuse from 'fuse.js';
+import { LibraryTrackDetailsComponent } from '../track-details/library-track-details.component';
 
 const collator = new Intl.Collator();
 
@@ -45,7 +46,8 @@ const collator = new Intl.Collator();
     MatPrefix,
     MatSuffix,
     MatProgressSpinner,
-    FormField
+    FormField,
+    LibraryTrackDetailsComponent
   ],
   templateUrl: './library.component.html',
   styleUrl: './library.component.scss'

@@ -1,0 +1,52 @@
+@let metadata = trackMetadata();
+@let cover = coverUrl();
+@let format = metadata?.format;
+<div class="mat-typography metadata-overlay">
+  <h1 class="track-title">
+    {{ metadata?.title || metadata?.fileName }}
+  </h1>
+  <p class="track-artist">{{ metadata?.artist }}</p>
+  <div class="flex column metadata-info">
+    @if (metadata?.album) {
+      <span>
+        Album: <strong>{{ metadata.album }}</strong>
+      </span>
+    }
+    @if (metadata?.year) {
+      <span>
+        Year: <strong>{{ metadata.year }}</strong>
+      </span>
+    }
+    <span>&nbsp;</span>
+    @if (format?.duration) {
+      <span>
+        Duration:
+        <strong>{{ format.duration | time }}</strong>
+      </span>
+    }
+    @if (format?.container && format?.codec) {
+      <span>
+        Format:
+        <strong>{{ format.container }} ({{ format.codec }})</strong>
+      </span>
+    }
+    @if (format?.bitrate) {
+      <span>
+        Bitrate:
+        <strong>{{ format.bitrate | bitrate }}</strong>
+      </span>
+    }
+    @if (format?.sampleRate) {
+      <span>
+        Sample-Rate:
+        <strong>{{ format.sampleRate }}</strong>
+      </span>
+    }
+  </div>
+</div>
+@if (metadata && cover) {
+  <div
+    class="cover-img"
+    [style.background-image]="`url(${cover})`"
+  ></div>
+}

@@ -209,6 +209,10 @@
       </mat-list-item>
     </mat-list>
   </cdk-virtual-scroll-viewport>
+  <library-track-details
+    class="selected-track-cover"
+    [trackMetadata]="selectedTrack() ?? null"
+  />
   <!--Track Context Menu -->
   <mat-menu #trackContextMenu="matMenu">
     <ng-template

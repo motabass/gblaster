@@ -44,6 +44,16 @@
 
 .tracks {
   grid-area: tracks;
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) minmax(0, 1fr);
+  min-height: 0;
+  overflow: hidden;
+}
+
+.selected-track-cover {
+  position: relative;
+  min-height: 0;
+  overflow: hidden;
 }
 
 .virtual-scroll-viewport {
