@@ -74,6 +74,12 @@ export class PlaylistComponent {
   readonly #isAutoScrollEnabled = signal(false);
   readonly #playlistLength = computed(() => this.playerService.currentPlaylist().length);
   readonly #currentHash = computed(() => this.playerService.currentlyLoadedTrack()?.metadata?.hash);
+  protected readonly activeTrackHash = computed(() =>
+    this.#audioService.isPlaying() || this.#audioService.isPaused() ? this.#currentHash() : undefined
+  );
+  protected readonly playingTrackHash = computed(() =>
+    this.#audioService.isPlaying() ? this.#currentHash() : undefined
+  );
 
   #programmaticScrollUntil = 0;
   #lastScrolledHash: string | undefined;
@@ -173,20 +179,6 @@ export class PlaylistComponent {
 
     this.#markProgrammaticScroll();
     viewport.scrollToOffset(offset, distance > SMOOTH_SCROLL_MAX_DISTANCE ? 'instant' : 'smooth');
-  }
-
-  protected isActive(song: Track): boolean {
-    return (
-      (this.#audioService.isPlaying() || this.#audioService.isPaused()) &&
-      this.playerService.currentlyLoadedTrack()?.metadata?.hash === song.metadata?.hash
-    );
-  }
-
-  protected isPlaying(song: Track): boolean {
-    return (
-      this.#audioService.isPlaying() &&
-      this.playerService.currentlyLoadedTrack()?.metadata?.hash === song.metadata?.hash
-    );
   }
 
   protected async playPauseSong(event: Event, song: Track): Promise<void> {
