@@ -5,6 +5,8 @@ import { FALLBACK_ACCENT_COLOR, FALLBACK_PRIMARY_COLOR } from './default-colors'
 import { ColorConfig } from '../player/player.types';
 import { computeColors } from './theme-helper';
 
+const DARK_MODE_PREFERENCE_KEY = 'darkModePreference';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -13,7 +15,7 @@ export class ThemeService {
   readonly #localStorageService = inject(LocalStorageService);
 
   readonly #darkMode = signal<boolean>(
-    this.#localStorageService.retrieve('darkMode') ?? matchMedia('(prefers-color-scheme: dark)').matches
+    this.#localStorageService.retrieve(DARK_MODE_PREFERENCE_KEY) ?? matchMedia('(prefers-color-scheme: dark)').matches
   );
   readonly darkMode = this.#darkMode.asReadonly();
 
@@ -27,14 +29,9 @@ export class ThemeService {
   readonly accentColorPalette = computed(() => computeColors(this.accentColor(), this.darkMode()));
 
   constructor() {
-    // Automatische Updates bei Änderungen
     effect(() => {
       this.#updateCSSProperties();
       this.#updateMetaThemeColor();
-    });
-
-    effect(() => {
-      this.#localStorageService.store('darkMode', this.darkMode());
     });
 
     effect(() => {
@@ -51,8 +48,9 @@ export class ThemeService {
     this.#updateMetaThemeColor();
   }
 
-  setDarkMode(darkMode: boolean) {
-    this.#darkMode.set(darkMode);
+  setDarkMode(isDarkMode: boolean) {
+    this.#localStorageService.store(DARK_MODE_PREFERENCE_KEY, isDarkMode);
+    this.#darkMode.set(isDarkMode);
   }
 
   setColors(colors: ColorConfig) {
@@ -69,17 +67,16 @@ export class ThemeService {
   }
 
   #updateCSSProperties() {
-    const variables: string[] = [`--app-color-scheme: ${this.darkMode() ? 'dark' : 'light'}`];
+    const rootStyle = document.documentElement.style;
+    rootStyle.setProperty('--app-color-scheme', this.darkMode() ? 'dark' : 'light');
 
     for (const color of this.primaryColorPalette()) {
-      variables.push(`--theme-primary-${color.name}: ${color.hex}`);
+      rootStyle.setProperty(`--theme-primary-${color.name}`, color.hex);
     }
 
     for (const color of this.accentColorPalette()) {
-      variables.push(`--theme-accent-${color.name}: ${color.hex}`);
+      rootStyle.setProperty(`--theme-accent-${color.name}`, color.hex);
     }
-
-    document.documentElement.style.cssText += variables.join(';');
   }
 
   #updateMetaThemeColor() {
