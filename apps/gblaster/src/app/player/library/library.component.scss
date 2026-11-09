@@ -8,8 +8,8 @@
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 1fr auto;
   grid-template-areas:
-    'artists tracks'
-    'albums details'
+    'artists albums'
+    'tracks details'
     'searchinput searchinput';
 
   @include mat.list-overrides(
