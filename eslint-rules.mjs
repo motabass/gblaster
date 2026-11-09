@@ -50,8 +50,7 @@ export const ANGULAR_ESLINT_TEMPLATE_RULES = {
   'unicorn/prefer-string-raw': 'off',
   '@angular-eslint/template/prefer-class-binding': 'error',
   'unicorn/no-useless-template-literals': 'off',
-  'unicorn/no-incorrect-template-string-interpolation': 'off',
-  'unicorn/consistent-boolean-name': 'off'
+  'unicorn/no-incorrect-template-string-interpolation': 'off'
 };
 
 const DEFAULT_UNICORN_RULE_OVERRIDES = {
@@ -68,7 +67,8 @@ const DEFAULT_UNICORN_RULE_OVERRIDES = {
   'unicorn/no-negated-condition': 'warn',
   'unicorn/no-useless-undefined': 'off',
   'unicorn/name-replacements': 'off',
-  'unicorn/consistent-class-member-order': 'off'
+  'unicorn/consistent-class-member-order': 'off',
+  'unicorn/consistent-boolean-name': 'off'
 };
 
 export const DEFAULT_SONARJS_HTML_RULE_OVERRIDES = {

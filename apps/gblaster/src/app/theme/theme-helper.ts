@@ -1,5 +1,10 @@
 import { Colord, colord } from 'colord';
-import { ThemeColor } from './theme.types';
+
+export interface ThemeColor {
+  name: string;
+  hex: string;
+  darkContrast: boolean;
+}
 
 interface ColorVariant {
   suffix: string;
