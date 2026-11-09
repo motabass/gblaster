@@ -53,6 +53,12 @@
       >
         Add to Playlist
       </button>
+      <button
+        mat-menu-item
+        (click)="removeArtistFromLibrary(artist)"
+      >
+        Remove from Library
+      </button>
     </ng-template>
   </mat-menu>
 </div>
@@ -78,7 +84,7 @@
           <button mat-icon-button>
             <mat-icon
               svgIcon="dots-vertical"
-              [matMenuTriggerFor]="artistContextMenu"
+              [matMenuTriggerFor]="albumContextMenu"
               [matMenuTriggerData]="{ album: undefined }"
             />
           </button> </span
@@ -123,6 +129,13 @@
       >
         Add to Playlist
       </button>
+
+      <button
+        mat-menu-item
+        (click)="removeAlbumFromLibrary(album)"
+      >
+        Remove from Library
+      </button>
     </ng-template>
   </mat-menu>
 </div>
@@ -148,7 +161,7 @@
           <button mat-icon-button>
             <mat-icon
               svgIcon="dots-vertical"
-              [matMenuTriggerFor]="artistContextMenu"
+              [matMenuTriggerFor]="trackContextMenu"
               [matMenuTriggerData]="{ track: undefined }"
             />
           </button>
@@ -198,6 +211,14 @@
       >
         Add to Playlist
       </button>
+      @if (track) {
+        <button
+          mat-menu-item
+          (click)="removeTrackFromLibrary(track)"
+        >
+          Remove from Library
+        </button>
+      }
     </ng-template>
   </mat-menu>
 </div>

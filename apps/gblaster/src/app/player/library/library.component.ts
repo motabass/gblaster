@@ -240,4 +240,18 @@ export default class LibraryComponent implements OnInit {
   protected async refreshLibrary() {
     await this.libraryService.loadLibraryFromDb();
   }
+
+  protected removeTrackFromLibrary(track: IndexedDbTrackMetadata): Promise<void> {
+    return this.libraryService.removeTracks([track]);
+  }
+
+  protected removeAlbumFromLibrary(album: Album): Promise<void> {
+    const tracks = this.#filteredBySearchTerm().filter((track) => track.album === album.name);
+    return this.libraryService.removeTracks(tracks);
+  }
+
+  protected removeArtistFromLibrary(artist: string): Promise<void> {
+    const tracks = this.#filteredBySearchTerm().filter((track) => track.artist === artist);
+    return this.libraryService.removeTracks(tracks);
+  }
 }

@@ -55,7 +55,8 @@ describe('LibraryComponent', () => {
     mockLibraryService = {
       isLoading: isLoadingSignal,
       indexedDbTracks: indexedDbTracksSignal,
-      loadLibraryFromDb: vi.fn().mockResolvedValue([])
+      loadLibraryFromDb: vi.fn().mockResolvedValue([]),
+      removeTracks: vi.fn().mockResolvedValue(undefined)
     };
 
     await TestBed.configureTestingModule({
@@ -297,10 +298,58 @@ describe('LibraryComponent', () => {
       indexedDbTracksSignal.set(tracks);
       fixture.detectChanges();
 
-      const album: Album = { name: 'Album A', year: '2024', coverUrl: { thumbUrl: '', originalUrl: '' } };
+      const album: Album = {
+        name: 'Album A',
+        year: '2024',
+        coverUrl: { thumbUrl: '', originalUrl: '' }
+      };
       await component['addAlbumToPlaylist'](album);
 
       expect(mockPlayerService.addTrackToPlaylist).toHaveBeenCalledTimes(2);
+    });
+
+    it('removeArtistFromLibrary should remove tracks by the selected artist', async () => {
+      indexedDbTracksSignal.set([
+        createMockTrackMetadata({ hash: 'artist-a-1', artist: 'Artist A' }),
+        createMockTrackMetadata({ hash: 'artist-a-2', artist: 'Artist A' }),
+        createMockTrackMetadata({ hash: 'artist-b', artist: 'Artist B' })
+      ]);
+      fixture.detectChanges();
+
+      await component['removeArtistFromLibrary']('Artist A');
+
+      expect(mockLibraryService.removeTracks).toHaveBeenCalledWith([
+        expect.objectContaining({ hash: 'artist-a-1' }),
+        expect.objectContaining({ hash: 'artist-a-2' })
+      ]);
+    });
+
+    it('removeAlbumFromLibrary should remove tracks from the selected album', async () => {
+      indexedDbTracksSignal.set([
+        createMockTrackMetadata({ hash: 'album-a-1', album: 'Album A' }),
+        createMockTrackMetadata({ hash: 'album-a-2', album: 'Album A' }),
+        createMockTrackMetadata({ hash: 'album-b', album: 'Album B' })
+      ]);
+      fixture.detectChanges();
+
+      await component['removeAlbumFromLibrary']({
+        name: 'Album A',
+        year: '2024',
+        coverUrl: { thumbUrl: '', originalUrl: '' }
+      });
+
+      expect(mockLibraryService.removeTracks).toHaveBeenCalledWith([
+        expect.objectContaining({ hash: 'album-a-1' }),
+        expect.objectContaining({ hash: 'album-a-2' })
+      ]);
+    });
+
+    it('removeTrackFromLibrary should remove the selected track', async () => {
+      const track = createMockTrackMetadata({ hash: 'track-hash' });
+
+      await component['removeTrackFromLibrary'](track);
+
+      expect(mockLibraryService.removeTracks).toHaveBeenCalledWith([track]);
     });
 
     it('addTrackToPlaylist should add single track', async () => {

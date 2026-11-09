@@ -53,24 +53,21 @@ export class LibraryService {
   }
 
   /**
-  Removes a single track from the library and cleans up its blob URL.
-  */
-  async removeTrack(hash: string): Promise<void> {
-    const track = this.indexedDbTracks().find((t) => t.hash === hash);
-    if (!track) {
-      return;
-    }
-
-    this.#metadataService.revokeBlobUrlForTrack(track);
-    await firstValueFrom(this.#indexedDbService.delete('library', hash));
-    this.#indexedDbTracks.set(this.indexedDbTracks().filter((t) => t.hash !== hash));
-  }
-
-  /**
   Clears the entire library and cleans up all blob URLs.
   */
   async clearLibrary(): Promise<void> {
     await firstValueFrom(this.#indexedDbService.clear('library'));
     this.#indexedDbTracks.set([]);
+  }
+
+  async removeTracks(tracks: IndexedDbTrackMetadata[]): Promise<void> {
+    await Promise.all(tracks.map((track) => firstValueFrom(this.#indexedDbService.delete('library', track.hash))));
+
+    for (const track of tracks) {
+      this.#metadataService.revokeBlobUrlForTrack(track);
+    }
+
+    const removedHashes = new Set(tracks.map((track) => track.hash));
+    this.#indexedDbTracks.set(this.indexedDbTracks().filter((track) => !removedHashes.has(track.hash)));
   }
 }
