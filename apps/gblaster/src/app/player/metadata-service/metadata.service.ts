@@ -51,26 +51,29 @@ export class MetadataService {
     }
 
     this.#progressService.startProcessing(fileDatas.length);
-    for (const fileData of fileDatas) {
-      this.#progressService.updateCurrentFile(fileData.file.name);
-      const result = await this.#getTrackMetadataFromCacheOrExtract(fileData);
-      if (!result?.metadata) {
-        this.#progressService.completeFile();
-        continue;
-      }
-      if (!result.fromCache) {
-        await this.#addMetadataToIndexedDb(result.metadata);
-      }
+    try {
+      for (const fileData of fileDatas) {
+        this.#progressService.updateCurrentFile(fileData.file.name);
+        const result = await this.#getTrackMetadataFromCacheOrExtract(fileData);
+        if (!result?.metadata) {
+          this.#progressService.completeFile();
+          continue;
+        }
+        if (!result.fromCache) {
+          await this.#addMetadataToIndexedDb(result.metadata);
+        }
 
-      const track: Track = {
-        file: fileData.file,
-        fileHandle: fileData.fileHandle,
-        metadata: result.metadata
-      };
-      this.#progressService.completeFile();
-      yield track;
+        const track: Track = {
+          file: fileData.file,
+          fileHandle: fileData.fileHandle,
+          metadata: result.metadata
+        };
+        this.#progressService.completeFile();
+        yield track;
+      }
+    } finally {
+      this.#progressService.reset();
     }
-    this.#progressService.reset();
   }
 
   async #addMetadataToIndexedDb(metadata: TrackMetadata) {
