@@ -243,7 +243,7 @@ describe('LibraryComponent', () => {
       indexedDbTracksSignal.set([firstTrack, secondTrack]);
       fixture.detectChanges();
 
-      const trackItems = fixture.nativeElement.querySelectorAll('.tracks mat-list-item');
+      const trackItems = fixture.nativeElement.querySelectorAll(':scope .tracks mat-list-item');
       trackItems[1].click();
       fixture.detectChanges();
       expect(trackItems[1].classList).toContain('selected');
@@ -255,6 +255,26 @@ describe('LibraryComponent', () => {
       expect(trackItems[2].classList).toContain('selected');
     });
 
+    it('shows the selected track details and cover', () => {
+      const selectedTrack = createMockTrackMetadata({
+        hash: 'selected-track',
+        title: 'Selected Title',
+        coverUrl: { thumbUrl: 'cover-thumb.jpg', originalUrl: 'cover-original.jpg' }
+      });
+      indexedDbTracksSignal.set([selectedTrack]);
+      fixture.detectChanges();
+
+      fixture.nativeElement.querySelectorAll(':scope .tracks mat-list-item')[1].click();
+      fixture.detectChanges();
+
+      expect(fixture.nativeElement.querySelector(':scope .selected-track-cover .track-title').textContent.trim()).toBe(
+        'Selected Title'
+      );
+      const selectedTrackCover = fixture.nativeElement.querySelector(':scope .selected-track-cover .cover-img');
+      expect(selectedTrackCover.style.backgroundImage).toContain('cover-original.jpg');
+      expect(getComputedStyle(selectedTrackCover).zIndex).toBe('0');
+    });
+
     it('highlights the selected artist and album', () => {
       indexedDbTracksSignal.set([
         createMockTrackMetadata({ artist: 'Artist A', album: 'Album A' }),
@@ -262,22 +282,22 @@ describe('LibraryComponent', () => {
       ]);
       fixture.detectChanges();
 
-      const allArtists = fixture.nativeElement.querySelector('.artists mat-list-item');
-      const allAlbums = fixture.nativeElement.querySelector('.albums mat-list-item');
+      const allArtists = fixture.nativeElement.querySelector(':scope .artists mat-list-item');
+      const allAlbums = fixture.nativeElement.querySelector(':scope .albums mat-list-item');
       expect(allArtists.classList).toContain('selected');
       expect(allAlbums.classList).toContain('selected');
 
       component['selectArtist']('Artist A');
       fixture.detectChanges();
 
-      const artistItems = fixture.nativeElement.querySelectorAll('.artists mat-list-item');
+      const artistItems = fixture.nativeElement.querySelectorAll(':scope .artists mat-list-item');
       expect(artistItems[0].classList).not.toContain('selected');
       expect(artistItems[1].classList).toContain('selected');
 
       component['selectAlbum']('Album A');
       fixture.detectChanges();
 
-      const albumItems = fixture.nativeElement.querySelectorAll('.albums mat-list-item');
+      const albumItems = fixture.nativeElement.querySelectorAll(':scope .albums mat-list-item');
       expect(albumItems[0].classList).not.toContain('selected');
       expect(albumItems[1].classList).toContain('selected');
     });
