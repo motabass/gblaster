@@ -79,76 +79,68 @@ describe('PlaylistComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  describe('isActive', () => {
-    it('should return false when no track is playing', () => {
-      const track = createMockTrack();
+  describe('activeTrackHash', () => {
+    it('should be undefined when no track is loaded', () => {
       isPlayingSignal.set(false);
       isPausedSignal.set(true);
       currentlyLoadedTrackSignal.set(undefined);
 
-      const result = component['isActive'](track);
-      expect(result()).toBe(false);
+      expect(component['activeTrackHash']()).toBeUndefined();
     });
 
-    it('should return true when track is playing and matches loaded track', () => {
+    it('should expose the loaded track hash while playing', () => {
       const track = createMockTrack({ metadata: { hash: 'track-1' } as Track['metadata'] });
       isPlayingSignal.set(true);
       isPausedSignal.set(false);
       currentlyLoadedTrackSignal.set(track);
 
-      const result = component['isActive'](track);
-      expect(result()).toBe(true);
+      expect(component['activeTrackHash']()).toBe(track.metadata.hash);
     });
 
-    it('should return true when track is paused and matches loaded track', () => {
+    it('should expose the loaded track hash while paused', () => {
       const track = createMockTrack({ metadata: { hash: 'track-1' } as Track['metadata'] });
       isPlayingSignal.set(false);
       isPausedSignal.set(true);
       currentlyLoadedTrackSignal.set(track);
 
-      const result = component['isActive'](track);
-      expect(result()).toBe(true);
+      expect(component['activeTrackHash']()).toBe(track.metadata.hash);
     });
 
-    it('should return false when different track is loaded', () => {
+    it('should not mark a different loaded track as active', () => {
       const track1 = createMockTrack({ metadata: { hash: 'track-1' } as Track['metadata'] });
       const track2 = createMockTrack({ metadata: { hash: 'track-2' } as Track['metadata'] });
       isPlayingSignal.set(true);
       isPausedSignal.set(false);
       currentlyLoadedTrackSignal.set(track2);
 
-      const result = component['isActive'](track1);
-      expect(result()).toBe(false);
+      expect(component['activeTrackHash']()).not.toBe(track1.metadata.hash);
     });
   });
 
-  describe('isPlaying', () => {
-    it('should return false when audio is not playing', () => {
+  describe('playingTrackHash', () => {
+    it('should be undefined when audio is not playing', () => {
       const track = createMockTrack();
       isPlayingSignal.set(false);
       currentlyLoadedTrackSignal.set(track);
 
-      const result = component['isPlaying'](track);
-      expect(result()).toBe(false);
+      expect(component['playingTrackHash']()).toBeUndefined();
     });
 
-    it('should return true when audio is playing and track matches', () => {
+    it('should expose the loaded track hash while audio is playing', () => {
       const track = createMockTrack({ metadata: { hash: 'track-1' } as Track['metadata'] });
       isPlayingSignal.set(true);
       currentlyLoadedTrackSignal.set(track);
 
-      const result = component['isPlaying'](track);
-      expect(result()).toBe(true);
+      expect(component['playingTrackHash']()).toBe(track.metadata.hash);
     });
 
-    it('should return false when audio is playing but different track is loaded', () => {
+    it('should not mark a different loaded track as playing', () => {
       const track1 = createMockTrack({ metadata: { hash: 'track-1' } as Track['metadata'] });
       const track2 = createMockTrack({ metadata: { hash: 'track-2' } as Track['metadata'] });
       isPlayingSignal.set(true);
       currentlyLoadedTrackSignal.set(track2);
 
-      const result = component['isPlaying'](track1);
-      expect(result()).toBe(false);
+      expect(component['playingTrackHash']()).not.toBe(track1.metadata.hash);
     });
   });
 
