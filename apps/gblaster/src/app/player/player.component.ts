@@ -3,9 +3,10 @@ import { TitleService } from '../services/title.service';
 import { CoverDisplayComponent } from './cover-display/cover-display.component';
 import { PlaylistComponent } from './playlist/playlist.component';
 import { PlayerService } from './player.service';
+import { VisualizerComponent } from './visualizer/visualizer.component';
 
 @Component({
-  imports: [PlaylistComponent, CoverDisplayComponent],
+  imports: [PlaylistComponent, CoverDisplayComponent, VisualizerComponent],
   templateUrl: './player.component.html',
   styleUrl: './player.component.scss'
 })

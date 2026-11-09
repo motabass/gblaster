@@ -1,5 +1,4 @@
 import { BitratePipe } from './bitrate.pipe';
-import { VisualizerComponent } from '../visualizer/visualizer.component';
 import { Component, computed, inject, input } from '@angular/core';
 import { ThemeService } from '../../theme/theme.service';
 import { TimePipe } from '../time.pipe';
@@ -7,7 +6,7 @@ import { TrackMetadata } from '../player.types';
 
 @Component({
   selector: 'mtb-cover-display',
-  imports: [TimePipe, BitratePipe, VisualizerComponent],
+  imports: [TimePipe, BitratePipe],
   templateUrl: './cover-display.component.html',
   styleUrl: './cover-display.component.scss'
 })

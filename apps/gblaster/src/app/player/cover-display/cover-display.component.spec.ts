@@ -1,15 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Component, signal } from '@angular/core';
+import { signal } from '@angular/core';
 import { CoverDisplayComponent } from './cover-display.component';
 import { ThemeService } from '../../theme/theme.service';
 import { TrackMetadata } from '../player.types';
-import { VisualizerComponent } from '../visualizer/visualizer.component';
-
-@Component({
-  selector: 'mtb-visualizer',
-  template: ''
-})
-class MockVisualizerComponent {}
 
 function createTrackMetadata(overrides: Partial<TrackMetadata> = {}): TrackMetadata {
   return {
@@ -49,12 +42,7 @@ describe('CoverDisplayComponent', () => {
     await TestBed.configureTestingModule({
       imports: [CoverDisplayComponent],
       providers: [{ provide: ThemeService, useValue: { darkMode } }]
-    })
-      .overrideComponent(CoverDisplayComponent, {
-        remove: { imports: [VisualizerComponent] },
-        add: { imports: [MockVisualizerComponent] }
-      })
-      .compileComponents();
+    }).compileComponents();
 
     fixture = TestBed.createComponent(CoverDisplayComponent);
     fixture.detectChanges();
@@ -99,9 +87,5 @@ describe('CoverDisplayComponent', () => {
     darkMode.set(true);
     fixture.detectChanges();
     expect(cover.style.backgroundColor).toBe('rgb(51, 51, 51)');
-  });
-
-  it('renders the visualizer', () => {
-    expect(fixture.nativeElement.querySelector('mtb-visualizer')).toBeTruthy();
   });
 });

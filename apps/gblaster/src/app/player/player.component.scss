@@ -21,7 +21,8 @@
   grid-area: playlist;
 }
 
-.cover {
+.cover,
+.visualizer {
   grid-area: cover;
   position: relative;
 }
