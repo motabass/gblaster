@@ -22,6 +22,11 @@
 .searchbox {
   background-color: var(--mat-sys-background);
   overflow-y: auto;
+
+  mat-list-item.selected {
+    background-color: color-mix(in srgb, var(--theme-accent-50) 20%, var(--mat-sys-background));
+    border-left: solid 4px var(--theme-accent-50);
+  }
 }
 
 .searchinput {

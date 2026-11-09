@@ -1,12 +1,12 @@
 import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { IndexedDbTrackMetadata, Track } from '../player.types';
 import {
+  MatList,
   MatListItem,
   MatListItemAvatar,
   MatListItemIcon,
   MatListItemMeta,
-  MatListItemTitle,
-  MatNavList
+  MatListItemTitle
 } from '@angular/material/list';
 import { MatMenu, MatMenuContent, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
 import { PlayerService } from '../player.service';
@@ -24,7 +24,7 @@ const collator = new Intl.Collator();
 
 @Component({
   imports: [
-    MatNavList,
+    MatList,
     MatListItem,
     MatListItemTitle,
     MatListItemMeta,
@@ -53,6 +53,7 @@ const collator = new Intl.Collator();
 export default class LibraryComponent implements OnInit {
   readonly #playerService = inject(PlayerService);
   protected readonly libraryService = inject(LibraryService);
+  protected readonly selectedTrack = signal<IndexedDbTrackMetadata | undefined>(undefined);
 
   protected readonly searchTermForm = form(signal({ searchTerm: '' }), (f) => {
     debounce(f.searchTerm, 300);
@@ -115,7 +116,7 @@ export default class LibraryComponent implements OnInit {
     return tracks.filter((track) => matches.has(track));
   });
 
-  readonly #selectedArtist = signal<string | undefined>(undefined);
+  protected readonly selectedArtist = signal<string | undefined>(undefined);
   protected readonly selectedAlbum = signal<string | undefined>(undefined);
 
   protected readonly uniqueArtists = computed(() => {
@@ -129,7 +130,7 @@ export default class LibraryComponent implements OnInit {
   });
 
   protected readonly uniqueAlbums = computed(() => {
-    const artist = this.#selectedArtist();
+    const artist = this.selectedArtist();
     const albumMap = new Map<string, Album>();
 
     for (const tag of this.#filteredBySearchTerm()) {
@@ -143,7 +144,7 @@ export default class LibraryComponent implements OnInit {
   });
 
   protected readonly tracks = computed(() => {
-    const artist = this.#selectedArtist();
+    const artist = this.selectedArtist();
     const album = this.selectedAlbum();
 
     return this.#filteredBySearchTerm().filter(
@@ -155,12 +156,16 @@ export default class LibraryComponent implements OnInit {
   }
 
   protected selectArtist(artist: string | undefined) {
-    this.#selectedArtist.set(artist);
+    this.selectedArtist.set(artist);
     this.selectedAlbum.set(undefined);
   }
 
   protected selectAlbum(album: string | undefined) {
     this.selectedAlbum.set(album);
+  }
+
+  protected selectTrack(track: IndexedDbTrackMetadata) {
+    this.selectedTrack.set(track);
   }
 
   protected async playTrack(track: IndexedDbTrackMetadata | undefined) {

@@ -3,8 +3,11 @@
     class="virtual-scroll-viewport"
     itemSize="32"
   >
-    <mat-nav-list>
-      <mat-list-item (click)="selectArtist(undefined)">
+    <mat-list>
+      <mat-list-item
+        [class.selected]="!selectedArtist()"
+        (click)="selectArtist(undefined)"
+      >
         @if (libraryService.isLoading()) {
           <span matListItemIcon>
             <mat-spinner
@@ -26,6 +29,7 @@
       ></mat-list-item>
       <mat-list-item
         *cdkVirtualFor="let artist of uniqueArtists(); trackBy: trackByArtist"
+        [class.selected]="selectedArtist() === artist"
         (click)="selectArtist(artist)"
       >
         <span matListItemTitle>{{ artist }}</span>
@@ -39,7 +43,7 @@
           </button>
         </span>
       </mat-list-item>
-    </mat-nav-list>
+    </mat-list>
   </cdk-virtual-scroll-viewport>
   <!-- Artist Context Menu -->
   <mat-menu #artistContextMenu="matMenu">
@@ -68,8 +72,11 @@
     class="virtual-scroll-viewport"
     itemSize="32"
   >
-    <mat-nav-list>
-      <mat-list-item (click)="selectAlbum(undefined)">
+    <mat-list>
+      <mat-list-item
+        [class.selected]="!selectedAlbum()"
+        (click)="selectAlbum(undefined)"
+      >
         @if (libraryService.isLoading()) {
           <span matListItemIcon>
             <mat-spinner
@@ -91,6 +98,7 @@
       ></mat-list-item>
       <mat-list-item
         *cdkVirtualFor="let album of uniqueAlbums(); trackBy: trackByAlbum"
+        [class.selected]="selectedAlbum() === album.name"
         (click)="selectAlbum(album.name)"
       >
         <div
@@ -115,7 +123,7 @@
           </button>
         </span>
       </mat-list-item>
-    </mat-nav-list>
+    </mat-list>
   </cdk-virtual-scroll-viewport>
   <!-- Album Context Menu -->
   <mat-menu #albumContextMenu="matMenu">
@@ -145,7 +153,7 @@
     class="virtual-scroll-viewport"
     itemSize="32"
   >
-    <mat-nav-list>
+    <mat-list>
       <mat-list-item>
         @if (libraryService.isLoading()) {
           <span matListItemIcon>
@@ -169,6 +177,8 @@
       </mat-list-item>
       <mat-list-item
         *cdkVirtualFor="let track of tracks(); trackBy: trackByHash"
+        [class.selected]="selectedTrack()?.hash === track.hash"
+        (click)="selectTrack(track)"
         (dblclick)="playTrack(track)"
       >
         <div
@@ -197,7 +207,7 @@
           </button>
         </span>
       </mat-list-item>
-    </mat-nav-list>
+    </mat-list>
   </cdk-virtual-scroll-viewport>
   <!--Track Context Menu -->
   <mat-menu #trackContextMenu="matMenu">

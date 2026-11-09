@@ -237,6 +237,51 @@ describe('LibraryComponent', () => {
   });
 
   describe('selection methods', () => {
+    it('highlights the last clicked track in the library', () => {
+      const firstTrack = createMockTrackMetadata({ hash: 'first-track' });
+      const secondTrack = createMockTrackMetadata({ hash: 'second-track' });
+      indexedDbTracksSignal.set([firstTrack, secondTrack]);
+      fixture.detectChanges();
+
+      const trackItems = fixture.nativeElement.querySelectorAll('.tracks mat-list-item');
+      trackItems[1].click();
+      fixture.detectChanges();
+      expect(trackItems[1].classList).toContain('selected');
+      expect(trackItems[2].classList).not.toContain('selected');
+
+      trackItems[2].click();
+      fixture.detectChanges();
+      expect(trackItems[1].classList).not.toContain('selected');
+      expect(trackItems[2].classList).toContain('selected');
+    });
+
+    it('highlights the selected artist and album', () => {
+      indexedDbTracksSignal.set([
+        createMockTrackMetadata({ artist: 'Artist A', album: 'Album A' }),
+        createMockTrackMetadata({ artist: 'Artist B', album: 'Album B' })
+      ]);
+      fixture.detectChanges();
+
+      const allArtists = fixture.nativeElement.querySelector('.artists mat-list-item');
+      const allAlbums = fixture.nativeElement.querySelector('.albums mat-list-item');
+      expect(allArtists.classList).toContain('selected');
+      expect(allAlbums.classList).toContain('selected');
+
+      component['selectArtist']('Artist A');
+      fixture.detectChanges();
+
+      const artistItems = fixture.nativeElement.querySelectorAll('.artists mat-list-item');
+      expect(artistItems[0].classList).not.toContain('selected');
+      expect(artistItems[1].classList).toContain('selected');
+
+      component['selectAlbum']('Album A');
+      fixture.detectChanges();
+
+      const albumItems = fixture.nativeElement.querySelectorAll('.albums mat-list-item');
+      expect(albumItems[0].classList).not.toContain('selected');
+      expect(albumItems[1].classList).toContain('selected');
+    });
+
     it('selectArtist should set artist and reset album', () => {
       indexedDbTracksSignal.set([
         createMockTrackMetadata({ artist: 'New Artist', album: 'Some Album', title: 'Song A' }),
