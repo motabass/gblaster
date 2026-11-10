@@ -23,6 +23,9 @@ import { LibraryTrackDetailsComponent } from '../track-details/library-track-det
 
 const collator = new Intl.Collator();
 
+/**
+Presents searchable library tracks and actions for adding or removing them.
+*/
 @Component({
   imports: [
     MatList,
@@ -153,23 +156,42 @@ export default class LibraryComponent implements OnInit {
       (item) => (!artist || item.artist === artist) && (!album || item.album === album)
     );
   });
+  /**
+  Loads the stored library when the component is initialized.
+  */
   ngOnInit() {
     void this.libraryService.loadLibraryFromDb();
   }
 
+  /**
+  Selects an artist and clears the current album selection.
+  @param artist Artist name to select, or undefined to clear the selection.
+  */
   protected selectArtist(artist: string | undefined) {
     this.selectedArtist.set(artist);
     this.selectedAlbum.set(undefined);
   }
 
+  /**
+  Selects an album.
+  @param album Album name to select, or undefined to clear the selection.
+  */
   protected selectAlbum(album: string | undefined) {
     this.selectedAlbum.set(album);
   }
 
+  /**
+  Selects a library track for display.
+  @param track Track metadata to select.
+  */
   protected selectTrack(track: IndexedDbTrackMetadata) {
     this.selectedTrack.set(track);
   }
 
+  /**
+  Adds a track to the playlist and starts playback.
+  @param track Track to play, if available.
+  */
   protected async playTrack(track: IndexedDbTrackMetadata | undefined) {
     if (!track) {
       return;
@@ -179,6 +201,10 @@ export default class LibraryComponent implements OnInit {
     await this.#playerService.playTrackByHash(track.hash);
   }
 
+  /**
+  Adds the selected artist's tracks, or all filtered tracks, to the playlist.
+  @param artist Artist whose tracks should be added.
+  */
   protected async addArtistToPlaylist(artist: string) {
     if (artist) {
       const tracks = this.#filteredBySearchTerm().filter((track) => track.artist === artist);
@@ -188,6 +214,10 @@ export default class LibraryComponent implements OnInit {
     }
   }
 
+  /**
+  Adds the selected album's tracks, or all visible album tracks, to the playlist.
+  @param album Album whose tracks should be added.
+  */
   protected async addAlbumToPlaylist(album: Album) {
     let tracks: IndexedDbTrackMetadata[];
     if (album) {
@@ -205,6 +235,10 @@ export default class LibraryComponent implements OnInit {
     await this.addTracksToPlaylist(...tracks);
   }
 
+  /**
+  Adds the selected track or all filtered tracks to the playlist.
+  @param track Track to add, or undefined to add all filtered tracks.
+  */
   protected async addTrackToPlaylist(track: IndexedDbTrackMetadata) {
     if (track) {
       await this.addTracksToPlaylist(track);
@@ -214,6 +248,10 @@ export default class LibraryComponent implements OnInit {
     }
   }
 
+  /**
+  Resolves file handles and adds available files to the playback playlist.
+  @param dbTracks Library records whose files should be added.
+  */
   protected async addTracksToPlaylist(...dbTracks: IndexedDbTrackMetadata[]) {
     const files = await Promise.all(dbTracks.map((dbTrack) => dbTrack.fileHandle?.getFile()));
     for (const [index, dbTrack] of dbTracks.entries()) {
@@ -232,31 +270,67 @@ export default class LibraryComponent implements OnInit {
     }
   }
 
+  /**
+  Returns the artist name as its stable list-rendering key.
+  @param index Position of the artist in the rendered list.
+  @param artist Artist name.
+  @returns The artist name.
+  */
   protected trackByArtist(index: number, artist: string): string {
     return artist;
   }
 
+  /**
+  Returns the album name as its stable list-rendering key.
+  @param index Position of the album in the rendered list.
+  @param album Album to identify.
+  @returns The album name.
+  */
   protected trackByAlbum(index: number, album: Album): string {
     return album.name;
   }
 
+  /**
+  Returns the track hash as its stable list-rendering key.
+  @param index Position of the track in the rendered list.
+  @param track Track to identify.
+  @returns The track hash.
+  */
   protected trackByHash(index: number, track: IndexedDbTrackMetadata): string {
     return track.hash;
   }
 
+  /**
+  Reloads library records from IndexedDB.
+  */
   protected async refreshLibrary() {
     await this.libraryService.loadLibraryFromDb();
   }
 
+  /**
+  Removes one track from the library.
+  @param track Track record to remove.
+  @returns A promise that resolves when the record is deleted.
+  */
   protected removeTrackFromLibrary(track: IndexedDbTrackMetadata): Promise<void> {
     return this.libraryService.removeTracks([track]);
   }
 
+  /**
+  Removes all filtered tracks belonging to an album.
+  @param album Album whose tracks should be removed.
+  @returns A promise that resolves when the records are deleted.
+  */
   protected removeAlbumFromLibrary(album: Album): Promise<void> {
     const tracks = this.#filteredBySearchTerm().filter((track) => track.album === album.name);
     return this.libraryService.removeTracks(tracks);
   }
 
+  /**
+  Removes all filtered tracks belonging to an artist.
+  @param artist Artist whose tracks should be removed.
+  @returns A promise that resolves when the records are deleted.
+  */
   protected removeArtistFromLibrary(artist: string): Promise<void> {
     const tracks = this.#filteredBySearchTerm().filter((track) => track.artist === artist);
     return this.libraryService.removeTracks(tracks);

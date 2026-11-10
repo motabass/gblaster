@@ -50,6 +50,9 @@ Number of items at the viewport edges that count as "not visible" for the curren
 */
 const VISIBLE_MARGIN_ITEMS = 1;
 
+/**
+Renders the playback queue and keeps the active track in view.
+*/
 @Component({
   selector: 'mtb-playlist',
   imports: [
@@ -96,6 +99,9 @@ export class PlaylistComponent {
 
   protected readonly itemSize = ITEM_SIZE;
 
+  /**
+  Tracks user scrolling and configures playlist autoscroll behavior.
+  */
   constructor() {
     this.#trackUserScrolling();
 
@@ -197,15 +203,32 @@ export class PlaylistComponent {
     viewport.scrollToOffset(offset, distance > SMOOTH_SCROLL_MAX_DISTANCE ? 'instant' : 'smooth');
   }
 
+  /**
+  Starts or pauses playback for a playlist song.
+  @param event Click event from the playback control.
+  @param song Song whose playback should be toggled.
+  @returns A promise that resolves when the playback request completes.
+  */
   protected async playPauseSong(event: Event, song: Track): Promise<void> {
     event.stopPropagation();
     return this.playerService.playPauseTrack(song);
   }
 
+  /**
+  Returns a song's metadata hash as its stable list-rendering key.
+  @param index Position of the song in the playlist.
+  @param song Song to identify.
+  @returns The song metadata hash.
+  */
   protected trackByHash(index: number, song: Track): string {
     return song.metadata.hash;
   }
 
+  /**
+  Opens the song context menu at the pointer location.
+  @param event Context-menu event that provides the pointer coordinates.
+  @param song Song to expose as context-menu data.
+  */
   protected onContextMenu(event: MouseEvent, song: Track): void {
     event.preventDefault();
     const trigger = this.menuTrigger();

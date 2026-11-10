@@ -4,6 +4,9 @@ import { ThemeService } from '../../theme/theme.service';
 import { TimePipe } from '../time.pipe';
 import { TrackMetadata } from '../player.types';
 
+/**
+Displays track artwork, metadata, and a theme-aware cover background.
+*/
 @Component({
   selector: 'mtb-cover-display',
   imports: [TimePipe, BitratePipe],

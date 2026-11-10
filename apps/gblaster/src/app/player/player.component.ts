@@ -5,6 +5,9 @@ import { PlaylistComponent } from './playlist/playlist.component';
 import { PlayerService } from './player.service';
 import { VisualizerComponent } from './visualizer/visualizer.component';
 
+/**
+Composes the main player view and sets the application title.
+*/
 @Component({
   imports: [PlaylistComponent, CoverDisplayComponent, VisualizerComponent],
   templateUrl: './player.component.html',
@@ -15,6 +18,9 @@ export default class PlayerComponent implements OnInit {
   readonly #playerService = inject(PlayerService);
   protected readonly trackMetadata = computed(() => this.#playerService.currentlyLoadedTrack()?.metadata ?? null);
 
+  /**
+  Sets the application title when the player view initializes.
+  */
   ngOnInit() {
     this.#titleService.setTitle('gBlaster');
   }

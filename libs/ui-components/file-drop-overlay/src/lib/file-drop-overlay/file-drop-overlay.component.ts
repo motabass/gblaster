@@ -1,5 +1,8 @@
 import { AfterViewInit, Component, ElementRef, inject, input, OnDestroy, output, Renderer2 } from '@angular/core';
 
+/**
+Displays a drop target and emits accepted files or file handles.
+*/
 @Component({
   selector: 'mtb-file-drop-overlay',
   templateUrl: './file-drop-overlay.component.html',
@@ -20,6 +23,9 @@ export class FileDropOverlayComponent implements AfterViewInit, OnDestroy {
   #dragEndListener: any;
   #dropListener: any;
 
+  /**
+  Installs global drag-and-drop event listeners.
+  */
   ngAfterViewInit() {
     this.#dragEnterListener = this.#renderer.listen('window', 'dragenter', this.over.bind(this));
     this.#dragOverListener = this.#renderer.listen('window', 'dragover', this.over.bind(this));
@@ -28,6 +34,9 @@ export class FileDropOverlayComponent implements AfterViewInit, OnDestroy {
     this.#dropListener = this.#renderer.listen('window', 'drop', this.drop.bind(this));
   }
 
+  /**
+  Removes the global drag-and-drop event listeners.
+  */
   ngOnDestroy() {
     this.#dragEnterListener();
     this.#dragOverListener();
@@ -36,6 +45,10 @@ export class FileDropOverlayComponent implements AfterViewInit, OnDestroy {
     this.#dropListener();
   }
 
+  /**
+  Prevents the default drag behavior and reveals the drop overlay.
+  @param event Window drag event.
+  */
   protected over(event: DragEvent) {
     event.preventDefault();
     event.stopPropagation();
@@ -46,12 +59,20 @@ export class FileDropOverlayComponent implements AfterViewInit, OnDestroy {
     this.#renderer.setStyle(this.#hostElement.nativeElement, 'visibility', 'visible');
   }
 
+  /**
+  Prevents the default leave behavior and hides the drop overlay.
+  @param event Window drag event.
+  */
   protected leave(event: DragEvent) {
     event.preventDefault();
     event.stopPropagation();
     this.#renderer.setStyle(this.#hostElement.nativeElement, 'visibility', 'hidden');
   }
 
+  /**
+  Handles dropped items, preferring file handles and falling back to files.
+  @param event Window drop event.
+  */
   protected drop(event: DragEvent) {
     event.preventDefault();
     event.stopPropagation();
@@ -98,12 +119,20 @@ export class FileDropOverlayComponent implements AfterViewInit, OnDestroy {
     this.#handleFileFallback(event);
   }
 
+  /**
+  Emits regular dropped files when file handles are unavailable.
+  @param event Drop event containing the file list.
+  */
   #handleFileFallback(event: DragEvent) {
     if (event.dataTransfer?.files) {
       this.#handleDroppedFiles(event.dataTransfer.files);
     }
   }
 
+  /**
+  Filters dropped files against the configured MIME types and emits them.
+  @param droppedFiles File list received from the drop event.
+  */
   #handleDroppedFiles(droppedFiles: FileList) {
     const files: File[] = [];
     for (const file of Array.from(droppedFiles)) {

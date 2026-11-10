@@ -5,6 +5,9 @@ import { ThemeService } from './theme/theme.service';
 import { UpdateService } from './update.service';
 import { ShellComponent } from './shell/shell.component';
 
+/**
+Initializes application-wide theme, icons, and service-worker updates.
+*/
 @Component({
   selector: 'mtb-root',
   imports: [ShellComponent],
@@ -16,6 +19,9 @@ export class AppComponent implements OnInit {
   readonly #sanitizer = inject(DomSanitizer);
   readonly #themeService = inject(ThemeService);
 
+  /**
+   * Initializes the theme and registers application-wide SVG icons.
+   */
   constructor() {
     this.#themeService.initializeTheme();
 
@@ -26,6 +32,9 @@ export class AppComponent implements OnInit {
     );
   }
 
+  /**
+  Checks for a service-worker update when application initialization completes.
+  */
   ngOnInit(): void {
     void this.#updateService.init();
   }

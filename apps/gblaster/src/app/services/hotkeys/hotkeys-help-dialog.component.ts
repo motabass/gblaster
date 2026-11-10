@@ -8,6 +8,9 @@ export interface HotkeysData {
   registeredHotkeys: Map<string, HotkeyInfo>;
 }
 
+/**
+Shows the registered keyboard shortcuts in a dialog.
+*/
 @Component({
   imports: [MatDialogTitle, MatDialogContent, MatIconButton, MatIcon],
   templateUrl: './hotkeys-help-dialog.component.html',
@@ -17,10 +20,16 @@ export class HotkeysHelpDialogComponent {
   protected dialogRef = inject<MatDialogRef<HotkeysHelpDialogComponent>>(MatDialogRef);
   protected data = inject<HotkeysData>(MAT_DIALOG_DATA);
 
+  /**
+  Returns the registered hotkeys as an iterable list for the template.
+  */
   protected get hotkeyList() {
     return [...this.data.registeredHotkeys];
   }
 
+  /**
+  Closes the hotkeys help dialog.
+  */
   protected close() {
     this.dialogRef.close();
   }

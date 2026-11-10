@@ -12,6 +12,9 @@ import { MatOption, MatSelect } from '@angular/material/select';
 import { MatSlider, MatSliderThumb } from '@angular/material/slider';
 import { MatIcon } from '@angular/material/icon';
 
+/**
+Renders the audio visualizer and exposes controls for its visual settings.
+*/
 @Component({
   selector: 'mtb-visualizer',
   imports: [VisualsDirective, SlidePanelComponent, MatSelect, MatOption, MatSlider, MatSliderThumb, MatIcon],
@@ -39,6 +42,9 @@ export class VisualizerComponent implements OnInit, OnDestroy {
 
   protected readonly analyser: AnalyserNode = this.audioService.plugInNewAnalyserNode();
 
+  /**
+   * Initializes the audio analyser with the persisted visualizer settings.
+   */
   constructor() {
     this.analyser.fftSize = this.fftSize();
     this.analyser.smoothingTimeConstant = this.smoothing();
@@ -46,12 +52,18 @@ export class VisualizerComponent implements OnInit, OnDestroy {
     this.analyser.maxDecibels = 220;
   }
 
+  /**
+  Registers the gamepad shortcut for changing the visualizer mode.
+  */
   ngOnInit(): void {
     this.#gamepadService?.registerButtonAction(GamepadButtons.SELECT_BUTTON, () =>
       this.visualsService.toggleVisualMode()
     );
   }
 
+  /**
+  Releases the gamepad shortcut and audio analyser when the component is destroyed.
+  */
   ngOnDestroy(): void {
     this.#gamepadService?.deregisterButtonAction(GamepadButtons.SELECT_BUTTON);
     this.audioService.disconnectAnalyserNode(this.analyser);
@@ -78,6 +90,10 @@ export class VisualizerComponent implements OnInit, OnDestroy {
     return { thickness: this.lineThickness() };
   });
 
+  /**
+  Updates smoothing configuration and applies it to the analyser.
+  @param value Smoothing value, or null when no value is selected.
+  */
   protected setSmoothing(value: number | null) {
     if (!(value !== null)) {
       return;
@@ -88,6 +104,10 @@ export class VisualizerComponent implements OnInit, OnDestroy {
     this.#localStorageService.store('smoothing', value);
   }
 
+  /**
+  Updates the analyser's minimum decibel level.
+  @param value Minimum decibel level, or null when no value is selected.
+  */
   protected setMinDb(value: number | null) {
     if (!(value !== null)) {
       return;
@@ -98,6 +118,10 @@ export class VisualizerComponent implements OnInit, OnDestroy {
     this.#localStorageService.store('minDb', value);
   }
 
+  /**
+  Updates the visualizer color transparency.
+  @param value Alpha value, or null when no value is selected.
+  */
   protected setAlpha(value: number | null) {
     if (!(value !== null)) {
       return;
@@ -107,12 +131,20 @@ export class VisualizerComponent implements OnInit, OnDestroy {
     this.#localStorageService.store('alpha', value);
   }
 
+  /**
+  Sets the analyser FFT size and persists it.
+  @param value FFT size to apply.
+  */
   protected setFftSize(value: FftSize) {
     this.fftSize.set(value);
     this.analyser.fftSize = value;
     this.#localStorageService.store('fftSize', value);
   }
 
+  /**
+  Updates the number of frequency bars.
+  @param value Bar count, or null when no value is selected.
+  */
   protected setBarCount(value: number | null) {
     if (!(value !== null)) {
       return;
@@ -122,6 +154,10 @@ export class VisualizerComponent implements OnInit, OnDestroy {
     this.#localStorageService.store('barCount', value);
   }
 
+  /**
+  Updates the visualizer bar-cap height.
+  @param value Cap height, or null when no value is selected.
+  */
   protected setCapHeight(value: number | null) {
     if (!(value !== null)) {
       return;
@@ -131,6 +167,10 @@ export class VisualizerComponent implements OnInit, OnDestroy {
     this.#localStorageService.store('capHeight', value);
   }
 
+  /**
+  Updates the visualizer bar-cap fall speed.
+  @param value Fall speed, or null when no value is selected.
+  */
   protected setCapFalldown(value: number | null) {
     if (!(value !== null)) {
       return;
@@ -140,6 +180,10 @@ export class VisualizerComponent implements OnInit, OnDestroy {
     this.#localStorageService.store('capFalldown', value);
   }
 
+  /**
+  Updates the oscilloscope line thickness.
+  @param value Line thickness, or null when no value is selected.
+  */
   protected setLineThickness(value: number | null) {
     if (!(value !== null)) {
       return;
@@ -149,6 +193,10 @@ export class VisualizerComponent implements OnInit, OnDestroy {
     this.#localStorageService.store('lineThickness', value);
   }
 
+  /**
+  Updates the spacing between visualizer bars.
+  @param value Bar gap, or null when no value is selected.
+  */
   protected setGap(value: number | null) {
     if (!(value !== null)) {
       return;

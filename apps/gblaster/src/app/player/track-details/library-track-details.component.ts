@@ -3,6 +3,9 @@ import { BitratePipe } from '../cover-display/bitrate.pipe';
 import { TimePipe } from '../time.pipe';
 import { TrackMetadata } from '../player.types';
 
+/**
+Displays metadata details for a selected library track.
+*/
 @Component({
   selector: 'library-track-details',
   imports: [TimePipe, BitratePipe],

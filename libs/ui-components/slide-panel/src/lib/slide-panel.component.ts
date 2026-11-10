@@ -3,6 +3,9 @@ import { MatIcon } from '@angular/material/icon';
 import { MatIconButton } from '@angular/material/button';
 import { MatTooltip } from '@angular/material/tooltip';
 
+/**
+Provides a configurable side panel with open and closed states.
+*/
 @Component({
   selector: 'mtb-slide-panel',
   imports: [MatIcon, MatIconButton, MatTooltip],
@@ -22,6 +25,9 @@ import { MatTooltip } from '@angular/material/tooltip';
 export class SlidePanelComponent {
   protected readonly isInitialized = signal(false);
 
+  /**
+   * Enables panel transitions after the first render.
+   */
   constructor() {
     afterNextRender(() => {
       // Enable transitions after the first render
@@ -46,10 +52,16 @@ export class SlidePanelComponent {
 
   readonly buttonTooltip = input<string | undefined>('');
 
+  /**
+  Opens the panel after the component has rendered.
+  */
   protected openPanel() {
     this.openedState.set(true);
   }
 
+  /**
+  Closes the panel.
+  */
   protected closePanel() {
     this.openedState.set(false);
   }

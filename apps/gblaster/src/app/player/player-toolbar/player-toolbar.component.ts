@@ -14,6 +14,9 @@ import { GamepadService } from '../../services/gamepad/gamepad.service';
 import { HotkeysService } from '../../services/hotkeys/hotkeys.service';
 import { ProgressService } from '../metadata-service/progress.service';
 
+/**
+Provides playback controls and connects keyboard and gamepad shortcuts.
+*/
 @Component({
   selector: 'player-toolbar',
   imports: [
@@ -39,6 +42,9 @@ export class PlayerToolbarComponent implements OnInit, OnDestroy {
 
   protected readonly volumeIcon = computed(() => this.#getVolumeIconForLevel(this.audioService.volume()));
 
+  /**
+  Registers keyboard shortcuts and gamepad actions when available.
+  */
   ngOnInit() {
     if (this.#hotkeysService) {
       this.#hotkeysService.initialize();
@@ -95,6 +101,9 @@ export class PlayerToolbarComponent implements OnInit, OnDestroy {
     this.#gamepadService.registerButtonAction(GamepadButtons.START_BUTTON, () => this.showFilePickerAndAddToLibrary());
   }
 
+  /**
+  Restores the gamepad actions when the toolbar is destroyed.
+  */
   ngOnDestroy(): void {
     if (!this.#gamepadService) {
       return;
@@ -117,52 +126,98 @@ export class PlayerToolbarComponent implements OnInit, OnDestroy {
     this.#gamepadService.deregisterAxisAction(GamepadAxes.S1_Y);
   }
 
+  /**
+  Applies a slider-selected playback position.
+  @param value Playback position in seconds.
+  */
   protected onSliderPositionChanged(value: number) {
     this.playerService.setSeekPosition(value);
   }
 
+  /**
+  Applies a slider-selected output volume.
+  @param value Output volume from zero to one.
+  */
   protected onVolumeChange(value = 0) {
     this.audioService.setVolume(value);
   }
 
+  /**
+  Selects the volume icon that corresponds to a volume level.
+  @param vol Output volume from zero to one.
+  @returns Icon name for the volume level.
+  */
   #getVolumeIconForLevel(vol: number): string {
     if (vol === 0) return 'volume-variant-off';
     if (vol > 0 && vol < 0.2) return 'volume-low';
     return vol >= 0.2 && vol < 0.8 ? 'volume-medium' : 'volume-high';
   }
 
+  /**
+  Formats the playback position shown by the slider.
+  @param value Playback position in seconds.
+  @returns Clock-formatted playback position.
+  */
   protected formatLabel(value: number): string {
     return formatSecondsAsClock(value, false);
   }
 
+  /**
+  Advances the repeat mode.
+  */
   protected toggleRepeat() {
     this.playerService.toggleRepeat();
   }
 
+  /**
+  Toggles playlist shuffle.
+  */
   protected toggleShuffle() {
     this.playerService.toggleShuffle();
   }
 
+  /**
+  Opens the file picker and adds selected tracks to the library.
+  */
   protected async showFilePickerAndAddToLibrary() {
     return this.playerService.loadFilesToLibrary();
   }
 
+  /**
+  Seeks backward using the gamepad's input value as an offset.
+  @param value Gamepad input value.
+  */
   protected seekLeft(value: number) {
     this.playerService.seekLeft(value + 10);
   }
 
+  /**
+  Seeks forward using the gamepad's input value as an offset.
+  @param value Gamepad input value.
+  */
   protected seekRight(value: number) {
     this.playerService.seekRight(value + 10);
   }
 
+  /**
+  Increases volume according to the gamepad input value.
+  @param value Gamepad input value.
+  */
   protected increaseVolume(value: number) {
     this.audioService.setVolume(this.audioService.volume() + value / 100);
   }
 
+  /**
+  Decreases volume according to the gamepad input value.
+  @param value Gamepad input value.
+  */
   protected decreaseVolume(value: number) {
     this.audioService.setVolume(this.audioService.volume() - value / 100);
   }
 
+  /**
+  Toggles audio mute.
+  */
   protected toggleMute() {
     // TODO: implement
   }

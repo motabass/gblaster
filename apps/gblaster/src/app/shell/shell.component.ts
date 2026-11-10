@@ -20,6 +20,9 @@ import { MatProgressBar } from '@angular/material/progress-bar';
 import { MetadataService } from '../player/metadata-service/metadata.service';
 import { ProgressService } from '../player/metadata-service/progress.service';
 
+/**
+Provides the application shell, navigation, loading state, and file-drop handling.
+*/
 @Component({
   selector: 'mtb-shell',
   imports: [
@@ -65,6 +68,11 @@ export class ShellComponent {
 
   private readonly sidenav = viewChild.required<MatSidenav>('drawer');
 
+  /**
+  Closes the navigation drawer and navigates to the requested route.
+  @param route Route path to navigate to.
+  @param skipLocationChange Whether to navigate without updating browser history.
+  */
   protected navigateTo(route: string, skipLocationChange = false) {
     void this.sidenav().close();
     void this.#router.navigate([route], {
@@ -72,6 +80,10 @@ export class ShellComponent {
     });
   }
 
+  /**
+  Processes dropped files and adds their tracks to the playlist.
+  @param files Audio files dropped onto the application.
+  */
   protected async onFilesDropped(files: File[]) {
     const fileData = files.map((file) => ({ file }));
     // Just process files and add to library, don't add to playlist
@@ -80,6 +92,10 @@ export class ShellComponent {
     }
   }
 
+  /**
+  Processes dropped file handles and adds their metadata to the library.
+  @param files File handles dropped onto the application.
+  */
   protected async onFileHandlesDropped(files: FileSystemFileHandle[]) {
     const fileData: FileData[] = [];
     for (const fileHandle of files) {

@@ -4,6 +4,9 @@ import { MatSlider, MatSliderThumb } from '@angular/material/slider';
 import { FREQUENCY_BANDS } from '../player.types';
 import { ThemeService } from '../../theme/theme.service';
 
+/**
+Displays equalizer controls and draws the current frequency response.
+*/
 @Component({
   imports: [MatSlider, MatSliderThumb],
   templateUrl: './equalizer.component.html',
@@ -16,6 +19,9 @@ export default class EqualizerComponent {
 
   protected readonly BANDS = FREQUENCY_BANDS;
 
+  /**
+   * Redraws the equalizer response when gain settings change.
+   */
   constructor() {
     // React to changes in equalizer values
     effect(() => {
@@ -25,11 +31,19 @@ export default class EqualizerComponent {
     });
   }
 
+  /**
+  Formats an equalizer gain value for display.
+  @param value Gain value in decibels.
+  @returns The gain formatted with one decimal place and a dB suffix.
+  */
   protected displayFunction(value: number): string {
     const numberValue = value.toFixed(1);
     return numberValue + ' dB';
   }
 
+  /**
+  Draws the equalizer grid, response curve, frequency labels, and base gain.
+  */
   protected drawEqualizerResponse(): void {
     const canvasRef = this.canvasRef();
     if (!canvasRef) return;
