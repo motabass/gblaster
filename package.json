@@ -120,8 +120,8 @@
     "@types/node": "26.6.6",
     "@types/spark-md5": "3.0.5",
     "@types/wicg-file-system-access": "2023.10.7",
-    "@typescript-eslint/parser": "8.72.1",
-    "@typescript-eslint/utils": "8.72.1",
+    "@typescript-eslint/parser": "8.72.2",
+    "@typescript-eslint/utils": "8.72.2",
     "@vitest/browser-playwright": "5.1.0",
     "@vitest/coverage-v8": "5.1.0",
     "@vitest/ui": "5.1.0",
@@ -154,7 +154,7 @@
     "svgo": "4.1.0",
     "ts-node": "10.9.2",
     "typescript": "6.0.3",
-    "typescript-eslint": "8.72.1",
+    "typescript-eslint": "8.72.2",
     "vite": "8.3.6",
     "vitest": "5.1.0"
   }
