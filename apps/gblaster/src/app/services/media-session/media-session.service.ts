@@ -34,6 +34,8 @@ export class MediaSessionService {
 
   /**
   Registers a handler for a supported browser media-session action.
+  @param action Media-session action to handle.
+  @param handler Callback invoked when the action is requested.
   */
   setActionHandler(action: MediaSessionAction, handler: (details: MediaSessionActionDetails) => unknown) {
     try {
@@ -45,6 +47,7 @@ export class MediaSessionService {
 
   /**
   Registers a handler for media-session seek-to requests.
+  @param action Callback invoked with the seek request details.
   */
   setSeekToHandler(action: (details: MediaSessionActionDetails) => void) {
     try {
@@ -58,6 +61,8 @@ export class MediaSessionService {
 
   /**
   Publishes the current playback duration and position to the browser.
+  @param duration Total media duration in seconds.
+  @param currentTime Current playback position in seconds.
   */
   updateMediaPositionState(duration: number, currentTime: number) {
     if (navigator.mediaSession?.setPositionState) {
@@ -70,6 +75,7 @@ export class MediaSessionService {
 
   /**
   Sets the metadata shown by browser and operating-system media controls.
+  @param metadata Metadata to publish for the current media item.
   */
   setBrowserMetadata(metadata: MediaMetadataInit) {
     navigator.mediaSession.metadata = new MediaMetadata(metadata);
@@ -77,6 +83,7 @@ export class MediaSessionService {
 
   /**
   Sets the playback state exposed through the browser media session.
+  @param state Playback state to publish.
   */
   #setPlaybackState(state: MediaSessionPlaybackState) {
     navigator.mediaSession.playbackState = state;

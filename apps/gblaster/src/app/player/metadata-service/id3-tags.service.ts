@@ -24,6 +24,8 @@ export class Id3TagsService implements OnDestroy {
 
   /**
   Extracts tags from a file, rejecting if extraction fails or times out.
+  @param file Audio file whose tags should be extracted.
+  @param timeoutMs Maximum time to wait for extraction, in milliseconds.
   */
   extractTags(file: File, timeoutMs = 30_000): Promise<Id3Tags | undefined> {
     if (!this.#worker) {

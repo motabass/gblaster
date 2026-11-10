@@ -52,6 +52,7 @@ export class HotkeysService {
 
   /**
   Registers a hotkey and returns its normalized key string when successful.
+  @param options Hotkey configuration, including its key combination and callback.
   */
   register(options: Partial<Hotkey>): string | undefined {
     if (!options.keys) {
@@ -105,6 +106,7 @@ export class HotkeysService {
 
   /**
   Removes a previously registered hotkey by its key combination.
+  @param keys Key combination used when the hotkey was registered.
   */
   unregister(keys: string) {
     const realKeys = keys.replaceAll('+', '.');

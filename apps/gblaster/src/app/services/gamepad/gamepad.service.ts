@@ -46,6 +46,7 @@ export class GamepadService implements OnDestroy {
 
   /**
   Starts polling a newly connected gamepad for button and axis input.
+  @param event Browser event describing the newly connected gamepad.
   */
   #connectionListener(event: GamepadEvent) {
     const gamepads = navigator.getGamepads();
@@ -77,6 +78,7 @@ export class GamepadService implements OnDestroy {
 
   /**
   Creates the default no-op action configuration for a gamepad button.
+  @param buttonIndex Index of the button to configure.
   */
   #createDefaultButtonAction(buttonIndex: number): ButtonGamepadAction {
     return {
@@ -90,6 +92,7 @@ export class GamepadService implements OnDestroy {
 
   /**
   Creates the default no-op action configuration for a gamepad axis.
+  @param axisIndex Index of the axis to configure.
   */
   #createDefaultAxisAction(axisIndex: number): AxisGamepadAction {
     return {
@@ -105,6 +108,7 @@ export class GamepadService implements OnDestroy {
 
   /**
   Stops polling a gamepad after it disconnects.
+  @param event Browser event describing the disconnected gamepad.
   */
   #disconnectionListener(event: GamepadEvent) {
     const gamepads = navigator.getGamepads();
@@ -117,6 +121,8 @@ export class GamepadService implements OnDestroy {
 
   /**
   Invokes a registered button action and triggers brief haptic feedback.
+  @param index Index of the button action to invoke.
+  @param value Current button value.
   */
   #fireButtonAction(index: number, value: number) {
     // console.log(`Button ${index} sending value: ${value}`);
@@ -126,6 +132,8 @@ export class GamepadService implements OnDestroy {
 
   /**
   Invokes the action for an axis direction and triggers haptic feedback.
+  @param index Index of the axis action to invoke.
+  @param value Current axis value.
   */
   #fireAxisAction(index: number, value: number) {
     // console.log(`Axis ${index} sending value: ${value}`);
@@ -187,6 +195,7 @@ export class GamepadService implements OnDestroy {
 
   /**
   Restores the default action for a button index.
+  @param buttonIndex Index of the button to reset.
   */
   deregisterButtonAction(buttonIndex: number) {
     this.#buttonActions[buttonIndex] = this.#createDefaultButtonAction(buttonIndex);
@@ -222,6 +231,7 @@ export class GamepadService implements OnDestroy {
 
   /**
   Restores the default action for an axis index.
+  @param axisIndex Index of the axis to reset.
   */
   deregisterAxisAction(axisIndex: number) {
     this.axisActions[axisIndex] = this.#createDefaultAxisAction(axisIndex);
@@ -229,6 +239,8 @@ export class GamepadService implements OnDestroy {
 
   /**
   Detects button presses and applies the configured click, hold, or turbo mode.
+  @param gamepad Gamepad whose button state should be checked.
+  @param buttonIndex Index of the button to inspect.
   */
   #checkForButtonClicked(gamepad: Gamepad, buttonIndex: number) {
     const button = gamepad.buttons[buttonIndex];
@@ -275,6 +287,7 @@ export class GamepadService implements OnDestroy {
 
   /**
   Checks whether an axis value is outside the configured dead zone.
+  @param axis Current axis value.
   */
   #isAxisValueInDetectionRange(axis: number): boolean {
     return axis.valueOf() > this.#DEFAULT_DEADSPACE || axis.valueOf() < 0 - this.#DEFAULT_DEADSPACE;
@@ -282,6 +295,8 @@ export class GamepadService implements OnDestroy {
 
   /**
   Detects axis movement and applies the configured input mode.
+  @param gamepad Gamepad whose axis state should be checked.
+  @param axisIndex Index of the axis to inspect.
   */
   #checkForAxesInput(gamepad: Gamepad, axisIndex: number) {
     const axis = gamepad.axes[axisIndex];

@@ -13,6 +13,7 @@ export class TitleService {
 
   /**
   Sets the document title and publishes the same value through the title signal.
+  @param title New document and application title.
   */
   setTitle(title: string) {
     this.#angularTitleService.setTitle(title);

@@ -39,6 +39,7 @@ export class LastfmMetadataService {
 
   /**
   Finds thumbnail and original cover URLs for an album described by its tags.
+  @param tags Track tags containing the artist and album names.
   */
   async getCoverPictureUrls(tags: Id3Tags): Promise<RemoteCoverArtUrls | undefined> {
     if (!tags.artist || !tags.album) {
@@ -56,6 +57,8 @@ export class LastfmMetadataService {
 
   /**
   Requests album information from Last.fm for the given artist and album.
+  @param artist Album artist name.
+  @param album Album title.
   */
   async #fetchAlbumInfo(artist: string, album: string): Promise<LastfmResponse> {
     const url = this.#buildApiUrl('album.getinfo', {
@@ -68,6 +71,8 @@ export class LastfmMetadataService {
 
   /**
   Builds a Last.fm API URL with authentication, response format, and parameters.
+  @param method Last.fm API method name.
+  @param params Additional API query parameters.
   */
   #buildApiUrl(method: string, params: Record<string, string>): string {
     const queryParams = new URLSearchParams({
@@ -82,6 +87,7 @@ export class LastfmMetadataService {
 
   /**
   Selects suitable thumbnail and full-size artwork URLs from an API response.
+  @param data Last.fm response to inspect.
   */
   #extractCoverUrls(data: LastfmResponse): RemoteCoverArtUrls | undefined {
     if ('error' in data || !('album' in data)) {

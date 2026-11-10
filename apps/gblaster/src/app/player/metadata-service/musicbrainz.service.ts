@@ -20,6 +20,7 @@ export class MusicbrainzService {
 
   /**
   Finds album cover URLs for the artist and album in the supplied tags.
+  @param tags Track tags containing the artist and album names.
   */
   async getCoverPictureUrls(tags: Id3Tags): Promise<RemoteCoverArtUrls | undefined> {
     if (!tags.artist || !tags.album) {
@@ -37,6 +38,8 @@ export class MusicbrainzService {
 
   /**
   Searches MusicBrainz for an album release group matching artist and title.
+  @param artist Album artist name.
+  @param album Album title.
   */
   async #findReleaseGroupId(artist: string, album: string): Promise<string | undefined> {
     const query = `release:${escapeLuceneQueryString(album)} AND artist:${escapeLuceneQueryString(artist)} AND primarytype:Album`;
@@ -52,6 +55,7 @@ export class MusicbrainzService {
 
   /**
   Retrieves release-group artwork and selects front art or a fallback image.
+  @param releaseGroupId MusicBrainz release-group identifier.
   */
   async #fetchCoverArt(releaseGroupId: string): Promise<RemoteCoverArtUrls | undefined> {
     try {

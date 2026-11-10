@@ -68,6 +68,7 @@ export class LibraryService {
 
   /**
   Deletes the given tracks from IndexedDB and releases their cover blob URLs.
+  @param tracks Tracks to delete from the library.
   */
   async removeTracks(tracks: IndexedDbTrackMetadata[]): Promise<void> {
     await Promise.all(tracks.map((track) => firstValueFrom(this.#indexedDbService.delete('library', track.hash))));

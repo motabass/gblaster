@@ -164,6 +164,7 @@ export class AudioService {
 
   /**
   Disconnects an analyser node previously connected by this service.
+  @param analyser Analyser node to disconnect.
   */
   disconnectAnalyserNode(analyser: AnalyserNode): void {
     if (!this.#connectedAnalyzers.has(analyser)) {
@@ -186,6 +187,7 @@ export class AudioService {
 
   /**
   Sets a file as the audio source and revokes the previous blob URL.
+  @param file Audio file to use as the source.
   */
   setFileAsSource(file: File) {
     const oldSource = this.#audioElement.src;
@@ -228,6 +230,7 @@ export class AudioService {
 
   /**
   Enables or disables looping on the audio element.
+  @param loop Whether playback should loop.
   */
   setLoop(loop: boolean) {
     this.#audioElement.loop = loop;
@@ -236,6 +239,8 @@ export class AudioService {
 
   /**
   Seeks to a playback position, using the fast-seek API when requested.
+  @param position Target playback position in seconds.
+  @param fastSeek Whether to use the browser's fast-seek operation when available.
   */
   seekToPosition(position: number, fastSeek = false) {
     if (fastSeek && 'fastSeek' in this.#audioElement) {
@@ -247,6 +252,7 @@ export class AudioService {
 
   /**
   Returns a cached read-only signal for a frequency band's equalizer gain.
+  @param bandFrequency Frequency band whose gain signal is requested.
   */
   getFrequencyBandGainSignal(bandFrequency: FrequencyBand): Signal<number> {
     let bandGainSignal = this.#frequencyBandGainSignals.get(bandFrequency);
@@ -259,6 +265,8 @@ export class AudioService {
 
   /**
   Sets, persists, and reactively publishes the gain for one frequency band.
+  @param bandFrequency Frequency band to update.
+  @param gainValue Gain in decibels to apply.
   */
   setFrequencyBandGain(bandFrequency: FrequencyBand, gainValue: number) {
     this.#frequencyFilters[bandFrequency].gain.setTargetAtTime(gainValue, this.#audioContext.currentTime, 0.01);
@@ -272,6 +280,7 @@ export class AudioService {
 
   /**
   Resets one frequency band's equalizer gain to zero.
+  @param bandFrequency Frequency band to reset.
   */
   resetFrequencyBandGain(bandFrequency: FrequencyBand) {
     this.setFrequencyBandGain(bandFrequency, 0);
@@ -279,6 +288,7 @@ export class AudioService {
 
   /**
   Sets and persists the output volume when the value is between zero and one.
+  @param value Output volume from zero to one.
   */
   setVolume(value: number) {
     if (!(value >= 0 && value <= 1)) {
@@ -292,6 +302,7 @@ export class AudioService {
 
   /**
   Sets and persists the equalizer's base gain.
+  @param volume Base gain multiplier to apply.
   */
   setBaseGain(volume: number) {
     this.#eqGainNode.gain.setTargetAtTime(volume, this.#audioContext.currentTime, 0.01);

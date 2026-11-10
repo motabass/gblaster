@@ -57,6 +57,7 @@ export class ThemeService {
 
   /**
   Sets and persists the preferred color-scheme mode.
+  @param isDarkMode Whether dark mode should be enabled.
   */
   setDarkMode(isDarkMode: boolean) {
     this.#localStorageService.store(DARK_MODE_PREFERENCE_KEY, isDarkMode);
@@ -65,6 +66,7 @@ export class ThemeService {
 
   /**
   Sets the primary and accent colors from a track's color configuration.
+  @param colors Main and accent colors to apply.
   */
   setColors(colors: ColorConfig) {
     this.#primaryColor.set(colors.mainColor || FALLBACK_PRIMARY_COLOR);
@@ -73,6 +75,7 @@ export class ThemeService {
 
   /**
   Sets the primary theme color, using the fallback when the value is empty.
+  @param color Primary color value to apply.
   */
   setPrimaryColor(color: string) {
     this.#primaryColor.set(color || FALLBACK_PRIMARY_COLOR);
@@ -80,6 +83,7 @@ export class ThemeService {
 
   /**
   Sets the accent theme color, using the fallback when the value is empty.
+  @param color Accent color value to apply.
   */
   setAccentColor(color: string) {
     this.#accentColor.set(color || FALLBACK_ACCENT_COLOR);

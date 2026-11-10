@@ -28,6 +28,7 @@ export class ProgressService {
 
   /**
   Initializes progress counters for a batch containing the given number of files.
+  @param totalFiles Number of files in the batch.
   */
   startProcessing(totalFiles: number): void {
     this.#totalFilesToProcess.set(totalFiles);
@@ -36,6 +37,7 @@ export class ProgressService {
 
   /**
   Sets the name or status of the file currently being processed.
+  @param fileName File name or processing status to display.
   */
   updateCurrentFile(fileName: string): void {
     this.#processingFile.set(fileName);

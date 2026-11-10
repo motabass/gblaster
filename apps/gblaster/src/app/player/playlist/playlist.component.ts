@@ -29,15 +29,25 @@ import { CdkFixedSizeVirtualScroll, CdkVirtualForOf, CdkVirtualScrollViewport } 
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
 import { MatMenu, MatMenuContent, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
 
-/** Height of a playlist row in px; must match the list item height in the stylesheet. */
+/**
+Height of a playlist row in px; must match the list item height in the stylesheet.
+*/
 const ITEM_SIZE = 72;
-/** Distance from the bottom (px) within which autoscroll stays enabled. */
+/**
+Distance from the bottom (px) within which autoscroll stays enabled.
+*/
 const AUTOSCROLL_BOTTOM_THRESHOLD = 140;
-/** Maximum scroll distance (in items) that is animated; farther jumps are instant. */
+/**
+Maximum scroll distance (in items) that is animated; farther jumps are instant.
+*/
 const SMOOTH_SCROLL_MAX_DISTANCE = 20;
-/** Time window (ms) after a programmatic scroll in which scroll events are not treated as user input. */
+/**
+Time window (ms) after a programmatic scroll in which scroll events are not treated as user input.
+*/
 const PROGRAMMATIC_SCROLL_TIMEOUT_MS = 1000;
-/** Number of items at the viewport edges that count as "not visible" for the current track. */
+/**
+Number of items at the viewport edges that count as "not visible" for the current track.
+*/
 const VISIBLE_MARGIN_ITEMS = 1;
 
 @Component({
@@ -107,7 +117,9 @@ export class PlaylistComponent {
     });
   }
 
-  /** Autoscroll is on while the user is at the bottom; our own scrolls are ignored. */
+  /**
+  Autoscroll is on while the user is at the bottom; our own scrolls are ignored.
+  */
   #trackUserScrolling(): void {
     toObservable(this.scrollViewport)
       .pipe(
@@ -136,12 +148,16 @@ export class PlaylistComponent {
       });
   }
 
-  /** Suppresses user-scroll detection while a programmatic (possibly smooth) scroll is running. */
+  /**
+  Suppresses user-scroll detection while a programmatic (possibly smooth) scroll is running.
+  */
   #markProgrammaticScroll(): void {
     this.#programmaticScrollUntil = performance.now() + PROGRAMMATIC_SCROLL_TIMEOUT_MS;
   }
 
-  /** Smoothly scrolls to the last playlist entry. */
+  /**
+  Smoothly scrolls to the last playlist entry.
+  */
   #scrollToBottom(): void {
     const viewport = this.scrollViewport();
     const length = this.#playlistLength();
@@ -151,9 +167,9 @@ export class PlaylistComponent {
   }
 
   /**
-   * Centers the currently loaded track if it is (nearly) outside the visible area.
-   * Uses smooth scrolling for short distances and an instant jump for long ones.
-   */
+  Centers the currently loaded track if it is (nearly) outside the visible area.
+  Uses smooth scrolling for short distances and an instant jump for long ones.
+  */
   #scrollToCurrentTrack(): void {
     const viewport = this.scrollViewport();
     const currentTrack = this.playerService.currentlyLoadedTrack();

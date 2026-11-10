@@ -143,6 +143,7 @@ export class PlayerService {
 
   /**
   Selects and plays a track, updating the browser media session and theme.
+  @param track Track to load and play, if available.
   */
   async #playTrack(track: Track | undefined) {
     if (!track) {
@@ -173,6 +174,7 @@ export class PlayerService {
 
   /**
   Extracts cover colors for a track and updates the loaded-track signal.
+  @param track Track whose cover image should be analyzed.
   */
   async #extractAndSetCoverColors(track: Track) {
     try {
@@ -206,6 +208,7 @@ export class PlayerService {
 
   /**
   Adds a track to the playlist unless a track with the same hash is present.
+  @param song Track to add.
   */
   addTrackToPlaylist(song: Track) {
     if (!this.currentPlaylist().some((playlistSong) => playlistSong.metadata?.hash === song.metadata?.hash)) {
@@ -215,6 +218,7 @@ export class PlayerService {
 
   /**
   Removes a track from the playlist and stops or deselects it when necessary.
+  @param track Track to remove.
   */
   removeTrackFromPlaylist(track: Track) {
     // If the removed track is currently loaded, stop playback
@@ -232,6 +236,8 @@ export class PlayerService {
 
   /**
   Seeks within the loaded track when the requested position is in range.
+  @param value Target playback position in seconds, if specified.
+  @param fastSeek Whether to use the browser's fast-seek operation when available.
   */
   setSeekPosition(value: number | undefined, fastSeek = false) {
     if (value !== undefined && value >= 0 && value <= this.durationSeconds()) {
@@ -241,6 +247,7 @@ export class PlayerService {
 
   /**
   Marks a track as selected without starting playback.
+  @param song Track to select.
   */
   selectSong(song: Track) {
     this.#selectedTrack.set(song);
@@ -248,6 +255,7 @@ export class PlayerService {
 
   /**
   Toggles the given track if loaded, otherwise loads and plays it.
+  @param track Track whose playback should be toggled or started.
   */
   async playPauseTrack(track: Track) {
     if (this.#audioService.isLoading()) {
@@ -340,6 +348,7 @@ export class PlayerService {
 
   /**
   Finds and plays a playlist track by its metadata hash.
+  @param hash Metadata hash of the track to play.
   */
   async playTrackByHash(hash: string) {
     const playlist = this.currentPlaylist();
@@ -393,6 +402,7 @@ export class PlayerService {
 
   /**
   Moves the playhead backward by the specified number of seconds.
+  @param seconds Number of seconds to move backward.
   */
   seekLeft(seconds: number) {
     this.setSeekPosition(this.currentTime() - seconds);
@@ -400,6 +410,7 @@ export class PlayerService {
 
   /**
   Moves the playhead forward by the specified number of seconds.
+  @param seconds Number of seconds to move forward.
   */
   seekRight(seconds: number) {
     this.setSeekPosition(this.currentTime() + seconds);
@@ -407,6 +418,7 @@ export class PlayerService {
 
   /**
   Applies a seek request received from the browser media session.
+  @param details Media-session seek request details.
   */
   #seekToHandler(details: MediaSessionActionDetails) {
     if (details.seekTime) {

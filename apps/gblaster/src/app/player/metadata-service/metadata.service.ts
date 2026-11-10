@@ -35,6 +35,7 @@ export class MetadataService {
 
   /**
   Enables or disables remote metadata lookup and persists the preference.
+  @param value Whether remote metadata lookup should be enabled.
   */
   setUseWebMetainfos(value: boolean) {
     this.#useWebMetainfos.set(value);
@@ -43,6 +44,7 @@ export class MetadataService {
 
   /**
   Enables or disables embedded-tag cover art and persists the preference.
+  @param value Whether embedded cover art should be enabled.
   */
   setUseTagEmbeddedPicture(value: boolean) {
     this.#useTagEmbeddedPicture.set(value);
@@ -51,6 +53,7 @@ export class MetadataService {
 
   /**
   Sets whether embedded cover art takes precedence over remote artwork.
+  @param value Whether embedded artwork should take precedence.
   */
   setPreferTagEmbeddedPicture(value: boolean) {
     this.#preferTagEmbeddedPicture.set(value);
@@ -59,6 +62,7 @@ export class MetadataService {
 
   /**
   Extracts or loads metadata for files, stores new records, and yields tracks.
+  @param fileDatas Audio files and their optional file handles to process.
   */
   async *addFilesToLibrary(fileDatas: FileData[]) {
     if (!fileDatas?.length) {
@@ -93,6 +97,7 @@ export class MetadataService {
 
   /**
   Stores track metadata without its session-specific cached blob URL.
+  @param metadata Track metadata to store.
   */
   async #addMetadataToIndexedDb(metadata: TrackMetadata) {
     const { cachedBlobUrl, ...metadataToStore } = metadata;
@@ -102,6 +107,7 @@ export class MetadataService {
 
   /**
   Loads cached metadata by file hash or extracts metadata for a new file.
+  @param fileData Audio file and its optional file handle.
   */
   async #getTrackMetadataFromCacheOrExtract(fileData: FileData): Promise<TrackMetadataResult | undefined> {
     this.#progressService.updateCurrentFile(fileData.file.name + ' - Generating hash...');
@@ -121,6 +127,8 @@ export class MetadataService {
 
   /**
   Extracts tags and cover art for a file and constructs its library metadata.
+  @param fileData Audio file and its optional file handle.
+  @param hash Hash used to identify the file in the library.
   */
   async #extractTrackMetadata(fileData: FileData, hash: string): Promise<TrackMetadataResult | undefined> {
     this.#progressService.updateCurrentFile(fileData.file.name + ' - Reading tags...');
@@ -154,6 +162,8 @@ export class MetadataService {
 
   /**
   Looks up remote album artwork using the configured metadata providers.
+  @param fileName Name of the file being processed, for progress reporting.
+  @param tags Extracted tags used to identify the album.
   */
   async #fetchRemoteCoverUrls(fileName: string, tags: Id3Tags): Promise<RemoteCoverArtUrls | undefined> {
     if (!this.useWebMetainfos() || !tags.artist || !tags.album) {
@@ -167,6 +177,7 @@ export class MetadataService {
 
   /**
   Determines whether embedded artwork should replace the remote cover.
+  @param metadata Track metadata whose artwork settings should be evaluated.
   */
   #shouldUseEmbeddedPicture(metadata: TrackMetadata): boolean {
     return !!(
@@ -178,6 +189,7 @@ export class MetadataService {
 
   /**
   Creates a browser object URL for an embedded cover image.
+  @param embeddedPicture Embedded picture data and MIME type.
   */
   #createObjectUrlFromEmbeddedPicture(embeddedPicture: Id3CoverPicture): string {
     const blob = new Blob([embeddedPicture.data], { type: embeddedPicture.format });
@@ -186,6 +198,7 @@ export class MetadataService {
 
   /**
   Applies a cached or newly created object URL for preferred embedded art.
+  @param meta Track metadata to update with embedded artwork.
   */
   applyEmbeddedCoverObjectUrsl(meta: TrackMetadata): TrackMetadata {
     if (!this.#shouldUseEmbeddedPicture(meta)) {
