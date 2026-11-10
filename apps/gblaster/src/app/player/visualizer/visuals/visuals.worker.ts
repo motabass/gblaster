@@ -36,7 +36,11 @@ let barkScaleBandEnergy: Float32Array;
 let sliceWidthCache: number;
 let rotation = 0;
 
-addEventListener('message', (event: MessageEvent<VisualsWorkerMessage>) => {
+/**
+Applies worker commands and renders each received audio-analysis frame.
+@param event Message containing canvas, sizing, options, or analyser data.
+*/
+function handleMessage(event: MessageEvent<VisualsWorkerMessage>): void {
   // message for offscreen canvas
   if (event.data.canvas) {
     canvas = event.data.canvas;
@@ -110,9 +114,15 @@ addEventListener('message', (event: MessageEvent<VisualsWorkerMessage>) => {
 
   // Notify main thread we're ready for more data, including the buffer for reuse
   postMessage({ bufferReady: true, reusableBuffer: analyserData }, [analyserData.buffer]);
-});
+}
 
-function setupVisualsWorkerWithOptions(options: VisualizerOptions) {
+addEventListener('message', handleMessage);
+
+/**
+Initializes visualizer state and drawing resources from the supplied options.
+@param options Visualizer mode and its rendering configuration.
+*/
+function setupVisualsWorkerWithOptions(options: VisualizerOptions): void {
   if (!context) return;
 
   mode = options.mode;
@@ -150,7 +160,10 @@ function setupVisualsWorkerWithOptions(options: VisualizerOptions) {
   analyserData = new Uint8Array(bufferLength);
 }
 
-function drawOsc() {
+/**
+Draws the current waveform as a straight oscilloscope trace.
+*/
+function drawOsc(): void {
   if (!context) return;
 
   context.clearRect(0, 0, canvasWidth, canvasHeight);
@@ -173,7 +186,10 @@ function drawOsc() {
   context.stroke();
 }
 
-function drawCircularOsc() {
+/**
+Draws the current waveform as a rotating circular trace.
+*/
+function drawCircularOsc(): void {
   if (!context) return;
 
   context.clearRect(0, 0, canvasWidth, canvasHeight);
@@ -214,7 +230,10 @@ function drawCircularOsc() {
   context.stroke();
 }
 
-function drawBars() {
+/**
+Draws frequency energy as vertical bars with falling peak indicators.
+*/
+function drawBars(): void {
   if (!context) return;
 
   const barkScaleData = convertToBarkScale();
@@ -246,7 +265,10 @@ function drawBars() {
   }
 }
 
-function drawCircularBars() {
+/**
+Draws frequency energy as bars arranged around a circle.
+*/
+function drawCircularBars(): void {
   if (!context) return;
 
   const barkScaleData = convertToBarkScale();
@@ -306,6 +328,10 @@ function drawCircularBars() {
   context.fill();
 }
 
+/**
+Groups analyser magnitudes into perceptually spaced Bark-scale bands.
+@returns Accumulated energy for each visualizer band.
+*/
 function convertToBarkScale(): Float32Array {
   let barkMap = frequencyToBarkMap;
   if (!barkMap) {
@@ -330,6 +356,10 @@ function convertToBarkScale(): Float32Array {
   return barkScaleBandEnergy;
 }
 
+/**
+Builds a Bark-scale frequency mapping for the current FFT configuration.
+@returns Bark scale value for each FFT frequency bin.
+*/
 function initBarkScale(): Float32Array {
   const barkMap = new Float32Array(fftSize / 2);
   for (let index = 0; index < fftSize / 2; index++) {
@@ -339,10 +369,20 @@ function initBarkScale(): Float32Array {
   return barkMap;
 }
 
+/**
+Checks whether visualizer options configure a bar-based mode.
+@param options Options to narrow.
+@returns Whether the options contain bar visualizer settings.
+*/
 function isBarsVisualizerOptions(options: VisualizerOptions): options is BarsVisualizerOptions {
   return options.mode === 'bars' || options.mode === 'circular-bars';
 }
 
+/**
+Checks whether visualizer options configure an oscilloscope mode.
+@param options Options to narrow.
+@returns Whether the options contain oscilloscope settings.
+*/
 function isOscVisualizerOptions(options: VisualizerOptions): options is OscVisualizerOptions {
   return options.mode === 'osc' || options.mode === 'circular-osc';
 }

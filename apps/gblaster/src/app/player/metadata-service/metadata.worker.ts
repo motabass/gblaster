@@ -2,7 +2,11 @@ import { Id3CoverPicture, Id3Tags } from './id3-tags.types';
 import { parseBlob } from 'music-metadata';
 import { TagsWorkerRequest } from './metadata.types';
 
-addEventListener('message', async (event: MessageEvent<TagsWorkerRequest>) => {
+/**
+Handles a tag-extraction request sent from the application thread.
+@param event Worker message containing the request ID and audio file.
+*/
+async function handleMessage(event: MessageEvent<TagsWorkerRequest>): Promise<void> {
   const { id, file } = event.data;
 
   if (!id || !file) {
@@ -23,8 +27,15 @@ addEventListener('message', async (event: MessageEvent<TagsWorkerRequest>) => {
     }
     self.postMessage({ id, error: errorMessage });
   }
-});
+}
 
+addEventListener('message', handleMessage);
+
+/**
+Extracts common tags and embedded cover art from an audio file.
+@param file Audio file to inspect.
+@returns Extracted tags, or undefined when the file cannot be parsed.
+*/
 async function extractTags(file: File): Promise<Id3Tags | undefined> {
   try {
     const tags = await parseBlob(file, {
