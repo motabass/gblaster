@@ -82,7 +82,7 @@
     "@angular/router": "22.2.5",
     "@angular/service-worker": "22.2.5",
     "@noble/hashes": "2.4.0",
-    "colord": "2.10.0",
+    "colord": "2.11.0",
     "date-fns": "4.4.0",
     "fuse.js": "7.5.0",
     "music-metadata": "12.3.5",
@@ -120,8 +120,8 @@
     "@types/node": "26.6.6",
     "@types/spark-md5": "3.0.5",
     "@types/wicg-file-system-access": "2023.10.7",
-    "@typescript-eslint/parser": "8.72.1",
-    "@typescript-eslint/utils": "8.72.1",
+    "@typescript-eslint/parser": "8.72.2",
+    "@typescript-eslint/utils": "8.72.2",
     "@vitest/browser-playwright": "5.1.0",
     "@vitest/coverage-v8": "5.1.0",
     "@vitest/ui": "5.1.0",
@@ -154,8 +154,8 @@
     "svgo": "4.1.0",
     "ts-node": "10.9.2",
     "typescript": "6.0.3",
-    "typescript-eslint": "8.72.1",
-    "vite": "8.3.6",
+    "typescript-eslint": "8.72.2",
+    "vite": "8.3.7",
     "vitest": "5.1.0"
   }
 }
