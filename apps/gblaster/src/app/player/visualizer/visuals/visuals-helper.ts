@@ -1,9 +1,9 @@
 import { VisualizerMode } from './visuals.types';
 
 /**
-Gets the next visualizer mode in the cycle
-@param currentMode The current visualizer mode
-@returns The next visualizer mode
+Returns the next visualizer mode in the cycle.
+@param currentMode Current visualizer mode.
+@returns The next visualizer mode.
 */
 export function getNextVisualizerMode(currentMode: VisualizerMode): VisualizerMode {
   switch (currentMode) {

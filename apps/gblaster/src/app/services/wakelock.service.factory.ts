@@ -1,5 +1,8 @@
 import { WakelockService } from './wakelock.service';
 
+/**
+Creates the wake-lock service only when the browser exposes the API.
+*/
 export function wakelockServiceFactory(): WakelockService | null {
   if (isWakeLockSupported()) {
     console.log('Wakelock support detected');
@@ -9,6 +12,9 @@ export function wakelockServiceFactory(): WakelockService | null {
   return null;
 }
 
+/**
+Returns whether the browser supports the Screen Wake Lock API.
+*/
 function isWakeLockSupported(): boolean {
   return 'wakeLock' in navigator;
 }

@@ -12,6 +12,9 @@ import { generateFileHash } from './metadata-helper';
 import { ProgressService } from './progress.service';
 import { Id3CoverPicture, Id3Tags } from './id3-tags.types';
 
+/**
+Extracts, caches, and manages track metadata and embedded cover images.
+*/
 @Service()
 export class MetadataService {
   readonly #id3TagsService = inject(Id3TagsService);
@@ -30,21 +33,33 @@ export class MetadataService {
   readonly #preferTagEmbeddedPicture = signal(this.#localStorageService.retrieve('preferTagEmbeddedPicture') ?? true);
   readonly preferTagEmbeddedPicture = this.#preferTagEmbeddedPicture.asReadonly();
 
+  /**
+  Enables or disables remote metadata lookup and persists the preference.
+  */
   setUseWebMetainfos(value: boolean) {
     this.#useWebMetainfos.set(value);
     this.#localStorageService.store('useWebMetainfos', value);
   }
 
+  /**
+  Enables or disables embedded-tag cover art and persists the preference.
+  */
   setUseTagEmbeddedPicture(value: boolean) {
     this.#useTagEmbeddedPicture.set(value);
     this.#localStorageService.store('useTagEmbeddedPicture', value);
   }
 
+  /**
+  Sets whether embedded cover art takes precedence over remote artwork.
+  */
   setPreferTagEmbeddedPicture(value: boolean) {
     this.#preferTagEmbeddedPicture.set(value);
     this.#localStorageService.store('preferTagEmbeddedPicture', value);
   }
 
+  /**
+  Extracts or loads metadata for files, stores new records, and yields tracks.
+  */
   async *addFilesToLibrary(fileDatas: FileData[]) {
     if (!fileDatas?.length) {
       return;
@@ -76,12 +91,18 @@ export class MetadataService {
     }
   }
 
+  /**
+  Stores track metadata without its session-specific cached blob URL.
+  */
   async #addMetadataToIndexedDb(metadata: TrackMetadata) {
     const { cachedBlobUrl, ...metadataToStore } = metadata;
     // Never persist cachedBlobUrl - blob URLs are session-specific
     await firstValueFrom(this.#indexedDBService.add('library', metadataToStore));
   }
 
+  /**
+  Loads cached metadata by file hash or extracts metadata for a new file.
+  */
   async #getTrackMetadataFromCacheOrExtract(fileData: FileData): Promise<TrackMetadataResult | undefined> {
     this.#progressService.updateCurrentFile(fileData.file.name + ' - Generating hash...');
     const hash = await generateFileHash(fileData.file);
@@ -98,6 +119,9 @@ export class MetadataService {
     return this.#extractTrackMetadata(fileData, hash);
   }
 
+  /**
+  Extracts tags and cover art for a file and constructs its library metadata.
+  */
   async #extractTrackMetadata(fileData: FileData, hash: string): Promise<TrackMetadataResult | undefined> {
     this.#progressService.updateCurrentFile(fileData.file.name + ' - Reading tags...');
     const tags = await this.#id3TagsService.extractTags(fileData.file);
@@ -128,6 +152,9 @@ export class MetadataService {
     return { metadata: this.applyEmbeddedCoverObjectUrsl(metadata), fromCache: false };
   }
 
+  /**
+  Looks up remote album artwork using the configured metadata providers.
+  */
   async #fetchRemoteCoverUrls(fileName: string, tags: Id3Tags): Promise<RemoteCoverArtUrls | undefined> {
     if (!this.useWebMetainfos() || !tags.artist || !tags.album) {
       return undefined;
@@ -138,6 +165,9 @@ export class MetadataService {
     return coverUrls ? coverUrls : this.#musicbrainzService.getCoverPictureUrls(tags);
   }
 
+  /**
+  Determines whether embedded artwork should replace the remote cover.
+  */
   #shouldUseEmbeddedPicture(metadata: TrackMetadata): boolean {
     return !!(
       metadata.embeddedPicture &&
@@ -146,11 +176,17 @@ export class MetadataService {
     );
   }
 
+  /**
+  Creates a browser object URL for an embedded cover image.
+  */
   #createObjectUrlFromEmbeddedPicture(embeddedPicture: Id3CoverPicture): string {
     const blob = new Blob([embeddedPicture.data], { type: embeddedPicture.format });
     return URL.createObjectURL(blob);
   }
 
+  /**
+  Applies a cached or newly created object URL for preferred embedded art.
+  */
   applyEmbeddedCoverObjectUrsl(meta: TrackMetadata): TrackMetadata {
     if (!this.#shouldUseEmbeddedPicture(meta)) {
       return meta;
@@ -174,11 +210,9 @@ export class MetadataService {
   }
 
   /**
-  Revokes blob URLs for tracks with embedded pictures.
-  Call this when:
-  - Removing tracks from library
-  - Clearing the entire library
-    for (const track of tracks) {
+  Revokes cached blob URLs for tracks with embedded pictures.
+  Call when tracks are removed or the entire library is cleared.
+  @param tracks Tracks whose cached cover URLs should be released.
   */
   revokeBlobUrlsForTracks(tracks: TrackMetadata[]): void {
     for (const track of tracks) {
@@ -192,8 +226,8 @@ export class MetadataService {
   }
 
   /**
-  Revokes blob URL for a single track.
-  Call this when removing a single track from library.
+  Revokes the cached blob URL for one track.
+  @param track Track whose cached cover URL should be released.
   */
   revokeBlobUrlForTrack(track: TrackMetadata): void {
     if (!track.cachedBlobUrl) {

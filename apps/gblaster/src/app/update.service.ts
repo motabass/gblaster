@@ -5,6 +5,9 @@ import { PromptDialogComponent, PromptDialogData } from '@motabass/ui-components
 import { firstValueFrom } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
+/**
+Checks for service-worker updates and prompts the user before activating them.
+*/
 @Service()
 export class UpdateService {
   readonly #swUpdate = inject(SwUpdate);
@@ -12,6 +15,9 @@ export class UpdateService {
   readonly #destroyRef = inject(DestroyRef);
   #isInitialized = false;
 
+  /**
+  Initializes update notifications once and checks for an available update.
+  */
   async init(): Promise<boolean> {
     if (!this.#swUpdate.isEnabled) {
       return false;
@@ -25,6 +31,9 @@ export class UpdateService {
     return this.#swUpdate.checkForUpdate();
   }
 
+  /**
+  Subscribes to service-worker version events until this service is destroyed.
+  */
   #setupUpdateListener(): void {
     this.#swUpdate.versionUpdates.pipe(takeUntilDestroyed(this.#destroyRef)).subscribe((event) => {
       switch (event.type) {
@@ -46,6 +55,9 @@ export class UpdateService {
     });
   }
 
+  /**
+  Prompts for a ready update and reloads the page after activation.
+  */
   async #handleVersionReady(): Promise<void> {
     try {
       const shouldUpdate = await this.askUserForUpdate();
@@ -58,6 +70,9 @@ export class UpdateService {
     }
   }
 
+  /**
+  Opens the update confirmation dialog and resolves to the user's choice.
+  */
   async askUserForUpdate(): Promise<boolean> {
     const data: PromptDialogData = {
       title: 'Update verfügbar!',

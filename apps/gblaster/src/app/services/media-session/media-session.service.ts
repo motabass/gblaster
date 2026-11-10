@@ -1,10 +1,16 @@
 import { effect, inject, Service } from '@angular/core';
 import { AudioService } from '../../player/audio.service';
 
+/**
+Synchronizes audio playback and metadata with the browser Media Session API.
+*/
 @Service()
 export class MediaSessionService {
   #audioService = inject(AudioService);
 
+  /**
+  Observes audio state and updates browser playback and position state.
+  */
   constructor() {
     effect(() => {
       const playing = this.#audioService.isPlaying();
@@ -26,6 +32,9 @@ export class MediaSessionService {
     });
   }
 
+  /**
+  Registers a handler for a supported browser media-session action.
+  */
   setActionHandler(action: MediaSessionAction, handler: (details: MediaSessionActionDetails) => unknown) {
     try {
       navigator.mediaSession.setActionHandler(action, handler);
@@ -34,6 +43,9 @@ export class MediaSessionService {
     }
   }
 
+  /**
+  Registers a handler for media-session seek-to requests.
+  */
   setSeekToHandler(action: (details: MediaSessionActionDetails) => void) {
     try {
       navigator.mediaSession.setActionHandler('seekto', (details) => {
@@ -44,6 +56,9 @@ export class MediaSessionService {
     }
   }
 
+  /**
+  Publishes the current playback duration and position to the browser.
+  */
   updateMediaPositionState(duration: number, currentTime: number) {
     if (navigator.mediaSession?.setPositionState) {
       navigator.mediaSession.setPositionState({
@@ -53,10 +68,16 @@ export class MediaSessionService {
     }
   }
 
+  /**
+  Sets the metadata shown by browser and operating-system media controls.
+  */
   setBrowserMetadata(metadata: MediaMetadataInit) {
     navigator.mediaSession.metadata = new MediaMetadata(metadata);
   }
 
+  /**
+  Sets the playback state exposed through the browser media session.
+  */
   #setPlaybackState(state: MediaSessionPlaybackState) {
     navigator.mediaSession.playbackState = state;
   }

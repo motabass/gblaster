@@ -2,10 +2,16 @@ import { inject, Service } from '@angular/core';
 import { Platform } from '@angular/cdk/platform';
 import { ALLOWED_MIMETYPES, FileData } from './file-loader.helpers';
 
+/**
+Opens supported audio files or folders and returns their file handles.
+*/
 @Service()
 export class FileLoaderService {
   readonly #platform = inject(Platform);
 
+  /**
+  Opens a directory picker and returns no handle if the user cancels.
+  */
   async #pickFolder() {
     try {
       const handle = await showDirectoryPicker();
@@ -21,6 +27,9 @@ export class FileLoaderService {
     }
   }
 
+  /**
+  Opens a file picker for supported audio files.
+  */
   async #pickFiles(): Promise<FileSystemFileHandle[]> {
     try {
       return await showOpenFilePicker({
@@ -47,6 +56,9 @@ export class FileLoaderService {
     }
   }
 
+  /**
+  Prompts for audio files and returns supported files with their handles.
+  */
   async getFilesFromPickedFolder(): Promise<FileData[]> {
     if (this.#platform.ANDROID) {
       const fileHandles = await this.#pickFiles();
@@ -83,6 +95,11 @@ export class FileLoaderService {
   }
 }
 
+/**
+Recursively collects supported audio files from a directory and its descendants.
+@param dirHandle Directory handle to enumerate.
+@returns Audio files found beneath the directory.
+*/
 async function recursiveGetAudioFilesFromDirectory(dirHandle: FileSystemDirectoryHandle): Promise<FileData[]> {
   const fileData: FileData[] = [];
 

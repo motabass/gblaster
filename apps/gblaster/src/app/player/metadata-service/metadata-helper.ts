@@ -3,6 +3,11 @@ import { bytesToHex } from '@noble/hashes/utils.js';
 import { Vibrant } from 'node-vibrant/browser';
 import type { CoverColorPalette } from './metadata.types';
 
+/**
+Converts a valid URL to HTTPS while preserving invalid input unchanged.
+@param url URL to normalize.
+@returns The HTTPS URL, or the original input when it is invalid.
+*/
 export function ensureHttps(url: string): string {
   if (!url) return url;
 
@@ -17,10 +22,10 @@ export function ensureHttps(url: string): string {
 }
 
 /**
-Generates a hash for a file by sampling strategic portions of its content
-@param file The file to hash
-@returns A hex string representing the hash of the file
-*/
+ * Generates a hash for a file by sampling strategic portions of its content.
+ * @param file File whose contents should be hashed.
+ * @returns A hexadecimal representation of the file hash.
+ */
 export async function generateFileHash(file: File): Promise<string> {
   const fileSize = file.size;
 
@@ -75,10 +80,10 @@ export async function generateFileHash(file: File): Promise<string> {
 }
 
 /**
-Extracts a color palette from an image URL using node-vibrant
-@param url The URL of the image to extract colors from
-@returns A color palette or undefined if extraction fails
-*/
+ * Extracts a color palette from an image URL using node-vibrant.
+ * @param url URL of the image to analyze.
+ * @returns The extracted color palette, or undefined if extraction fails.
+ */
 export async function extractColorsWithNodeVibrant(url: string): Promise<CoverColorPalette | undefined> {
   try {
     const palette = await Vibrant.from(url).getPalette();

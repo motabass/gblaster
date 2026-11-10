@@ -2,12 +2,18 @@ import { OnDestroy, Service } from '@angular/core';
 import { Id3Tags } from './id3-tags.types';
 import { TagsWorkerResponse } from './metadata.types';
 
+/**
+Extracts ID3 tags in a worker and resolves requests by their generated IDs.
+*/
 @Service()
 export class Id3TagsService implements OnDestroy {
   readonly #worker: Worker;
   #nextId = 0;
   readonly #pendingRequests = new Map<string, { resolve: (tags?: Id3Tags) => void; reject: (error: Error) => void }>();
 
+  /**
+  Creates the metadata worker and registers its message and error handlers.
+  */
   constructor() {
     this.#worker = new Worker(new URL('metadata.worker', import.meta.url), {
       type: 'module'
@@ -16,6 +22,9 @@ export class Id3TagsService implements OnDestroy {
     this.#worker.addEventListener('error', this.#handleError);
   }
 
+  /**
+  Extracts tags from a file, rejecting if extraction fails or times out.
+  */
   extractTags(file: File, timeoutMs = 30_000): Promise<Id3Tags | undefined> {
     if (!this.#worker) {
       return Promise.reject(new Error('Metadata worker is not available'));
@@ -45,6 +54,9 @@ export class Id3TagsService implements OnDestroy {
     });
   }
 
+  /**
+  Resolves or rejects the pending request identified by a worker response.
+  */
   #handleMessage = (event: MessageEvent<TagsWorkerResponse>): void => {
     const { id, tags, error } = event.data;
     const request = this.#pendingRequests.get(id);
@@ -62,6 +74,9 @@ export class Id3TagsService implements OnDestroy {
     }
   };
 
+  /**
+  Rejects all pending extraction requests after a worker-level error.
+  */
   #handleError = (event: ErrorEvent): void => {
     console.error('Worker error:', event);
     // Reject all pending requests on catastrophic worker error
@@ -71,6 +86,9 @@ export class Id3TagsService implements OnDestroy {
     }
   };
 
+  /**
+  Removes worker listeners, terminates the worker, and rejects pending work.
+  */
   ngOnDestroy(): void {
     if (this.#worker) {
       this.#worker.removeEventListener('message', this.#handleMessage);

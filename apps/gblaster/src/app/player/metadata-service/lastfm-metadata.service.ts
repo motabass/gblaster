@@ -27,6 +27,9 @@ interface LastfmErrorResponse {
 
 type LastfmResponse = LastfmSuccessResponse | LastfmErrorResponse;
 
+/**
+Retrieves remote album artwork through the Last.fm API.
+*/
 @Service()
 export class LastfmMetadataService {
   readonly #http = inject(HttpClient);
@@ -34,6 +37,9 @@ export class LastfmMetadataService {
   readonly #LASTFM_API_KEY = '3a67934408152a2fc3f7216c022ec1df';
   readonly #API_URL = 'https://ws.audioscrobbler.com/2.0/';
 
+  /**
+  Finds thumbnail and original cover URLs for an album described by its tags.
+  */
   async getCoverPictureUrls(tags: Id3Tags): Promise<RemoteCoverArtUrls | undefined> {
     if (!tags.artist || !tags.album) {
       return undefined;
@@ -48,6 +54,9 @@ export class LastfmMetadataService {
     }
   }
 
+  /**
+  Requests album information from Last.fm for the given artist and album.
+  */
   async #fetchAlbumInfo(artist: string, album: string): Promise<LastfmResponse> {
     const url = this.#buildApiUrl('album.getinfo', {
       artist: encodeURIComponent(artist),
@@ -57,6 +66,9 @@ export class LastfmMetadataService {
     return firstValueFrom(this.#http.get<LastfmResponse>(url));
   }
 
+  /**
+  Builds a Last.fm API URL with authentication, response format, and parameters.
+  */
   #buildApiUrl(method: string, params: Record<string, string>): string {
     const queryParams = new URLSearchParams({
       method,
@@ -68,6 +80,9 @@ export class LastfmMetadataService {
     return `${this.#API_URL}?${queryParams.toString()}`;
   }
 
+  /**
+  Selects suitable thumbnail and full-size artwork URLs from an API response.
+  */
   #extractCoverUrls(data: LastfmResponse): RemoteCoverArtUrls | undefined {
     if ('error' in data || !('album' in data)) {
       return undefined;

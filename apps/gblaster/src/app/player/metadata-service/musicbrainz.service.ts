@@ -5,6 +5,9 @@ import { CoverArtArchiveApi, MusicBrainzApi } from 'musicbrainz-api';
 import { escapeLuceneQueryString } from '@motabass/helpers';
 import { ensureHttps } from './metadata-helper';
 
+/**
+Looks up release groups and cover art through MusicBrainz and Cover Art Archive.
+*/
 @Service()
 export class MusicbrainzService {
   readonly #musicBrainzApi = new MusicBrainzApi({
@@ -15,6 +18,9 @@ export class MusicbrainzService {
 
   readonly #coverArtArchiveApi = new CoverArtArchiveApi();
 
+  /**
+  Finds album cover URLs for the artist and album in the supplied tags.
+  */
   async getCoverPictureUrls(tags: Id3Tags): Promise<RemoteCoverArtUrls | undefined> {
     if (!tags.artist || !tags.album) {
       return undefined;
@@ -29,6 +35,9 @@ export class MusicbrainzService {
     }
   }
 
+  /**
+  Searches MusicBrainz for an album release group matching artist and title.
+  */
   async #findReleaseGroupId(artist: string, album: string): Promise<string | undefined> {
     const query = `release:${escapeLuceneQueryString(album)} AND artist:${escapeLuceneQueryString(artist)} AND primarytype:Album`;
 
@@ -41,6 +50,9 @@ export class MusicbrainzService {
     }
   }
 
+  /**
+  Retrieves release-group artwork and selects front art or a fallback image.
+  */
   async #fetchCoverArt(releaseGroupId: string): Promise<RemoteCoverArtUrls | undefined> {
     try {
       // const url = `${this.COVER_API_URL}/release-group/${releaseGroupId}`;

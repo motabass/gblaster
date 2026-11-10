@@ -12,6 +12,9 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { getRandomInt } from './player-helper';
 import { extractColorsWithNodeVibrant } from './metadata-service/metadata-helper';
 
+/**
+Coordinates playlists, playback controls, metadata, theme colors, and device APIs.
+*/
 @Service()
 export class PlayerService {
   readonly #audioService = inject(AudioService);
@@ -62,6 +65,9 @@ export class PlayerService {
     return Math.floor(pos);
   });
 
+  /**
+  Registers media-session actions and connects audio completion to playlist playback.
+  */
   constructor() {
     if (this.#mediaSessionService) {
       this.#mediaSessionService.setActionHandler('play', () => this.playPause());
@@ -121,14 +127,23 @@ export class PlayerService {
     });
   }
 
+  /**
+  Acquires the optional wake lock after playback starts.
+  */
   #afterPlayLoaded() {
     return this.#wakelockService?.activateWakelock();
   }
 
+  /**
+  Releases the optional wake lock after playback pauses or stops.
+  */
   #afterPausedOrStopped() {
     return this.#wakelockService?.releaseWakelock();
   }
 
+  /**
+  Selects and plays a track, updating the browser media session and theme.
+  */
   async #playTrack(track: Track | undefined) {
     if (!track) {
       return;
@@ -156,6 +171,9 @@ export class PlayerService {
     await this.#afterPlayLoaded();
   }
 
+  /**
+  Extracts cover colors for a track and updates the loaded-track signal.
+  */
   async #extractAndSetCoverColors(track: Track) {
     try {
       const augmentedMeta = this.#metadataService.applyEmbeddedCoverObjectUrsl(track.metadata);
@@ -176,6 +194,9 @@ export class PlayerService {
     }
   }
 
+  /**
+  Prompts for files, loads their metadata, and adds each track to the playlist.
+  */
   async loadFilesToLibrary(): Promise<void> {
     const files: FileData[] = await this.#fileLoaderService.getFilesFromPickedFolder();
     for await (const track of this.#metadataService.addFilesToLibrary(files)) {
@@ -183,12 +204,18 @@ export class PlayerService {
     }
   }
 
+  /**
+  Adds a track to the playlist unless a track with the same hash is present.
+  */
   addTrackToPlaylist(song: Track) {
     if (!this.currentPlaylist().some((playlistSong) => playlistSong.metadata?.hash === song.metadata?.hash)) {
       this.#currentPlaylist.update((playlist) => [...playlist, song]);
     }
   }
 
+  /**
+  Removes a track from the playlist and stops or deselects it when necessary.
+  */
   removeTrackFromPlaylist(track: Track) {
     // If the removed track is currently loaded, stop playback
     if (this.currentlyLoadedTrack() === track) {
@@ -203,16 +230,25 @@ export class PlayerService {
     this.#currentPlaylist.update((playlist) => playlist.filter((t) => t !== track));
   }
 
+  /**
+  Seeks within the loaded track when the requested position is in range.
+  */
   setSeekPosition(value: number | undefined, fastSeek = false) {
     if (value !== undefined && value >= 0 && value <= this.durationSeconds()) {
       this.#audioService.seekToPosition(value, fastSeek);
     }
   }
 
+  /**
+  Marks a track as selected without starting playback.
+  */
   selectSong(song: Track) {
     this.#selectedTrack.set(song);
   }
 
+  /**
+  Toggles the given track if loaded, otherwise loads and plays it.
+  */
   async playPauseTrack(track: Track) {
     if (this.#audioService.isLoading()) {
       return;
@@ -225,6 +261,9 @@ export class PlayerService {
     await this.#playTrack(track);
   }
 
+  /**
+  Starts the selected track or toggles playback for the loaded track.
+  */
   async playPause() {
     if (this.#audioService.isLoading() || !this.currentlyLoadedTrack()) {
       if (this.selectedTrack()) {
@@ -241,6 +280,9 @@ export class PlayerService {
     }
   }
 
+  /**
+  Stops the loaded track and releases any playback wake lock.
+  */
   async stop() {
     if (this.#audioService.isLoading() || !this.currentlyLoadedTrack()) {
       return;
@@ -250,6 +292,9 @@ export class PlayerService {
     await this.#afterPausedOrStopped();
   }
 
+  /**
+  Advances playback according to shuffle and repeat settings.
+  */
   async next(): Promise<void> {
     const loadedTrack = this.currentlyLoadedTrack();
     if (!loadedTrack || this.#audioService.isLoading()) {
@@ -272,6 +317,9 @@ export class PlayerService {
     }
   }
 
+  /**
+  Plays the previous track in the playlist when one is available.
+  */
   async previous() {
     if (this.#audioService.isLoading() || !this.currentlyLoadedTrack()) {
       return;
@@ -290,6 +338,9 @@ export class PlayerService {
     }
   }
 
+  /**
+  Finds and plays a playlist track by its metadata hash.
+  */
   async playTrackByHash(hash: string) {
     const playlist = this.currentPlaylist();
 
@@ -299,6 +350,9 @@ export class PlayerService {
     }
   }
 
+  /**
+  Selects the next playlist track without starting playback.
+  */
   async selectNext() {
     if (!this.selectedTrack()) {
       return;
@@ -317,6 +371,9 @@ export class PlayerService {
     }
   }
 
+  /**
+  Selects the preceding playlist track without starting playback.
+  */
   async selectPrevious() {
     if (!this.selectedTrack()) {
       return;
@@ -334,14 +391,23 @@ export class PlayerService {
     }
   }
 
+  /**
+  Moves the playhead backward by the specified number of seconds.
+  */
   seekLeft(seconds: number) {
     this.setSeekPosition(this.currentTime() - seconds);
   }
 
+  /**
+  Moves the playhead forward by the specified number of seconds.
+  */
   seekRight(seconds: number) {
     this.setSeekPosition(this.currentTime() + seconds);
   }
 
+  /**
+  Applies a seek request received from the browser media session.
+  */
   #seekToHandler(details: MediaSessionActionDetails) {
     if (details.seekTime) {
       if (details.fastSeek) {
@@ -352,6 +418,9 @@ export class PlayerService {
     }
   }
 
+  /**
+  Cycles repeat mode and synchronizes single-track looping with the audio.
+  */
   toggleRepeat() {
     switch (this.repeat()) {
       case 'off': {
@@ -371,6 +440,9 @@ export class PlayerService {
     }
   }
 
+  /**
+  Toggles and persists shuffle state.
+  */
   toggleShuffle() {
     this.#shuffle.set(!this.shuffle());
   }

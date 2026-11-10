@@ -16,6 +16,9 @@ export interface HotkeyInfo {
   subscription: Subscription;
 }
 
+/**
+Registers keyboard shortcuts and manages their help dialog.
+*/
 @Service()
 export class HotkeysService {
   readonly #eventManager = inject(EventManager);
@@ -34,6 +37,9 @@ export class HotkeysService {
 
   #pause = false;
 
+  /**
+  Registers the shortcut that opens the hotkeys help dialog.
+  */
   initialize() {
     this.register({
       keys: 'shift+h',
@@ -44,6 +50,9 @@ export class HotkeysService {
     });
   }
 
+  /**
+  Registers a hotkey and returns its normalized key string when successful.
+  */
   register(options: Partial<Hotkey>): string | undefined {
     if (!options.keys) {
       return;
@@ -79,7 +88,9 @@ export class HotkeysService {
         };
       }
       return () => {
-        /* empty */
+        /*
+        empty
+        */
       };
     });
 
@@ -92,6 +103,9 @@ export class HotkeysService {
     return merged.keys;
   }
 
+  /**
+  Removes a previously registered hotkey by its key combination.
+  */
   unregister(keys: string) {
     const realKeys = keys.replaceAll('+', '.');
     const hk = this.#hotkeys.get(realKeys);
@@ -103,14 +117,23 @@ export class HotkeysService {
     }
   }
 
+  /**
+  Temporarily disables registered hotkey callbacks.
+  */
   pause() {
     this.#pause = true;
   }
 
+  /**
+  Re-enables registered hotkey callbacks.
+  */
   resume() {
     this.#pause = false;
   }
 
+  /**
+  Opens or closes the dialog listing all registered hotkeys.
+  */
   toggleHelpDialog() {
     if (this.#helpOpen) {
       this.#helpOpen = false;

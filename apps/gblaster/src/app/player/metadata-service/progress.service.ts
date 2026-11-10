@@ -1,5 +1,8 @@
 import { computed, Service, signal } from '@angular/core';
 
+/**
+Publishes progress state while batches of library files are processed.
+*/
 @Service()
 export class ProgressService {
   readonly #totalFilesToProcess = signal(0);
@@ -23,19 +26,31 @@ export class ProgressService {
     return text;
   });
 
+  /**
+  Initializes progress counters for a batch containing the given number of files.
+  */
   startProcessing(totalFiles: number): void {
     this.#totalFilesToProcess.set(totalFiles);
     this.#filesToProcess.set(totalFiles);
   }
 
+  /**
+  Sets the name or status of the file currently being processed.
+  */
   updateCurrentFile(fileName: string): void {
     this.#processingFile.set(fileName);
   }
 
+  /**
+  Marks one file in the current batch as complete.
+  */
   completeFile(): void {
     this.#filesToProcess.update((files) => files - 1);
   }
 
+  /**
+  Clears the batch counters and current-file status.
+  */
   reset(): void {
     this.#totalFilesToProcess.set(0);
     this.#filesToProcess.set(0);

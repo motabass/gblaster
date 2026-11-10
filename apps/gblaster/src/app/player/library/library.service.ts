@@ -4,6 +4,9 @@ import { IndexedDbTrackMetadata } from '../player.types';
 import { NgxIndexedDBService } from 'ngx-indexed-db';
 import { MetadataService } from '../metadata-service/metadata.service';
 
+/**
+Loads and removes track metadata stored in the IndexedDB music library.
+*/
 @Service()
 export class LibraryService {
   readonly #indexedDbService = inject(NgxIndexedDBService);
@@ -14,6 +17,9 @@ export class LibraryService {
   readonly #indexedDbTracks = signal<IndexedDbTrackMetadata[]>([]);
   readonly indexedDbTracks = this.#indexedDbTracks.asReadonly();
 
+  /**
+  Loads all library records and reuses or creates embedded-cover blob URLs.
+  */
   async loadLibraryFromDb(): Promise<IndexedDbTrackMetadata[]> {
     try {
       this.#isLoading.set(true);
@@ -53,13 +59,16 @@ export class LibraryService {
   }
 
   /**
-  Clears the entire library and cleans up all blob URLs.
+  Clears every library record and removes them from the in-memory track list.
   */
   async clearLibrary(): Promise<void> {
     await firstValueFrom(this.#indexedDbService.clear('library'));
     this.#indexedDbTracks.set([]);
   }
 
+  /**
+  Deletes the given tracks from IndexedDB and releases their cover blob URLs.
+  */
   async removeTracks(tracks: IndexedDbTrackMetadata[]): Promise<void> {
     await Promise.all(tracks.map((track) => firstValueFrom(this.#indexedDbService.delete('library', track.hash))));
 

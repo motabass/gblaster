@@ -32,10 +32,10 @@ const COLOR_VARIANTS: ColorVariant[] = [
 ];
 
 /**
-Computes a color palette from a base color by generating lighter and darker variants
-@param hex The base color in hex format
-@param isDarkMode Whether dark mode is enabled
-@returns An array of ThemeColor objects
+Computes a color palette from a base color by generating lighter and darker variants.
+@param hex Base color in hexadecimal format.
+@param isDarkMode Whether dark mode is enabled.
+@returns Generated theme color variants.
 */
 export function computeColors(hex: string, isDarkMode: boolean): ThemeColor[] {
   const baseColor = colord(hex);
@@ -54,11 +54,11 @@ export function computeColors(hex: string, isDarkMode: boolean): ThemeColor[] {
 }
 
 /**
-Creates a ThemeColor object from a Colord color instance
-@param color The Colord color instance
-@param name The name/suffix for this color variant
-@param isDarkMode Whether dark mode is enabled
-@returns A ThemeColor object
+Creates a theme color entry from a Colord color instance.
+@param color Color instance to convert.
+@param name Name or suffix for this color variant.
+@param isDarkMode Whether dark mode is enabled.
+@returns The theme color with its hexadecimal value and contrast setting.
 */
 export function getThemeColor(color: Colord, name: string, isDarkMode: boolean): ThemeColor {
   const lightnessLimit = isDarkMode ? 0.3 : 0.5;

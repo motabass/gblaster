@@ -10,6 +10,9 @@ import {
   RumbleOptions
 } from './gamepad.types';
 
+/**
+Maps connected gamepad buttons and axes to configured actions.
+*/
 @Service()
 export class GamepadService implements OnDestroy {
   readonly #DEFAULT_TURBO_TIMEOUT = 300;
@@ -22,6 +25,9 @@ export class GamepadService implements OnDestroy {
   readonly #buttonActions: ButtonGamepadAction[] = [];
   axisActions: AxisGamepadAction[] = [];
 
+  /**
+  Initializes default button and axis actions and observes gamepad connections.
+  */
   constructor() {
     for (const buttonIndex in GamepadButtons) {
       if (Number(buttonIndex) >= 0) {
@@ -38,6 +44,9 @@ export class GamepadService implements OnDestroy {
     addEventListener('gamepaddisconnected', (event: GamepadEvent) => this.#disconnectionListener(event));
   }
 
+  /**
+  Starts polling a newly connected gamepad for button and axis input.
+  */
   #connectionListener(event: GamepadEvent) {
     const gamepads = navigator.getGamepads();
     const gamepad = gamepads[event.gamepad.index];
@@ -66,6 +75,9 @@ export class GamepadService implements OnDestroy {
     }, 16);
   }
 
+  /**
+  Creates the default no-op action configuration for a gamepad button.
+  */
   #createDefaultButtonAction(buttonIndex: number): ButtonGamepadAction {
     return {
       action: () => console.log('Button nicht zugewiesen'),
@@ -76,6 +88,9 @@ export class GamepadService implements OnDestroy {
     };
   }
 
+  /**
+  Creates the default no-op action configuration for a gamepad axis.
+  */
   #createDefaultAxisAction(axisIndex: number): AxisGamepadAction {
     return {
       positiveActionFunction: () => console.log('Positiv-Achse nicht zugewiesen'),
@@ -88,6 +103,9 @@ export class GamepadService implements OnDestroy {
     };
   }
 
+  /**
+  Stops polling a gamepad after it disconnects.
+  */
   #disconnectionListener(event: GamepadEvent) {
     const gamepads = navigator.getGamepads();
     const gamepad = gamepads[event.gamepad.index];
@@ -97,12 +115,18 @@ export class GamepadService implements OnDestroy {
     }
   }
 
+  /**
+  Invokes a registered button action and triggers brief haptic feedback.
+  */
   #fireButtonAction(index: number, value: number) {
     // console.log(`Button ${index} sending value: ${value}`);
     this.#buttonActions[index].action(value);
     this.#triggerRumble({ duration: 50, weakMagnitude: 1, strongMagnitude: 0.2 });
   }
 
+  /**
+  Invokes the action for an axis direction and triggers haptic feedback.
+  */
   #fireAxisAction(index: number, value: number) {
     // console.log(`Axis ${index} sending value: ${value}`);
     if (value < 0) {
@@ -115,8 +139,8 @@ export class GamepadService implements OnDestroy {
   }
 
   /**
-  Triggers haptic feedback (rumble) on all connected gamepads
-  @param options Rumble configuration options
+  Triggers haptic feedback on each connected gamepad that supports rumble.
+  @param options Rumble configuration options.
   */
   #triggerRumble(options: RumbleOptions): void {
     const gamepads = navigator.getGamepads();
@@ -136,6 +160,13 @@ export class GamepadService implements OnDestroy {
     }
   }
 
+  /**
+  Registers an action for a button index.
+  @param buttonIndex Index of the gamepad button.
+  @param actionFunction Function invoked when the button action fires.
+  @param mode Input mode used to detect button presses.
+  @param timeout Minimum interval between repeated turbo actions, in milliseconds.
+  */
   registerButtonAction(
     buttonIndex: number,
     actionFunction: ActionFunction,
@@ -154,10 +185,21 @@ export class GamepadService implements OnDestroy {
     };
   }
 
+  /**
+  Restores the default action for a button index.
+  */
   deregisterButtonAction(buttonIndex: number) {
     this.#buttonActions[buttonIndex] = this.#createDefaultButtonAction(buttonIndex);
   }
 
+  /**
+  Registers positive- and negative-direction actions for an axis index.
+  @param axisIndex Index of the gamepad axis.
+  @param positiveActionFunction Function invoked for positive axis movement.
+  @param negativeActionFunction Function invoked for negative axis movement.
+  @param mode Input mode used to detect axis movement.
+  @param turboTimeout Minimum interval between repeated turbo actions, in milliseconds.
+  */
   registerAxisAction(
     axisIndex: number,
     positiveActionFunction: ActionFunction,
@@ -178,10 +220,16 @@ export class GamepadService implements OnDestroy {
     };
   }
 
+  /**
+  Restores the default action for an axis index.
+  */
   deregisterAxisAction(axisIndex: number) {
     this.axisActions[axisIndex] = this.#createDefaultAxisAction(axisIndex);
   }
 
+  /**
+  Detects button presses and applies the configured click, hold, or turbo mode.
+  */
   #checkForButtonClicked(gamepad: Gamepad, buttonIndex: number) {
     const button = gamepad.buttons[buttonIndex];
     if (!button) {
@@ -225,10 +273,16 @@ export class GamepadService implements OnDestroy {
     this.#pressedButtonsCaches[gamepad.index] = cache;
   }
 
+  /**
+  Checks whether an axis value is outside the configured dead zone.
+  */
   #isAxisValueInDetectionRange(axis: number): boolean {
     return axis.valueOf() > this.#DEFAULT_DEADSPACE || axis.valueOf() < 0 - this.#DEFAULT_DEADSPACE;
   }
 
+  /**
+  Detects axis movement and applies the configured input mode.
+  */
   #checkForAxesInput(gamepad: Gamepad, axisIndex: number) {
     const axis = gamepad.axes[axisIndex];
     if (!axis) {
@@ -274,6 +328,9 @@ export class GamepadService implements OnDestroy {
     this.#activeAxesCaches[gamepad.index] = cache;
   }
 
+  /**
+  Stops polling intervals when the gamepad service is destroyed.
+  */
   ngOnDestroy(): void {
     for (const interval of this.#checkIntervals) {
       clearInterval(interval);

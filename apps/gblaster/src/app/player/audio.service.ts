@@ -8,6 +8,9 @@ export type EqualizerGainValues = {
   [Band in FrequencyBand]: number;
 };
 
+/**
+Owns the audio element, Web Audio graph, playback state, and equalizer.
+*/
 @Service()
 export class AudioService {
   readonly #localStorageService = inject(LocalStorageService);
@@ -63,6 +66,9 @@ export class AudioService {
 
   readonly hasEnded$ = this.#hasEnded.asObservable();
 
+  /**
+  Creates the audio element and wires its Web Audio graph and event state.
+  */
   constructor() {
     // create audio element
     const audioElement = new Audio();
@@ -146,6 +152,9 @@ export class AudioService {
     });
   }
 
+  /**
+  Connects and returns a new analyser node for visualizing the audio output.
+  */
   plugInNewAnalyserNode(): AnalyserNode {
     const analyser = this.#audioContext.createAnalyser();
     this.#eqGainNode.connect(analyser);
@@ -153,6 +162,9 @@ export class AudioService {
     return analyser;
   }
 
+  /**
+  Disconnects an analyser node previously connected by this service.
+  */
   disconnectAnalyserNode(analyser: AnalyserNode): void {
     if (!this.#connectedAnalyzers.has(analyser)) {
       return;
@@ -162,7 +174,9 @@ export class AudioService {
     this.#connectedAnalyzers.delete(analyser);
   }
 
-  // Call on major cleanup events or app exit
+  /**
+  Disconnects every analyser node connected by this service.
+  */
   disconnectAllAnalyzers(): void {
     for (const analyser of this.#connectedAnalyzers) {
       this.#eqGainNode.disconnect(analyser);
@@ -170,6 +184,9 @@ export class AudioService {
     this.#connectedAnalyzers.clear();
   }
 
+  /**
+  Sets a file as the audio source and revokes the previous blob URL.
+  */
   setFileAsSource(file: File) {
     const oldSource = this.#audioElement.src;
     this.#audioElement.src = URL.createObjectURL(file);
@@ -178,6 +195,9 @@ export class AudioService {
     }
   }
 
+  /**
+  Resumes the audio context if needed and starts audio playback.
+  */
   async play() {
     if (this.#audioContext.state === 'suspended') {
       await this.#audioContext.resume();
@@ -186,12 +206,18 @@ export class AudioService {
     return this.#audioElement.play();
   }
 
+  /**
+  Pauses playback when the audio element is currently playing.
+  */
   pause() {
     if (this.isPlaying()) {
       this.#audioElement.pause();
     }
   }
 
+  /**
+  Pauses playback, seeks to the beginning, and marks audio as stopped.
+  */
   stop() {
     if (this.isPlaying()) {
       this.pause();
@@ -200,11 +226,17 @@ export class AudioService {
     this.#isStopped.set(true);
   }
 
+  /**
+  Enables or disables looping on the audio element.
+  */
   setLoop(loop: boolean) {
     this.#audioElement.loop = loop;
     this.#isLooping.set(loop);
   }
 
+  /**
+  Seeks to a playback position, using the fast-seek API when requested.
+  */
   seekToPosition(position: number, fastSeek = false) {
     if (fastSeek && 'fastSeek' in this.#audioElement) {
       this.#audioElement.fastSeek(position);
@@ -213,6 +245,9 @@ export class AudioService {
     }
   }
 
+  /**
+  Returns a cached read-only signal for a frequency band's equalizer gain.
+  */
   getFrequencyBandGainSignal(bandFrequency: FrequencyBand): Signal<number> {
     let bandGainSignal = this.#frequencyBandGainSignals.get(bandFrequency);
     if (!bandGainSignal) {
@@ -222,6 +257,9 @@ export class AudioService {
     return bandGainSignal;
   }
 
+  /**
+  Sets, persists, and reactively publishes the gain for one frequency band.
+  */
   setFrequencyBandGain(bandFrequency: FrequencyBand, gainValue: number) {
     this.#frequencyFilters[bandFrequency].gain.setTargetAtTime(gainValue, this.#audioContext.currentTime, 0.01);
 
@@ -232,10 +270,16 @@ export class AudioService {
     this.#equalizerGainValues.set(bandGains);
   }
 
+  /**
+  Resets one frequency band's equalizer gain to zero.
+  */
   resetFrequencyBandGain(bandFrequency: FrequencyBand) {
     this.setFrequencyBandGain(bandFrequency, 0);
   }
 
+  /**
+  Sets and persists the output volume when the value is between zero and one.
+  */
   setVolume(value: number) {
     if (!(value >= 0 && value <= 1)) {
       return;
@@ -246,6 +290,9 @@ export class AudioService {
     this.#localStorageService.store('volume', value);
   }
 
+  /**
+  Sets and persists the equalizer's base gain.
+  */
   setBaseGain(volume: number) {
     this.#eqGainNode.gain.setTargetAtTime(volume, this.#audioContext.currentTime, 0.01);
     this.#baseGain.set(volume);
