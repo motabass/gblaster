@@ -98,10 +98,6 @@
         "buildTarget": "gblaster:build"
       }
     },
-    "deploy": {
-      "executor": "@angular/fire:deploy",
-      "options": {}
-    },
     "stylelint": {
       "executor": "nx-stylelint:lint",
       "outputs": ["{options.outputFile}"],

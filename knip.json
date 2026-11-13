@@ -1,0 +1,18 @@
+{
+  "$schema": "https://unpkg.com/knip@6/schema.json",
+  "tags": ["-lintignore"],
+  "ignore": ["**/.*/**", "**/docs/**", "**/reports/**"],
+  "entry": [
+    "apps/**/src/main.ts",
+    "{apps,libs}/**/src/index.{ts,tsx}",
+    "apps/**/src/**/*.worker.ts",
+    "apps/**/src/environments/environment.prod.ts"
+  ],
+  "project": ["{apps,libs}/**/src/**/*.{ts,tsx}", "apps/**/e2e/**/*.{ts,tsx}", "tools/**/*.{ts,tsx,js,mjs}"],
+  "eslint": {
+    "config": ["eslint.config.mjs", "{apps,libs}/**/eslint.config.mjs"]
+  },
+  "svgo": {
+    "entry": ["tools/svgo.config.js"]
+  }
+}
