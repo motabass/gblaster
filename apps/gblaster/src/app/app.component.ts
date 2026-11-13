@@ -4,6 +4,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { ThemeService } from './theme/theme.service';
 import { UpdateService } from './update.service';
 import { ShellComponent } from './shell/shell.component';
+import { ICON_NAMES } from './icons';
 
 /**
 Initializes application-wide theme, icons, and service-worker updates.
@@ -20,16 +21,12 @@ export class AppComponent implements OnInit {
   readonly #themeService = inject(ThemeService);
 
   /**
-   * Initializes the theme and registers application-wide SVG icons.
-   */
+  Initializes the theme and registers application-wide SVG icons.
+  */
   constructor() {
     this.#themeService.initializeTheme();
 
-    this.#iconRegistry.addSvgIconSet(this.#sanitizer.bypassSecurityTrustResourceUrl('assets/icon-set.svg'));
-    this.#iconRegistry.addSvgIcon(
-      'logo',
-      this.#sanitizer.bypassSecurityTrustResourceUrl('assets/icons/logo-monochrome.svg')
-    );
+    this.registerIcons();
   }
 
   /**
@@ -37,5 +34,18 @@ export class AppComponent implements OnInit {
   */
   ngOnInit(): void {
     void this.#updateService.init();
+  }
+
+  private registerIcons(): void {
+    for (const name of ICON_NAMES) {
+      // The URL is constructed exclusively from the static list above.
+      // eslint-disable-next-line sonarjs/no-angular-bypass-sanitization
+      this.#iconRegistry.addSvgIcon(name, this.#sanitizer.bypassSecurityTrustResourceUrl(`assets/icons/${name}.svg`));
+    }
+
+    this.#iconRegistry.addSvgIcon(
+      'logo',
+      this.#sanitizer.bypassSecurityTrustResourceUrl('assets/icons/logo-monochrome.svg')
+    );
   }
 }

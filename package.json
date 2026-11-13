@@ -64,7 +64,7 @@
     "ci:deploy": "nx deploy gblaster",
     "lint:interactive": "nx run-many -t lint-interactive --all",
     "dep-graph:html": "nx graph --file docs/dep-graph.html",
-    "generate:icon-set": "ts-node --project tools/tsconfig.tools.json tools/convertIcons.ts",
+    "optimize:icons": "ts-node --project tools/tsconfig.tools.json tools/optimize-icons.ts",
     "build:stats:gblaster": "pnpm run build:prod -- --stats-json --named-chunks",
     "analyze:treemap:gblaster": "esbuild-visualizer --template treemap --metadata ./dist/apps/gblaster/stats.json --filename docs/analyzer-report-treemap.html",
     "analyze:sunburst:gblaster": "esbuild-visualizer --template sunburst --metadata ./dist/apps/gblaster/stats.json --filename docs/analyzer-report-sunburst.html",
