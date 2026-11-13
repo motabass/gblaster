@@ -8,7 +8,7 @@
     },
     {
       "files": ["**/*.scss"],
-      "extends": ["stylelint-config-standard", "stylelint-config-recommended-scss"],
+      "extends": ["stylelint-config-standard-scss", "stylelint-config-recommended-scss"],
       "rules": {}
     },
     {
