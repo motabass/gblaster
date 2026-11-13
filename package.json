@@ -94,8 +94,8 @@
     "tslib": "2.9.1"
   },
   "devDependencies": {
-    "@angular/build": "22.2.6",
-    "@angular/cli": "22.2.6",
+    "@angular/build": "22.2.7",
+    "@angular/cli": "22.2.7",
     "@angular/compiler-cli": "22.2.6",
     "@angular/language-service": "22.2.6",
     "@csmith/release-it-calver-plugin": "2026.9.0",
@@ -112,7 +112,7 @@
     "@nx/web": "24.0.6",
     "@nx/workspace": "24.0.6",
     "@playwright/test": "1.65.0",
-    "@schematics/angular": "22.2.6",
+    "@schematics/angular": "22.2.7",
     "@swc-node/register": "1.12.1",
     "@swc/core": "1.16.22",
     "@swc/helpers": "0.5.24",
