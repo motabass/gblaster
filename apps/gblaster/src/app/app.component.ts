@@ -42,10 +42,5 @@ export class AppComponent implements OnInit {
       // eslint-disable-next-line sonarjs/no-angular-bypass-sanitization
       this.#iconRegistry.addSvgIcon(name, this.#sanitizer.bypassSecurityTrustResourceUrl(`assets/icons/${name}.svg`));
     }
-
-    this.#iconRegistry.addSvgIcon(
-      'logo',
-      this.#sanitizer.bypassSecurityTrustResourceUrl('assets/icons/logo-monochrome.svg')
-    );
   }
 }

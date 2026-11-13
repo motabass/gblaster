@@ -1,4 +1,5 @@
 export const ICON_NAMES = [
+  'logo',
   'account-music',
   'album',
   'check',
