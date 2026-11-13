@@ -20,7 +20,7 @@ export class FileDropOverlayComponent implements AfterViewInit, OnDestroy {
 
   readonly allowedTypes = input<string[]>(['*/*']);
 
-  readonly filesDroped = output<File[]>();
+  readonly filesDropped = output<File[]>();
   readonly fileHandlesDropped = output<FileSystemFileHandle[]>();
 
   /**
@@ -163,7 +163,7 @@ export class FileDropOverlayComponent implements AfterViewInit, OnDestroy {
   @param droppedFiles Files captured from the drop event.
   */
   #handleDroppedFiles(droppedFiles: File[]): void {
-    this.filesDroped.emit(droppedFiles.filter((file) => this.#isAllowedFile(file)));
+    this.filesDropped.emit(droppedFiles.filter((file) => this.#isAllowedFile(file)));
   }
 
   #isAllowedFile(file: File): boolean {

@@ -155,7 +155,7 @@ describe('FileDropOverlayComponent', () => {
 
     it('should emit filesDroped with allowed files', () => {
       const filesDropedSpy = vi.fn();
-      component.filesDroped.subscribe(filesDropedSpy);
+      component.filesDropped.subscribe(filesDropedSpy);
 
       const mockFile = new File(['content'], 'test.mp3', { type: 'audio/mpeg' });
       fixture.componentRef.setInput('allowedTypes', ['audio/mpeg']);
@@ -168,7 +168,7 @@ describe('FileDropOverlayComponent', () => {
 
     it('should filter out files with non-allowed types', () => {
       const filesDropedSpy = vi.fn();
-      component.filesDroped.subscribe(filesDropedSpy);
+      component.filesDropped.subscribe(filesDropedSpy);
 
       const allowedFile = new File(['content'], 'test.mp3', { type: 'audio/mpeg' });
       const notAllowedFile = new File(['content'], 'test.txt', { type: 'text/plain' });
@@ -184,7 +184,7 @@ describe('FileDropOverlayComponent', () => {
 
     it('should emit empty array when no files match allowed types', () => {
       const filesDropedSpy = vi.fn();
-      component.filesDroped.subscribe(filesDropedSpy);
+      component.filesDropped.subscribe(filesDropedSpy);
 
       const notAllowedFile = new File(['content'], 'test.txt', { type: 'text/plain' });
       fixture.componentRef.setInput('allowedTypes', ['audio/mpeg']);
@@ -246,7 +246,7 @@ describe('FileDropOverlayComponent', () => {
 
     it('should safely fall back when the drag has no items', () => {
       const filesDropedSpy = vi.fn();
-      component.filesDroped.subscribe(filesDropedSpy);
+      component.filesDropped.subscribe(filesDropedSpy);
       const event = createMockDragEvent('drop', { items: [], files: createFileList([]) });
 
       expect(() => component['drop'](event as unknown as DragEvent)).not.toThrow();
@@ -255,7 +255,7 @@ describe('FileDropOverlayComponent', () => {
 
     it('should fall back to files when file handles are not available', () => {
       const filesDropedSpy = vi.fn();
-      component.filesDroped.subscribe(filesDropedSpy);
+      component.filesDropped.subscribe(filesDropedSpy);
 
       const mockFile = new File(['content'], 'test.mp3', { type: 'audio/mpeg' });
       fixture.componentRef.setInput('allowedTypes', ['audio/mpeg']);
@@ -268,7 +268,7 @@ describe('FileDropOverlayComponent', () => {
 
     it('should fall back to files when File System Access API fails', async () => {
       const filesDropedSpy = vi.fn();
-      component.filesDroped.subscribe(filesDropedSpy);
+      component.filesDropped.subscribe(filesDropedSpy);
 
       const mockFile = new File(['content'], 'test.mp3', { type: 'audio/mpeg' });
       fixture.componentRef.setInput('allowedTypes', ['audio/mpeg']);
@@ -302,7 +302,7 @@ describe('FileDropOverlayComponent', () => {
 
     it('should accept files matching the default wildcard', () => {
       const filesDropedSpy = vi.fn();
-      component.filesDroped.subscribe(filesDropedSpy);
+      component.filesDropped.subscribe(filesDropedSpy);
       const file = new File(['content'], 'test.mp3', { type: 'audio/mpeg' });
       const event = createMockDragEvent('drop', { files: createFileList([file]) });
 
