@@ -1,5 +1,9 @@
 import { AfterViewInit, Component, ElementRef, inject, input, OnDestroy, output, Renderer2 } from '@angular/core';
 
+type FileSystemDataTransferItem = DataTransferItem & {
+  getAsFileSystemHandle?: () => Promise<FileSystemHandle | null>;
+};
+
 /**
 Displays a drop target and emits accepted files or file handles.
 */
@@ -11,38 +15,34 @@ Displays a drop target and emits accepted files or file handles.
 export class FileDropOverlayComponent implements AfterViewInit, OnDestroy {
   #hostElement = inject(ElementRef);
   #renderer = inject(Renderer2);
+  #listenerDisposers: (() => void)[] = [];
+  #dragDepth = 0;
 
   readonly allowedTypes = input<string[]>(['*/*']);
 
   readonly filesDroped = output<File[]>();
   readonly fileHandlesDropped = output<FileSystemFileHandle[]>();
 
-  #dragEnterListener: any;
-  #dragOverListener: any;
-  #dragLeaveListener: any;
-  #dragEndListener: any;
-  #dropListener: any;
-
   /**
   Installs global drag-and-drop event listeners.
   */
-  ngAfterViewInit() {
-    this.#dragEnterListener = this.#renderer.listen('window', 'dragenter', this.over.bind(this));
-    this.#dragOverListener = this.#renderer.listen('window', 'dragover', this.over.bind(this));
-    this.#dragLeaveListener = this.#renderer.listen('window', 'dragleave', this.leave.bind(this));
-    this.#dragEndListener = this.#renderer.listen('window', 'dragend', this.leave.bind(this));
-    this.#dropListener = this.#renderer.listen('window', 'drop', this.drop.bind(this));
+  ngAfterViewInit(): void {
+    this.#listenerDisposers = [
+      this.#renderer.listen('window', 'dragenter', this.over.bind(this)),
+      this.#renderer.listen('window', 'dragover', this.over.bind(this)),
+      this.#renderer.listen('window', 'dragleave', this.leave.bind(this)),
+      this.#renderer.listen('window', 'dragend', this.leave.bind(this)),
+      this.#renderer.listen('window', 'drop', this.drop.bind(this))
+    ];
   }
 
   /**
   Removes the global drag-and-drop event listeners.
   */
-  ngOnDestroy() {
-    this.#dragEnterListener();
-    this.#dragOverListener();
-    this.#dragLeaveListener();
-    this.#dragEndListener();
-    this.#dropListener();
+  ngOnDestroy(): void {
+    for (const disposeListener of this.#listenerDisposers) {
+      disposeListener();
+    }
   }
 
   /**
@@ -50,11 +50,17 @@ export class FileDropOverlayComponent implements AfterViewInit, OnDestroy {
   @param event Window drag event.
   */
   protected over(event: DragEvent) {
+    const dataTransfer = event.dataTransfer;
+    if (!dataTransfer || !this.#isFileDrag(event)) {
+      return;
+    }
+
     event.preventDefault();
     event.stopPropagation();
 
-    if (event.dataTransfer?.files) {
-      event.dataTransfer.dropEffect = 'copy';
+    dataTransfer.dropEffect = 'copy';
+    if (event.type === 'dragenter') {
+      this.#dragDepth++;
     }
     this.#renderer.setStyle(this.#hostElement.nativeElement, 'visibility', 'visible');
   }
@@ -64,9 +70,19 @@ export class FileDropOverlayComponent implements AfterViewInit, OnDestroy {
   @param event Window drag event.
   */
   protected leave(event: DragEvent) {
+    if (!this.#isFileDrag(event)) {
+      if (event.type === 'dragend') {
+        this.#hideOverlay();
+      }
+      return;
+    }
+
     event.preventDefault();
     event.stopPropagation();
-    this.#renderer.setStyle(this.#hostElement.nativeElement, 'visibility', 'hidden');
+    this.#dragDepth = event.type === 'dragend' ? 0 : Math.max(0, this.#dragDepth - 1);
+    if (this.#dragDepth === 0) {
+      this.#hideOverlay();
+    }
   }
 
   /**
@@ -74,72 +90,91 @@ export class FileDropOverlayComponent implements AfterViewInit, OnDestroy {
   @param event Window drop event.
   */
   protected drop(event: DragEvent) {
-    event.preventDefault();
-    event.stopPropagation();
-    this.leave(event);
-
-    // Try to get file handles first
-    if (event.dataTransfer?.items && 'getAsFileSystemHandle' in event.dataTransfer.items[0]) {
-      try {
-        const fileHandles: FileSystemFileHandle[] = [];
-        const promises: Promise<void>[] = [];
-
-        for (const item of Array.from(event.dataTransfer.items)) {
-          const promise = (item as any).getAsFileSystemHandle().then((handle: any) => {
-            if (handle && handle.kind === 'file') {
-              fileHandles.push(handle);
-            }
-          });
-          promises.push(promise);
-        }
-
-        // When all promises are resolved, emit the file handles
-        Promise.all(promises)
-          .then(() => {
-            if (fileHandles.length > 0) {
-              this.fileHandlesDropped.emit(fileHandles);
-            } else {
-              // Fall back to regular files if no file handles were obtained
-              this.#handleFileFallback(event);
-            }
-          })
-          .catch(() => {
-            // Fall back to regular files on error
-            this.#handleFileFallback(event);
-          });
-
-        return; // Exit early - we're handling with file handles
-      } catch (error) {
-        // Fall through to file fallback
-        console.warn('File System Access API failed:', error);
-      }
+    const dataTransfer = event.dataTransfer;
+    if (!dataTransfer || !this.#isFileDrag(event)) {
+      this.#hideOverlay();
+      return;
     }
 
-    // Fallback to regular files
-    this.#handleFileFallback(event);
+    event.preventDefault();
+    event.stopPropagation();
+    this.#hideOverlay();
+
+    const droppedFiles = [...dataTransfer.files];
+    const items = [...dataTransfer.items];
+    if (items.some((item) => typeof (item as FileSystemDataTransferItem).getAsFileSystemHandle === 'function')) {
+      void this.#handleFileHandles(items, droppedFiles);
+      return;
+    }
+
+    this.#handleDroppedFiles(droppedFiles);
   }
 
   /**
-  Emits regular dropped files when file handles are unavailable.
-  @param event Drop event containing the file list.
+  Returns whether the drag payload contains files.
+  @param event Window drag event.
   */
-  #handleFileFallback(event: DragEvent) {
-    if (event.dataTransfer?.files) {
-      this.#handleDroppedFiles(event.dataTransfer.files);
+  #isFileDrag(event: DragEvent): boolean {
+    const dataTransfer = event.dataTransfer;
+    return (
+      !!dataTransfer &&
+      ([...dataTransfer.types].includes('Files') ||
+        [...dataTransfer.items].some((item) => item.kind === 'file') ||
+        dataTransfer.files.length > 0)
+    );
+  }
+
+  #hideOverlay(): void {
+    this.#dragDepth = 0;
+    this.#renderer.setStyle(this.#hostElement.nativeElement, 'visibility', 'hidden');
+  }
+
+  /**
+  Prefers file handles when available and falls back to regular files if access fails.
+  @param items Items received from the drop event.
+  @param droppedFiles Files captured while the drop event is active.
+  */
+  async #handleFileHandles(items: DataTransferItem[], droppedFiles: File[]): Promise<void> {
+    try {
+      const handles = await Promise.all(
+        items.map(async (item) => {
+          const getHandle = (item as FileSystemDataTransferItem).getAsFileSystemHandle;
+          return typeof getHandle === 'function' ? getHandle.call(item) : null;
+        })
+      );
+      const fileHandles = handles.filter((handle): handle is FileSystemFileHandle => handle?.kind === 'file');
+      const acceptedHandles = await Promise.all(
+        fileHandles.map(async (handle) => (this.#isAllowedFile(await handle.getFile()) ? handle : null))
+      );
+      const filteredHandles = acceptedHandles.filter((handle): handle is FileSystemFileHandle => handle !== null);
+
+      if (filteredHandles.length > 0) {
+        this.fileHandlesDropped.emit(filteredHandles);
+      } else {
+        this.#handleDroppedFiles(droppedFiles);
+      }
+    } catch {
+      this.#handleDroppedFiles(droppedFiles);
     }
   }
 
   /**
   Filters dropped files against the configured MIME types and emits them.
-  @param droppedFiles File list received from the drop event.
+  @param droppedFiles Files captured from the drop event.
   */
-  #handleDroppedFiles(droppedFiles: FileList) {
-    const files: File[] = [];
-    for (const file of Array.from(droppedFiles)) {
-      if (file && this.allowedTypes().includes(file.type)) {
-        files.push(file);
-      }
-    }
-    this.filesDroped.emit(files);
+  #handleDroppedFiles(droppedFiles: File[]): void {
+    this.filesDroped.emit(droppedFiles.filter((file) => this.#isAllowedFile(file)));
+  }
+
+  #isAllowedFile(file: File): boolean {
+    const [fileType, fileSubtype] = file.type.trim().toLowerCase().split('/', 2);
+    return this.allowedTypes().some((allowedType) => {
+      const normalizedAllowedType = allowedType.trim().toLowerCase();
+      const [allowedFileType, allowedSubtype] = normalizedAllowedType.split('/', 2);
+      return (
+        normalizedAllowedType === '*/*' ||
+        (allowedFileType === fileType && (allowedSubtype === '*' || allowedSubtype === fileSubtype))
+      );
+    });
   }
 }

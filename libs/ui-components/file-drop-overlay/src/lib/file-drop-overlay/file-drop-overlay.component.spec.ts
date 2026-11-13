@@ -7,13 +7,15 @@ interface MockDragEvent {
   preventDefault: ReturnType<typeof vi.fn>;
   stopPropagation: ReturnType<typeof vi.fn>;
   dataTransfer: {
-    files?: FileList;
+    files: FileList;
     items: MockDataTransferItem[];
+    types: string[];
     dropEffect: string;
   } | null;
 }
 
 interface MockDataTransferItem {
+  kind?: string;
   getAsFileSystemHandle?: ReturnType<typeof vi.fn>;
 }
 
@@ -22,7 +24,7 @@ function createMockDragEvent(
   options?: { files?: FileList; items?: MockDataTransferItem[] }
 ): MockDragEvent {
   // Default item without getAsFileSystemHandle to trigger fallback path
-  const defaultItems: MockDataTransferItem[] = [{}];
+  const defaultItems: MockDataTransferItem[] = [{ kind: 'file' }];
 
   return {
     type,
@@ -30,8 +32,9 @@ function createMockDragEvent(
     stopPropagation: vi.fn(),
     dataTransfer: options
       ? {
-          files: options.files,
+          files: options.files ?? createFileList([]),
           items: options.items ?? defaultItems,
+          types: ['Files'],
           dropEffect: 'none'
         }
       : null
@@ -76,7 +79,7 @@ describe('FileDropOverlayComponent', () => {
 
   describe('over()', () => {
     it('should prevent default and stop propagation', () => {
-      const event = createMockDragEvent('dragover');
+      const event = createMockDragEvent('dragover', { files: createFileList([]) });
 
       component['over'](event as unknown as DragEvent);
 
@@ -93,7 +96,7 @@ describe('FileDropOverlayComponent', () => {
     });
 
     it('should make host element visible', () => {
-      const event = createMockDragEvent('dragover');
+      const event = createMockDragEvent('dragover', { files: createFileList([]) });
 
       component['over'](event as unknown as DragEvent);
 
@@ -103,7 +106,7 @@ describe('FileDropOverlayComponent', () => {
 
   describe('leave()', () => {
     it('should prevent default and stop propagation', () => {
-      const event = createMockDragEvent('dragleave');
+      const event = createMockDragEvent('dragleave', { files: createFileList([]) });
 
       component['leave'](event as unknown as DragEvent);
 
@@ -112,9 +115,21 @@ describe('FileDropOverlayComponent', () => {
     });
 
     it('should hide host element', () => {
-      const event = createMockDragEvent('dragleave');
+      const event = createMockDragEvent('dragleave', { files: createFileList([]) });
 
       component['leave'](event as unknown as DragEvent);
+
+      expect(fixture.nativeElement.style.visibility).toBe('hidden');
+    });
+
+    it('should keep the overlay visible while the pointer moves between nested targets', () => {
+      component['over'](createMockDragEvent('dragenter', { files: createFileList([]) }) as unknown as DragEvent);
+      component['over'](createMockDragEvent('dragenter', { files: createFileList([]) }) as unknown as DragEvent);
+      component['leave'](createMockDragEvent('dragleave', { files: createFileList([]) }) as unknown as DragEvent);
+
+      expect(fixture.nativeElement.style.visibility).toBe('visible');
+
+      component['leave'](createMockDragEvent('dragleave', { files: createFileList([]) }) as unknown as DragEvent);
 
       expect(fixture.nativeElement.style.visibility).toBe('hidden');
     });
@@ -184,8 +199,12 @@ describe('FileDropOverlayComponent', () => {
       const fileHandlesDroppedSpy = vi.fn();
       component.fileHandlesDropped.subscribe(fileHandlesDroppedSpy);
 
-      const mockFileHandle = { kind: 'file' } as FileSystemFileHandle;
+      const mockFileHandle = {
+        kind: 'file',
+        getFile: vi.fn().mockResolvedValue(new File(['content'], 'test.mp3', { type: 'audio/mpeg' }))
+      } as unknown as FileSystemFileHandle;
       const mockItem: MockDataTransferItem = {
+        kind: 'file',
         getAsFileSystemHandle: vi.fn().mockResolvedValue(mockFileHandle)
       };
       const event = createMockDragEvent('drop', { items: [mockItem], files: createFileList([]) });
@@ -195,6 +214,43 @@ describe('FileDropOverlayComponent', () => {
       await vi.waitFor(() => {
         expect(fileHandlesDroppedSpy).toHaveBeenCalledWith([mockFileHandle]);
       });
+    });
+
+    it('should filter file handles by the allowed MIME types', async () => {
+      const fileHandlesDroppedSpy = vi.fn();
+      component.fileHandlesDropped.subscribe(fileHandlesDroppedSpy);
+      fixture.componentRef.setInput('allowedTypes', ['audio/*']);
+
+      const acceptedHandle = {
+        kind: 'file',
+        getFile: vi.fn().mockResolvedValue(new File(['audio'], 'test.mp3', { type: 'audio/mpeg' }))
+      } as unknown as FileSystemFileHandle;
+      const rejectedHandle = {
+        kind: 'file',
+        getFile: vi.fn().mockResolvedValue(new File(['text'], 'test.txt', { type: 'text/plain' }))
+      } as unknown as FileSystemFileHandle;
+      const event = createMockDragEvent('drop', {
+        items: [
+          { kind: 'file', getAsFileSystemHandle: vi.fn().mockResolvedValue(acceptedHandle) },
+          { kind: 'file', getAsFileSystemHandle: vi.fn().mockResolvedValue(rejectedHandle) }
+        ],
+        files: createFileList([])
+      });
+
+      component['drop'](event as unknown as DragEvent);
+
+      await vi.waitFor(() => {
+        expect(fileHandlesDroppedSpy).toHaveBeenCalledWith([acceptedHandle]);
+      });
+    });
+
+    it('should safely fall back when the drag has no items', () => {
+      const filesDropedSpy = vi.fn();
+      component.filesDroped.subscribe(filesDropedSpy);
+      const event = createMockDragEvent('drop', { items: [], files: createFileList([]) });
+
+      expect(() => component['drop'](event as unknown as DragEvent)).not.toThrow();
+      expect(filesDropedSpy).toHaveBeenCalledWith([]);
     });
 
     it('should fall back to files when file handles are not available', () => {
@@ -242,6 +298,30 @@ describe('FileDropOverlayComponent', () => {
       fixture.componentRef.setInput('allowedTypes', ['audio/mpeg', 'audio/wav']);
 
       expect(component.allowedTypes()).toEqual(['audio/mpeg', 'audio/wav']);
+    });
+
+    it('should accept files matching the default wildcard', () => {
+      const filesDropedSpy = vi.fn();
+      component.filesDroped.subscribe(filesDropedSpy);
+      const file = new File(['content'], 'test.mp3', { type: 'audio/mpeg' });
+      const event = createMockDragEvent('drop', { files: createFileList([file]) });
+
+      component['drop'](event as unknown as DragEvent);
+
+      expect(filesDropedSpy).toHaveBeenCalledWith([file]);
+    });
+
+    it('should ignore non-file drag events', () => {
+      const event = createMockDragEvent('dragover', { files: createFileList([]), items: [] });
+      const dataTransfer = event.dataTransfer;
+      if (dataTransfer) {
+        dataTransfer.types = ['text/plain'];
+      }
+
+      component['over'](event as unknown as DragEvent);
+
+      expect(event.preventDefault).not.toHaveBeenCalled();
+      expect(fixture.nativeElement.style.visibility).toBe('');
     });
   });
 
