@@ -127,7 +127,7 @@
     "angular-eslint": "22.6.0",
     "auto-changelog": "2.7.0",
     "esbuild-visualizer": "0.7.0",
-    "eslint": "10.14.0",
+    "eslint": "10.15.0",
     "eslint-config-prettier": "10.1.8",
     "eslint-interactive": "14.0.0",
     "eslint-plugin-sonarjs": "4.2.2",
