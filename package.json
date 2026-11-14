@@ -111,7 +111,7 @@
     "@nx/vitest": "24.0.6",
     "@nx/web": "24.0.6",
     "@nx/workspace": "24.0.6",
-    "@playwright/test": "1.65.0",
+    "@playwright/test": "1.65.1",
     "@schematics/angular": "22.2.6",
     "@swc-node/register": "1.12.1",
     "@swc/core": "1.16.22",
