@@ -6,6 +6,9 @@ Tracks nested loading operations and exposes their aggregate loading state.
 @Service()
 export class LoaderService {
   readonly #isLoading = signal<boolean>(false);
+  /**
+  Whether any tracked loading operation is currently active.
+  */
   readonly isLoading = this.#isLoading.asReadonly();
 
   #loadingCounter = 0;

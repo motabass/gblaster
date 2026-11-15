@@ -13,8 +13,14 @@ export class LibraryService {
   readonly #metadataService = inject(MetadataService);
 
   readonly #isLoading = signal<boolean>(false);
+  /**
+  Whether a library read is currently in progress.
+  */
   readonly isLoading = this.#isLoading.asReadonly();
   readonly #indexedDbTracks = signal<IndexedDbTrackMetadata[]>([]);
+  /**
+  Track metadata currently loaded from the IndexedDB library.
+  */
   readonly indexedDbTracks = this.#indexedDbTracks.asReadonly();
 
   /**

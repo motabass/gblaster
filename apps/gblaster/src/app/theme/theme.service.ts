@@ -18,15 +18,30 @@ export class ThemeService {
   readonly #darkMode = signal<boolean>(
     this.#localStorageService.retrieve(DARK_MODE_PREFERENCE_KEY) ?? matchMedia('(prefers-color-scheme: dark)').matches
   );
+  /**
+  Whether the application is currently using its dark color scheme.
+  */
   readonly darkMode = this.#darkMode.asReadonly();
 
   readonly #primaryColor = signal<string>(this.#localStorageService.retrieve('primaryColor') ?? FALLBACK_PRIMARY_COLOR);
+  /**
+  The current primary theme color.
+  */
   readonly primaryColor = this.#primaryColor.asReadonly();
 
   readonly #accentColor = signal<string>(this.#localStorageService.retrieve('accentColor') ?? FALLBACK_ACCENT_COLOR);
+  /**
+  The current accent theme color.
+  */
   readonly accentColor = this.#accentColor.asReadonly();
 
+  /**
+  Generated shades of the primary color for the active color scheme.
+  */
   readonly primaryColorPalette = computed(() => computeColors(this.primaryColor(), this.darkMode()));
+  /**
+  Generated shades of the accent color for the active color scheme.
+  */
   readonly accentColorPalette = computed(() => computeColors(this.accentColor(), this.darkMode()));
 
   /**

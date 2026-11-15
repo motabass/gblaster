@@ -26,24 +26,54 @@ export class AudioService {
 
   // State signals
   readonly #isLoading = signal(false);
+  /**
+  Whether the current audio source is still loading.
+  */
   readonly isLoading = this.#isLoading.asReadonly();
   readonly #isPlaying = signal(false);
+  /**
+  Whether audio is currently playing.
+  */
   readonly isPlaying = this.#isPlaying.asReadonly();
   readonly #isPaused = signal(true);
+  /**
+  Whether playback is paused.
+  */
   readonly isPaused = this.#isPaused.asReadonly();
   readonly #isStopped = signal(true);
+  /**
+  Whether playback has been stopped and reset to the start.
+  */
   readonly isStopped = this.#isStopped.asReadonly();
   readonly #isLooping = signal(false);
+  /**
+  Whether the audio element is configured to loop.
+  */
   readonly isLooping = this.#isLooping.asReadonly();
   readonly #currentTime = signal(0);
+  /**
+  Current playback position in seconds.
+  */
   readonly currentTime = this.#currentTime.asReadonly();
   readonly #duration = signal(0);
+  /**
+  Duration of the loaded audio source in seconds.
+  */
   readonly duration = this.#duration.asReadonly();
   readonly #volume = signal(this.#localStorageService.retrieve('volume') ?? 0.5);
+  /**
+  Persisted output volume, in the range from zero to one.
+  */
   readonly volume = this.#volume.asReadonly();
   readonly #baseGain = signal(this.#localStorageService.retrieve('baseGain') ?? 1);
+  /**
+  Persisted base gain applied before output volume.
+  */
   readonly baseGain = this.#baseGain.asReadonly();
   readonly #sampleRate = signal(44_100);
+  /**
+  Sample rate of the active Web Audio context, in hertz.
+  */
   readonly sampleRate = this.#sampleRate.asReadonly();
 
   readonly #equalizerGainValues = signal<EqualizerGainValues>(
@@ -60,10 +90,16 @@ export class AudioService {
       16_000: 0
     }
   );
+  /**
+  Persisted gain in decibels for each equalizer frequency band.
+  */
   readonly equalizerGainValues = this.#equalizerGainValues.asReadonly();
 
   readonly #hasEnded = new Subject<void>();
 
+  /**
+  Emits when the current audio source reaches its end.
+  */
   readonly hasEnded$ = this.#hasEnded.asObservable();
 
   /**

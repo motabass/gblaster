@@ -31,19 +31,37 @@ export class PlayerService {
   readonly #destroRef = inject(DestroyRef);
 
   readonly #currentPlaylist = signal<Track[]>([]);
+  /**
+  Tracks available for playback, in playlist order.
+  */
   readonly currentPlaylist = this.#currentPlaylist.asReadonly();
 
   readonly #selectedTrack = signal<Track | undefined>(undefined);
+  /**
+  Track selected in the playlist, whether or not it is playing.
+  */
   readonly selectedTrack = this.#selectedTrack.asReadonly();
 
   readonly #currentlyLoadedTrack = signal<Track | undefined>(undefined);
+  /**
+  Track whose audio source is currently loaded for playback.
+  */
   readonly currentlyLoadedTrack = this.#currentlyLoadedTrack.asReadonly();
 
   readonly #repeat = signal<RepeatMode>(this.#localStorageService.retrieve('repeat') || 'off');
+  /**
+  Active repeat mode: off, repeat the playlist, or repeat one track.
+  */
   readonly repeat = this.#repeat.asReadonly();
   readonly #shuffle = signal<boolean>(this.#localStorageService.retrieve('shuffle') ?? false);
+  /**
+  Whether next-track selection uses shuffle.
+  */
   readonly shuffle = this.#shuffle.asReadonly();
 
+  /**
+  Colors derived from the artwork of the currently loaded track.
+  */
   readonly colorConfig = computed<ColorConfig>(() => {
     const coverColors = this.currentlyLoadedTrack()?.metadata?.coverColors;
     const mainColor = coverColors?.darkVibrant?.hex;
@@ -51,12 +69,18 @@ export class PlayerService {
     return { mainColor: mainColor, peakColor: peakColor };
   });
 
+  /**
+  Rounded duration of the loaded track in seconds, or zero when stopped.
+  */
   readonly durationSeconds = computed(() => {
     return this.currentlyLoadedTrack() && !this.#audioService.isStopped()
       ? Math.round(this.#audioService.duration())
       : 0;
   });
 
+  /**
+  Whole-second playback position of the loaded track, or zero when stopped.
+  */
   readonly currentTime = computed(() => {
     if (!this.currentlyLoadedTrack() || this.#audioService.isStopped()) {
       return 0;

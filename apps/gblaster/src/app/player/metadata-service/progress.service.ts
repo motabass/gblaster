@@ -9,16 +9,28 @@ export class ProgressService {
   readonly #filesToProcess = signal(0);
   readonly #processingFile = signal('');
 
+  /**
+  Percentage of the current file batch that has completed.
+  */
   readonly processionPercent = computed(() => {
     return 100 - (this.#filesToProcess() / this.#totalFilesToProcess()) * 100;
   });
 
+  /**
+  Whether one or more files remain in the current batch.
+  */
   readonly processing = computed(() => {
     return this.#filesToProcess() > 0;
   });
 
+  /**
+  Name or status message for the file currently being processed.
+  */
   readonly currentFile = this.#processingFile.asReadonly();
 
+  /**
+  Human-readable count and current-file status for the active batch.
+  */
   readonly statusText = computed(() => {
     const totalFilesToProcess = this.#totalFilesToProcess();
     let text = `Processing (${totalFilesToProcess - this.#filesToProcess()} / ${totalFilesToProcess}): `;

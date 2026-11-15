@@ -11,6 +11,9 @@ export class VisualsService {
   readonly #localStorageService = inject(LocalStorageService);
 
   readonly #visualMode = signal<VisualizerMode>(this.#localStorageService.retrieve('visualMode') ?? 'off');
+  /**
+  Currently selected visualizer mode.
+  */
   readonly visualMode = this.#visualMode.asReadonly();
 
   /**

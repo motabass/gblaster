@@ -9,6 +9,9 @@ export class TitleService {
   readonly #angularTitleService = inject(Title);
 
   readonly #title = signal<string>('');
+  /**
+  Current document title mirrored as a read-only signal.
+  */
   readonly title = this.#title.asReadonly();
 
   /**

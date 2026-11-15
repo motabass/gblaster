@@ -23,6 +23,9 @@ export class GamepadService implements OnDestroy {
   readonly #activeAxesCaches: ActionCache[][] = [];
 
   readonly #buttonActions: ButtonGamepadAction[] = [];
+  /**
+  Configured positive- and negative-direction actions for each gamepad axis.
+  */
   axisActions: AxisGamepadAction[] = [];
 
   /**

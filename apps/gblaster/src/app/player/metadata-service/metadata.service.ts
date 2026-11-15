@@ -27,10 +27,19 @@ export class MetadataService {
   readonly #PLACEHOLDER_URL = 'assets/icons/record.svg';
 
   readonly #useWebMetainfos = signal(this.#localStorageService.retrieve('useWebMetainfos') ?? true);
+  /**
+  Whether remote metadata providers are queried for album artwork.
+  */
   readonly useWebMetainfos = this.#useWebMetainfos.asReadonly();
   readonly #useTagEmbeddedPicture = signal(this.#localStorageService.retrieve('useTagEmbeddedPicture') ?? true);
+  /**
+  Whether embedded artwork is eligible to be used as a track cover.
+  */
   readonly useTagEmbeddedPicture = this.#useTagEmbeddedPicture.asReadonly();
   readonly #preferTagEmbeddedPicture = signal(this.#localStorageService.retrieve('preferTagEmbeddedPicture') ?? true);
+  /**
+  Whether embedded artwork takes precedence over remote artwork.
+  */
   readonly preferTagEmbeddedPicture = this.#preferTagEmbeddedPicture.asReadonly();
 
   /**
