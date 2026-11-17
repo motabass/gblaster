@@ -30,7 +30,7 @@
       background: light-dark(white, #303030),
       surface: var(--theme-primary-50),
       surface-container-low: var(--theme-primary-50),
-      on-surface: white
+      on-surface: var(--theme-primary-50-contrast)
     )
   );
   @include mat.system-level-shape(
@@ -51,16 +51,16 @@
   @include mat.toolbar-overrides(
     (
       container-background-color: var(--theme-primary-50),
-      container-text-color: white
+      container-text-color: var(--theme-primary-50-contrast)
     )
   );
   @include mat.slider-overrides(
     (
       handle-color: var(--theme-accent-50),
       focus-handle-color: var(--theme-accent-50),
-      active-track-color: var(--theme-accent-40),
-      inactive-track-color: var(--theme-primary-0),
-      label-container-color: var(--theme-primary-70),
+      active-track-color: var(--theme-accent-60),
+      inactive-track-color: var(--theme-primary-100),
+      label-container-color: var(--theme-primary-30),
       label-label-text-color: var(--theme-accent-50)
     )
   );
@@ -72,7 +72,7 @@
   @include mat.progress-bar-overrides(
     (
       active-indicator-color: var(--theme-accent-50),
-      track-color: var(--theme-primary-70)
+      track-color: var(--theme-primary-30)
     )
   );
 }

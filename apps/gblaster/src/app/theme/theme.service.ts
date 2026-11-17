@@ -38,11 +38,11 @@ export class ThemeService {
   /**
   Generated shades of the primary color for the active color scheme.
   */
-  readonly primaryColorPalette = computed(() => computeColors(this.primaryColor(), this.darkMode()));
+  readonly primaryColorPalette = computed(() => computeColors(this.primaryColor()));
   /**
   Generated shades of the accent color for the active color scheme.
   */
-  readonly accentColorPalette = computed(() => computeColors(this.accentColor(), this.darkMode()));
+  readonly accentColorPalette = computed(() => computeColors(this.accentColor()));
 
   /**
   Persists color changes and updates the document when theme state changes.
@@ -113,6 +113,9 @@ export class ThemeService {
 
     for (const color of this.primaryColorPalette()) {
       rootStyle.setProperty(`--theme-primary-${color.name}`, color.hex);
+      if (color.name === '50') {
+        rootStyle.setProperty('--theme-primary-50-contrast', color.darkContrast ? '#000000' : '#ffffff');
+      }
     }
 
     for (const color of this.accentColorPalette()) {

@@ -1,4 +1,8 @@
-import { Colord, colord } from 'colord';
+import { Colord, colord, extend } from 'colord';
+import a11yPlugin from 'colord/plugins/a11y';
+import lchPlugin from 'colord/plugins/lch';
+
+extend([a11yPlugin, lchPlugin]);
 
 export interface ThemeColor {
   name: string;
@@ -6,65 +10,41 @@ export interface ThemeColor {
   darkContrast: boolean;
 }
 
-interface ColorVariant {
-  suffix: string;
-  lightenFactor?: number;
-  darkenFactor?: number;
-}
-
-const COLOR_VARIANTS: ColorVariant[] = [
-  { suffix: '0', lightenFactor: 0.55 },
-  { suffix: '10', lightenFactor: 0.45 },
-  { suffix: '20', lightenFactor: 0.35 },
-  { suffix: '25', lightenFactor: 0.3 },
-  { suffix: '30', lightenFactor: 0.25 },
-  { suffix: '35', lightenFactor: 0.2 },
-  { suffix: '40', lightenFactor: 0.15 },
-  { suffix: '50' },
-  { suffix: '60', darkenFactor: 0.05 },
-  { suffix: '70', darkenFactor: 0.1 },
-  { suffix: '80', darkenFactor: 0.15 },
-  { suffix: '90', darkenFactor: 0.18 },
-  { suffix: '95', darkenFactor: 0.21 },
-  { suffix: '98', darkenFactor: 0.24 },
-  { suffix: '99', darkenFactor: 0.27 },
-  { suffix: '100', darkenFactor: 0.3 }
-];
+const COLOR_VARIANTS = [0, 1, 2, 5, 10, 20, 25, 30, 35, 40, 50, 60, 65, 70, 75, 80, 90, 95, 98, 99, 100];
 
 /**
-Computes a color palette from a base color by generating lighter and darker variants.
-@param hex Base color in hexadecimal format.
-@param isDarkMode Whether dark mode is enabled.
+Computes an LCH palette centered on the source color.
+@param hex Base color.
 @returns Generated theme color variants.
 */
-export function computeColors(hex: string, isDarkMode: boolean): ThemeColor[] {
-  const baseColor = colord(hex);
+export function computeColors(hex: string): ThemeColor[] {
+  const parsedColor = colord(hex);
+  if (!parsedColor.isValid()) {
+    throw new Error(`Invalid theme color: ${hex}`);
+  }
+  const sourceColor = parsedColor.alpha(1);
+  const sourceLch = sourceColor.toLch();
 
   return COLOR_VARIANTS.map((variant) => {
-    let color = baseColor;
+    const lightness =
+      variant <= 50 ? (sourceLch.l * variant) / 50 : sourceLch.l + ((100 - sourceLch.l) * (variant - 50)) / 50;
+    const chroma = sourceLch.c * (1 - Math.abs(50 - variant) / 50);
+    const color = variant === 50 ? sourceColor : colord({ ...sourceLch, l: lightness, c: chroma });
 
-    if (variant.lightenFactor) {
-      color = baseColor.lighten(variant.lightenFactor);
-    } else if (variant.darkenFactor) {
-      color = baseColor.darken(variant.darkenFactor);
-    }
-
-    return getThemeColor(color, variant.suffix, isDarkMode);
+    return getThemeColor(color, String(variant));
   });
 }
 
 /**
-Creates a theme color entry from a Colord color instance.
-@param color Color instance to convert.
+Creates a theme color entry with the higher-contrast black or white foreground.
+@param color Color instance.
 @param name Name or suffix for this color variant.
-@param isDarkMode Whether dark mode is enabled.
 @returns The theme color with its hexadecimal value and contrast setting.
 */
-export function getThemeColor(color: Colord, name: string, isDarkMode: boolean): ThemeColor {
-  const lightnessLimit = isDarkMode ? 0.3 : 0.5;
+export function getThemeColor(color: Colord, name: string): ThemeColor {
   return {
     name,
     hex: color.toHex(),
-    darkContrast: color.brightness() > lightnessLimit
+    darkContrast: color.contrast('#000000') >= color.contrast('#ffffff')
   };
 }
