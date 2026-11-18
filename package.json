@@ -121,9 +121,9 @@
     "@types/wicg-file-system-access": "2023.10.7",
     "@typescript-eslint/parser": "8.72.2",
     "@typescript-eslint/utils": "8.72.2",
-    "@vitest/browser-playwright": "5.1.0",
-    "@vitest/coverage-v8": "5.1.0",
-    "@vitest/ui": "5.1.0",
+    "@vitest/browser-playwright": "5.1.1",
+    "@vitest/coverage-v8": "5.1.1",
+    "@vitest/ui": "5.1.1",
     "angular-eslint": "22.6.0",
     "auto-changelog": "2.7.0",
     "esbuild-visualizer": "0.7.0",
@@ -154,6 +154,6 @@
     "typescript": "6.0.3",
     "typescript-eslint": "8.72.2",
     "vite": "8.3.8",
-    "vitest": "5.1.0"
+    "vitest": "5.1.1"
   }
 }
