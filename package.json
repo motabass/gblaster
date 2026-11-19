@@ -132,7 +132,7 @@
     "eslint-interactive": "14.0.0",
     "eslint-plugin-sonarjs": "4.2.2",
     "eslint-plugin-unicorn": "79.0.0",
-    "firebase-tools": "15.36.0",
+    "firebase-tools": "15.37.0",
     "husky": "9.1.7",
     "jsdom": "31.0.1",
     "knip": "^6.45.1",
