@@ -10,7 +10,7 @@ async function handleMessage(event: MessageEvent<TagsWorkerRequest>): Promise<vo
   const { id, file } = event.data;
 
   if (!id || !file) {
-    self.postMessage({
+    postMessage({
       id: id || 'unknown',
       error: 'Invalid request: missing id or file'
     });
@@ -19,13 +19,13 @@ async function handleMessage(event: MessageEvent<TagsWorkerRequest>): Promise<vo
 
   try {
     const tags = await extractTags(file);
-    self.postMessage({ id, tags });
+    postMessage({ id, tags });
   } catch (error) {
     let errorMessage = 'Unknown error during tag extraction';
     if (error instanceof Error) {
       errorMessage = error.message;
     }
-    self.postMessage({ id, error: errorMessage });
+    postMessage({ id, error: errorMessage });
   }
 }
 
@@ -59,7 +59,7 @@ async function extractTags(file: File): Promise<Id3Tags | undefined> {
       title: tags.common.title,
       track: tags.common.track,
       album: tags.common.album,
-      year: tags.common.year && !Number.isNaN(Number(tags.common.year)) ? tags.common.year.toString() : undefined,
+      year: tags.common.year && !Number.isNaN(tags.common.year) ? tags.common.year.toString() : undefined,
       format: tags.format
     };
   } catch (error) {

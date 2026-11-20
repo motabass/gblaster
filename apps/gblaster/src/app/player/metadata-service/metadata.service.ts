@@ -181,7 +181,7 @@ export class MetadataService {
 
     this.#progressService.updateCurrentFile(fileName + ' - Getting cover pictures...');
     const coverUrls = await this.#lastfmMetadataService.getCoverPictureUrls(tags);
-    return coverUrls ? coverUrls : this.#musicbrainzService.getCoverPictureUrls(tags);
+    return coverUrls ?? (await this.#musicbrainzService.getCoverPictureUrls(tags));
   }
 
   /**

@@ -76,8 +76,8 @@ export default class LibraryComponent implements OnInit {
       const albumCompare = collator.compare(a.album || '', b.album || '');
       if (albumCompare !== 0) return albumCompare;
 
-      const aTrack = a.track === undefined ? Number.NaN : Number(a.track);
-      const bTrack = b.track === undefined ? Number.NaN : Number(b.track);
+      const aTrack = a.track === undefined ? NaN : Number(a.track);
+      const bTrack = b.track === undefined ? NaN : Number(b.track);
       if (!Number.isNaN(aTrack) && !Number.isNaN(bTrack)) {
         return aTrack - bTrack;
       }
