@@ -6,6 +6,8 @@ autoInstallPeers: false
 
 ignoreWorkspaceRootCheck: true
 
+savePrefix: '='
+
 allowBuilds:
   '@parcel/watcher': false
   '@swc/core': false
@@ -18,5 +20,5 @@ allowBuilds:
   re2: false
   unrs-resolver: false
 
-minimumReleaseAge: 1440
+minimumReleaseAge: 720
 minimumReleaseAgeStrict: true

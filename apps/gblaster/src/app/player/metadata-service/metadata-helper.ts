@@ -1,5 +1,4 @@
-import { md5 } from '@noble/hashes/legacy.js';
-import { bytesToHex } from '@noble/hashes/utils.js';
+import { md5 } from 'js-md5';
 import { Vibrant } from 'node-vibrant/browser';
 import type { CoverColorPalette } from './metadata.types';
 
@@ -33,7 +32,7 @@ export async function generateFileHash(file: File): Promise<string> {
   if (fileSize <= 256 * 1024) {
     // 256KB or less
     const buffer = await file.arrayBuffer();
-    return bytesToHex(md5(new Uint8Array(buffer)));
+    return md5(new Uint8Array(buffer));
   }
 
   // Choose smaller chunk size based on file size
@@ -76,7 +75,7 @@ export async function generateFileHash(file: File): Promise<string> {
     offset += chunk.length;
   }
 
-  return bytesToHex(md5(combined));
+  return md5(combined);
 }
 
 /**

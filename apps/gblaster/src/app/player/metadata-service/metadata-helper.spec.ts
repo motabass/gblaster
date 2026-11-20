@@ -1,4 +1,12 @@
-import { ensureHttps } from './metadata-helper';
+import { ensureHttps, generateFileHash } from './metadata-helper';
+
+describe('generateFileHash', () => {
+  it('should return the MD5 hash of small files', async () => {
+    const file = new File(['hello'], 'hello.txt');
+
+    await expect(generateFileHash(file)).resolves.toBe('5d41402abc4b2a76b9719d911017c592');
+  });
+});
 
 describe('ensureHttps', () => {
   it('should convert http to https', () => {
