@@ -1,6 +1,6 @@
 import { Service } from '@angular/core';
-import { Id3Tags } from './id3-tags.types';
-import { RemoteCoverArtUrls } from './metadata.types';
+import type { Id3Tags } from './id3-tags.service';
+import type { RemoteCoverArtUrls } from './metadata.service';
 import { CoverArtArchiveApi, MusicBrainzApi } from 'musicbrainz-api';
 import { escapeLuceneQueryString } from '@motabass/helpers';
 import { ensureHttps } from './metadata-helper';

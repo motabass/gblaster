@@ -1,8 +1,8 @@
 import { inject, Service, signal } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
-import { IndexedDbTrackMetadata } from '../player.types';
-import { NgxIndexedDBService } from 'ngx-indexed-db';
+import type { IndexedDbTrackMetadata } from '../metadata-service/metadata.service';
 import { MetadataService } from '../metadata-service/metadata.service';
+import { NgxIndexedDBService } from 'ngx-indexed-db';
 
 /**
 Loads and removes track metadata stored in the IndexedDB music library.

@@ -1,5 +1,5 @@
 import { getNextVisualizerMode } from './visuals-helper';
-import { VisualizerMode } from './visuals.types';
+import type { VisualizerMode } from './visuals.service';
 
 describe('getNextVisualizerMode', () => {
   it('should cycle from off to bars', () => {

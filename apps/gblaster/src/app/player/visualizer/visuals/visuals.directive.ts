@@ -1,16 +1,18 @@
 import { Directive, effect, ElementRef, inject, input, OnDestroy } from '@angular/core';
-import type {
-  FrequencyBarsConfig,
-  OsciloscopeConfig,
-  VisualizerMode,
-  VisualizerOptions,
-  VisualsColorConfig,
-  VisualsWorkerResponse
-} from './visuals.types';
+import type { FrequencyBarsConfig, OsciloscopeConfig } from '../visualizer.component';
+import type { VisualizerMode } from './visuals.service';
+import type { VisualizerOptions, VisualsWorkerResponse } from './visuals.worker';
 import { AudioService } from '../../audio.service';
 
 const FALLBACK_PRIMARY_COLOR = '#424242';
 const FALLBACK_ACCENT_COLOR = '#bcbcbc';
+
+interface VisualsColorConfig {
+  mainColor?: string;
+  peakColor?: string;
+  alpha?: number;
+}
+
 @Directive({
   selector: '[mtbVisual]'
 })

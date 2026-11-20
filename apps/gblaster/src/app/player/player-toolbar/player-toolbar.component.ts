@@ -9,8 +9,7 @@ import { MatIconButton } from '@angular/material/button';
 import { PlayerService } from '../player.service';
 import { AudioService } from '../audio.service';
 import { formatSecondsAsClock } from '@motabass/helpers';
-import { GamepadAxes, GamepadButtons } from '../../services/gamepad/gamepad.types';
-import { GamepadService } from '../../services/gamepad/gamepad.service';
+import { gamepadAxes, gamepadButtons, GamepadService } from '../../services/gamepad/gamepad.service';
 import { HotkeysService } from '../../services/hotkeys/hotkeys.service';
 import { ProgressService } from '../metadata-service/progress.service';
 
@@ -60,17 +59,17 @@ export class PlayerToolbarComponent implements OnInit, OnDestroy {
       return;
     }
 
-    this.#gamepadService.registerButtonAction(GamepadButtons.A_BUTTON, () => this.playerService.playPause());
-    this.#gamepadService.registerButtonAction(GamepadButtons.B_BUTTON, () => this.playerService.stop());
+    this.#gamepadService.registerButtonAction(gamepadButtons.A_BUTTON, () => this.playerService.playPause());
+    this.#gamepadService.registerButtonAction(gamepadButtons.B_BUTTON, () => this.playerService.stop());
 
-    this.#gamepadService.registerButtonAction(GamepadButtons.X_BUTTON, () => this.toggleShuffle());
-    this.#gamepadService.registerButtonAction(GamepadButtons.Y_BUTTON, () => this.toggleRepeat());
+    this.#gamepadService.registerButtonAction(gamepadButtons.X_BUTTON, () => this.toggleShuffle());
+    this.#gamepadService.registerButtonAction(gamepadButtons.Y_BUTTON, () => this.toggleRepeat());
 
-    this.#gamepadService.registerButtonAction(GamepadButtons.L2_BUTTON, (value) => this.seekLeft(value), 'turbo');
-    this.#gamepadService.registerButtonAction(GamepadButtons.R2_BUTTON, (value) => this.seekRight(value), 'turbo');
+    this.#gamepadService.registerButtonAction(gamepadButtons.L2_BUTTON, (value) => this.seekLeft(value), 'turbo');
+    this.#gamepadService.registerButtonAction(gamepadButtons.R2_BUTTON, (value) => this.seekRight(value), 'turbo');
 
     this.#gamepadService.registerAxisAction(
-      GamepadAxes.S1_X,
+      gamepadAxes.S1_X,
       (value) => this.seekRight(value),
       (value) => this.seekLeft(value),
       'turbo',
@@ -78,27 +77,27 @@ export class PlayerToolbarComponent implements OnInit, OnDestroy {
     );
 
     this.#gamepadService.registerAxisAction(
-      GamepadAxes.S2_Y,
+      gamepadAxes.S2_Y,
       (value) => this.decreaseVolume(value),
       (value) => this.increaseVolume(value),
       'hold'
     );
 
-    this.#gamepadService.registerButtonAction(GamepadButtons.S2_BUTTON, () => this.toggleMute());
+    this.#gamepadService.registerButtonAction(gamepadButtons.S2_BUTTON, () => this.toggleMute());
 
-    this.#gamepadService.registerButtonAction(GamepadButtons.DPAD_UP, () => this.playerService.selectPrevious());
-    this.#gamepadService.registerButtonAction(GamepadButtons.DPAD_DOWN, () => this.playerService.selectNext());
+    this.#gamepadService.registerButtonAction(gamepadButtons.DPAD_UP, () => this.playerService.selectPrevious());
+    this.#gamepadService.registerButtonAction(gamepadButtons.DPAD_DOWN, () => this.playerService.selectNext());
     this.#gamepadService.registerAxisAction(
-      GamepadAxes.S1_Y,
+      gamepadAxes.S1_Y,
       () => this.playerService.selectNext(),
       () => this.playerService.selectPrevious(),
       'turbo'
     );
 
-    this.#gamepadService.registerButtonAction(GamepadButtons.R1_BUTTON, () => this.playerService.next(), 'turbo');
-    this.#gamepadService.registerButtonAction(GamepadButtons.L1_BUTTON, () => this.playerService.previous(), 'turbo');
+    this.#gamepadService.registerButtonAction(gamepadButtons.R1_BUTTON, () => this.playerService.next(), 'turbo');
+    this.#gamepadService.registerButtonAction(gamepadButtons.L1_BUTTON, () => this.playerService.previous(), 'turbo');
 
-    this.#gamepadService.registerButtonAction(GamepadButtons.START_BUTTON, () => this.showFilePickerAndAddToLibrary());
+    this.#gamepadService.registerButtonAction(gamepadButtons.START_BUTTON, () => this.showFilePickerAndAddToLibrary());
   }
 
   /**
@@ -109,21 +108,21 @@ export class PlayerToolbarComponent implements OnInit, OnDestroy {
       return;
     }
 
-    this.#gamepadService.deregisterButtonAction(GamepadButtons.A_BUTTON);
-    this.#gamepadService.deregisterButtonAction(GamepadButtons.B_BUTTON);
-    this.#gamepadService.deregisterButtonAction(GamepadButtons.X_BUTTON);
-    this.#gamepadService.deregisterButtonAction(GamepadButtons.Y_BUTTON);
-    this.#gamepadService.deregisterButtonAction(GamepadButtons.L2_BUTTON);
-    this.#gamepadService.deregisterButtonAction(GamepadButtons.R2_BUTTON);
-    this.#gamepadService.deregisterButtonAction(GamepadButtons.S2_BUTTON);
-    this.#gamepadService.deregisterButtonAction(GamepadButtons.DPAD_UP);
-    this.#gamepadService.deregisterButtonAction(GamepadButtons.DPAD_DOWN);
-    this.#gamepadService.deregisterButtonAction(GamepadButtons.R1_BUTTON);
-    this.#gamepadService.deregisterButtonAction(GamepadButtons.L1_BUTTON);
-    this.#gamepadService.deregisterButtonAction(GamepadButtons.START_BUTTON);
-    this.#gamepadService.deregisterAxisAction(GamepadAxes.S1_X);
-    this.#gamepadService.deregisterAxisAction(GamepadAxes.S2_Y);
-    this.#gamepadService.deregisterAxisAction(GamepadAxes.S1_Y);
+    this.#gamepadService.deregisterButtonAction(gamepadButtons.A_BUTTON);
+    this.#gamepadService.deregisterButtonAction(gamepadButtons.B_BUTTON);
+    this.#gamepadService.deregisterButtonAction(gamepadButtons.X_BUTTON);
+    this.#gamepadService.deregisterButtonAction(gamepadButtons.Y_BUTTON);
+    this.#gamepadService.deregisterButtonAction(gamepadButtons.L2_BUTTON);
+    this.#gamepadService.deregisterButtonAction(gamepadButtons.R2_BUTTON);
+    this.#gamepadService.deregisterButtonAction(gamepadButtons.S2_BUTTON);
+    this.#gamepadService.deregisterButtonAction(gamepadButtons.DPAD_UP);
+    this.#gamepadService.deregisterButtonAction(gamepadButtons.DPAD_DOWN);
+    this.#gamepadService.deregisterButtonAction(gamepadButtons.R1_BUTTON);
+    this.#gamepadService.deregisterButtonAction(gamepadButtons.L1_BUTTON);
+    this.#gamepadService.deregisterButtonAction(gamepadButtons.START_BUTTON);
+    this.#gamepadService.deregisterAxisAction(gamepadAxes.S1_X);
+    this.#gamepadService.deregisterAxisAction(gamepadAxes.S2_Y);
+    this.#gamepadService.deregisterAxisAction(gamepadAxes.S1_Y);
   }
 
   /**

@@ -1,11 +1,43 @@
 /* eslint-disable unicorn/no-top-level-assignment-in-function */
-import type {
-  BarsVisualizerOptions,
-  OscVisualizerOptions,
-  VisualizerMode,
-  VisualizerOptions,
-  VisualsWorkerMessage
-} from './visuals.types';
+import type { VisualizerMode } from './visuals.service';
+
+export interface VisualsWorkerMessage {
+  canvas?: OffscreenCanvas;
+  newSize?: DOMRectReadOnly;
+  stop?: boolean;
+  visualizerOptions?: VisualizerOptions;
+  analyserData?: Uint8Array<ArrayBuffer>;
+}
+
+export interface VisualsWorkerResponse {
+  bufferReady: boolean;
+  reusableBuffer?: Uint8Array<ArrayBuffer>;
+}
+
+export interface BaseVisualizerOptions {
+  mode: VisualizerMode;
+  mainColor: string;
+  peakColor: string;
+  alpha: number;
+  bufferLength: number;
+}
+
+export interface BarsVisualizerOptions extends BaseVisualizerOptions {
+  mode: 'bars' | 'circular-bars';
+  barCount: number;
+  gap: number;
+  capHeight: number;
+  capFalldown: number;
+  fftSize: number;
+  sampleRate: number;
+}
+
+export interface OscVisualizerOptions extends BaseVisualizerOptions {
+  mode: 'osc' | 'circular-osc';
+  thickness: number;
+}
+
+export type VisualizerOptions = BarsVisualizerOptions | OscVisualizerOptions;
 
 let mode: VisualizerMode = 'off';
 let canvas: OffscreenCanvas;
@@ -113,7 +145,8 @@ function handleMessage(event: MessageEvent<VisualsWorkerMessage>): void {
   }
 
   // Notify main thread we're ready for more data, including the buffer for reuse
-  postMessage({ bufferReady: true, reusableBuffer: analyserData }, [analyserData.buffer]);
+  const transferList = analyserData.buffer instanceof ArrayBuffer ? [analyserData.buffer] : [];
+  postMessage({ bufferReady: true, reusableBuffer: analyserData }, { transfer: transferList });
 }
 
 addEventListener('message', handleMessage);
@@ -340,7 +373,12 @@ function convertToBarkScale(): Float32Array {
   }
 
   const firstBarkValue = barkMap[0];
-  const barkScaleBandSize = (barkMap.at(-1) - firstBarkValue) / meterNumber;
+  const lastBarkValue = barkMap.at(-1);
+  if (lastBarkValue === undefined) {
+    return barkScaleBandEnergy;
+  }
+
+  const barkScaleBandSize = (lastBarkValue - firstBarkValue) / meterNumber;
   barkScaleBandEnergy.fill(0);
 
   let index = 0;

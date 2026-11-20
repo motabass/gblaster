@@ -2,15 +2,66 @@ import { inject, Service, signal } from '@angular/core';
 import { NgxIndexedDBService } from 'ngx-indexed-db';
 import { LocalStorageService } from 'ngx-webstorage';
 import { firstValueFrom } from 'rxjs';
-import { IndexedDbTrackMetadata, type Track, TrackMetadata, TrackMetadataResult } from '../player.types';
+import type { Id3CoverPicture, Id3Tags } from './id3-tags.service';
 import { Id3TagsService } from './id3-tags.service';
 import { LastfmMetadataService } from './lastfm-metadata.service';
-import { RemoteCoverArtUrls } from './metadata.types';
 import { MusicbrainzService } from './musicbrainz.service';
 import { FileData } from '../file-loader-service/file-loader.helpers';
 import { generateFileHash } from './metadata-helper';
 import { ProgressService } from './progress.service';
-import { Id3CoverPicture, Id3Tags } from './id3-tags.types';
+import type { IFormat } from 'music-metadata';
+
+export interface CoverColor {
+  hex?: string;
+  textHex?: string;
+}
+
+export interface CoverColorPalette {
+  vibrant?: CoverColor;
+  muted?: CoverColor;
+  darkVibrant?: CoverColor;
+  darkMuted?: CoverColor;
+  lightVibrant?: CoverColor;
+  lightMuted?: CoverColor;
+}
+
+export interface RemoteCoverArtUrls {
+  thumbUrl: string;
+  originalUrl: string;
+}
+
+export interface TrackMetadata {
+  hash: string;
+  fileName: string;
+  artist?: string;
+  title?: string;
+  track?: string;
+  album?: string;
+  year?: string;
+  format: IFormat;
+  coverUrl: RemoteCoverArtUrls;
+  embeddedPicture?: Id3CoverPicture;
+  coverColors?: CoverColorPalette;
+  /**
+   * Session-only object URL; never persist this value to IndexedDB.
+   */
+  cachedBlobUrl?: string;
+}
+
+export interface IndexedDbTrackMetadata extends TrackMetadata {
+  fileHandle?: FileSystemFileHandle;
+}
+
+export interface TrackMetadataResult {
+  fromCache: boolean;
+  metadata: TrackMetadata;
+}
+
+export interface Track {
+  file: File;
+  fileHandle?: FileSystemFileHandle;
+  metadata: TrackMetadata;
+}
 
 /**
 Extracts, caches, and manages track metadata and embedded cover images.

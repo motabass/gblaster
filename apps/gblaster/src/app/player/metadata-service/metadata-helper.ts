@@ -1,6 +1,6 @@
 import { md5 } from 'js-md5';
 import { Vibrant } from 'node-vibrant/browser';
-import type { CoverColorPalette } from './metadata.types';
+import type { CoverColorPalette } from './metadata.service';
 
 /**
 Converts a valid URL to HTTPS while preserving invalid input unchanged.

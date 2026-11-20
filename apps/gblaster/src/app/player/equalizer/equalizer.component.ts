@@ -1,7 +1,7 @@
 import { Component, effect, ElementRef, inject, viewChild } from '@angular/core';
 import { AudioService } from '../audio.service';
 import { MatSlider, MatSliderThumb } from '@angular/material/slider';
-import { FREQUENCY_BANDS } from '../player.types';
+import { FREQUENCY_BANDS } from '../audio-helper';
 import { ThemeService } from '../../theme/theme.service';
 
 /**

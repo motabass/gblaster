@@ -2,7 +2,7 @@ import { computed, effect, inject, Service, signal } from '@angular/core';
 import { Meta } from '@angular/platform-browser';
 import { LocalStorageService } from 'ngx-webstorage';
 import { FALLBACK_ACCENT_COLOR, FALLBACK_PRIMARY_COLOR } from './default-colors';
-import { ColorConfig } from '../player/player.types';
+import type { ColorConfig } from '../player/player.service';
 import { computeColors } from './theme-helper';
 
 const DARK_MODE_PREFERENCE_KEY = 'darkModePreference';

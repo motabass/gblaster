@@ -1,6 +1,5 @@
-import { Id3CoverPicture, Id3Tags } from './id3-tags.types';
+import type { Id3CoverPicture, Id3Tags, TagsWorkerRequest } from './id3-tags.service';
 import { parseBlob } from 'music-metadata';
-import { TagsWorkerRequest } from './metadata.types';
 
 /**
 Handles a tag-extraction request sent from the application thread.

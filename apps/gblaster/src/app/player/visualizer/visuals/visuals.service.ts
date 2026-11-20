@@ -1,7 +1,8 @@
 import { inject, Service, signal } from '@angular/core';
 import { LocalStorageService } from 'ngx-webstorage';
-import type { VisualizerMode } from './visuals.types';
 import { getNextVisualizerMode } from './visuals-helper';
+
+export type VisualizerMode = 'off' | 'bars' | 'osc' | 'circular-bars' | 'circular-osc';
 
 /**
 Stores and cycles the currently selected audio visualizer mode.

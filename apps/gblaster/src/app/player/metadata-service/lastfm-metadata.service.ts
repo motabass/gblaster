@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Service } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
-import { Id3Tags } from './id3-tags.types';
-import { RemoteCoverArtUrls } from './metadata.types';
+import type { Id3Tags } from './id3-tags.service';
+import type { RemoteCoverArtUrls } from './metadata.service';
 import { ensureHttps } from './metadata-helper';
 
 interface LastfmImage {

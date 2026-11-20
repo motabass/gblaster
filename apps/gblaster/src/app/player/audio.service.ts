@@ -1,8 +1,7 @@
 import { computed, inject, Service, signal, Signal } from '@angular/core';
 import { LocalStorageService } from 'ngx-webstorage';
-import { FREQUENCY_BANDS, FrequencyBand } from './player.types';
 import { Subject } from 'rxjs';
-import { createEqualizer } from './audio-helper';
+import { createEqualizer, FREQUENCY_BANDS, type FrequencyBand } from './audio-helper';
 
 export type EqualizerGainValues = {
   [Band in FrequencyBand]: number;

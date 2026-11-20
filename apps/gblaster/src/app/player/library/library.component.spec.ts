@@ -1,10 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { signal } from '@angular/core';
+import type { Album } from './library.component';
 import LibraryComponent from './library.component';
 import { PlayerService } from '../player.service';
 import { LibraryService } from './library.service';
-import { IndexedDbTrackMetadata } from '../player.types';
-import { Album } from './library.types';
+import type { IndexedDbTrackMetadata } from '../metadata-service/metadata.service';
 import { MatIconTestingModule } from '@angular/material/icon/testing';
 
 // Mock IndexedDbTrackMetadata factory

@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { NgxIndexedDBService } from 'ngx-indexed-db';
 import { of, Subject, throwError } from 'rxjs';
-import { IndexedDbTrackMetadata } from '../player.types';
+import type { IndexedDbTrackMetadata } from '../metadata-service/metadata.service';
 import { MetadataService } from '../metadata-service/metadata.service';
 import { LibraryService } from './library.service';
 

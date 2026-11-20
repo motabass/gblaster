@@ -1,14 +1,65 @@
 import { OnDestroy, Service } from '@angular/core';
-import {
-  ActionCache,
-  ActionFunction,
-  AxisGamepadAction,
-  ButtonGamepadAction,
-  GamepadAxes,
-  GamepadButtons,
-  InputCheckMode,
-  RumbleOptions
-} from './gamepad.types';
+
+export type ActionFunction = (buttonValue: number) => unknown;
+
+export interface GamepadAction {
+  index: number;
+  mode: string;
+  timeout: number;
+  default?: boolean;
+  axisDirection?: AxisDirection;
+}
+
+export interface AxisGamepadAction extends GamepadAction {
+  positiveActionFunction: ActionFunction;
+  negativeActionFunction: ActionFunction;
+}
+
+export interface ButtonGamepadAction extends GamepadAction {
+  action: ActionFunction;
+}
+
+export type AxisDirection = 'negative' | 'positive';
+
+export interface ActionCache {
+  index: number;
+  lastActionExecution: number;
+}
+
+export type InputCheckMode = 'click' | 'hold' | 'turbo';
+
+export interface RumbleOptions {
+  duration?: number;
+  weakMagnitude?: number;
+  strongMagnitude?: number;
+  startDelay?: number;
+}
+
+export const gamepadButtons = {
+  A_BUTTON: 0,
+  B_BUTTON: 1,
+  X_BUTTON: 2,
+  Y_BUTTON: 3,
+  L1_BUTTON: 4,
+  R1_BUTTON: 5,
+  L2_BUTTON: 6,
+  R2_BUTTON: 7,
+  SELECT_BUTTON: 8,
+  START_BUTTON: 9,
+  S1_BUTTON: 10,
+  S2_BUTTON: 11,
+  DPAD_UP: 12,
+  DPAD_DOWN: 13,
+  DPAD_LEFT: 14,
+  DPAD_RIGHT: 15
+} as const;
+
+export const gamepadAxes = {
+  S1_X: 0,
+  S1_Y: 1,
+  S2_X: 2,
+  S2_Y: 3
+} as const;
 
 /**
 Maps connected gamepad buttons and axes to configured actions.
@@ -32,15 +83,11 @@ export class GamepadService implements OnDestroy {
   Initializes default button and axis actions and observes gamepad connections.
   */
   constructor() {
-    for (const buttonIndex in GamepadButtons) {
-      if (Number(buttonIndex) >= 0) {
-        this.#buttonActions.push(this.#createDefaultButtonAction(Number(buttonIndex)));
-      }
+    for (const buttonIndex of Object.values(gamepadButtons)) {
+      this.#buttonActions.push(this.#createDefaultButtonAction(buttonIndex));
     }
-    for (const axisIndex in GamepadAxes) {
-      if (Number(axisIndex) >= 0) {
-        this.axisActions.push(this.#createDefaultAxisAction(Number(axisIndex)));
-      }
+    for (const axisIndex of Object.values(gamepadAxes)) {
+      this.axisActions.push(this.#createDefaultAxisAction(axisIndex));
     }
 
     addEventListener('gamepadconnected', (event: GamepadEvent) => this.#connectionListener(event));
@@ -65,16 +112,12 @@ export class GamepadService implements OnDestroy {
         return;
       }
 
-      for (const buttonIndex in GamepadButtons) {
-        if (Number(buttonIndex) >= 0) {
-          this.#checkForButtonClicked(gp, Number(buttonIndex));
-        }
+      for (const buttonIndex of Object.values(gamepadButtons)) {
+        this.#checkForButtonClicked(gp, buttonIndex);
       }
 
-      for (const axisIndex in GamepadAxes) {
-        if (Number(axisIndex) >= 0) {
-          this.#checkForAxesInput(gp, Number(axisIndex));
-        }
+      for (const axisIndex of Object.values(gamepadAxes)) {
+        this.#checkForAxesInput(gp, axisIndex);
       }
     }, 16);
   }

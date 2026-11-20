@@ -1,4 +1,6 @@
-import { FREQUENCY_BANDS, FrequencyBand } from './player.types';
+export const FREQUENCY_BANDS = [31, 63, 125, 250, 500, 1000, 2000, 4000, 8000, 16_000] as const;
+
+export type FrequencyBand = (typeof FREQUENCY_BANDS)[number];
 
 /**
  * Creates an equalizer chain of BiquadFilterNodes for an audio context.

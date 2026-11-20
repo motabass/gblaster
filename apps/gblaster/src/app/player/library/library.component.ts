@@ -1,5 +1,5 @@
 import { Component, computed, inject, OnInit, signal } from '@angular/core';
-import { IndexedDbTrackMetadata, Track } from '../player.types';
+import type { IndexedDbTrackMetadata, RemoteCoverArtUrls, Track } from '../metadata-service/metadata.service';
 import {
   MatList,
   MatListItem,
@@ -16,12 +16,17 @@ import { CdkFixedSizeVirtualScroll, CdkVirtualForOf, CdkVirtualScrollViewport } 
 import { MatFormField, MatHint, MatInput, MatPrefix, MatSuffix } from '@angular/material/input';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { LibraryService } from './library.service';
-import { Album } from './library.types';
 import { debounce, form, FormField } from '@angular/forms/signals';
 import Fuse from 'fuse.js';
 import { LibraryTrackDetailsComponent } from '../track-details/library-track-details.component';
 
 const collator = new Intl.Collator();
+
+export interface Album {
+  name: string;
+  year: string;
+  coverUrl: RemoteCoverArtUrls;
+}
 
 /**
 Presents searchable library tracks and actions for adding or removing them.

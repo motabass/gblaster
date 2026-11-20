@@ -1,8 +1,8 @@
 import { computed, DestroyRef, effect, inject, Service, signal } from '@angular/core';
 import { LocalStorageService } from 'ngx-webstorage';
 import { FileLoaderService } from './file-loader-service/file-loader.service';
+import type { Track } from './metadata-service/metadata.service';
 import { MetadataService } from './metadata-service/metadata.service';
-import type { ColorConfig, RepeatMode, Track } from './player.types';
 import { ALLOWED_MIMETYPES, FileData } from './file-loader-service/file-loader.helpers';
 import { ThemeService } from '../theme/theme.service';
 import { WakelockService } from '../services/wakelock.service';
@@ -11,6 +11,13 @@ import { AudioService } from './audio.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { getRandomInt } from './player-helper';
 import { extractColorsWithNodeVibrant } from './metadata-service/metadata-helper';
+
+export type RepeatMode = 'off' | 'all' | 'one';
+
+export interface ColorConfig {
+  mainColor?: string;
+  peakColor?: string;
+}
 
 /**
 Coordinates playlists, playback controls, metadata, theme colors, and device APIs.

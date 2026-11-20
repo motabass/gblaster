@@ -1,6 +1,31 @@
 import { OnDestroy, Service } from '@angular/core';
-import { Id3Tags } from './id3-tags.types';
-import { TagsWorkerResponse } from './metadata.types';
+import type { IFormat } from 'music-metadata';
+
+export interface Id3Tags {
+  picture?: Id3CoverPicture;
+  artist?: string;
+  title?: string;
+  album?: string;
+  track?: { no?: number | null; of?: number | null };
+  year?: string;
+  format: IFormat;
+}
+
+export interface Id3CoverPicture {
+  data: Uint8Array<ArrayBuffer>;
+  format: string;
+}
+
+export interface TagsWorkerRequest {
+  id: string;
+  file: File;
+}
+
+export interface TagsWorkerResponse {
+  id: string;
+  tags?: Id3Tags;
+  error?: string;
+}
 
 /**
 Extracts ID3 tags in a worker and resolves requests by their generated IDs.

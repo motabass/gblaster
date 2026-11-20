@@ -2,7 +2,7 @@ import { BitratePipe } from './bitrate.pipe';
 import { Component, computed, inject, input } from '@angular/core';
 import { ThemeService } from '../../theme/theme.service';
 import { TimePipe } from '../time.pipe';
-import { TrackMetadata } from '../player.types';
+import type { TrackMetadata } from '../metadata-service/metadata.service';
 
 /**
 Displays track artwork, metadata, and a theme-aware cover background.

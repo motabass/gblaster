@@ -11,7 +11,7 @@ import {
 } from '@angular/core';
 import { EMPTY, fromEvent, ignoreElements, map, merge, switchMap, tap } from 'rxjs';
 import { PlayerService } from '../player.service';
-import { Track } from '../player.types';
+import type { Track } from '../metadata-service/metadata.service';
 import { AudioService } from '../audio.service';
 import { MatIcon } from '@angular/material/icon';
 import { MatIconButton } from '@angular/material/button';

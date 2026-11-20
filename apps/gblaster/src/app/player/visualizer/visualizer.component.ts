@@ -1,9 +1,7 @@
 import { Component, computed, inject, OnDestroy, OnInit, signal } from '@angular/core';
 import { LocalStorageService } from 'ngx-webstorage';
-import type { FftSize, FrequencyBarsConfig, OsciloscopeConfig } from './visuals/visuals.types';
 import { VisualsService } from './visuals/visuals.service';
-import { GamepadService } from '../../services/gamepad/gamepad.service';
-import { GamepadButtons } from '../../services/gamepad/gamepad.types';
+import { gamepadButtons, GamepadService } from '../../services/gamepad/gamepad.service';
 import { AudioService } from '../audio.service';
 import { SlidePanelComponent } from '@motabass/ui-components/slide-panel';
 import { VisualsDirective } from './visuals/visuals.directive';
@@ -11,6 +9,26 @@ import { PlayerService } from '../player.service';
 import { MatOption, MatSelect } from '@angular/material/select';
 import { MatSlider, MatSliderThumb } from '@angular/material/slider';
 import { MatIcon } from '@angular/material/icon';
+
+export type FftSize = 32 | 64 | 128 | 256 | 512 | 1024 | 2048 | 4096 | 8192 | 16_384 | 32_768;
+
+export interface AnalyserConfig {
+  fftSize: FftSize;
+  smoothingTimeConstant: number;
+  minDecibels: number;
+  maxDecibels: number;
+}
+
+export interface FrequencyBarsConfig {
+  barCount: number;
+  capHeight: number;
+  gap: number;
+  capFalldown: number;
+}
+
+export interface OsciloscopeConfig {
+  thickness: number;
+}
 
 /**
 Renders the audio visualizer and exposes controls for its visual settings.
@@ -56,7 +74,7 @@ export class VisualizerComponent implements OnInit, OnDestroy {
   Registers the gamepad shortcut for changing the visualizer mode.
   */
   ngOnInit(): void {
-    this.#gamepadService?.registerButtonAction(GamepadButtons.SELECT_BUTTON, () =>
+    this.#gamepadService?.registerButtonAction(gamepadButtons.SELECT_BUTTON, () =>
       this.visualsService.toggleVisualMode()
     );
   }
@@ -65,7 +83,7 @@ export class VisualizerComponent implements OnInit, OnDestroy {
   Releases the gamepad shortcut and audio analyser when the component is destroyed.
   */
   ngOnDestroy(): void {
-    this.#gamepadService?.deregisterButtonAction(GamepadButtons.SELECT_BUTTON);
+    this.#gamepadService?.deregisterButtonAction(gamepadButtons.SELECT_BUTTON);
     this.audioService.disconnectAnalyserNode(this.analyser);
   }
 

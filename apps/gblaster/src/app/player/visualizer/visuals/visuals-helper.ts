@@ -1,4 +1,4 @@
-import { VisualizerMode } from './visuals.types';
+import type { VisualizerMode } from './visuals.service';
 
 /**
 Returns the next visualizer mode in the cycle.
