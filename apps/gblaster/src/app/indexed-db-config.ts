@@ -1,4 +1,4 @@
-import { DBConfig } from 'ngx-indexed-db';
+import type { DBConfig } from 'ngx-indexed-db';
 
 export const databaseConfig: DBConfig = {
   name: 'gblasterDB',

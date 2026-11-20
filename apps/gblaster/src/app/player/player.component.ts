@@ -1,4 +1,5 @@
-import { Component, computed, inject, OnInit } from '@angular/core';
+import type { OnInit } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { TitleService } from '../services/title.service';
 import { CoverDisplayComponent } from './cover-display/cover-display.component';
 import { PlaylistComponent } from './playlist/playlist.component';

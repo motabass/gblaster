@@ -1,4 +1,5 @@
-import { Directive, effect, ElementRef, inject, input, OnDestroy } from '@angular/core';
+import type { OnDestroy } from '@angular/core';
+import { Directive, effect, ElementRef, inject, input } from '@angular/core';
 import type { FrequencyBarsConfig, OsciloscopeConfig } from '../visualizer.component';
 import type { VisualizerMode } from './visuals.service';
 import type { VisualizerOptions, VisualsWorkerResponse } from './visuals.worker';

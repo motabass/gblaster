@@ -1,4 +1,5 @@
-import { Component, computed, inject, OnDestroy, OnInit } from '@angular/core';
+import type { OnDestroy, OnInit } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { MatMenu, MatMenuTrigger } from '@angular/material/menu';
 import { MatSlider, MatSliderThumb } from '@angular/material/slider';
 import { MatToolbar } from '@angular/material/toolbar';

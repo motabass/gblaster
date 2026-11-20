@@ -1,11 +1,11 @@
-import { computed, inject, Service, signal, Signal } from '@angular/core';
+import type { Signal } from '@angular/core';
+import { computed, inject, Service, signal } from '@angular/core';
 import { LocalStorageService } from 'ngx-webstorage';
 import { Subject } from 'rxjs';
-import { createEqualizer, FREQUENCY_BANDS, type FrequencyBand } from './audio-helper';
+import type { FrequencyBand } from './audio-helper';
+import { createEqualizer, FREQUENCY_BANDS } from './audio-helper';
 
-export type EqualizerGainValues = {
-  [Band in FrequencyBand]: number;
-};
+export type EqualizerGainValues = Record<FrequencyBand, number>;
 
 /**
 Owns the audio element, Web Audio graph, playback state, and equalizer.

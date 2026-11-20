@@ -1,6 +1,7 @@
 import { inject, Service } from '@angular/core';
 import { Platform } from '@angular/cdk/platform';
-import { ALLOWED_MIMETYPES, FileData } from './file-loader.helpers';
+import type { FileData } from './file-loader.helpers';
+import { ALLOWED_MIMETYPES } from './file-loader.helpers';
 
 /**
 Opens supported audio files or folders and returns their file handles.

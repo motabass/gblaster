@@ -1,4 +1,5 @@
-import { Component, computed, inject, OnInit, signal } from '@angular/core';
+import type { OnInit } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import type { IndexedDbTrackMetadata, RemoteCoverArtUrls, Track } from '../metadata-service/metadata.service';
 import {
   MatList,

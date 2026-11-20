@@ -6,7 +6,7 @@ import type { Id3CoverPicture, Id3Tags } from './id3-tags.service';
 import { Id3TagsService } from './id3-tags.service';
 import { LastfmMetadataService } from './lastfm-metadata.service';
 import { MusicbrainzService } from './musicbrainz.service';
-import { FileData } from '../file-loader-service/file-loader.helpers';
+import type { FileData } from '../file-loader-service/file-loader.helpers';
 import { generateFileHash } from './metadata-helper';
 import { ProgressService } from './progress.service';
 import type { IFormat } from 'music-metadata';

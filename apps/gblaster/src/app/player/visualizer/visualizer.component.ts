@@ -1,4 +1,5 @@
-import { Component, computed, inject, OnDestroy, OnInit, signal } from '@angular/core';
+import type { OnDestroy, OnInit } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { LocalStorageService } from 'ngx-webstorage';
 import { VisualsService } from './visuals/visuals.service';
 import { gamepadButtons, GamepadService } from '../../services/gamepad/gamepad.service';

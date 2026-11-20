@@ -1,4 +1,5 @@
-import { AfterViewInit, Component, ElementRef, inject, input, OnDestroy, output, Renderer2 } from '@angular/core';
+import type { AfterViewInit, OnDestroy } from '@angular/core';
+import { Component, ElementRef, inject, input, output, Renderer2 } from '@angular/core';
 
 type FileSystemDataTransferItem = DataTransferItem & {
   getAsFileSystemHandle?: () => Promise<FileSystemHandle | null>;

@@ -1,4 +1,5 @@
-import { OnDestroy, Service } from '@angular/core';
+import type { OnDestroy } from '@angular/core';
+import { Service } from '@angular/core';
 
 export type ActionFunction = (buttonValue: number) => unknown;
 

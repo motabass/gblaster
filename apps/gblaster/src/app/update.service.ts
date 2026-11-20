@@ -1,7 +1,8 @@
 import { DestroyRef, inject, Service } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { SwUpdate } from '@angular/service-worker';
-import { PromptDialogComponent, PromptDialogData } from '@motabass/ui-components/dialogs';
+import type { PromptDialogData } from '@motabass/ui-components/dialogs';
+import { PromptDialogComponent } from '@motabass/ui-components/dialogs';
 import { firstValueFrom } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
