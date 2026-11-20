@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { PromptDialogComponent, PromptDialogData } from './prompt-dialog.component';
+import type { PromptDialogData } from './prompt-dialog.component';
+import { PromptDialogComponent } from './prompt-dialog.component';
 
 describe('PromptDialogComponent', () => {
   let component: PromptDialogComponent;

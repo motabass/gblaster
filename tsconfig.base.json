@@ -9,6 +9,7 @@
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "strict": true,
+    "verbatimModuleSyntax": true,
     "importHelpers": true,
     "preserveSymlinks": true,
     "target": "es2022",
