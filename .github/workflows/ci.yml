@@ -56,11 +56,34 @@ jobs:
           path: apps/gblaster/playwright-report
           retention-days: 7
 
+      - name: Test lint summary
+        run: node --test .github/scripts/eslint-summary.test.mjs
+
       - name: Lint
         id: lint
         run: pnpm exec nx run-many -t lint --configuration=ci
         env:
           CI: true
+
+      - name: Prepare lint summary
+        id: lint-summary
+        if: ${{ always() && steps.lint.outcome != 'skipped' }}
+        env:
+          LINT_OUTCOME: ${{ steps.lint.outcome }}
+        run: |
+          mapfile -d '' reports < <(find . \( -name node_modules -o -name .git -o -name .nx -o -name .angular \) -prune -o -name eslint-report.rdjson -type f -print0)
+          node .github/scripts/eslint-summary.mjs "${reports[@]}"
+
+      - name: Setup reviewdog
+        id: reviewdog-setup
+        if: ${{ always() && steps.lint-summary.outcome == 'success' }}
+        uses: reviewdog/action-setup@d8edfce3dd5e1ec6978745e801f9c50b5ef80252 # v1.4.0
+        with:
+          reviewdog_version: v0.21.3
+
+      - name: Annotate lint diagnostics
+        if: ${{ always() && steps.reviewdog-setup.outcome == 'success' }}
+        run: reviewdog -f=rdjson -name=eslint -reporter=github-annotations -filter-mode=nofilter < "$RUNNER_TEMP/eslint-report.rdjson"
 
       - name: Upload lint reports
         uses: actions/upload-artifact@v7
@@ -68,7 +91,7 @@ jobs:
         with:
           name: lint-reports
           path: |
-            **/eslint-report.html
+            **/eslint-report.rdjson
             !**/node_modules/**
           if-no-files-found: warn
           retention-days: 7

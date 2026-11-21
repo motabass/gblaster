@@ -65,3 +65,6 @@ vitest.config.*.timestamp*
 .nx/self-healing
 .nx/migrate-runs
 .vitest
+
+# Per-project CI lint reports
+eslint-report.rdjson

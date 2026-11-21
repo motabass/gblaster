@@ -43,3 +43,7 @@ Tag Reader:
 Color extraction from cover-art:
 
 [node-vibrant](https://github.com/Vibrant-Colors/node-vibrant)
+
+### CI lint reports
+
+CI runs the Nx lint targets with the RDJSON formatter. The job summary shows up to 200 diagnostics, while reviewdog adds annotations and the `lint-reports` artifact contains the complete per-project reports. A failed lint run still fails CI.
