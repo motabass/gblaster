@@ -335,6 +335,9 @@ importers:
       eslint-config-prettier:
         specifier: 10.1.8
         version: 10.1.8(eslint@10.15.0(jiti@2.7.0)(supports-color@8.1.1))
+      eslint-formatter-html:
+        specifier: 2.7.3
+        version: 2.7.3
       eslint-interactive:
         specifier: 14.0.0
         version: 14.0.0(eslint@10.15.0(jiti@2.7.0)(supports-color@8.1.1))
@@ -4170,6 +4173,10 @@ packages:
     resolution: {integrity: sha512-BvU8nYgGQBxcmMuEeUEmNTvrMVjJNSH7RgW24vXexN4Ven6qCvy4TntnvlnwnMLTVlcRQQdbRY8NKnaIoeWDNg==}
     engines: {node: '>=18'}
 
+  ansi-regex@4.1.1:
+    resolution: {integrity: sha512-ILlv4k/3f6vfQ4OoP2AGvirOktlQ98ZEL1k9FaQjxa3L1abBgbuTDAdPOpvbGncC0BTVQrl+OM8xZGK6tWXt7g==}
+    engines: {node: '>=6'}
+
   ansi-regex@5.0.1:
     resolution: {integrity: sha512-quJQXlTSUGL2LH9SUXo8VwsY4soanhgo6LNSm84E1LBcE8s3O0wpdiRzyR9z/ZZJMlMWv37qOOb9pdJlMUEKFQ==}
     engines: {node: '>=8'}
@@ -5243,6 +5250,9 @@ packages:
     hasBin: true
     peerDependencies:
       eslint: '>=7.0.0'
+
+  eslint-formatter-html@2.7.3:
+    resolution: {integrity: sha512-MZMUIM6Ok0HlZKJW4ZIdH+36LWTstvhdquGdzsM7jKNJPC2COwDhtd5jjdpe5/XsLzO3v4CAuJO0bHIMznKf8w==}
 
   eslint-interactive@14.0.0:
     resolution: {integrity: sha512-F13Y6A0Zh2V3MroVaE/zSlWR2h5z/xdLS6Odk7hMdl1hl7JFMIh/ZED4rogpBTAwmzgW9yk3o1FU/F2LIgHq5w==}
@@ -7086,6 +7096,9 @@ packages:
   pako@1.0.11:
     resolution: {integrity: sha512-4hLB8Py4zZce5s4yd9XzopqwVv/yGNhV1Bl8NTmCq1763HeK2+EwVTv+leGeL13Dnh2wfbqowVPXCIO0z4taYw==}
 
+  pako@2.2.0:
+    resolution: {integrity: sha512-zJq6RP/5q+TO2OpFV3FHzlPnFjmkb7Nc99a5SNjJE+uu/PkpChs+NIZSSzbBoD+6kjiISXjfYdwj1ZRQ81dz/w==}
+
   parent-module@1.0.1:
     resolution: {integrity: sha512-GQ2EWRpQV8/o+Aw8YqtfZZPfNRWZYkbidE9k5rpl/hC3vtHHBfGm2Ifi6qWV+coDGkrUKZAxE3Lot5kcsRlh+g==}
     engines: {node: '>=6'}
@@ -8154,6 +8167,10 @@ packages:
 
   string_decoder@1.3.0:
     resolution: {integrity: sha512-hkRX8U1WjJFd8LsDJ2yQ/wWWxaopEsABU1XfkM8A+j0+85JAGppt16cr1Whg6KIbb4okU6Mql6BOj+uup/wKeA==}
+
+  strip-ansi@5.2.0:
+    resolution: {integrity: sha512-DuRs1gKbBqsMKIZlrffwlug8MHkcnpjs5VPmL1PAh+mA30U0DTotfDZ0d2UUsXpPmPmMMJ6W773MaA3J+lbiWA==}
+    engines: {node: '>=6'}
 
   strip-ansi@6.0.1:
     resolution: {integrity: sha512-Y38VPSHcqkFrCpFnQ9vuSXmquuv5oXOKpGeT6aGrr3o3Gc9AlVa6JBfUSOCnbxGGZF+/0ooI7KrPuUSztUdU5A==}
@@ -12776,6 +12793,8 @@ snapshots:
     dependencies:
       environment: 1.1.0
 
+  ansi-regex@4.1.1: {}
+
   ansi-regex@5.0.1: {}
 
   ansi-regex@6.6.0: {}
@@ -13838,6 +13857,11 @@ snapshots:
   eslint-config-prettier@10.1.8(eslint@10.15.0(jiti@2.7.0)(supports-color@8.1.1)):
     dependencies:
       eslint: 10.15.0(jiti@2.7.0)(supports-color@8.1.1)
+
+  eslint-formatter-html@2.7.3:
+    dependencies:
+      pako: 2.2.0
+      strip-ansi: 5.2.0
 
   eslint-interactive@14.0.0(eslint@10.15.0(jiti@2.7.0)(supports-color@8.1.1)):
     dependencies:
@@ -16340,6 +16364,8 @@ snapshots:
 
   pako@1.0.11: {}
 
+  pako@2.2.0: {}
+
   parent-module@1.0.1:
     dependencies:
       callsites: 3.1.0
@@ -17424,6 +17450,10 @@ snapshots:
   string_decoder@1.3.0:
     dependencies:
       safe-buffer: 5.2.1
+
+  strip-ansi@5.2.0:
+    dependencies:
+      ansi-regex: 4.1.1
 
   strip-ansi@6.0.1:
     dependencies:

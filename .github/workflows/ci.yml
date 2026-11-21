@@ -56,6 +56,23 @@ jobs:
           path: apps/gblaster/playwright-report
           retention-days: 7
 
+      - name: Lint
+        id: lint
+        run: pnpm exec nx run-many -t lint --outputStyle=static --skipNxCache -- --format=html --output-file=eslint-report.html
+        env:
+          CI: true
+
+      - name: Upload lint reports
+        uses: actions/upload-artifact@v7
+        if: ${{ always() && steps.lint.outcome != 'skipped' }}
+        with:
+          name: lint-reports
+          path: |
+            **/eslint-report.html
+            !**/node_modules/**
+          if-no-files-found: warn
+          retention-days: 7
+
       - name: Upload build artifacts
         uses: actions/upload-artifact@v7
         with:
