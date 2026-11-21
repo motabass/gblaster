@@ -83,7 +83,8 @@
     "lint": {
       "configurations": {
         "ci": {
-          "command": "eslint . --format=html --output-file=eslint-report.html"
+          "format": "html",
+          "output-file": "eslint-report.html"
         }
       }
     },
