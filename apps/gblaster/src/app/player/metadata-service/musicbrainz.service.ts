@@ -30,7 +30,8 @@ export class MusicbrainzService {
     try {
       const releaseGroupId = await this.#findReleaseGroupId(tags.artist, tags.album);
       return releaseGroupId ? await this.#fetchCoverArt(releaseGroupId) : undefined;
-    } catch {
+    } catch (error) {
+      console.warn('Failed to query MusicBrainz', error);
       return undefined;
     }
   }
@@ -46,7 +47,8 @@ export class MusicbrainzService {
     try {
       const data = await this.#musicBrainzApi.search('release-group', { query });
       return data['release-groups']?.length ? data['release-groups'][0].id : undefined;
-    } catch {
+    } catch (error) {
+      console.warn('Failed to search release groups:', error);
       return undefined;
     }
   }
@@ -86,7 +88,8 @@ export class MusicbrainzService {
         thumbUrl: ensureHttps(thumb),
         originalUrl: ensureHttps(original)
       };
-    } catch {
+    } catch (error) {
+      console.warn('No cover found with this ID', error);
       return undefined;
     }
   }
