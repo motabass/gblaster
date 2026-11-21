@@ -3,6 +3,8 @@ import tsParser from '@typescript-eslint/parser';
 import eslintPluginUnicorn from 'eslint-plugin-unicorn';
 import sonarjs from 'eslint-plugin-sonarjs';
 import eslintConfigPrettier from 'eslint-config-prettier/flat';
+import angularTemplate from '@html-eslint/eslint-plugin-angular-template';
+import templateParser from '@angular-eslint/template-parser';
 import { DEFAULT_HTML_RULE_OVERRIDES, DEFAULT_JS_RULE_OVERRIDES, DEFAULT_TS_RULE_OVERRIDES } from './eslint-rules.mjs';
 
 export default [
@@ -63,7 +65,14 @@ export default [
   },
   {
     files: ['**/*.html'],
+    languageOptions: {
+      parser: templateParser
+    },
+    plugins: {
+      '@html-eslint/angular-template': angularTemplate
+    },
     rules: {
+      ...angularTemplate.configs.recommended.rules,
       ...DEFAULT_HTML_RULE_OVERRIDES
     }
   },

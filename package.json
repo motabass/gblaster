@@ -95,12 +95,14 @@
     "tslib": "2.9.1"
   },
   "devDependencies": {
+    "@angular-eslint/template-parser": "22.8.0",
     "@angular/build": "22.2.8",
     "@angular/cli": "22.2.8",
     "@angular/compiler-cli": "22.2.7",
     "@angular/language-service": "22.2.7",
     "@csmith/release-it-calver-plugin": "2026.9.0",
     "@eslint/js": "10.0.1",
+    "@html-eslint/eslint-plugin-angular-template": "0.68.0",
     "@nx/angular": "24.0.6",
     "@nx/devkit": "24.0.6",
     "@nx/eslint": "24.0.6",
