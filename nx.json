@@ -80,6 +80,13 @@
       "inputs": ["production", "^production"],
       "cache": true
     },
+    "lint": {
+      "configurations": {
+        "ci": {
+          "command": "eslint . --format=html --output-file=eslint-report.html"
+        }
+      }
+    },
     "e2e": {
       "inputs": ["default", "^production"],
       "cache": true

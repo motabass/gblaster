@@ -58,7 +58,7 @@ jobs:
 
       - name: Lint
         id: lint
-        run: pnpm exec nx run-many -t lint --outputStyle=static --skipNxCache -- --format=html --output-file=eslint-report.html
+        run: pnpm exec nx run-many -t lint --configuration=ci
         env:
           CI: true
 
