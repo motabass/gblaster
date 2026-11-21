@@ -28,7 +28,11 @@ async function handleMessage(event: MessageEvent<TagsWorkerRequest>): Promise<vo
   }
 }
 
-addEventListener('message', handleMessage);
+addEventListener('message', (event: MessageEvent<TagsWorkerRequest>) => {
+  void handleMessage(event).catch((error: unknown) => {
+    console.error('Unexpected metadata worker error:', error);
+  });
+});
 
 /**
 Extracts common tags and embedded cover art from an audio file.
@@ -48,7 +52,7 @@ async function extractTags(file: File): Promise<Id3Tags | undefined> {
     if (tags.common.picture?.length) {
       tagsCover = {
         format: tags.common.picture[0].format,
-        data: tags.common.picture[0].data
+        data: new Uint8Array(tags.common.picture[0].data)
       };
     }
 
