@@ -13,13 +13,6 @@ import { MatIcon } from '@angular/material/icon';
 
 export type FftSize = 32 | 64 | 128 | 256 | 512 | 1024 | 2048 | 4096 | 8192 | 16_384 | 32_768;
 
-export interface AnalyserConfig {
-  fftSize: FftSize;
-  smoothingTimeConstant: number;
-  minDecibels: number;
-  maxDecibels: number;
-}
-
 export interface FrequencyBarsConfig {
   barCount: number;
   capHeight: number;
