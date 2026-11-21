@@ -69,6 +69,7 @@ export class LibraryService {
   */
   async clearLibrary(): Promise<void> {
     await firstValueFrom(this.#indexedDbService.clear('library'));
+    this.#metadataService.revokeBlobUrlsForTracks(this.indexedDbTracks());
     this.#indexedDbTracks.set([]);
   }
 

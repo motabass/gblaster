@@ -160,8 +160,9 @@ export class MetadataService {
   @param metadata Track metadata to store.
   */
   async #addMetadataToIndexedDb(metadata: TrackMetadata) {
-    const { cachedBlobUrl, ...metadataToStore } = metadata;
+    const metadataToStore = { ...metadata };
     // Never persist cachedBlobUrl - blob URLs are session-specific
+    delete metadataToStore.cachedBlobUrl;
     await firstValueFrom(this.#indexedDBService.add('library', metadataToStore));
   }
 
@@ -290,12 +291,7 @@ export class MetadataService {
   */
   revokeBlobUrlsForTracks(tracks: TrackMetadata[]): void {
     for (const track of tracks) {
-      if (!track.cachedBlobUrl) {
-        continue;
-      }
-
-      URL.revokeObjectURL(track.cachedBlobUrl);
-      track.cachedBlobUrl = undefined;
+      this.revokeBlobUrlForTrack(track);
     }
   }
 

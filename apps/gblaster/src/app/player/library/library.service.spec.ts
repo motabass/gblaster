@@ -20,7 +20,9 @@ describe('LibraryService', () => {
   let libraryService: LibraryService;
   let tracks: IndexedDbTrackMetadata[];
   let deleteTrack: ReturnType<typeof vi.fn>;
+  let clearLibrary: ReturnType<typeof vi.fn>;
   let revokeBlobUrlForTrack: ReturnType<typeof vi.fn>;
+  let revokeBlobUrlsForTracks: ReturnType<typeof vi.fn>;
 
   beforeEach(async () => {
     tracks = [
@@ -30,7 +32,9 @@ describe('LibraryService', () => {
       createTrack('other-artist', 'Artist C', 'Other Album')
     ];
     deleteTrack = vi.fn().mockReturnValue(of(undefined));
+    clearLibrary = vi.fn().mockReturnValue(of(undefined));
     revokeBlobUrlForTrack = vi.fn();
+    revokeBlobUrlsForTracks = vi.fn();
 
     await TestBed.configureTestingModule({
       providers: [
@@ -39,7 +43,8 @@ describe('LibraryService', () => {
           provide: NgxIndexedDBService,
           useValue: {
             getAll: vi.fn().mockReturnValue(of(tracks)),
-            delete: deleteTrack
+            delete: deleteTrack,
+            clear: clearLibrary
           }
         },
         {
@@ -47,7 +52,7 @@ describe('LibraryService', () => {
           useValue: {
             applyEmbeddedCoverObjectUrsl: vi.fn((track: IndexedDbTrackMetadata) => track),
             revokeBlobUrlForTrack,
-            revokeBlobUrlsForTracks: vi.fn()
+            revokeBlobUrlsForTracks
           }
         }
       ]
@@ -91,6 +96,14 @@ describe('LibraryService', () => {
 
     expect(libraryService.indexedDbTracks()).not.toBe(currentTracks);
     expect(libraryService.indexedDbTracks().map((track) => track.hash)).toEqual(['album-b-1', 'other-artist']);
+  });
+
+  it('clears the library and revokes all cached artwork URLs', async () => {
+    await libraryService.clearLibrary();
+
+    expect(clearLibrary).toHaveBeenCalledWith('library');
+    expect(revokeBlobUrlsForTracks).toHaveBeenCalledWith(tracks);
+    expect(libraryService.indexedDbTracks()).toEqual([]);
   });
 
   it('keeps the in-memory track and its artwork when IndexedDB deletion fails', async () => {
