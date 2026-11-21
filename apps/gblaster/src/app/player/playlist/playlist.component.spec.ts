@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/dot-notation */
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import type { WritableSignal } from '@angular/core';
 import { signal } from '@angular/core';

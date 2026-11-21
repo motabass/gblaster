@@ -114,7 +114,7 @@ export class VisualizerComponent implements OnInit, OnDestroy {
   @param value Smoothing value, or null when no value is selected.
   */
   protected setSmoothing(value: number | null) {
-    if (!(value !== null)) {
+    if (value === null) {
       return;
     }
 
@@ -128,7 +128,7 @@ export class VisualizerComponent implements OnInit, OnDestroy {
   @param value Minimum decibel level, or null when no value is selected.
   */
   protected setMinDb(value: number | null) {
-    if (!(value !== null)) {
+    if (value === null) {
       return;
     }
 
@@ -142,7 +142,7 @@ export class VisualizerComponent implements OnInit, OnDestroy {
   @param value Alpha value, or null when no value is selected.
   */
   protected setAlpha(value: number | null) {
-    if (!(value !== null)) {
+    if (value === null) {
       return;
     }
 
@@ -165,7 +165,7 @@ export class VisualizerComponent implements OnInit, OnDestroy {
   @param value Bar count, or null when no value is selected.
   */
   protected setBarCount(value: number | null) {
-    if (!(value !== null)) {
+    if (value === null) {
       return;
     }
 
@@ -178,7 +178,7 @@ export class VisualizerComponent implements OnInit, OnDestroy {
   @param value Cap height, or null when no value is selected.
   */
   protected setCapHeight(value: number | null) {
-    if (!(value !== null)) {
+    if (value === null) {
       return;
     }
 
@@ -191,7 +191,7 @@ export class VisualizerComponent implements OnInit, OnDestroy {
   @param value Fall speed, or null when no value is selected.
   */
   protected setCapFalldown(value: number | null) {
-    if (!(value !== null)) {
+    if (value === null) {
       return;
     }
 
@@ -204,7 +204,7 @@ export class VisualizerComponent implements OnInit, OnDestroy {
   @param value Line thickness, or null when no value is selected.
   */
   protected setLineThickness(value: number | null) {
-    if (!(value !== null)) {
+    if (value === null) {
       return;
     }
 
@@ -217,7 +217,7 @@ export class VisualizerComponent implements OnInit, OnDestroy {
   @param value Bar gap, or null when no value is selected.
   */
   protected setGap(value: number | null) {
-    if (!(value !== null)) {
+    if (value === null) {
       return;
     }
 

@@ -243,7 +243,7 @@ export class PlayerService {
   @param song Track to add.
   */
   addTrackToPlaylist(song: Track) {
-    if (!this.currentPlaylist().some((playlistSong) => playlistSong.metadata?.hash === song.metadata?.hash)) {
+    if (this.currentPlaylist().every((playlistSong) => playlistSong.metadata?.hash !== song.metadata?.hash)) {
       this.#currentPlaylist.update((playlist) => [...playlist, song]);
     }
   }
