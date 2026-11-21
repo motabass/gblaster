@@ -3,11 +3,7 @@ import tsParser from '@typescript-eslint/parser';
 import eslintPluginUnicorn from 'eslint-plugin-unicorn';
 import sonarjs from 'eslint-plugin-sonarjs';
 import eslintConfigPrettier from 'eslint-config-prettier/flat';
-import {
-  DEFAULT_JS_RULE_OVERRIDES,
-  DEFAULT_SONARJS_HTML_RULE_OVERRIDES,
-  DEFAULT_TS_RULE_OVERRIDES
-} from './eslint-rules.mjs';
+import { DEFAULT_HTML_RULE_OVERRIDES, DEFAULT_JS_RULE_OVERRIDES, DEFAULT_TS_RULE_OVERRIDES } from './eslint-rules.mjs';
 
 export default [
   ...nx.configs['flat/base'],
@@ -68,7 +64,7 @@ export default [
   {
     files: ['**/*.html'],
     rules: {
-      ...DEFAULT_SONARJS_HTML_RULE_OVERRIDES
+      ...DEFAULT_HTML_RULE_OVERRIDES
     }
   },
   eslintConfigPrettier

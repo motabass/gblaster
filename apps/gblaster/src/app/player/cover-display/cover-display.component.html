@@ -48,31 +48,37 @@
       <span>&nbsp;</span>
       <span>Color Palette:</span>
       <div class="flex row color-palette-container">
+        <!-- eslint-disable-next-line @angular-eslint/template/no-inline-styles -->
         <div
           class="color-swatch"
           [style.background-color]="coverColors.vibrant?.hex"
           [title]="`vibrant: ${coverColors.vibrant?.hex}`"
         ></div>
+        <!-- eslint-disable-next-line @angular-eslint/template/no-inline-styles -->
         <div
           class="color-swatch"
           [style.background-color]="coverColors.darkVibrant?.hex"
           [title]="`darkVibrant: ${coverColors.darkVibrant?.hex}`"
         ></div>
+        <!-- eslint-disable-next-line @angular-eslint/template/no-inline-styles -->
         <div
           class="color-swatch"
           [style.background-color]="coverColors.lightVibrant?.hex"
           [title]="`lightVibrant: ${coverColors.lightVibrant?.hex}`"
         ></div>
+        <!-- eslint-disable-next-line @angular-eslint/template/no-inline-styles -->
         <div
           class="color-swatch"
           [style.background-color]="coverColors.muted?.hex"
           [title]="`muted: ${coverColors.muted?.hex}`"
         ></div>
+        <!-- eslint-disable-next-line @angular-eslint/template/no-inline-styles -->
         <div
           class="color-swatch"
           [style.background-color]="coverColors.darkMuted?.hex"
           [title]="`darkMuted: ${coverColors.darkMuted?.hex}`"
         ></div>
+        <!-- eslint-disable-next-line @angular-eslint/template/no-inline-styles -->
         <div
           class="color-swatch"
           [style.background-color]="coverColors.lightMuted?.hex"
@@ -83,6 +89,7 @@
   </div>
 </div>
 @if (metadata && cover) {
+  <!-- eslint-disable-next-line @angular-eslint/template/no-inline-styles -->
   <div
     class="cover-img"
     [style.background-image]="`url(${cover})`"

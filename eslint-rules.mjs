@@ -71,11 +71,12 @@ const DEFAULT_UNICORN_RULE_OVERRIDES = {
   'unicorn/consistent-boolean-name': 'off'
 };
 
-export const DEFAULT_SONARJS_HTML_RULE_OVERRIDES = {
+export const DEFAULT_HTML_RULE_OVERRIDES = {
   'sonarjs/no-unenclosed-multiline-block': 'off',
   'sonarjs/no-same-line-conditional': 'off',
   'sonarjs/no-element-overwrite': 'off',
-  'sonarjs/code-eval': 'off'
+  'sonarjs/code-eval': 'off',
+  'unicorn/single-line-block-comment-style': 'off'
 };
 
 const DEFAULT_SONARJS_RULE_OVERRIDES = {
