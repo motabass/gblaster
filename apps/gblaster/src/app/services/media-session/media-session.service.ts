@@ -25,10 +25,12 @@ export class MediaSessionService {
 
     effect(() => {
       const duration = this.#audioService.duration();
-      if (this.#audioService.isPlaying() && !Number.isNaN(duration)) {
-        const currentTime = this.#audioService.currentTime();
-        this.updateMediaPositionState(duration, currentTime);
+      if (!this.#audioService.isPlaying() || Number.isNaN(duration)) {
+        return;
       }
+
+      const currentTime = this.#audioService.currentTime();
+      this.updateMediaPositionState(duration, currentTime);
     });
   }
 

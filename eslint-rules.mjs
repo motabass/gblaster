@@ -68,11 +68,12 @@ const DEFAULT_UNICORN_RULE_OVERRIDES = {
   'unicorn/no-useless-undefined': 'off',
   'unicorn/name-replacements': 'off',
   'unicorn/consistent-class-member-order': 'off',
-  'unicorn/consistent-boolean-name': 'off'
+  'unicorn/consistent-boolean-name': 'off',
+  'unicorn/no-non-function-verb-prefix': 'off'
 };
 
 const DEFAULT_SONARJS_RULE_OVERRIDES = {
-  'sonarjs/todo-tag': 'warn',
+  'sonarjs/todo-tag': 'off',
   'sonarjs/deprecation': 'warn',
   'sonarjs/cognitive-complexity': 'warn',
   'sonarjs/no-commented-code': 'warn',
@@ -83,6 +84,7 @@ const DEFAULT_SONARJS_RULE_OVERRIDES = {
 
 export const DEFAULT_HTML_RULE_OVERRIDES = {
   ...DEFAULT_SONARJS_RULE_OVERRIDES,
+  ...DEFAULT_UNICORN_RULE_OVERRIDES,
   'sonarjs/no-unenclosed-multiline-block': 'off',
   'sonarjs/no-same-line-conditional': 'off',
   'sonarjs/no-element-overwrite': 'off',
