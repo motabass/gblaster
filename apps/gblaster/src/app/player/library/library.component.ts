@@ -140,16 +140,18 @@ export default class LibraryComponent implements OnInit {
 
   protected readonly uniqueAlbums = computed(() => {
     const artist = this.selectedArtist();
-    const albumMap = new Map<string, Album>();
+    const albumNames = new Set<string>();
+    const albums: Album[] = [];
 
     for (const tag of this.#filteredBySearchTerm()) {
-      if (!tag.album || (artist && tag.artist !== artist) || albumMap.has(tag.album)) {
+      if (!tag.album || (artist && tag.artist !== artist) || albumNames.has(tag.album)) {
         continue;
       }
-      albumMap.set(tag.album, { name: tag.album, year: tag.year || '', coverUrl: tag.coverUrl });
+      albumNames.add(tag.album);
+      albums.push({ name: tag.album, year: tag.year || '', coverUrl: tag.coverUrl });
     }
 
-    return [...albumMap.values()].toSorted((a, b) => collator.compare(a.name, b.name));
+    return albums.toSorted((a, b) => collator.compare(a.name, b.name));
   });
 
   protected readonly tracks = computed(() => {
@@ -257,9 +259,8 @@ export default class LibraryComponent implements OnInit {
   @param dbTracks Library records whose files should be added.
   */
   protected async addTracksToPlaylist(...dbTracks: IndexedDbTrackMetadata[]) {
-    const files = await Promise.all(dbTracks.map((dbTrack) => dbTrack.fileHandle?.getFile()));
-    for (const [index, dbTrack] of dbTracks.entries()) {
-      const file = files[index];
+    for (const dbTrack of dbTracks) {
+      const file = dbTrack.fileHandle ? await dbTrack.fileHandle.getFile() : undefined;
       if (file) {
         const track: Track = {
           file: file,
