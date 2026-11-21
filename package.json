@@ -138,7 +138,7 @@
     "jsdom": "31.0.1",
     "knip": "6.46.1",
     "lint-staged": "17.6.1",
-    "ng-packagr": "22.2.6",
+    "ng-packagr": "22.3.0",
     "nx": "24.0.6",
     "nx-stylelint": "19.0.0",
     "postcss-html": "2.0.1",
