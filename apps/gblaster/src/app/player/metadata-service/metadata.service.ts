@@ -261,7 +261,8 @@ export class MetadataService {
   @param meta Track metadata to update with embedded artwork.
   */
   applyEmbeddedCoverObjectUrsl(meta: TrackMetadata): TrackMetadata {
-    if (!this.#shouldUseEmbeddedPicture(meta)) {
+    const embeddedPicture = meta.embeddedPicture;
+    if (!embeddedPicture || !this.#shouldUseEmbeddedPicture(meta)) {
       return meta;
     }
 
@@ -274,7 +275,7 @@ export class MetadataService {
     }
 
     // Create new blob URL and cache it
-    const objectUrl = this.#createObjectUrlFromEmbeddedPicture(meta.embeddedPicture!);
+    const objectUrl = this.#createObjectUrlFromEmbeddedPicture(embeddedPicture);
     return {
       ...meta,
       cachedBlobUrl: objectUrl,
