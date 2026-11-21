@@ -4,14 +4,12 @@
   width: 100%;
   height: 100%;
   display: grid;
-  grid-template-areas:
-    'header'
-    'progress'
-    'status'
-    'main'
-    'toolbar';
-  grid-template-rows: auto auto auto 1fr auto;
-  grid-template-columns: 1fr;
+  grid-template:
+    'header' auto
+    'progress' auto
+    'status' auto
+    'main' 1fr
+    'toolbar' auto / 1fr;
   overflow: hidden;
 
   .header {

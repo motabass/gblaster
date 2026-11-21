@@ -5,12 +5,10 @@
   background-color: var(--theme-primary-50);
   display: grid;
   gap: 2px;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr auto;
-  grid-template-areas:
-    'artists albums'
-    'tracks details'
-    'searchinput searchinput';
+  grid-template:
+    'artists albums' 1fr
+    'tracks details' 1fr
+    'searchinput searchinput' auto / 1fr 1fr;
 
   @include mat.list-overrides(
     (

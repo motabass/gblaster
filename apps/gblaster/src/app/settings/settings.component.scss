@@ -5,16 +5,14 @@
   height: 100%;
   display: grid;
   gap: 1.5rem;
-  grid-template-columns: 1fr 1fr;
-  grid-template-areas: 'metadata theme storage';
+  grid-template: 'metadata theme storage' / 1fr 1fr auto;
 
   @media (width <= 1199px) {
-    grid-template-columns: 1fr;
     grid-auto-rows: max-content;
-    grid-template-areas:
+    grid-template:
       'metadata'
       'theme'
-      'storage';
+      'storage' / 1fr;
   }
 }
 

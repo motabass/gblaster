@@ -1,11 +1,11 @@
 .visuals-settings {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template: none / repeat(3, 1fr);
   grid-auto-rows: auto;
   gap: 1em;
 
   @media (width <= 899px) {
-    grid-template-columns: 50% 50%;
+    grid-template: none / 50% 50%;
   }
 }
 
