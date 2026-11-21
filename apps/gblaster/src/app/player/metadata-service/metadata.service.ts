@@ -43,8 +43,8 @@ export interface TrackMetadata {
   embeddedPicture?: Id3CoverPicture;
   coverColors?: CoverColorPalette;
   /**
-   * Session-only object URL; never persist this value to IndexedDB.
-   */
+  Session-only object URL; never persist this value to IndexedDB.
+  */
   cachedBlobUrl?: string;
 }
 

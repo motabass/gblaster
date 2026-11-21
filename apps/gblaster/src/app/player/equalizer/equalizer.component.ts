@@ -20,8 +20,8 @@ export default class EqualizerComponent {
   protected readonly BANDS = FREQUENCY_BANDS;
 
   /**
-   * Redraws the equalizer response when gain settings change.
-   */
+  Redraws the equalizer response when gain settings change.
+  */
   constructor() {
     // React to changes in equalizer values
     effect(() => {

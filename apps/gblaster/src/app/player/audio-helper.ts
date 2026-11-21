@@ -3,10 +3,10 @@ export const FREQUENCY_BANDS = [31, 63, 125, 250, 500, 1000, 2000, 4000, 8000, 1
 export type FrequencyBand = (typeof FREQUENCY_BANDS)[number];
 
 /**
- * Creates an equalizer chain of BiquadFilterNodes for an audio context.
- * @param audioContext The audio context that owns the equalizer nodes.
- * @returns The equalizer input and output nodes, plus filters for each band.
- */
+Creates an equalizer chain of BiquadFilterNodes for an audio context.
+@param audioContext The audio context that owns the equalizer nodes.
+@returns The equalizer input and output nodes, plus filters for each band.
+*/
 export function createEqualizer(audioContext: AudioContext): {
   eqInput: AudioNode;
   eqOutput: AudioNode;

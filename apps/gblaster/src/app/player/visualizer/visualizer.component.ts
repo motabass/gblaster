@@ -62,8 +62,8 @@ export class VisualizerComponent implements OnInit, OnDestroy {
   protected readonly analyser: AnalyserNode = this.audioService.plugInNewAnalyserNode();
 
   /**
-   * Initializes the audio analyser with the persisted visualizer settings.
-   */
+  Initializes the audio analyser with the persisted visualizer settings.
+  */
   constructor() {
     this.analyser.fftSize = this.fftSize();
     this.analyser.smoothingTimeConstant = this.smoothing();
