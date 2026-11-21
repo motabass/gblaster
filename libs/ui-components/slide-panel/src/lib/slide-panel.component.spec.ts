@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/dot-notation */
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Component, signal } from '@angular/core';
 import { SlidePanelComponent } from './slide-panel.component';
@@ -168,7 +169,7 @@ describe('SlidePanelComponent with TestHost', () => {
   });
 
   it('should project content', () => {
-    const contentElement = slidePanelElement.querySelector('.panel-content p');
+    const contentElement = slidePanelElement.querySelector(':scope .panel-content p');
     expect(contentElement?.textContent).toBe('Test Content');
   });
 

@@ -26,8 +26,8 @@ export class SlidePanelComponent {
   protected readonly isInitialized = signal(false);
 
   /**
-   * Enables panel transitions after the first render.
-   */
+  Enables panel transitions after the first render.
+  */
   constructor() {
     afterNextRender(() => {
       // Enable transitions after the first render

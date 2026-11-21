@@ -83,7 +83,8 @@ const DEFAULT_SONARJS_RULE_OVERRIDES = {
   'sonarjs/deprecation': 'warn',
   'sonarjs/cognitive-complexity': 'warn',
   'sonarjs/no-commented-code': 'warn',
-  'sonarjs/prefer-regexp-exec': 'warn'
+  'sonarjs/prefer-regexp-exec': 'warn',
+  'sonarjs/no-selector-parameter': 'off'
 };
 
 export const DEFAULT_JS_RULE_OVERRIDES = {

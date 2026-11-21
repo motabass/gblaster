@@ -30,8 +30,5 @@ Converts a number to a string with an optional leading zero.
 @returns The formatted number.
 */
 function formatWithLeadingZero(value: number, useLeadingZero: boolean): string {
-  if (value > 9 || !useLeadingZero) {
-    return value.toString();
-  }
-  return '0' + value;
+  return !useLeadingZero || value > 9 ? value.toString() : `0${value}`;
 }

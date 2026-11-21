@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/dot-notation */
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FileDropOverlayComponent } from './file-drop-overlay.component';
 
@@ -59,6 +60,7 @@ function createFileList(files: File[]): FileList {
   return fileList;
 }
 
+// eslint-disable-next-line max-lines-per-function
 describe('FileDropOverlayComponent', () => {
   let component: FileDropOverlayComponent;
   let fixture: ComponentFixture<FileDropOverlayComponent>;
