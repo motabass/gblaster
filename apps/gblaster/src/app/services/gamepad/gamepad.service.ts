@@ -160,7 +160,7 @@ export class GamepadService implements OnDestroy {
   #disconnectionListener(event: GamepadEvent) {
     const gamepads = navigator.getGamepads();
     const gamepad = gamepads[event.gamepad.index];
-    // console.log(`Gamepad ${event.gamepad.index} disconnected!`);
+    console.log(`Gamepad ${event.gamepad.index} disconnected!`);
     if (gamepad === null) {
       clearInterval(this.#checkIntervals[event.gamepad.index]);
     }
@@ -172,7 +172,7 @@ export class GamepadService implements OnDestroy {
   @param value Current button value.
   */
   #fireButtonAction(index: number, value: number) {
-    // console.log(`Button ${index} sending value: ${value}`);
+    console.log(`Button ${index} sending value: ${value}`);
     this.#buttonActions[index].action(value);
     this.#triggerRumble({ duration: 50, weakMagnitude: 1, strongMagnitude: 0.2 });
   }
@@ -183,7 +183,7 @@ export class GamepadService implements OnDestroy {
   @param value Current axis value.
   */
   #fireAxisAction(index: number, value: number) {
-    // console.log(`Axis ${index} sending value: ${value}`);
+    console.log(`Axis ${index} sending value: ${value}`);
     if (value < 0) {
       this.axisActions[index].negativeActionFunction(Math.abs(value));
     }
