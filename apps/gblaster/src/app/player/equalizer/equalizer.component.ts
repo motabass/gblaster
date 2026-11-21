@@ -82,6 +82,8 @@ export default class EqualizerComponent {
     // Get current equalizer values and gain
     const eqValues = this.audioService.equalizerGainValues();
     const gainValue = this.audioService.baseGain();
+    const lastBand = this.BANDS.at(-1);
+    if (lastBand === undefined) return;
 
     // Calculate logarithmic x-position for each frequency
     const minFreq = 20;
@@ -114,7 +116,7 @@ export default class EqualizerComponent {
     // End with the highest frequency
     freqPoints.push({
       x: width,
-      y: height / 2 - ((eqValues[this.BANDS.at(-1)!] + (gainValue - 1) * 12) * height) / 24
+      y: height / 2 - ((eqValues[lastBand] + (gainValue - 1) * 12) * height) / 24
     });
 
     // Draw curve through points
@@ -127,7 +129,9 @@ export default class EqualizerComponent {
       ctx.quadraticCurveTo(freqPoints[i].x, freqPoints[i].y, xc, yc);
     }
 
-    ctx.quadraticCurveTo(freqPoints.at(-1)!.x, freqPoints.at(-1)!.y, freqPoints.at(-1)!.x, freqPoints.at(-1)!.y);
+    const lastPoint = freqPoints.at(-1);
+    if (!lastPoint) return;
+    ctx.quadraticCurveTo(lastPoint.x, lastPoint.y, lastPoint.x, lastPoint.y);
 
     ctx.stroke();
 

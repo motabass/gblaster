@@ -148,7 +148,6 @@ export class AudioService {
     this.#gainNode = gain;
 
     this.#audioElement.addEventListener('error', (error) => {
-      // eslint-disable-next-line no-console
       console.error('Audio element error:', error);
       this.#isLoading.set(false);
     });

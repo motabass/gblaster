@@ -103,7 +103,7 @@ export const DEFAULT_JS_RULE_OVERRIDES = {
   'no-bitwise': 'error',
   'no-caller': 'error',
   'no-cond-assign': 'error',
-  'no-console': ['warn'],
+  'no-console': 'off',
   'no-debugger': 'error',
   'no-duplicate-case': 'error',
   'no-empty': 'error',
