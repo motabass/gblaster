@@ -347,6 +347,9 @@ importers:
       eslint-interactive:
         specifier: 14.0.0
         version: 14.0.0(eslint@10.15.0(jiti@2.7.0)(supports-color@8.1.1))
+      eslint-package-json:
+        specifier: '=3.0.0'
+        version: 3.0.0(eslint@10.15.0(jiti@2.7.0)(supports-color@8.1.1))
       eslint-plugin-sonarjs:
         specifier: 4.2.2
         version: 4.2.2(eslint@10.15.0(jiti@2.7.0)(supports-color@8.1.1))
@@ -1676,6 +1679,10 @@ packages:
       eslint:
         optional: true
 
+  '@eslint/json@2.1.1':
+    resolution: {integrity: sha512-ffVzPZALaJzxuo46ggBtJ9c8YBWKLMh/R35aFBHk/dRobmFNortJlHJfBWbHGuydoFeVZbvPy0PLX2wvCI9T9w==}
+    engines: {node: ^20.19.0 || ^22.13.0 || >=24}
+
   '@eslint/object-schema@3.0.5':
     resolution: {integrity: sha512-vqTaUEgxzm+YDSdElad6PiRoX4t8VGDjCtt05zn4nU810UIx/uNEV7/lZJ6KwFThKZOzOxzXy48da+No7HZaMw==}
     engines: {node: ^20.19.0 || ^22.13.0 || >=24}
@@ -1772,6 +1779,10 @@ packages:
   '@humanwhocodes/module-importer@1.0.1':
     resolution: {integrity: sha512-bxveV4V8v5Yb4ncFTT3rPSgZBOpCkjfK0y4oVVVJwIuDVBRMDXrPyXRL988i5ap9m9bnyEEjWfm5WkBmtffLfA==}
     engines: {node: '>=12.22'}
+
+  '@humanwhocodes/momoa@3.3.13':
+    resolution: {integrity: sha512-AbKq3EW41+HY6pNMJgAOrz68iyiTTf0Nr1JRHHfuG5zwniJ9Dw8J3U7oa1I2ptpqYwmEf1sXKOGK6lbdZ9eqmg==}
+    engines: {node: '>=18'}
 
   '@humanwhocodes/retry@0.4.3':
     resolution: {integrity: sha512-bV0Tgo9K4hfPCek+aMAn81RppFKv2ySDQeMoSZuvTASywNTnVJCArCZE2FWqpvIatKu7VMRLWlR1EazvVhDyhQ==}
@@ -5286,6 +5297,12 @@ packages:
     peerDependencies:
       eslint: '>=9.0.0'
 
+  eslint-package-json@3.0.0:
+    resolution: {integrity: sha512-is5/FA6xN7sOc70vZWCgQRhXYyaKQcUpxrCxkT8IJbt10SNiwVQNJ+MWbSUi4IXFzyhuVUzTtf4WEpcmKuIGXg==}
+    engines: {node: '>=22'}
+    peerDependencies:
+      eslint: '>=10.4'
+
   eslint-plugin-sonarjs@4.2.2:
     resolution: {integrity: sha512-usNF9GfP89ibwhfxpZaCMW40sC7UEOusDgDCk7lyqAhh4AYdbBaAgLVL5Y/QS0jSed8eJ2ACGH6zzE8ezd/yZQ==}
     peerDependencies:
@@ -8115,6 +8132,15 @@ packages:
   spark-md5@3.0.2:
     resolution: {integrity: sha512-wcFzz9cDfbuqe0FZzfi2or1sgyIrsDwmPwfZC4hiNidPdPINjeUwNfv5kldczoEAcjl9Y1L3SM7Uz2PUEQzxQw==}
 
+  spdx-exceptions@2.5.0:
+    resolution: {integrity: sha512-PiU42r+xO4UbUS1buo3LPJkjlO7430Xn5SVAhdpzzsPHsjbYVflnnFdATgabnLude+Cqu25p6N+g2lw/PFsa4w==}
+
+  spdx-expression-parse@4.0.0:
+    resolution: {integrity: sha512-Clya5JIij/7C6bRR22+tnGXbc4VKlibKSVj2iHvVeX5iMW7s1SIQlqu699JkODJJIhh/pUu8L0/VLh8xflD+LQ==}
+
+  spdx-license-ids@3.0.24:
+    resolution: {integrity: sha512-cLS9TtWkIQFyLkJ3/5aFQAOHOSKTlOs/7WDut/XPSdjom1fJhUdkepeJAKXa9Y05+FabHd0sti+Et559vDtkpQ==}
+
   split2@4.2.0:
     resolution: {integrity: sha512-UcjcJOWknrNkF6PLX83qcHM6KHgVKNkV62Y8a5uYDVv9ydGQVwAHMKqHdJje1VTWpljG0WYpCDhrCdAOYH4TWg==}
     engines: {node: '>= 10.x'}
@@ -8629,6 +8655,10 @@ packages:
 
   valid-url@1.0.9:
     resolution: {integrity: sha512-QQDsV8OnSf5Uc30CKSwG9lnhMPe6exHtTXLRYX8uMwKENy640pU+2BgBL0LRbDh/eYRahNCS7aewCx0wf3NYVA==}
+
+  validate-npm-package-name@7.0.2:
+    resolution: {integrity: sha512-hVDIBwsRruT73PbK7uP5ebUt+ezEtCmzZz3F59BSr2F6OVFnJ/6h8liuvdLrQ88Xmnk6/+xGGuq+pG9WwTuy3A==}
+    engines: {node: ^20.17.0 || >=22.9.0}
 
   validate-npm-package-name@8.0.0:
     resolution: {integrity: sha512-SCv6OOV6Xj2/3cXy3dGmADluJTNcL3o7hZAglNPTe+WYuEuvxgJzxPrSDLZhF+CwyQOubqgecjMmTJGMVLWjYQ==}
@@ -10504,6 +10534,13 @@ snapshots:
     optionalDependencies:
       eslint: 10.15.0(jiti@2.7.0)(supports-color@8.1.1)
 
+  '@eslint/json@2.1.1':
+    dependencies:
+      '@eslint/core': 1.2.1
+      '@eslint/plugin-kit': 0.7.3
+      '@humanwhocodes/momoa': 3.3.13
+      natural-compare: 1.4.0
+
   '@eslint/object-schema@3.0.5': {}
 
   '@eslint/plugin-kit@0.7.3':
@@ -10618,6 +10655,8 @@ snapshots:
   '@humanfs/types@0.15.0': {}
 
   '@humanwhocodes/module-importer@1.0.1': {}
+
+  '@humanwhocodes/momoa@3.3.13': {}
 
   '@humanwhocodes/retry@0.4.3': {}
 
@@ -13919,6 +13958,17 @@ snapshots:
     dependencies:
       '@clack/prompts': 1.9.0
       eslint: 10.15.0(jiti@2.7.0)(supports-color@8.1.1)
+
+  eslint-package-json@3.0.0(eslint@10.15.0(jiti@2.7.0)(supports-color@8.1.1)):
+    dependencies:
+      '@eslint/json': 2.1.1
+      detect-indent: 7.0.2
+      eslint: 10.15.0(jiti@2.7.0)(supports-color@8.1.1)
+      hosted-git-info: 10.1.1
+      npm-package-arg: 14.0.0
+      semver: 7.8.6
+      spdx-expression-parse: 4.0.0
+      validate-npm-package-name: 7.0.2
 
   eslint-plugin-sonarjs@4.2.2(eslint@10.15.0(jiti@2.7.0)(supports-color@8.1.1)):
     dependencies:
@@ -17424,6 +17474,15 @@ snapshots:
 
   spark-md5@3.0.2: {}
 
+  spdx-exceptions@2.5.0: {}
+
+  spdx-expression-parse@4.0.0:
+    dependencies:
+      spdx-exceptions: 2.5.0
+      spdx-license-ids: 3.0.24
+
+  spdx-license-ids@3.0.24: {}
+
   split2@4.2.0: {}
 
   sprintf-js@1.0.3: {}
@@ -17992,6 +18051,8 @@ snapshots:
   v8-compile-cache-lib@3.0.1: {}
 
   valid-url@1.0.9: {}
+
+  validate-npm-package-name@7.0.2: {}
 
   validate-npm-package-name@8.0.0: {}
 

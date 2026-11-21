@@ -2,6 +2,7 @@ import nx from '@nx/eslint-plugin';
 import tsParser from '@typescript-eslint/parser';
 import eslintPluginUnicorn from 'eslint-plugin-unicorn';
 import sonarjs from 'eslint-plugin-sonarjs';
+import packageJson from 'eslint-package-json';
 import eslintConfigPrettier from 'eslint-config-prettier/flat';
 import angularTemplate from '@html-eslint/eslint-plugin-angular-template';
 import templateParser from '@angular-eslint/template-parser';
@@ -11,8 +12,8 @@ export default [
   ...nx.configs['flat/base'],
   ...nx.configs['flat/typescript'],
   ...nx.configs['flat/javascript'],
-  sonarjs.configs.recommended,
-  eslintPluginUnicorn.configs.recommended,
+  { ...sonarjs.configs.recommended, files: ['**/*.{js,mjs,cjs,jsx,ts,tsx,html}'] },
+  { ...eslintPluginUnicorn.configs.recommended, files: ['**/*.{js,mjs,cjs,jsx,ts,tsx,html}'] },
   {
     ignores: ['**/dist', 'coverage', '.angular', '.nx', '**/vitest.config.*.timestamp*']
   },
@@ -74,6 +75,18 @@ export default [
     rules: {
       ...angularTemplate.configs.recommended.rules,
       ...DEFAULT_HTML_RULE_OVERRIDES
+    }
+  },
+  packageJson.configs.recommended,
+  {
+    files: ['**/package.json'],
+    rules: {
+      'package-json/dependency-version-range': [
+        'error',
+        {
+          range: 'consistent'
+        }
+      ]
     }
   },
   eslintConfigPrettier
