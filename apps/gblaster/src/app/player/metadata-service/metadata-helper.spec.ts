@@ -1,3 +1,4 @@
+/* eslint-disable unicorn/prefer-https */
 import { ensureHttps, generateFileHash } from './metadata-helper';
 
 describe('generateFileHash', () => {
