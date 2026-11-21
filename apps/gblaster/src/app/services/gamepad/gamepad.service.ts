@@ -105,7 +105,7 @@ export class GamepadService implements OnDestroy {
     console.log(`New gamepad with Number ${event.gamepad.index} connected: `);
     console.log(gamepad);
 
-    this.#checkIntervals[event.gamepad.index] = window.setInterval(() => {
+    this.#checkIntervals[event.gamepad.index] = setInterval(() => {
       const gps = navigator.getGamepads();
       const gp = gps[event.gamepad.index];
 
@@ -201,17 +201,21 @@ export class GamepadService implements OnDestroy {
     const gamepads = navigator.getGamepads();
     for (const gamepad of gamepads) {
       if (gamepad?.vibrationActuator) {
-        gamepad.vibrationActuator
-          .playEffect('dual-rumble', {
-            duration: options.duration ?? 200,
-            weakMagnitude: options.weakMagnitude ?? 0.5,
-            strongMagnitude: options.strongMagnitude ?? 0.5,
-            startDelay: options.startDelay ?? 0
-          })
-          .catch((error) => {
-            console.warn('Rumble not supported or failed:', error);
-          });
+        void this.#playRumble(gamepad.vibrationActuator, options);
       }
+    }
+  }
+
+  async #playRumble(actuator: GamepadHapticActuator, options: RumbleOptions): Promise<void> {
+    try {
+      await actuator.playEffect('dual-rumble', {
+        duration: options.duration ?? 200,
+        weakMagnitude: options.weakMagnitude ?? 0.5,
+        strongMagnitude: options.strongMagnitude ?? 0.5,
+        startDelay: options.startDelay ?? 0
+      });
+    } catch (error) {
+      console.warn('Rumble not supported or failed:', error);
     }
   }
 
@@ -300,11 +304,7 @@ export class GamepadService implements OnDestroy {
       return;
     }
 
-    if (!this.#pressedButtonsCaches[gamepad.index]) {
-      this.#pressedButtonsCaches[gamepad.index] = [];
-    }
-
-    let cache = this.#pressedButtonsCaches[gamepad.index];
+    let cache = (this.#pressedButtonsCaches[gamepad.index] ??= []);
     const buttonCache = cache.find((ac) => ac.index === buttonIndex);
     if (button.pressed) {
       if (buttonCache) {
@@ -361,11 +361,7 @@ export class GamepadService implements OnDestroy {
     }
 
     // TODO: move init to connect
-    if (!this.#activeAxesCaches[gamepad.index]) {
-      this.#activeAxesCaches[gamepad.index] = [];
-    }
-
-    let cache = this.#activeAxesCaches[gamepad.index];
+    let cache = (this.#activeAxesCaches[gamepad.index] ??= []);
     const axisCache = cache.find((ac) => ac.index === axisIndex);
     if (this.#isAxisValueInDetectionRange(axis)) {
       if (axisCache) {
