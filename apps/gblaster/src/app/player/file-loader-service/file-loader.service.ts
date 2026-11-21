@@ -80,18 +80,18 @@ export class FileLoaderService {
         console.error('Failed to load audio files:', error);
         throw error;
       }
-    } else {
-      const handle = await this.#pickFolder();
-      if (!handle) {
-        return [];
-      }
+    }
 
-      try {
-        return await recursiveGetAudioFilesFromDirectory(handle);
-      } catch (error) {
-        console.error('Failed to load audio files:', error);
-        throw error;
-      }
+    const handle = await this.#pickFolder();
+    if (!handle) {
+      return [];
+    }
+
+    try {
+      return await recursiveGetAudioFilesFromDirectory(handle);
+    } catch (error) {
+      console.error('Failed to load audio files:', error);
+      throw error;
     }
   }
 }

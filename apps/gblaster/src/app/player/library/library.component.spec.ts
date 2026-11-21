@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/dot-notation */
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { signal } from '@angular/core';
 import type { Album } from './library.component';
@@ -32,6 +33,7 @@ function createMockTrackMetadata(overrides: Partial<IndexedDbTrackMetadata> = {}
   return { ...defaultMetadata, ...overrides };
 }
 
+// eslint-disable-next-line max-lines-per-function
 describe('LibraryComponent', () => {
   let component: LibraryComponent;
   let fixture: ComponentFixture<LibraryComponent>;
