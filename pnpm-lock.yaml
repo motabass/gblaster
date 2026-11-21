@@ -370,7 +370,7 @@ importers:
         version: 24.0.6(@swc-node/register@1.12.1(@swc/core@1.16.22(@swc/helpers@0.5.24))(@swc/types@0.1.28)(supports-color@8.1.1)(typescript@6.0.3))(@swc/core@1.16.22(@swc/helpers@0.5.24))
       nx-stylelint:
         specifier: 19.0.0
-        version: 19.0.0(nx@24.0.6(@swc-node/register@1.12.1(@swc/core@1.16.22(@swc/helpers@0.5.24))(@swc/types@0.1.28)(supports-color@8.1.1)(typescript@6.0.3))(@swc/core@1.16.22(@swc/helpers@0.5.24)))(stylelint-config-standard-scss@18.0.0(postcss@8.5.33)(stylelint@18.0.0))(stylelint-config-standard@41.0.0(stylelint@18.0.0))(stylelint@18.0.0)(typescript@6.0.3)
+        version: 19.0.0(nx@24.0.6(@swc-node/register@1.12.1(@swc/core@1.16.22(@swc/helpers@0.5.24))(@swc/types@0.1.28)(supports-color@8.1.1)(typescript@6.0.3))(@swc/core@1.16.22(@swc/helpers@0.5.24)))(stylelint-config-standard-scss@18.0.0(postcss@8.5.33)(stylelint@18.0.0))(stylelint-config-standard@41.1.0(stylelint@18.0.0))(stylelint@18.0.0)(typescript@6.0.3)
       postcss-html:
         specifier: 2.0.1
         version: 2.0.1(postcss@8.5.33)
@@ -393,8 +393,8 @@ importers:
         specifier: 18.0.0
         version: 18.0.0(postcss@8.5.33)(stylelint@18.0.0)
       stylelint-config-standard:
-        specifier: 41.0.0
-        version: 41.0.0(stylelint@18.0.0)
+        specifier: 41.1.0
+        version: 41.1.0(stylelint@18.0.0)
       stylelint-config-standard-scss:
         specifier: 18.0.0
         version: 18.0.0(postcss@8.5.33)(stylelint@18.0.0)
@@ -8248,8 +8248,8 @@ packages:
       postcss:
         optional: true
 
-  stylelint-config-standard@41.0.0:
-    resolution: {integrity: sha512-EJIvMOMARieBOLhw2yzN7BaVFiIY2Ex8CkbXahxP6tQZK41+N8OVUo57Uvx9iTr862h+thqDoDH7vQbeth1ryg==}
+  stylelint-config-standard@41.1.0:
+    resolution: {integrity: sha512-Z7PiQpBffnqu7U5h/FeBWCYZsRsZXa1J8MjkpgcciphLJULysDcu2jKXuSrPgnQGow9x0T+pOfblqRA5cSE6aw==}
     engines: {node: ^22.22.2 || ^24.15.0 || >=26.0.0}
     peerDependencies:
       stylelint: ^18.0.0
@@ -16037,14 +16037,14 @@ snapshots:
     dependencies:
       boolbase: 2.0.0
 
-  nx-stylelint@19.0.0(nx@24.0.6(@swc-node/register@1.12.1(@swc/core@1.16.22(@swc/helpers@0.5.24))(@swc/types@0.1.28)(supports-color@8.1.1)(typescript@6.0.3))(@swc/core@1.16.22(@swc/helpers@0.5.24)))(stylelint-config-standard-scss@18.0.0(postcss@8.5.33)(stylelint@18.0.0))(stylelint-config-standard@41.0.0(stylelint@18.0.0))(stylelint@18.0.0)(typescript@6.0.3):
+  nx-stylelint@19.0.0(nx@24.0.6(@swc-node/register@1.12.1(@swc/core@1.16.22(@swc/helpers@0.5.24))(@swc/types@0.1.28)(supports-color@8.1.1)(typescript@6.0.3))(@swc/core@1.16.22(@swc/helpers@0.5.24)))(stylelint-config-standard-scss@18.0.0(postcss@8.5.33)(stylelint@18.0.0))(stylelint-config-standard@41.1.0(stylelint@18.0.0))(stylelint@18.0.0)(typescript@6.0.3):
     dependencies:
       '@nx/devkit': 22.7.12(nx@24.0.6(@swc-node/register@1.12.1(@swc/core@1.16.22(@swc/helpers@0.5.24))(@swc/types@0.1.28)(supports-color@8.1.1)(typescript@6.0.3))(@swc/core@1.16.22(@swc/helpers@0.5.24)))
       cosmiconfig: 9.0.2(typescript@6.0.3)
       stylelint: 18.0.0
       tslib: 2.9.1
     optionalDependencies:
-      stylelint-config-standard: 41.0.0(stylelint@18.0.0)
+      stylelint-config-standard: 41.1.0(stylelint@18.0.0)
       stylelint-config-standard-scss: 18.0.0(postcss@8.5.33)(stylelint@18.0.0)
     transitivePeerDependencies:
       - nx
@@ -17508,11 +17508,11 @@ snapshots:
     dependencies:
       stylelint: 18.0.0
       stylelint-config-recommended-scss: 18.0.0(postcss@8.5.33)(stylelint@18.0.0)
-      stylelint-config-standard: 41.0.0(stylelint@18.0.0)
+      stylelint-config-standard: 41.1.0(stylelint@18.0.0)
     optionalDependencies:
       postcss: 8.5.33
 
-  stylelint-config-standard@41.0.0(stylelint@18.0.0):
+  stylelint-config-standard@41.1.0(stylelint@18.0.0):
     dependencies:
       stylelint: 18.0.0
       stylelint-config-recommended: 19.0.0(stylelint@18.0.0)
