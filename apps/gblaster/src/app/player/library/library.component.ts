@@ -84,9 +84,9 @@ export default class LibraryComponent implements OnInit {
 
       const aTrack = a.track === undefined ? NaN : Number(a.track);
       const bTrack = b.track === undefined ? NaN : Number(b.track);
-      return !Number.isNaN(aTrack) && !Number.isNaN(bTrack)
-        ? aTrack - bTrack
-        : collator.compare(a.title || '', b.title || '');
+      return Number.isNaN(aTrack) || Number.isNaN(bTrack)
+        ? collator.compare(a.title || '', b.title || '')
+        : aTrack - bTrack;
     })
   );
 
