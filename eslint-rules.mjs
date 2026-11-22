@@ -24,6 +24,16 @@ export const ANGULAR_ESLINT_TS_RULES = {
   '@angular-eslint/no-implicit-take-until-destroyed': 'error'
 };
 
+// ng-packagr generates the published package from its output directory, including entry points and module type.
+// These browser libraries share root dependencies and do not require a Node.js runtime.
+export const NG_PACKAGR_PACKAGE_JSON_RULES = {
+  'package-json/prefer-files-field': 'off',
+  'package-json/prefer-type-module': 'off',
+  'package-json/require-engines': 'off',
+  'package-json/require-entry-point': 'off',
+  'package-json/peer-dependencies-as-dev-dependencies': 'off'
+};
+
 export const ANGULAR_ESLINT_TEMPLATE_RULES = {
   '@angular-eslint/template/prefer-control-flow': 'error',
   '@angular-eslint/template/use-track-by-function': 'error',

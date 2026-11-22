@@ -1,11 +1,19 @@
 import nx from '@nx/eslint-plugin';
 import baseConfig from '../../../eslint.config.mjs';
-import { ANGULAR_ESLINT_TEMPLATE_RULES, ANGULAR_ESLINT_TS_RULES } from '../../../eslint-rules.mjs';
+import {
+  ANGULAR_ESLINT_TEMPLATE_RULES,
+  ANGULAR_ESLINT_TS_RULES,
+  NG_PACKAGR_PACKAGE_JSON_RULES
+} from '../../../eslint-rules.mjs';
 
 export default [
   ...baseConfig,
   ...nx.configs['flat/angular'],
   ...nx.configs['flat/angular-template'],
+  {
+    files: ['**/package.json'],
+    rules: NG_PACKAGR_PACKAGE_JSON_RULES
+  },
   {
     files: ['**/*.ts'],
     rules: {

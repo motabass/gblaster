@@ -1,11 +1,14 @@
 {
   "name": "@motabass/ui-components-file-drop-overlay",
   "version": "0.0.1",
+  "description": "Angular file drop overlay component",
+  "license": "CC0-1.0",
+  "keywords": ["angular", "file-drop"],
+  "dependencies": {
+    "tslib": "2.9.1"
+  },
   "peerDependencies": {
     "@angular/common": "^20.0.0 || ^21.0.0 || ^22.0.0",
     "@angular/core": "^20.0.0 || ^21.0.0 || ^22.0.0"
-  },
-  "dependencies": {
-    "tslib": "2.9.1"
   }
 }

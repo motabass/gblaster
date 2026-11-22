@@ -1,12 +1,14 @@
 {
   "name": "@motabass/dialogs",
   "version": "0.0.1",
+  "description": "Angular dialog components",
+  "license": "CC0-1.0",
+  "keywords": ["angular", "dialogs"],
+  "dependencies": {
+    "tslib": "2.9.1"
+  },
   "peerDependencies": {
     "@angular/common": "^20.0.0 || ^21.0.0 || ^22.0.0",
     "@angular/material": "^20.0.0 || ^21.0.0 || ^22.0.0"
-  },
-  "dependencies": {
-    "tslib": "2.9.1"
   }
 }
-
