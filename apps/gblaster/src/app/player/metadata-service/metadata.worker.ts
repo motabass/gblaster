@@ -60,7 +60,10 @@ async function extractTags(file: File): Promise<Id3Tags | undefined> {
       picture: tagsCover,
       artist: tags.common.artist,
       title: tags.common.title,
-      track: tags.common.track,
+      track: {
+        no: tags.common.trackNumber,
+        of: tags.common.trackTotal
+      },
       album: tags.common.album,
       year: tags.common.year && !Number.isNaN(tags.common.year) ? tags.common.year.toString() : undefined,
       format: tags.format
