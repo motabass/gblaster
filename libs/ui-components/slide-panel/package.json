@@ -8,8 +8,8 @@
     "tslib": "2.9.1"
   },
   "peerDependencies": {
-    "@angular/cdk": "^20.0.0 || ^21.0.0 || ^22.0.0",
-    "@angular/common": "^20.0.0 || ^21.0.0 || ^22.0.0",
-    "@angular/material": "^20.0.0 || ^21.0.0 || ^22.0.0"
+    "@angular/cdk": "^22.0.0",
+    "@angular/common": "^22.0.0",
+    "@angular/material": "^22.0.0"
   }
 }

@@ -16,7 +16,7 @@
       "outputs": ["{options.outputPath.base}"],
       "defaultConfiguration": "production",
       "options": {
-        "allowedCommonJsDependencies": [],
+        "allowedCommonJsDependencies": ["debug", "ieee754", "spark-md5", "jsontoxml"],
         "outputPath": {
           "base": "dist/apps/gblaster",
           "browser": ""
