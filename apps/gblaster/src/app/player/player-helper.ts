@@ -7,6 +7,5 @@ Generates a random integer between the given inclusive bounds.
 export function getRandomInt(min: number, max: number): number {
   min = Math.ceil(min);
   max = Math.floor(max);
-  // eslint-disable-next-line sonarjs/pseudo-random
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
