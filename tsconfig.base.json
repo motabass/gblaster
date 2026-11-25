@@ -28,9 +28,12 @@
   },
   "angularCompilerOptions": {
     "extendedDiagnostics": true,
+    "numericCssPropertyRequiresUnit": true,
     "strictInjectionParameters": true,
+    "strictNgTemplateTypes": true,
     "strictTemplates": true,
     "strictStandalone": true,
+    "strictUnknownElements": true,
     "typeCheckHostBindings": true
   },
   "exclude": ["node_modules", "tmp"]
