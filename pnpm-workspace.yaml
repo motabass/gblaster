@@ -6,7 +6,7 @@ autoInstallPeers: false
 
 ignoreWorkspaceRootCheck: true
 
-savePrefix: '='
+savePrefix: ''
 
 allowBuilds:
   '@parcel/watcher': false
@@ -20,5 +20,5 @@ allowBuilds:
   re2: false
   unrs-resolver: false
 
-minimumReleaseAge: 720
+minimumReleaseAge: 120
 minimumReleaseAgeStrict: true
