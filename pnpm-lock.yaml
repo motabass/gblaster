@@ -222,8 +222,8 @@ importers:
         specifier: 0.11.0
         version: 0.11.0
       music-metadata:
-        specifier: 13.0.0
-        version: 13.0.0(supports-color@8.1.1)
+        specifier: 13.0.2
+        version: 13.0.2(supports-color@8.1.1)
       musicbrainz-api:
         specifier: 2.0.1
         version: 2.0.1(supports-color@8.1.1)
@@ -6945,8 +6945,8 @@ packages:
   msgpackr@1.12.1:
     resolution: {integrity: sha512-4EUH9tQHnMmEgzW/MdAP0KIfa1T9AF+htl0ffe2n5vb2EKn9y2co8ccpgWko6S52Jy1PQZKwRnx5/KkYjtd9MQ==}
 
-  music-metadata@13.0.0:
-    resolution: {integrity: sha512-S/DmNmVwBS7KRCqGWnLrdgXRWRVA4q4V5qHZJSm9llBgETqi0fE2z4XFSiuana4zOvrGaGOaWZOXSc3OHO39gA==}
+  music-metadata@13.0.2:
+    resolution: {integrity: sha512-iUTDKFGu7Xs6FY1bSZCcvfn5LNZThmeV4UyHlgLWU92lryacP4pS6ubFN3uqdqlQYwWtw9z73Ycoh5ZxfuNYdA==}
     engines: {node: '>=22'}
 
   musicbrainz-api@2.0.1:
@@ -15989,7 +15989,7 @@ snapshots:
       msgpackr-extract: 3.0.7
     optional: true
 
-  music-metadata@13.0.0(supports-color@8.1.1):
+  music-metadata@13.0.2(supports-color@8.1.1):
     dependencies:
       '@borewit/text-codec': 0.2.3
       '@tokenizer/token': 0.3.0
