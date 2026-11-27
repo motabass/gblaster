@@ -130,7 +130,7 @@
     "angular-eslint": "22.8.0",
     "auto-changelog": "2.7.0",
     "esbuild-visualizer": "0.7.0",
-    "eslint": "10.15.0",
+    "eslint": "10.16.0",
     "eslint-config-prettier": "10.1.8",
     "eslint-formatter-rdjson": "1.0.6",
     "eslint-interactive": "14.0.0",
