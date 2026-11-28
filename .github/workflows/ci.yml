@@ -21,6 +21,9 @@ jobs:
           cache: true
           require-lockfile: true
 
+      - name: Check workspace sync
+        run: pnpm exec nx sync:check
+
       - name: Build
         run: pnpm run ci:build
         env:

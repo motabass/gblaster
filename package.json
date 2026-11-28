@@ -111,6 +111,7 @@
     "@nx/eslint-plugin": "24.1.0",
     "@nx/js": "24.1.0",
     "@nx/node": "24.1.0",
+    "@nx/owners": "24.1.0",
     "@nx/playwright": "24.1.0",
     "@nx/vite": "24.1.0",
     "@nx/vitest": "24.1.0",

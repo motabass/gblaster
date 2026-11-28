@@ -288,6 +288,9 @@ importers:
       '@nx/node':
         specifier: 24.1.0
         version: 24.1.0(@babel/traverse@7.29.14(supports-color@8.1.1))(@swc-node/register@1.12.1(@swc/core@1.16.22(@swc/helpers@0.5.24))(@swc/types@0.1.28)(supports-color@8.1.1)(typescript@6.0.3))(@swc/core@1.16.22(@swc/helpers@0.5.24))(@types/node@26.6.11)(@zkochan/js-yaml@0.0.7)(babel-plugin-macros@3.1.0)(eslint@10.16.0(jiti@2.7.0)(supports-color@8.1.1))(express@5.3.0(supports-color@8.1.1))(nx@24.1.0(@swc-node/register@1.12.1(@swc/core@1.16.22(@swc/helpers@0.5.24))(@swc/types@0.1.28)(supports-color@8.1.1)(typescript@6.0.3))(@swc/core@1.16.22(@swc/helpers@0.5.24))(typescript@6.0.3))(supports-color@8.1.1)(ts-node@10.9.2(@swc/core@1.16.22(@swc/helpers@0.5.24))(@types/node@26.6.11)(typescript@6.0.3))(typescript@6.0.3)
+      '@nx/owners':
+        specifier: 24.1.0
+        version: 24.1.0(nx@24.1.0(@swc-node/register@1.12.1(@swc/core@1.16.22(@swc/helpers@0.5.24))(@swc/types@0.1.28)(supports-color@8.1.1)(typescript@6.0.3))(@swc/core@1.16.22(@swc/helpers@0.5.24))(typescript@6.0.3))
       '@nx/playwright':
         specifier: 24.1.0
         version: 24.1.0(e1ec677ae2e5fa7ca8db9c99fff88827)
@@ -2707,6 +2710,9 @@ packages:
     resolution: {integrity: sha512-EA0XlQKYiiTrlCJh8qim0KJsTOubNfe7L+qM81YuORoTmGwFjeQYRUSloUlgX6sNmS10Syx1L62UQUNCq5zSDA==}
     cpu: [x64]
     os: [win32]
+
+  '@nx/owners@24.1.0':
+    resolution: {integrity: sha512-KZaLVnLKyHjx/CwLIZmoN1QnXncQv5hutiZtyEcqQ7pfhMIaXRgyxH4mwO47xGi4UoSo+Bq3HP/LOkxzyzsxlg==}
 
   '@nx/playwright@24.1.0':
     resolution: {integrity: sha512-L20zrLSMme50EKlJWus9ocof7JNVsItgR+pXjDCvXtuCS+SDKemVOkw41gmGe5xTvQJ8CIA66qdYea8Ufm4BOQ==}
@@ -11675,6 +11681,15 @@ snapshots:
 
   '@nx/nx-win32-x64-msvc@24.1.0':
     optional: true
+
+  '@nx/owners@24.1.0(nx@24.1.0(@swc-node/register@1.12.1(@swc/core@1.16.22(@swc/helpers@0.5.24))(@swc/types@0.1.28)(supports-color@8.1.1)(typescript@6.0.3))(@swc/core@1.16.22(@swc/helpers@0.5.24))(typescript@6.0.3))':
+    dependencies:
+      '@nx/devkit': 24.1.0(nx@24.1.0(@swc-node/register@1.12.1(@swc/core@1.16.22(@swc/helpers@0.5.24))(@swc/types@0.1.28)(supports-color@8.1.1)(typescript@6.0.3))(@swc/core@1.16.22(@swc/helpers@0.5.24))(typescript@6.0.3))
+      jsonc-parser: 3.3.1
+      minimatch: 11.0.8
+      tslib: 2.9.1
+    transitivePeerDependencies:
+      - nx
 
   '@nx/playwright@24.1.0(e1ec677ae2e5fa7ca8db9c99fff88827)':
     dependencies:

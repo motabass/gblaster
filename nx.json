@@ -188,10 +188,23 @@
         "targetName": "e2e",
         "ciTargetName": "e2e-ci"
       }
-    }
+    },
+    "@nx/owners"
   ],
   "analytics": false,
   "affected": {
     "legacy": false
+  },
+  "sync": {
+    "globalGenerators": ["@nx/owners:sync-codeowners-file"]
+  },
+  "owners": {
+    "format": "github",
+    "patterns": [
+      {
+        "files": ["*"],
+        "owners": ["@motabass"]
+      }
+    ]
   }
 }
