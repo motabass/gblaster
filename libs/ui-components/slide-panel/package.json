@@ -5,7 +5,7 @@
   "license": "CC0-1.0",
   "keywords": ["angular", "slide-panel"],
   "dependencies": {
-    "tslib": "2.9.1"
+    "tslib": "^2.9.1"
   },
   "peerDependencies": {
     "@angular/cdk": "^22.0.0",
