@@ -1,1 +1,1 @@
-"use strict";(self.webpackChunk_nx_graph_client=self.webpackChunk_nx_graph_client||[]).push([[869],{8516(){}},e=>{e(8516)}]);
+"use strict";(self.webpackChunk_nx_graph_client=self.webpackChunk_nx_graph_client||[]).push([[869],{2383(){}},e=>{e(2383)}]);
