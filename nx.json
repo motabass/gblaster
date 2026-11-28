@@ -144,6 +144,29 @@
   "parallel": 1,
   "defaultBase": "main",
   "neverConnectToCloud": true,
+  "conformance": {
+    "rules": [
+      {
+        "rule": "@nx/conformance/enforce-project-boundaries",
+        "options": {
+          "depConstraints": [
+            {
+              "sourceTag": "ts",
+              "onlyDependOnProjectsWithTags": ["ts", "domain"]
+            },
+            {
+              "sourceTag": "domain",
+              "onlyDependOnProjectsWithTags": ["domain"]
+            },
+            {
+              "sourceTag": "*",
+              "onlyDependOnProjectsWithTags": ["*"]
+            }
+          ]
+        }
+      }
+    ]
+  },
   "plugins": [
     {
       "plugin": "@nx/eslint/plugin",

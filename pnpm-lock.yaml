@@ -270,6 +270,9 @@ importers:
       '@nx/angular':
         specifier: 24.1.0
         version: 24.1.0(86205441cc056dcc96f401b604c7402d)
+      '@nx/conformance':
+        specifier: 24.1.0
+        version: 24.1.0(@nx/js@24.1.0(@babel/traverse@7.29.14(supports-color@8.1.1))(@swc-node/register@1.12.1(@swc/core@1.16.22(@swc/helpers@0.5.24))(@swc/types@0.1.28)(supports-color@8.1.1)(typescript@6.0.3))(@swc/core@1.16.22(@swc/helpers@0.5.24))(nx@24.1.0(@swc-node/register@1.12.1(@swc/core@1.16.22(@swc/helpers@0.5.24))(@swc/types@0.1.28)(supports-color@8.1.1)(typescript@6.0.3))(@swc/core@1.16.22(@swc/helpers@0.5.24))(typescript@6.0.3))(supports-color@8.1.1)(typescript@6.0.3))(esbuild@0.28.2)(nx@24.1.0(@swc-node/register@1.12.1(@swc/core@1.16.22(@swc/helpers@0.5.24))(@swc/types@0.1.28)(supports-color@8.1.1)(typescript@6.0.3))(@swc/core@1.16.22(@swc/helpers@0.5.24))(typescript@6.0.3))
       '@nx/devkit':
         specifier: 24.1.0
         version: 24.1.0(nx@24.1.0(@swc-node/register@1.12.1(@swc/core@1.16.22(@swc/helpers@0.5.24))(@swc/types@0.1.28)(supports-color@8.1.1)(typescript@6.0.3))(@swc/core@1.16.22(@swc/helpers@0.5.24))(typescript@6.0.3))
@@ -2549,6 +2552,15 @@ packages:
       ng-packagr:
         optional: true
       webpack-merge:
+        optional: true
+
+  '@nx/conformance@24.1.0':
+    resolution: {integrity: sha512-X5dcEMF9/Fok31cBXnPeQX3DxAPNJdgge3jJR8Gu0NO1QkBXHiaijX+y8UU/2XqWZcKzyDyNIava7XGlzPqxlw==}
+    peerDependencies:
+      '@nx/js': 24.1.0
+      esbuild: '>=0.19.2 <1.0.0'
+    peerDependenciesMeta:
+      esbuild:
         optional: true
 
   '@nx/devkit@22.7.12':
@@ -11441,6 +11453,20 @@ snapshots:
       - supports-color
       - typescript
       - verdaccio
+
+  '@nx/conformance@24.1.0(@nx/js@24.1.0(@babel/traverse@7.29.14(supports-color@8.1.1))(@swc-node/register@1.12.1(@swc/core@1.16.22(@swc/helpers@0.5.24))(@swc/types@0.1.28)(supports-color@8.1.1)(typescript@6.0.3))(@swc/core@1.16.22(@swc/helpers@0.5.24))(nx@24.1.0(@swc-node/register@1.12.1(@swc/core@1.16.22(@swc/helpers@0.5.24))(@swc/types@0.1.28)(supports-color@8.1.1)(typescript@6.0.3))(@swc/core@1.16.22(@swc/helpers@0.5.24))(typescript@6.0.3))(supports-color@8.1.1)(typescript@6.0.3))(esbuild@0.28.2)(nx@24.1.0(@swc-node/register@1.12.1(@swc/core@1.16.22(@swc/helpers@0.5.24))(@swc/types@0.1.28)(supports-color@8.1.1)(typescript@6.0.3))(@swc/core@1.16.22(@swc/helpers@0.5.24))(typescript@6.0.3))':
+    dependencies:
+      '@nx/devkit': 24.1.0(nx@24.1.0(@swc-node/register@1.12.1(@swc/core@1.16.22(@swc/helpers@0.5.24))(@swc/types@0.1.28)(supports-color@8.1.1)(typescript@6.0.3))(@swc/core@1.16.22(@swc/helpers@0.5.24))(typescript@6.0.3))
+      '@nx/js': 24.1.0(@babel/traverse@7.29.14(supports-color@8.1.1))(@swc-node/register@1.12.1(@swc/core@1.16.22(@swc/helpers@0.5.24))(@swc/types@0.1.28)(supports-color@8.1.1)(typescript@6.0.3))(@swc/core@1.16.22(@swc/helpers@0.5.24))(nx@24.1.0(@swc-node/register@1.12.1(@swc/core@1.16.22(@swc/helpers@0.5.24))(@swc/types@0.1.28)(supports-color@8.1.1)(typescript@6.0.3))(@swc/core@1.16.22(@swc/helpers@0.5.24))(typescript@6.0.3))(supports-color@8.1.1)(typescript@6.0.3)
+      ajv: 8.20.0
+      picocolors: 1.1.1
+      semver: 7.8.6
+      tslib: 2.9.1
+      yargs: 17.7.3
+    optionalDependencies:
+      esbuild: 0.28.2
+    transitivePeerDependencies:
+      - nx
 
   '@nx/devkit@22.7.12(nx@24.1.0(@swc-node/register@1.12.1(@swc/core@1.16.22(@swc/helpers@0.5.24))(@swc/types@0.1.28)(supports-color@8.1.1)(typescript@6.0.3))(@swc/core@1.16.22(@swc/helpers@0.5.24))(typescript@6.0.3))':
     dependencies:
